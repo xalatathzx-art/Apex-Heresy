@@ -1,0 +1,75 @@
+{{!-- Раскрытие описания держится на скрытом чекбоксе, а этот список рисуется
+      дважды: на вкладке психики и в боевой панели. Оба вхождения живут в одном
+      документе, поэтому id обязан различаться — иначе label[for] цепляет первый
+      попавшийся, и клик на одной вкладке разворачивал описание на другой.
+      Область приходит из места включения (scope="combat" / scope="psychic");
+      внутри #each до неё добираемся через ../scope. --}}
+{{!-- Psychic powers, drawn once and used by both the psychic tab and the combat
+      tab's panel. Four columns: the power with its focus test underneath, the action
+      it costs, its range, and the control that rolls it. Zone, damage, type,
+      penetration and special used to hold columns of their own - nine headers for a
+      list that is usually two rows long - and they live on the power's own sheet. --}}
+{{!-- The rating sits in the middle with a standing fact to either side: what kind
+      of psyker on the left, how much is currently held open on the right. Class is
+      derived from progression, so it states itself rather than posing as a control. --}}
+<div class="psy-readout">
+    <span class="dh-chip is-psy-class" title="{{localize "PSYCHIC_POWER.CLASS"}}">
+        {{localize (lookup (config "psykerClass") system.psy.class)}}
+    </span>
+    <div class="rating">
+        <label>{{localize "PSYCHIC_POWER.RATING"}}</label>
+        <input type="number" value="{{system.psy.currentRating}}" data-dtype="Number" disabled />
+    </div>
+    <span class="dh-chip is-sustained" title="{{localize "PSYCHIC_POWER.SUSTAINED"}}">
+        {{localize "PSYCHIC_POWER.SUSTAINED"}} {{system.psy.sustained}}
+    </span>
+</div>
+
+<div class="item-list psychic-unified">
+    <div class="flex header">
+        <b class="name">{{localize "PSYCHIC_POWER.NAME"}}</b>
+        <b class="action">{{localize "PSYCHIC_POWER.ACTION"}}</b>
+        <b class="range">{{localize "PSYCHIC_POWER.RANGE"}}</b>
+        {{!-- Кнопке броска подпись не нужна, а «добавить» стоит над столбцом
+              управления: иначе плюс висел над чужой колонкой, и заголовок из
+              четырёх ячеек разъезжался с пятиколоночной строкой. --}}
+        <b class="focus"></b>
+        <b class="button">
+            <a class="button item-create" title="Add Psychic Power" data-type="psychicPower"><i class="fas fa-plus"></i></a>
+        </b>
+    </div>
+    <div class="items">
+        {{#each items.psychicPowers as |item|}}
+            <div class="psychic-block" data-item-id="{{item.id}}">
+                {{#if item.system.description}}
+                    <input type="checkbox" class="psychic-toggle" id="psychic-notes-{{../scope}}-{{item.id}}">
+                {{/if}}
+                <div class="psychic-power item flex row" data-item-id="{{item.id}}">
+                    <div class="name item-edit">
+                        <b class="psychic-name">{{item.name}}</b>
+                        {{#if item.psychicFocusLine}}
+                            <span class="psychic-focus-line">{{item.psychicFocusLine}}</span>
+                        {{/if}}
+                    </div>
+                    <div class="action">{{item.action}}</div>
+                    <div class="range">{{item.range}}</div>
+                    <div class="focus">
+                        <button class="roll-psychic-power" type="button">{{localize "PSYCHIC_POWER.FOCUS"}}</button>
+                    </div>
+                    <div class="button">
+                        {{#if item.system.description}}
+                            <label class="item-control" for="psychic-notes-{{../scope}}-{{item.id}}" title="{{localize "ITEM.DESCRIPTION_COL"}}"><i class="fas fa-chevron-down"></i></label>
+                        {{/if}}
+                        <a class="item-control item-chat" title="Post to Chat"><i class="fas fa-comment"></i></a>
+                        <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+                {{#if item.system.description}}
+                    <div class="psychic-notes">
+                        {{{item.system.description}}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</div>

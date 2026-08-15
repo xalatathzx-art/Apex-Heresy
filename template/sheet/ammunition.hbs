@@ -1,0 +1,138 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "AMMUNITION.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="scripts">{{localize "TAB.SCRIPTS"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.QUANTITY"}}</label>
+                    <div class="form-fields">
+                        <input name="system.quantity" type="number" value="{{system.quantity}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.DAMAGE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.damage.modifier" type="text" value="{{system.effect.damage.modifier}}" />
+                        <select name="system.effect.damage.type">
+                            {{selectOptions (config "damageTypes") selected=system.effect.damage.type localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.PENETRATION"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.penetration" type="text" value="{{system.effect.penetration}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.CRAFTSMANSHIP"}}</label>
+                    <div class="form-fields">
+                        <select name="system.craftsmanship">
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.AVAILABILITY"}}</label>
+                    <div class="form-fields">
+                        <select name="system.availability">
+                            {{selectOptions (config "availability") selected=system.availability localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.WEIGHT"}}</label>
+                    <div class="form-fields">
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.SPECIAL"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.special" type="text" value="{{system.effect.special}}" />
+                    </div>
+                </div>
+                {{!-- Патрон умеет и снимать свойство: ампутаторные снаряды
+                      лишают дробовик Разброса (стр. 173). --}}
+                <div class="form-group">
+                    <label>{{localize "AMMUNITION.REMOVE_SPECIAL"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.removeSpecial" type="text" value="{{system.effect.removeSpecial}}" />
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Совместимость: пусто — подходит всему, как обычный патрон.
+                  Ставим галки, а не multiple-select: тот требует держать Ctrl,
+                  не показывает невыбранное и обрезается до двух строк. --}}
+            <div class="stats border">
+                <h1>{{localize "AMMUNITION.FITS"}}</h1>
+                <div class="dh-checks-group">
+                    <span class="dh-checks-caption">{{localize "AMMUNITION.WEAPON_TYPES"}}</span>
+                    <div class="dh-checks">
+                        {{#each (config "weaponType") as |label key|}}
+                            <label class="dh-check">
+                                <input type="checkbox" name="system.weaponTypes"
+                                       value="{{key}}" {{checked (includes ../system.weaponTypes key)}} />
+                                <span>{{localize label}}</span>
+                            </label>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="dh-checks-group">
+                    <span class="dh-checks-caption">{{localize "AMMUNITION.WEAPON_CLASSES"}}</span>
+                    <div class="dh-checks">
+                        {{#each (config "weaponClass") as |label key|}}
+                            <label class="dh-check">
+                                <input type="checkbox" name="system.weaponClasses"
+                                       value="{{key}}" {{checked (includes ../system.weaponClasses key)}} />
+                                <span>{{localize label}}</span>
+                            </label>
+                        {{/each}}
+                    </div>
+                </div>
+                <p class="dh-hint">{{localize "AMMUNITION.FITS_HINT"}}</p>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="scripts">
+            <div class="scripts-editor border">
+                <h1>{{localize "TITLE.SCRIPTS"}}</h1>
+                <div class="scripts-editor-body">
+                    <textarea name="system.scripts" class="scripts-textarea" placeholder="// Введите скрипты автоматизации здесь...">{{system.scripts}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

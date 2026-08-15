@@ -1,0 +1,76 @@
+{{!-- Rows only: the window frame carries the name and the plate.
+      Two inline <script> blocks used to live in here, one of them prefaced "Done
+      here because nothing else seemed to work". Neither ever ran under v14 -
+      DialogV2 puts dialog content through cleanHTML, which drops any tag outside
+      its allowlist - so the rating slider never synced with its figure and the psy
+      bonus never displayed at all. That behaviour is bound in dhDialog's render
+      callback now, where it can be read and debugged. --}}
+<div class="dh-dialog">
+    <div class="dh-dialog-row">
+        <label for="target">{{localize "DIALOG.TARGET"}}</label>
+        <input id="target" type="number" value="{{target.base}}" data-dtype="Number" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="modifier">{{localize "DIALOG.MODIFIER"}}</label>
+        <input id="modifier" type="text" value="{{target.modifier}}" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="difficulty">{{localize "DIALOG.DIFFICULTY"}}</label>
+        <select id="difficulty">
+            {{selectOptions (config "difficulties") selected=difficulty localize=true}}
+        </select>
+    </div>
+
+    <div class="dh-dialog-rule"></div>
+
+    {{!-- The rating is one value shown two ways: drag it or type it. --}}
+    <div class="dh-dialog-row">
+        <label for="psy">{{localize "DIALOG.PSY_RATING"}}</label>
+        <div class="dh-dialog-pair">
+            <input id="rating" class="psy-rating-slider" type="range" min="1" max="{{psy.max}}"
+                   value="{{psy.value}}" data-dtype="Number" aria-label="{{localize "DIALOG.PSY_RATING"}}" />
+            <input id="psy" class="psy-rating-input" type="number" value="{{psy.value}}" data-dtype="Number" />
+        </div>
+    </div>
+    {{!-- Class comes from progression and the bonus is derived from the rating, so
+          both state themselves rather than posing as controls. --}}
+    <div class="dh-dialog-row">
+        <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
+        <span class="dh-chip is-psy-class">{{localize (lookup (config "psykerClass") psy.class)}}</span>
+    </div>
+    <div class="dh-dialog-row">
+        <label>{{localize "DIALOG.PSY_BONUS"}}</label>
+        <span class="dh-dialog-readout-value psy-bonus-display" aria-live="polite"></span>
+    </div>
+
+    <div class="dh-dialog-rule"></div>
+
+    <div class="dh-dialog-row">
+        <label for="damageFormula">{{localize "DIALOG.DAMAGE"}}</label>
+        <input id="damageFormula" type="text" value="{{weapon.damageFormula}}" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="damageType">{{localize "DIALOG.TYPE"}}</label>
+        <select id="damageType">
+            {{selectOptions (config "damageTypes") selected=weapon.damageType localize=true}}
+        </select>
+    </div>
+    <div class="dh-dialog-row">
+        <label for="attackType">{{localize "DIALOG.ATTACK_TYPE"}}</label>
+        <select id="attackType">
+            {{selectOptions (config "attackTypePsy") selected=attackType.name localize=true}}
+        </select>
+    </div>
+    <div class="dh-dialog-row">
+        <label for="damageBonus">{{localize "DIALOG.BONUS"}}</label>
+        <input id="damageBonus" type="number" value="{{weapon.damageBonus}}" data-dtype="Number" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="penetration">{{localize "DIALOG.PENETRATION"}}</label>
+        <input id="penetration" type="text" value="{{weapon.penetrationFormula}}" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="warpConduit">{{localize "DIALOG.WARPCONDUIT"}}</label>
+        <input id="warpConduit" type="checkbox" value="{{psy.warpConduit}}" />
+    </div>
+</div>

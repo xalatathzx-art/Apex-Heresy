@@ -1,0 +1,158 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "WEAPON_MODIFICATION.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="scripts">{{localize "TAB.SCRIPTS"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.CRAFTSMANSHIP"}}</label>
+                    <div class="form-fields">
+                        <select name="system.craftsmanship">
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.AVAILABILITY"}}</label>
+                    <div class="form-fields">
+                        <select name="system.availability">
+                            {{selectOptions (config "availability") selected=system.availability localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.WEIGHT"}}</label>
+                    <div class="form-fields">
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.UPGRADES"}}</label>
+                    <div class="form-fields">
+                        <input name="system.upgrades" type="text" value="{{system.upgrades}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.INSTALLED"}}</label>
+                    <div class="form-fields">
+                        {{#if system.installed}}
+                            <input name="system.installed" type="checkbox" value="installed" checked/>
+                        {{else}}
+                            <input name="system.installed" type="checkbox" value="installed"/>
+                        {{/if}}
+                    </div>
+                </div>
+                {{!-- На какой ствол навешен. Список — только оружие того же
+                      владельца: мод не может висеть на чужой пушке. --}}
+                {{#if hostWeapons}}
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.HOST"}}</label>
+                    <div class="form-fields">
+                        <select name="system.weaponId">
+                            <option value=""></option>
+                            {{#each hostWeapons as |weapon|}}
+                                <option value="{{weapon.id}}" {{#if weapon.selected}}selected{{/if}}>{{weapon.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+
+            {{!-- Эффект полями, а не прозой: раньше «+2 к пробитию» было
+                  написано в описании и системой не читалось. --}}
+            <div class="stats border">
+                <h1>{{localize "WEAPON_MODIFICATION.EFFECT"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.DAMAGE_BONUS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.damageBonus" type="number" value="{{system.effect.damageBonus}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.PENETRATION_BONUS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.penetrationBonus" type="number" value="{{system.effect.penetrationBonus}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.ATTACK_BONUS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.attackBonus" type="number" value="{{system.effect.attackBonus}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.RANGE_MULTIPLIER"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.rangeMultiplier" type="number" step="0.5" value="{{system.effect.rangeMultiplier}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.CLIP_MULTIPLIER"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.clipMultiplier" type="number" step="0.5" value="{{system.effect.clipMultiplier}}" data-dtype="Number" />
+                    </div>
+                </div>
+                {{!-- +1 у улучшения, −1 у ухудшения: книга двигает доступность
+                      в обе стороны (стр. 170 и 172). --}}
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.AVAILABILITY_SHIFT"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.availabilityShift" type="number" value="{{system.effect.availabilityShift}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.ADD_TRAITS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.addTraits" type="text" value="{{system.effect.addTraits}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "WEAPON_MODIFICATION.REMOVE_TRAITS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.effect.removeTraits" type="text" value="{{system.effect.removeTraits}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="scripts">
+            <div class="scripts-editor border">
+                <h1>{{localize "TITLE.SCRIPTS"}}</h1>
+                <div class="scripts-editor-body">
+                    <textarea name="system.scripts" class="scripts-textarea" placeholder="// Введите скрипты автоматизации здесь...">{{system.scripts}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

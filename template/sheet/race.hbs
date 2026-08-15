@@ -1,0 +1,93 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "RACE.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="race-content">
+                <!-- Starting Skills Section -->
+                <div class="race-section border" style="margin-bottom: 15px; padding: 10px; border: 2px solid #666;">
+                    <h2 style="margin-top: 0; margin-bottom: 10px; border-bottom: 2px solid #888; padding-bottom: 5px;">{{localize "RACE.STARTING_SKILLS"}}</h2>
+                    <div class="skills-list" style="min-height: 60px; padding: 5px;">
+                        {{#each system.startingSkills as |skill key|}}
+                            <div class="skill-item flex row" data-skill-key="{{key}}" style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 3px;">
+                                <div class="skill-name">{{localize skill.label}}</div>
+                                <select class="skill-advance" name="system.startingSkills.{{key}}.advance" data-dtype="Number">
+                                    {{selectOptions (config "advanceStagesSkills") selected=skill.advance localize=true}}
+                                </select>
+                                <a class="skill-delete" title="Remove"><i class="fas fa-times"></i></a>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Starting Talents Section -->
+                <div class="race-section border" style="margin-bottom: 15px; padding: 10px; border: 2px solid #666;">
+                    <h2 style="margin-top: 0; margin-bottom: 10px; border-bottom: 2px solid #888; padding-bottom: 5px;">{{localize "RACE.STARTING_TALENTS"}}</h2>
+                    <div class="items-list talents-list" data-drop-type="talent" style="min-height: 60px; padding: 5px;">
+                        {{#each system.startingTalents as |talent|}}
+                            <div class="item-entry flex row" data-item-id="{{#if talent.id}}{{talent.id}}{{else}}{{talent}}{{/if}}" style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 3px;">
+                                <div class="item-name">{{#if talent.name}}{{talent.name}}{{else}}{{talent}}{{/if}}</div>
+                                <a class="item-delete" title="Remove"><i class="fas fa-times"></i></a>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Starting Traits Section -->
+                <div class="race-section border" style="margin-bottom: 15px; padding: 10px; border: 2px solid #666;">
+                    <h2 style="margin-top: 0; margin-bottom: 10px; border-bottom: 2px solid #888; padding-bottom: 5px;">{{localize "RACE.STARTING_TRAITS"}}</h2>
+                    <div class="items-list traits-list" data-drop-type="trait" style="min-height: 60px; padding: 5px;">
+                        {{#each system.startingTraits as |trait|}}
+                            <div class="item-entry flex row" data-item-id="{{#if trait.id}}{{trait.id}}{{else}}{{trait}}{{/if}}" style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 3px;">
+                                <div class="item-name">{{#if trait.name}}{{trait.name}}{{else}}{{trait}}{{/if}}</div>
+                                <a class="item-delete" title="Remove"><i class="fas fa-times"></i></a>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Starting Equipment Section -->
+                <div class="race-section border" style="margin-bottom: 15px; padding: 10px; border: 2px solid #666;">
+                    <h2 style="margin-top: 0; margin-bottom: 10px; border-bottom: 2px solid #888; padding-bottom: 5px;">{{localize "RACE.STARTING_EQUIPMENT"}}</h2>
+                    <div class="items-list equipment-list" data-drop-type="equipment" style="min-height: 60px; padding: 5px;">
+                        {{#each system.startingEquipment as |equip|}}
+                            <div class="item-entry flex row" data-item-id="{{#if equip.id}}{{equip.id}}{{else}}{{equip}}{{/if}}" style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 3px;">
+                                <div class="item-name">{{#if equip.name}}{{equip.name}}{{else}}{{equip}}{{/if}}</div>
+                                <a class="item-delete" title="Remove"><i class="fas fa-times"></i></a>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

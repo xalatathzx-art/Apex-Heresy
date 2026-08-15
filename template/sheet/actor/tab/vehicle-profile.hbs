@@ -1,0 +1,225 @@
+{{!-- Профиль машины, как он печатается в книге: скорость, манёвренность,
+      броня по четырём сторонам, экипаж и вместимость, размер. Броня разложена
+      схемой, а не столбиком, потому что сторона попадания — это направление,
+      и читать её удобнее так же, как смотришь на машину сверху. --}}
+<div class="flex wrap vehicle-profile">
+
+    <div class="movement border">
+        <h1 class="section-head">
+            <span>{{localize "VEHICLE.MOVEMENT"}}</span>
+            {{!-- Действия оператора: все полные, все катятся его Управлением
+                  (кроме Удара и Отхода — он идёт Навыком Рукопашной). --}}
+            <a class="button vehicle-manoeuvre" data-action="evasive"
+               title="{{localize "VEHICLE.ACTION.EVASIVE"}}"
+               aria-label="{{localize "VEHICLE.ACTION.EVASIVE"}}"><i class="fas fa-wave-square"></i></a>
+            <a class="button vehicle-manoeuvre" data-action="floorIt"
+               title="{{localize "VEHICLE.ACTION.FLOOR_IT"}}"
+               aria-label="{{localize "VEHICLE.ACTION.FLOOR_IT"}}"><i class="fas fa-gauge-high"></i></a>
+            <a class="button vehicle-manoeuvre" data-action="hitAndRun"
+               title="{{localize "VEHICLE.ACTION.HIT_AND_RUN"}}"
+               aria-label="{{localize "VEHICLE.ACTION.HIT_AND_RUN"}}"><i class="fas fa-person-running"></i></a>
+            <a class="button vehicle-ram" title="{{localize "VEHICLE.RAM"}}"
+               aria-label="{{localize "VEHICLE.RAM"}}"><i class="fas fa-truck-monster"></i></a>
+        </h1>
+        {{!-- Режим хода объявляется на свой ход: он решает и сколько машина
+              проедет, и насколько трудно с неё стрелять и в неё попасть. --}}
+        <label class="stat-field speed-mode">
+            <span>{{localize "VEHICLE.SPEED_MODE_LABEL"}}</span>
+            <select name="system.speed.mode">
+                {{#each config.speedModes as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.speed.mode key)}}selected{{/if}}>{{localize label}}</option>
+                {{/each}}
+            </select>
+        </label>
+        <div class="stat-grid">
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.CRUISING"}}</span>
+                <input name="system.speed.cruising" type="number" value="{{source.speed.cruising}}" data-dtype="Number" />
+            </label>
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.TACTICAL"}}</span>
+                <input name="system.speed.tactical" type="number" value="{{source.speed.tactical}}" data-dtype="Number" />
+            </label>
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.MANOEUVRABILITY"}}</span>
+                <input name="system.manoeuvrability" type="number" value="{{source.manoeuvrability}}" data-dtype="Number" />
+                {{#if system.manoeuvreModifier}}
+                    <b class="dh-chip" title="{{localize "VEHICLE.MANOEUVRE_MOD"}}">{{numberFormat system.manoeuvreModifier sign=true}}</b>
+                {{/if}}
+            </label>
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.SIZE"}}</span>
+                <input name="system.size" type="number" value="{{source.size}}" data-dtype="Number" />
+            </label>
+        </div>
+        {{!-- Считанное с объявленного режима хода: сколько метров машина
+              пройдёт за свой ход. --}}
+        <div class="stat-grid derived-grid">
+            <label class="stat-field is-derived">
+                <span>{{localize "VEHICLE.ALLOWANCE"}}</span>
+                <output>{{system.speed.allowance}}</output>
+            </label>
+            {{!-- Штраф стрельбе с борта: складывается из хода машины и
+                  объявленного манёвра. --}}
+            <label class="stat-field is-derived">
+                <span>{{localize "VEHICLE.FIRING_PENALTY"}}</span>
+                <output>{{numberFormat system.speed.firingPenalty sign=true}}</output>
+            </label>
+            {{!-- Всё, что машина добавляет к проверкам Управления оператора:
+                  Маневренность, поправка шасси и штраф за повреждения. --}}
+            <label class="stat-field is-derived">
+                <span>{{localize "VEHICLE.OPERATE_MODIFIER"}}</span>
+                <output>{{numberFormat system.operateModifier sign=true}}</output>
+            </label>
+        </div>
+
+        {{#if system.manoeuvre.active}}
+            {{!-- Объявленный манёвр держится до конца раунда и мешает обеим
+                  сторонам: и стрелкам на борту, и тем, кто целит в машину. --}}
+            <p class="manoeuvre-state" title="{{localize "VEHICLE.MANOEUVRE_CLEAR"}}">
+                {{localize system.manoeuvre.label}}
+                <b class="dh-chip is-penalty">{{numberFormat system.manoeuvre.effect sign=true}}</b>
+            </p>
+        {{/if}}
+    </div>
+
+    <div class="armour border">
+        <h1 class="section-head"><span>{{localize "VEHICLE.ARMOUR"}}</span></h1>
+        <div class="facing-diagram">
+            <label class="facing facing-front">
+                <span>{{localize "VEHICLE.FACING.FRONT"}}</span>
+                <input name="system.armour.front" type="number" value="{{source.armour.front}}" data-dtype="Number" />
+            </label>
+            <label class="facing facing-left">
+                <span>{{localize "VEHICLE.FACING.LEFT"}}</span>
+                <input name="system.armour.leftSide" type="number" value="{{source.armour.leftSide}}" data-dtype="Number" />
+            </label>
+            <div class="facing-hull">
+                <span class="facing-hull-label">{{localize "VEHICLE.ZONE.HULL"}}</span>
+            </div>
+            <label class="facing facing-right">
+                <span>{{localize "VEHICLE.FACING.RIGHT"}}</span>
+                <input name="system.armour.rightSide" type="number" value="{{source.armour.rightSide}}" data-dtype="Number" />
+            </label>
+            <label class="facing facing-rear">
+                <span>{{localize "VEHICLE.FACING.REAR"}}</span>
+                <input name="system.armour.rear" type="number" value="{{source.armour.rear}}" data-dtype="Number" />
+            </label>
+        </div>
+    </div>
+
+    <div class="crew border">
+        <h1 class="section-head">
+            <span>{{localize "VEHICLE.CREW"}}</span>
+            {{!-- Инициативу всему экипажу задаёт командир — одной кнопкой. --}}
+            <a class="button vehicle-crew-initiative" title="{{localize "VEHICLE.CREW_INITIATIVE"}}"
+               aria-label="{{localize "VEHICLE.CREW_INITIATIVE"}}"><i class="fas fa-hourglass-start"></i></a>
+        </h1>
+        <div class="stat-grid">
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.CREW_SIZE"}}</span>
+                <input name="system.crew.value" type="number" value="{{source.crew.value}}" data-dtype="Number" />
+            </label>
+            <label class="stat-field">
+                <span>{{localize "VEHICLE.CAPACITY"}}</span>
+                <input name="system.carryingCapacity" type="number" value="{{source.carryingCapacity}}" data-dtype="Number" />
+            </label>
+        </div>
+        <label class="crew-roles">
+            <span>{{localize "VEHICLE.CREW_ROLES"}}</span>
+            <input name="system.crew.roles" type="text" value="{{system.crew.roles}}"
+                   placeholder="{{localize "VEHICLE.CREW_ROLES_PLACEHOLDER"}}" />
+        </label>
+
+        {{!-- Кто на борту. Список нужен не для порядка: по нему раскидывается
+              урон, прошедший сквозь броню, и он же садится в инициативу за
+              командиром. Актёр добавляется перетаскиванием на лист. --}}
+        <div class="crew-roster">
+            <div class="crew-roster-head">
+                <span>{{localize "VEHICLE.ABOARD"}}</span>
+                {{!-- Экипаж сверяется со своей строкой ролей, а вместимость
+                      считает всех на борту разом — она указана вместе с экипажем. --}}
+                <span class="crew-count{{#if system.crew.overCrewed}} is-over{{/if}}">
+                    <i>{{localize "VEHICLE.CREW_SIZE"}}</i>{{system.crew.aboard}} / {{system.crew.value}}</span>
+                <span class="crew-count{{#if system.crew.overloaded}} is-over{{/if}}">
+                    <i>{{localize "VEHICLE.CAPACITY"}}</i>{{system.crew.total}} / {{system.carryingCapacity}}</span>
+            </div>
+            {{#each crew as |member|}}
+                <div class="crew-member{{#if member.passenger}} is-passenger{{/if}}" data-actor-id="{{member.actorId}}">
+                    <img class="crew-portrait vehicle-crew-open" src="{{member.img}}" alt="" title="{{member.name}}" />
+                    <b class="crew-name vehicle-crew-open">{{member.name}}</b>
+                    <input class="vehicle-crew-role" type="text" value="{{member.role}}"
+                           placeholder="{{localize "VEHICLE.CREW_ROLES_PLACEHOLDER"}}"
+                           aria-label="{{localize "VEHICLE.CREW_ROLES"}}" />
+                    <label class="crew-flag" title="{{localize "VEHICLE.PASSENGER_HINT"}}">
+                        <input class="vehicle-crew-passenger" type="checkbox" {{checked member.passenger}} />
+                        <span>{{localize "VEHICLE.PASSENGER"}}</span>
+                    </label>
+                    <a class="item-control vehicle-crew-remove" title="{{localize "VEHICLE.DISEMBARK"}}"><i class="fas fa-person-walking-arrow-right"></i></a>
+                </div>
+            {{else}}
+                <p class="empty-hint">{{localize "VEHICLE.NO_CREW"}}</p>
+            {{/each}}
+            {{!-- Единственная подсказка, что осталась на листе: посадить в машину
+                  можно только перетаскиванием, а догадаться об этом неоткуда. --}}
+            <p class="crew-hint">{{localize "VEHICLE.CREW_DROP_HINT"}}</p>
+        </div>
+    </div>
+
+    {{!-- Особые состояния: то, что чинится отдельно от целостности и меняет
+          поведение машины прямо сейчас. --}}
+    <div class="vehicle-conditions border">
+        <h1 class="section-head"><span>{{localize "VEHICLE.CONDITIONS"}}</span></h1>
+        {{!-- Черты, прочитанные из списка на вкладке черт. Они ничего не
+              включают: выцеливать седоков и нарушать герметичность — решения
+              стола, система лишь называет, с какой машиной он имеет дело. --}}
+        {{#if system.traitChips.length}}
+            <p class="vehicle-trait-chips">
+                {{#each system.traitChips as |chip|}}
+                    <b class="dh-chip{{#if chip.warn}} is-penalty{{/if}}">{{localize chip.key}}</b>
+                {{/each}}
+            </p>
+        {{/if}}
+        <div class="conditions-grid">
+            <label class="condition-toggle{{#if system.conditions.immobilised}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.immobilised" {{checked system.conditions.immobilised}} />
+                <span>{{localize "VEHICLE.CONDITION.IMMOBILISED"}}</span>
+            </label>
+            <label class="condition-toggle{{#if system.conditions.onFire}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.onFire" {{checked system.conditions.onFire}} />
+                <span>{{localize "VEHICLE.CONDITION.ON_FIRE"}}</span>
+            </label>
+            <label class="condition-toggle{{#if system.conditions.unpowered}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.unpowered" {{checked system.conditions.unpowered}} />
+                <span>{{localize "VEHICLE.CONDITION.UNPOWERED"}}</span>
+            </label>
+            {{!-- Галка производная: она показывает, что хотя бы одно орудие
+                  помечено уничтоженным на вкладке вооружения, и правится там. --}}
+            <label class="condition-toggle is-derived{{#if system.conditions.weaponDestroyed}} is-on{{/if}}"
+                   title="{{localize "VEHICLE.CONDITION.WEAPON_DESTROYED_HINT"}}">
+                <input type="checkbox" {{checked system.conditions.weaponDestroyed}} disabled />
+                <span>{{localize "VEHICLE.CONDITION.WEAPON_DESTROYED"}}</span>
+            </label>
+            <label class="condition-toggle{{#if system.conditions.turretJammed}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.turretJammed" {{checked system.conditions.turretJammed}} />
+                <span>{{localize "VEHICLE.CONDITION.TURRET_JAMMED"}}</span>
+            </label>
+            <label class="condition-toggle{{#if system.conditions.open}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.open" {{checked system.conditions.open}} />
+                <span>{{localize "VEHICLE.CONDITION.OPEN_TOPPED"}}</span>
+            </label>
+            {{!-- Обгоревшая машина ездит с −10 к Управлению, пока её не починят. --}}
+            {{!-- ниже — сводка того, что состояния значат за столом --}}
+            <label class="condition-toggle{{#if system.conditions.burnt}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.burnt" {{checked system.conditions.burnt}} />
+                <span>{{localize "VEHICLE.CONDITION.BURNT"}}</span>
+            </label>
+            {{!-- Развалина: снимается только ремонтом, поэтому галка ставится
+                  вручную, но встаёт и сама, когда крит перевалил за целостность. --}}
+            <label class="condition-toggle is-wrecked{{#if system.conditions.wrecked}} is-on{{/if}}">
+                <input type="checkbox" name="system.conditions.wrecked" {{checked system.conditions.wrecked}} />
+                <span>{{localize "VEHICLE.CONDITION.WRECKED"}}</span>
+            </label>
+        </div>
+    </div>
+</div>

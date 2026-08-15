@@ -1,0 +1,72 @@
+{{!-- Вооружение машины. Крепление и сектор обстрела стоят рядом с профилем,
+      потому что именно они решают, может ли орудие вообще смотреть на цель:
+      неподвижное бьёт только по прямой, спонсон держит 180°, башня — все 360°,
+      но разворачивается за полудействие. --}}
+<div class="all-vehicle-weapons border">
+    <h1 class="section-head">
+        <span>{{localize "VEHICLE.TAB.WEAPONS"}}</span>
+        <a class="button vehicle-item-create" data-type="vehicleWeapon"
+           title="{{localize "ITEM.ADD"}}" aria-label="{{localize "ITEM.ADD"}}"><i class="fas fa-plus"></i></a>
+    </h1>
+
+    <div class="item-list vehicle-weapon-list">
+        <div class="flex header">
+            <b class="name">{{localize "WEAPON.NAME"}}</b>
+            <b class="gunner">{{localize "VEHICLE.GUNNER"}}</b>
+            <b class="mount">{{localize "VEHICLE.MOUNT_LABEL"}}</b>
+            <b class="arc">{{localize "VEHICLE.ARC"}}</b>
+            <b class="damage">{{localize "WEAPON.DAMAGE"}}</b>
+            <b class="penetration">{{localize "WEAPON.PENETRATION"}}</b>
+            <b class="range">{{localize "WEAPON.RANGE"}}</b>
+            <b class="clip">{{localize "WEAPON.CLIP"}}</b>
+            <b class="controls"></b>
+        </div>
+        <div class="items">
+            {{#each weapons as |item|}}
+                {{!-- Уничтоженное вычёркивается, временно замолчавшее — только
+                      подсвечивается: заклинившую башню расклинивают. --}}
+                <div class="vehicle-weapon item flex row{{#if item.system.destroyed}} is-destroyed{{else if item.blockedBy}} is-blocked{{/if}}"
+                     data-item-id="{{item.id}}">
+                    <div class="name item-edit">
+                        <b class="weapon-name">{{item.name}}</b>
+                        {{!-- Почему орудие молчит, надо видеть до того, как по
+                              нему щёлкнут: развёрнутая башня, обесточка, поломка. --}}
+                        {{#if item.blockedBy}}
+                            <span class="weapon-blocked">{{localize item.blockedBy}}</span>
+                        {{else if item.system.special}}
+                            <span class="weapon-traits">{{item.system.special}}</span>
+                        {{/if}}
+                    </div>
+                    {{!-- Стрелок приписывается к орудию: его Навыком Стрельбы и
+                          пойдёт бросок. --}}
+                    <div class="gunner">
+                        <select class="vehicle-gunner-select" data-item-id="{{item.id}}">
+                            <option value=""{{#unless item.system.gunnerId}} selected{{/unless}}>—</option>
+                            {{#each ../gunners as |gunner|}}
+                                <option value="{{gunner.id}}"
+                                    {{#if (eq item.system.gunnerId gunner.id)}}selected{{/if}}>{{gunner.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="mount">{{localize item.mountLabel}}</div>
+                    <div class="arc">{{item.arcTotal}}&deg;</div>
+                    <div class="damage">{{item.system.damage}} {{damageTypeShort item.system.damageType}}</div>
+                    <div class="penetration">{{item.system.penetration}}</div>
+                    <div class="range">{{item.system.range}}</div>
+                    <div class="clip">{{item.Clip}}</div>
+                    <div class="controls">
+                        <a class="item-control vehicle-weapon-attack" title="{{localize "VEHICLE.FIRE"}}"><i class="fas fa-crosshairs"></i></a>
+                        {{#if item.jammed}}
+                            <a class="item-control clear-jam" title="{{localize "WEAPON.CLEAR_JAM"}}"><i class="fas fa-screwdriver-wrench"></i></a>
+                        {{/if}}
+                        <a class="item-control vehicle-weapon-reload" title="{{localize "VEHICLE.RELOAD"}}"><i class="fas fa-rotate"></i></a>
+                        <a class="item-control item-edit" title="{{localize "VEHICLE.EDIT"}}"><i class="fas fa-pen"></i></a>
+                        <a class="item-control item-delete" title="{{localize "VEHICLE.REMOVE"}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            {{else}}
+                <p class="empty-hint">{{localize "VEHICLE.NO_WEAPONS"}}</p>
+            {{/each}}
+        </div>
+    </div>
+</div>

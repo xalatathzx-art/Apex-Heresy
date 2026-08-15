@@ -1,0 +1,17 @@
+{{!-- Компоненты на бумажном бланке — два списка от руки, и здесь так же:
+      система про них ничего не знает и знать не берётся. Редакторы, а не
+      предметы, потому что стоимость в Месте и Мощности игрок сводит сам в
+      сметах на вкладке профиля. --}}
+<div class="voidship-components">
+    <div class="ship-notes border">
+        <h1 class="section-head"><span>{{localize "SHIP.ESSENTIAL_COMPONENTS"}}</span></h1>
+        {{editor enrichment.essentialComponents target="system.essentialComponents"
+                 button=true editable=editable engine="prosemirror"}}
+    </div>
+
+    <div class="ship-notes border">
+        <h1 class="section-head"><span>{{localize "SHIP.SUPPLEMENTAL_COMPONENTS"}}</span></h1>
+        {{editor enrichment.supplementalComponents target="system.supplementalComponents"
+                 button=true editable=editable engine="prosemirror"}}
+    </div>
+</div>

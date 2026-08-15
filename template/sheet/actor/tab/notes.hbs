@@ -1,0 +1,66 @@
+{{!-- Two plates, as drawn: what the character looks like on the left, what was
+      foretold and everything written freehand on the right. Every field is a caption
+      over its own box - the old layout ran label-beside-field on five hand-tuned
+      margins, one of them a hardcoded 16px nudge. --}}
+<div class="notes-tab notes-columns">
+
+    <div class="marks border">
+        <h1>{{localize "TITLE.MARKS"}}</h1>
+        <div class="marks-grid">
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.GENDER"}}</span>
+                <input name="system.bio.gender" type="text" value="{{system.bio.gender}}" />
+            </label>
+            {{!-- Age reads as a figure even though it is stored as free text, so nobody
+                  loses an "unknown" or a "~40" already written here. --}}
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.AGE"}}</span>
+                <input class="is-figure" name="system.bio.age" type="text" value="{{system.bio.age}}" />
+            </label>
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.BUILD"}}</span>
+                <input name="system.bio.build" type="text" value="{{system.bio.build}}" />
+            </label>
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.COMPLEXION"}}</span>
+                <input name="system.bio.complexion" type="text" value="{{system.bio.complexion}}" />
+            </label>
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.HAIR"}}</span>
+                <input name="system.bio.hair" type="text" value="{{system.bio.hair}}" />
+            </label>
+        </div>
+
+        {{!-- Colour rather than description: these run the width of the plate because
+              what goes in them is a phrase, not a word. --}}
+        <div class="marks-lines">
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.QUIRKS"}}</span>
+                <input name="system.bio.quirks" type="text" value="{{system.bio.quirks}}" />
+            </label>
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.SUPERSTITION"}}</span>
+                <input name="system.bio.superstition" type="text" value="{{system.bio.superstition}}" />
+            </label>
+            <label class="notes-field">
+                <span class="notes-label">{{localize "BIO.MOMENTOS"}}</span>
+                <input name="system.bio.momentos" type="text" value="{{system.bio.momentos}}" />
+            </label>
+        </div>
+    </div>
+
+    <div class="divination border">
+        <h1>{{localize "BIO.DIVINATION"}}</h1>
+        <label class="notes-field is-divination">
+            <input name="system.bio.divination" type="text" value="{{system.bio.divination}}" />
+        </label>
+
+        <p class="notes-subhead">{{localize "TITLE.NOTES"}}</p>
+        {{!-- The editor sits on the field background like any other input: same recess,
+              no texture under text being typed. --}}
+        <div class="notes-editor-body">
+            {{editor enrichment.system.bio.notes target="system.bio.notes" engine="prosemirror" button=true owner=owner editable=editable}}
+        </div>
+    </div>
+
+</div>

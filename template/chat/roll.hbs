@@ -1,0 +1,197 @@
+{{!-- Карточка броска. Оформление по эталону, состав данных прежний: сверены все
+      тридцать полей старой разметки, ни одно не выброшено. Крючки для JS
+      (roll-card-background, effect-buttons, invoke-*, dh-chat-target) оставлены
+      под теми же именами — на них висят обработчики. --}}
+<div class="dark-heresy chat roll impmal-test" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card {{#unless flags.isSuccess}}is-fail{{/unless}}">
+
+        <div class="dh-card-h">
+            <span class="who">
+                {{#if actorName}}{{actorName}}{{/if}}
+                {{#if isReRoll}}
+                    {{#if actorName}} · {{/if}}{{localize "CHAT.REROLL"}}
+                {{else}}
+                    {{#if itemName}}{{#if actorName}} · {{/if}}{{itemName}}
+                    {{else if weapon.name}}{{#if actorName}} · {{/if}}{{weapon.name}}
+                    {{else if name}}{{#if actorName}} · {{/if}}{{name}}
+                    {{/if}}
+                {{/if}}
+            </span>
+            <span class="verdict">
+                {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+            </span>
+        </div>
+
+        <div class="dh-card-b">
+
+            {{!-- Состояния оружия: слово, а не только иконка. --}}
+            {{#if weaponJammed}}
+                <div class="dh-alarm"><i>⚠</i> <span>{{localize "WEAPON.JAMMED"}}</span></div>
+            {{/if}}
+            {{#if weaponOverheated}}
+                <div class="dh-alarm warn"><i>🔥</i> <span>OVERHEAT</span></div>
+            {{/if}}
+            {{!-- Действие не состоялось из-за состояния: оглушён, без сознания, мёртв. --}}
+            {{#if blockedByCondition}}
+                <div class="dh-alarm"><i>✖</i> <span>{{localize blockedByCondition}}</span></div>
+            {{/if}}
+
+            {{!-- Три показания: бросок, степени, цель. --}}
+            <div class="dh-figures">
+                <div class="dh-fig">
+                    <span class="n">{{#if result}}{{result}}{{else}}—{{/if}}</span>
+                    <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                </div>
+                <div class="dh-fig lead">
+                    <span class="n">
+                        {{#if flags.isSuccess}}
+                            {{#if dos}}+{{dos}}{{else}}—{{/if}}
+                        {{else}}
+                            {{#if dof}}{{dof}}{{else}}—{{/if}}
+                        {{/if}}
+                    </span>
+                    <span class="dh-cap">
+                        {{#if flags.isSuccess}}{{localize "CHAT.DOS_SHORT"}}{{else}}{{localize "CHAT.DOF_SHORT"}}{{/if}}
+                    </span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">{{target.final}}</span>
+                    <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                </div>
+            </div>
+
+            {{!-- Чипы подытоживают, список ниже детализирует. Что показано здесь
+                  вместе со своим модификатором, там не повторяется. --}}
+            {{#if flags.isAttack}}
+                <div class="dh-chips">
+                    {{#if attackType}}
+                        {{#if attackType.text}}<span class="chip">{{attackType.text}} {{signed attackType.modifier}}</span>{{/if}}
+                    {{/if}}
+                    {{#if weapon.damageType}}<span class="chip">{{damageTypeLong weapon.damageType}}</span>{{/if}}
+                    {{#if difficulty}}<span class="chip warn">{{difficulty.text}} {{signed difficulty.value}}</span>{{/if}}
+                </div>
+            {{else}}
+                {{#if difficulty}}
+                    <div class="dh-chips">
+                        <span class="chip warn">{{difficulty.text}} {{signed difficulty.value}}</span>
+                    </div>
+                {{/if}}
+            {{/if}}
+
+            <dl class="dh-kv">
+                <dt>{{localize "CHAT.CLEAR_STAT"}}</dt>
+                <dd>{{target.base}}</dd>
+
+                {{#if target.modifier}}
+                    <dt>{{localize "CHAT.TEST_MODIFIER"}}</dt>
+                    <dd>{{signed target.modifier}}</dd>
+                {{/if}}
+
+                {{#if rolledWith}}
+                    <dt>{{localize "CHAT.ROLLED_WITH"}}</dt>
+                    <dd>{{rolledWith}}</dd>
+                {{/if}}
+
+                {{#if aim}}
+                    <dt>{{localize "CHAT.AIMING"}}</dt>
+                    <dd>{{aim.text}} ({{signed aim.val}})</dd>
+                {{/if}}
+
+                {{#if unnaturalDosBonus}}
+                    <dt>{{localize "CHAT.UNNATURAL_DOS"}}</dt>
+                    <dd>{{signed unnaturalDosBonus}}</dd>
+                {{/if}}
+
+                {{#if flags.isAttack}}
+                    {{!-- Ноль попаданий показывается наравне с остальными: у оружия с
+                          нулевой скорострельностью в выбранном режиме успешный бросок
+                          даёт нуль попаданий, и раньше строка просто исчезала — было
+                          непонятно, почему урон не наносится. --}}
+                    {{#if flags.isSuccess}}
+                        <dt>{{localize "CHAT.NUMBER_OF_HIT"}}</dt>
+                        <dd{{#unless numberOfHits}} class="warn"{{/unless}}>{{#if numberOfHits}}{{numberOfHits}}{{else}}0{{/if}}</dd>
+                    {{/if}}
+
+                    {{!-- Локация прицельного выстрела лежала в данных, но на карточку
+                          не выводилась: игрок не видел, куда именно стрелял. --}}
+                    {{#if calledShotLocation}}
+                        <dt>{{localize "CHAT.HIT_LOCATION"}}</dt>
+                        <dd>{{localize calledShotLocation}}</dd>
+                    {{/if}}
+
+                    <dt>{{localize "CHAT.ATTACK_RANGE"}}</dt>
+                    <dd>{{rangeModText}} ({{signed rangeMod}})</dd>
+
+                    {{#if weapon.special}}
+                        <dt>{{localize "WEAPON.SPECIAL"}}</dt>
+                        <dd>{{weapon.special}}</dd>
+                    {{/if}}
+                {{/if}}
+
+                {{#if targetConditionModifier}}
+                    <dt>{{localize "CHAT.TARGET_CONDITION"}}</dt>
+                    <dd>{{localize "CONDITION.STUNNED"}} ({{signed targetConditionModifier}})</dd>
+                {{/if}}
+
+                {{#if targetSizeModifier}}
+                    <dt>{{localize "CHAT.TARGET_SIZE"}}</dt>
+                    <dd>{{localize "SIZE"}} ({{signed targetSizeModifier}})</dd>
+                {{/if}}
+
+                {{#if actorConditionModifier}}
+                    <dt>{{localize "CHAT.ACTOR_CONDITION"}}</dt>
+                    <dd>{{localize "CONDITION.FEAR"}} ({{signed actorConditionModifier}})</dd>
+                {{/if}}
+
+                {{#if targets}}
+                    <dt>{{localize "CHAT.TARGET"}}</dt>
+                    <dd>
+                        {{#each targets}}
+                            <a class="dh-chat-target" data-token-id="{{tokenId}}" data-scene-id="{{sceneId}}">{{name}}</a>{{#unless @last}}, {{/unless}}
+                        {{/each}}
+                    </dd>
+                {{/if}}
+
+                {{#if psy.display}}
+                    {{#if psy.push}}
+                        <dt>{{localize "CHAT.PSY_RATING"}}</dt>
+                        <dd>{{psy.initialRating}} - {{psy.value}}
+                            ({{#if psy.isUnbrake}}{{localize "CHAT.PSY_UNBRAKE"}}{{else}}{{localize "CHAT.PSY_PUSH"}}{{/if}})</dd>
+                    {{else}}
+                        <dt>{{localize "CHAT.PSY_RATING"}}</dt>
+                        <dd>{{psy.value}}</dd>
+                    {{/if}}
+
+                    {{#if psy.isUnbound}}
+                        <dt class="empty"></dt>
+                        <dd class="full bad">{{localize "CHAT.PSY_UNBOUND"}}</dd>
+                    {{/if}}
+
+                    {{#if psy.hasPhenomena}}
+                        <dt class="empty"></dt>
+                        <dd class="full bad">
+                            {{#if psy.warpConduit}}
+                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT"}}
+                            {{else}}
+                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}
+                            {{/if}}
+                        </dd>
+                    {{/if}}
+                {{/if}}
+            </dl>
+
+            {{#if flags.isAttack}}
+                {{#if flags.isSuccess}}
+                    <div class="effect-buttons">
+                        <button type="button" class="invoke-test">{{localize "CHAT.ROLL_EVASION"}}</button>
+                        {{#if (eq attackType.name "suppression")}}
+                            <button type="button" class="invoke-suppression">{{localize "SUPPRESSION.HEADER"}}</button>
+                        {{/if}}
+                        <button type="button" class="invoke-damage">{{localize "CHAT.ROLL_DAMAGE"}}</button>
+                    </div>
+                {{/if}}
+            {{/if}}
+
+        </div>
+    </div>
+</div>

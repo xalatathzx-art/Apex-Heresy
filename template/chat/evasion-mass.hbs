@@ -1,0 +1,63 @@
+{{!-- Массовое уклонение: раздел на цель. Сохранено всё — вид защиты, ссылка на
+      токен каждой цели, бросок против цели, степени, исход и модификатор. --}}
+<div class="dark-heresy chat roll impmal-test mass-evasion-card" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize "CHAT.MASS_EVASION_RESULTS"}}</span>
+            {{#if massEvasionLabel}}<span class="verdict">{{massEvasionLabel}}</span>{{/if}}
+        </div>
+
+        <div class="dh-card-b">
+
+            {{#if massEvasionLabel}}
+                <dl class="dh-kv" style="margin-bottom: var(--dh-space-3)">
+                    <dt>{{localize "CHAT.DEFENSE"}}</dt>
+                    <dd>{{massEvasionLabel}}</dd>
+                </dl>
+            {{/if}}
+
+            {{#each massEvasionResults as |result|}}
+                <div class="dh-part{{#if @first}} first{{/if}}">
+                    <p class="dh-part-h">
+                        <span><a class="dh-chat-target" data-token-id="{{result.target.tokenId}}" data-scene-id="{{result.target.sceneId}}">{{result.target.name}}</a></span>
+                        <span class="aside" style="{{#if result.isSuccess}}color:var(--dh-accent){{else}}color:var(--dh-danger){{/if}}">
+                            {{#if result.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+                        </span>
+                    </p>
+
+                    <div class="dh-figures">
+                        <div class="dh-fig">
+                            <span class="n">{{result.result}}</span>
+                            <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                        </div>
+                        <div class="dh-fig lead">
+                            <span class="n" style="{{#unless result.isSuccess}}color:var(--dh-danger);border-color:var(--dh-danger){{/unless}}">
+                                {{#if result.isSuccess}}
+                                    {{#if result.dos}}+{{result.dos}}{{else}}—{{/if}}
+                                {{else}}
+                                    {{#if result.dof}}{{result.dof}}{{else}}—{{/if}}
+                                {{/if}}
+                            </span>
+                            <span class="dh-cap">
+                                {{#if result.isSuccess}}{{localize "CHAT.DOS_SHORT"}}{{else}}{{localize "CHAT.DOF_SHORT"}}{{/if}}
+                            </span>
+                        </div>
+                        <div class="dh-fig">
+                            <span class="n">{{result.targetFinal}}</span>
+                            <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                        </div>
+                    </div>
+
+                    {{#if result.targetModifier}}
+                        <dl class="dh-kv">
+                            <dt>{{localize "CHAT.TEST_MODIFIER"}}</dt>
+                            <dd>{{signed result.targetModifier}}</dd>
+                        </dl>
+                    {{/if}}
+                </div>
+            {{/each}}
+
+        </div>
+    </div>
+</div>

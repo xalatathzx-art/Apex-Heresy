@@ -1,0 +1,232 @@
+<div class="flex wrap combat">
+    <div class="wounds border">
+        <h1>{{localize "TITLE.WOUNDS"}}</h1>
+
+        {{!-- The one place in the sheet that carries a hazard chevron: the portion of
+              the character's health already spent. Number and bar together, so the
+              value is exact and the state is legible at a glance. --}}
+        <div class="vital-meter{{#if system.wounds.critical}} is-critical{{/if}}">
+            <div class="meter-track" role="img"
+                 aria-label="{{system.wounds.value}} / {{system.wounds.max}} {{localize "TITLE.WOUNDS"}}">
+                <div class="meter-fill" style="width: {{system.wounds.spentPercent}}%"></div>
+            </div>
+            <div class="meter-fields">
+                <label class="meter-field">
+                    <span>{{localize "WOUND.CURRENT"}}</span>
+                    <input data-actor-field="system.wounds.value" type="number" value="{{system.wounds.value}}" data-dtype="Number" />
+                </label>
+                <span class="meter-sep">/</span>
+                <label class="meter-field is-max">
+                    <span>{{localize "WOUND.TOTAL"}}</span>
+                    <input data-actor-field="system.wounds.max" type="number" value="{{system.wounds.max}}" data-dtype="Number" />
+                </label>
+                <label class="meter-field is-critical">
+                    <span>{{localize "WOUND.CRITICAL"}}</span>
+                    <input name="system.wounds.critical" type="number" value="{{system.wounds.critical}}" data-dtype="Number" />
+                </label>
+            </div>
+        </div>
+        <div class="information regeneration">
+            <label>{{localize "WOUND.REGENERATION"}}</label>
+            <div class="wounds-regeneration-row">
+                <button class="roll-regeneration" type="button" title="{{localize "WOUND.REGENERATION"}}">
+                    <i class="fas fa-dice"></i>
+                </button>
+                <input name="system.wounds.regeneration" type="number" value="{{system.wounds.regeneration}}" data-dtype="Number" />
+            </div>
+        </div>
+        {{#if (isNpc actor)}}
+        <div class="information">
+            <label>{{localize "HORDE"}}</label>
+            <input name="system.horde" type="number" value="{{system.horde}}" data-dtype="Number" />
+        </div>
+        {{/if}}
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "WOUND.CRITICAL_INJURIES"}}</b>
+                <a class="button item-create" title="Add Critical Injury" data-type="criticalInjury"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each items.criticalInjuries as |item|}}
+                    <div class="wound item flex row" data-item-id="{{item.id}}">
+                        <div class="flex wound-row item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div class="name">{{item.name}}</div>
+                        </div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Critical Injury"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="armour border">
+        <h1>{{localize "TITLE.ARMOUR"}}</h1>
+        {{!-- Hit locations sit where they sit on a body: head over torso, arms
+              flanking it, legs beneath. Read as a diagram it answers "where am I
+              exposed" without parsing four look-alike rows. --}}
+        <div class="armour-diagram">
+            <div class="part loc-head">
+                <div class="name">{{localize "ARMOUR.HEAD"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.head.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.head.tempModifier" value="{{system.armour.head.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.head.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.head.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+            <div class="part loc-left-arm">
+                <div class="name">{{localize "ARMOUR.LEFT_ARM"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.leftArm.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.leftArm.tempModifier" value="{{system.armour.leftArm.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.leftArm.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.leftArm.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+            <div class="part loc-body">
+                <div class="name">{{localize "ARMOUR.BODY"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.body.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.body.tempModifier" value="{{system.armour.body.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.body.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.body.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+            <div class="part loc-right-arm">
+                <div class="name">{{localize "ARMOUR.RIGHT_ARM"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.rightArm.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.rightArm.tempModifier" value="{{system.armour.rightArm.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.rightArm.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.rightArm.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+            <div class="part loc-left-leg">
+                <div class="name">{{localize "ARMOUR.LEFT_LEG"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.leftLeg.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.leftLeg.tempModifier" value="{{system.armour.leftLeg.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.leftLeg.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.leftLeg.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+            <div class="part loc-right-leg">
+                <div class="name">{{localize "ARMOUR.RIGHT_LEG"}}</div>
+                <div class="total-wrapper">
+                    <input class="total" title="{{localize "ARMOUR.TOTAL_HINT"}}" type="number" value="{{system.armour.rightLeg.total}}" data-dtype="Number" disabled />
+                    <input class="temp-modifier" type="number" name="system.armour.rightLeg.tempModifier" value="{{system.armour.rightLeg.tempModifier}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.rightLeg.toughnessBonus}}" data-dtype="Number" title="Toughness Bonus" disabled />
+                    <input type="number" value="{{system.armour.rightLeg.value}}" data-dtype="Number" title="Armour Points" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="movement border">
+        <h1>{{localize "TITLE.MOVEMENT"}}</h1>
+        <div class="information">
+            <label>{{localize "MOVEMENT.HALF"}}</label>
+            <input type="number" value="{{system.movement.half}}" data-dtype="Number" disabled />
+            <input class="movement-bonus-input" name="system.movementBonus.half" type="number" value="{{system.movementBonus.half}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.FULL"}}</label>
+            <input type="number" value="{{system.movement.full}}" data-dtype="Number" disabled />
+            <input class="movement-bonus-input" name="system.movementBonus.full" type="number" value="{{system.movementBonus.full}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.CHARGE"}}</label>
+            <input type="number" value="{{system.movement.charge}}" data-dtype="Number" disabled />
+            <input class="movement-bonus-input" name="system.movementBonus.charge" type="number" value="{{system.movementBonus.charge}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.RUN"}}</label>
+            <input type="number" value="{{system.movement.run}}" data-dtype="Number" disabled />
+            <input class="movement-bonus-input" name="system.movementBonus.run" type="number" value="{{system.movementBonus.run}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
+        </div>
+        <h1 style="margin-top: 5px">{{localize "TITLE.OTHER"}}</h1>
+        <div class="information initiative">
+            <label>{{localize "INITIATIVE"}}</label>
+            <div class="initiative-row">
+                <input name="system.initiative.base" type="text" value="{{system.initiative.base}}" />
+                <span class="separator">+</span>
+                <select name="system.initiative.characteristic">
+                    {{selectOptions system.characteristics selected=system.initiative.characteristic labelAttr="label" localize=true}}
+                </select>
+            </div>
+        </div>
+        <div class="information">
+            <label>{{localize "SIZE"}}</label>
+            <input name="system.size" type="number" value="{{system.size}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="weapons border">
+        <h1>{{localize "TITLE.WEAPONS"}}</h1>
+        <div class="item-list">
+            {{!-- Eight columns, as drawn: the traits ride under the name instead of
+                  taking a column, damage carries its own type, and the row ends in the
+                  control that fires it. Reload and the separate type and special
+                  columns are gone - they were what squeezed the name into wrapping. --}}
+            <div class="flex header">
+                <b class="name">{{localize "WEAPON.NAME"}}</b>
+                <b class="class">{{localize "WEAPON.CLASS"}}</b>
+                <b class="range">{{localize "WEAPON.RANGE"}}</b>
+                <b class="rate-of-fire">{{localize "WEAPON.RATE_OF_FIRE"}}</b>
+                <b class="damage">{{localize "WEAPON.DAMAGE"}}</b>
+                <b class="penetration">{{localize "WEAPON.PENETRATION"}}</b>
+                <b class="clip">{{localize "WEAPON.CLIP"}}</b>
+                <b class="attack"></b>
+            </div>
+            <div class="items">
+                {{#each items.weapons as |item|}}
+                    <div class="weapon item flex row {{#unless item.system.equipped}}unequipped{{/unless}}{{#if item.jammed}} is-jammed{{/if}}" data-item-id="{{item.id}}">
+                        <div class="name">
+                            <b class="weapon-name">{{item.name}}</b>
+                            {{#if item.traitLine}}
+                                <span class="weapon-traits">{{item.traitLine}}</span>
+                            {{/if}}
+                        </div>
+                        <div class="class">{{item.WeaponClass}}</div>
+                        <div class="range">{{item.rangeDisplay}}</div>
+                        <div class="rate-of-fire">{{item.rateOfFireDisplay}}</div>
+                        <div class="damage">{{item.damage}} {{item.DamageTypeShort}}</div>
+                        <div class="penetration">{{item.penetration}}</div>
+                        <div class="clip">
+                            {{#if item.jammed}}
+                                <span class="dh-chip is-jammed">{{localize "WEAPON.JAMMED"}}</span>
+                            {{else}}
+                                {{item.clipDisplay}}
+                            {{/if}}
+                        </div>
+                        <div class="attack">
+                            {{#if item.jammed}}
+                                <button class="clear-jam" type="button">{{localize "WEAPON.CLEAR_JAM"}}</button>
+                            {{else}}
+                                <button class="roll-weapon" type="button">{{localize "WEAPON.ATTACK"}}</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="psychic-powers border">
+        <h1>{{localize "TITLE.PSYCHIC_POWERS"}}</h1>
+        {{> systems/dark-heresy/template/sheet/actor/partial/psychic-powers-list.hbs scope="combat"}}
+    </div>
+</div>

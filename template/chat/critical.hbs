@@ -1,0 +1,30 @@
+{{!-- Применённый урон. Сохранено всё: цель, каждая строка применения (сколько,
+      каким типом, как источник, в какую локацию) и итоговые раны с критом. --}}
+<div class="dark-heresy chat roll">
+    <div class="background border dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize "CHAT.APPLIED_DAMAGE"}}</span>
+            <span class="verdict">{{target}}</span>
+        </div>
+
+        <div class="dh-card-b">
+
+            {{!-- Одна строка на удар: сколько, куда, чем. Слово «as» и полное
+                  название источника убраны — они повторяли то, что уже сказано
+                  карточкой урона выше. --}}
+            <dl class="dh-kv">
+                {{#each rolls}}
+                    <dt>{{localize location}}</dt>
+                    <dd><span class="amount">{{damage}}</span> {{damageTypeLong type}}</dd>
+                {{/each}}
+            </dl>
+
+            <div class="dh-applied">
+                <span><span class="k">{{localize "WOUND.CURRENT"}}</span><span class="v">{{totalWounds}}</span></span>
+                <span><span class="k">{{localize "WOUND.CRITICAL_DAMAGE"}}</span><span class="v crit">{{totalCritWounds}}</span></span>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+{{!-- Уклонение. Сохранено всё: заголовок переброска, три показания, остаток
+      попаданий, исход, кто бросал (со ссылкой на токен), чистый стат, модификатор
+      и кнопка урона, которая появляется только при оставшихся попаданиях. --}}
+<div class="dark-heresy chat roll impmal-test" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card {{#unless flags.isSuccess}}is-fail{{/unless}}">
+
+        <div class="dh-card-h">
+            <span class="who">
+                {{#if isReRoll}}{{localize "CHAT.REROLL"}}{{else}}{{name}}{{/if}}
+            </span>
+            <span class="verdict">
+                {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+            </span>
+        </div>
+
+        <div class="dh-card-b">
+
+            <div class="dh-figures">
+                <div class="dh-fig">
+                    <span class="n">{{#if result}}{{result}}{{else}}—{{/if}}</span>
+                    <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                </div>
+                <div class="dh-fig lead">
+                    <span class="n">
+                        {{#if flags.isSuccess}}
+                            {{#if dos}}+{{dos}}{{else}}—{{/if}}
+                        {{else}}
+                            {{#if dof}}{{dof}}{{else}}—{{/if}}
+                        {{/if}}
+                    </span>
+                    <span class="dh-cap">
+                        {{#if flags.isSuccess}}{{localize "CHAT.DOS_SHORT"}}{{else}}{{localize "CHAT.DOF_SHORT"}}{{/if}}
+                    </span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">{{target.final}}</span>
+                    <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                </div>
+            </div>
+
+            <dl class="dh-kv">
+                {{#if evasionActor}}
+                    <dt>{{localize "CHAT.ROLLED_BY"}}</dt>
+                    <dd>
+                        {{#if evasionActorTokenId}}
+                            <a class="dh-chat-target" data-token-id="{{evasionActorTokenId}}" data-scene-id="{{evasionActorSceneId}}">{{evasionActor}}</a>
+                        {{else}}
+                            {{evasionActor}}
+                        {{/if}}
+                    </dd>
+                {{/if}}
+
+                {{#if numberOfHits}}
+                    <dt>{{localize "CHAT.REMAINING_NUMBER_OF_HIT"}}</dt>
+                    <dd>{{numberOfHits}}</dd>
+                {{/if}}
+
+                <dt>{{localize "CHAT.CLEAR_STAT"}}</dt>
+                <dd>{{target.base}}</dd>
+
+                {{#if target.modifier}}
+                    <dt>{{localize "CHAT.TEST_MODIFIER"}}</dt>
+                    <dd>{{signed target.modifier}}</dd>
+                {{/if}}
+            </dl>
+
+            {{#if numberOfHits}}
+                <div class="effect-buttons">
+                    <button type="button" class="invoke-damage">{{localize "CHAT.ROLL_DAMAGE"}}</button>
+                </div>
+            {{/if}}
+
+        </div>
+    </div>
+</div>

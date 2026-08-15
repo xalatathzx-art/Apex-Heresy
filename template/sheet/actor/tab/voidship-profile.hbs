@@ -1,0 +1,94 @@
+{{!-- Сметы корабля: Место в корпусе, Мощность привода, ёмкость позиций под
+      орудия и два трека команды. Всё это на бумажном бланке напечатано в правой
+      колонке одним блоком, и читается оно тоже вместе. --}}
+<div class="flex wrap voidship-profile">
+
+    {{!-- Место и Мощность. Остаток система считает сама — это вычитание того,
+          что записал игрок, а не знание правил. --}}
+    <div class="ship-budget border">
+        <h1 class="section-head"><span>{{localize "SHIP.SPACE"}}</span></h1>
+        <div class="stat-grid">
+            <label class="stat-field">
+                <span>{{localize "SHIP.AVAILABLE"}}</span>
+                <input name="system.space.available" type="number" value="{{source.space.available}}" data-dtype="Number" />
+            </label>
+            <label class="stat-field">
+                <span>{{localize "SHIP.USED"}}</span>
+                <input name="system.space.used" type="number" value="{{source.space.used}}" data-dtype="Number" />
+            </label>
+        </div>
+        <div class="budget-bar" role="img" aria-label="{{system.space.used}} / {{system.space.available}}">
+            <div class="budget-fill{{#if system.space.over}} is-over{{/if}}"
+                 style="width: {{system.space.percent}}%"></div>
+        </div>
+        <p class="budget-rest{{#if system.space.over}} is-over{{/if}}">
+            {{localize "SHIP.REMAINING"}}: <b>{{system.space.remaining}}</b>
+        </p>
+    </div>
+
+    <div class="ship-budget border">
+        <h1 class="section-head"><span>{{localize "SHIP.POWER"}}</span></h1>
+        <div class="stat-grid">
+            <label class="stat-field">
+                <span>{{localize "SHIP.AVAILABLE"}}</span>
+                <input name="system.power.available" type="number" value="{{source.power.available}}" data-dtype="Number" />
+            </label>
+            <label class="stat-field">
+                <span>{{localize "SHIP.USED"}}</span>
+                <input name="system.power.used" type="number" value="{{source.power.used}}" data-dtype="Number" />
+            </label>
+        </div>
+        <div class="budget-bar" role="img" aria-label="{{system.power.used}} / {{system.power.available}}">
+            <div class="budget-fill{{#if system.power.over}} is-over{{/if}}"
+                 style="width: {{system.power.percent}}%"></div>
+        </div>
+        <p class="budget-rest{{#if system.power.over}} is-over{{/if}}">
+            {{localize "SHIP.REMAINING"}}: <b>{{system.power.remaining}}</b>
+        </p>
+    </div>
+
+    {{!-- Ёмкость позиций. Рядом с введённым числом стоит счёт установленных
+          орудий: перебор виден сразу, но ничем не запрещается. --}}
+    <div class="ship-capacity border">
+        <h1 class="section-head"><span>{{localize "SHIP.WEAPON_CAPACITY"}}</span></h1>
+        <div class="capacity-grid">
+            {{#each system.weaponSlots as |slot|}}
+                <label class="stat-field capacity-slot{{#if slot.over}} is-over{{/if}}">
+                    <span>{{localize slot.label}}</span>
+                    <input name="system.weaponCapacity.{{slot.key}}" type="number"
+                           value="{{lookup ../source.weaponCapacity slot.key}}" data-dtype="Number" />
+                    <small>{{localize "SHIP.MOUNTED"}}: {{slot.mounted}}</small>
+                </label>
+            {{/each}}
+        </div>
+    </div>
+
+    {{!-- Команда и боевой дух: на бланке это проценты от предела. --}}
+    <div class="ship-crew border">
+        <h1 class="section-head"><span>{{localize "SHIP.CREW_AND_MORALE"}}</span></h1>
+
+        <div class="vital vital-crew">
+            <span class="vital-label">{{localize "SHIP.CREW"}}</span>
+            <div class="vital-bar" role="img" aria-label="{{system.crew.value}} / {{system.crew.max}}">
+                <div class="vital-fill" style="width: {{system.crew.percent}}%"></div>
+                <span class="vital-read">
+                    <input name="system.crew.value" type="number" value="{{source.crew.value}}" data-dtype="Number" />
+                    <span class="vital-sep">/</span>
+                    <input name="system.crew.max" type="number" value="{{source.crew.max}}" data-dtype="Number" />
+                </span>
+            </div>
+        </div>
+
+        <div class="vital vital-morale">
+            <span class="vital-label">{{localize "SHIP.MORALE"}}</span>
+            <div class="vital-bar" role="img" aria-label="{{system.morale.value}} / {{system.morale.max}}">
+                <div class="vital-fill" style="width: {{system.morale.percent}}%"></div>
+                <span class="vital-read">
+                    <input name="system.morale.value" type="number" value="{{source.morale.value}}" data-dtype="Number" />
+                    <span class="vital-sep">/</span>
+                    <input name="system.morale.max" type="number" value="{{source.morale.max}}" data-dtype="Number" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

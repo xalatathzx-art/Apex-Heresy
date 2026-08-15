@@ -1,0 +1,18 @@
+* text=auto eol=lf
+
+# Binary assets — never touch
+*.webp binary
+*.png binary
+*.jpg binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.zip binary
+
+# LevelDB compendium files are binary
+packs/**/*.ldb binary
+packs/**/*.log binary
+packs/**/MANIFEST-* binary
+packs/**/CURRENT binary

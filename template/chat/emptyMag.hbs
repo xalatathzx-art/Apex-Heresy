@@ -1,0 +1,23 @@
+{{!-- Пустой магазин. Сохранено всё: кто, из чего, и кнопка перезарядки.
+      Замечание: этот шаблон только предзагружается в preloadHandlebarsTemplates и
+      ни одним путём кода не рендерится, а класс reload-Weapon не имеет
+      обработчика — так было и до правки дизайна. Живые уведомления о
+      перезарядке собираются строками в _reloadWeapon. --}}
+<div class="dark-heresy chat roll">
+    <div class="dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{#if actorName}}{{actorName}} · {{/if}}{{itemName}}</span>
+            <span class="verdict">{{localize "CHAT.OUT_OF_AMMO"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+            <p class="dh-note">
+                <b>{{actorName}}</b> — потратил все патроны на <b>{{itemName}}</b>, нужна перезарядка.
+            </p>
+            <div class="effect-buttons">
+                <button type="button" class="reload-Weapon">{{localize "CHAT.RELOAD"}}</button>
+            </div>
+        </div>
+    </div>
+</div>

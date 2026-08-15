@@ -1,0 +1,42 @@
+{{!-- The window frame carries the name and the plate, so this is only the rows.
+      What was here before: a nested .dark-heresy.dialog plate with its own <h1>,
+      which repeated the title already shown in the window header, plus an inline
+      <script> that never ran - DialogV2 puts dialog content through cleanHTML,
+      which strips any tag outside its allowlist. The select-on-focus that script
+      was meant to provide is bound in dhDialog's render callback instead. --}}
+<div class="dh-dialog">
+    {{#unless flags.isEvasion}}
+        {{#if characteristics}}
+            <div class="dh-dialog-row">
+                <label for="characteristic">{{localize "DIALOG.ROLL_WITH"}}</label>
+                <select id="characteristic" name="characteristic">
+                    {{#each characteristics}}
+                        <option value="{{key}}" data-target="{{target}}"{{#if selected}} selected{{/if}}>{{localize label}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{/if}}
+        <div class="dh-dialog-row">
+            <label for="target">{{localize "DIALOG.TARGET"}}</label>
+            <input id="target" type="number" value="{{target.base}}" data-dtype="Number" />
+        </div>
+    {{/unless}}
+    {{#if flags.isEvasion}}
+        <div class="dh-dialog-row">
+            <label for="selectedSkill">{{localize "DIALOG.ROLL_WITH"}}</label>
+            <select id="selectedSkill">
+                {{selectOptions (config "evasions") selected=evasions.selected localize=true}}
+            </select>
+        </div>
+    {{/if}}
+    <div class="dh-dialog-row">
+        <label for="modifier">{{localize "DIALOG.MODIFIER"}}</label>
+        <input id="modifier" type="text" value="{{target.modifier}}" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="difficulty">{{localize "DIALOG.DIFFICULTY"}}</label>
+        <select id="difficulty">
+            {{selectOptions (config "difficulties") selected=difficulty localize=true}}
+        </select>
+    </div>
+</div>

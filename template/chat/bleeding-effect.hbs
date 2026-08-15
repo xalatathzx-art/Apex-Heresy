@@ -1,0 +1,33 @@
+{{!-- Кровотечение на ходу. Сохранено всё: бросок, порог 90+, исход (смерть или
+      выживание) и пояснение про шанс смерти. --}}
+<div class="dark-heresy chat roll impmal-test" data-actor-id="{{ownerId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card {{#if isDead}}is-fail{{/if}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize "CONDITION.BLEEDING"}} · {{localize "EFFECTS.ON_TURN"}}</span>
+            <span class="verdict">
+                {{#if isDead}}{{localize "EFFECTS.YOU_DIED"}}{{else}}{{localize "CHAT.SUCCESS"}}{{/if}}
+            </span>
+        </div>
+
+        <div class="dh-card-b">
+
+            <div class="dh-figures two">
+                <div class="dh-fig{{#if isDead}} lead{{/if}}">
+                    <span class="n">{{rollResult}}</span>
+                    <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">90+</span>
+                    <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                </div>
+            </div>
+
+            <dl class="dh-kv">
+                <dt class="empty"></dt>
+                <dd class="full">{{localize "EFFECTS.BLEEDING_DEATH_CHANCE"}}</dd>
+            </dl>
+
+        </div>
+    </div>
+</div>

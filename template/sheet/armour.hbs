@@ -1,0 +1,133 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "ARMOUR.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="scripts">{{localize "TAB.SCRIPTS"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.TYPE"}}</label>
+                    <div class="form-fields">
+                        <select name="system.type">
+                            {{selectOptions (config "armourTypes") selected=system.type localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.IS_ADDITIVE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.isAdditive" type="checkbox" {{checked system.isAdditive}} />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.MAX_AGILITY"}}</label>
+                    <div class="form-fields">
+                        <input name="system.maxAgility" type="number" value="{{system.maxAgility}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.LEFT_ARM"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.leftArm" type="number" value="{{system.part.leftArm}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.HEAD"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.head" type="number" value="{{system.part.head}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.RIGHT_ARM"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.rightArm" type="number" value="{{system.part.rightArm}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.LEFT_LEG"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.leftLeg" type="number" value="{{system.part.leftLeg}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.BODY"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.body" type="number" value="{{system.part.body}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.RIGHT_LEG"}}</label>
+                    <div class="form-fields">
+                        <input name="system.part.rightLeg" type="number" value="{{system.part.rightLeg}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.CRAFTSMANSHIP"}}</label>
+                    <div class="form-fields">
+                        <select name="system.craftsmanship">
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.AVAILABILITY"}}</label>
+                    <div class="form-fields">
+                        <select name="system.availability">
+                            {{selectOptions (config "availability") selected=system.availability localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.WEIGHT"}}</label>
+                    <div class="form-fields">
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ITEM.EQUIPPED"}}</label>
+                    <div class="form-fields">
+                        <input name="system.equipped" type="checkbox" {{checked system.equipped}} />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="scripts">
+            <div class="scripts-editor border">
+                <h1>{{localize "TITLE.SCRIPTS"}}</h1>
+                <div class="scripts-editor-body">
+                    <textarea name="system.scripts" class="scripts-textarea" placeholder="// Введите скрипты автоматизации здесь...">{{system.scripts}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

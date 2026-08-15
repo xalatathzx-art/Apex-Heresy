@@ -1,0 +1,11 @@
+{{!-- An NPC keeps only the freehand notes, so the plate takes the full width rather
+      than sitting in one column of a two-column grid. Same recessed field, same
+      subhead as the acolyte sheet, no hardcoded pixel heights. --}}
+<div class="notes-tab notes-columns is-single">
+    <div class="divination border">
+        <h1>{{localize "TITLE.NOTES"}}</h1>
+        <div class="notes-editor-body">
+            {{editor enrichment.system.notes target="system.notes" engine="prosemirror" button=true owner=owner editable=editable}}
+        </div>
+    </div>
+</div>

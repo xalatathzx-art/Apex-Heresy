@@ -1,0 +1,224 @@
+{
+  "id": "dark-heresy",
+  "title": "Apex Heresy",
+  "description": "Unofficial Foundry VTT System for Dark Heresy 2nd Edition/Black Crusade/Only War",
+  "version": "1.1.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.365"
+  },
+  "authors": [
+    {
+      "name": "Apex",
+      "email": "",
+      "discord": "apexitek"
+    }
+  ],
+  "esmodules": [
+    "script/dark-heresy.js"
+  ],
+  "styles": [
+    "css/dark-heresy.css"
+  ],
+  "packs": [
+    {
+      "name": "black-crusade",
+      "label": "Black Crusade",
+      "banner": null,
+      "path": "packs/black-crusade",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "dark-heresy",
+      "label": "Dark Heresy",
+      "banner": null,
+      "path": "packs/dark-heresy",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Warhammer 40,000 Roleplay",
+      "sorting": "m",
+      "color": "#6a2b2b",
+      "packs": [
+        "black-crusade",
+        "dark-heresy"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "acolyte": {
+        "htmlFields": [
+          "bio.notes"
+        ]
+      },
+      "heretic": {
+        "htmlFields": [
+          "bio.notes"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "notes"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "notes",
+          "gmNotes"
+        ]
+      },
+      "voidship": {
+        "htmlFields": [
+          "essentialComponents",
+          "supplementalComponents",
+          "complications",
+          "gmNotes"
+        ]
+      }
+    },
+    "Item": {
+      "ammunition": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "aptitude": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armour": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "criticalInjury": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "cybernetic": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "drug": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "forceField": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "malignancy": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "mentalDisorder": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "mutation": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "psychicPower": {
+        "htmlFields": [
+          "description",
+          "effect"
+        ]
+      },
+      "specialAbility": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "tool": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "trait": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "weapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "weaponModification": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "race": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "vehicleWeapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "vehicleTrait": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "shipWeapon": {
+        "htmlFields": [
+          "description"
+        ]
+      }
+    }
+  },
+  "grid": {
+    "distance": 1,
+    "units": "m"
+  },
+  "primaryTokenAttribute": "system.wounds",
+  "secondaryTokenAttribute": "system.fate",
+  "url": "https://github.com/xalatathzx-art/Apex-Heresy",
+  "socket": true,
+  "manifest": "https://raw.githubusercontent.com/xalatathzx-art/Apex-Heresy/main/system.json",
+  "download": "https://github.com/xalatathzx-art/Apex-Heresy/releases/download/v1.1.0/dark-heresy-v1.1.0.zip",
+  "license": "LICENSE"
+}

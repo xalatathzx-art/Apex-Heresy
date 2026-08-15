@@ -1,0 +1,31 @@
+<div class="item-effects border">
+    <h1>{{localize "EFFECTS.TITLE"}}</h1>
+    <div class="item-list">
+        <div class="flex header">
+            <b class="name">{{localize "EFFECTS.NAME"}}</b>
+            <a class="button list-create" title="Add Effect" data-type="effect">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div class="items">
+            {{#each item.effectsList}}
+                <div class="effect item flex row {{#if this.disabled}}inactive{{/if}}" data-id="{{this.id}}" data-collection="effects">
+                    <div class="flex name list-edit">
+                        <div class="image-container">
+                            <div class="image" style="background-image: url('{{this.img}}')"></div>
+                        </div>
+                        <div>{{this.name}}</div>
+                    </div>
+                    <div class="button">
+                        <a class="list-toggle" title="{{#if this.disabled}}Enable{{else}}Disable{{/if}} Effect">
+                            <i class="fa-regular {{#if this.disabled}}fa-circle{{else}}fa-circle-check{{/if}}"></i>
+                        </a>
+                        <a class="list-delete" title="Delete Effect">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

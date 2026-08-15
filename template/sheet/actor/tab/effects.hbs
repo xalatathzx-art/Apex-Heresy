@@ -1,0 +1,175 @@
+<div class="flex wrap effects">
+    {{#if conditions.length}}
+    <div class="conditions border">
+        <h1>{{localize "EFFECTS.CONDITIONS"}}</h1>
+        <div class="conditions-grid">
+            {{#each conditions}}
+                {{!-- A condition is its name and one control. The icon that used to lead
+                      each row said nothing the name did not - eleven small pictures to
+                      read six words - and it set the row's height. --}}
+                <div class="condition-item {{#if this.existing}}active{{/if}}">
+                    <span class="condition-name">{{this.name}}</span>
+                    {{#each this.pips}}
+                        <button type="button" class="pip {{#if this.filled}}filled{{/if}}"
+                                data-type="{{this.type}}"
+                                data-key="{{../this.id}}"
+                                title="{{#if this.filled}}Remove {{../this.name}}{{else}}Add {{../this.name}}{{/if}}">
+                            <i class="fas {{#if this.filled}}fa-xmark{{else}}fa-plus{{/if}}"></i>
+                        </button>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="temporary-effects border">
+        <h1>{{localize "EFFECTS.TEMPORARY"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "EFFECTS.NAME"}}</b>
+                <b class="source">{{localize "EFFECTS.SOURCE"}}</b>
+                <a class="button list-create" title="Add Temporary Effect" data-type="effect" data-category="temporary">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+            <div class="items">
+                {{#if effects.active}}
+                    {{#each effects.active}}
+                        <div class="effect item flex row {{#if this.isCondition}}condition-effect{{/if}}" data-id="{{this.id}}" data-uuid="{{this.uuid}}" data-collection="effects">
+                            <div class="flex name list-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{this.img}}')"></div>
+                                </div>
+                                <div>{{this.name}} {{#if this.isCondition}}<span class="condition-badge" title="Condition Effect">⚡</span>{{/if}}</div>
+                            </div>
+                            <div class="source">
+                                {{#if this.item}}
+                                    <a class="list-edit" data-uuid="{{this.item.uuid}}" title="{{this.source}}">
+                                        <i class="fas fa-suitcase"></i> {{this.source}}
+                                    </a>
+                                {{else}}
+                                    {{this.source}}
+                                {{/if}}
+                            </div>
+                            <div class="button">
+                                <a class="list-toggle" title="{{#if this.disabled}}Enable{{else}}Disable{{/if}} Effect">
+                                    <i class="fa-regular {{#if this.disabled}}fa-circle{{else}}fa-circle-check{{/if}}"></i>
+                                </a>
+                                {{#if this.item}}
+                                    <a class="inactive" title="{{localize 'EFFECTS.CANNOT_DELETE_ITEM'}}">
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                {{else}}
+                                    <a class="list-delete" title="Delete Effect">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="passive-effects border">
+        <h1>{{localize "EFFECTS.PASSIVE"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "EFFECTS.NAME"}}</b>
+                <b class="source">{{localize "EFFECTS.SOURCE"}}</b>
+                <a class="button list-create" title="Add Passive Effect" data-type="effect" data-category="passive">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+            <div class="items">
+                {{#if effects.passive}}
+                    {{#each effects.passive}}
+                        <div class="effect item flex row {{#if this.disabled}}inactive{{/if}} {{#if this.isCondition}}condition-effect{{/if}}" data-id="{{this.id}}" data-uuid="{{this.uuid}}" data-collection="effects">
+                            <div class="flex name list-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{this.img}}')"></div>
+                                </div>
+                                <div>{{this.name}} {{#if this.isCondition}}<span class="condition-badge" title="Condition Effect">⚡</span>{{/if}}</div>
+                            </div>
+                            <div class="source">
+                                {{#if this.item}}
+                                    <a class="list-edit" data-uuid="{{this.item.uuid}}" title="{{this.source}}">
+                                        <i class="fas fa-suitcase"></i> {{this.source}}
+                                    </a>
+                                {{else}}
+                                    {{this.source}}
+                                {{/if}}
+                            </div>
+                            <div class="button">
+                                <a class="list-toggle" title="{{#if this.disabled}}Enable{{else}}Disable{{/if}} Effect">
+                                    <i class="fa-regular {{#if this.disabled}}fa-circle{{else}}fa-circle-check{{/if}}"></i>
+                                </a>
+                                {{#if this.item}}
+                                    <a class="inactive" title="{{localize 'EFFECTS.CANNOT_DELETE_ITEM'}}">
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                {{else}}
+                                    <a class="list-delete" title="Delete Effect">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="disabled-effects border">
+        <h1>{{localize "EFFECTS.DISABLED"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "EFFECTS.NAME"}}</b>
+                <b class="source">{{localize "EFFECTS.SOURCE"}}</b>
+                <a class="button list-create" title="Add Disabled Effect" data-type="effect" data-category="disabled">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+            <div class="items" style="opacity: 0.6;">
+                {{#if effects.disabled}}
+                    {{#each effects.disabled}}
+                        <div class="effect item flex row inactive" data-id="{{this.id}}" data-uuid="{{this.uuid}}" data-collection="effects">
+                            <div class="flex name list-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{this.img}}')"></div>
+                                </div>
+                                <div>{{this.name}}</div>
+                            </div>
+                            <div class="source">
+                                {{#if this.item}}
+                                    <a class="list-edit" data-uuid="{{this.item.uuid}}" title="{{this.source}}">
+                                        <i class="fas fa-suitcase"></i> {{this.source}}
+                                    </a>
+                                {{else}}
+                                    {{this.source}}
+                                {{/if}}
+                            </div>
+                            <div class="button">
+                                <a class="list-toggle" title="{{#if this.disabled}}Enable{{else}}Disable{{/if}} Effect">
+                                    <i class="fa-regular {{#if this.disabled}}fa-circle{{else}}fa-circle-check{{/if}}"></i>
+                                </a>
+                                {{#if this.item}}
+                                    <a class="inactive" title="{{localize 'EFFECTS.CANNOT_DELETE_ITEM'}}">
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                {{else}}
+                                    <a class="list-delete" title="Delete Effect">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

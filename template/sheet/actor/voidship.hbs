@@ -1,0 +1,105 @@
+{{!-- Пустотный корабль Rogue Trader: тот же бумажный бланк, но нашей вёрсткой.
+      Лист ничего не бросает — он ведёт учёт. Всё, что он считает сам, это
+      остаток Места и Мощности да заполнение шкал. --}}
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="voidship">
+        <div class="header border">
+            <div class="identity">
+                <div class="avatar-wrapper">
+                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" alt="" />
+                </div>
+                <div class="identity-fields">
+                    <input class="actor-name" name="name" type="text" value="{{actor.name}}"
+                           aria-label="{{localize "BIO.NAME"}}" />
+                    <div class="bio-grid">
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.CLASS"}}</span>
+                            <input name="system.hullClass" type="text" value="{{system.hullClass}}" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.HULL"}}</span>
+                            <input name="system.hull" type="text" value="{{system.hull}}" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.SPEED"}}</span>
+                            <input name="system.speed" type="number" value="{{source.speed}}" data-dtype="Number" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.MANOEUVRABILITY"}}</span>
+                            <input name="system.manoeuvrability" type="number" value="{{source.manoeuvrability}}" data-dtype="Number" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.DETECTION"}}</span>
+                            <input name="system.detection" type="number" value="{{source.detection}}" data-dtype="Number" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Целостность корпуса — единственная шкала корабля: она и есть
+                  его раны. Рядом стоят щиты, броня и турели: на бумаге они
+                  напечатаны там же и читаются одним взглядом. --}}
+            <div class="vital-strip">
+                <div class="vital vital-hull">
+                    <span class="vital-label">{{localize "SHIP.HULL_INTEGRITY"}}</span>
+                    <div class="vital-bar" role="img"
+                         aria-label="{{system.hullIntegrity.value}} / {{system.hullIntegrity.max}}">
+                        <div class="vital-fill" style="width: {{system.hullIntegrity.percent}}%"></div>
+                        <span class="vital-read">
+                            <input name="system.hullIntegrity.value" type="number" value="{{source.hullIntegrity.value}}" data-dtype="Number" />
+                            <span class="vital-sep">/</span>
+                            <input name="system.hullIntegrity.max" type="number" value="{{source.hullIntegrity.max}}" data-dtype="Number" />
+                        </span>
+                    </div>
+                </div>
+                <div class="vital vital-figure">
+                    <span class="vital-label">{{localize "SHIP.ARMOUR"}}</span>
+                    <input name="system.armour" type="number" value="{{source.armour}}" data-dtype="Number" />
+                </div>
+                <div class="vital vital-figure">
+                    <span class="vital-label">{{localize "SHIP.SHIELDS"}}</span>
+                    <input name="system.shields" type="number" value="{{source.shields}}" data-dtype="Number" />
+                </div>
+                <div class="vital vital-figure">
+                    <span class="vital-label">{{localize "SHIP.TURRET_RATING"}}</span>
+                    <input name="system.turretRating" type="number" value="{{source.turretRating}}" data-dtype="Number" />
+                </div>
+            </div>
+        </div>
+
+        <div class="sheet-tabs tabs flex row" data-group="primary">
+            <b class="item" data-tab="profile">{{localize "SHIP.TAB.PROFILE"}}</b>
+            <b class="item" data-tab="components">{{localize "SHIP.TAB.COMPONENTS"}}</b>
+            <b class="item" data-tab="weapons">{{localize "SHIP.TAB.WEAPONS"}}</b>
+            <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+            <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        </div>
+
+        <div class="sheet-body">
+            <div class="tab" data-group="primary" data-tab="profile">
+                {{> systems/dark-heresy/template/sheet/actor/tab/voidship-profile.hbs}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="components">
+                {{> systems/dark-heresy/template/sheet/actor/tab/voidship-components.hbs}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="weapons">
+                {{> systems/dark-heresy/template/sheet/actor/tab/voidship-weapons.hbs}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="effects">
+                {{> systems/dark-heresy/template/sheet/actor/tab/effects.hbs}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="notes">
+                <div class="ship-notes border">
+                    <h1 class="section-head"><span>{{localize "SHIP.COMPLICATIONS"}}</span></h1>
+                    {{editor enrichment.complications target="system.complications" button=true editable=editable engine="prosemirror"}}
+                </div>
+                {{#if owner}}
+                    <div class="ship-notes border">
+                        <h1 class="section-head"><span>{{localize "VEHICLE.GM_NOTES"}}</span></h1>
+                        {{editor enrichment.gmNotes target="system.gmNotes" button=true editable=editable engine="prosemirror"}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</form>

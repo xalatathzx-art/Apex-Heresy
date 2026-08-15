@@ -1,0 +1,112 @@
+<div class="flex wrap abilities">
+    <div class="talents border">
+        <h1>{{localize "TITLE.TALENTS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TALENT.NAME"}}</b>
+                <b class="benefit">{{localize "TALENT.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each items.talents as |item|}}                   
+                    <div class="talent ability-block" data-item-id="{{item.id}}">
+                        <input type="checkbox" class="ability-toggle" id="talent-notes-{{item.id}}">
+                        <div class="item ability-row flex row">
+                            <div class="toggle">
+                                <label for="talent-notes-{{item.id}}"><i class="fas fa-chevron-down"></i></label>
+                            </div>
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="ability-name">{{item.name}}</div>
+                            </div>
+                            <div class="benefit-short">{{stripHtml item.benefit}}</div>
+                            <div class="button">
+                                <a class="item-control item-chat" title="Post to Chat"><i class="fas fa-comment"></i></a>
+                                <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="ability-notes">
+                            {{{system.description}}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="traits border">
+        <h1>{{localize "TITLE.TRAITS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TRAIT.NAME"}}</b>
+                <b class="benefit">{{localize "TRAIT.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Trait" data-type="trait"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each items.traits as |item|}}                    
+                    <div class="trait ability-block" data-item-id="{{item.id}}">
+                        <input type="checkbox" class="ability-toggle" id="trait-notes-{{item.id}}">
+                        <div class="item ability-row flex row">
+                            <div class="toggle">
+                                <label for="trait-notes-{{item.id}}"><i class="fas fa-chevron-down"></i></label>
+                            </div>
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="ability-name">{{item.name}}</div>
+                            </div>
+                            <div class="benefit-short">{{stripHtml item.benefit}}</div>
+                            <div class="button">
+                                <a class="item-control item-chat" title="Post to Chat"><i class="fas fa-comment"></i></a>
+                                <a class="item-control item-delete" title="Delete Trait"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="ability-notes">
+                            {{{system.description}}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="special-abilities border">
+        <h1>{{localize "TITLE.SPECIAL_ABILITIES"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SPECIAL_ABILITY.NAME"}}</b>
+                <b class="benefit">{{localize "SPECIAL_ABILITY.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Special Abilities" data-type="specialAbility"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each items.specialAbilities as |item|}}                    
+                    <div class="special-ability ability-block" data-item-id="{{item.id}}">
+                        <input type="checkbox" class="ability-toggle" id="special-notes-{{item.id}}">
+                        <div class="item ability-row flex row">
+                            <div class="toggle">
+                                <label for="special-notes-{{item.id}}"><i class="fas fa-chevron-down"></i></label>
+                            </div>
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="ability-name">{{item.name}}</div>
+                            </div>
+                            <div class="benefit-short">{{stripHtml item.benefit}}</div>
+                            <div class="button">
+                                <a class="item-control item-chat" title="Post to Chat"><i class="fas fa-comment"></i></a>
+                                <a class="item-control item-delete" title="Delete Special Abilities"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="ability-notes">
+                            {{{system.description}}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

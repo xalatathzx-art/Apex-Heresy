@@ -1,0 +1,104 @@
+{{!-- Карточка урона. Все прежние данные на месте: локация каждого попадания,
+      итог, тип урона, пробивание, Righteous Fury, разбор применённого урона,
+      текущие раны и крит, скрытые броски кубов. Крючки damage-card,
+      roll-card-background, dice-rolls, manual-damage-undo не переименованы. --}}
+<div class="dark-heresy chat roll impmal-test damage-card" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{#if actorName}}{{actorName}} · {{/if}}{{itemName}}</span>
+            <span class="verdict">{{localize "CHAT.DAMAGE"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+
+            {{#if targets}}
+                <dl class="dh-kv" style="margin-bottom: var(--dh-space-3)">
+                    <dt>{{localize "CHAT.TARGET"}}</dt>
+                    <dd><a class="dh-chat-target" data-token-id="{{targets.[0].tokenId}}" data-scene-id="{{targets.[0].sceneId}}">{{targets.[0].name}}</a></dd>
+                </dl>
+            {{/if}}
+
+            {{#each damages as |damage|}}
+                <div class="dh-part{{#if @first}} first{{/if}}">
+                    <p class="dh-part-h" data-location="{{damage.location}}">
+                        <span>{{localize damage.location}}</span>
+                    </p>
+                    <div class="dh-figures{{#unless damage.righteousFury}} two{{/unless}}">
+                        <div class="dh-fig lead">
+                            <span class="n">{{damage.total}}</span>
+                            <span class="dh-cap">{{localize "CHAT.DAMAGE"}} {{damageTypeShort ../weapon.damageType}}</span>
+                        </div>
+                        <div class="dh-fig">
+                            <span class="n">{{damage.penetration}}</span>
+                            <span class="dh-cap">{{localize "CHAT.PENETRATION"}}</span>
+                        </div>
+                        {{#if damage.righteousFury}}
+                            <div class="dh-fig">
+                                <span class="n">{{damage.righteousFury}}</span>
+                                <span class="dh-cap">{{localize "CHAT.RIGHTEOUS_FURY"}}</span>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/each}}
+
+            {{#if appliedDetails}}
+                <details class="dh-fold applied-damage-section">
+                    <summary>{{localize "CHAT.APPLIED_DAMAGE"}}</summary>
+                    <div class="applied-damage-content">
+                        {{#each appliedDetails}}
+                            <div class="dh-line applied-damage-line">
+                                <span class="amount">{{damage}}</span>
+                                <span>{{damageTypeLong type}}</span>
+                                <span>{{localize "CHAT.AS"}} {{source}}</span>
+                                <span>({{localize location}})</span>
+                            </div>
+                        {{/each}}
+                    </div>
+                </details>
+            {{/if}}
+
+            {{#if applied}}
+                <div class="dh-applied">
+                    <span><span class="k">{{localize "WOUND.CURRENT"}}</span><span class="v">{{applied.wounds}}</span></span>
+                    <span><span class="k">{{localize "WOUND.CRITICAL_DAMAGE"}}</span><span class="v crit">{{applied.critical}}</span></span>
+                </div>
+
+                <div class="effect-buttons" style="display: none;">
+                    <button type="button" class="manual-damage-undo">{{localize "CHAT.MANUAL_DAMAGE"}}</button>
+                </div>
+            {{/if}}
+
+            {{!-- Орде считают не раны, а павших: сколько выкосило и что осталось. --}}
+            {{#if appliedHorde}}
+                <div class="dh-applied">
+                    <span><span class="k">{{localize "CHAT.HORDE_SLAIN"}}</span><span class="v crit">{{appliedHorde.kills}}</span></span>
+                    <span><span class="k">{{localize "CHAT.HORDE_MAGNITUDE"}}</span><span class="v">{{appliedHorde.after}}</span></span>
+                </div>
+
+                <div class="effect-buttons" style="display: none;">
+                    <button type="button" class="manual-damage-undo">{{localize "CHAT.MANUAL_DAMAGE"}}</button>
+                </div>
+            {{/if}}
+
+            {{!-- Раскрывается двойным щелчком по карточке, как и прежде. --}}
+            <div class="dice-rolls" style="display:none">
+                <h1>{{localize "CHAT.ROLL_TITLE"}}</h1>
+                {{#each damages as |damage|}}
+                    <p>{{localize "CHAT.DAMAGE_HEADER"}}</p>
+                    <div class="dice-roll-render">
+                        {{{damage.damageRender}}}
+                    </div>
+                    {{#if damage.accurateRender}}
+                        <p>{{localize "CHAT.ACCURATE_HEADER"}}</p>
+                        <div class="dice-roll-render">
+                            {{{damage.accurateRender}}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>

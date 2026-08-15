@@ -1,0 +1,52 @@
+{{!-- Подавление. Сохранено всё: порог, исход с броском, модификатор теста и
+      отдельно модификатор подавления, цель, степени успеха или провала и
+      сообщение о наложенном страхе. Обёртка .background.border оставлена —
+      на неё повешен показ кубов двойным щелчком. --}}
+<div class="dark-heresy chat roll">
+    <div class="background border dh-card {{#unless flags.isSuccess}}is-fail{{/unless}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize "SUPPRESSION.HEADER"}}</span>
+            <span class="verdict">
+                {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+            </span>
+        </div>
+
+        <div class="dh-card-b">
+
+            <div class="dh-figures two">
+                <div class="dh-fig">
+                    <span class="n">{{result}}</span>
+                    <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">{{target.final}}</span>
+                    <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                </div>
+            </div>
+
+            {{#if hasFear}}
+                <div class="dh-alarm"><span>{{localize "SUPPRESSION.FEAR_APPLIED"}}</span></div>
+            {{/if}}
+
+            <dl class="dh-kv">
+                <dt>{{localize "CHAT.TEST_MODIFIER"}}</dt>
+                <dd>{{target.modifier}}{{#if suppressionModifier}} ({{localize "SUPPRESSION.HEADER"}} {{signed suppressionModifier}}){{/if}}</dd>
+
+                {{#if targetName}}
+                    <dt>{{localize "CHAT.TARGET"}}</dt>
+                    <dd>{{targetName}}</dd>
+                {{/if}}
+
+                {{#if flags.isSuccess}}
+                    <dt>{{localize "CHAT.DOS"}}</dt>
+                    <dd>{{dos}}</dd>
+                {{else}}
+                    <dt>{{localize "CHAT.DOF"}}</dt>
+                    <dd>{{dof}}</dd>
+                {{/if}}
+            </dl>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+{{!-- Горение на ходу. Сохранено всё: урон от огня, наложенная усталость с новым
+      и предельным значением, тест силы воли с броском, степенями, целью, исходом
+      и сложностью. --}}
+<div class="dark-heresy chat roll impmal-test fire-effect" data-actor-id="{{ownerId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card {{#unless flags.isSuccess}}is-fail{{/unless}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize "CONDITION.FIRE"}} · {{localize "EFFECTS.ON_TURN"}}</span>
+            <span class="verdict">
+                {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+            </span>
+        </div>
+
+        <div class="dh-card-b">
+
+            {{!-- Что огонь уже сделал. --}}
+            <div class="dh-figures two">
+                <div class="dh-fig">
+                    <span class="n">{{damageAmount}}</span>
+                    <span class="dh-cap">{{localize "EFFECTS.FIRE_DAMAGE"}}</span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">+{{fatigueApplied}}</span>
+                    <span class="dh-cap">{{localize "EFFECTS.FIRE_FATIGUE"}} ({{newFatigue}}/{{maxFatigue}})</span>
+                </div>
+            </div>
+
+            {{!-- Тест силы воли: чтобы сбить пламя. --}}
+            <div class="dh-part">
+                <p class="dh-part-h"><span>{{localize "EFFECTS.FIRE_WILLPOWER_TEST"}}</span></p>
+                <div class="dh-figures">
+                    <div class="dh-fig">
+                        <span class="n">{{#if result}}{{result}}{{else}}—{{/if}}</span>
+                        <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                    </div>
+                    <div class="dh-fig lead">
+                        <span class="n">
+                            {{#if flags.isSuccess}}
+                                {{#if dos}}+{{dos}}{{else}}—{{/if}}
+                            {{else}}
+                                {{#if dof}}{{dof}}{{else}}—{{/if}}
+                            {{/if}}
+                        </span>
+                        <span class="dh-cap">
+                            {{#if flags.isSuccess}}{{localize "CHAT.DOS_SHORT"}}{{else}}{{localize "CHAT.DOF_SHORT"}}{{/if}}
+                        </span>
+                    </div>
+                    <div class="dh-fig">
+                        <span class="n">{{target.final}}</span>
+                        <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                    </div>
+                </div>
+
+                {{#if difficulty}}
+                    <div class="dh-chips">
+                        <span class="chip warn">{{difficulty.text}}</span>
+                    </div>
+                {{/if}}
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{{!-- Оружие корабля. На бланке это четыре строки с переключателем «макробатарея
+      или лэнс» и точкой расположения; здесь строк столько, сколько нужно, —
+      бумажный предел был бумажным, а не правилом. --}}
+<div class="all-ship-weapons border">
+    <h1 class="section-head">
+        <span>{{localize "SHIP.TAB.WEAPONS"}}</span>
+        <a class="button ship-weapon-create" title="{{localize "ITEM.ADD"}}"
+           aria-label="{{localize "ITEM.ADD"}}"><i class="fas fa-plus"></i></a>
+    </h1>
+
+    <div class="item-list ship-weapon-list">
+        <div class="flex header">
+            <b class="name">{{localize "WEAPON.NAME"}}</b>
+            <b class="type">{{localize "SHIP.WEAPON_TYPE_LABEL"}}</b>
+            <b class="location">{{localize "SHIP.LOCATION_LABEL"}}</b>
+            <b class="strength">{{localize "SHIP.STRENGTH"}}</b>
+            <b class="crit">{{localize "SHIP.CRIT_RATING"}}</b>
+            <b class="damage">{{localize "WEAPON.DAMAGE"}}</b>
+            <b class="range">{{localize "WEAPON.RANGE"}}</b>
+            <b class="controls"></b>
+        </div>
+        <div class="items">
+            {{#each weapons as |item|}}
+                <div class="ship-weapon item flex row" data-item-id="{{item.id}}">
+                    <div class="name item-edit">
+                        <b class="weapon-name">{{item.name}}</b>
+                    </div>
+                    <div class="type">{{localize (lookup ../config.weaponTypes item.system.weaponType)}}</div>
+                    <div class="location">{{localize (lookup ../config.locations item.system.location)}}</div>
+                    <div class="strength">{{item.system.strength}}</div>
+                    <div class="crit">{{item.system.critRating}}</div>
+                    <div class="damage">{{item.system.damage}}</div>
+                    <div class="range">{{item.system.range}}</div>
+                    <div class="controls">
+                        <a class="item-control item-edit" title="{{localize "VEHICLE.EDIT"}}"><i class="fas fa-pen"></i></a>
+                        <a class="item-control item-delete" title="{{localize "VEHICLE.REMOVE"}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            {{else}}
+                <p class="empty-hint">{{localize "SHIP.NO_WEAPONS"}}</p>
+            {{/each}}
+        </div>
+    </div>
+</div>

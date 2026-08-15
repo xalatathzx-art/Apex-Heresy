@@ -1,0 +1,36 @@
+# Foundry VTT lock files
+**/LOCK
+**/*.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Executable files
+*.exe
+Git-2.53.0-64-bit.exe
+
+# Компендиумы ездят вместе с системой: клонировал репозиторий — получил
+# и предметы. Служебные файлы LevelDB при этом не нужны: LOCK уже отсечён
+# выше, а LOG — это журнал движка, он у каждого свой и в истории только шумит.
+packs/**/LOG
+packs/**/LOG.old
+
+# PDF sources
+*.pdf
+# Playwright MCP session artifacts (screenshots, console logs, snapshots)
+.playwright-mcp/
+sheet-*.png

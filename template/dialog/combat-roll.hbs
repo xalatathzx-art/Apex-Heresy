@@ -1,0 +1,103 @@
+{{!-- Rows only: the window frame carries the name and the plate. The wide-auto and
+      suppression rows keep their class names and their inline display:none, because
+      the sheet code toggles them with jQuery show/hide. --}}
+<div class="dh-dialog">
+    {{#unless weapon.traits.skipAttackRoll}}
+        <div class="dh-dialog-row">
+            <label for="target">{{localize "DIALOG.TARGET"}}</label>
+            <input id="target" type="number" value="{{target.base}}" data-dtype="Number" />
+        </div>
+        <div class="dh-dialog-row">
+            <label for="modifier">{{localize "DIALOG.MODIFIER"}}</label>
+            <input id="modifier" type="text" value="{{target.modifier}}" />
+        </div>
+        <div class="dh-dialog-row">
+            <label for="aim">{{localize "DIALOG.AIM"}}</label>
+            <select id="aim">
+                {{selectOptions (config "aimModes") selected=aim localize=true}}
+            </select>
+        </div>
+        {{#if weapon.isMelee}}
+            <div class="dh-dialog-row">
+                <label for="attackType">{{localize "DIALOG.ATTACK_TYPE"}}</label>
+                <select id="attackType">
+                    {{selectOptions (config "attackTypeMelee") selected=attackType localize=true}}
+                </select>
+            </div>
+        {{/if}}
+        {{#if weapon.isRange}}
+            <div class="dh-dialog-row">
+                <label for="range">{{localize "DIALOG.RANGE"}}</label>
+                <select id="range">
+                    {{selectOptions (config "ranges") selected=rangeMod localize=true}}
+                </select>
+            </div>
+            <div class="dh-dialog-row">
+                <label for="attackType">{{localize "DIALOG.ATTACK_TYPE"}}</label>
+                <select id="attackType">
+                    {{selectOptions (config "attackTypeRanged") selected=attackType.name localize=true}}
+                </select>
+            </div>
+            <div class="dh-dialog-row wide-auto-wrapper" style="display:none;">
+                <label for="wideRofLength">{{localize "DIALOG.WIDE_ROF"}}</label>
+                <select id="wideRofLength">
+                    <option value="semi" {{#if (eq wideRofLength "semi")}}selected{{/if}}>{{localize "WIDE.SEMI"}}</option>
+                    <option value="full" {{#if (eq wideRofLength "full")}}selected{{/if}}>{{localize "WIDE.FULL"}}</option>
+                </select>
+            </div>
+            <div class="dh-dialog-row suppression-wrapper" style="display:none;">
+                <label for="suppressionLength">{{localize "DIALOG.SUPPRESSION_ROF"}}</label>
+                <select id="suppressionLength">
+                    <option value="semi" {{#if (eq suppressionLength "semi")}}selected{{/if}}>{{localize "SUPPRESSION.SEMI"}}</option>
+                    <option value="full" {{#if (eq suppressionLength "full")}}selected{{/if}}>{{localize "SUPPRESSION.FULL"}}</option>
+                </select>
+            </div>
+        {{/if}}
+        <div class="dh-dialog-rule"></div>
+    {{/unless}}
+
+    <div class="dh-dialog-row">
+        <label for="damageFormula">{{localize "DIALOG.DAMAGE"}}</label>
+        <input id="damageFormula" type="text" value="{{weapon.damageFormula}}" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="damageType">{{localize "DIALOG.TYPE"}}</label>
+        <select id="damageType">
+            {{selectOptions (config "damageTypes") selected=weapon.damageType localize=true}}
+        </select>
+    </div>
+    <div class="dh-dialog-row">
+        <label for="damageBonus">{{localize "DIALOG.BONUS"}}</label>
+        <input id="damageBonus" type="number" value="{{weapon.damageBonus}}" data-dtype="Number" />
+    </div>
+    <div class="dh-dialog-row">
+        <label for="penetration">{{localize "DIALOG.PENETRATION"}}</label>
+        <input id="penetration" type="text" value="{{weapon.penetrationFormula}}" />
+    </div>
+
+    {{!-- Максимальный режим — выбор стрелка перед выстрелом, а не свойство,
+          которое работает само: книга прямо требует решить до броска. --}}
+    {{#if weapon.traits.maximal}}
+        <div class="dh-dialog-row">
+            <label for="maximal">{{localize "WEAPON.MAXIMAL"}}</label>
+            <input id="maximal" type="checkbox" {{checked weapon.useMaximal}} />
+        </div>
+        <p class="dh-dialog-hint">{{localize "WEAPON.MAXIMAL_HINT"}}</p>
+    {{/if}}
+
+    {{#if weapon.isRange}}
+        {{!-- Clip and rate are facts about the weapon, not fields, so they read as a
+              caption over figures rather than the two-cell <table> that was here. --}}
+        <div class="dh-dialog-rule"></div>
+        <div class="dh-dialog-readout">
+            <span class="dh-dialog-fact">
+                <span class="dh-dialog-fact-label">{{localize "DIALOG.CLIP"}}</span>
+                <span class="dh-dialog-fact-value">{{weapon.clip.value}}</span>
+            </span>
+            <span class="dh-dialog-fact">
+                <span class="dh-dialog-fact-label">{{localize "WEAPON.RATE_OF_FIRE"}}</span>
+                <span class="dh-dialog-fact-value">1/{{#if weapon.rateOfFire.burst}}{{weapon.rateOfFire.burst}}{{else}}&ndash;{{/if}}/{{#if weapon.rateOfFire.full}}{{weapon.rateOfFire.full}}{{else}}&ndash;{{/if}}</span>
+            </span>
+        </div>
+    {{/if}}
+</div>

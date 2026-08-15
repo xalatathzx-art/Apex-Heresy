@@ -1,0 +1,173 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "PSYCHIC_POWER.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item active" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="scripts">{{localize "TAB.SCRIPTS"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab active" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.PREREQUISITE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.prerequisite" type="text" value="{{system.prerequisite}}" />
+                    </div>
+                </div>
+                {{!-- Психосилу приобретают как талант, и она так же добавляет
+                      принадлежность своему богу (Black Crusade, стр. 78). --}}
+                <div class="form-group">
+                    <label>{{localize "BIO.PATRON"}}</label>
+                    <div class="form-fields">
+                        <select name="system.patron">
+                            {{selectOptions (config "chaosPatrons") selected=system.patron localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.ACTION"}}</label>
+                    <div class="form-fields">
+                        <input name="system.action" type="text" value="{{system.action}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.SUBTYPE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.subtype" type="text" value="{{system.subtype}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.FOCUS_POWER"}}</label>
+                    <div class="form-fields">
+                        <input name="system.focusPower.difficulty" type="number" value="{{system.focusPower.difficulty}}" data-dtype="Number" />
+                        <input name="system.focusPower.test" type="text" value="{{system.focusPower.test}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "DIALOG.DIFFICULTY"}}</label>
+                    <div class="form-fields">
+                        <select name="system.difficulty">
+                            {{selectOptions (config "difficulties") selected=system.difficulty localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.RANGE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.range" type="text" value="{{system.range}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.SUSTAINED"}}</label>
+                    <div class="form-fields">
+                        <input name="system.sustained" type="text" value="{{system.sustained}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}</label>
+                    <div class="form-fields">
+                        <input name="system.damage.formula" type="text" value="{{system.damage.formula}}" />
+                        <select name="system.damage.type">
+                            {{selectOptions (config "damageTypes") selected=system.damage.type localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.PENETRATION"}}</label>
+                    <div class="form-fields">
+                        <input name="system.damage.penetration" type="text" value="{{system.damage.penetration}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.ZONE"}}</label>
+                    <div class="form-fields">
+                        <select name="system.damage.zone">
+                            {{selectOptions (config "attackTypePsy") selected=system.damage.zone localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.SPECIAL"}}</label>
+                    <div class="form-fields">
+                        <input name="system.damage.special" type="text" value="{{system.damage.special}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PSYCHIC_POWER.SHORT_DESCRIPTION"}}</label>
+                    <div class="form-fields">
+                        <input name="system.shortDescription" type="text" value="{{system.shortDescription}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "TALENT.COST"}}</label>
+                    <div class="form-fields">
+                        <input name="system.cost" type="number" value="{{system.cost}}" data-dtype="Number" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effect" style="display: none;">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.EFFECT"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.effect target="system.effect" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+        <div class="tab" data-group="primary" data-tab="scripts">
+            <div class="scripts-editor border">
+                <h1>{{localize "TITLE.SCRIPTS"}}</h1>
+                <div class="scripts-editor-body">
+                    <textarea name="system.scripts" class="scripts-textarea" placeholder="// Введите скрипты автоматизации здесь...">{{system.scripts}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    (function() {
+        setTimeout(function() {
+            const sheet = document.currentScript?.closest("form") || document;
+            const select = sheet.querySelector("select[name='system.difficulty']");
+            if (!select) return;
+            const formatSigned = value => {
+                const num = Number(value) || 0;
+                if (num > 0) return `+${num}`;
+                if (num < 0) return `${num}`;
+                return "0";
+            };
+            Array.from(select.options).forEach(option => {
+                const baseText = option.getAttribute("data-base-text") || option.text;
+                option.setAttribute("data-base-text", baseText);
+                option.text = `${baseText} (${formatSigned(option.value)})`;
+            });
+        }, 0);
+    })();
+</script>

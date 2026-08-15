@@ -1,0 +1,113 @@
+{{!-- Массовый урон: одна карточка, внутри по разделу на цель. Сохранено всё —
+      режим массового урона, ссылка на каждую цель, локации, итог, тип, пробивание,
+      Righteous Fury, разбор применённого, раны и крит по каждой цели, случай «урона
+      нет», кнопка отката и скрытые броски кубов. --}}
+<div class="dark-heresy chat roll impmal-test damage-card" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="roll-card-background dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{#if actorName}}{{actorName}} · {{/if}}{{localize "CHAT.MASS_DAMAGE_RESULTS"}}</span>
+            <span class="verdict">{{localize "CHAT.DAMAGE"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+
+            {{#if massDamageModeLabel}}
+                <dl class="dh-kv" style="margin-bottom: var(--dh-space-3)">
+                    <dt>{{localize "CHAT.DAMAGE_MODE"}}</dt>
+                    <dd>{{massDamageModeLabel}}</dd>
+                </dl>
+            {{/if}}
+
+            {{#each multiDamages as |entry|}}
+                <div class="dh-part{{#if @first}} first{{/if}}">
+                    <p class="dh-part-h">
+                        <span>{{localize "CHAT.TARGET"}}</span>
+                        <span class="aside"><a class="dh-chat-target" data-token-id="{{entry.target.tokenId}}" data-scene-id="{{entry.target.sceneId}}">{{entry.target.name}}</a></span>
+                    </p>
+
+                    {{#if entry.damages.length}}
+                        {{#each entry.damages as |damage|}}
+                            <p class="dh-part-h" data-location="{{damage.location}}" style="border:0;color:var(--dh-ink-faint)">
+                                <span>{{localize damage.location}}</span>
+                            </p>
+                            <div class="dh-figures{{#unless damage.righteousFury}} two{{/unless}}">
+                                <div class="dh-fig lead">
+                                    <span class="n">{{damage.total}}</span>
+                                    <span class="dh-cap">{{localize "CHAT.DAMAGE"}} {{damageTypeShort ../../weapon.damageType}}</span>
+                                </div>
+                                <div class="dh-fig">
+                                    <span class="n">{{damage.penetration}}</span>
+                                    <span class="dh-cap">{{localize "CHAT.PENETRATION"}}</span>
+                                </div>
+                                {{#if damage.righteousFury}}
+                                    <div class="dh-fig">
+                                        <span class="n">{{damage.righteousFury}}</span>
+                                        <span class="dh-cap">{{localize "CHAT.RIGHTEOUS_FURY"}}</span>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+
+                        {{#if entry.appliedDetails}}
+                            <details class="dh-fold applied-damage-section">
+                                <summary>{{localize "CHAT.APPLIED_DAMAGE"}}</summary>
+                                <div class="applied-damage-content">
+                                    {{#each entry.appliedDetails}}
+                                        <div class="dh-line applied-damage-line">
+                                            <span class="amount">{{damage}}</span>
+                                            <span>{{damageTypeLong type}}</span>
+                                            <span>{{localize "CHAT.AS"}} {{source}}</span>
+                                            <span>({{localize location}})</span>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </details>
+                        {{/if}}
+
+                        {{#if entry.applied}}
+                            <div class="dh-applied">
+                                <span><span class="k">{{localize "WOUND.CURRENT"}}</span><span class="v">{{entry.applied.wounds}}</span></span>
+                                <span><span class="k">{{localize "WOUND.CRITICAL_DAMAGE"}}</span><span class="v crit">{{entry.applied.critical}}</span></span>
+                            </div>
+                        {{/if}}
+
+                        {{#if entry.appliedHorde}}
+                            <div class="dh-applied">
+                                <span><span class="k">{{localize "CHAT.HORDE_SLAIN"}}</span><span class="v crit">{{entry.appliedHorde.kills}}</span></span>
+                                <span><span class="k">{{localize "CHAT.HORDE_MAGNITUDE"}}</span><span class="v">{{entry.appliedHorde.after}}</span></span>
+                            </div>
+                        {{/if}}
+                    {{else}}
+                        <div class="dh-alarm warn"><span>{{localize "CHAT.NO_DAMAGE"}}</span></div>
+                    {{/if}}
+                </div>
+            {{/each}}
+
+            {{#if canRevert}}
+                <div class="effect-buttons">
+                    <button type="button" class="manual-damage-undo">{{localize "CHAT.MANUAL_DAMAGE"}}</button>
+                </div>
+            {{/if}}
+
+            <div class="dice-rolls" style="display:none">
+                <h1>{{localize "CHAT.ROLL_TITLE"}}</h1>
+                {{#each multiDamages as |entry|}}
+                    {{#each entry.damages as |damage|}}
+                        <p>{{localize "CHAT.DAMAGE_HEADER"}}</p>
+                        <div class="dice-roll-render">
+                            {{{damage.damageRender}}}
+                        </div>
+                        {{#if damage.accurateRender}}
+                            <p>{{localize "CHAT.ACCURATE_HEADER"}}</p>
+                            <div class="dice-roll-render">
+                                {{{damage.accurateRender}}}
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>

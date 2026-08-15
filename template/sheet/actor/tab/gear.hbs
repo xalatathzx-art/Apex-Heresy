@@ -1,0 +1,89 @@
+<div class="flex wrap gear">
+    <div class="encumbrance border">
+        <h1>{{localize "TITLE.ENCUMBRANCE"}}</h1>
+        <div class="information">
+            <div class="current">
+                <label>{{localize "ENCUMBRANCE.CURRENT"}}</label>
+                <input type="number" value="{{system.encumbrance.value}}" data-dtype="Number" disabled />
+            </div>
+            <div class="max">
+                <label>{{localize "ENCUMBRANCE.MAX"}}</label>
+                <input type="number" value="{{system.encumbrance.max}}" data-dtype="Number" disabled />
+            </div>
+            {{!-- A load gauge: two figures say how much, the bar says how full. The
+                  reading sits inside the track so the figure and the fill it
+                  describes are one object, not two things to line up by eye. --}}
+            <div class="load-gauge{{#if (gt system.encumbrance.percent 100)}} is-over{{/if}}">
+                <div class="load-track" role="img"
+                     aria-label="{{system.encumbrance.value}} / {{system.encumbrance.max}}">
+                    <div class="load-fill" style="width: {{system.encumbrance.percent}}%"></div>
+                    <span class="load-read">{{system.encumbrance.percent}} %</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="all-gear border">
+        <h1>{{localize "TITLE.EQUIPMENT"}}</h1>
+        {{!-- One table, divided into sections by kind. The nine separate per-type tables
+              this replaced each brought their own header row and their own column widths,
+              so nothing lined up across them; here the columns are shared and a caption
+              marks each section. Kinds the character carries nothing of are left out. --}}
+        <div class="item-list gear-unified">
+            <div class="flex header">
+                <b class="marker"></b>
+                <b class="name">{{localize "GEAR.HEADER"}}</b>
+                <b class="summary">{{localize "ITEM.DESCRIPTION_COL"}}</b>
+                <b class="weight">{{localize "GEAR.WEIGHT"}}</b>
+                <b class="state"></b>
+                <a class="button gear-create" title="{{localize "ITEM.ADD"}}"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each items.gearGroups as |group|}}
+                    <p class="gear-group-title">
+                        <span>{{localize group.label}}</span>
+                        <a class="button item-create" data-type="{{group.type}}"
+                           title="{{localize "ITEM.ADD"}}"><i class="fas fa-plus"></i></a>
+                    </p>
+                    {{#each group.items as |item|}}
+                    <div class="gear-block{{#unless item.system.equipped}} unequipped{{/unless}}" data-item-id="{{item.id}}">
+                        {{#if item.system.description}}
+                            <input type="checkbox" class="gear-toggle" id="gear-notes-{{item.id}}">
+                        {{/if}}
+                        <div class="gear item flex row{{#unless item.system.equipped}} unequipped{{/unless}}" data-item-id="{{item.id}}" draggable="true">
+                            <div class="marker">
+                                {{#if item.isEquippable}}
+                                    <button class="toggle-equipped{{#if item.system.equipped}} equipped{{/if}}" type="button"
+                                            title="{{#if item.system.equipped}}{{localize "ITEM.UNEQUIP"}}{{else}}{{localize "ITEM.EQUIP"}}{{/if}}"
+                                            data-item-id="{{item.id}}">
+                                        <i class="fas fa-{{#if item.system.equipped}}square-check{{else}}square{{/if}}"></i>
+                                    </button>
+                                {{else}}
+                                    <span class="marker-static"><i class="fas fa-square"></i></span>
+                                {{/if}}
+                            </div>
+                            <div class="name item-edit">{{item.name}}</div>
+                            <div class="summary">{{item.gearSummary}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="state">
+                                <span class="dh-chip is-{{item.carryState.state}}">{{localize item.carryState.label}}</span>
+                            </div>
+                            <div class="button">
+                                {{#if item.system.description}}
+                                    <label class="item-control" for="gear-notes-{{item.id}}" title="{{localize "ITEM.DESCRIPTION_COL"}}"><i class="fas fa-chevron-down"></i></label>
+                                {{/if}}
+                                <a class="item-control item-chat" title="Post to Chat"><i class="fas fa-comment"></i></a>
+                                <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {{#if item.system.description}}
+                            <div class="gear-notes">
+                                {{{item.system.description}}}
+                            </div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
