@@ -1,0 +1,32 @@
+{{!-- Окно выбора особых качеств оружия. Список — ровно те качества, которые
+      система умеет применять; подсказка на каждом говорит, что именно она
+      сделает. Качества с числом получают своё поле рядом с галочкой. --}}
+<div class="dh-dialog dh-trait-picker">
+
+    <div class="dh-dialog-row">
+        <label for="traitFilter">{{localize "WEAPON.QUALITY_FILTER"}}</label>
+        <input id="traitFilter" class="dh-trait-filter" type="text" autocomplete="off" />
+    </div>
+
+    <div class="dh-trait-list">
+        {{#each traits}}
+            <div class="dh-trait-row" data-key="{{key}}">
+                <label class="dh-trait-name" data-tooltip="{{hint}}">
+                    <input type="checkbox" data-key="{{key}}" {{checked checked}} />
+                    <span>{{label}}</span>
+                </label>
+                {{#if hasValue}}
+                    <input class="dh-trait-value" type="text" value="{{value}}"
+                           data-tooltip="{{hint}}" {{#unless checked}}disabled{{/unless}} />
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+
+    {{#if unknown}}
+        {{!-- Чужие записи не выбрасываем: в поле могла быть рукописная строка,
+              которой система не знает, и потерять её при сохранении нельзя. --}}
+        <p class="dh-dialog-hint">{{localize "WEAPON.QUALITY_UNKNOWN"}} {{unknown}}</p>
+    {{/if}}
+
+</div>

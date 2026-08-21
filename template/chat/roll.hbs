@@ -68,6 +68,10 @@
                         {{#if attackType.text}}<span class="chip">{{attackType.text}} {{signed attackType.modifier}}</span>{{/if}}
                     {{/if}}
                     {{#if weapon.damageType}}<span class="chip">{{damageTypeLong weapon.damageType}}</span>{{/if}}
+                    {{!-- Режим ласа виден в карточке: за него платят зарядом, и
+                          стол должен знать, чем оплачен лишний урон. --}}
+                    {{#if (eq weapon.lasSetting "overcharge")}}<span class="chip warn">{{localize "WEAPON.LAS_SETTING_OVERCHARGE"}}</span>{{/if}}
+                    {{#if (eq weapon.lasSetting "maximal")}}<span class="chip warn">{{localize "WEAPON.LAS_SETTING_MAXIMAL"}}</span>{{/if}}
                     {{#if difficulty}}<span class="chip warn">{{difficulty.text}} {{signed difficulty.value}}</span>{{/if}}
                 </div>
             {{else}}
@@ -140,7 +144,7 @@
 
                 {{#if actorConditionModifier}}
                     <dt>{{localize "CHAT.ACTOR_CONDITION"}}</dt>
-                    <dd>{{localize "CONDITION.FEAR"}} ({{signed actorConditionModifier}})</dd>
+                    <dd>{{#if actorConditionSources}}{{actorConditionSources}}{{else}}{{signed actorConditionModifier}}{{/if}}</dd>
                 {{/if}}
 
                 {{#if targets}}

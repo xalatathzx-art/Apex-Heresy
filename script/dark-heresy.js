@@ -463,9 +463,10 @@ class DarkHeresyActor extends Actor {
         let i = 0;
         for (let characteristic of Object.values(this.characteristics)) {
             const tempModifier = Number(characteristic.tempModifier) || 0;
-            const baseTotal = characteristic.base + characteristic.advance;
-            const fatiguePenalty = (Number(this.fatigue.value) || 0) > 0 ? 10 : 0;
-            characteristic.total = Math.max(baseTotal - fatiguePenalty, 0);
+            // Усталость не режет характеристики: правило говорит про проверки.
+            // −10 за усталость навешивается в _getActorConditionModifier, поэтому
+            // стойкость, бонусы и всё производное остаются нетронутыми.
+            characteristic.total = Math.max(characteristic.base + characteristic.advance, 0);
             characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
             characteristic.displayTotal = characteristic.total + tempModifier;
             characteristic.displayBonus = Math.floor(characteristic.displayTotal / 10) + characteristic.unnatural;
@@ -2878,6 +2879,30 @@ function _shouldAutoApplyDamage(rollData) {
  * @returns {number} - Required ammo count
  */
 function _calculateRequiredAmmo(rollData) {
+    return _calculateBaseRequiredAmmo(rollData) * _getLasSettingAmmoMultiplier(rollData);
+}
+
+/**
+ * Кратность расхода заряда по режиму лазерного оружия (DH2, стр. 185):
+ * усиленный заряд тратит вдвое, перегрузка — вчетверо.
+ * @param {object} rollData
+ * @returns {number}
+ */
+function _getLasSettingAmmoMultiplier(rollData) {
+    if (!rollData.weapon?.traits?.lasSetting) return 1;
+    switch (rollData.weapon?.lasSetting) {
+        case "overcharge": return 2;
+        case "maximal": return 4;
+        default: return 1;
+    }
+}
+
+/**
+ * Расход выстрелов по типу атаки, без учёта режима лазерного оружия.
+ * @param {object} rollData
+ * @returns {number}
+ */
+function _calculateBaseRequiredAmmo(rollData) {
     const attackType = rollData.attackType?.name || "standard";
     const rateOfFire = rollData.weapon?.rateOfFire || {};
     
@@ -5274,6 +5299,25 @@ async function prepareCombatRoll(rollData, actorRef) {
                         // +1d10, пробитие +2, радиус Взрыва +2. Правки вносим
                         // прямо в формулы, потому что дальше их читают все —
                         // и бросок урона, и карточка в чате.
+                        // Смена режима лазерного оружия (DH2, стр. 185): усиленный
+                        // заряд — +1 к урону и двойной расход; перегрузка — +2 к
+                        // урону, +2 к пробитию, четверной расход, и оружие теряет
+                        // Надёжное, становясь Ненадёжным. Правки идут в формулы и
+                        // трейты, потому что дальше их читают и бросок урона, и
+                        // проверка заклинивания, и расчёт патронов.
+                        if (rollData.weapon.traits.lasSetting) {
+                            const setting = html.find("#lasSetting")[0]?.value || "standard";
+                            rollData.weapon.lasSetting = setting;
+                            if (setting === "overcharge") {
+                                rollData.weapon.damageFormula = `${rollData.weapon.damageFormula}+1`;
+                            } else if (setting === "maximal") {
+                                rollData.weapon.damageFormula = `${rollData.weapon.damageFormula}+2`;
+                                rollData.weapon.penetrationFormula = `${rollData.weapon.penetrationFormula || 0}+2`;
+                                rollData.weapon.traits.reliable = false;
+                                rollData.weapon.traits.unreliable = true;
+                            }
+                        }
+
                         rollData.weapon.useMaximal = !!html.find("#maximal")[0]?.checked;
                         if (rollData.weapon.useMaximal && rollData.weapon.traits.maximal) {
                             rollData.weapon.damageFormula = `${rollData.weapon.damageFormula}+1d10`;
@@ -6114,6 +6158,10 @@ class DarkHeresyUtil {
             range: !isMelee ? weaponItem.range : 0,
             damageFormula: damageFormula,
             penetrationFormula: forcePenetrationValue,
+            // Режим лазерного оружия выбирается перед каждым выстрелом заново:
+            // «по умолчанию обычный» — единственное безопасное состояние, иначе
+            // забытая перегрузка молча съест батарею.
+            lasSetting: "standard",
             traits: weaponTraits,
             // Строка свойств с учётом заряженного патрона: карточка в чате и
             // разбор трейтов должны видеть одно и то же.
@@ -6327,6 +6375,10 @@ class DarkHeresyUtil {
             scatter: this.hasNamedTrait(/Scatter|Разброс/gi, traits),
             // Максимальный режим — выбор стрелка перед выстрелом.
             maximal: this.hasNamedTrait(/Maximal|Максимальный/gi, traits),
+            // Смена режима лазерного оружия (DH2, стр. 185): усиленный заряд и
+            // перегрузка. Не путать с плазменным «Максимальным» выше — там свои
+            // числа. Лазсамострелы и хот-шот оружие свойство не получают.
+            lasSetting: this.hasNamedTrait(/Las Weapon Setting|Las Setting|Смена режима лазерного оружия|Смена режима/gi, traits),
             recharge: this.hasNamedTrait(/Recharge|Подзарядка/gi, traits),
             // Мельта удваивает пробитие накоротке (BC, стр. 151).
             melta: this.hasNamedTrait(/Melta(?!gun)|Мельта/gi, traits),
@@ -8815,6 +8867,213 @@ class VoidshipSheet extends DarkHeresySheet {
     }
 }
 
+/**
+ * Каталог особых качеств оружия — ровно то, что понимает
+ * extractWeaponTraits. Список нужен окну выбора у поля «Особые
+ * качества»: раньше строку набирали руками, и опечатка тихо выключала
+ * автоматику, не сказав об этом никому.
+ *
+ * name    — каноническая английская запись, которую разбирает система;
+ * value   — качество с числом в скобках ("number") или со свободным
+ *           значением ("text"), либо ничего, если скобок не бывает;
+ * aliases — как качество могли записать раньше, включая русские книги:
+ *           по ним окно узнаёт уже проставленные свойства.
+ */
+const DH_WEAPON_TRAITS = [
+    { key: "accurate", name: "Accurate", aliases: ["accurate", "точное"] },
+    { key: "balanced", name: "Balanced", aliases: ["balanced", "сбалансированное"] },
+    { key: "blast", name: "Blast", value: "number", default: 3, aliases: ["blast", "взрыв", "взрывное"] },
+    { key: "concussive", name: "Concussive", value: "number", default: 1, aliases: ["concussive", "оглушающее"] },
+    { key: "crippling", name: "Crippling", value: "text", default: "1", aliases: ["crippling", "калечащее"] },
+    { key: "defensive", name: "Defensive", aliases: ["defensive", "защитное"] },
+    { key: "devastating", name: "Devastating", value: "number", default: 1, aliases: ["devastating", "опустошительное"] },
+    { key: "felling", name: "Felling", value: "number", default: 1, aliases: ["felling", "валящее", "разящее"] },
+    { key: "flame", name: "Flame", aliases: ["flame", "пламя", "огненное", "зажигательное"] },
+    { key: "flexible", name: "Flexible", aliases: ["flexible", "гибкое"] },
+    { key: "force", name: "Force", aliases: ["force", "психосиловое", "психосиловой"] },
+    { key: "gyroStabilised", name: "Gyro-Stabilised", aliases: ["gyro-stabilised", "gyro-stabilized", "gyro stabilised", "гиростабилизированное"] },
+    { key: "hallucinogenic", name: "Hallucinogenic", value: "number", default: 1, aliases: ["hallucinogenic", "галлюциногенное"] },
+    { key: "haywire", name: "Haywire", value: "number", default: 1, aliases: ["haywire", "помехи", "эми"] },
+    { key: "inaccurate", name: "Inaccurate", aliases: ["inaccurate", "неточное"] },
+    { key: "lasSetting", name: "Las Weapon Setting", aliases: ["las weapon setting", "las setting", "смена режима лазерного оружия", "смена режима"] },
+    { key: "maximal", name: "Maximal", aliases: ["maximal", "максимальный", "максимальное"] },
+    { key: "melta", name: "Melta", aliases: ["melta", "мельта"] },
+    { key: "overheats", name: "Overheats", aliases: ["overheats", "overheat", "overheating", "перегревающееся"] },
+    { key: "powerField", name: "Power Field", aliases: ["power field", "силовое поле"] },
+    { key: "primitive", name: "Primitive", value: "number", default: 7, aliases: ["primitive", "примитивное"] },
+    { key: "proven", name: "Proven", value: "number", default: 3, aliases: ["proven", "проверенное"] },
+    { key: "razorSharp", name: "Razor Sharp", aliases: ["razor sharp", "razor-sharp", "бритвенно-острое", "бритвенной остроты", "острое как бритва"] },
+    { key: "recharge", name: "Recharge", aliases: ["recharge", "подзарядка"] },
+    { key: "reliable", name: "Reliable", aliases: ["reliable", "надёжное", "надежное"] },
+    { key: "sanctified", name: "Sanctified", aliases: ["sanctified", "освящённое", "освященное"] },
+    { key: "scatter", name: "Scatter", aliases: ["scatter", "разброс", "разлёт", "разлет"] },
+    { key: "shock", name: "Shock", aliases: ["shock", "шоковое"] },
+    { key: "smoke", name: "Smoke", value: "number", default: 5, aliases: ["smoke", "дым", "дымовое"] },
+    { key: "snare", name: "Snare", value: "number", default: 1, aliases: ["snare", "опутывающее", "обездвиживающее"] },
+    { key: "spray", name: "Spray", aliases: ["spray", "распыление", "распыляющее"] },
+    { key: "storm", name: "Storm", aliases: ["storm", "шторм", "штормовое"] },
+    { key: "tainted", name: "Tainted", aliases: ["tainted", "осквернённое", "оскверненное"] },
+    { key: "tearing", name: "Tearing", aliases: ["tearing", "разрывающее", "разрывное"] },
+    { key: "toxic", name: "Toxic", value: "number", default: 1, aliases: ["toxic", "токсичное"] },
+    { key: "twinLinked", name: "Twin-Linked", aliases: ["twin-linked", "twin linked", "twinlinked", "спаренные", "сдвоенное"] },
+    { key: "twinLinkedBonus", name: "Twin-Linked (+10)", aliases: ["twin-linked (+10)", "twin linked (+10)", "спаренные (+10)"] },
+    { key: "unbalanced", name: "Unbalanced", aliases: ["unbalanced", "несбалансированное"] },
+    { key: "unreliable", name: "Unreliable", aliases: ["unreliable", "ненадёжное", "ненадежное"] },
+    { key: "unwieldy", name: "Unwieldy", aliases: ["unwieldy", "громоздкое"] },
+    { key: "vengeful", name: "Vengeful", value: "number", default: 9, aliases: ["vengeful", "мстительное", "отмщающее"] },
+    { key: "warpWeapon", name: "Warp Weapon", aliases: ["warp weapon", "оружие варпа", "варп-оружие"] },
+];
+
+/**
+ * Разбить строку особых качеств на отдельные записи.
+ *
+ * Запятая внутри скобок не разделяет: «Blast (3), Toxic (1)» — это две записи,
+ * а не четыре.
+ *
+ * @param {string} text содержимое поля «Особые качества»
+ * @returns {string[]}
+ */
+function _splitSpecialEntries(text) {
+    const entries = [];
+    let depth = 0;
+    let current = "";
+    for (const ch of String(text ?? "")) {
+        if (ch === "(") depth++;
+        else if (ch === ")") depth = Math.max(depth - 1, 0);
+        if (ch === "," && depth === 0) {
+            entries.push(current);
+            current = "";
+            continue;
+        }
+        current += ch;
+    }
+    entries.push(current);
+    return entries.map(entry => entry.trim()).filter(Boolean);
+}
+
+/**
+ * Узнать качество в записи из поля.
+ *
+ * Сначала пробуем строку целиком — «Twin-Linked (+10)» это отдельная запись
+ * каталога, а не «Twin-Linked» со значением, — и лишь потом имя без скобок.
+ *
+ * @param {string} entry одна запись
+ * @returns {{trait: object|null, value: string|null, raw: string}}
+ */
+function _matchSpecialEntry(entry) {
+    const raw = entry.trim();
+    const value = /\(([^)]*)\)/.exec(raw)?.[1]?.trim() ?? null;
+    const whole = raw.replace(/\s+/g, " ").toLowerCase();
+    const base = raw.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+    const trait = DH_WEAPON_TRAITS.find(t => t.aliases.includes(whole))
+        || DH_WEAPON_TRAITS.find(t => t.aliases.includes(base));
+    return { trait: trait ?? null, value, raw };
+}
+
+/**
+ * Данные для окна выбора качеств.
+ * @param {string} special текущее содержимое поля
+ * @returns {{traits: object[], unknown: string}}
+ */
+function _buildTraitPickerData(special) {
+    const chosen = new Map();
+    const unknown = [];
+    for (const parsed of _splitSpecialEntries(special).map(_matchSpecialEntry)) {
+        if (parsed.trait) chosen.set(parsed.trait.key, parsed.value);
+        else unknown.push(parsed.raw);
+    }
+
+    const traits = DH_WEAPON_TRAITS.map(trait => ({
+        key: trait.key,
+        label: game.i18n.localize(`WEAPON.QUALITY.${trait.key}`),
+        hint: game.i18n.localize(`WEAPON.QUALITY_HINT.${trait.key}`),
+        hasValue: !!trait.value,
+        checked: chosen.has(trait.key),
+        value: chosen.get(trait.key) ?? (trait.default ?? "")
+    }));
+
+    return { traits, unknown: unknown.join(", ") };
+}
+
+/**
+ * Собрать строку поля обратно из окна.
+ *
+ * Неизвестные записи дописываются в конец: система их не понимает, но это не
+ * повод стереть чужой текст.
+ *
+ * @param {jQuery} html содержимое окна
+ * @param {string} unknown записи, которые каталог не опознал
+ * @returns {string}
+ */
+function _serialiseTraitPicker(html, unknown) {
+    const parts = [];
+    for (const row of html.find(".dh-trait-row")) {
+        const box = row.querySelector("input[type='checkbox']");
+        if (!box?.checked) continue;
+        const trait = DH_WEAPON_TRAITS.find(t => t.key === box.dataset.key);
+        if (!trait) continue;
+        const value = row.querySelector(".dh-trait-value")?.value?.trim() ?? "";
+        parts.push(trait.value && value ? `${trait.name} (${value})` : trait.name);
+    }
+    if (unknown) parts.push(unknown);
+    return parts.join(", ");
+}
+
+/**
+ * Открыть окно выбора особых качеств для предмета.
+ *
+ * Поле «Особые качества» — это то, из чего система вычитает всю автоматику
+ * оружия, но заполнялось оно свободным текстом: опечатка молча выключала
+ * свойство, и заметить это можно было только по неправильному броску.
+ *
+ * @param {Item} item оружие или машинное орудие
+ */
+async function openWeaponTraitPicker(item) {
+    if (!item) return;
+    const data = _buildTraitPickerData(item.system?.special);
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/dialog/weapon-traits.hbs", data);
+
+    const dialog = dhDialog({
+        title: game.i18n.localize("WEAPON.QUALITY_PICKER"),
+        content,
+        buttons: {
+            apply: {
+                icon: '<i class="fas fa-check"></i>',
+                label: game.i18n.localize("BUTTON.APPLY"),
+                callback: async html => {
+                    await item.update({ "system.special": _serialiseTraitPicker(html, data.unknown) });
+                }
+            },
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize("BUTTON.CANCEL")
+            }
+        },
+        default: "apply",
+        render: html => {
+            // Поле значения живёт вместе со своей галочкой: снятая галочка не
+            // должна оставлять на экране активное поле, которое никуда не идёт.
+            html.find(".dh-trait-row input[type='checkbox']").on("change", event => {
+                const row = event.currentTarget.closest(".dh-trait-row");
+                const field = row?.querySelector(".dh-trait-value");
+                if (field) field.disabled = !event.currentTarget.checked;
+            });
+
+            // Качеств больше сорока, поэтому строка отбора: она прячет ряды, но
+            // не трогает галочки — уже выбранное не теряется при фильтрации.
+            html.find(".dh-trait-filter").on("input", event => {
+                const needle = event.currentTarget.value.trim().toLowerCase();
+                for (const row of html.find(".dh-trait-row")) {
+                    const name = row.querySelector(".dh-trait-name span")?.textContent?.toLowerCase() ?? "";
+                    row.style.display = !needle || name.includes(needle) ? "" : "none";
+                }
+            });
+        }
+    }, { width: 560 });
+    dialog.render(true);
+}
+
 class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
     // Every subclass sets its own `classes` array, and mergeObject replaces arrays
     // rather than concatenating them, so there was no single hook to style all 19
@@ -8829,6 +9088,9 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
     activateListeners(html) {
         super.activateListeners(html);
         html.find("input").focusin(ev => this._onFocusIn(ev));
+
+        // Выбор особых качеств списком вместо ручного набора строки.
+        html.find(".trait-picker").click(() => openWeaponTraitPicker(this.item));
         
         // Effects listeners
         html.find(".list-create[data-type='effect']").click(ev => this._onEffectCreate(ev));
@@ -10545,7 +10807,8 @@ function chatListeners(html) {
         ".invoke-suppression": onSuppressionClick,
         ".dh-chat-target": onChatTargetClick,
         ".manual-damage-undo": onManualDamageUndoClick,
-        ".roll-willpower-test": onFireWillpowerTestClick
+        ".roll-willpower-test": onFireWillpowerTestClick,
+        ".roll-blood-loss": onBloodLossRollClick
     });
 
     _delegate(html, "dblclick", {
@@ -11793,21 +12056,18 @@ function onChatTargetClick(event) {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Бонус стойкости без штрафа за усталость.
+ * Бонус стойкости.
  *
- * _computeCharacteristics вычитает −10 из характеристики, пока усталость выше
- * нуля, и всё производное от неё уезжает вместе с ней. Для смертельного порога
- * нужна ровно телесная крепость, поэтому штраф здесь снимается обратно.
+ * Усталость на характеристики больше не влияет (штраф живёт на проверках), так
+ * что здесь достаточно обычного бонуса.
  *
  * @param {Actor} actor
  * @returns {number}
  */
-function _unfatiguedToughnessBonus(actor) {
-    const t = actor.characteristics?.toughness;
+function _toughnessBonus(actor) {
+    const t = actor?.characteristics?.toughness;
     if (!t) return 1;
-    const fatigued = (Number(actor.system.fatigue?.value) || 0) > 0;
-    const total = (Number(t.total) || 0) + (fatigued ? 10 : 0);
-    return Math.max(Math.floor(total / 10) + (Number(t.unnatural) || 0), 1);
+    return Math.max(Math.floor((Number(t.total) || 0) / 10) + (Number(t.unnatural) || 0), 1);
 }
 
 /**
@@ -11855,7 +12115,7 @@ async function applyCriticalRules(actor, damageTaken = []) {
     if (total <= 0) return null;
 
     const last = crits[crits.length - 1];
-    const tb = _unfatiguedToughnessBonus(actor);
+    const tb = _toughnessBonus(actor);
     const lethal = total >= tb * 2;
 
     if (lethal) await actor.addCondition("dead", { type: "major" });
@@ -13390,6 +13650,17 @@ Hooks.once("init", async function() {
         default: true,
         type: Boolean
     });
+    // Некоторые столы не хотят, чтобы автоматика бросала за игрока: тест силы
+    // воли против огня и бросок кровопотери — это их кости, и особенно
+    // кровопотеря, где шанс погибнуть невелик и цена броска высока.
+    game.settings.register("dark-heresy", "promptPlayerRolls", {
+        name: "Players roll condition tests",
+        hint: "Fire Willpower tests and Blood Loss rolls are handed to the character's owner as a button in chat instead of being rolled automatically.",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+    });
     game.settings.register("dark-heresy", "atmosphericEffects", {
         name: "Atmospheric Effects",
         hint: "Scanlines, flicker and background textures. Turn off for a calmer, faster sheet at the table.",
@@ -13418,6 +13689,11 @@ Hooks.once("ready", async function() {
     game.socket.on("system.dark-heresy", data => {
         if (data?.type === "autoDamage") {
             applyAutoDamageFromSocket(data.payload);
+        }
+        // Игрок бросил сам — кнопку с карточки снимает ведущий: обновить чужое
+        // сообщение может только он.
+        if (data?.type === "resolvePendingRoll" && game.users.activeGM === game.user) {
+            _clearPendingRollButtons(data.payload?.messageId);
         }
     });
     CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
@@ -13941,43 +14217,55 @@ function _getTargetSizeModifier(rollData) {
  */
 function _getActorConditionModifier(actor, rollData = null) {
     if (!actor) return 0;
-    
-    const tokens = actor.getActiveTokens(true);
-    if (!tokens.length) return 0;
-    
-    const token = tokens[0];
+
     let modifier = 0;
-    
+    // Из чего сложился штраф — карточка броска раньше подписывала его «Страх»
+    // вслепую, каким бы ни была причина.
+    const sources = [];
+    const note = (key, value) => {
+        modifier += value;
+        sources.push(`${game.i18n.localize(key)} (${value > 0 ? "+" : ""}${value})`);
+    };
+
+    // Усталость: пока она выше нуля, все проверки идут с −10 — включая
+    // владение оружием и меткость. Это штраф к броску, а не к характеристике,
+    // поэтому он считается здесь, а не в _computeCharacteristics.
+    if ((Number(actor.system?.fatigue?.value) || 0) > 0) {
+        note("CONDITION.FATIGUED", -10);
+    }
+
+    const tokens = actor.getActiveTokens(true);
+    const token = tokens[0];
+
     // Fear gives -10 to everything
-    if (_hasCondition(token, "fear")) {
-        modifier -= 10;
+    if (token && _hasCondition(token, "fear")) {
+        note("CONDITION.FEAR", -10);
     }
     
     const isMelee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
     const isRanged = !!rollData?.weapon && !isMelee;
 
     // Blinded gives -30 to melee attacks
-    if (_hasCondition(token, "blinded")) {
-        if (isMelee) {
-            modifier -= 30;
-        }
+    if (token && isMelee && _hasCondition(token, "blinded")) {
+        note("CONDITION.BLINDED", -30);
     }
 
     // Лежачий бьёт хуже: в ближнем бою −20, стрельбе лежа правила не мешают.
-    if (_hasCondition(token, "prone") && isMelee) {
-        modifier -= 20;
+    if (token && isMelee && _hasCondition(token, "prone")) {
+        note("CONDITION.PRONE", -20);
     }
 
     // Придавленный огнём не может целиться: −20 к стрельбе.
-    if (_hasCondition(token, "pinned") && isRanged) {
-        modifier -= 20;
+    if (token && isRanged && _hasCondition(token, "pinned")) {
+        note("CONDITION.PINNED", -20);
     }
 
     // Схваченный дотягивается только тем, что уже в руке, и с большим трудом.
-    if (_hasCondition(token, "grappled")) {
-        modifier -= 20;
+    if (token && _hasCondition(token, "grappled")) {
+        note("CONDITION.GRAPPLED", -20);
     }
 
+    if (rollData) rollData.actorConditionSources = sources.join(", ");
     return modifier;
 }
 
@@ -14074,13 +14362,117 @@ Hooks.on("preDeleteActiveEffect", (effect, options, userId) => {
 // This ensures it fires at the START of the player's turn, BEFORE the turn ends
 
 /**
+ * Отдать бросок игроку вместо автоматики?
+ *
+ * Настройка мира плюс наличие живого владельца: у чисто ведущих персонажей
+ * просить некого, там всё как раньше — бросает система.
+ *
+ * @param {Actor} actor
+ * @returns {boolean}
+ */
+function _shouldPromptPlayerRoll(actor) {
+    if (!actor?.hasPlayerOwner) return false;
+    try {
+        return !!game.settings.get("dark-heresy", "promptPlayerRolls");
+    } catch (err) {
+        return false;
+    }
+}
+
+/**
+ * Данные теста силы воли против горения — один источник для автоброска и для
+ * кнопки в чате, чтобы сложность и подпись не разъезжались.
+ * @param {Actor} actor
+ * @returns {object}
+ */
+function _createFireWillpowerRollData(actor) {
+    const rollData = DarkHeresyUtil.createCharacteristicRollData(actor, "willpower");
+    rollData.name = "CONDITION.FIRE_WILLPOWER_TEST";
+    rollData.flags = rollData.flags || {};
+    rollData.flags.isFireEffect = true;
+    // Серьёзная проверка = Challenging (+0)
+    rollData.difficulty = { value: 0, text: game.i18n.localize("DIFFICULTY.CHALLENGING") };
+    return rollData;
+}
+
+/**
+ * Снять кнопку с карточки состояния после того, как бросок сделан.
+ *
+ * Чужое сообщение правит только ведущий, поэтому игрок сюда не ходит напрямую:
+ * он шлёт событие в сокет, а вызов происходит уже на стороне ведущего.
+ *
+ * @param {string} messageId
+ */
+async function _clearPendingRollButtons(messageId) {
+    const message = game.messages.get(messageId);
+    if (!message) return;
+    const content = message.content.replace(/<div class="effect-buttons">[\s\S]*?<\/div>/g, "");
+    if (content !== message.content) await message.update({ content });
+}
+
+/**
+ * Пометить карточку как отработанную — из-под игрока через ведущего.
+ * @param {HTMLElement} button
+ */
+function _resolvePendingCard(button) {
+    const messageId = button?.closest?.("[data-message-id]")?.dataset?.messageId;
+    if (!messageId) return;
+    if (game.user.isGM) _clearPendingRollButtons(messageId);
+    else game.socket.emit("system.dark-heresy", { type: "resolvePendingRoll", payload: { messageId } });
+}
+
+/**
+ * Бросок кровопотери руками игрока: та же механика, что и в автоматике —
+ * d100, смерть на 90 и выше, — но кости кидает владелец персонажа.
+ * @param {Event} event
+ */
+async function onBloodLossRollClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = event.currentTarget;
+    const actorId = button.dataset.actorId;
+    const actor = game.actors.get(actorId);
+    if (!actor) return;
+
+    button.disabled = true;
+    _resolvePendingCard(button);
+
+    const deathRoll = new Roll("1d100");
+    await deathRoll.evaluate();
+    const rollResult = deathRoll.total;
+    const isDead = rollResult >= 90;
+
+    if (isDead) await actor.addCondition("dead", { type: "minor" });
+
+    const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/bleeding-effect.hbs", {
+        actorName: actor.name,
+        actorId: actor.id,
+        tokenId: button.dataset.tokenId,
+        rollResult,
+        isDead,
+        pendingRoll: false,
+        ownerId: actor.id
+    });
+
+    await ChatMessage.create({
+        content: html,
+        speaker: ChatMessage.getSpeaker({ actor }),
+        flags: { "dark-heresy": { type: "bleeding-effect", actorId: actor.id } }
+    });
+}
+
+/**
  * Apply On Fire effect: damage, fatigue, and willpower test
  */
 async function _applyFireEffect(actor, combatant) {
-    // Roll 1d10 damage (energy, ignores armor, to Body)
+    // Roll 1d10 damage (energy, to Body). Fire ignores armour, but NOT Toughness:
+    // the Toughness Bonus is still subtracted before anything reaches the wounds.
     const damageRoll = new Roll("1d10");
     await damageRoll.evaluate();
-    const damageAmount = damageRoll.total;
+    const rawDamage = damageRoll.total;
+    const toughnessBonus = _toughnessBonus(actor);
+    const damageAmount = Math.max(rawDamage - toughnessBonus, 0);
     
     // Apply 1 level of Fatigue
     const currentFatigue = Number(actor.fatigue.value) || 0;
@@ -14089,19 +14481,19 @@ async function _applyFireEffect(actor, combatant) {
     await actor.update({ "system.fatigue.value": newFatigue });
     
     // Create Willpower test roll data (серьёзная проверка, +0)
-    const willpowerRollData = DarkHeresyUtil.createCharacteristicRollData(actor, "willpower");
-    willpowerRollData.name = "CONDITION.FIRE_WILLPOWER_TEST";
-    willpowerRollData.flags = willpowerRollData.flags || {};
-    willpowerRollData.flags.isFireEffect = true;
-    willpowerRollData.difficulty = { value: 0, text: game.i18n.localize("DIFFICULTY.CHALLENGING") }; // Серьёзная проверка = Challenging (+0)
+    const willpowerRollData = _createFireWillpowerRollData(actor);
+
+    // Бросает либо автоматика, либо сам игрок — по настройке.
+    const pendingRoll = _shouldPromptPlayerRoll(actor);
+    if (!pendingRoll) {
+        // Roll willpower test immediately (no dialog)
+        await _computeCommonTarget(willpowerRollData);
+        await _rollTarget(willpowerRollData);
+        // _rollTarget already computes the result (isSuccess, dos, dof)
+    }
     
-    // Roll willpower test immediately (no dialog)
-    await _computeCommonTarget(willpowerRollData);
-    await _rollTarget(willpowerRollData);
-    // _rollTarget already computes the result (isSuccess, dos, dof)
-    
-    // Apply damage directly to wounds (energy, ignores armor, to Body)
-    // Fire damage bypasses armor completely
+    // Apply damage directly to wounds (energy, to Body).
+    // Fire bypasses armour only — Toughness was already deducted above.
     const currentWounds = Number(actor.wounds.value) || 0;
     const maxWounds = Number(actor.wounds.max) || 0;
     const currentCritical = Number(actor.wounds.critical) || 0;
@@ -14132,6 +14524,9 @@ async function _applyFireEffect(actor, combatant) {
         actorId: actor.id,
         tokenId: combatant?.token?.id,
         damageAmount: damageAmount,
+        rawDamage: rawDamage,
+        toughnessBonus: toughnessBonus,
+        pendingRoll: pendingRoll,
         fatigueApplied: 1,
         newFatigue: newFatigue,
         maxFatigue: maxFatigue,
@@ -14165,17 +14560,25 @@ async function _applyFireEffect(actor, combatant) {
  * Apply Bleeding effect: death chance roll
  */
 async function _applyBleedingEffect(actor, combatant) {
-    // Roll d100 for death chance (10% chance = 90 or higher)
-    const deathRoll = new Roll("1d100");
-    await deathRoll.evaluate();
-    const rollResult = deathRoll.total;
-    const isDead = rollResult >= 90;
-    
-    // If death roll succeeded, add "dead" condition
-    if (isDead) {
-        await actor.addCondition("dead", { type: "minor" });
+    // Бросок кровопотери может быть отдан игроку: шанс погибнуть невелик, и
+    // отнимать этот бросок у владельца персонажа стол обычно не хочет.
+    const pendingRoll = _shouldPromptPlayerRoll(actor);
+    let rollResult = null;
+    let isDead = false;
+
+    if (!pendingRoll) {
+        // Roll d100 for death chance (10% chance = 90 or higher)
+        const deathRoll = new Roll("1d100");
+        await deathRoll.evaluate();
+        rollResult = deathRoll.total;
+        isDead = rollResult >= 90;
+
+        // If death roll succeeded, add "dead" condition
+        if (isDead) {
+            await actor.addCondition("dead", { type: "minor" });
+        }
     }
-    
+
     // Create and send chat message with result
     const templateData = {
         actorName: actor.name,
@@ -14183,6 +14586,7 @@ async function _applyBleedingEffect(actor, combatant) {
         tokenId: combatant?.token?.id,
         rollResult: rollResult,
         isDead: isDead,
+        pendingRoll: pendingRoll,
         ownerId: actor.id
     };
     
@@ -14207,20 +14611,17 @@ async function onFireWillpowerTestClick(event) {
     event.preventDefault();
     event.stopPropagation();
     
-    const button = $(event.currentTarget);
-    const actorId = button.data("actor-id");
+    const button = event.currentTarget;
+    const actorId = button.dataset.actorId;
     if (!actorId) return;
-    
+
     const actor = game.actors.get(actorId);
     if (!actor) return;
-    
-    const willpowerRollData = DarkHeresyUtil.createCharacteristicRollData(actor, "willpower");
-    willpowerRollData.name = "CONDITION.FIRE_WILLPOWER_TEST";
-    willpowerRollData.flags = willpowerRollData.flags || {};
-    willpowerRollData.flags.isFireEffect = true;
-    willpowerRollData.difficulty = { value: 0, text: game.i18n.localize("DIFFICULTY.CHALLENGING") };
-    
-    await prepareCommonRoll(willpowerRollData);
+
+    button.disabled = true;
+    _resolvePendingCard(button);
+
+    await prepareCommonRoll(_createFireWillpowerRollData(actor));
 }
 
 /**
@@ -14236,6 +14637,13 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
         if (actor && !game.user.isGM && !actor.isOwner) {
             for (const button of html.querySelectorAll(".invoke-damage")) button.style.display = "none";
         }
+    }
+
+    // Кнопки «бросить самому» видит только владелец персонажа (и ведущий):
+    // карточка общая, а кости — чужие.
+    for (const button of html.querySelectorAll(".roll-willpower-test, .roll-blood-loss")) {
+        const actor = game.actors.get(button.dataset.actorId);
+        if (actor && !game.user.isGM && !actor.isOwner) button.style.display = "none";
     }
 
     // Show/hide revert button based on current user's permissions, not message creator's

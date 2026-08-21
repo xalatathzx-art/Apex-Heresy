@@ -12032,3 +12032,72 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
   color: var(--dh-ink-faint);
   opacity: 0.85;
 }
+
+/* ── Выбор особых качеств оружия ───────────────────────────────────────────
+   Поле «Особые качества» набирали строкой, и опечатка молча выключала
+   свойство. Кнопка рядом с полем открывает список того, что система умеет:
+   галочка ставит качество, подсказка говорит, что оно даёт. */
+.dh-item-sheet .form-fields .trait-picker {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  margin-left: var(--dh-space-2);
+  padding: 0;
+  line-height: 1;
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  border-radius: 0;
+  color: var(--dh-ink-faint);
+  cursor: pointer;
+  transition: border-color var(--dh-transition), color var(--dh-transition);
+}
+.dh-item-sheet .form-fields .trait-picker:hover {
+  border-color: var(--dh-accent);
+  color: var(--dh-ink);
+}
+/* Сорок с лишним качеств не помещаются на экран целиком, поэтому список
+   прокручивается сам, а окно остаётся прежнего размера. */
+.dh-dialog .dh-trait-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--dh-space-2) var(--dh-space-4);
+  max-height: 420px;
+  overflow-y: auto;
+  margin-top: var(--dh-space-3);
+  padding-right: var(--dh-space-2);
+}
+.dh-dialog .dh-trait-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56px;
+  align-items: center;
+  gap: var(--dh-space-2);
+}
+.dh-dialog .dh-trait-name {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  margin: 0;
+  font-size: var(--dh-text-sm);
+  color: var(--dh-ink);
+  cursor: help;
+}
+.dh-dialog .dh-trait-name input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin: 0;
+}
+.dh-dialog .dh-trait-value {
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  padding: 0 var(--dh-space-2);
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  border-radius: 0;
+  color: var(--dh-ink);
+}
+.dh-dialog .dh-trait-value:disabled {
+  opacity: 0.35;
+}

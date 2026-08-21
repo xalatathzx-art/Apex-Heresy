@@ -6,12 +6,25 @@
         <div class="dh-card-h">
             <span class="who">{{localize "CONDITION.BLEEDING"}} · {{localize "EFFECTS.ON_TURN"}}</span>
             <span class="verdict">
-                {{#if isDead}}{{localize "EFFECTS.YOU_DIED"}}{{else}}{{localize "CHAT.SUCCESS"}}{{/if}}
+                {{#if pendingRoll}}
+                    {{localize "EFFECTS.AWAITING_ROLL"}}
+                {{else}}
+                    {{#if isDead}}{{localize "EFFECTS.YOU_DIED"}}{{else}}{{localize "CHAT.SUCCESS"}}{{/if}}
+                {{/if}}
             </span>
         </div>
 
         <div class="dh-card-b">
 
+            {{#if pendingRoll}}
+                {{!-- Бросок отдан владельцу персонажа: кости его. --}}
+                <div class="effect-buttons">
+                    <button type="button" class="roll-blood-loss" data-actor-id="{{actorId}}"
+                            {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+                        {{localize "CHAT.ROLL_BLOOD_LOSS"}}
+                    </button>
+                </div>
+            {{else}}
             <div class="dh-figures two">
                 <div class="dh-fig{{#if isDead}} lead{{/if}}">
                     <span class="n">{{rollResult}}</span>
@@ -22,6 +35,7 @@
                     <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
                 </div>
             </div>
+            {{/if}}
 
             <dl class="dh-kv">
                 <dt class="empty"></dt>

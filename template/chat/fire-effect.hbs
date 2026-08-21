@@ -2,12 +2,16 @@
       и предельным значением, тест силы воли с броском, степенями, целью, исходом
       и сложностью. --}}
 <div class="dark-heresy chat roll impmal-test fire-effect" data-actor-id="{{ownerId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
-    <div class="roll-card-background dh-card {{#unless flags.isSuccess}}is-fail{{/unless}}">
+    <div class="roll-card-background dh-card {{#unless pendingRoll}}{{#unless flags.isSuccess}}is-fail{{/unless}}{{/unless}}">
 
         <div class="dh-card-h">
             <span class="who">{{localize "CONDITION.FIRE"}} · {{localize "EFFECTS.ON_TURN"}}</span>
             <span class="verdict">
-                {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+                {{#if pendingRoll}}
+                    {{localize "EFFECTS.AWAITING_ROLL"}}
+                {{else}}
+                    {{#if flags.isSuccess}}{{localize "CHAT.SUCCESS"}}{{else}}{{localize "CHAT.FAILURE"}}{{/if}}
+                {{/if}}
             </span>
         </div>
 
@@ -17,7 +21,7 @@
             <div class="dh-figures two">
                 <div class="dh-fig">
                     <span class="n">{{damageAmount}}</span>
-                    <span class="dh-cap">{{localize "EFFECTS.FIRE_DAMAGE"}}</span>
+                    <span class="dh-cap">{{localize "EFFECTS.FIRE_DAMAGE"}} ({{rawDamage}} − {{toughnessBonus}} {{localize "CHARACTERISTIC.TOUGHNESS_BONUS_SHORT"}})</span>
                 </div>
                 <div class="dh-fig">
                     <span class="n">+{{fatigueApplied}}</span>
@@ -28,6 +32,16 @@
             {{!-- Тест силы воли: чтобы сбить пламя. --}}
             <div class="dh-part">
                 <p class="dh-part-h"><span>{{localize "EFFECTS.FIRE_WILLPOWER_TEST"}}</span></p>
+
+                {{#if pendingRoll}}
+                    {{!-- Бросок отдан владельцу персонажа: кости его. --}}
+                    <div class="effect-buttons">
+                        <button type="button" class="roll-willpower-test" data-actor-id="{{actorId}}"
+                                {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+                            {{localize "CHAT.ROLL_WILLPOWER"}}
+                        </button>
+                    </div>
+                {{else}}
                 <div class="dh-figures">
                     <div class="dh-fig">
                         <span class="n">{{#if result}}{{result}}{{else}}—{{/if}}</span>
@@ -55,6 +69,7 @@
                     <div class="dh-chips">
                         <span class="chip warn">{{difficulty.text}}</span>
                     </div>
+                {{/if}}
                 {{/if}}
             </div>
 

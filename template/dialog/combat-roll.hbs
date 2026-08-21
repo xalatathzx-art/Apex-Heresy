@@ -75,6 +75,20 @@
         <input id="penetration" type="text" value="{{weapon.penetrationFormula}}" />
     </div>
 
+    {{!-- Смена режима лазерного оружия (DH2, стр. 185): стрелок решает до
+          выстрела, чем платить за лишний урон — зарядом батареи. --}}
+    {{#if weapon.traits.lasSetting}}
+        <div class="dh-dialog-row">
+            <label for="lasSetting">{{localize "WEAPON.LAS_SETTING"}}</label>
+            <select id="lasSetting">
+                <option value="standard" {{#if (eq weapon.lasSetting "standard")}}selected{{/if}}>{{localize "WEAPON.LAS_SETTING_STANDARD"}}</option>
+                <option value="overcharge" {{#if (eq weapon.lasSetting "overcharge")}}selected{{/if}}>{{localize "WEAPON.LAS_SETTING_OVERCHARGE"}}</option>
+                <option value="maximal" {{#if (eq weapon.lasSetting "maximal")}}selected{{/if}}>{{localize "WEAPON.LAS_SETTING_MAXIMAL"}}</option>
+            </select>
+        </div>
+        <p class="dh-dialog-hint">{{localize "WEAPON.LAS_SETTING_HINT"}}</p>
+    {{/if}}
+
     {{!-- Максимальный режим — выбор стрелка перед выстрелом, а не свойство,
           которое работает само: книга прямо требует решить до броска. --}}
     {{#if weapon.traits.maximal}}
