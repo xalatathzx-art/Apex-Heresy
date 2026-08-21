@@ -1040,7 +1040,6 @@
   "WEAPON.LAS_SETTING_STANDARD": "Standard",
   "WEAPON.LAS_SETTING_OVERCHARGE": "Overcharge (+1 Dmg, x2 ammo)",
   "WEAPON.LAS_SETTING_MAXIMAL": "Maximal (+2 Dmg, +2 Pen, x4 ammo)",
-  "WEAPON.LAS_SETTING_HINT": "Overcharge: +1 Damage, twice the ammo per shot. Maximal: +2 Damage, +2 Penetration, four times the ammo per shot, loses Reliable and gains Unreliable.",
   "WEAPON.MAXIMAL": "Maximal",
   "WEAPON.MAXIMAL_HINT": "+10 range, +1d10 Damage, +2 Penetration, Blast improved by +2.",
   "WEAPON.RECHARGE_WAIT": "{weapon} must spend this Round recharging and cannot be fired.",
