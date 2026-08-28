@@ -1102,5 +1102,6 @@
   "EFFECTS.FALLING_DISTANCE": "Metres",
   "EFFECTS.VACUUM_IGNORES": "Decompression and cold ignore both Armour and Toughness Bonus.",
   "EFFECTS.FALLING_LOCATION": "Hit location",
-  "ENVIRONMENT.TITLE": "Environment"
+  "ENVIRONMENT.TITLE": "Environment",
+  "WEAPON.WITH_MODS": "Value with installed modifications applied"
 }

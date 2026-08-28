@@ -12454,3 +12454,18 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
   white-space: nowrap;
   flex: 0 0 auto;
 }
+
+/* Итоговое значение ствола с установленными модами. Поле рядом правит базовый
+   профиль, поэтому посчитанное показываем отдельной меткой, а не в поле. */
+.dark-heresy.sheet.weapon .weapon-modded {
+  flex: 0 0 auto;
+  align-self: center;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-family: var(--dh-font-data);
+  font-size: 0.82em;
+  font-weight: 700;
+  color: var(--dh-brass);
+  border: 1px solid var(--dh-brass-dim);
+  white-space: nowrap;
+}

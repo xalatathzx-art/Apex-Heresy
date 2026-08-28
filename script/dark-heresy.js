@@ -3541,7 +3541,12 @@ async function _rollWeaponEffectTest(actor, characteristicKey, modifier, label) 
 
     const rollData = DarkHeresyUtil.createCommonNormalRollData(actor, characteristic);
     rollData.name = label;
-    rollData.target.modifier = modifier;
+    // Модификатор свойства — это и есть сложность проверки, и учесть его надо
+    // один раз. Раньше он клался и в target.modifier, и в difficulty.value, а
+    // _computeCommonTarget складывает оба поля: Токсичное (1) вместо Трудной
+    // (−10) уходило в −20, и так же удваивались Оглушающее, Опутывающее и
+    // Галлюциногенное.
+    rollData.target.modifier = 0;
     rollData.difficulty = {
         value: modifier,
         text: game.i18n.localize(Dh.difficulties[modifier] || "DIFFICULTY.CHALLENGING")
@@ -6229,8 +6234,15 @@ class DarkHeresyUtil {
 
         let rollData = this.createCommonAttackRollData(actor, power);
         rollData.target.base= focusPowerTarget.displayTotal ?? focusPowerTarget.total;
-        rollData.target.modifier= power.focusPower.difficulty;
-        const difficultyValue = Number(power.system?.difficulty) || 0;
+        // У психосилы два поля сложности: число в строке «Фокусировка» и список
+        // «Сложность». Раньше первое уходило в target.modifier, второе — в
+        // difficulty.value, а _computeCommonTarget складывает оба: у 25 сил в
+        // паках оба поля заполнены одним числом, и −30 превращалось в −60.
+        // Сложность учитываем один раз; список главнее, число — запасной путь
+        // для сил, где заполнено только оно.
+        const difficultyValue = Number(power.system?.difficulty)
+            || Number(power.focusPower?.difficulty) || 0;
+        rollData.target.modifier = 0;
         rollData.difficulty = {
             value: difficultyValue,
             text: game.i18n.localize(Dh.difficulties[difficultyValue] || "DIFFICULTY.CHALLENGING")
@@ -9370,7 +9382,34 @@ class WeaponSheet extends DarkHeresyItemSheet {
 
     async getData() {
         const data = await super.getData();
-        
+
+        // Поля листа привязаны к system.* по имени, а _applyWeaponModifications
+        // меняет system прямо на подготовленных данных. При закрытии Foundry
+        // отправляет форму — и в источник ложились уже изменённые значения.
+        // Следующий пересчёт прибавлял бонус поверх прибавленного: каждое
+        // открытие листа необратимо раздувало профиль ствола (1d10 → 1d10+2 →
+        // 1d10+2+2). Поэтому в форму отдаём исходный профиль, а посчитанный
+        // с модами показываем отдельно.
+        const source = this.item._source?.system;
+        const owner = this.item.actor;
+        const hasMods = !!owner && owner.items.some(i =>
+            i.type === "weaponModification" && i.system?.installed && i.system?.weaponId === this.item.id);
+        if (source && hasMods) {
+            data.modified = {
+                damage: data.system.damage,
+                penetration: data.system.penetration,
+                attack: data.system.attack,
+                range: data.system.range,
+                clipMax: data.system.clip?.max,
+                special: data.system.special
+            };
+            data.system = foundry.utils.deepClone(data.system);
+            for (const key of ["damage", "penetration", "attack", "range", "special", "availability"]) {
+                if (source[key] !== undefined) data.system[key] = source[key];
+            }
+            if (data.system.clip && source.clip?.max !== undefined) data.system.clip.max = source.clip.max;
+        }
+
         // Get ammunition items from actor's inventory for the select dropdown
         data.ammunitionOptions = [];
         const actor = this.item.actor || this.actor;
@@ -13768,6 +13807,10 @@ Hooks.once("init", async function() {
         // и высоту знает только стол. Поэтому оно открыто макросом:
         // game.darkHeresy.applyFallingDamage(actor, 12)
         applyFallingDamage: applyFallingDamage,
+        // Разовая починка стволов, раздутых багом листа модификаций до 1.3.1.
+        // Без аргументов — только отчёт: game.darkHeresy.repairModifiedWeapons()
+        // Починить: game.darkHeresy.repairModifiedWeapons({ apply: true })
+        repairModifiedWeapons: repairModifiedWeapons,
         // Проверка принадлежности обычно идёт сама, на очередных десяти очках
         // Порчи. Здесь она открыта макросам: МИ иногда правит Порчу задним
         // числом, и тогда сверку нужно позвать руками.
@@ -15106,6 +15149,127 @@ async function onPinningEscapeClick(event) {
  * @param {number} metres сколько метров пролетел
  * @returns {Promise<number>} сколько ран легло
  */
+/**
+ * Схлопнуть повторяющиеся прибавки в конце формулы.
+ *
+ * «1d10+2+2+2» с модом на +2 — это след порчи: одна прибавка законна, лишние
+ * набежали от открытий листа. Режем хвост до одной. Одиночное «1d10+2»
+ * не трогаем: отличить его от честно вписанного профиля данные не позволяют.
+ *
+ * @param {string} formula
+ * @param {number} bonus величина прибавки мода
+ * @returns {string}
+ */
+function _collapseRepeatedBonus(formula, bonus) {
+    if (!bonus) return formula;
+    const sign = bonus > 0 ? "+" : "-";
+    const piece = `${sign}${Math.abs(bonus)}`;
+    let text = String(formula ?? "");
+    // Хвост из двух и более одинаковых прибавок сжимаем в одну.
+    const tail = new RegExp(`(?:\\${sign}${Math.abs(bonus)}){2,}$`);
+    if (tail.test(text)) text = text.replace(tail, piece);
+    return text;
+}
+
+/**
+ * Починить стволы, раздутые прежним багом листа модификаций.
+ *
+ * До версии 1.3.1 лист оружия отдавал в форму уже посчитанный с модами профиль,
+ * и закрытие листа впечатывало его в источник. Каждое открытие прибавляло ещё
+ * одну копию бонуса.
+ *
+ * Чинится двумя путями. Если предмет помнит, откуда взят (`compendiumSource`),
+ * задетые поля возвращаются из оригинала — это точное восстановление. Если не
+ * помнит, схлопываются лишь заведомо лишние повторы в формулах урона и
+ * пробития. Числовые поля — меткость, дальность, обойма — так не чинятся:
+ * умноженную вдвое обойму от честной не отличить, поэтому они попадают в отчёт
+ * на ручной разбор.
+ *
+ * @param {object} [options]
+ * @param {boolean} [options.apply=false] false — только отчёт, ничего не менять
+ * @returns {Promise<object[]>} по записи на каждый затронутый ствол
+ */
+async function repairModifiedWeapons({ apply = false } = {}) {
+    const report = [];
+    for (const actor of game.actors) {
+        const mods = actor.items.filter(i =>
+            i.type === "weaponModification" && i.system?.installed && i.system?.weaponId);
+        if (!mods.length) continue;
+
+        const byWeapon = new Map();
+        for (const mod of mods) {
+            const list = byWeapon.get(mod.system.weaponId) || [];
+            list.push(mod);
+            byWeapon.set(mod.system.weaponId, list);
+        }
+
+        for (const [weaponId, installed] of byWeapon) {
+            const weapon = actor.items.get(weaponId);
+            if (!weapon || weapon.type !== "weapon") continue;
+            const src = weapon._source?.system || {};
+            const entry = { actor: actor.name, weapon: weapon.name, method: null, changes: {}, manual: [] };
+
+            const origin = weapon._stats?.compendiumSource || weapon.flags?.core?.sourceId;
+            let restored = null;
+            if (origin) {
+                try { restored = await fromUuid(origin); } catch (err) { restored = null; }
+            }
+
+            const update = {};
+            if (restored?.system) {
+                // Точное восстановление: профиль берём из оригинала.
+                entry.method = "compendium";
+                for (const key of ["damage", "penetration", "attack", "range", "special", "availability"]) {
+                    const was = src[key];
+                    const should = restored.system[key];
+                    if (should !== undefined && String(was) !== String(should)) {
+                        update[`system.${key}`] = should;
+                        entry.changes[key] = `${was} -> ${should}`;
+                    }
+                }
+                const clipWas = src.clip?.max;
+                const clipShould = restored.system.clip?.max;
+                if (clipShould !== undefined && Number(clipWas) !== Number(clipShould)) {
+                    update["system.clip.max"] = clipShould;
+                    entry.changes["clip.max"] = `${clipWas} -> ${clipShould}`;
+                }
+            } else {
+                // Приблизительная: только заведомо лишние повторы в формулах.
+                entry.method = "collapse";
+                for (const [field, bonusKey] of [["damage", "damageBonus"], ["penetration", "penetrationBonus"]]) {
+                    let text = String(src[field] ?? "");
+                    for (const mod of installed) {
+                        text = _collapseRepeatedBonus(text, Number(mod.system?.effect?.[bonusKey]) || 0);
+                    }
+                    if (text !== String(src[field] ?? "")) {
+                        update[`system.${field}`] = text;
+                        entry.changes[field] = `${src[field]} -> ${text}`;
+                    }
+                }
+                // Числовые поля правятся только глазами.
+                for (const mod of installed) {
+                    const eff = mod.system?.effect || {};
+                    if (Number(eff.attackBonus)) entry.manual.push("attack");
+                    if (Number(eff.rangeMultiplier) && Number(eff.rangeMultiplier) !== 1) entry.manual.push("range");
+                    if (Number(eff.clipMultiplier) && Number(eff.clipMultiplier) !== 1) entry.manual.push("clip.max");
+                }
+                entry.manual = [...new Set(entry.manual)];
+            }
+
+            if (!Object.keys(entry.changes).length && !entry.manual.length) continue;
+            if (apply && Object.keys(update).length) await weapon.update(update);
+            entry.applied = apply && !!Object.keys(update).length;
+            report.push(entry);
+        }
+    }
+    console.table(report.map(r => ({
+        actor: r.actor, weapon: r.weapon, method: r.method,
+        fixed: Object.keys(r.changes).join(", ") || "-",
+        manual: r.manual.join(", ") || "-", applied: !!r.applied
+    })));
+    return report;
+}
+
 async function applyFallingDamage(actor, metres) {
     if (!actor) return 0;
     const distance = Math.max(Number(metres) || 0, 0);
