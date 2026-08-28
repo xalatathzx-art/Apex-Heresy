@@ -89,16 +89,30 @@
                 {{> systems/dark-heresy/template/sheet/actor/tab/effects.hbs}}
             </div>
             <div class="tab" data-group="primary" data-tab="notes">
-                <div class="ship-notes border">
-                    <h1 class="section-head"><span>{{localize "SHIP.COMPLICATIONS"}}</span></h1>
-                    {{editor enrichment.complications target="system.complications" button=true editable=editable engine="prosemirror"}}
-                </div>
-                {{#if owner}}
-                    <div class="ship-notes border">
-                        <h1 class="section-head"><span>{{localize "VEHICLE.GM_NOTES"}}</span></h1>
-                        {{editor enrichment.gmNotes target="system.gmNotes" button=true editable=editable engine="prosemirror"}}
+                {{!-- Обычных заметок у корабля не было вовсе — только Осложнения и
+                      заметки ведущего. Плита и поле те же, что на листе персонажа. --}}
+                <div class="notes-tab notes-columns is-single">
+                    <div class="divination border">
+                        <h1>{{localize "TAB.NOTES"}}</h1>
+                        <div class="notes-editor-body">
+                            {{editor enrichment.notes target="system.notes" engine="prosemirror" button=true owner=owner editable=editable}}
+                        </div>
                     </div>
-                {{/if}}
+                    <div class="divination border">
+                        <h1>{{localize "SHIP.COMPLICATIONS"}}</h1>
+                        <div class="notes-editor-body">
+                            {{editor enrichment.complications target="system.complications" engine="prosemirror" button=true owner=owner editable=editable}}
+                        </div>
+                    </div>
+                    {{#if owner}}
+                        <div class="divination border">
+                            <h1>{{localize "VEHICLE.GM_NOTES"}}</h1>
+                            <div class="notes-editor-body">
+                                {{editor enrichment.gmNotes target="system.gmNotes" engine="prosemirror" button=true owner=owner editable=editable}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>

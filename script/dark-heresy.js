@@ -8920,6 +8920,7 @@ class VoidshipSheet extends DarkHeresySheet {
         const enrich = html => foundry.applications.ux.TextEditor.implementation
             .enrichHTML(html ?? "", { async: true, relativeTo: this.actor });
         data.enrichment = {
+            notes: await enrich(this.actor.system.notes),
             essentialComponents: await enrich(this.actor.system.essentialComponents),
             supplementalComponents: await enrich(this.actor.system.supplementalComponents),
             complications: await enrich(this.actor.system.complications),

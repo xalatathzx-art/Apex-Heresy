@@ -2,7 +2,7 @@
   "id": "dark-heresy",
   "title": "Apex Heresy",
   "description": "Unofficial Foundry VTT System for Dark Heresy 2nd Edition/Black Crusade/Only War",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "compatibility": {
     "minimum": "14",
     "verified": "14.365"
@@ -232,6 +232,6 @@
   "url": "https://github.com/xalatathzx-art/Apex-Heresy",
   "socket": true,
   "manifest": "https://raw.githubusercontent.com/xalatathzx-art/Apex-Heresy/main/system.json",
-  "download": "https://github.com/xalatathzx-art/Apex-Heresy/releases/download/v1.3.3/dark-heresy-v1.3.3.zip",
+  "download": "https://github.com/xalatathzx-art/Apex-Heresy/releases/download/v1.3.4/dark-heresy-v1.3.4.zip",
   "license": "LICENSE"
 }

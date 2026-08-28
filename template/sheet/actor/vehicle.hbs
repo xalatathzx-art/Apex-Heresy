@@ -103,16 +103,24 @@
                 {{> systems/dark-heresy/template/sheet/actor/tab/effects.hbs}}
             </div>
             <div class="tab" data-group="primary" data-tab="notes">
-                <div class="vehicle-notes border">
-                    <h1 class="section-head"><span>{{localize "TAB.NOTES"}}</span></h1>
-                    {{editor enrichment.notes target="system.notes" button=true editable=editable engine="prosemirror"}}
-                </div>
-                {{#if owner}}
-                    <div class="vehicle-notes border">
-                        <h1 class="section-head"><span>{{localize "VEHICLE.GM_NOTES"}}</span></h1>
-                        {{editor enrichment.gmNotes target="system.gmNotes" button=true editable=editable engine="prosemirror"}}
+                {{!-- Та же плита и то же поле, что на листе персонажа: своя обёртка
+                      давала узкую полосу, в которой не видно, что текст правится. --}}
+                <div class="notes-tab notes-columns is-single">
+                    <div class="divination border">
+                        <h1>{{localize "TAB.NOTES"}}</h1>
+                        <div class="notes-editor-body">
+                            {{editor enrichment.notes target="system.notes" engine="prosemirror" button=true owner=owner editable=editable}}
+                        </div>
                     </div>
-                {{/if}}
+                    {{#if owner}}
+                        <div class="divination border">
+                            <h1>{{localize "VEHICLE.GM_NOTES"}}</h1>
+                            <div class="notes-editor-body">
+                                {{editor enrichment.gmNotes target="system.gmNotes" engine="prosemirror" button=true owner=owner editable=editable}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>
