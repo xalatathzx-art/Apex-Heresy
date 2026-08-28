@@ -3376,6 +3376,13 @@ async function _computeCommonTarget(rollData) {
     
     rollData.actorConditionModifier = actorConditionMod;
     
+    // В захвате реакций нет вовсе, а уклонение — реакция (BC, стр. 236).
+    if (rollData.flags.isEvasion) {
+        const evader = game.actors.get(rollData.ownerId);
+        const evaderToken = evader?.getActiveTokens?.(true)?.[0];
+        if (evaderToken && _hasCondition(evaderToken, "grappled")) rollData.evasionBlocked = true;
+    }
+
     if (rollData.flags.isEvasion) {
         let skill;
         switch (rollData.evasions.selected) {
@@ -3405,6 +3412,8 @@ async function _computeCommonTarget(rollData) {
         // бросок гарантированно провалится и останется в чате как отметка,
         // что попытка была.
         if (rollData.parryBlocked) rollData.target.final = 0;
+        // Захват режет любую реакцию, не только парирование.
+        if (rollData.evasionBlocked) rollData.target.final = 0;
     } else {
         rollData.target.final = _getRollTarget(rollData.target.modifier + difficultyMod + actorConditionMod, rollData.target.base);
     }
@@ -3637,7 +3646,22 @@ async function _resolveOnHitWeaponEffects(actor, damages) {
 
     // Токсичное (X): штраф −10×X к Стойкости; провал — ещё 1d10 урона того же
     // типа, и его не снижают ни броня, ни стойкость.
-    if (damageDealt && Number.isInteger(traits.toxic)) {
+    //
+    // Момент проверки у игр разный. Black Crusade (стр. 153) требует её сразу
+    // по попаданию. Dark Heresy 2 (стр. 152) — в конце хода пострадавшего, если
+    // за прошедший раунд он получил урон от токсичного оружия. Поэтому у
+    // аколита попадание только помечает его «отравленным», а бросок делается
+    // на его ходу; состояние и есть та самая отметка.
+    if (damageDealt && Number.isInteger(traits.toxic)
+        && Dh.rulesetFor(actor).toxic.timing === "endOfTurn") {
+        await actor.setFlag("dark-heresy", "toxic", {
+            value: traits.toxic,
+            type: damages[0].type,
+            location: damages[0].location
+        });
+        if (!actor.hasCondition("poisond")) await actor.addCondition("poisond", { type: "minor" });
+        announcements.push(game.i18n.format("WEAPON.TRAIT.TOXIC_PENDING", { value: traits.toxic }));
+    } else if (damageDealt && Number.isInteger(traits.toxic)) {
         const test = await _rollWeaponEffectTest(actor, "toughness", -10 * traits.toxic,
             `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${traits.toxic})`);
         if (test && !test.success) {
@@ -12703,7 +12727,8 @@ Dh.rulesets = {
         psychic: { ratingBonus: "deviation", phenomena: "dh2", fetteredHalving: false },
         corruption: { track: "malignancy", malignancyEveryCp: 10, mutationEveryCp: 30 },
         insanity: { track: "points", traumaTest: true },
-        bloodLoss: { lethal: false, fatiguePerRound: 1, staunch: -10 }
+        bloodLoss: { lethal: false, fatiguePerRound: 1, staunch: -10 },
+        toxic: { timing: "endOfTurn" }
     },
     bc: {
         id: "bc",
@@ -12714,7 +12739,8 @@ Dh.rulesets = {
         // Еретик Black Crusade считается уже сошедшим с ума и очков безумия не
         // копит (стр. 279): вместо них он со временем набирает Расстройства.
         insanity: { track: "fixed", traumaTest: false },
-        bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30 }
+        bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30 },
+        toxic: { timing: "onHit" }
     }
 };
 
@@ -14178,6 +14204,12 @@ Hooks.once("ready", async function() {
                                 });
                             }
 
+                            if (actor.hasCondition("poisond")) {
+                                _applyToxicEffect(actor, newTurnCombatant).catch(err => {
+                                    console.error(`Error applying toxic effect:`, err);
+                                });
+                            }
+
                             if (actor.hasCondition("pinned")) {
                                 _offerPinningEscape(actor, newTurnCombatant).catch(err => {
                                     console.error(`Error offering pinning escape:`, err);
@@ -14474,6 +14506,12 @@ function _getTargetConditionModifier(rollData) {
         modifier += isMelee ? 10 : -10;
     }
 
+    // По схваченному Владением оружия бьют с +20: ему не до защиты
+    // (BC, стр. 236).
+    if (isMelee && _hasCondition(token, "grappled")) {
+        modifier += 20;
+    }
+
     return modifier;
 }
 
@@ -14526,6 +14564,15 @@ function _getTargetSizeModifier(rollData) {
  * @param {object} rollData - Optional: roll data to check attack type
  * @returns {number}
  */
+/**
+ * Навыки, в которых слух обычно решает. Обе книги оставляют перечень на
+ * усмотрение ведущего, поэтому это подсказка на карточке, а не автопровал.
+ */
+const DH_HEARING_SKILLS = [
+    "SKILL.AWARENESS", "SKILL.SCRUTINY", "SKILL.CHARM", "SKILL.COMMAND",
+    "SKILL.DECEIVE", "SKILL.INQUIRY", "SKILL.INTERROGATION", "SKILL.INTIMIDATE"
+];
+
 function _getActorConditionModifier(actor, rollData = null) {
     if (!actor) return 0;
 
@@ -14572,6 +14619,16 @@ function _getActorConditionModifier(actor, rollData = null) {
     const isMelee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
     const isRanged = !!rollData?.weapon && !isMelee;
 
+    // Глухота (BC, стр. 256; DH2, стр. 243): автопровал любой проверки, которая
+    // опирается на слух. Какие это проверки, обе книги оставляют на усмотрение
+    // ведущего, поэтому система не проваливает бросок молча, а помечает его —
+    // решение остаётся за столом.
+    // Навык опознаём по его метке: rollData.name у навыков — это ключ вида
+    // SKILL.AWARENESS, отдельного поля с именем навыка в броске нет.
+    if (token && _hasCondition(token, "deafened") && DH_HEARING_SKILLS.includes(rollData?.name)) {
+        rollData.deafenedWarning = true;
+    }
+
     // Слепота: −30 к Владению оружием и прочим проверкам, опирающимся на зрение.
     // Автопровал Меткости живёт не здесь — это не поправка, а блокировка броска.
     if (token && _hasCondition(token, "blinded")
@@ -14591,10 +14648,11 @@ function _getActorConditionModifier(actor, rollData = null) {
         note("CONDITION.PINNED", -20);
     }
 
-    // Схваченный дотягивается только тем, что уже в руке, и с большим трудом.
-    if (token && _hasCondition(token, "grappled")) {
-        note("CONDITION.GRAPPLED", -20);
-    }
+    // Захват (BC, стр. 236; DH2, стр. 221). Штрафа к броскам самого схваченного
+    // правила не дают — раньше здесь стояли выдуманные −20. Что даёт захват:
+    // участники не могут пользоваться реакциями, а бьют по ним легче. Реакция
+    // блокируется ниже, в подготовке уклонения; бонус атакующему — в поправках
+    // за состояние цели.
 
     if (rollData) rollData.actorConditionSources = sources.join(", ");
     return modifier;
@@ -15001,6 +15059,45 @@ async function _postConditionCard(actor, combatant, titleKey, { figures = [], no
  * @param {Actor} actor
  * @param {object} combatant
  */
+/**
+ * Разрешить отложенное Токсичное (Dark Heresy 2, стр. 152).
+ *
+ * Правило говорит «в конце хода»; система разбирает это в начале следующего
+ * хода отравленного — раньше в нашей раскладке ходов зацепиться не за что.
+ * Разница в один промежуток между ходами, зато проверка не теряется.
+ *
+ * @param {Actor} actor
+ * @param {object} combatant
+ */
+async function _applyToxicEffect(actor, combatant) {
+    const pending = actor.getFlag("dark-heresy", "toxic");
+    const value = Number(pending?.value) || 0;
+    // Отметка без данных — состояние навесили руками; тогда разбирает стол.
+    if (!value) {
+        await _postConditionCard(actor, combatant, "CONDITION.POISONED", {
+            notes: [game.i18n.localize("WEAPON.TRAIT.TOXIC_MANUAL")]
+        });
+        return;
+    }
+
+    const test = await _rollWeaponEffectTest(actor, "toughness", -10 * value,
+        `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${value})`);
+    let taken = 0;
+    if (test && !test.success) {
+        const extra = new Roll("1d10");
+        await extra.evaluate();
+        // Ни броня, ни стойкость этот урон не снижают.
+        taken = await _applyDirectDamage(actor, extra.total, true);
+    }
+    await actor.unsetFlag("dark-heresy", "toxic");
+    if (actor.hasCondition("poisond")) await actor.removeCondition("poisond");
+
+    await _postConditionCard(actor, combatant, "CONDITION.POISONED", {
+        figures: [{ n: taken, cap: game.i18n.localize("CHAT.DAMAGE"), lead: taken > 0 }],
+        notes: [game.i18n.localize("WEAPON.TRAIT.TOXIC_RESOLVED")]
+    });
+}
+
 async function _applySuffocationEffect(actor, combatant) {
     const tb = _toughnessBonus(actor);
     const held = (Number(actor.getFlag("dark-heresy", "suffocationRounds")) || 0) + 1;
