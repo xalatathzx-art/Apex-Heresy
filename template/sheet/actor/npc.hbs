@@ -4,8 +4,21 @@
             {{!-- Same identity block as the acolyte sheet: portrait, name, four fields.
                   Only the four fields differ, being faction rather than origin. --}}
             <div class="identity">
+                <div class="npc-portrait-col">
                 <div class="avatar-wrapper">
                     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" alt="" />
+                </div>
+                {{!-- Игра, по которой считается этот НИП: тип листа у игроков решает
+                      сам за себя, а НИП бывает и из той книги, и из другой. Пусто —
+                      как задано в настройках мира. Лежит под портретом. --}}
+                <label class="npc-ruleset" title="{{localize "RULESET.NPC_HINT"}}">
+                    <span>{{localize "RULESET.LABEL"}}</span>
+                    <select name="system.ruleset">
+                        <option value="" {{#unless system.ruleset}}selected{{/unless}}>{{localize "RULESET.WORLD"}}</option>
+                        <option value="dh2" {{#if (eq system.ruleset "dh2")}}selected{{/if}}>DH2</option>
+                        <option value="bc" {{#if (eq system.ruleset "bc")}}selected{{/if}}>BC</option>
+                    </select>
+                </label>
                 </div>
                 <div class="identity-fields">
                     <input class="actor-name" name="name" type="text" value="{{actor.name}}"
@@ -33,6 +46,7 @@
                         </label>
                     </div>
                 </div>
+
             </div>
 
             <div class="vital-strip">

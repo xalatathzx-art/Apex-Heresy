@@ -1107,5 +1107,8 @@
   "WEAPON.TRAIT.TOXIC_PENDING": "Toxic ({value}): the Toughness test comes at the start of the target's next turn.",
   "WEAPON.TRAIT.TOXIC_RESOLVED": "Toxic resolved. Damage from the toxin ignores both Armour and Toughness Bonus.",
   "WEAPON.TRAIT.TOXIC_MANUAL": "Poisoned was applied by hand, so there is no toxin strength on record - resolve it at the table.",
-  "CONDITION.DEAFENED_WARNING": "Deafened: this test automatically fails if it relies on hearing."
+  "CONDITION.DEAFENED_WARNING": "Deafened: this test automatically fails if it relies on hearing.",
+  "RULESET.LABEL": "Rules",
+  "RULESET.WORLD": "World default",
+  "RULESET.NPC_HINT": "Which game's rules this NPC follows. Leave on world default unless the campaign mixes both."
 }

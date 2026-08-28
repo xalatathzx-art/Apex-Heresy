@@ -12469,3 +12469,43 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
   border: 1px solid var(--dh-brass-dim);
   white-space: nowrap;
 }
+
+/* Выбор игры на листе НИП — под портретом. Блок .identity двухколоночный
+   (96px под портрет и остальное под поля), поэтому третий ребёнок сам уходит
+   в следующий ряд первой колонки. Ширину держим по портрету. */
+/* Колонка портрета: сам портрет и под ним выбор игры, вплотную. Раньше
+   селектор был третьим ребёнком сетки и уезжал во второй ряд, а его высоту
+   задавали поля справа — отсюда провал почти в сто пикселей. */
+.dark-heresy.sheet .npc .npc-portrait-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 96px;
+}
+.dark-heresy.sheet .npc .npc-ruleset {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 96px;
+  margin: 0;
+}
+.dark-heresy.sheet .npc .npc-ruleset > span {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: 9px;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.sheet .npc .npc-ruleset select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 20px;
+  padding: 0 4px;
+  font-size: 10px;
+  background: var(--dh-field);
+  color: var(--dh-ink-muted);
+  border: 1px solid var(--dh-line);
+  border-radius: 0;
+}
+.dark-heresy.sheet .npc .npc-ruleset select:hover { color: var(--dh-ink); border-color: var(--dh-brass-dim); }

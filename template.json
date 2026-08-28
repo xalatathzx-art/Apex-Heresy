@@ -1296,7 +1296,8 @@
         "charge": 0,
         "run": 0
       },
-      "notes": ""
+      "notes": "",
+      "ruleset": ""
     },
     "vehicle": {
       "vehicleType": "wheeled",

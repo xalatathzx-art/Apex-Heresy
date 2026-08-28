@@ -12757,6 +12757,11 @@ Dh.rulesets = {
 Dh.rulesetFor = function(actor) {
     if (actor?.type === "heretic") return Dh.rulesets.bc;
     if (actor?.type === "acolyte") return Dh.rulesets.dh2;
+    // У НИП своей игры нет, но в смешанной кампании один и тот же тип листа
+    // держит и еретика Black Crusade, и тварь из Dark Heresy. Поэтому лист
+    // может назвать игру сам; пустое значение означает «как в мире».
+    const own = actor?.system?.ruleset;
+    if (own && Dh.rulesets[own]) return Dh.rulesets[own];
     let world = "dh2";
     try {
         world = game.settings.get("dark-heresy", "ruleset") || "dh2";
