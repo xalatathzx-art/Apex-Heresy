@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Rending - Body",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 420,
+  "description": "Dark Heresy 2nd Edition, Table 7-20 (p. 240). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "If the target wears no armour on this location, 1 level of Fatigue. If armoured, no effect." },
+    { "range": [2, 2], "text": "1 level of Fatigue. Challenging (+0) Toughness test or Stunned for 1 round." },
+    { "range": [3, 3], "text": "Stunned for 1 round. Challenging (+0) Toughness test or suffer Blood Loss." },
+    { "range": [4, 4], "text": "Stunned for 1 round and Blood Loss." },
+    { "range": [5, 5], "text": "Blood Loss and [[1d10]] Toughness damage. Anyone moving through the pool of blood must pass a Challenging (+0) Agility test or fall Prone." },
+    { "range": [6, 6], "text": "Knocked Prone, Blood Loss and [[1d10]] Toughness damage." },
+    { "range": [7, 7], "text": "Blood Loss. Toughness permanently reduced by [[1d5]]. Until medical attention, at the end of each round in which he acted rather than holding the wound closed, roll [[1d10]]: on a 1 or 2 he takes a further [[2d10]] Rending damage." },
+    { "range": [8, 8], "text": "Challenging (+0) Toughness test or die. On a success: Stunned for 1 round and Blood Loss. Toughness permanently reduced by [[1d10]]." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. For the rest of the fight, anyone moving within 4 metres of the corpse must pass a Challenging (+0) Agility test or fall Prone." }
+  ]
+}

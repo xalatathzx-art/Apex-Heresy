@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Rending - Leg",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 440,
+  "description": "Dark Heresy 2nd Edition, Table 7-22 (p. 241). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "1 level of Fatigue." },
+    { "range": [2, 2], "text": "Challenging (+0) Agility test or fall Prone and suffer Blood Loss." },
+    { "range": [3, 3], "text": "Blood Loss and [[1d5]] Agility damage." },
+    { "range": [4, 4], "text": "Knocked Prone and [[1d10]] Agility damage. Movement halved (rounding up) until medical attention." },
+    { "range": [5, 5], "text": "Blood Loss. Challenging (+0) Toughness test; on a failure, Agility permanently reduced by 1." },
+    { "range": [6, 6], "text": "Blood Loss. Challenging (+0) Toughness test: on a success Movement is halved (rounding up) until medical attention, on a failure he gains the Lost Foot condition." },
+    { "range": [7, 7], "text": "Stunned for 1 round, knocked Prone and Blood Loss. The leg is Useless until medical attention." },
+    { "range": [8, 8], "text": "Immediate Challenging (+0) Toughness test or die from shock. On a success: Stunned for [[1d10]] rounds and Blood Loss. Gains the Lost Leg condition." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. For the rest of the encounter, anyone making a Run or Charge action within 6 metres of the corpse must pass a Challenging (+0) Agility test or be knocked Prone." }
+  ]
+}

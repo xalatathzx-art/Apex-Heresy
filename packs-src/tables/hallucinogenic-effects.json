@@ -1,0 +1,19 @@
+{
+  "name": "Hallucinogenic Effects",
+  "folder": "Armoury",
+  "formula": "1d10",
+  "sort": 90,
+  "description": "Black Crusade, Table 5-1 (p. 151). Rolled when a target fails the Toughness Test against a Hallucinogenic weapon; a respirator or sealed armour grants +20 to that test. Effects last 1 round, plus 1 more per Degree of Failure. Note: the quality's text says to roll 1d100, but the table itself is numbered 1-9 and 0, so it is rolled on 1d10. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Bugs", "range": [1, 1], "text": "The character is Stunned for the duration." },
+    { "name": "My hands", "range": [2, 2], "text": "The character drops everything he carries and is Stunned for the duration." },
+    { "name": "Coming through the walls", "range": [3, 3], "text": "Each turn the character fires at a random piece of terrain in line of sight; use the scatter diagram to pick it, with 7 meaning the ground and 0 meaning wildly into the air. Anyone caught in the line of fire is attacked as normal." },
+    { "name": "Nobody can see me", "range": [4, 4], "text": "Each round the character spends a Full Action wandering in a random direction (scatter diagram). He keeps his Reactions." },
+    { "name": "I can fly", "range": [5, 5], "text": "The character may do nothing but jump on the spot. If above ground level, he may throw himself off in a random direction and take Falling Damage." },
+    { "name": "They've got it in for me", "range": [6, 6], "text": "On his turn the character must move to cover, out of line of sight of all other characters, and stays hidden until the effect ends." },
+    { "name": "They got me", "range": [7, 7], "text": "The character collapses and counts as helpless. Any character who sees him fall must pass an Intelligence Test or believe him dead." },
+    { "name": "I'll take you all on", "range": [8, 8], "text": "The character enters a Frenzy and attacks the closest opponent." },
+    { "name": "I'm only little", "range": [9, 9], "text": "All other characters count as having Fear (3) against the character." },
+    { "name": "The worms", "range": [10, 10], "text": "The character attacks his own randomly determined leg with a held weapon, drawing one at random if unarmed. The attack hits automatically and deals normal Damage." }
+  ]
+}

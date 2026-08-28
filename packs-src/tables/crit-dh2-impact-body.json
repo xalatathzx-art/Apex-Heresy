@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Impact - Body",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 320,
+  "description": "Dark Heresy 2nd Edition, Table 7-16 (p. 238). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "Half Action only on the next turn." },
+    { "range": [2, 2], "text": "1 level of Fatigue and knocked Prone." },
+    { "range": [3, 3], "text": "Stunned for 1 round and knocked Prone." },
+    { "range": [4, 4], "text": "[[1d10]] Toughness damage. Challenging (+0) Agility test or knocked Prone." },
+    { "range": [5, 5], "text": "Stunned for 2 rounds. Challenging (+0) Toughness test or suffer [[1d5]] levels of Fatigue." },
+    { "range": [6, 6], "text": "[[1d5]] levels of Fatigue, flung [[1d5]] metres from the attacker (stopping at a solid object), knocked Prone and Stunned for 2 rounds." },
+    { "range": [7, 7], "text": "[[1d5]] ribs broken. Toughness permanently reduced by [[1d5]]. Until medical attention, roll [[1d10]] at the end of each round in which he acted: on a 1 or 2 he dies instantly." },
+    { "range": [8, 8], "text": "Blood Loss. Toughness permanently reduced by [[1d10]]." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. The corpse is thrown [[1d10]] metres directly away from the attack; anyone in its path must pass a Challenging (+0) Agility test or be knocked Prone." }
+  ]
+}

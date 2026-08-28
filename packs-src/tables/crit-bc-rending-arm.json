@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Rending - Arm",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 410,
+  "description": "Black Crusade, Table 7-19 (p. 254). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "The target drops anything held in that arm."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "The target drops whatever was held and takes 1 level of Fatigue."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "The target drops whatever was held. Challenging (+0) Toughness Test or suffer Blood Loss."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Knocked Prone and 2 levels of Fatigue. The limb is useless for [[1d10]] rounds."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Blood Loss. The target drops anything held and the limb is useless without medical attention."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "[[1d5]] fingers severed; on a 5 it is the thumb. Stunned for 1 round. Immediate Challenging (+0) Toughness Test or lose the use of the hand."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "[[1d10]] Strength Damage and Blood Loss. Arm broken: counts as having one arm until repaired."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Arm severed. Immediate Challenging (+0) Toughness Test or die from shock. On a success: Stunned for [[1d10]] rounds and Blood Loss."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. If he carried a ranged weapon, there is a 5% chance the severed hand fires it: resolve a single hit from that weapon against a random target within [[2d10]] metres."
+    }
+  ]
+}

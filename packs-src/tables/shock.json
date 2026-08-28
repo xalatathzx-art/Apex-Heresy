@@ -1,0 +1,20 @@
+{
+  "name": "Shock",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 100,
+  "description": "Black Crusade, Table 8-4 (p. 277). Rolled after a failed Fear Test in combat, adding +10 per Degree of Failure. A Heretic may modify the roll by his Infamy characteristic, to a minimum of 1. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Badly Startled", "range": [1, 20], "text": "One Half Action only on the next turn, then act normally." },
+    { "name": "Shaking", "range": [21, 40], "text": "-10 to all tests for the rest of the encounter unless the character Snaps Out of It." },
+    { "name": "Backing Away", "range": [41, 60], "text": "Cannot willingly approach the source of Fear. -10 to all tests for the rest of the encounter." },
+    { "name": "Frozen in Terror", "range": [61, 80], "text": "No Actions until the character Snaps Out of It, then -10 to all tests for the rest of the encounter." },
+    { "name": "Panic", "range": [81, 100], "text": "Must flee the source of Fear. If prevented, Half Actions only and -20 to all tests. Once clear, must Snap Out of It to regain control." },
+    { "name": "Fainting", "range": [101, 120], "text": "Unconscious for [[1d5]] rounds, then -10 to all tests for the rest of the encounter." },
+    { "name": "Retching", "range": [121, 130], "text": "Drops everything held and can do nothing for [[1d5]] rounds. Afterwards one Half Action per turn until the character can rest." },
+    { "name": "Hysteria", "range": [131, 140], "text": "Attacks anything nearby at random until the character Snaps Out of It or is knocked unconscious." },
+    { "name": "Collapse", "range": [141, 160], "text": "Helpless and able to do nothing for [[1d5+1]] rounds, then -20 to all tests until the end of the encounter." },
+    { "name": "Catatonia", "range": [161, 170], "text": "Catatonic for [[1d5]] hours and cannot be roused." },
+    { "name": "Heart Stops", "range": [171, 300], "text": "Challenging (+0) Toughness Test. Success: catatonic for [[1d5]] hours and cannot be roused. Failure: the character dies." }
+  ]
+}

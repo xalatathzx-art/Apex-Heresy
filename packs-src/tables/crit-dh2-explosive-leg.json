@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Explosive - Leg",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 240,
+  "description": "Dark Heresy 2nd Edition, Table 7-14 (p. 237). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "Knocked back 1 metre. Challenging (+0) Toughness test or knocked Prone." },
+    { "range": [2, 2], "text": "Knocked Prone. No Movement action except Half Move for [[1d5]] rounds." },
+    { "range": [3, 3], "text": "[[2d10]] Agility damage." },
+    { "range": [4, 4], "text": "Flung [[1d5]] metres in a random direction (Scatter Diagram). A Full Action to regain his feet, and Movement halved (rounding up) for [[1d10]] rounds." },
+    { "range": [5, 5], "text": "Difficult (-10) Toughness test or suffer [[1d5]] levels of Fatigue. Agility permanently reduced by [[1d5]]." },
+    { "range": [6, 6], "text": "[[1d10]] levels of Fatigue. The leg is Useless until medical attention. Challenging (+0) Toughness test; on a failure he gains the Lost Foot condition." },
+    { "range": [7, 7], "text": "Immediate Challenging (+0) Toughness test or die from shock. On a success: [[1d10]] levels of Fatigue, Stunned for [[1d10]] rounds and Blood Loss. Gains the Lost Leg condition." },
+    { "range": [8, 8], "text": "The target dies." },
+    { "range": [9, 9], "text": "The target dies. Everyone within 2 metres takes a single hit of [[1d10+2]] Impact damage to a random location." },
+    { "range": [10, 10], "text": "As result 9. In addition, carried ammunition detonates: everyone within [[1d10]] metres takes a single hit of [[1d10+5]] Impact damage to a random location, and any carried grenades or missiles detonate immediately." }
+  ]
+}

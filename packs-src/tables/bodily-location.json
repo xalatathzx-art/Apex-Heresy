@@ -1,0 +1,17 @@
+{
+  "name": "Bodily Location Table",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 310,
+  "description": "Black Crusade, Table 9-3 (p. 299). Use when a Gift calls for a randomly determined location on the body.",
+  "results": [
+    { "range": [1, 5], "text": "Head" },
+    { "range": [6, 9], "text": "Face" },
+    { "range": [10, 21], "text": "Neck" },
+    { "range": [22, 37], "text": "Right Arm" },
+    { "range": [38, 53], "text": "Left Arm" },
+    { "range": [54, 70], "text": "Torso" },
+    { "range": [71, 87], "text": "Right Leg" },
+    { "range": [88, 100], "text": "Left Leg" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Energy - Head",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 130,
+  "description": "Dark Heresy 2nd Edition, Table 7-9 (p. 235). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "-10 to all tests except Toughness for 1 round." },
+    { "range": [2, 2], "text": "Blinded for 1 round." },
+    { "range": [3, 3], "text": "Deafened for [[1d5]] hours, or until medical attention." },
+    { "range": [4, 4], "text": "2 levels of Fatigue and Blinded for [[1d5]] rounds." },
+    { "range": [5, 5], "text": "Blinded for [[1d10]] rounds and Stunned for 1 round. Fellowship permanently reduced by 1." },
+    { "range": [6, 6], "text": "[[1d5]] levels of Fatigue and Blinded for [[1d10]] hours. Fellowship and Perception permanently reduced by [[1d5]] each." },
+    { "range": [7, 7], "text": "[[1d10]] levels of Fatigue and permanently Blinded. Roll [[1d10]] for the new Fellowship value, unless it is already 10 or lower." },
+    { "range": [8, 8], "text": "The target dies." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "The target dies. His burning body runs [[2d10]] metres in a random direction (Scatter Diagram); anything flammable it passes, characters included, must pass a Challenging (+0) Agility test or catch fire." }
+  ]
+}

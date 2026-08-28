@@ -1,0 +1,14 @@
+{
+  "name": "Mental Disorders: Followers of Khorne",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 220,
+  "description": "Black Crusade, Table 8-8 (p. 279). Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Blind Hatred", "range": [1, 20], "text": "The character fixates on one chosen enemy. While it is on the field, he must pass a Challenging (+0) Willpower Test to fight any other foe." },
+    { "name": "Frenzy", "range": [21, 40], "text": "In combat the character must pass a Hard (-10) Willpower Test or attack whatever is nearest, allies and objects included." },
+    { "name": "Blood Soaked", "range": [41, 60], "text": "Must indulge once a week. Otherwise -5 to Skill Tests requiring concentration, worsening by a further -5 each week to a maximum of -20." },
+    { "name": "Abstemious", "range": [61, 80], "text": "-10 to all Interaction Tests when dealing with those who do not share his martial focus." },
+    { "name": "Dead Inside", "range": [81, 100], "text": "-10 to all Interaction Tests." }
+  ]
+}

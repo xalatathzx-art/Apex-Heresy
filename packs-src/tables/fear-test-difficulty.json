@@ -1,0 +1,13 @@
+{
+  "name": "Fear Test Difficulty",
+  "folder": "Fear and Insanity",
+  "formula": "1d4",
+  "sort": 50,
+  "description": "Black Crusade, Table 8-3 (p. 277). Reference table, not a random draw: look up the modifier for the Willpower Test by the degree of Fear. The second value applies to Heretic player characters.",
+  "results": [
+    { "name": "Fear (1) Disturbing", "range": [1, 1], "text": "Test modifier +0. Heretic: +10." },
+    { "name": "Fear (2) Frightening", "range": [2, 2], "text": "Test modifier -10. Heretic: +0." },
+    { "name": "Fear (3) Horrifying", "range": [3, 3], "text": "Test modifier -20. Heretic: -10." },
+    { "name": "Fear (4) Terrifying", "range": [4, 4], "text": "Test modifier -30. Heretic: -20." }
+  ]
+}

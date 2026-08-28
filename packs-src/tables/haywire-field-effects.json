@@ -1,0 +1,14 @@
+{
+  "name": "Haywire Field Effects",
+  "folder": "Armoury",
+  "formula": "1d10",
+  "sort": 100,
+  "description": "Black Crusade, Table 5-2 (p. 152). Rolled each round for the strength of a Haywire field. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Insignificant", "range": [1, 2], "text": "No effect on nearby technology." },
+    { "name": "Minor Disruption", "range": [3, 4], "text": "-10 to all actions using technology: firing ranged weapons without the Primitive quality, Tech-Use Tests, and physical actions in power armour or using cybernetics. Base Movement in power armour is reduced by 1." },
+    { "name": "Major Disruption", "range": [5, 6], "text": "-20 to all actions using technology, as Minor Disruption. Base Movement in power armour is reduced by 3. Melee weapons with technological components function as a Primitive weapon of their type." },
+    { "name": "Dead Zone", "range": [7, 8], "text": "Technology in the area ceases to function. Power armour is unpowered and the wearer's Movement drops to 1. Characters with cybernetic internal organs take 1 level of Fatigue each round they remain in the zone. Melee weapons with technological components function as Primitive weapons of their type." },
+    { "name": "Prolonged Dead Zone", "range": [9, 10], "text": "As Dead Zone, but the field lasts two rounds, lessening to Dead Zone during the following round." }
+  ]
+}

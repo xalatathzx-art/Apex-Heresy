@@ -1,0 +1,14 @@
+{
+  "name": "Mental Disorders: Followers of Tzeentch",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 210,
+  "description": "Black Crusade, Table 8-5 (p. 278). Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Obsessive Cleanliness", "range": [1, 20], "text": "Confronted with filth or disease, the character must pass a Difficult (-10) Willpower Test or refuse to enter the area or interact with the unclean object or person." },
+    { "name": "Conspiracy Theorist", "range": [21, 40], "text": "-5 to all Interaction Tests, except with those who share his theories." },
+    { "name": "Rule of Nine", "range": [41, 60], "text": "No mechanical penalty. The character is compelled to arrange things in nines and treats the number as portentous." },
+    { "name": "Dark Magiks", "range": [61, 80], "text": "-5 to Interaction Tests with ordinary people, and -10 when dealing with actual psykers." },
+    { "name": "Self Improvement", "range": [81, 100], "text": "-5 to all Interaction Tests." }
+  ]
+}

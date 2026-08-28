@@ -60,20 +60,26 @@
                 <input class="total" name="system.corruption" type="number" value="{{system.corruption}}" data-dtype="Number" />
                 <span class="track-of">/ 100</span>
                 <span class="track-bonus" data-tooltip="{{localize "CHARACTERISTIC.BONUS"}}">+{{system.corruptionBonus}}</span>
+                {{!-- Проверка на Рудименты — механика Dark Heresy 2. У еретика Black
+                      Crusade её нет: там Порча копится до порогов Даров Богов. --}}
+                {{#if system.corruptionDegree}}
                 <button class="roll-corruption" type="button" data-tooltip="{{localize "TITLE.CORRUPTION"}}"
                         aria-label="{{localize "TITLE.CORRUPTION"}}"><i class="fas fa-dice"></i></button>
+                {{/if}}
             </div>
             <div class="pips" role="img" aria-label="{{system.corruption}} / 100">
                 {{#each (pipScale system.corruptionPercent)}}<span class="pip{{#if this}} on{{/if}}"></span>{{/each}}
             </div>
             {{!-- Ступень Пути Порчи. Число само по себе не говорит, насколько тяжела
                   следующая проверка на Рудименты, — а ступень и её модификатор говорят. --}}
+            {{#if system.corruptionDegree}}
             <div class="track-degree" data-tooltip="{{localize "CORRUPTION.DEGREE_HINT"}}">
                 <span class="degree-name">{{localize system.corruptionDegree}}</span>
                 {{#if system.corruptionModifier}}
                     <span class="degree-mod">{{system.corruptionModifier}}</span>
                 {{/if}}
             </div>
+            {{/if}}
         </div>
         <div class="item-list">
             <div class="flex header">

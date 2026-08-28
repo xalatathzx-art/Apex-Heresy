@@ -12101,3 +12101,356 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
 .dh-dialog .dh-trait-value:disabled {
   opacity: 0.35;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Броски по таблицам
+   ═══════════════════════════════════════════════════════════════════════════
+   Foundry рисует их своей разметкой, мимо .dark-heresy: описание таблицы во всю
+   ширину простынёй, формула кубика почти не видна, а итог набран заголовком h4
+   в полтора сантиметра. Приводим к языку остальных карточек — рамка, трафаретные
+   подписи, число в рамке и читаемый результат.                              */
+
+.chat-message .table-draw {
+  text-align: left;
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-top: 2px solid var(--dh-brass-dim);
+  padding: var(--dh-space-4);
+  clip-path: polygon(var(--dh-cut) 0, 100% 0, 100% calc(100% - var(--dh-cut)),
+                     calc(100% - var(--dh-cut)) 100%, 0 100%, 0 var(--dh-cut));
+}
+
+/* Ссылка на книгу и страницу — служебная строка, а не тело карточки. */
+.chat-message .table-draw .table-description {
+  font-size: 10px;
+  line-height: 1.45;
+  color: var(--dh-ink-faint);
+  margin: 0 0 var(--dh-space-3);
+  padding-bottom: var(--dh-space-3);
+  border-bottom: 1px solid var(--dh-line);
+}
+
+/* Бросок: число в рамке, формула подписью под ним — как в .dh-fig. */
+.chat-message .table-draw .dice-roll { margin: 0 0 var(--dh-space-3); cursor: pointer; }
+.chat-message .table-draw .dice-result {
+  display: grid;
+  justify-items: center;
+  gap: var(--dh-space-1);
+}
+.chat-message .table-draw .dice-total {
+  order: 1;
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  width: 100%;
+  margin: 0;
+  padding: var(--dh-space-2) 0;
+  text-align: center;
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  color: var(--dh-ink);
+}
+.chat-message .table-draw .dice-formula {
+  order: 2;
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: 9px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--dh-ink-faint);
+}
+.chat-message .table-draw .dice-tooltip { order: 3; }
+
+/* Результат: иконка кубика мелкой латунной меткой, текст — телом карточки. */
+.chat-message .table-draw .table-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.chat-message .table-draw .table-results li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dh-space-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.chat-message .table-draw .table-results img {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border: 0;
+  opacity: 0.5;
+}
+.chat-message .table-draw .table-results .description {
+  font-size: var(--dh-text-sm);
+  line-height: 1.5;
+  color: var(--dh-ink);
+}
+
+/* ── Кнопки в карточках: длинные подписи ломали строй ─────────────────────
+   flex: 1 1 0 держал колонки строго равными, и подпись в две-три строки
+   вылезала за рамку. Теперь кнопки переносятся и растут по содержимому.   */
+.dark-heresy.chat .dh-card .effect-buttons { flex-wrap: wrap; }
+.dark-heresy.chat .dh-card .effect-buttons button {
+  /* Без border-box паддинги и рамка прибавлялись к 45%, пара кнопок не влезала
+     в строку и вторая срывалась на следующую. */
+  box-sizing: border-box;
+  /* Ядро Foundry держит кнопки формы во всю ширину строки: без width:auto
+     флексу нечего распределять, и пара кнопок встаёт столбиком. */
+  width: auto;
+  display: block;
+  text-align: center;
+  flex: 1 1 auto;
+  min-width: 40%;
+  height: auto;
+  line-height: 1.3;
+  padding: var(--dh-space-2);
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+/* Одна цифра на карточке — во всю ширину, а не треть с пустотой по бокам. */
+.dark-heresy.chat .dh-figures.one { grid-template-columns: 1fr; }
+
+
+/* ═══ Окружающая среда (перенесено из warhammer-dbc) ═══ */
+/* ═══════════════════════════════════════════════════════
+   Окружающая Среда — окно ГМа + экранный виджет.
+   Когитаторная фосфорная зелень; акцент параметра — через --c.
+═══════════════════════════════════════════════════════ */
+
+/* ══════════════════════ ОКНО ══════════════════════ */
+.wh-environment .window-content { background: var(--dh-surface); color: var(--dh-ink); padding: 0; }
+.wh-env { display: flex; flex-direction: column; height: 100%; font-family: var(--dh-font-stencil); }
+
+.wh-env-topbar {
+  display: flex; align-items: center; gap: 12px; padding: 8px 12px; flex: 0 0 auto;
+  border-bottom: 1px solid var(--dh-brass-dim); background: rgba(28, 27, 26, 0.4);
+}
+.wh-env-scene-lbl { font-size: 0.64em; letter-spacing: 0.16em; color: var(--dh-ink-faint); }
+.wh-env-scene-name { font-size: 1.02em; font-weight: 700; color: var(--dh-ink); text-shadow: 0 0 7px rgba(184, 135, 60, 0.4); }
+.wh-env-reset {
+  width: auto; flex: 0 0 auto; margin-left: auto; background: var(--dh-field); color: var(--dh-ink);
+  border: 1px solid var(--dh-line); border-radius: 0; padding: 3px 12px; cursor: pointer; font-size: 0.82em; font-weight: 700;
+}
+.wh-env-reset:hover { background: var(--dh-field-focus); border-color: var(--dh-danger); color: var(--dh-danger); }
+
+/* Область правки: Группа / Сцена */
+.wh-env-target { margin-left: auto; display: inline-flex; border: 1px solid var(--dh-line); border-radius: 0; overflow: hidden; }
+.wh-env-tgt {
+  width: auto; flex: 0 0 auto; background: var(--dh-field); color: var(--dh-ink-muted); border: none; border-radius: 0;
+  padding: 4px 12px; cursor: pointer; font-size: 0.82em; font-weight: 700; letter-spacing: 0.02em;
+}
+.wh-env-tgt + .wh-env-tgt { border-left: 1px solid var(--dh-line); }
+.wh-env-tgt:hover { background: var(--dh-field-focus); color: var(--dh-ink); }
+.wh-env-tgt.on { background: linear-gradient(180deg, #17532f, #0e3a20); color: var(--dh-ink); box-shadow: inset 0 0 14px -6px var(--dh-brass); text-shadow: 0 0 6px rgba(184, 135, 60, 0.5); }
+.wh-env-clearov {
+  width: auto; flex: 0 0 auto; background: #2a1414; color: var(--dh-danger); border: 1px solid #7a3030;
+  border-radius: 0; padding: 4px 10px; cursor: pointer; font-size: 0.78em; font-weight: 700;
+}
+.wh-env-clearov:hover { background: var(--dh-field-focus); border-color: var(--dh-danger); }
+.wh-env-scope-note {
+  padding: 5px 12px; font-size: 0.76em; font-style: italic; color: var(--dh-ink-faint); line-height: 1.35;
+  border-bottom: 1px solid rgba(107, 82, 39, 0.22); background: rgba(28, 27, 26, 0.22);
+}
+.wh-env-scope-note.scene { color: #ffd98a; background: rgba(80,60,20,0.25); border-bottom-color: rgba(184,147,46,0.35); }
+
+.wh-env-split { flex: 1; display: flex; min-height: 0; }
+
+/* ── Левое меню ── */
+.wh-env-nav {
+  flex: 0 0 140px; display: flex; flex-direction: column; gap: 3px; padding: 8px;
+  border-right: 1px solid rgba(107, 82, 39, 0.3); background: rgba(0,0,0,0.22);
+}
+.wh-env-navitem {
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; cursor: pointer;
+  background: var(--dh-field); color: var(--dh-ink-muted); border: 1px solid var(--dh-line); border-left: 3px solid transparent;
+  border-radius: 0; padding: 6px 9px; font-size: 0.84em; font-weight: 600; letter-spacing: 0.02em;
+  transition: all 0.13s;
+}
+.wh-env-navitem:hover { background: var(--dh-field-focus); color: var(--dh-ink); }
+.wh-env-navitem.active {
+  color: var(--dh-ink); border-color: var(--dh-brass-dim); border-left-color: var(--dh-brass);
+  background: linear-gradient(90deg, rgba(184, 135, 60, 0.14), rgba(20, 20, 20, 0.5));
+  box-shadow: inset 0 0 16px -8px var(--dh-brass);
+}
+.wh-env-navic { font-size: 1.15em; filter: drop-shadow(0 0 4px rgba(184, 135, 60, 0.4)); }
+.wh-env-note-field { margin-top: auto; display: flex; flex-direction: column; gap: 4px; }
+.wh-env-note-field > span { font-size: 0.66em; letter-spacing: 0.1em; color: var(--dh-ink-faint); text-transform: uppercase; }
+.wh-env-note-field textarea {
+  background: var(--dh-field); color: var(--dh-ink); border: 1px solid var(--dh-line); border-radius: 0;
+  padding: 5px 7px; font-size: 0.82em; resize: vertical; font-family: inherit;
+}
+
+/* ── Правая панель ── */
+.wh-env-main { flex: 1; padding: 10px 12px; overflow-y: auto; min-width: 0; }
+.wh-env-h { margin: 0 0 4px; font-size: 1.1em; font-weight: 800; letter-spacing: 0.04em; color: var(--dh-ink); display: flex; align-items: baseline; gap: 10px; }
+.wh-env-h-val { margin-left: auto; font-size: 1.1em; font-weight: 800; text-shadow: 0 0 10px currentColor; }
+/* Погода — сетка пресетов */
+.wh-env-weather-caption {
+  font-size: 0.66em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dh-ink-faint);
+  margin: 8px 0 4px; padding-bottom: 2px; border-bottom: 1px solid rgba(107, 82, 39, 0.28);
+}
+.wh-env-weather-caption:first-of-type { margin-top: 2px; }
+.wh-env-weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 5px; }
+.wh-env-weather {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  /* Подписи бывают в одну строку («Fog») и в две («Gellar field failure»):
+     без фиксированной высоты плитки в соседних рядах выходили разными. */
+  gap: 3px; cursor: pointer; padding: 6px 4px;
+  background: rgba(0,0,0,0.3); border: 1px solid var(--dh-line); border-radius: 0; transition: all 0.14s;
+}
+.wh-env-weather:hover { border-color: var(--c); transform: translateY(-2px); box-shadow: 0 0 12px -4px var(--c); }
+.wh-env-weather.sel { border-color: var(--c); box-shadow: inset 0 0 18px -6px var(--c), 0 0 12px -4px var(--c); background: color-mix(in srgb, var(--c) 12%, rgba(0,0,0,0.3)); }
+.wh-env-weather-ic { font-size: 1.3em; filter: drop-shadow(0 0 6px var(--c)); }
+.wh-env-weather-lbl { font-size: 0.7em; font-weight: 600; color: var(--dh-ink); text-align: center; line-height: 1.15; }
+.wh-env-custom { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+.wh-env-custom > span { font-size: 0.68em; letter-spacing: 0.08em; color: var(--dh-ink-faint); text-transform: uppercase; }
+.wh-env-custom input, .wh-env-temp-ctl input[type=number], .wh-env-grav-ctl input {
+  background: var(--dh-field); color: var(--dh-ink); border: 1px solid var(--dh-line); border-radius: 0; padding: 5px 8px; font-family: inherit;
+}
+
+/* Температура */
+.wh-env-temp-ctl { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wh-env-temp-ctl input[type=number] { width: 74px; text-align: center; font-size: 1.05em; font-weight: 700; }
+.wh-env-temp-ctl input[type=range] { flex: 1 1 100%; accent-color: var(--dh-brass); margin-top: 4px; }
+.wh-env-temp-ctl button, .wh-env-grav-ctl button, .wh-env-rad-ctl button {
+  background: var(--dh-field); color: var(--dh-ink); border: 1px solid var(--dh-line); border-radius: 0;
+  padding: 5px 10px; cursor: pointer; font-weight: 700; font-size: 0.86em; flex: 0 0 auto;
+}
+.wh-env-temp-ctl button:hover, .wh-env-grav-ctl button:hover, .wh-env-rad-ctl button:hover { background: #15492f; box-shadow: 0 0 7px rgba(184, 135, 60, 0.4); }
+
+/* Гравитация */
+.wh-env-grav-ctl { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.wh-env-grav-ctl button.sel, .wh-env-rad-ctl button.sel {
+  background: #15492f; border-color: var(--dh-brass); color: var(--dh-ink); box-shadow: inset 0 0 12px -4px var(--dh-brass);
+}
+.wh-env-grav-ctl label { font-size: 0.84em; color: var(--dh-ink-muted); display: inline-flex; align-items: center; gap: 6px; }
+.wh-env-grav-ctl input { width: 66px; text-align: center; }
+
+/* Радиация */
+.wh-env-rad-ctl { display: flex; gap: 5px; flex-wrap: wrap; }
+.wh-env-rad-ctl button { width: 34px; text-align: center; }
+.wh-env-radref { margin-top: 14px; font-size: 0.84em; }
+.wh-env-radref summary { cursor: pointer; color: #7fe0a8; font-weight: 600; letter-spacing: 0.02em; }
+.wh-env-radprot { margin-top: 8px; border: 1px solid rgba(107, 82, 39, 0.3); border-radius: 0; overflow: hidden; }
+.wh-env-radprot-row { display: flex; justify-content: space-between; gap: 10px; padding: 4px 9px; font-size: 0.86em; }
+.wh-env-radprot-row:nth-child(odd) { background: rgba(28, 27, 26, 0.28); }
+.wh-env-radprot-row b { color: #ffd23a; flex: 0 0 auto; }
+
+/* ══════════════════════ ЭКРАННЫЙ ВИДЖЕТ ══════════════════════ */
+#wh-env-widget {
+  /* Позицию задаёт JS (перетаскивается, сохраняется); дефолт — правее списка игроков. */
+  position: fixed; z-index: 57; width: 232px;
+  font-family: var(--dh-font-stencil); pointer-events: auto;
+  border: 1px solid rgba(107, 82, 39, 0.4); border-radius: 0; overflow: hidden;
+  /* Полупрозрачный, чтобы не спорить с HUD. */
+  background: linear-gradient(160deg, rgba(20, 20, 20, 0.62), rgba(7, 7, 7, 0.66));
+  box-shadow: 0 6px 22px rgba(0,0,0,0.4), inset 0 0 30px -18px var(--dh-brass);
+  backdrop-filter: blur(4px); user-select: none; opacity: 0.9; transition: opacity 0.15s;
+}
+#wh-env-widget:hover { opacity: 1; border-color: var(--dh-brass); }
+#wh-env-widget.dragging { opacity: 1; box-shadow: 0 8px 26px rgba(0,0,0,0.6), 0 0 18px -4px rgba(184, 135, 60, 0.6); }
+/* Свёрнутый — только шапка. */
+#wh-env-widget.collapsed .wh-env-w-body,
+#wh-env-widget.collapsed .wh-env-w-note { display: none; }
+#wh-env-widget.collapsed .wh-env-w-head { border-bottom: none; }
+#wh-env-widget.collapsed .wh-env-w-collapse { transform: rotate(-90deg); }
+/* Шапка — ручка перетаскивания. */
+.wh-env-w-head { cursor: grab; }
+#wh-env-widget.dragging .wh-env-w-head { cursor: grabbing; }
+.wh-env-w-title { flex: 1; }
+.wh-env-w-collapse { cursor: pointer; font-size: 1.1em; line-height: 1; opacity: 0.7; transition: transform 0.15s, opacity 0.15s; }
+.wh-env-w-collapse:hover { opacity: 1; color: var(--dh-brass); }
+.wh-env-w-body { cursor: pointer; }
+#wh-env-widget::after {  /* тонкие скан-линии поверх */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+  background: repeating-linear-gradient(0deg, rgba(184, 135, 60, 0.04) 0 1px, transparent 1px 3px);
+}
+.wh-env-w-head {
+  display: flex; align-items: center; gap: 7px; padding: 5px 10px;
+  font-size: 0.66em; letter-spacing: 0.2em; font-weight: 800; color: var(--dh-brass);
+  background: rgba(28, 27, 26, 0.6); border-bottom: 1px solid rgba(107, 82, 39, 0.45); text-shadow: 0 0 6px rgba(184, 135, 60, 0.5);
+}
+.wh-env-w-led { width: 7px; height: 7px; border-radius: 50%; background: var(--dh-brass); box-shadow: 0 0 8px var(--dh-brass); animation: whEnvLed 2.4s ease-in-out infinite; }
+@keyframes whEnvLed { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.wh-env-w-body { padding: 6px 4px; display: flex; flex-direction: column; }
+.wh-env-w-row {
+  /* auto под подпись, 1fr под значение: раньше подпись забирала всю
+     свободную ширину, а значению доставался остаток. */
+  display: grid; grid-template-columns: 18px auto 1fr; align-items: center; gap: 7px;
+  padding: 4px 8px; border-left: 2px solid var(--c, var(--dh-brass)); margin: 1px 4px; border-radius: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c, var(--dh-brass)) 10%, transparent), transparent 70%);
+}
+.wh-env-w-ic { font-size: 1.05em; text-align: center; filter: drop-shadow(0 0 5px var(--c, var(--dh-brass))); }
+.wh-env-w-k { font-size: 0.72em; letter-spacing: 0.05em; color: var(--dh-ink-muted); text-transform: uppercase; }
+.wh-env-w-v {
+  font-size: 0.86em; font-weight: 700; color: var(--dh-ink); text-align: right;
+  /* Длинные названия («Кислотный дождь», «Сбой Гелларова поля») упирались
+     в край: nowrap резал их на середине слова. Теперь переносятся. */
+  min-width: 0; overflow-wrap: anywhere; line-height: 1.25;
+}
+.wh-env-w-v .wh-env-w-t { color: var(--c, var(--dh-brass)); font-size: 0.86em; margin-left: 3px; }
+.wh-env-w-row.danger { animation: whEnvRad 1.6s ease-in-out infinite; }
+@keyframes whEnvRad {
+  0%,100% { box-shadow: none; }
+  50% { box-shadow: inset 0 0 16px -5px var(--c, #ff3a3a); }
+}
+.wh-env-w-note {
+  padding: 5px 10px 7px; font-size: 0.74em; font-style: italic; color: var(--dh-ink-muted); line-height: 1.35;
+  border-top: 1px dashed rgba(107, 82, 39, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wh-env-w-led, .wh-env-w-row.danger { animation: none !important; }
+}
+
+/* Плитки погоды — кнопки, а Foundry задаёт кнопкам block-size с большей
+   специфичностью, чем у одиночного класса: наш height просто не доезжал.
+   Отсюда и селектор подлиннее, и оба свойства сразу. */
+.wh-environment .wh-env-weather-grid button.wh-env-weather {
+  block-size: 62px;
+  min-block-size: 62px;
+  height: 62px;
+}
+
+/* Радиация: ввод дозы и переключатель единиц. Полоса диапазона красится
+   тоном самого диапазона — цвет и есть основная подсказка о тяжести. */
+.wh-env-rad-ctl { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wh-env-rad-ctl input[type=number] { width: 120px; text-align: center; font-size: 1.05em; font-weight: 700; }
+.wh-env-rad-units { display: inline-flex; gap: 3px; }
+.wh-environment .wh-env-rad-units button.sel {
+  color: var(--dh-ink); border-color: var(--dh-brass); background: var(--dh-field-focus);
+}
+.wh-env-rad-band {
+  margin-top: 12px; padding: 7px 11px; font-weight: 800; letter-spacing: 0.04em;
+  color: var(--c, var(--dh-ink)); border: 1px solid var(--c, var(--dh-line));
+  border-left: 3px solid var(--c, var(--dh-brass));
+  background: color-mix(in srgb, var(--c, var(--dh-brass)) 10%, transparent);
+}
+
+/* Кнопки-органы управления в окне окружения.
+   Ядро Foundry задаёт кнопкам фиксированный inline-size, и подписи вроде
+   «µSv/h» не помещались: текст вылезал за рамку и наезжал на соседа.
+   Ширину возвращаем содержимому, высоту держим общей. */
+.wh-environment .wh-env-rad-units button,
+.wh-environment .wh-env-rad-ctl button,
+.wh-environment .wh-env-temp-ctl button,
+.wh-environment .wh-env-grav-ctl button {
+  inline-size: auto;
+  width: auto;
+  min-inline-size: 0;
+  block-size: 28px;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}

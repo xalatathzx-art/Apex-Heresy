@@ -1,0 +1,15 @@
+{
+  "name": "Random Creatures",
+  "folder": "Corruption",
+  "formula": "1d10",
+  "sort": 320,
+  "description": "Black Crusade, Table 9-4 (p. 299). Use when an animal must be randomly generated, for example for an Animal Hybrid Gift.",
+  "results": [
+    { "range": [1, 1], "text": "Avian" },
+    { "range": [2, 2], "text": "Cattle (grox, bull, ram, goat and the like)" },
+    { "range": [3, 4], "text": "Insect" },
+    { "range": [5, 6], "text": "Primate" },
+    { "range": [7, 8], "text": "Reptile" },
+    { "range": [9, 10], "text": "Vermin" }
+  ]
+}

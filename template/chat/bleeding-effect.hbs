@@ -1,5 +1,6 @@
-{{!-- Кровотечение на ходу. Сохранено всё: бросок, порог 90+, исход (смерть или
-      выживание) и пояснение про шанс смерти. --}}
+{{!-- Кровотечение на ходу. У двух игр оно разное: в Black Crusade это бросок 10%
+      на смерть, в Dark Heresy 2 — уровень усталости без всякого броска. Карточка
+      показывает ту ветку, по которой считался этот актёр. --}}
 <div class="dark-heresy chat roll impmal-test" data-actor-id="{{ownerId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <div class="roll-card-background dh-card {{#if isDead}}is-fail{{/if}}">
 
@@ -8,8 +9,10 @@
             <span class="verdict">
                 {{#if pendingRoll}}
                     {{localize "EFFECTS.AWAITING_ROLL"}}
-                {{else}}
+                {{else if lethal}}
                     {{#if isDead}}{{localize "EFFECTS.YOU_DIED"}}{{else}}{{localize "CHAT.SUCCESS"}}{{/if}}
+                {{else}}
+                    {{localize "CONDITION.FATIGUED"}}
                 {{/if}}
             </span>
         </div>
@@ -24,22 +27,35 @@
                         {{localize "CHAT.ROLL_BLOOD_LOSS"}}
                     </button>
                 </div>
-            {{else}}
+            {{else if lethal}}
             <div class="dh-figures two">
                 <div class="dh-fig{{#if isDead}} lead{{/if}}">
                     <span class="n">{{rollResult}}</span>
                     <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
                 </div>
                 <div class="dh-fig">
-                    <span class="n">90+</span>
+                    <span class="n">91+</span>
                     <span class="dh-cap">{{localize "CHAT.TARGET"}}</span>
+                </div>
+            </div>
+            {{else}}
+            <div class="dh-figures two">
+                <div class="dh-fig lead">
+                    <span class="n">+{{fatigueApplied}}</span>
+                    <span class="dh-cap">{{localize "TITLE.FATIGUE"}}</span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">{{newFatigue}} / {{maxFatigue}}</span>
+                    <span class="dh-cap">{{localize "TITLE.FATIGUE"}}</span>
                 </div>
             </div>
             {{/if}}
 
             <dl class="dh-kv">
                 <dt class="empty"></dt>
-                <dd class="full">{{localize "EFFECTS.BLEEDING_DEATH_CHANCE"}}</dd>
+                <dd class="full">
+                    {{#if lethal}}{{localize "EFFECTS.BLEEDING_DEATH_CHANCE"}}{{else}}{{localize "EFFECTS.BLEEDING_STAUNCH"}}{{/if}}
+                </dd>
             </dl>
 
         </div>

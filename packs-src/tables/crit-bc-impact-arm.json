@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Impact - Arm",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 310,
+  "description": "Black Crusade, Table 7-15 (p. 252). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "The target drops anything held in that hand."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "1 level of Fatigue."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "The target drops anything held in that hand. Challenging (+0) Toughness Test or take [[1d10]] Weapon Skill Damage and [[1d10]] Ballistic Skill Damage."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Stunned for 1 round and drops whatever was held. 10% chance the held item is damaged and unusable until repaired."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "The limb is useless until medical attention."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "[[1d5]] fingers broken. 1 level of Fatigue. Immediate Challenging (+0) Toughness Test or suffer 2 permanent Weapon Skill Damage and 2 permanent Ballistic Skill Damage."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Arm broken: counts as having one arm until repaired. Blood Loss."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Arm severed. Immediate Challenging (+0) Toughness Test or die from shock. On a success: Stunned for [[1d10]] rounds, [[1d5]] levels of Fatigue and Blood Loss."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. Anyone within 2 metres takes [[1d5-3]] Impact Damage to a random hit location."
+    }
+  ]
+}

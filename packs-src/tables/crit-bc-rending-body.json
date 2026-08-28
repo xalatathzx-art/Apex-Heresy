@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Rending - Body",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 420,
+  "description": "Black Crusade, Table 7-20 (p. 254). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "If the target wears no armour on this location, 1 level of Fatigue. If armoured, no effect."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "1 level of Fatigue. Challenging (+0) Toughness Test or Stunned for 1 round."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Stunned for 1 round. Challenging (+0) Toughness Test or suffer Blood Loss."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Blood Loss and Stunned for 1 round."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "[[1d10]] Toughness Damage and Blood Loss. Anyone moving through the pool of blood must pass an Agility Test or fall Prone."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Knocked Prone, [[1d10]] Toughness Damage and Blood Loss."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "[[1d5]] permanent Toughness Damage and Blood Loss. The target may hold the wound closed with one arm until a successful Medicae Test binds it, or fight on with a 20% chance each turn of taking a further [[2d10]] Damage."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Challenging (+0) Toughness Test or die. On a success: [[1d10]] permanent Toughness Damage, Stunned for 1 round and Blood Loss."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. For the rest of the fight, anyone moving within 4 metres of the corpse must pass a Challenging (+0) Agility Test or fall Prone."
+    }
+  ]
+}

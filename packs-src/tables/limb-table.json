@@ -1,0 +1,21 @@
+{
+  "name": "Limb Table",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 300,
+  "description": "Black Crusade, Table 9-2 (p. 299). Use when a Gift calls for a randomly determined limb.",
+  "results": [
+    { "range": [1, 16], "text": "Right Arm" },
+    { "range": [17, 23], "text": "Right Hand" },
+    { "range": [24, 31], "text": "Right Hand Fingers" },
+    { "range": [32, 47], "text": "Left Arm" },
+    { "range": [48, 55], "text": "Left Hand" },
+    { "range": [56, 63], "text": "Left Hand Fingers" },
+    { "range": [64, 71], "text": "Right Leg" },
+    { "range": [72, 79], "text": "Right Foot" },
+    { "range": [80, 82], "text": "Right Foot Toes" },
+    { "range": [83, 90], "text": "Left Leg" },
+    { "range": [91, 97], "text": "Left Foot" },
+    { "range": [98, 100], "text": "Left Foot Toes" }
+  ]
+}

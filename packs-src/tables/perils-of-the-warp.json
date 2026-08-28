@@ -1,0 +1,27 @@
+{
+  "name": "Perils of the Warp",
+  "folder": "Psychic Powers",
+  "formula": "1d100",
+  "sort": 200,
+  "description": "Black Crusade, Table 6-3 (p. 211). Rolled on a result of 75+ on Psychic Phenomena. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "The Gibbering", "range": [1, 5], "text": "Psyker: Challenging (+0) Willpower Test or Stunned for [[1d5]] rounds." },
+    { "name": "Warp Burn", "range": [6, 9], "text": "Psyker takes [[2d5]] Damage ignoring Toughness Bonus and armour, and is Stunned for [[1d5]] rounds." },
+    { "name": "Psychic Concussion", "range": [10, 13], "text": "Psyker is knocked Unconscious for [[1d5]] rounds. Everyone within [[3d10]] metres: Routine (+10) Willpower Test or Stunned for one round." },
+    { "name": "Psy Blast", "range": [14, 18], "text": "Psyker is thrown [[3d10]] metres into the air and takes Falling Damage for the distance." },
+    { "name": "Soul Sear", "range": [19, 24], "text": "Psyker may use no powers for one hour and gains [[2d5]] Corruption Points." },
+    { "name": "Locked In", "range": [25, 30], "text": "Psyker falls catatonic. Each round he may spend a Full Action on a Difficult (-10) Willpower Test; a success ends the effect." },
+    { "name": "Chronological Incontinence", "range": [31, 38], "text": "Psyker vanishes and returns in the same spot after [[1d10]] rounds. He takes 1 permanent Toughness Damage, 1 permanent Intelligence Damage, and gains [[1d5]] Corruption Points." },
+    { "name": "Psychic Mirror", "range": [39, 46], "text": "The power resolves against the psyker instead. If the power is beneficial, he takes [[1d10+5]] Energy Damage ignoring armour instead." },
+    { "name": "Warp Whispers", "range": [47, 55], "text": "Everyone within [[4d10]] metres, psyker included: Hard (-20) Willpower Test or gain [[1d5]] Corruption Points and equal Willpower Damage. The psyker takes a further [[1d5+5]] Willpower Damage regardless." },
+    { "name": "Vice Versa", "range": [56, 58], "text": "Psyker swaps consciousness with a random non-soulless creature within 50 metres for [[1d10]] rounds; each keeps WS, BS, Int, Per, WP and Fel, and takes [[1d5]] Intelligence Damage. With no creature in range he falls catatonic for [[1d5]] rounds and takes [[1d10]] Willpower Damage, [[1d10]] Intelligence Damage and [[1d10]] Corruption Points." },
+    { "name": "Dark Summoning", "range": [59, 67], "text": "A Bloodletter appears within [[3d10]] metres for [[1d5]] rounds plus its Toughness Bonus. The psyker's turn ends immediately; the daemon acts at once and attacks only the psyker." },
+    { "name": "Rending the Veil", "range": [68, 72], "text": "For [[1d5]] rounds, all creatures with an Intelligence characteristic within [[1d100]] metres test against Fear (2); the psyker tests against Fear (4)." },
+    { "name": "Blood Rain", "range": [73, 78], "text": "Everyone within [[5d10]] metres: Challenging (+0) Strength Test or knocked Prone. For [[1d5]] rounds any power used in the area invokes Perils of the Warp in addition to any Phenomena. Psyker gains [[1d5+1]] Corruption Points." },
+    { "name": "Cataclysmic Blast", "range": [79, 82], "text": "Everyone within [[1d10]] metres, psyker included, takes [[1d10+8]] Energy Damage with Pen 5. The psyker may not Dodge it or use a Field save. His gear is destroyed and he may use no powers for [[1d5]] hours." },
+    { "name": "Mass Possession", "range": [83, 86], "text": "Every character within [[1d100]] metres resists a possession attack by a random Lesser Daemon (Possession Trait). Lasts up to [[2d10]] rounds." },
+    { "name": "Reality Quake", "range": [87, 90], "text": "Everything within [[3d10]] metres takes [[2d10]] Rending Damage, ignoring armour and undodgeable. Warded objects, daemons and untouchables halve it." },
+    { "name": "Grand Possession", "range": [91, 99], "text": "A Greater Daemon attempts to possess the psyker (Possession Trait). Win or lose, he takes [[2d10]] Toughness Damage and permanently adds +10 to all Psychic Phenomena and Perils rolls. If he dies possessed, the daemon manifests for days equal to its Toughness Bonus." },
+    { "name": "Annihilation", "range": [100, 100], "text": "The psyker is destroyed irrevocably." }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Energy - Arm",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 110,
+  "description": "Dark Heresy 2nd Edition, Table 7-7 (p. 234). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "-30 to all tests involving that arm for [[1d5]] rounds." },
+    { "range": [2, 2], "text": "1 level of Fatigue. The arm is Useless for [[1d5]] rounds." },
+    { "range": [3, 3], "text": "[[1d5]] levels of Fatigue. Half Action only on the next turn." },
+    { "range": [4, 4], "text": "Stunned for 1 round and knocked Prone. The arm is Useless for [[1d10]] rounds." },
+    { "range": [5, 5], "text": "Stunned for 1 round. The arm is Useless until medical treatment." },
+    { "range": [6, 6], "text": "[[1d5]] levels of Fatigue, [[1d5]] Weapon Skill damage and [[1d5]] Ballistic Skill damage. Challenging (+0) Toughness test or gain the Lost Hand condition." },
+    { "range": [7, 7], "text": "[[1d5]] levels of Fatigue and Stunned for 1 round. The arm is Useless until repaired." },
+    { "range": [8, 8], "text": "[[1d10]] levels of Fatigue. Challenging (+0) Toughness test or Stunned for [[1d5]] rounds. Gains the Lost Arm condition." },
+    { "range": [9, 9], "text": "Immediate Challenging (+0) Toughness test or die from shock. On a success: [[1d10]] levels of Fatigue and Stunned for 1 round. Gains the Lost Arm condition." },
+    { "range": [10, 10], "text": "The target dies." }
+  ]
+}

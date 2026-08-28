@@ -71,6 +71,23 @@
                     </div>
                 {{/if}}
                 {{/if}}
+                {{!-- Провал Воли: в этот ход персонаж только мечется и кричит,
+                      и это стоит ему полного действия. --}}
+                {{#unless pendingRoll}}
+                {{#unless flags.isSuccess}}
+                    <dl class="dh-kv">
+                        <dt class="empty"></dt>
+                        <dd class="full">{{localize "EFFECTS.FIRE_PANIC"}}</dd>
+                    </dl>
+                {{/unless}}
+                {{/unless}}
+
+                <div class="effect-buttons">
+                    <button type="button" class="extinguish-fire" data-actor-id="{{actorId}}"
+                            {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+                        {{localize "EFFECTS.EXTINGUISH"}}
+                    </button>
+                </div>
             </div>
 
         </div>

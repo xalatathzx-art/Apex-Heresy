@@ -34,3 +34,6 @@ packs/**/LOG.old
 # Playwright MCP session artifacts (screenshots, console logs, snapshots)
 .playwright-mcp/
 sheet-*.png
+
+# Local agent/session state
+.claude/

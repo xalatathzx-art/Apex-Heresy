@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Energy - Leg",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 140,
+  "description": "Dark Heresy 2nd Edition, Table 7-10 (p. 235). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "Cannot use the Run or Charge actions for 2 rounds." },
+    { "range": [2, 2], "text": "Challenging (+0) Toughness test or suffer 1 level of Fatigue." },
+    { "range": [3, 3], "text": "1 level of Fatigue and knocked Prone. Movement halved (rounding up) for [[1d10]] rounds." },
+    { "range": [4, 4], "text": "Movement halved (rounding up) and no Run or Charge actions, until medical attention." },
+    { "range": [5, 5], "text": "1 level of Fatigue and knocked Prone. Movement halved (rounding up) for [[2d10]] rounds." },
+    { "range": [6, 6], "text": "2 levels of Fatigue. Challenging (+0) Toughness test: on a success Movement is halved (rounding up) until medical attention, on a failure he gains the Lost Foot condition." },
+    { "range": [7, 7], "text": "[[1d5]] levels of Fatigue. Challenging (+0) Toughness test or Stunned for 1 round. Gains the Lost Leg condition." },
+    { "range": [8, 8], "text": "[[1d10]] levels of Fatigue and Blood Loss. Challenging (+0) Toughness test or Stunned for 1 round. Gains the Lost Leg condition." },
+    { "range": [9, 9], "text": "Challenging (+0) Toughness test or die from shock. Gains the Lost Leg condition." },
+    { "range": [10, 10], "text": "The target dies." }
+  ]
+}

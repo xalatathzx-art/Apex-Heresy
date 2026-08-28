@@ -1,0 +1,81 @@
+{
+  "name": "Rewards of Tzeentch",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 230,
+  "description": "Black Crusade, Table 9-8 (p. 303). Each result links to the item in the Black Crusade compendium.",
+  "results": [
+    {
+      "name": "Changing of the Ways",
+      "range": [
+        1,
+        11
+      ],
+      "text": "Changing of the Ways - no item in the black-crusade pack yet."
+    },
+    {
+      "name": "Daemonic Name",
+      "range": [
+        12,
+        22
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.x0NVA9fyuzcGa054]{Daemonic Name}"
+    },
+    {
+      "name": "Daemon Weapon",
+      "range": [
+        23,
+        33
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.sTcHt9fneJj2k2pA]{Daemon Weapon}"
+    },
+    {
+      "name": "Ecstatic Duplication",
+      "range": [
+        34,
+        44
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.lDbHcqfcLebsQEYo]{Ecstatic Duplication}"
+    },
+    {
+      "name": "Face of Tzeentch",
+      "range": [
+        45,
+        55
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.lSYeV0acZyV5nKxt]{Face of Tzeentch}"
+    },
+    {
+      "name": "Flaming Arm",
+      "range": [
+        56,
+        66
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.ej5eurJBXcR36oLx]{Flaming Arm}"
+    },
+    {
+      "name": "Mark of Tzeentch",
+      "range": [
+        67,
+        78
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.yDmUx7hZKU32B9jz]{Mark of Tzeentch}"
+    },
+    {
+      "name": "Massive Intellect",
+      "range": [
+        79,
+        89
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.dnYi2EKGGJ0sZpi7]{Massive Intellect}"
+    },
+    {
+      "name": "Warpsmith",
+      "range": [
+        90,
+        100
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.W3vgLyMqdY9WBd6H]{Warpsmith}"
+    }
+  ]
+}

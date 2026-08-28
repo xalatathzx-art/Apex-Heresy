@@ -1,0 +1,65 @@
+{
+  "name": "Rewards of Nurgle",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 210,
+  "description": "Black Crusade, Table 9-6 (p. 301). Each result links to the item in the Black Crusade compendium.",
+  "results": [
+    {
+      "name": "Corpulent Immensity",
+      "range": [
+        1,
+        14
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.PiOQbdnHM3r5kbW4]{Corpulent Immensity}"
+    },
+    {
+      "name": "Daemonic Name",
+      "range": [
+        15,
+        28
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.x0NVA9fyuzcGa054]{Daemonic Name}"
+    },
+    {
+      "name": "Daemon Weapon",
+      "range": [
+        29,
+        42
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.sTcHt9fneJj2k2pA]{Daemon Weapon}"
+    },
+    {
+      "name": "Face of Nurgle",
+      "range": [
+        43,
+        56
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.rljPBtyfNdZbGOAF]{Face of Nurgle}"
+    },
+    {
+      "name": "Mark of Nurgle",
+      "range": [
+        57,
+        72
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.DzFPuxeCi8zqzmp5]{Mark of Nurgle}"
+    },
+    {
+      "name": "Nurgle’s Rot",
+      "range": [
+        73,
+        86
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.ioFuoqt0BnNm99mN]{Nurgle’s Rot}"
+    },
+    {
+      "name": "Nurgling Infestation",
+      "range": [
+        87,
+        100
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.K26tKWxsIAzqD6Bm]{Nurgling Infestation}"
+    }
+  ]
+}

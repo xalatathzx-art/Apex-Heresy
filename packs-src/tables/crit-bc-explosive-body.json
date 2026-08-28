@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Explosive - Body",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 220,
+  "description": "Black Crusade, Table 7-12 (p. 250). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "Thrown [[1d5]] metres backwards and knocked Prone."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Thrown [[1d5]] metres backwards and knocked Prone, taking 1 level of Fatigue per metre travelled."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Challenging (+0) Toughness Test or suffer Blood Loss and be Stunned for 1 round."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Thrown [[1d5]] metres backwards, Stunned for 1 round and knocked Prone."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Immediate Challenging (+0) Toughness Test or suffer Blood Loss and 1 permanent Toughness Damage. Then [[1d5]] levels of Fatigue and knocked Prone."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Stunned for 1 round, Half Action only on the next round, and Blood Loss."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Blood Loss, knocked Prone, Stunned for [[1d10]] rounds. Challenging (+0) Toughness Test or fall unconscious."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies. Carried ammunition explodes for [[1d10+5]] Impact Damage to anyone within [[1d10]] metres, and any carried grenades or missiles detonate on his person."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "As result 9. In addition, anyone within [[1d10]] metres must pass a Challenging (+0) Agility Test or take -10 to Weapon Skill and Ballistic Skill Tests for 1 round."
+    }
+  ]
+}

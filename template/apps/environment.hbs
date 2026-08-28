@@ -1,0 +1,92 @@
+<div class="wh-env">
+  <div class="wh-env-topbar">
+    <div class="wh-env-scene"><span class="wh-env-scene-lbl">SCENE</span> <span class="wh-env-scene-name">{{sceneName}}</span></div>
+    {{#if isGM}}
+      <button type="button" class="wh-env-reset" data-act="reset" title="Reset this scene to normal">↺ Reset</button>
+    {{/if}}
+  </div>
+
+  <div class="wh-env-split">
+    {{!-- ── Левое меню категорий ── --}}
+    <nav class="wh-env-nav">
+      {{#each cats as |c|}}
+      <button type="button" class="wh-env-navitem {{#if c.active}}active{{/if}}" data-cat="{{c.key}}">
+        <span class="wh-env-navic">{{c.icon}}</span><span class="wh-env-navlbl">{{c.label}}</span>
+      </button>
+      {{/each}}
+      {{#if isGM}}
+      <label class="wh-env-note-field">
+        <span>Note to players</span>
+        <textarea name="note" rows="2" placeholder="Shown on the widget…">{{note}}</textarea>
+      </label>
+      {{/if}}
+    </nav>
+
+    {{!-- ── Редактор: только органы управления, без разбора правил ──
+          Механику ведущий видит в виджете и в книге; окно нужно, чтобы быстро
+          выставить значения, поэтому здесь только тумблеры и поля. --}}
+    <section class="wh-env-main">
+
+      {{#if isWeather}}
+      {{#each weatherGroups as |grp|}}
+      <div class="wh-env-weather-caption">{{grp.label}}</div>
+      <div class="wh-env-weather-grid">
+        {{#each grp.items as |w|}}
+        <button type="button" class="wh-env-weather {{#if w.selected}}sel{{/if}}" data-weather="{{w.key}}" style="--c:{{w.tone}}" title="{{w.label}}">
+          <span class="wh-env-weather-ic">{{w.icon}}</span><span class="wh-env-weather-lbl">{{w.label}}</span>
+        </button>
+        {{/each}}
+      </div>
+      {{/each}}
+      {{#if isGM}}
+      <label class="wh-env-custom">
+        <input type="text" name="weatherText" value="{{weatherCustom}}" placeholder="Custom conditions — overrides the choice"/>
+      </label>
+      {{/if}}
+      {{/if}}
+
+      {{#if isTemp}}
+      <h3 class="wh-env-h">🌡 Temperature
+        <span class="wh-env-h-val" style="color:{{env.temp.tone}}">{{env.temp.value}}°C</span>
+      </h3>
+      {{#if isGM}}
+      <div class="wh-env-temp-ctl">
+        <button type="button" data-tempstep="-5">−5</button>
+        <input type="number" name="temp" value="{{env.temp.value}}" step="1"/>
+        <button type="button" data-tempstep="5">+5</button>
+        <input type="range" name="tempRange" min="-50" max="70" step="1" value="{{env.temp.value}}"/>
+      </div>
+      {{/if}}
+      {{/if}}
+
+      {{#if isGravity}}
+      <h3 class="wh-env-h">🪐 Gravity
+        <span class="wh-env-h-val" style="color:{{env.gravity.tone}}">{{#if (eq env.gravity.kind "zero")}}0G{{else}}{{env.gravity.value}}G{{/if}}</span>
+      </h3>
+      {{#if isGM}}
+      <div class="wh-env-grav-ctl">
+        {{#each gravPresets as |p|}}<button type="button" class="{{#if p.selected}}sel{{/if}}" data-grav="{{p.g}}">{{p.g}}G</button>{{/each}}
+        <label>Exact <input type="number" name="gravity" value="{{env.gravity.value}}" min="0" step="0.1"/></label>
+      </div>
+      {{/if}}
+      {{/if}}
+
+      {{#if isRad}}
+      <h3 class="wh-env-h">☢ Radiation
+        <span class="wh-env-h-val" style="color:{{env.rad.tone}}">{{env.rad.text}} {{env.rad.unit}}</span>
+      </h3>
+      {{!-- Доза вводится числом в выбранных единицах; хранится всегда в мкЗв/ч. --}}
+      {{#if isGM}}
+      <div class="wh-env-rad-ctl">
+        <input type="number" name="radDose" value="{{radInput}}" min="0" step="any"/>
+        <div class="wh-env-rad-units">
+          {{#each radUnits as |u|}}<button type="button" class="{{#if u.selected}}sel{{/if}}" data-radunit="{{u.key}}">{{u.label}}</button>{{/each}}
+        </div>
+      </div>
+      {{/if}}
+      <div class="wh-env-rad-band" style="--c:{{env.rad.tone}}">{{env.rad.band}}</div>
+      {{/if}}
+
+    </section>
+  </div>
+</div>

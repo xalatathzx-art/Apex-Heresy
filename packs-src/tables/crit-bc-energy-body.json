@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Energy - Body",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 120,
+  "description": "Black Crusade, Table 7-8 (p. 248). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "Half Action only on the next turn."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Challenging (+0) Toughness Test or knocked Prone."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "2 levels of Fatigue and [[1d5]] Toughness Damage."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "[[1d10]] levels of Fatigue. Half Action only on the next round."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Knocked Prone. Agility Test or catch fire. Challenging (+0) Toughness Test or Stunned for 1 round."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Knocked Prone, Stunned for [[1d10]] rounds, [[1d5]] levels of Fatigue. Challenging (+0) Agility Test or catch fire."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Stunned for [[2d10]] rounds and [[1d10]] permanent Toughness Damage."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Stunned for [[2d10]] rounds. Strength, Toughness and Agility halved until medical treatment. [[2d5]] permanent Fellowship Damage."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. If he carried ammunition there is a 50% chance it explodes: everyone within [[1d5]] metres takes [[1d10+5]] Explosive Damage unless they pass an Evasion Test. Carried grenades or missiles detonate one round later."
+    }
+  ]
+}

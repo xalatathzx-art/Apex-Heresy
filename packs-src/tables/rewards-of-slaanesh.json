@@ -1,0 +1,57 @@
+{
+  "name": "Rewards of Slaanesh",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 200,
+  "description": "Black Crusade, Table 9-5 (p. 300). Each result links to the item in the Black Crusade compendium.",
+  "results": [
+    {
+      "name": "Daemonic Name",
+      "range": [
+        1,
+        16
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.x0NVA9fyuzcGa054]{Daemonic Name}"
+    },
+    {
+      "name": "Daemon Weapon",
+      "range": [
+        17,
+        32
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.sTcHt9fneJj2k2pA]{Daemon Weapon}"
+    },
+    {
+      "name": "Face of Slaanesh",
+      "range": [
+        33,
+        48
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.JZmpLroC8rHnzYuX]{Face of Slaanesh}"
+    },
+    {
+      "name": "Hermaphrodite",
+      "range": [
+        49,
+        64
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.Xv7TbidNXYct4GU8]{Hermaphrodite}"
+    },
+    {
+      "name": "Mark of Slaanesh",
+      "range": [
+        65,
+        84
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.Dx3IeRhiSNRx28Bt]{Mark of Slaanesh}"
+    },
+    {
+      "name": "One Thousand and One Senses",
+      "range": [
+        85,
+        100
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.dZQaeScIcvxtRjxG]{One Thousand and One Senses}"
+    }
+  ]
+}

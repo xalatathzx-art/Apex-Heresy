@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Energy - Head",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 130,
+  "description": "Black Crusade, Table 7-9 (p. 249). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "-10 to all tests except Toughness for 1 round."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Blinded for 1 round."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Deafened until the target receives first aid or [[1d5]] hours pass."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "2 levels of Fatigue and Blinded for [[1d5]] rounds."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Blinded for [[1d10]] rounds, Stunned for 1 round, 1 permanent Fellowship Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Blinded for [[1d10]] hours. [[1d5]] permanent Fellowship Damage, 1 permanent Perception Damage and [[1d5]] levels of Fatigue."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Permanently Blinded and [[1d10]] levels of Fatigue. Roll [[1d10]] for the target's new Fellowship, unless it is already 10 or less."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. His burning body runs [[2d10]] metres in a random direction (use the scatter diagram). Anything flammable it passes, characters included, must pass a Challenging (+0) Agility Test or catch fire."
+    }
+  ]
+}

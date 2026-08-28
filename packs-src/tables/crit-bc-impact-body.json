@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Impact - Body",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 320,
+  "description": "Black Crusade, Table 7-16 (p. 252). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "Half Action only on the next turn."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "1 level of Fatigue and knocked Prone."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Knocked Prone and Stunned for 1 round."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "[[1d10]] Toughness Damage. Challenging (+0) Agility Test or knocked Prone."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Stunned for 2 rounds and must make an Ordinary (+10) Toughness Test."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Flung [[1d5]] metres from the attacker and knocked Prone; he stops early if he strikes a solid object. [[1d5]] levels of Fatigue and Stunned for 2 rounds."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "[[1d5]] ribs broken and [[1d5]] permanent Toughness Damage. The target may lie still awaiting medical attention (a successful Medicae Test sets the ribs) or keep acting, with a 20% chance each round of dying instantly."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Blood Loss and [[1d10]] permanent Toughness Damage."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies and is thrown [[1d10]] metres. Anyone in his path must pass a Challenging (+0) Agility Test or be knocked Prone."
+    }
+  ]
+}

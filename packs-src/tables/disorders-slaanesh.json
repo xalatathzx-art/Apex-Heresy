@@ -1,0 +1,14 @@
+{
+  "name": "Mental Disorders: Followers of Slaanesh",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 240,
+  "description": "Black Crusade, Table 8-7 (p. 279). Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Unspeakable Urge", "range": [1, 20], "text": "Must indulge once a week. Otherwise -5 to Skill Tests requiring concentration, worsening by a further -5 each week to a maximum of -20." },
+    { "name": "Irenic", "range": [21, 40], "text": "-10 to all Interaction Tests when dealing with soldiers, mercenaries, Traitor Legionnaires and the like." },
+    { "name": "Absolute Pleasure", "range": [41, 60], "text": "-5 to Skill Tests requiring concentration, unless the character takes care to dull physical sensation with gloves or heavy clothing." },
+    { "name": "Secretive", "range": [61, 80], "text": "+5 to Willpower Tests to resist interrogation or torture, but a Difficult (-10) Willpower Test is needed to pass on even mundane information." },
+    { "name": "Perfectionist", "range": [81, 100], "text": "When the GM calls for it, the character must pass a Challenging (+0) Willpower Test or take -5 to skills requiring concentration until he can set the perceived flaw right." }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "The Contempt of the Warp",
+  "folder": "Psychic Powers",
+  "formula": "1d100",
+  "sort": 300,
+  "description": "Black Crusade, Table 6-6 (p. 227). Rolled when a Chaos ritual fails. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Ignored", "range": [1, 50], "text": "The ritual fails, but the character is unharmed." },
+    { "name": "Mocked", "range": [51, 80], "text": "The character gains [[1d5]] Corruption Points." },
+    { "name": "Struck Down", "range": [81, 90], "text": "The character takes [[2d10]] Energy Damage with the Warp Weapon quality and gains [[1d10]] Corruption Points." },
+    { "name": "Assailed", "range": [91, 100], "text": "A minor daemon or warp entity chosen by the GM appears, not subject to Mastery. If the ritual was a summoning, that daemon arrives instead - also free of Mastery - and attacks the summoner immediately." },
+    { "name": "Possessed", "range": [101, 200], "text": "An Unclean Spirit or worse attempts to overthrow the character's mind. If the ritual was a summoning, that daemon is summoned free of Mastery and attempts to possess the summoner." }
+  ]
+}

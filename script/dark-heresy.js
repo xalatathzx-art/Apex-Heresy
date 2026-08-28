@@ -1,4 +1,8 @@
-﻿/**
+﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
+// Перенесено из системы warhammer-dbc; хранится во флаге сцены.
+import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
+
+/**
  * Read an ActiveEffect's status ids as a plain array.
  *
  * ActiveEffect#statuses is a SetField, so it is a Set on the live document and an Array only on the
@@ -485,10 +489,17 @@ class DarkHeresyActor extends Actor {
         this.system.insanityBonus = Math.floor(this.insanity / 10);
         this.system.corruptionBonus = Math.floor(this.corruption / 10);
         // Ступень Пути Порчи: на листе полезнее названия, чем голое число — оно
-        // говорит, насколько тяжела следующая проверка на Рудименты.
-        const corruptionStep = Dh.getCorruptionStep(this.corruption);
-        this.system.corruptionDegree = corruptionStep.degree;
-        this.system.corruptionModifier = corruptionStep.malignancyModifier;
+        // говорит, насколько тяжела следующая проверка на Рудименты. Это механика
+        // Dark Heresy 2; у еретика Black Crusade ступеней нет, там Порча копится
+        // до порогов Даров, поэтому подпись ему не выводится.
+        if (Dh.rulesetFor(this).corruption.track === "malignancy") {
+            const corruptionStep = Dh.getCorruptionStep(this.corruption);
+            this.system.corruptionDegree = corruptionStep.degree;
+            this.system.corruptionModifier = corruptionStep.malignancyModifier;
+        } else {
+            this.system.corruptionDegree = null;
+            this.system.corruptionModifier = 0;
+        }
         // Initialize psy structure if it doesn't exist (for backward compatibility)
         // Structure is: system.psy.rating (flat, as used in createPsychicRollData)
         if (!this.system.psy) {
@@ -555,7 +566,10 @@ class DarkHeresyActor extends Actor {
         // The contribution is read straight off the effects rather than inferred from
         // what is standing in the field: a derived key holds last prepare's result,
         // not a base value, so a difference taken against it would compound.
-        this.fatigue.max = this._applyEffectsTo("system.fatigue.max", tb + wb);
+        // Предел усталости у двух игр разный: Black Crusade даёт бонус Стойкости
+        // (BC, стр. 246), Dark Heresy 2 — Стойкость плюс Волю (DH2, стр. 233).
+        const fatigueBase = Dh.rulesetFor(this).fatigue.threshold === "tb" ? tb : tb + wb;
+        this.fatigue.max = this._applyEffectsTo("system.fatigue.max", fatigueBase);
     }
 
     /**
@@ -1555,9 +1569,12 @@ class DarkHeresyActor extends Actor {
             }
         }
 
-        // Check for Force trait: double kills if any kills were made
-        if (damages?.[0]?.weaponClass === "melee" && kills > 0 && damages[0].weaponTraits?.force === true) {
-            kills += kills;
+        // Ближнее оружие с Силовым полем снимает на одну магнитуду больше
+        // (BC, стр. 350). Раньше здесь удваивался счёт и по качеству Force —
+        // ни величина, ни качество правилу не соответствовали.
+        if (damages?.[0]?.weaponClass === "melee" && kills > 0
+            && damages[0].weaponTraits?.powerField === true) {
+            kills += 1;
         }
 
         // Apply devastating weapon trait: additional horde size reduction on successful hit
@@ -2754,7 +2771,14 @@ async function combatRoll(rollData) {
     {
         const a = game.actors.get(rollData.ownerId);
         const tok = a?.getActiveTokens?.(true)?.[0];
-        const blocking = tok && ["stunned", "unconscious", "dead"].find(k => _hasCondition(tok, k));
+        let blocking = tok && ["stunned", "unconscious", "dead"].find(k => _hasCondition(tok, k));
+        // Слепой автоматически проваливает любую проверку Меткости — правило
+        // одинаково в обеих книгах (BC, стр. 256; DH2, стр. 243). Владение
+        // оружием при этом не блокируется, а идёт со штрафом −30.
+        if (!blocking && tok && _hasCondition(tok, "blinded")) {
+            const melee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
+            if (!melee) blocking = "blinded";
+        }
         if (blocking) {
             await _computeCombatTarget(rollData);
             rollData.result = 100;
@@ -3242,24 +3266,28 @@ async function _computeCombatTarget(rollData) {
             rollData.psy.value = rollData.psy.max;
         }
         
-        // Calculate Psy Rating bonus: +5 per displayed rating (including 1)
-        // The displayed value is already adjusted for Bound (divided by 2, rounded up)
-        // e.g., displayed rating 2 = 10 bonus
-        let psyBonus = rollData.psy.value * 5;
-        
-        // The modifier is the bonus itself (added to target)
-        psyModifier = psyBonus;
-        
+        const psyRules = Dh.rulesetFor(game.actors.get(rollData.ownerId)).psychic;
+
         // Calculate push status (going above current rating)
         // Use currentRating (with sustained applied) instead of base rating
         let baseCurrentRating = rollData.psy.currentRating !== undefined ? rollData.psy.currentRating : rollData.psy.rating;
-        // For Bound, compare against the current rating divided by 2 (rounded up)
+        // Половинный рейтинг Fettered — правило Black Crusade; в DH2 такого шага нет.
         let baseDisplayedRating = baseCurrentRating;
-        if (rollData.psy.class === "bound") {
+        if (psyRules.fetteredHalving && rollData.psy.class === "bound") {
             baseDisplayedRating = Math.ceil(baseCurrentRating / 2);
         }
         const pushModifier = (baseDisplayedRating - rollData.psy.value) * 10;
         rollData.psy.push = pushModifier < 0;
+
+        // Две разные модели: Black Crusade даёт +5 за каждое использованное очко
+        // рейтинга (стр. 208), Dark Heresy 2 — ±10 за каждое очко отклонения от
+        // базового рейтинга (стр. 194). Раньше и там и там считалось по BC, а
+        // дифференциал DH2 вычислялся и молча выбрасывался.
+        const psyRatingBonus = () => psyRules.ratingBonus === "deviation"
+            ? (baseDisplayedRating - rollData.psy.value) * 10
+            : rollData.psy.value * 5;
+        let psyBonus = psyRatingBonus();
+        psyModifier = psyBonus;
         
         // Store initial rating for display in chat
         rollData.psy.initialRating = baseDisplayedRating;
@@ -3283,7 +3311,7 @@ async function _computeCombatTarget(rollData) {
             let ratingBonus = new Roll("1d5").evaluateSync().total;
             rollData.psy.value += ratingBonus;
             // Recalculate after warp conduit bonus
-            psyBonus = rollData.psy.value * 5;
+            psyBonus = psyRatingBonus();
             psyModifier = psyBonus;
             rollData.psy.actualBonus = psyBonus;
         }
@@ -3468,10 +3496,19 @@ async function _rollTarget(rollData) {
     rollData.result = result;
     rollData.unmodifiedResult = unmodifiedResult; // Store unmodified result for reference
     rollData.rollObject = r;
-    rollData.flags.isSuccess = rollData.result <= rollData.target.final;
+    // Натуральная «1» — успех всегда, натуральная «100» — провал всегда, какими бы
+    // ни были модификаторы (BC, стр. 36). Решает неизменённый кубик, а не result:
+    // тот мог быть подменён скрытым броском.
+    const autoSuccess = unmodifiedResult === 1;
+    const autoFailure = unmodifiedResult === 100;
+    rollData.autoOutcome = autoSuccess ? "success" : (autoFailure ? "failure" : null);
+    rollData.flags.isSuccess = autoSuccess
+        || (!autoFailure && rollData.result <= rollData.target.final);
     if (rollData.flags.isSuccess) {
         rollData.dof = 0;
-        rollData.dos = 1 + _getDegree(rollData.target.final, rollData.result);
+        // При автоуспехе цель бывает ниже броска, и разность уходит в минус:
+        // ступень успеха не бывает меньше одной.
+        rollData.dos = Math.max(1 + _getDegree(rollData.target.final, rollData.result), 1);
         const unnaturalBonus = _getUnnaturalDosBonus(rollData);
         rollData.unnaturalDosBonus = unnaturalBonus;
         if (unnaturalBonus > 0) {
@@ -3479,7 +3516,7 @@ async function _rollTarget(rollData) {
         }
     } else {
         rollData.dos = 0;
-        rollData.dof = 1 + _getDegree(rollData.result, rollData.target.final);
+        rollData.dof = Math.max(1 + _getDegree(rollData.result, rollData.target.final), 1);
     }
     if (rollData.psy) _computePsychicPhenomena(rollData);
 }
@@ -4200,11 +4237,25 @@ async function _rollRighteousFury() {
  */
 function _computePsychicPhenomena(rollData) {
     // For Bound characters using Psy Rating divided by 2 (not pushing), no phenomena occur
-    if (rollData.psy.class === "bound" && !rollData.psy.push) {
+    const phenomenaRule = Dh.rulesetFor(game.actors.get(rollData.ownerId)).psychic.phenomena;
+    const isDouble = _isDouble(rollData.result);
+    const isPush = rollData.psy.push && !rollData.psy.isUnbrake;
+
+    if (phenomenaRule === "dh2") {
+        // Dark Heresy 2 (стр. 194): обычно феномен ловится дублем — в том числе на
+        // проваленной проверке. При проталкивании правило переворачивается: феномен
+        // даёт любой результат, КРОМЕ дубля.
+        rollData.psy.hasPhenomena = isPush ? !isDouble : isDouble;
+    } else if (isPush) {
+        // Black Crusade (стр. 210): на Push феномен безусловен. «Разгон» Bound с
+        // половины рейтинга до полного — это Unfettered, а не Push, сюда он не идёт.
+        rollData.psy.hasPhenomena = true;
+    } else if (rollData.psy.class === "bound") {
+        // Fettered: феноменов не бывает.
         rollData.psy.hasPhenomena = false;
     } else {
-        // For all classes when pushing (or Unbound/Daemonic not pushing), phenomena occur only on doubles
-        rollData.psy.hasPhenomena = _isDouble(rollData.result);
+        // Unfettered: только на дубле.
+        rollData.psy.hasPhenomena = isDouble;
     }
     
     // If Unbound and a double is rolled, mark as unbound status
@@ -7594,6 +7645,12 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
 
     async _prepareRollCorruption(event) {
         event.preventDefault();
+        // Кнопка спрятана у еретика шаблоном, но до обработчика можно дотянуться
+        // макросом: в Black Crusade проверки на Рудименты не существует.
+        if (Dh.rulesetFor(this.actor).corruption.track !== "malignancy") {
+            ui.notifications.info(game.i18n.localize("GIFT.NO_MALIGNANCY"));
+            return;
+        }
         await prepareCommonRoll(
             DarkHeresyUtil.createMalignancyTestRolldata(this.actor)
         );
@@ -10808,7 +10865,9 @@ function chatListeners(html) {
         ".dh-chat-target": onChatTargetClick,
         ".manual-damage-undo": onManualDamageUndoClick,
         ".roll-willpower-test": onFireWillpowerTestClick,
-        ".roll-blood-loss": onBloodLossRollClick
+        ".roll-blood-loss": onBloodLossRollClick,
+        ".extinguish-fire": onExtinguishFireClick,
+        ".pinning-escape": onPinningEscapeClick
     });
 
     _delegate(html, "dblclick", {
@@ -12164,10 +12223,30 @@ async function syncFatigueState(actor) {
     const over = value > max;
     const has = !!actor.hasCondition("unconscious");
 
+    // Dark Heresy 2 (стр. 233): усталость свыше двойного порога — смерть. В Black
+    // Crusade такого правила нет, там персонаж просто лежит.
+    if (Dh.rulesetFor(actor).fatigue.deathAtDoubleThreshold && max > 0 && value > max * 2) {
+        if (!actor.hasCondition("dead")) {
+            await actor.addCondition("dead", { type: "major" });
+            await ChatMessage.create({
+                content: `<div class="dark-heresy chat roll"><div class="dh-card is-fail">
+                    <div class="dh-card-h"><span class="who">${actor.name}</span>
+                    <span class="verdict">${game.i18n.localize("COLLAPSE.EXHAUSTED_TO_DEATH")}</span></div>
+                    <div class="dh-card-b"><dl class="dh-kv">
+                        <dt>${game.i18n.localize("TITLE.FATIGUE")}</dt><dd>${value} / ${max}</dd>
+                    </dl></div></div></div>`
+            });
+        }
+        return;
+    }
+
     if (over && !has) {
         const tb = Number(actor.characteristics.toughness.bonus) || 0;
         const minutes = Math.max(10 - tb, 1);
         await actor.addCondition("unconscious", { rounds: minutes * 12 });
+        // Отметка нужна, чтобы при пробуждении откатить усталость до предела
+        // (BC, стр. 246). Обморок от крита или иной причины откатывать нечего.
+        await actor.setFlag("dark-heresy", "fatigueCollapse", true);
         await ChatMessage.create({
             content: `<div class="dark-heresy chat roll"><div class="dh-card is-fail">
                 <div class="dh-card-h"><span class="who">${actor.name}</span>
@@ -12180,6 +12259,9 @@ async function syncFatigueState(actor) {
     } else if (!over && has) {
         // Усталость упала до предела — сознание возвращается.
         await actor.removeCondition("unconscious");
+        if (actor.getFlag("dark-heresy", "fatigueCollapse")) {
+            await actor.unsetFlag("dark-heresy", "fatigueCollapse");
+        }
     }
 }
 
@@ -12324,7 +12406,16 @@ async function sweepExpiredConditions(combat) {
             return Number.isFinite(d.remaining) && d.remaining <= 0;
         });
         if (!expired.length) continue;
+        // Проснувшийся от усталости приходит в себя с усталостью, равной пределу,
+        // а не с той, что его свалила (BC, стр. 246). Без этого он оставался за
+        // пределом, и следующая же сверка роняла его обратно — навсегда.
+        const wokeFromFatigue = expired.some(e => e.statuses?.has?.("unconscious"))
+            && actor.getFlag("dark-heresy", "fatigueCollapse");
         await actor.deleteEmbeddedDocuments("ActiveEffect", expired.map(e => e.id));
+        if (wokeFromFatigue) {
+            await actor.update({ "system.fatigue.value": Number(actor.system.fatigue?.max) || 0 });
+            await actor.unsetFlag("dark-heresy", "fatigueCollapse");
+        }
         removed.push(...expired.map(e => `${actor.name}: ${e.name}`));
     }
     return removed;
@@ -12494,8 +12585,20 @@ class DhMacroUtil {
         } else if (name === "fear") {
             rollData = DarkHeresyUtil.createFearTestRolldata(actor);
         } else if (name === "malignancy") {
+            // Рудименты — механика Dark Heresy 2; в Black Crusade Порча тратится
+            // на порогах Даров, и проверки такой нет.
+            if (Dh.rulesetFor(actor).corruption.track !== "malignancy") {
+                ui.notifications.info(game.i18n.localize("GIFT.NO_MALIGNANCY"));
+                return;
+            }
             rollData = DarkHeresyUtil.createMalignancyTestRolldata(actor);
         } else if (name === "trauma") {
+            // Травма считается от накопленных очков безумия. У еретика они
+            // неизменны, поэтому проверка вырождается и в BC не применяется.
+            if (!Dh.rulesetFor(actor).insanity.traumaTest) {
+                ui.notifications.info(game.i18n.localize("INSANITY.NO_TRAUMA"));
+                return;
+            }
             rollData = DarkHeresyUtil.createTraumaTestRolldata(actor);
         } else {
             rollData = DarkHeresyUtil.createCharacteristicRollData(actor, name);
@@ -12539,13 +12642,91 @@ let Dh = {};
  * оставлен от предыдущей ступени, чтобы кнопка не выдавала бессмысленный ноль,
  * если МИ всё-таки бросает.
  */
+/**
+ * Профили правил: чем Dark Heresy 2 отличается от Black Crusade.
+ *
+ * Система обслуживает обе игры одним кодом, но правила у них расходятся не в
+ * мелочах, а в моделях. Усталость: BC даёт плоские −10 за любой её уровень и
+ * порог в бонус Стойкости, DH2 — порог из Стойкости и Воли, половинную
+ * характеристику вместо штрафа и смерть за двойным порогом. Психика: в BC
+ * важен использованный рейтинг (+5 за очко) и уровни Fettered/Unfettered/Push,
+ * в DH2 — отклонение от базового рейтинга (±10 за очко), а феномен ловится
+ * дублем, при проталкивании же — наоборот, всем, кроме дубля.
+ *
+ * Поэтому развилки собраны в один профиль, а не рассыпаны тернарниками по коду:
+ * добавляя правило, его пишут здесь, и оба листа получают своё.
+ */
+Dh.rulesets = {
+    dh2: {
+        id: "dh2",
+        label: "RULESET.DH2",
+        fatigue: { threshold: "tbwb", penalty: "halveCharacteristic", deathAtDoubleThreshold: true },
+        psychic: { ratingBonus: "deviation", phenomena: "dh2", fetteredHalving: false },
+        corruption: { track: "malignancy", malignancyEveryCp: 10, mutationEveryCp: 30 },
+        insanity: { track: "points", traumaTest: true },
+        bloodLoss: { lethal: false, fatiguePerRound: 1, staunch: -10 }
+    },
+    bc: {
+        id: "bc",
+        label: "RULESET.BC",
+        fatigue: { threshold: "tb", penalty: "flat10", deathAtDoubleThreshold: false },
+        psychic: { ratingBonus: "perPoint", phenomena: "bc", fetteredHalving: true },
+        corruption: { track: "gifts" },
+        // Еретик Black Crusade считается уже сошедшим с ума и очков безумия не
+        // копит (стр. 279): вместо них он со временем набирает Расстройства.
+        insanity: { track: "fixed", traumaTest: false },
+        bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30 }
+    }
+};
+
+/**
+ * По каким правилам живёт этот актёр.
+ *
+ * Тип листа решает сам за себя: еретик — это Black Crusade, аколит — Dark Heresy 2.
+ * У НИП и техники своего листа правил нет, они идут за настройкой мира: в кампании
+ * по BC вражеский псайкер должен считаться по BC.
+ *
+ * @param {Actor|object|null} actor
+ * @returns {object} профиль из Dh.rulesets
+ */
+Dh.rulesetFor = function(actor) {
+    if (actor?.type === "heretic") return Dh.rulesets.bc;
+    if (actor?.type === "acolyte") return Dh.rulesets.dh2;
+    let world = "dh2";
+    try {
+        world = game.settings.get("dark-heresy", "ruleset") || "dh2";
+    } catch (err) {
+        // Настройки ещё не зарегистрированы (ранняя подготовка данных) — берём DH2.
+    }
+    return Dh.rulesets[world] ?? Dh.rulesets.dh2;
+};
+
+/**
+ * Путь Порчи Dark Heresy 2 (таблица 8-14, стр. 290).
+ *
+ * Ступень задаёт штраф к проверке на Рудименты и номер проверки на мутацию.
+ * Названия ступеней раньше были взяты из первой редакции — модификаторы совпадали,
+ * а подписи шли со сдвигом.
+ */
 Dh.corruptionPath = [
-    { max: 30, degree: "CORRUPTION.DEGREE.MARKED", malignancyModifier: 0 },
-    { max: 60, degree: "CORRUPTION.DEGREE.TAINTED", malignancyModifier: -10 },
-    { max: 90, degree: "CORRUPTION.DEGREE.CORRUPTED", malignancyModifier: -20 },
+    { max: 30, degree: "CORRUPTION.DEGREE.TAINTED", malignancyModifier: 0 },
+    { max: 60, degree: "CORRUPTION.DEGREE.SOILED", malignancyModifier: -10 },
+    { max: 90, degree: "CORRUPTION.DEGREE.DEBASED", malignancyModifier: -20 },
     { max: 99, degree: "CORRUPTION.DEGREE.PROFANE", malignancyModifier: -30 },
     { max: Infinity, degree: "CORRUPTION.DEGREE.DAMNED", malignancyModifier: -30 }
 ];
+
+/**
+ * Пороги Даров Богов в Black Crusade (стр. 289).
+ *
+ * У Ученика Хаоса и Легионера-предателя они разные: легионер создан крепче и
+ * платит реже. Ступеней Порчи и проверок на Рудименты в BC нет вовсе — вместо
+ * них на каждом пороге бросают по таблице Даров.
+ */
+Dh.giftThresholds = {
+    disciple: [10, 20, 40, 60, 80],
+    legionnaire: [10, 30, 60, 90]
+};
 
 /**
  * Ступень Пути Порчи для набранных очков. Ниже нуля не бывает, поэтому всё,
@@ -13440,6 +13621,18 @@ const DH_STATUS_EFFECTS = [
         statuses: ["fatigued"]
     },
     {
+        id: "suffocating",
+        name: "CONDITION.SUFFOCATING",
+        img: "systems/dark-heresy/assets/icons/conditions/fatigued-minor.svg",
+        statuses: ["suffocating"]
+    },
+    {
+        id: "vacuum",
+        name: "CONDITION.VACUUM",
+        img: "systems/dark-heresy/assets/icons/conditions/ablaze-minor.svg",
+        statuses: ["vacuum"]
+    },
+    {
         id: "unconscious",
         name: "CONDITION.UNCONSCIOUS",
         img: "systems/dark-heresy/assets/icons/conditions/unconscious.svg",
@@ -13569,6 +13762,12 @@ Hooks.once("init", async function() {
             getFacing: _getVehicleFacing,
             getZone: _getVehicleZone
         },
+        // Окно окружения — макросом и из панели сцены.
+        openEnvironment: openEnvironment,
+        // Падение — разовое событие, а не состояние: вешать его на фишку нечем,
+        // и высоту знает только стол. Поэтому оно открыто макросом:
+        // game.darkHeresy.applyFallingDamage(actor, 12)
+        applyFallingDamage: applyFallingDamage,
         // Проверка принадлежности обычно идёт сама, на очередных десяти очках
         // Порчи. Здесь она открыта макросам: МИ иногда правит Порчу задним
         // числом, и тогда сверку нужно позвать руками.
@@ -13630,6 +13829,16 @@ Hooks.once("init", async function() {
         default: 0,
         type: Number
     });
+    game.settings.register("dark-heresy", "ruleset", {
+        name: "SETTINGS.RULESET",
+        hint: "SETTINGS.RULESET_HINT",
+        scope: "world",
+        config: true,
+        default: "dh2",
+        type: String,
+        choices: { dh2: "RULESET.DH2", bc: "RULESET.BC" }
+    });
+
     game.settings.register("dark-heresy", "autoCalcXPCosts", {
         name: "Calculate XP Costs",
         hint: "If enabled, calculate XP costs automatically.",
@@ -13911,6 +14120,26 @@ Hooks.once("ready", async function() {
                                     console.error(`Error applying bleeding effect:`, err);
                                 });
                             }
+
+                        // Вакуум идёт раньше удушья: он сам его и вызывает, и
+                        // порядок решает, чей счётчик раундов заведётся первым.
+                            if (actor.hasCondition("vacuum")) {
+                                _applyVacuumEffect(actor, newTurnCombatant).catch(err => {
+                                    console.error(`Error applying vacuum effect:`, err);
+                                });
+                            }
+
+                            if (actor.hasCondition("suffocating")) {
+                                _applySuffocationEffect(actor, newTurnCombatant).catch(err => {
+                                    console.error(`Error applying suffocation effect:`, err);
+                                });
+                            }
+
+                            if (actor.hasCondition("pinned")) {
+                                _offerPinningEscape(actor, newTurnCombatant).catch(err => {
+                                    console.error(`Error offering pinning escape:`, err);
+                                });
+                            }
                     }
                 }
             }
@@ -14011,6 +14240,7 @@ Hooks.on("updateActor", async (actor, changes) => {
         && foundry.utils.getProperty(changes, "system.corruption") !== undefined
         && game.users.activeGM === game.user) {
         await checkHereticAllegiance(actor);
+        if (Dh.rulesetFor(actor).corruption.track === "gifts") await checkGiftThresholds(actor);
     }
 });
 
@@ -14023,6 +14253,44 @@ Hooks.on("updateActor", async (actor, changes) => {
  * @param {Actor} actor
  * @returns {Promise<void>}
  */
+/**
+ * Объявить о пересечении порога Даров Богов (Black Crusade, стр. 289).
+ *
+ * Дар выдаётся не за каждые N очков, а на именованных порогах, и у Легионера-
+ * предателя они свои. Пройденный максимум держим на флаге: Порча может и упасть
+ * (или её поправят руками), а один и тот же порог не должен срабатывать дважды.
+ *
+ * Сам бросок не делается — таблица Даров лежит в компендиуме, и результат
+ * выбирает ведущий: часть Даров требует его решения.
+ *
+ * @param {Actor} actor
+ */
+async function checkGiftThresholds(actor) {
+    const points = Number(actor.corruption) || 0;
+    const legionnaire = !!actor.getFlag("dark-heresy", "spaceMarine");
+    const thresholds = legionnaire ? Dh.giftThresholds.legionnaire : Dh.giftThresholds.disciple;
+    const reached = thresholds.filter(t => points >= t);
+    if (!reached.length) return;
+
+    const highest = reached[reached.length - 1];
+    const seen = Number(actor.getFlag("dark-heresy", "giftThreshold")) || 0;
+    if (highest <= seen) return;
+    await actor.setFlag("dark-heresy", "giftThreshold", highest);
+
+    await ChatMessage.create({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor }),
+        content: `<div class="dark-heresy chat roll"><div class="dh-card is-neutral">
+            <div class="dh-card-h"><span class="who">${actor.name}</span>
+            <span class="verdict">${game.i18n.localize("GIFT.THRESHOLD")}</span></div>
+            <div class="dh-card-b"><dl class="dh-kv">
+                <dt>${game.i18n.localize("TITLE.CORRUPTION")}</dt><dd>${points}</dd>
+                <dt>${game.i18n.localize("GIFT.REACHED")}</dt><dd>${highest}</dd>
+                <dd class="full">${game.i18n.localize("GIFT.ROLL_HINT")}</dd>
+            </dl></div></div></div>`
+    });
+}
+
 async function checkHereticAllegiance(actor) {
     const decade = Math.floor((Number(actor.corruption) || 0) / 10);
     const seen = Number(actor.getFlag("dark-heresy", "allegianceDecade")) || 0;
@@ -14227,11 +14495,27 @@ function _getActorConditionModifier(actor, rollData = null) {
         sources.push(`${game.i18n.localize(key)} (${value > 0 ? "+" : ""}${value})`);
     };
 
-    // Усталость: пока она выше нуля, все проверки идут с −10 — включая
-    // владение оружием и меткость. Это штраф к броску, а не к характеристике,
-    // поэтому он считается здесь, а не в _computeCharacteristics.
-    if ((Number(actor.system?.fatigue?.value) || 0) > 0) {
-        note("CONDITION.FATIGUED", -10);
+    // Усталость наказывает по-разному в двух играх, и обе модели живут здесь —
+    // это поправка к броску, а не к характеристике, поэтому Стойкость, бонусы и
+    // всё производное от них остаются нетронутыми.
+    const fatigueLevel = Number(actor.system?.fatigue?.value) || 0;
+    if (fatigueLevel > 0) {
+        const fatigueRule = Dh.rulesetFor(actor).fatigue.penalty;
+        if (fatigueRule === "flat10") {
+            // Black Crusade (стр. 246): любой уровень усталости — −10 ко всем проверкам.
+            note("CONDITION.FATIGUED", -10);
+        } else {
+            // Dark Heresy 2 (стр. 233): характеристика, чей бонус ниже уровня усталости,
+            // считается «уставшей» и в структурном времени идёт за половину (округляя
+            // вверх). Половина выражена вычитаемым, чтобы лечь в общий счёт поправок:
+            // ceil(t/2) − t равно −floor(t/2).
+            const key = rollData?.characteristicKey;
+            const characteristic = key ? actor.characteristics?.[key] : null;
+            if (characteristic && Number(characteristic.bonus) < fatigueLevel) {
+                const total = Number(characteristic.total) || 0;
+                if (total > 0) note("CONDITION.FATIGUED", -Math.floor(total / 2));
+            }
+        }
     }
 
     const tokens = actor.getActiveTokens(true);
@@ -14245,14 +14529,18 @@ function _getActorConditionModifier(actor, rollData = null) {
     const isMelee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
     const isRanged = !!rollData?.weapon && !isMelee;
 
-    // Blinded gives -30 to melee attacks
-    if (token && isMelee && _hasCondition(token, "blinded")) {
+    // Слепота: −30 к Владению оружием и прочим проверкам, опирающимся на зрение.
+    // Автопровал Меткости живёт не здесь — это не поправка, а блокировка броска.
+    if (token && _hasCondition(token, "blinded")
+        && (isMelee || rollData?.characteristicKey === "weaponSkill")) {
         note("CONDITION.BLINDED", -30);
     }
 
-    // Лежачий бьёт хуже: в ближнем бою −20, стрельбе лежа правила не мешают.
-    if (token && isMelee && _hasCondition(token, "prone")) {
-        note("CONDITION.PRONE", -20);
+    // Лежачий бьёт хуже и уворачивается ещё хуже: −10 к Владению оружием и
+    // −20 к уклонению (BC, стр. 245). Стрельбе лёжа правила не мешают.
+    if (token && _hasCondition(token, "prone")) {
+        if (rollData?.flags?.isEvasion) note("CONDITION.PRONE", -20);
+        else if (isMelee) note("CONDITION.PRONE", -10);
     }
 
     // Придавленный огнём не может целиться: −20 к стрельбе.
@@ -14426,6 +14714,35 @@ function _resolvePendingCard(button) {
  * d100, смерть на 90 и выше, — но кости кидает владелец персонажа.
  * @param {Event} event
  */
+/**
+ * Попытка сбить пламя.
+ *
+ * По обеим книгам (BC, стр. 257; DH2, стр. 243) это полное действие: упасть ничком
+ * и пройти Трудную (−20) проверку Ловкости. Правило одинаково, поэтому развилки по
+ * играм здесь нет. «Ничком» вешаем сразу — персонаж падает независимо от исхода.
+ *
+ * @param {Event} event
+ */
+async function onExtinguishFireClick(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const actor = await _getActorFromOwnerId(button.dataset.actorId, button.dataset.tokenId);
+    if (!actor) return;
+
+    if (!actor.hasCondition("prone")) await actor.addCondition("prone", { type: "minor" });
+
+    const rollData = DarkHeresyUtil.createCharacteristicRollData(actor, "agility");
+    rollData.name = "EFFECTS.EXTINGUISH";
+    rollData.target.modifier = -20;
+    await _computeCommonTarget(rollData);
+    await _rollTarget(rollData);
+    if (rollData.flags.isSuccess) await actor.removeCondition("fire");
+    await _sendRollToChat(rollData);
+    if (rollData.flags.isSuccess) {
+        ui.notifications.info(game.i18n.format("EFFECTS.FIRE_OUT", { name: actor.name }));
+    }
+}
+
 async function onBloodLossRollClick(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -14477,7 +14794,9 @@ async function _applyFireEffect(actor, combatant) {
     // Apply 1 level of Fatigue
     const currentFatigue = Number(actor.fatigue.value) || 0;
     const maxFatigue = Number(actor.fatigue.max) || 0;
-    const newFatigue = Math.min(currentFatigue + 1, maxFatigue);
+    // Обрезать по пределу нельзя: именно превышение предела роняет персонажа
+    // без сознания (BC, стр. 246). С обрезкой горящий тлел бы вечно.
+    const newFatigue = currentFatigue + 1;
     await actor.update({ "system.fatigue.value": newFatigue });
     
     // Create Willpower test roll data (серьёзная проверка, +0)
@@ -14559,39 +14878,305 @@ async function _applyFireEffect(actor, combatant) {
 /**
  * Apply Bleeding effect: death chance roll
  */
-async function _applyBleedingEffect(actor, combatant) {
-    // Бросок кровопотери может быть отдан игроку: шанс погибнуть невелик, и
-    // отнимать этот бросок у владельца персонажа стол обычно не хочет.
-    const pendingRoll = _shouldPromptPlayerRoll(actor);
-    let rollResult = null;
-    let isDead = false;
+/**
+ * Начислить урон прямо в раны, минуя броню и — по требованию — Стойкость.
+ *
+ * Огонь, вакуум и падение бьют в обход брони, но про Стойкость у каждого своя
+ * оговорка, поэтому её вычитание вынесено параметром. Перелив в критический
+ * урон одинаков для всех, и живёт он здесь, а не тремя копиями.
+ *
+ * @param {Actor} actor
+ * @param {number} raw сырой бросок урона
+ * @param {boolean} ignoreToughness вычитать ли бонус Стойкости
+ * @returns {Promise<number>} сколько ран легло на самом деле
+ */
+async function _applyDirectDamage(actor, raw, ignoreToughness = false) {
+    const tb = ignoreToughness ? 0 : _toughnessBonus(actor);
+    const amount = Math.max(Number(raw) - tb, 0);
+    if (amount <= 0) return 0;
 
-    if (!pendingRoll) {
-        // Roll d100 for death chance (10% chance = 90 or higher)
-        const deathRoll = new Roll("1d100");
-        await deathRoll.evaluate();
-        rollResult = deathRoll.total;
-        isDead = rollResult >= 90;
+    const maxWounds = Number(actor.wounds.max) || 0;
+    let wounds = Number(actor.wounds.value) || 0;
+    let critical = Number(actor.wounds.critical) || 0;
 
-        // If death roll succeeded, add "dead" condition
-        if (isDead) {
-            await actor.addCondition("dead", { type: "minor" });
+    if (wounds >= maxWounds) {
+        critical += amount;
+    } else if (wounds + amount > maxWounds) {
+        critical += (wounds + amount) - maxWounds;
+        wounds = maxWounds;
+    } else {
+        wounds += amount;
+    }
+    await actor.update({ "system.wounds.value": wounds, "system.wounds.critical": critical });
+    return amount;
+}
+
+/**
+ * Общая карточка состояния: заголовок, строки и необязательный подвал с кнопками.
+ *
+ * @param {Actor} actor
+ * @param {object} combatant
+ * @param {string} titleKey
+ * @param {string[]} lines
+ * @param {string} extra
+ */
+async function _postConditionCard(actor, combatant, titleKey, { figures = [], notes = [], extra = "" } = {}) {
+    // Цифры идут блоками, как в карточке броска: крупное число в рамке и
+    // трафаретная подпись под ним. Пояснения — отдельной строкой снизу, чтобы
+    // взгляд сначала цеплял значения, а не абзац текста.
+    let body = "";
+    if (figures.length) {
+        const cells = figures.map(f =>
+            '<div class="dh-fig' + (f.lead ? " lead" : "") + '">'
+            + '<span class="n">' + f.n + "</span>"
+            + '<span class="dh-cap">' + f.cap + "</span></div>").join("");
+        const width = figures.length === 2 ? " two" : (figures.length === 1 ? " one" : "");
+        body += '<div class="dh-figures' + width + '">' + cells + "</div>";
+    }
+    if (notes.length) {
+        body += '<dl class="dh-kv">'
+            + notes.map(t => '<dd class="full">' + t + "</dd>").join("")
+            + "</dl>";
+    }
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor, token: combatant?.token }),
+        content: '<div class="dark-heresy chat roll"><div class="dh-card is-neutral">'
+            + '<div class="dh-card-h"><span class="who">' + actor.name + "</span>"
+            + '<span class="verdict">' + game.i18n.localize(titleKey) + "</span></div>"
+            + '<div class="dh-card-b">' + body + extra + "</div></div></div>"
+    });
+}
+
+/**
+ * Удушье на ходу (BC, стр. 256; DH2, стр. 244 — правило одно и то же).
+ *
+ * В структурном времени дыхания хватает на удвоенный бонус Стойкости раундов, и
+ * каждый из них требует проверки Стойкости: провал — уровень усталости. Когда
+ * запас вышел, боец теряет сознание независимо от усталости, а без воздуха
+ * умирает ещё через бонус Стойкости раундов.
+ *
+ * @param {Actor} actor
+ * @param {object} combatant
+ */
+async function _applySuffocationEffect(actor, combatant) {
+    const tb = _toughnessBonus(actor);
+    const held = (Number(actor.getFlag("dark-heresy", "suffocationRounds")) || 0) + 1;
+    await actor.setFlag("dark-heresy", "suffocationRounds", held);
+
+    const limit = Math.max(tb * 2, 1);
+    const figures = [];
+    const notes = [];
+
+    if (actor.hasCondition("unconscious")) {
+        // Без сознания и без воздуха — счёт идёт до смерти.
+        const deadline = Math.max(tb, 1);
+        const dying = (Number(actor.getFlag("dark-heresy", "suffocationDying")) || 0) + 1;
+        await actor.setFlag("dark-heresy", "suffocationDying", dying);
+        figures.push({ n: dying + " / " + deadline, cap: game.i18n.localize("EFFECTS.SUFFOCATION_DYING"), lead: true });
+        if (dying >= deadline && !actor.hasCondition("dead")) {
+            await actor.addCondition("dead", { type: "major" });
+            notes.push(game.i18n.localize("EFFECTS.YOU_DIED"));
         }
+    } else if (held > limit) {
+        // Запас вышел: сознание теряется, сколько бы усталости ни оставалось.
+        await actor.addCondition("unconscious", {});
+        figures.push({ n: held + " / " + limit, cap: game.i18n.localize("EFFECTS.SUFFOCATION_BREATH"), lead: true });
+        notes.push(game.i18n.localize("EFFECTS.SUFFOCATION_OUT_OF_AIR"));
+    } else {
+        const rollData = DarkHeresyUtil.createCharacteristicRollData(actor, "toughness");
+        rollData.name = "CONDITION.SUFFOCATING";
+        await _computeCommonTarget(rollData);
+        await _rollTarget(rollData);
+        let gained = 0;
+        if (!rollData.flags.isSuccess) {
+            const current = Number(actor.system?.fatigue?.value) || 0;
+            await actor.update({ "system.fatigue.value": current + 1 });
+            gained = 1;
+        }
+        figures.push({ n: rollData.result, cap: game.i18n.localize("CHAT.ROLL") });
+        figures.push({ n: rollData.target.final, cap: game.i18n.localize("CHAT.TARGET") });
+        figures.push({ n: "+" + gained, cap: game.i18n.localize("TITLE.FATIGUE"), lead: gained > 0 });
+        notes.push(game.i18n.localize("EFFECTS.SUFFOCATION_BREATH") + ": " + held + " / " + limit);
     }
 
-    // Create and send chat message with result
+    await _postConditionCard(actor, combatant, "CONDITION.SUFFOCATING", { figures, notes });
+}
+
+/**
+ * Вакуум на ходу (BC, стр. 256; DH2, стр. 244 — правило одно и то же).
+ *
+ * Первые раунды, числом в бонус Стойкости, проходят без вреда. Дальше каждый
+ * раунд — взрывной урон от разгерметизации мимо брони И Стойкости, и проверка
+ * Стойкости против холода открытого космоса. Удушье вешается отдельным
+ * состоянием: без источника воздуха оно идёт своим чередом.
+ *
+ * @param {Actor} actor
+ * @param {object} combatant
+ */
+async function _applyVacuumEffect(actor, combatant) {
+    const tb = _toughnessBonus(actor);
+    const exposed = (Number(actor.getFlag("dark-heresy", "vacuumRounds")) || 0) + 1;
+    await actor.setFlag("dark-heresy", "vacuumRounds", exposed);
+
+    if (exposed <= tb) {
+        await _postConditionCard(actor, combatant, "CONDITION.VACUUM", {
+            figures: [{ n: exposed + " / " + tb, cap: game.i18n.localize("EFFECTS.VACUUM_GRACE") }]
+        });
+        return;
+    }
+
+    const decompression = new Roll("1d10");
+    await decompression.evaluate();
+    const taken = await _applyDirectDamage(actor, decompression.total, true);
+
+    const cold = DarkHeresyUtil.createCharacteristicRollData(actor, "toughness");
+    cold.name = "EFFECTS.VACUUM_COLD";
+    await _computeCommonTarget(cold);
+    await _rollTarget(cold);
+    let burn = 0;
+    if (!cold.flags.isSuccess) {
+        const coldRoll = new Roll("1d10");
+        await coldRoll.evaluate();
+        burn = await _applyDirectDamage(actor, coldRoll.total, true);
+    }
+
+    if (!actor.hasCondition("suffocating")) await actor.addCondition("suffocating", {});
+    await _postConditionCard(actor, combatant, "CONDITION.VACUUM", {
+        figures: [
+            { n: taken, cap: game.i18n.localize("EFFECTS.VACUUM_DECOMPRESSION"), lead: taken > 0 },
+            { n: burn, cap: game.i18n.localize("EFFECTS.VACUUM_COLD"), lead: burn > 0 }
+        ],
+        notes: [game.i18n.localize("EFFECTS.VACUUM_IGNORES")]
+    });
+}
+
+/**
+ * Предложить выход из-под огня (BC, стр. 245; DH2, стр. 230 — правило одно и то же).
+ *
+ * Проверка делается в конце хода, и её сложность зависит от того, обстреливали ли
+ * бойца с прошлого хода и сидит ли он в укрытии, — этого система не знает.
+ * Поэтому она не бросает сама, а кладёт кнопку: обычная проверка или лёгкая,
+ * решает стол.
+ *
+ * @param {Actor} actor
+ * @param {object} combatant
+ */
+async function _offerPinningEscape(actor, combatant) {
+    const tokenId = combatant?.token?.id;
+    const attr = tokenId ? ' data-token-id="' + tokenId + '"' : "";
+    const buttons = '<div class="effect-buttons">'
+        + '<button type="button" class="pinning-escape" data-actor-id="' + actor.id + '"' + attr + ' data-easy="0">'
+        + game.i18n.localize("EFFECTS.PINNING_ESCAPE") + "</button>"
+        + '<button type="button" class="pinning-escape" data-actor-id="' + actor.id + '"' + attr + ' data-easy="1">'
+        + game.i18n.localize("EFFECTS.PINNING_ESCAPE_EASY") + "</button></div>";
+    await _postConditionCard(actor, combatant, "CONDITION.PINNED", {
+        notes: [game.i18n.localize("EFFECTS.PINNED_RULES")],
+        extra: buttons
+    });
+}
+
+/**
+ * Бросок на выход из-под огня.
+ *
+ * @param {Event} event
+ */
+async function onPinningEscapeClick(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    const actor = await _getActorFromOwnerId(button.dataset.actorId, button.dataset.tokenId);
+    if (!actor) return;
+
+    const rollData = DarkHeresyUtil.createCharacteristicRollData(actor, "willpower");
+    rollData.name = "EFFECTS.PINNING_ESCAPE";
+    // +30, если по бойцу не стреляли с прошлого хода или он в укрытии.
+    rollData.target.modifier = button.dataset.easy === "1" ? 30 : 0;
+    await _computeCommonTarget(rollData);
+    await _rollTarget(rollData);
+    if (rollData.flags.isSuccess) await actor.removeCondition("pinned");
+    await _sendRollToChat(rollData);
+}
+
+/**
+ * Урон от падения (BC, стр. 257; DH2, стр. 243 — правило одно и то же).
+ *
+ * 1d10 ударного плюс единица за каждый метр, в случайную локацию. Броня не
+ * защищает, Стойкость — защищает.
+ *
+ * @param {Actor} actor
+ * @param {number} metres сколько метров пролетел
+ * @returns {Promise<number>} сколько ран легло
+ */
+async function applyFallingDamage(actor, metres) {
+    if (!actor) return 0;
+    const distance = Math.max(Number(metres) || 0, 0);
+    const roll = new Roll("1d10");
+    await roll.evaluate();
+    const raw = roll.total + distance;
+
+    const locationRoll = new Roll("1d100");
+    await locationRoll.evaluate();
+    const location = game.i18n.localize(_getLocation(locationRoll.total));
+
+    const taken = await _applyDirectDamage(actor, raw, false);
+    await _postConditionCard(actor, null, "EFFECTS.FALLING", {
+        figures: [
+            { n: distance, cap: game.i18n.localize("EFFECTS.FALLING_DISTANCE") },
+            { n: raw, cap: game.i18n.localize("CHAT.DAMAGE") },
+            { n: taken, cap: game.i18n.localize("WOUND.CURRENT"), lead: taken > 0 }
+        ],
+        notes: [game.i18n.localize("EFFECTS.FALLING_LOCATION") + ": " + location]
+    });
+    return taken;
+}
+
+async function _applyBleedingEffect(actor, combatant) {
+    // Кровопотеря — единственное состояние, где две игры разошлись по существу.
+    // Black Crusade (стр. 247) каждый раунд кидает 10% на смерть. Dark Heresy 2
+    // (стр. 244) смерти не знает вовсе: там это уровень усталости в начале хода,
+    // снимаемый проверкой Медицины, и несколько кровотечений не складываются.
+    const rules = Dh.rulesetFor(actor).bloodLoss;
+    const lethal = rules.lethal;
+
+    // Бросок на смерть может быть отдан игроку: шанс невелик, и отнимать его у
+    // владельца персонажа стол обычно не хочет. Усталость же броска не требует.
+    const pendingRoll = lethal && _shouldPromptPlayerRoll(actor);
+    let rollResult = null;
+    let isDead = false;
+    let fatigueApplied = 0;
+
+    if (lethal) {
+        if (!pendingRoll) {
+            const deathRoll = new Roll("1d100");
+            await deathRoll.evaluate();
+            rollResult = deathRoll.total;
+            // Ровно 10% — значения 91-100.
+            isDead = rollResult >= 91;
+            if (isDead) await actor.addCondition("dead", { type: "minor" });
+        }
+    } else {
+        // Предел не обрезаем: усталость сверх порога обязана уронить бойца,
+        // а этим занимается сверка на изменении актёра.
+        const current = Number(actor.system?.fatigue?.value) || 0;
+        await actor.update({ "system.fatigue.value": current + 1 });
+        fatigueApplied = 1;
+    }
+
     const templateData = {
         actorName: actor.name,
         actorId: actor.id,
         tokenId: combatant?.token?.id,
+        lethal: lethal,
         rollResult: rollResult,
         isDead: isDead,
+        fatigueApplied: fatigueApplied,
+        newFatigue: Number(actor.system?.fatigue?.value) || 0,
+        maxFatigue: Number(actor.system?.fatigue?.max) || 0,
         pendingRoll: pendingRoll,
         ownerId: actor.id
     };
-    
+
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/bleeding-effect.hbs", templateData);
-    
+
     await ChatMessage.create({
         content: html,
         speaker: ChatMessage.getSpeaker({ actor: actor, token: combatant?.token }),
@@ -14770,3 +15355,54 @@ Hooks.once("ready", function() {
 
 
 
+
+
+/* -------------------------------------------- */
+/*  Окружающая среда сцены                      */
+/* -------------------------------------------- */
+
+/**
+ * Виджет окружения виден всем, окно правит только ГМ.
+ *
+ * Виджет перерисовывается на готовности, на смене сцены и на любой правке
+ * сцены: окружение лежит во флаге сцены, и другие клиенты узнают о правке
+ * только через updateScene.
+ */
+Hooks.once("ready", () => { try { refreshEnvWidget(); } catch (err) { console.warn("dark-heresy | env", err); } });
+Hooks.on("canvasReady", () => { try { refreshEnvWidget(); } catch (err) { console.warn("dark-heresy | env", err); } });
+Hooks.on("updateScene", (scene) => {
+    try {
+        refreshEnvWidget();
+        // Окно ГМа перерисовываем только когда правили текущую сцену.
+        if (scene?.id === canvas?.scene?.id) refreshEnvironment();
+    } catch (err) {
+        console.warn("dark-heresy | env", err);
+    }
+});
+
+/**
+ * Кнопка «Окружающая среда» в панели инструментов сцены — только ГМ.
+ *
+ * После открытия окна панель возвращается на «токены»: кнопка-триггер иначе
+ * залипает активной, и повторный клик по ней уже не срабатывает.
+ */
+Hooks.on("getSceneControlButtons", (controls) => {
+    if (!game.user?.isGM) return;
+    const icon = "fa-solid fa-cloud-sun-rain";
+    const title = game.i18n.localize("ENVIRONMENT.TITLE");
+    const trigger = () => {
+        openEnvironment();
+        setTimeout(() => { try { ui.controls?.activate?.({ control: "tokens" }); } catch (err) {} }, 60);
+    };
+    const entry = {
+        name: "dh-env", title, icon, order: 96, visible: true,
+        onChange: (_event, active) => { if (active) trigger(); },
+        tools: {
+            open: { name: "open", title, icon, order: 1, button: true, onChange: () => trigger() }
+        },
+        activeTool: "open"
+    };
+    // v13+ отдаёт объект, более ранние сборки — массив.
+    if (Array.isArray(controls)) controls.push({ ...entry, layer: null, tools: [{ name: "open", title, icon, button: true, onClick: () => trigger() }] });
+    else controls["dh-env"] = entry;
+});

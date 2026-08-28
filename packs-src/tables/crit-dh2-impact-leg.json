@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Impact - Leg",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 340,
+  "description": "Dark Heresy 2nd Edition, Table 7-18 (p. 239). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "1 level of Fatigue." },
+    { "range": [2, 2], "text": "Movement halved (rounding up) for 1 round. Challenging (+0) Toughness test or Stunned for 1 round and knocked Prone." },
+    { "range": [3, 3], "text": "Knocked Prone and [[1d10]] Agility damage." },
+    { "range": [4, 4], "text": "Knocked Prone and [[2d10]] Agility damage." },
+    { "range": [5, 5], "text": "Leg broken. Stunned for 1 round and knocked Prone. Movement reduced to 1 metre until medical attention." },
+    { "range": [6, 6], "text": "2 levels of Fatigue. Movement halved (rounding up) until medical attention. Challenging (+0) Toughness test or gain the Lost Foot condition." },
+    { "range": [7, 7], "text": "Stunned for 2 rounds and knocked Prone. The leg is Useless until medical attention." },
+    { "range": [8, 8], "text": "Immediate Challenging (+0) Toughness test or die from shock. On a success: Blood Loss and the Lost Leg condition. Agility permanently reduced by [[1d5]]." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. His screams drown out all conversation within [[2d10]] metres for the rest of the round." }
+  ]
+}

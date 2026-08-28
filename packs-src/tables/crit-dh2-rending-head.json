@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Rending - Head",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 430,
+  "description": "Dark Heresy 2nd Edition, Table 7-21 (p. 241). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "1 level of Fatigue. No effect if the target wears a helmet." },
+    { "range": [2, 2], "text": "-10 to Weapon Skill and Ballistic Skill tests for [[1d10]] rounds. Challenging (+0) Toughness test or suffer Blood Loss." },
+    { "range": [3, 3], "text": "Stunned for 1 round and Blood Loss. Any helmet is torn off." },
+    { "range": [4, 4], "text": "[[1d10]] Perception damage. Routine (+20) Toughness test; on a failure he gains the Lost Eye condition." },
+    { "range": [5, 5], "text": "The helmet is torn off; with no helmet he loses an ear instead and is Deafened until medical attention, plus a Challenging (+0) Toughness test or Fellowship permanently reduced by 1. Stunned for [[1d5]] rounds." },
+    { "range": [6, 6], "text": "[[1d5]] levels of Fatigue and Blood Loss. Roll [[1d10]] for the feature lost - 1-3: an eye (Lost Eye condition); 4-7: the nose, Fellowship permanently reduced by [[1d10]]; 8-10: an ear, Deafened until medical attention." },
+    { "range": [7, 7], "text": "Stunned for 1 round, Blood Loss and permanently Blinded. Fellowship permanently reduced by [[1d10]]." },
+    { "range": [8, 8], "text": "The target dies." },
+    { "range": [9, 9], "text": "The target dies; his head lands [[2d10]] metres away." },
+    { "range": [10, 10], "text": "As result 9. Everyone within [[1d5]] metres must pass a Challenging (+0) Agility test or take -10 to Weapon Skill and Ballistic Skill tests for 1 round." }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Explosive - Arm",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 210,
+  "description": "Black Crusade, Table 7-11 (p. 250). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "1 level of Fatigue."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "The target drops anything held in that hand. Challenging (+0) Toughness Test or Stunned for 1 round."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "[[1d10]] Weapon Skill Damage and [[1d10]] Ballistic Skill Damage. Anything carried in the hand is destroyed; if it was an explosive it goes off - use result 9 instead."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Stunned for 1 round. Limb useless until medical attention. Challenging (+0) Toughness Test or suffer Blood Loss."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Ordinary (+10) Toughness Test or lose the hand. On a success, 1 permanent Weapon Skill Damage and 1 permanent Ballistic Skill Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "[[1d5]] levels of Fatigue and Blood Loss. Arm broken: counts as having one arm until repaired."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Arm lost. Immediate Challenging (+0) Toughness Test or die from shock. On a success: Stunned for [[1d10]] rounds, [[1d10]] levels of Fatigue and Blood Loss."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies. If he held a weapon with a power source, it explodes for [[1d10+5]] Impact Damage to anyone within 2 metres."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "As result 9. In addition, carried ammunition explodes for [[1d10+5]] Impact Damage to anyone within [[1d10]] metres, and any carried grenades or missiles detonate on his person."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Impact - Head",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 330,
+  "description": "Black Crusade, Table 7-17 (p. 253). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "Challenging (+0) Toughness Test or suffer 1 level of Fatigue."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "-10 to Perception and Intelligence Tests for [[1d5]] rounds."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Blinded for 1 round. Challenging (+0) Toughness Test or Stunned for 1 round."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Challenging (+0) Toughness Test or Stunned for 1 round and knocked Prone."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Stunned for 1 round, staggers back [[1d5]] metres, and takes 1 permanent Intelligence Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Stunned for [[1d5]] rounds and knocked back [[1d5]] metres. Challenging (+0) Agility Test or knocked Prone."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Stunned for [[1d10]] rounds and all movement halved for [[1d10]] hours."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies. Anyone within 4 metres must pass an Agility Test or take -10 to Weapon Skill and Ballistic Skill on their next turn."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "As result 9. In addition the attack carries through: with a melee weapon the attacker may immediately attack any other target he can reach without moving; with a ranged weapon, any target directly behind the original and still in range."
+    }
+  ]
+}

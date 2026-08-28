@@ -1,0 +1,14 @@
+{
+  "name": "Mental Disorders: Followers of Nurgle",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 230,
+  "description": "Black Crusade, Table 8-6 (p. 279). Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Entropy", "range": [1, 20], "text": "Any item with a Craftsmanship Rating has that rating reduced by one step while in the character's possession." },
+    { "name": "Self-Mortification", "range": [21, 40], "text": "-10 to all Interaction Tests." },
+    { "name": "Garrulous", "range": [41, 60], "text": "Whenever called on to withhold information, the character must pass a Hard (-10) Willpower Test or give it up." },
+    { "name": "Slovenly", "range": [61, 80], "text": "-10 to Interaction Tests when dealing with high society, strict military hierarchies, or anyone refined." },
+    { "name": "A Touch of Plague", "range": [81, 100], "text": "Toughness is reduced by 5." }
+  ]
+}

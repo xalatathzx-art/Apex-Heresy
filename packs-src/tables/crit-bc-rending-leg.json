@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Rending - Leg",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 440,
+  "description": "Black Crusade, Table 7-22 (p. 255). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "1 level of Fatigue."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Challenging (+0) Agility Test or fall Prone and suffer Blood Loss."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "[[1d5]] Agility Damage and Blood Loss."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Movement halved (rounding up) until medical attention. Knocked Prone and [[1d10]] Agility Damage."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Blood Loss. Challenging (+0) Toughness Test or suffer 1 permanent Agility Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Immediate Challenging (+0) Toughness Test or permanently lose the use of the foot. On a success, Movement is halved (rounding up). Either way, Blood Loss."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Leg broken: counts as having one leg until repaired. Blood Loss, Stunned for 1 round and knocked Prone."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Leg severed. Immediate Challenging (+0) Toughness Test or die from shock. On a success: Stunned for [[1d10]] rounds and Blood Loss."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. For the rest of the battle, anyone making a Run or Charge Action within 6 metres of the corpse must pass a Challenging (+0) Agility Test or fall over."
+    }
+  ]
+}

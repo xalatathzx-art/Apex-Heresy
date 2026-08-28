@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Explosive - Head",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 230,
+  "description": "Black Crusade, Table 7-13 (p. 251). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "Half Action only on the next turn."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Blinded and Deafened for 1 round."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "2 levels of Fatigue. Challenging (+0) Toughness Test or take [[1d10]] Perception Damage and [[1d10]] Fellowship Damage."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "[[1d10]] Intelligence Damage and knocked Prone. Challenging (+0) Toughness Test or suffer 1 permanent Intelligence Damage and be Stunned for 2 rounds."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Stunned for [[1d10]] rounds, permanently Deafened, and 1 permanent Fellowship Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "The target dies. Carried ammunition explodes for [[1d10+5]] Impact Damage to anyone within [[1d5]] metres, and any carried grenades or missiles detonate on his person."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies. For the rest of the fight, anyone moving over that spot must pass a Challenging (+0) Agility Test or fall Prone."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. Any of his allies within 2 metres of where he stood must immediately pass a Challenging (+0) Willpower Test or spend their next turn fleeing from the attacker."
+    }
+  ]
+}

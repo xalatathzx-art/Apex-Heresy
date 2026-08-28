@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Energy - Arm",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 110,
+  "description": "Black Crusade, Table 7-7 (p. 248). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "-30 to all tests involving that arm for [[1d5]] rounds."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Arm useless for [[1d5]] rounds. 1 level of Fatigue."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Stunned for 1 round. Arm useless until medical treatment."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Stunned for 1 round and knocked Prone. Arm useless for [[1d10]] rounds."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Half Action only on the next round. [[1d5]] levels of Fatigue."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "[[1d5]] Weapon Skill Damage, [[1d5]] Ballistic Skill Damage and [[1d5]] levels of Fatigue. Challenging (+0) Toughness Test or lose the use of the hand permanently."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Arm broken: counts as having one arm until repaired. Stunned for 1 round. [[1d5]] levels of Fatigue."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Arm severed. Challenging (+0) Toughness Test or Stunned for [[1d5]] rounds. [[1d10]] levels of Fatigue."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "Arm lost. Immediate Challenging (+0) Toughness Test or die from shock. On a success: [[1d10]] levels of Fatigue and Stunned for 1 round."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies."
+    }
+  ]
+}

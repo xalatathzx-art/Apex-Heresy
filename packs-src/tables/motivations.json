@@ -1,0 +1,19 @@
+{
+  "name": "Motivations",
+  "folder": "Character Creation",
+  "formula": "1d10",
+  "sort": 120,
+  "description": "Black Crusade, Table 2-3 (p. 72). A Motivation may be chosen or rolled. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Arcane", "range": [1, 1], "text": "Starting Corruption +4, +2 Intelligence, -3 Strength." },
+    { "name": "Ascendancy", "range": [2, 2], "text": "+5 Willpower. Starting Wounds -2." },
+    { "name": "Dominion", "range": [3, 3], "text": "+1 Infamy, +2 Willpower, +2 Fellowship, -4 Agility. Starting Wounds -1." },
+    { "name": "Immortality", "range": [4, 4], "text": "-5 Weapon Skill. Starting Wounds +2." },
+    { "name": "Innovation", "range": [5, 5], "text": "Starting Corruption +2. Starting Wounds -2." },
+    { "name": "Legacy", "range": [6, 6], "text": "+2 Infamy, -4 Intelligence." },
+    { "name": "Nihilism", "range": [7, 7], "text": "Starting Corruption +5, -3 Willpower." },
+    { "name": "Perfection", "range": [8, 8], "text": "+5 to any one Characteristic, -3 to any two other Characteristics." },
+    { "name": "Vengeance", "range": [9, 9], "text": "-5 Perception. Starting Wounds +2." },
+    { "name": "Violence", "range": [10, 10], "text": "Starting Corruption +5, -3 Intelligence." }
+  ]
+}

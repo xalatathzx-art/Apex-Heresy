@@ -1,0 +1,19 @@
+{
+  "name": "Disgraces",
+  "folder": "Character Creation",
+  "formula": "1d10",
+  "sort": 110,
+  "description": "Black Crusade, Table 2-2 (p. 71). A Disgrace may be chosen or rolled. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Betrayal", "range": [1, 1], "text": "Starting Corruption +5. Untrustworthy: -10 situational modifier to all Charm attempts." },
+    { "name": "Deceit", "range": [2, 2], "text": "+2 Infamy, -4 Perception." },
+    { "name": "Dread", "range": [3, 3], "text": "+5 Perception, -5 Willpower." },
+    { "name": "Destruction", "range": [4, 4], "text": "+2 Infamy, -4 Fellowship." },
+    { "name": "Gluttony", "range": [5, 5], "text": "-5 Agility. Starting Wounds +2." },
+    { "name": "Greed", "range": [6, 6], "text": "Starting Corruption +4. Overwhelming Need: -10 situational modifier to all Commerce attempts." },
+    { "name": "Hubris", "range": [7, 7], "text": "+2 Infamy, -4 Intelligence." },
+    { "name": "Regret", "range": [8, 8], "text": "Starting Corruption +5. Haunted: opponents receive a +10 situational modifier when using Intimidation against the character." },
+    { "name": "Waste", "range": [9, 9], "text": "+2 Infamy, -4 Willpower." },
+    { "name": "Wrath", "range": [10, 10], "text": "+5 Perception, -2 Willpower. Starting Wounds -1." }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "name": "Gifts of the Gods",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 100,
+  "description": "Black Crusade, Table 9-1 (p. 291). Rolled when a character crosses a Corruption threshold: 10, 20, 40, 60 and 80 CP for a Disciple of Chaos; 10, 30, 60 and 90 CP for a Traitor Legionnaire. Each result links to the mutation item in the Black Crusade compendium.",
+  "results": [
+    {
+      "name": "Addiction",
+      "range": [
+        1,
+        2
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.CPkvIIxfzpF4Z5gh]{Addiction}"
+    },
+    {
+      "name": "Animal Hybrid",
+      "range": [
+        3,
+        6
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.v1Ye4fGaaUce3eKp]{Animal Hybrid}"
+    },
+    {
+      "name": "Bestial",
+      "range": [
+        7,
+        9
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.gZ1RWVMxcMV4fhxp]{Bestial}"
+    },
+    {
+      "name": "Blood Substitution",
+      "range": [
+        10,
+        11
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.iL7v4R2ULX5QxqqG]{Blood Substitution}"
+    },
+    {
+      "name": "Blasted Senses",
+      "range": [
+        12,
+        13
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.6xHZI8XsxFPVfKaD]{Blasted Senses}"
+    },
+    {
+      "name": "Winged",
+      "range": [
+        14,
+        16
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.FI3qFByUeacbyNSb]{Winged}"
+    },
+    {
+      "name": "Blessed Fits",
+      "range": [
+        17,
+        17
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.NbZ7naoJNPSwXrEk]{Blessed Fits}"
+    },
+    {
+      "name": "Steel-hearted",
+      "range": [
+        18,
+        19
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.RyjbAqU2J0q70lvS]{Steel-hearted}"
+    },
+    {
+      "name": "Boneless",
+      "range": [
+        20,
+        21
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.YQ8JtAGv2Ps7APfv]{Boneless}"
+    },
+    {
+      "name": "Burning Body",
+      "range": [
+        22,
+        23
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.viVvPzSgDG9au8AC]{Burning Body}"
+    },
+    {
+      "name": "Chaos Organ",
+      "range": [
+        24,
+        26
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.JRUyelPQGCfT7KDx]{Chaos Organ}"
+    },
+    {
+      "name": "Cyclops",
+      "range": [
+        27,
+        27
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.KC36Ehqo25jGsVgI]{Cyclops}"
+    },
+    {
+      "name": "Darksoul",
+      "range": [
+        28,
+        30
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.RcJq82qexCoA46Vf]{Darksoul}"
+    },
+    {
+      "name": "Dimensional Instability",
+      "range": [
+        31,
+        31
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.7G4KBK7CPOSL577V]{Dimensional Instability}"
+    },
+    {
+      "name": "Emaciated",
+      "range": [
+        32,
+        33
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.POHJ0EKg8SL4FBWS]{Emaciated}"
+    },
+    {
+      "name": "Eye of Chaos",
+      "range": [
+        34,
+        35
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.eusqqF5rXCwo2tFO]{Eye of Chaos}"
+    },
+    {
+      "name": "Eye-stalks",
+      "range": [
+        36,
+        37
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.SkO9J6qaWxncsoRb]{Eye-stalks}"
+    },
+    {
+      "name": "Centauroid",
+      "range": [
+        38,
+        39
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.K41GfhlLBsNIusUc]{Centauroid}"
+    },
+    {
+      "name": "Featureless Face",
+      "range": [
+        40,
+        42
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.rbIiQiVAFvCb65nb]{Featureless Face}"
+    },
+    {
+      "name": "Illusion of Normalcy",
+      "range": [
+        43,
+        45
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.uNzntwB9KBWJ6Ow8]{Illusion of Normality}"
+    },
+    {
+      "name": "Flaming Skull",
+      "range": [
+        46,
+        46
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.mCkH0IoCGZGWNXSZ]{Flaming Skull}"
+    },
+    {
+      "name": "Headless",
+      "range": [
+        47,
+        48
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.u3fAzOYEojBpTcm8]{Headless}"
+    },
+    {
+      "name": "Icon of Blasphemy",
+      "range": [
+        49,
+        50
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.IQJJDRn6QPvSE4ZL]{Icon of Blasphemy}"
+    },
+    {
+      "name": "Infernal Will",
+      "range": [
+        51,
+        52
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.V30NI1Qe7ZVr5opF]{Infernal Will}"
+    },
+    {
+      "name": "Inside Out",
+      "range": [
+        53,
+        54
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.BsJHjuJ5ERP75cRI]{Inside Out}"
+    },
+    {
+      "name": "Pseudo-daemonhood",
+      "range": [
+        55,
+        56
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.CG6lTyxNAIX1OIO9]{Pseudo-daemonhood}"
+    },
+    {
+      "name": "Intelligent Cyst",
+      "range": [
+        57,
+        59
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.gU95k8ZWj1OmhejG]{Intelligent Cyst}"
+    },
+    {
+      "name": "Warp-Eater",
+      "range": [
+        60,
+        61
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.10ZaIM934zEc8dpu]{Warp-eater}"
+    },
+    {
+      "name": "Limb Loss",
+      "range": [
+        62,
+        63
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.eZhR7TLj0kUjpnfW]{Limb Loss}"
+    },
+    {
+      "name": "Magnificent Horns",
+      "range": [
+        64,
+        67
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.x4dVdQf4nj3qRQBE]{Magnificent Horns}"
+    },
+    {
+      "name": "Warped Appearance",
+      "range": [
+        68,
+        69
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.bxBDx4ZfRH8YIPDn]{Warped Appearance}"
+    },
+    {
+      "name": "Mechanoid",
+      "range": [
+        70,
+        70
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.M9nVMafykBBN92bP]{Mechanoid}"
+    },
+    {
+      "name": "Nerveless Ennui",
+      "range": [
+        71,
+        71
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.0YJvLlAPo4RD9J59]{Nerveless Ennui}"
+    },
+    {
+      "name": "Pervasive Miasma",
+      "range": [
+        72,
+        73
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.14ZZivmt1xgKgE2J]{Pervasive Miasma}"
+    },
+    {
+      "name": "Projectile Attack",
+      "range": [
+        74,
+        75
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.HaEKrYpkajVQIS8n]{Projectile Attack}"
+    },
+    {
+      "name": "Grossly Fat",
+      "range": [
+        76,
+        77
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.TBbI81TGKx3BlVpI]{Grossly Fat}"
+    },
+    {
+      "name": "Slayer Limb",
+      "range": [
+        78,
+        78
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.dCsAjbMV4rFNfX98]{Slayer Limb}"
+    },
+    {
+      "name": "Strange Voice",
+      "range": [
+        79,
+        80
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.mx3qu9UyZmemylvT]{Strange Voice}"
+    },
+    {
+      "name": "Additional Limb",
+      "range": [
+        81,
+        84
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.rOtOXkb9xThlmRgU]{Additional Limb}"
+    },
+    {
+      "name": "Strange Walk",
+      "range": [
+        85,
+        86
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.NA0dwLU33zsxmEt3]{Strange Walk}"
+    },
+    {
+      "name": "Tail",
+      "range": [
+        87,
+        89
+      ],
+      "text": "Tail - no mutation item in the black-crusade pack yet."
+    },
+    {
+      "name": "Tentacle",
+      "range": [
+        90,
+        94
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.CEWSp0oCbIaOisbt]{Tentacle}"
+    },
+    {
+      "name": "Vampiric Addiction",
+      "range": [
+        95,
+        95
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.SdVFanp15U62vlMf]{Vampiric Addiction}"
+    },
+    {
+      "name": "Warp-touched",
+      "range": [
+        96,
+        97
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.b1FRsBU9egxZfQf7]{Warp-touched}"
+    },
+    {
+      "name": "Warpsight",
+      "range": [
+        98,
+        99
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.j57vhEjvA1Lm4EWt]{Warpsight}"
+    },
+    {
+      "name": "Wreathed in Chaos",
+      "range": [
+        100,
+        100
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.BA4cUs2QQx71uYEl]{Wreathed in Chaos}"
+    }
+  ]
+}

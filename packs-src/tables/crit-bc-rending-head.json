@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Rending - Head",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 430,
+  "description": "Black Crusade, Table 7-21 (p. 255). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "1 level of Fatigue. No effect if the target wears a helmet."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "-10 to Weapon Skill and Ballistic Skill for [[1d10]] turns. Challenging (+0) Toughness Test or suffer Blood Loss."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Stunned for [[1d5]] rounds and Blood Loss. Any helmet is torn off."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "Routine (+20) Toughness Test or lose the eye; augmetics can repair it. [[1d10]] Perception Damage."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "The target's helmet is torn off. With no helmet he loses an ear instead: Deafened until medical attention, plus a Challenging (+0) Toughness Test or 1 permanent Fellowship Damage."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Roll [[1d10]] for the feature lost - 1-3: an eye; 4-7: the nose, [[1d10]] permanent Fellowship Damage; 8-10: an ear, [[1d10]] permanent Fellowship Damage. In addition, Blood Loss and [[1d5]] levels of Fatigue."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Permanently Blinded, Fellowship permanently reduced to [[1d10]], and speech is slurred. Blood Loss and Stunned for 1 round."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies; his head lands [[2d10]] metres away."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "As result 9. Everyone nearby must pass a Challenging (+0) Agility Test or take -10 to Weapon Skill and Ballistic Skill Tests for 1 round."
+    }
+  ]
+}

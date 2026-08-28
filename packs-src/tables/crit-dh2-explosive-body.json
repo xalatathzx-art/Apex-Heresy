@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Explosive - Body",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 220,
+  "description": "Dark Heresy 2nd Edition, Table 7-12 (p. 236). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "Thrown [[1d5]] metres backwards and knocked Prone." },
+    { "range": [2, 2], "text": "Thrown [[1d5]] metres backwards and knocked Prone, taking 1 level of Fatigue per metre travelled." },
+    { "range": [3, 3], "text": "Thrown [[1d5]] metres backwards, Stunned for 1 round and knocked Prone." },
+    { "range": [4, 4], "text": "Challenging (+0) Toughness test or suffer Blood Loss and be Stunned for 1 round." },
+    { "range": [5, 5], "text": "[[1d5]] levels of Fatigue and knocked Prone. Immediate Challenging (+0) Toughness test; on a failure, Blood Loss and Toughness permanently reduced by 1." },
+    { "range": [6, 6], "text": "Stunned for 1 round and Blood Loss." },
+    { "range": [7, 7], "text": "Stunned for [[1d10]] rounds, knocked Prone and Blood Loss. Challenging (+0) Toughness test or fall Unconscious." },
+    { "range": [8, 8], "text": "The target dies." },
+    { "range": [9, 9], "text": "The target dies. Carried ammunition explodes: everyone within [[1d10]] metres takes a single hit of [[1d10+5]] Impact damage to a random location, and any carried grenades or missiles detonate immediately." },
+    { "range": [10, 10], "text": "As result 9. In addition, everyone within [[1d10]] metres must pass a Challenging (+0) Agility test or take -10 to Weapon Skill and Ballistic Skill tests for 1 round." }
+  ]
+}

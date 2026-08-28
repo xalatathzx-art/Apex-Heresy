@@ -1,0 +1,19 @@
+{
+  "name": "Prides",
+  "folder": "Character Creation",
+  "formula": "1d10",
+  "sort": 100,
+  "description": "Black Crusade, Table 2-1 (p. 70). A Pride may be chosen or rolled. Characteristic modifiers only - read the full description from the rulebook.",
+  "results": [
+    { "name": "Beauty", "range": [1, 1], "text": "+2 Infamy, -4 Willpower." },
+    { "name": "Charm", "range": [2, 2], "text": "+5 Fellowship, -5 Toughness." },
+    { "name": "Craftsmanship", "range": [3, 3], "text": "+1 Infamy, +3 Agility, +3 Intelligence, -3 Weapon Skill, -3 Ballistic Skill." },
+    { "name": "Devotion", "range": [4, 4], "text": "+5 Willpower, -5 Strength." },
+    { "name": "Fortitude", "range": [5, 5], "text": "+5 Toughness, -3 Agility, -3 Intelligence." },
+    { "name": "Foresight", "range": [6, 6], "text": "+5 Perception, -5 Fellowship." },
+    { "name": "Logic", "range": [7, 7], "text": "+5 Intelligence, -5 Perception." },
+    { "name": "Martial Prowess", "range": [8, 8], "text": "+5 Weapon Skill, -5 Intelligence." },
+    { "name": "Grace", "range": [9, 9], "text": "+5 Agility, -5 Ballistic Skill." },
+    { "name": "Wealth", "range": [10, 10], "text": "-3 Willpower, plus a bonus to starting equipment before play begins." }
+  ]
+}

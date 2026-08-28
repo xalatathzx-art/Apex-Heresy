@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Impact - Leg",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 340,
+  "description": "Black Crusade, Table 7-18 (p. 253). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "1 level of Fatigue."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Movement halved (rounding up) for 1 round. Challenging (+0) Toughness Test or Stunned for 1 round and knocked Prone."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "[[2d10]] Agility Damage and knocked Prone."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "[[1d10]] Agility Damage and knocked Prone."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "Leg broken. Stunned for 1 round, knocked Prone, and Movement reduced to 1 metre until medical attention."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Immediate Challenging (+0) Toughness Test or permanently lose the use of the foot. Movement halved (rounding up) until medical attention. 2 levels of Fatigue."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Leg broken: counts as having one leg until repaired. Knocked Prone and Stunned for 2 rounds."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Lower leg torn away. Immediate Challenging (+0) Toughness Test or die from shock. Blood Loss and [[1d5]] permanent Agility Damage."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The target dies."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies. His screams drown out all conversation within [[2d10]] metres for the rest of the round."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Explosive - Head",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 230,
+  "description": "Dark Heresy 2nd Edition, Table 7-13 (p. 237). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "Half Action only on the next turn." },
+    { "range": [2, 2], "text": "Blinded and Deafened for 1 round." },
+    { "range": [3, 3], "text": "2 levels of Fatigue. Challenging (+0) Toughness test or take [[1d10]] Perception damage and [[1d10]] Fellowship damage." },
+    { "range": [4, 4], "text": "[[1d10]] Intelligence damage and knocked Prone. Challenging (+0) Toughness test; on a failure, Stunned for 2 rounds and Intelligence permanently reduced by 1." },
+    { "range": [5, 5], "text": "Stunned for [[1d10]] rounds and permanently Deafened. Fellowship permanently reduced by [[1d5]]." },
+    { "range": [6, 6], "text": "The target dies." },
+    { "range": [7, 7], "text": "The target dies. Carried ammunition explodes: everyone within [[1d5]] metres takes a single hit of [[1d10+5]] Impact damage to a random location, and any carried grenades or missiles detonate immediately." },
+    { "range": [8, 8], "text": "The target dies. For the rest of the fight, anyone moving over that spot must pass a Challenging (+0) Agility test or fall Prone." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. In addition, each of his allies within 2 metres of where he stood must immediately pass a Challenging (+0) Willpower test or spend the next turn fleeing from the attacker." }
+  ]
+}

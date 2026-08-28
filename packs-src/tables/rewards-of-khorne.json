@@ -1,0 +1,73 @@
+{
+  "name": "Rewards of Khorne",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 220,
+  "description": "Black Crusade, Table 9-7 (p. 302). Each result links to the item in the Black Crusade compendium.",
+  "results": [
+    {
+      "name": "Collar of Khorne",
+      "range": [
+        1,
+        12
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.wBKagKg4fQlN2xyP]{Collar of Khorne}"
+    },
+    {
+      "name": "Daemonic Name",
+      "range": [
+        13,
+        24
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.x0NVA9fyuzcGa054]{Daemonic Name}"
+    },
+    {
+      "name": "Daemon Weapon",
+      "range": [
+        25,
+        36
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.sTcHt9fneJj2k2pA]{Daemon Weapon}"
+    },
+    {
+      "name": "Face of Khorne",
+      "range": [
+        37,
+        48
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.MGD06rNVzy2SEcG4]{Face of Khorne}"
+    },
+    {
+      "name": "Flesh-fused Weapon",
+      "range": [
+        49,
+        60
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.8cSWrypv831HkmsO]{Flesh-fused Weapon}"
+    },
+    {
+      "name": "Hand of Khorne",
+      "range": [
+        61,
+        72
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.2EhBPBhwd9DKqoBe]{Hand of Khorne}"
+    },
+    {
+      "name": "Mark of Khorne",
+      "range": [
+        73,
+        88
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.HEJ53ST8StPYXu4k]{Mark of Khorne}"
+    },
+    {
+      "name": "Purity of Aggression",
+      "range": [
+        89,
+        100
+      ],
+      "text": "@UUID[Compendium.dark-heresy.black-crusade.Item.3CiCXnjnZZPnNluQ]{Purity of Aggression}"
+    }
+  ]
+}

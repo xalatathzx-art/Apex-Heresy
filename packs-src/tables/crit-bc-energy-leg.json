@@ -1,0 +1,79 @@
+{
+  "name": "Critical Effects (BC): Energy - Leg",
+  "folder": "Critical Effects (Black Crusade)",
+  "formula": "1d10",
+  "sort": 140,
+  "description": "Black Crusade, Table 7-10 (p. 249). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    {
+      "range": [
+        1,
+        1
+      ],
+      "text": "May not Run or Charge for 2 rounds."
+    },
+    {
+      "range": [
+        2,
+        2
+      ],
+      "text": "Challenging (+0) Toughness Test or suffer 1 level of Fatigue."
+    },
+    {
+      "range": [
+        3,
+        3
+      ],
+      "text": "Movement halved (rounding up) and may not Run or Charge, until medical attention."
+    },
+    {
+      "range": [
+        4,
+        4
+      ],
+      "text": "1 level of Fatigue. Movement halved (rounding up) for [[1d10]] rounds. Knocked Prone."
+    },
+    {
+      "range": [
+        5,
+        5
+      ],
+      "text": "1 level of Fatigue. Movement halved (rounding up) for [[2d10]] rounds. Knocked Prone."
+    },
+    {
+      "range": [
+        6,
+        6
+      ],
+      "text": "Challenging (+0) Toughness Test or lose the foot. On a success, Movement halved (rounding up) until medical attention. 2 levels of Fatigue."
+    },
+    {
+      "range": [
+        7,
+        7
+      ],
+      "text": "Leg broken: counts as lost until repaired. Challenging (+0) Toughness Test or Stunned for 1 round. [[1d5]] levels of Fatigue."
+    },
+    {
+      "range": [
+        8,
+        8
+      ],
+      "text": "Leg severed. Challenging (+0) Toughness Test or Stunned for 1 round. [[1d10]] levels of Fatigue and Blood Loss."
+    },
+    {
+      "range": [
+        9,
+        9
+      ],
+      "text": "The leg is destroyed. Challenging (+0) Toughness Test or die from shock."
+    },
+    {
+      "range": [
+        10,
+        10
+      ],
+      "text": "The target dies."
+    }
+  ]
+}

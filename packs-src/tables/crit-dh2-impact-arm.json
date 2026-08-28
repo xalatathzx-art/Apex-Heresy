@@ -1,0 +1,19 @@
+{
+  "name": "Critical Effects (DH2): Impact - Arm",
+  "folder": "Critical Effects (Dark Heresy 2)",
+  "formula": "1d10",
+  "sort": 310,
+  "description": "Dark Heresy 2nd Edition, Table 7-15 (p. 238). Look up the total Critical Damage. Mechanical effects only - read the full description from the rulebook.",
+  "results": [
+    { "range": [1, 1], "text": "The target drops anything held in that hand." },
+    { "range": [2, 2], "text": "1 level of Fatigue." },
+    { "range": [3, 3], "text": "The target drops anything held in that hand and is Stunned for 1 round." },
+    { "range": [4, 4], "text": "The target drops anything held in that hand. Challenging (+0) Toughness test or take [[1d10]] Weapon Skill damage and [[1d10]] Ballistic Skill damage." },
+    { "range": [5, 5], "text": "The limb is Useless until medical attention." },
+    { "range": [6, 6], "text": "[[1d5]] fingers broken and 1 level of Fatigue. Challenging (+0) Toughness test; on a failure, Weapon Skill and Ballistic Skill permanently reduced by 2." },
+    { "range": [7, 7], "text": "Blood Loss. The arm is Useless until medical attention." },
+    { "range": [8, 8], "text": "Immediate Challenging (+0) Toughness test or die from shock. On a success: [[1d5]] levels of Fatigue, Stunned for [[1d10]] rounds and Blood Loss. Gains the Lost Arm condition." },
+    { "range": [9, 9], "text": "The target dies." },
+    { "range": [10, 10], "text": "As result 9. In addition, everyone within 2 metres takes a single hit of [[1d5-3]] Impact damage to a random location." }
+  ]
+}
