@@ -1,0 +1,849 @@
+[
+  {
+    "name": "Beauty",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 1,
+      "key": "beauty",
+      "cost": 0,
+      "description": "<p>The Heretic defines himself by his physical appearance. He takes pride in his physical form and is even known and revered for it.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "willpower": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 1
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Charm",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 2,
+      "key": "charm",
+      "cost": 0,
+      "description": "<p>The Heretic expects the respect and obedience of those around him. He revels in their worship, praise, and self-sacrifice in his name, and depends upon their assistance.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "fellowship": 5,
+        "toughness": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 2
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Craftsmanship",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 3,
+      "key": "craftsmanship",
+      "cost": 0,
+      "description": "<p>No one has the combination of talent and training to create in the same way as the Heretic. He is a master artist whose works will be admired by all denizens of the galaxy until the stars grow cold.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "agility": 3,
+        "intelligence": 3,
+        "weaponSkill": -3,
+        "ballisticSkill": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 3
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 1
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Devotion",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 4,
+      "key": "devotion",
+      "cost": 0,
+      "description": "<p>The character's faith in the Chaos sustains him. He is confident that there never has been nor will there ever be another follower of the cause as self-sacrificing. He believes that this grants him a special status to the Dark Gods, but is wont to rely on this instead of his own strength.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "willpower": 5,
+        "strength": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 4
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Fortitude",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 5,
+      "key": "fortitude",
+      "cost": 0,
+      "description": "<p>The Heretic is strong and tough, able to shrug off blows that might kill a lesser man. Though his fortitude is impressive, it comes at a cost of flexibility and adaptability.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "toughness": 5,
+        "agility": -3,
+        "intelligence": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 5
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Foresight",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 6,
+      "key": "foresight",
+      "cost": 0,
+      "description": "<p>The character believes that he is aware of the actions and schemes of everyone and everything around him. He constantly observes those around him, believing that the knowledge will allow him to control them. This does make the character rather cold around others.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "perception": 5,
+        "fellowship": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 6
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Logic",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 7,
+      "key": "logic",
+      "cost": 0,
+      "description": "<p>The Heretic believes that his daunting intellect grants him the ability to understand and resolve every situation in the most efficient and effective manner imaginable.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "intelligence": 5,
+        "perception": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 7
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Martial Prowess",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 8,
+      "key": "martialProwess",
+      "cost": 0,
+      "description": "<p>The Heretic actively seeks out combat as a way to prove himself and can never refuse a challenge to do battle, no matter the odds.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "weaponSkill": 5,
+        "intelligence": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 8
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Grace",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 9,
+      "key": "grace",
+      "cost": 0,
+      "description": "<p>The Heretic is proud of his grace and speed, so much so that he disdains the vulgarity of ranged combat and delights in engaging his opponents up close.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "agility": 5,
+        "ballisticSkill": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 9
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Wealth",
+    "type": "origin",
+    "folder": "Black Crusade/Prides",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "pride",
+      "order": 10,
+      "key": "wealth",
+      "cost": 0,
+      "description": "<p>The character has defined himself entirely by his possessions. Others must look upon the grandeur and seethe with jealousy.</p>",
+      "source": "Black Crusade, p. 72",
+      "characteristics": {
+        "willpower": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 10,
+        "note": "Starting Equipment: the character makes an extra Acquisition Test with a +20 bonus prior to beginning play."
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Betrayal",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 1,
+      "key": "betrayal",
+      "cost": 0,
+      "description": "<p>The Heretic believes in looking out for his own interests first and foremost. Those around him are assets for only as long as they may be useful to his needs. Once their usefulness has been completed, their survival is subject to his whim of the moment.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 1,
+        "note": "Untrustworthy: the character receives a -10 Situational Modifier to all Charm attempts."
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 5
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Deceit",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 2,
+      "key": "deceit",
+      "cost": 0,
+      "description": "<p>As all of reality is little more than a matter of perception, truth is a relative concept. This Heretic exploits that philosophy to the utmost. Much of what he says is compulsively cloaked in falsehood. Even in the most strict of circumstances, he feels tempted to colour the truth.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "perception": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 2
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Dread",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 3,
+      "key": "dread",
+      "cost": 0,
+      "description": "<p>Something in the Heretic's past haunts him; a fear that dominates his life. Though he may ignore it for a time, it never leaves him completely.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "perception": 5,
+        "willpower": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 3
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Destruction",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 4,
+      "key": "destruction",
+      "cost": 0,
+      "description": "<p>Defeating a foe is never sufficient. Opponents must be utterly annihilated, their works destroyed, and their reputations laid waste. Opportunities to spread suffering, by any means, must be fully embraced; as mortal suffering may benefit the Ruinous Powers.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "fellowship": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 4
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Gluttony",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 5,
+      "key": "gluttony",
+      "cost": 0,
+      "description": "<p>Consumption is a passion for this character. He revels in using up any available resources for the simple thrill of its expenditure. It may be that he consumes vast quantities of food, but it could also be entertainment, natural resources, or the time of those with whom he interacts.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "agility": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 5
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Greed",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 6,
+      "key": "greed",
+      "cost": 0,
+      "description": "<p>Often, when this character sees something novel, he is overcome by a passion to possess it. The item in question need not be useful, but the compulsion is much stronger if it is unique or rare. This urge may even overcome the necessities of a task at hand.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 6,
+        "note": "Overwhelming Need: the character receives a -10 Situational Modifier to all Commerce attempts."
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 4
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Hubris",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 7,
+      "key": "hubris",
+      "cost": 0,
+      "description": "<p>The Heretic's self-confidence and bluster vastly exceeds his abilities. He never fears or even considers failure. Instead, he engages in every challenge, often with little consideration for what preparations might be necessary or the consequences of failure.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "intelligence": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 7
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Regret",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 8,
+      "key": "regret",
+      "cost": 0,
+      "description": "<p>In the past, this character performed some deed that continues to haunt his mind. He is constantly plagued by guilt for this decision and its consequences. He is constantly driven to make amends for the act but remains incapable of compensating the victims.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 8,
+        "note": "Haunted: opponents always receive a +10 Situational Modifier when attempting to use Intimidation against the character."
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 5
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Waste",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 9,
+      "key": "waste",
+      "cost": 0,
+      "description": "<p>When a person has achieved a level of wealth that material concerns are no longer an issue, then the ability to frivolously waste materials can be a joy in itself. This Heretic embraces that joy, even at those times when he can ill afford to do so. He destroys resources for the simple pleasure of their destruction.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "willpower": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 9
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Wrath",
+    "type": "origin",
+    "folder": "Black Crusade/Disgraces",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "disgrace",
+      "order": 10,
+      "key": "wrath",
+      "cost": 0,
+      "description": "<p>Anger is a constant companion and drive for this Heretic. He firmly believes that the universe actively conspires against him, and that his success can only be achieved by exacting his vengeance upon his oppressors.</p>",
+      "source": "Black Crusade, p. 73",
+      "characteristics": {
+        "perception": 5,
+        "willpower": -2
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 10
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": -1
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Arcane",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 1,
+      "key": "arcane",
+      "cost": 0,
+      "description": "<p>The character is obsessed with uncovering lost and forbidden knowledge. Discovering and keeping these secrets drove him to embrace Chaos. His drive to continue this practice has not lessened.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "intelligence": 2,
+        "strength": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 1
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 4
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Ascendancy",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 2,
+      "key": "ascendancy",
+      "cost": 0,
+      "description": "<p>Mortal power is fleeting and life is short. The Heretic wishes to overcome both of these limitations by assuming a permanent level of at least daemonic power, but preferably a transformation to the divine and unholy.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "willpower": 5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 2
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": -2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Dominion",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 3,
+      "key": "dominion",
+      "cost": 0,
+      "description": "<p>Some seek to control all they can survey, then travel to find new lands to conquer. The character wishes to have dominion over the galaxy itself, demanding that all lesser beings bow down to acknowledge his authority over them.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "willpower": 2,
+        "fellowship": 2,
+        "agility": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 3
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 1,
+        "wounds": -1
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Immortality",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 4,
+      "key": "immortality",
+      "cost": 0,
+      "description": "<p>The character fears death in all its varied forms, or simply desires to live for eternity. To overcome this, he is willing to take whatever means are necessary to insure his continued survival; the means might be mechanical, warp spawned, or some unholy combination of the two.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "weaponSkill": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 4
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Innovation",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 5,
+      "key": "innovation",
+      "cost": 0,
+      "description": "<p>While uncovering lost knowledge is a worthy cause, it pales behind the glories of creating completely new forms of technology or psychic phenomena. This Heretic has embraced the ways of Chaos so that he might use its powers to create new tools and uncover information that was previously beyond the limitations of mortals.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "intelligence": 3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 5
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 2,
+        "wounds": -2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Legacy",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 6,
+      "key": "legacy",
+      "cost": 0,
+      "description": "<p>The Heretic has embraced his mortality by believing that he has a destiny to influence the universe that extends far beyond his lifespan. This character seeks to change galactic history in a powerful way that will be remembered through the millennia. However, such actions may lead him to not think intelligently about a situation.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "intelligence": -4
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 6
+      },
+      "grants": {
+        "aptitudes": [],
+        "influence": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Nihilism",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 7,
+      "key": "nihilism",
+      "cost": 0,
+      "description": "<p>The character firmly believes that he is the centre of all existence. Everything else is but a product of his imaginative subconscious. He has no moral restrictions to his actions, rather he engages every whim because he believes he is entitled to do so.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "willpower": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 7
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 5
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Perfection",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 8,
+      "key": "perfection",
+      "cost": 0,
+      "description": "<p>The character holds himself and all of his allies to an impossible standard of perfection, in at least one area of his life. However, attempting to reach this ideal ensures other aspects slacken.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {},
+      "characteristicChoices": [
+        {
+          "label": "+5 to any one Characteristic",
+          "pick": 1,
+          "value": 5,
+          "from": [
+            "weaponSkill",
+            "ballisticSkill",
+            "strength",
+            "toughness",
+            "agility",
+            "intelligence",
+            "perception",
+            "willpower",
+            "fellowship"
+          ]
+        },
+        {
+          "label": "-3 to any two other Characteristics",
+          "pick": 2,
+          "value": -3,
+          "from": [
+            "weaponSkill",
+            "ballisticSkill",
+            "strength",
+            "toughness",
+            "agility",
+            "intelligence",
+            "perception",
+            "willpower",
+            "fellowship"
+          ]
+        }
+      ],
+      "rules": {
+        "roll": 8
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Vengeance",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 9,
+      "key": "vengeance",
+      "cost": 0,
+      "description": "<p>In the past, this character was a victim. Since then, he has vowed to make those who have slighted him pay for their actions. He is willing to make every sacrifice necessary to right this wrong and to prevent anyone from ever hurting him again.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "perception": -5
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 9
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": 2
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Violence",
+    "type": "origin",
+    "folder": "Black Crusade/Motivations",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "motivation",
+      "order": 10,
+      "key": "violence",
+      "cost": 0,
+      "description": "<p>For some, violence is not a means to an end but an end in itself. This character revels in the wanton destruction of any who could be vulnerable to his actions. He has no fear of repercussions, for he believes he is the most potent force of destruction in the galaxy.</p>",
+      "source": "Black Crusade, p. 74",
+      "characteristics": {
+        "intelligence": -3
+      },
+      "characteristicChoices": [],
+      "rules": {
+        "roll": 10
+      },
+      "grants": {
+        "aptitudes": [],
+        "corruption": 5
+      },
+      "choices": []
+    }
+  }
+]
