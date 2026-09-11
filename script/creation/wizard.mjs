@@ -680,6 +680,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const record = {rating: Number(actor.system.psy?.rating) || 0, corruption: 0};
         const update = {};
         if (psyker.psyRating) update["system.psy.rating"] = Math.max(record.rating, psyker.psyRating);
+        // Насколько крепко псайкер привязан: колдун Black Crusade считается Bound,
+        // а несанкционированный витч — Unbound, и от этого зависят Феномены (стр. 206).
+        if (psyker.psychicStrength) update["system.psy.class"] = psyker.psychicStrength;
         if (psyker.corruption) {
             const roll = await new Roll(psyker.corruption).evaluate();
             record.corruption = roll.total;

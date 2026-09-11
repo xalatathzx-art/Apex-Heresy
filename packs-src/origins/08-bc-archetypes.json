@@ -603,10 +603,8 @@
         ],
         "talents": [
           {
-            "name": "Psy Rating"
-          },
-          {
-            "name": "Psy Rating"
+            "name": "Psy Rating",
+            "count": 2
           }
         ],
         "traits": [
@@ -2304,13 +2302,8 @@
         ],
         "talents": [
           {
-            "name": "Psy Rating"
-          },
-          {
-            "name": "Psy Rating"
-          },
-          {
-            "name": "Psy Rating"
+            "name": "Psy Rating",
+            "count": 3
           },
           {
             "name": "Jaded"

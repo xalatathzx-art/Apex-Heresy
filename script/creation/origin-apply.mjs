@@ -215,7 +215,12 @@ export function planToItemData(plan, tag, carrierId, lookup, {aptitudes, skipTal
         if (talent.targets) data.system.targets = talent.targets;
         // Талант от происхождения — стартовый: движок опыта за него не списывает.
         data.system.starter = true;
-        out.push({...data, flags});
+        // Иные таланты берут по несколько раз: «Psy Rating (x2)» у колдуна Black
+        // Crusade — это два таланта, а не один (стр. 61). Каждый лежит своей карточкой,
+        // потому что и считаются они поштучно.
+        const count = Math.max(1, Number(talent.count) || 1);
+        for (let copyIndex = 0; copyIndex < count; copyIndex++)
+            out.push({...data, system: {...data.system}, flags});
     }
     for (const trait of plan.traits ?? []) {
         const data = copy("trait", trait.name, lookup);

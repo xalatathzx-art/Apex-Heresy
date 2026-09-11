@@ -83,7 +83,7 @@ The plan follows p. 75.
 
 ## Tasks
 
-### Task 1: Ruleset rules for Black Crusade
+### Task 1: Ruleset rules for Black Crusade — DONE
 
 **Files:** `script/creation/ruleset-data.mjs`, `script/creation/advancement-data.mjs`,
 `tests/bc-ruleset.test.mjs`
@@ -94,7 +94,7 @@ first-first, step list `race → characteristics → archetype → passions → 
 darkGods`. Add the Black Crusade ladders to `advancement-data.mjs` keyed by patron relation.
 Tests pin the tables against the book and prove DH2/OW are untouched.
 
-### Task 2: Talent patrons in the pack (Tables 2-10, 2-11, 2-12, pp. 80-82)
+### Task 2: Talent patrons in the pack (Tables 2-10, 2-11, 2-12, pp. 80-82) — DONE
 
 **Files:** `tools/lib/dark-heresy-fixes.mjs`, `tests/bc-talent-patrons.test.mjs`
 
@@ -102,14 +102,14 @@ Read the three talent tables from the PDF, map every talent name to its Devotion
 pack idempotently. A test asserts a sample from each god and that no talent is left `undivided`
 when the book names a god.
 
-### Task 3: Races data (pp. 49-52)
+### Task 3: Races data (pp. 49-52) — DONE
 
 **Files:** `packs-src/origins/07-bc-races.json`, `tests/bc-races.test.mjs`
 
 Human and Chaos Space Marine as origin items: characteristic base, starting experience, starting
 skills/talents/traits/equipment, the Quick and the Dead trait for humans.
 
-### Task 4: Archetypes data (pp. 55-70)
+### Task 4: Archetypes data (pp. 55-70) — DONE
 
 **Files:** `packs-src/origins/08-bc-archetypes.json`, `tests/bc-archetypes.test.mjs`
 
@@ -118,28 +118,28 @@ including the "or" choices, gear, wounds formula, special ability text, and the 
 the Sorcerer (Psy Rating 2, 500 xp of powers) and the Psyker (Psy Rating 3, 500 xp of powers,
 Psyker trait).
 
-### Task 5: Passions data (Tables 2-1, 2-2, 2-3, pp. 72-74)
+### Task 5: Passions data (Tables 2-1, 2-2, 2-3, pp. 72-74) — DONE
 
 **Files:** `packs-src/origins/09-bc-passions.json`, `tests/bc-passions.test.mjs`
 
 Ten Prides, ten Disgraces, ten Motivations with their modifiers. The OCR text interleaves the rows,
 so each row is verified against a rendered page before it is written.
 
-### Task 6: Wizard race and characteristics steps
+### Task 6: Wizard race and characteristics steps — DONE
 
 **Files:** `script/creation/wizard.mjs`, `template/apps/character-wizard.hbs`, `lang/en.json`
 
 Race step, then characteristics with the race's base, one re-roll, and Infamy rolled on 1d5+19 even
 under point buy.
 
-### Task 7: Wizard archetype and passions steps
+### Task 7: Wizard archetype and passions steps — DONE
 
 **Files:** `script/creation/wizard.mjs`, `template/apps/character-wizard.hbs`, `lang/en.json`
 
 Archetype list filtered by race, its choices resolved like any origin; a passions panel with three
 pickers and a d10 roll each.
 
-### Task 8: Experience shop for Black Crusade
+### Task 8: Experience shop for Black Crusade — DONE
 
 **Files:** `script/creation/shop-data.mjs`, `script/creation/psychic-data.mjs`,
 `script/creation/wizard.mjs`, `tests/bc-shop.test.mjs`
@@ -148,7 +148,7 @@ Prices by patron relation; skill ladder of four ranks; talents by tier; Infamy a
 40; powers priced from the pack, aligned powers locked to their god, all powers locked while
 Aligned to Khorne.
 
-### Task 9: Equipment step by Infamy (p. 83)
+### Task 9: Equipment step by Infamy (p. 83) — DONE
 
 **Files:** `script/creation/equipment-data.mjs`, `script/creation/wizard.mjs`,
 `tests/bc-equipment.test.mjs`
@@ -156,7 +156,7 @@ Aligned to Khorne.
 Offer the armoury filtered to a total Acquisition modifier no worse than −10, with as many picks as
 the Infamy bonus, using the existing `Dh.acquisitionAvailability` table.
 
-### Task 10: Dark God step, alignment check and live run
+### Task 10: Dark God step, alignment check and live run — IN PROGRESS
 
 **Files:** `script/creation/wizard.mjs`, `template/apps/character-wizard.hbs`, `lang/en.json`,
 `tests/bc-alignment.test.mjs`
@@ -170,3 +170,16 @@ plus a DH2 and an Only War regression pass.
 - 2026-09-12: Research done straight from the PDF (pp. 47-84). Found that the heretic sheet already
   carries the whole Black Crusade economy, and that every talent in the pack is `undivided` — the
   single biggest data gap, promoted to Task 2.
+- 2026-09-12: Tasks 1-9 done. The patron tables moved into `script/creation/patron-data.mjs` so the
+  sheet and the wizard read one copy; `bc-talents.mjs` carries Tables 2-10 to 2-12 and answers for
+  any card the pack left unmarked. Data written: two races, eight archetypes, thirty passions.
+- 2026-09-12: Live run in Foundry, with the origin data loaded as world items because the packs are
+  locked while Foundry runs. A human Apostate walked all seven steps: 2d10+25 with Infamy on
+  1d5+19, archetypes filtered to his race, the three passion tables rolled on one panel, the shop
+  priced by patron (Fellowship 250 allied, Infamy 500 flat, Charm 500 opposed), three equipment
+  picks off an Infamy bonus of 3, and the five paths of Stage 7. A Chaos Space Marine Sorcerer
+  came out at 2d10+30, psy rating 2, Bound, 1 Corruption, Psy Rating twice, and 500 xp of free
+  powers with the Nurgle ones locked behind devotion.
+- 2026-09-12: Two bugs the live run caught and fixed — wounds were read from a hardcoded pair of
+  stages (so the archetype never rolled them), and a talent granted twice collapsed into one card
+  (so the Sorcerer had one Psy Rating instead of two).

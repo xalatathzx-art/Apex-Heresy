@@ -60,9 +60,10 @@ test('the Sorcerer is Bound at psy rating 2, the Psyker Unbound at 3 (pp. 61, 70
 });
 
 test('the Sorcerer takes Psy Rating twice and the Psyker three times (pp. 61, 70)', () => {
-    const count = (key, name) => find(key).grants.talents.filter(talent => talent.name === name).length;
-    assert.equal(count('sorcerer', 'Psy Rating'), 2);
-    assert.equal(count('psyker', 'Psy Rating'), 3);
+    // Кратность — поле записи, а не повторённая строка: одинаковые выдачи схлопываются.
+    const count = key => find(key).grants.talents.find(talent => talent.name === 'Psy Rating')?.count;
+    assert.equal(count('sorcerer'), 2);
+    assert.equal(count('psyker'), 3);
 });
 
 test('a starting rank of +10 is an advance, not a second copy of the skill (p. 57)', () => {
