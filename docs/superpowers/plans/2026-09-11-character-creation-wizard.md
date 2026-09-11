@@ -23,9 +23,37 @@
 - Every entry written from a book carries `system.source` in the form `"Dark Heresy Second Edition, p. 32"`, and the text is the book's wording, not a paraphrase.
 - Commit after every task. Branch: `codex/v14-modernization` (current). Do not push.
 
+## Progress
+
+Tasks are worked in order. A task is DONE when its marker says so in its heading.
+The first heading without `— DONE` is the next task.
+
+**Closed:** Tasks 0-8. 128 tests pass (`node --test "tests/*.test.mjs"`),
+`node --check script/dark-heresy.js` is clean, and all four item packs check clean.
+
+**Journal**
+
+- Task 0 exposed a live defect: `Dh.rulesetFor` decided the rules from the actor type
+  alone, so Rogue Trader, Only War and Deathwatch characters were silently played by
+  Dark Heresy rules. `system.ruleset` now wins over the type.
+- Task 7 fixed the builder: an empty object in `template.json` now means a free-form map,
+  not a closed shape, so origin characteristic modifiers are not flagged as unknown fields.
+- Task 8 settled what a characteristic modifier IS. In Dark Heresy it is a generation rule,
+  not a number (p. 31): "+" rolls 3d10 keeping the best two, point buy starts at 30. The
+  modifier is already inside the generated value. **Task 14 must not add it again** - the
+  `_originModifier` sketch in that task is wrong and has to be dropped. `RULESET_DEFS[x]
+  .characteristicModifiers` records this, and `auditedRulesets()` returns only `dh2`.
+- Editing `script/dark-heresy.js` with Python: read AND write with plain `utf-8`, never
+  `utf-8-sig`. The file carries a BOM in the MIDDLE (the imports were prepended before it);
+  writing with `utf-8-sig` adds a second one at the front and the test harness stops
+  stripping the import lines.
+- `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
+  against a host-realm object fails on prototypes with a misleading message; spread both
+  sides before comparing.
+
 ---
 
-### Task 0: A character says which book it belongs to
+### Task 0: A character says which book it belongs to — DONE
 
 **Files:**
 - Modify: `template.json` (add `ruleset` to the `acolyte` and `heretic` types)
@@ -194,7 +222,7 @@ git commit -m "Let a character name its rulebook instead of inferring it from th
 
 ---
 
-### Task 1: The `origin` item type and its schema module
+### Task 1: The `origin` item type and its schema module — DONE
 
 **Files:**
 - Modify: `template.json` (add `origin` to `Item.types` and an `Item.origin` block)
@@ -425,7 +453,7 @@ git commit -m "Add the origin item type and its schema vocabulary"
 
 ---
 
-### Task 2: Resolving an origin plus player picks into a flat grant plan
+### Task 2: Resolving an origin plus player picks into a flat grant plan — DONE
 
 **Files:**
 - Create: `script/creation/grant-data.mjs`
@@ -661,7 +689,7 @@ git commit -m "Resolve an origin and its player picks into a flat grant plan"
 
 ---
 
-### Task 3: Characteristic generation, wounds and fate
+### Task 3: Characteristic generation, wounds and fate — DONE
 
 **Files:**
 - Create: `script/creation/creation-roll-data.mjs`
@@ -801,7 +829,7 @@ git commit -m "Add characteristic generation, wounds and fate formulas"
 
 ---
 
-### Task 4: Ruleset step definitions
+### Task 4: Ruleset step definitions — DONE
 
 **Files:**
 - Create: `script/creation/ruleset-data.mjs`
@@ -959,7 +987,7 @@ git commit -m "Describe each book's creation steps as data"
 
 ---
 
-### Task 5: Applying a plan to an actor, and taking it back
+### Task 5: Applying a plan to an actor, and taking it back — DONE
 
 **Files:**
 - Create: `script/creation/origin-apply.mjs`
@@ -1226,7 +1254,7 @@ git commit -m "Apply a grant plan to an actor and record the undo"
 
 ---
 
-### Task 6: The origin item sheet
+### Task 6: The origin item sheet — DONE
 
 **Files:**
 - Create: `template/sheet/origin.hbs`
@@ -1434,7 +1462,7 @@ git commit -m "Add an editor sheet for origin items"
 
 ---
 
-### Task 7: Building origins into a compendium
+### Task 7: Building origins into a compendium — DONE
 
 **Files:**
 - Modify: `tools/build-items.mjs` (add origin validation to the per-item checks)
@@ -1561,7 +1589,7 @@ git commit -m "Add the origins compendium and validate its sources"
 
 ---
 
-### Task 8: Dark Heresy home worlds
+### Task 8: Dark Heresy home worlds — DONE
 
 **Files:**
 - Create: `packs-src/origins/01-dh2-home-worlds.json`
