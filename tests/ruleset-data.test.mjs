@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {RULESETS, STAGES} from '../script/creation/origin-data.mjs';
-import {RULESET_DEFS, stepsFor, originStepsFor} from '../script/creation/ruleset-data.mjs';
+import {RULESET_DEFS, stepsFor, originStepsFor, auditedRulesets} from '../script/creation/ruleset-data.mjs';
 import {CHARACTERISTIC_METHODS} from '../script/creation/creation-roll-data.mjs';
 
 test('every ruleset has a definition with an actor type and at least one step', () => {
@@ -63,6 +63,18 @@ test('every step label and ruleset label resolves to a real translation', () => 
     for (const ruleset of RULESETS) {
         assert.ok(lang[RULESET_DEFS[ruleset].label], `${ruleset}: ${RULESET_DEFS[ruleset].label}`);
         for (const step of stepsFor(ruleset)) assert.ok(lang[step.label], `${ruleset}/${step.id}: ${step.label}`);
+    }
+});
+
+test('only books whose characteristic rule has been checked against the book count as audited', () => {
+    // Dark Heresy modifiers are a generation rule, not a number: "+" rolls 3d10 and keeps the
+    // best two, point buy starts at 30 instead of 25. Adding the modifier to the result as
+    // well would count it twice. Every other book still has to be read before it is trusted.
+    assert.deepEqual(auditedRulesets(), ['dh2']);
+    assert.equal(RULESET_DEFS.dh2.characteristicModifiers, 'generation');
+    for (const ruleset of RULESETS) {
+        const mode = RULESET_DEFS[ruleset].characteristicModifiers;
+        assert.ok(mode === null || ['generation', 'flat'].includes(mode), `${ruleset}: ${mode}`);
     }
 });
 
