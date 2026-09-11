@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-9. 133 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-10. 136 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -90,6 +90,13 @@ The first heading without `— DONE` is the next task.
   in the `dark-heresy` pack. That pack has no `packs-src` sources and is LevelDB-locked while
   Foundry runs, so it is a Task 17 check. A name no pack carries becomes a stub item rather
   than vanishing, so nothing is lost silently in the meantime.
+- Task 10: the plan claimed a role grants two aptitudes. The book gives five (pp. 62-76),
+  and Assassin offers a choice for one of them. A test in `tests/origin-source.test.mjs` now
+  pins the count at five including the chosen one. 21 origins built so far, as predicted.
+- A choice option can now carry `talentTemplate`, which asks for the one thing that varies
+  when that option is picked. This covers "Resistance (Pick One) or Takedown" (p. 64) and
+  "Hatred (Pick One)" (p. 68) without modelling a choice inside a choice. The wizard must
+  render the extra input when such an option is selected - Task 13.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -1792,7 +1799,7 @@ git commit -m "Add the seven Dark Heresy backgrounds"
 
 ---
 
-### Task 10: Dark Heresy roles
+### Task 10: Dark Heresy roles — DONE
 
 **Files:**
 - Create: `packs-src/origins/03-dh2-roles.json`
