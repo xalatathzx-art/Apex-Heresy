@@ -129,3 +129,22 @@ test('the shipped origin type carries every field the schema fills in', () => {
         if (!['description', 'source'].includes(key))   // both come from the itemDescription template
             assert.ok(key in shipped, `template.json origin has no ${key}`);
 });
+
+test('an origin can grant an elite advance and add to one it does not grant', () => {
+    // Mystic starts as a psyker (p. 70); Adeptus Astra Telepathica makes a psyker taken at
+    // creation Sanctioned (p. 49) without granting the advance itself.
+    const origin = {...base, grants: {eliteAdvances: ['psyker'],
+        eliteRiders: [{elite: 'psyker', traits: [{name: 'Sanctioned'}]}]}};
+    assert.deepEqual(validateOrigin(origin), []);
+    assert.deepEqual(grantSummaryLines(origin), ['Elite advances: psyker', 'With psyker: Sanctioned']);
+    assert.deepEqual(validateOrigin({...base, grants: {eliteAdvances: ['librarian']}}),
+        ['unknown elite advance "librarian"']);
+    assert.deepEqual(validateOrigin({...base, grants: {eliteRiders: [{elite: 'saint', traits: []}]}}),
+        ['unknown elite advance "saint"']);
+});
+
+test('the shipped origin grants carry the elite fields', () => {
+    const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    for (const key of Object.keys(normaliseOrigin({}).grants))
+        assert.ok(key in data.Item.origin.grants, `template.json origin grants have no ${key}`);
+});

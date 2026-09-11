@@ -50,8 +50,18 @@ export const ADVANCES = [-20, 0, 10, 20];
  */
 export const CHOICE_TYPES = ["one", "many", "target"];
 
+/**
+ * Элитные продвижения, которые происхождение может выдать или дополнить
+ * (DH2, стр. 86). Сами правила продвижений — в elite-data.mjs.
+ */
+export const ELITE_ADVANCE_KEYS = ["psyker", "untouchable", "inquisitor"];
+
 const EMPTY_GRANTS = {
     skills: [], specialities: [], talents: [], traits: [], equipment: [], aptitudes: [],
+    // eliteAdvances — выданные даром (Mystic начинает псайкером, стр. 70).
+    // eliteRiders — добавка к продвижению, если персонаж его возьмёт: Adeptus Astra
+    // Telepathica делает псайкера санкционированным (стр. 49), но псайкером не делает.
+    eliteAdvances: [], eliteRiders: [],
     wounds: 0, corruption: 0, insanity: 0, influence: 0
 };
 
@@ -170,6 +180,9 @@ export function grantSummaryLines(source = {}) {
     if (grants.equipment.length)
         lines.push(`Equipment: ${grants.equipment.map(e => e.quantity > 1 ? `${e.name} ×${e.quantity}` : e.name).join(", ")}`);
     if (grants.aptitudes.length) lines.push(`Aptitudes: ${grants.aptitudes.join(", ")}`);
+    if (grants.eliteAdvances.length) lines.push(`Elite advances: ${grants.eliteAdvances.join(", ")}`);
+    for (const rider of grants.eliteRiders)
+        lines.push(`With ${rider.elite}: ${(rider.traits ?? []).map(trait => trait.name).join(", ")}`);
     for (const key of ["wounds", "corruption", "insanity", "influence"])
         if (grants[key]) lines.push(`${key[0].toUpperCase()}${key.slice(1)}: ${signed(grants[key])}`);
 
@@ -198,6 +211,8 @@ function grantProblems(grants, prefix) {
     for (const talent of grants.talents ?? []) if (!talent.name) problems.push(`${prefix}a talent has no name`);
     for (const trait of grants.traits ?? []) if (!trait.name) problems.push(`${prefix}a trait has no name`);
     for (const gear of grants.equipment ?? []) if (!gear.name) problems.push(`${prefix}an equipment entry has no name`);
+    for (const elite of [...(grants.eliteAdvances ?? []), ...(grants.eliteRiders ?? []).map(rider => rider.elite)])
+        if (!ELITE_ADVANCE_KEYS.includes(elite)) problems.push(`${prefix}unknown elite advance "${elite}"`);
     for (const aptitude of grants.aptitudes ?? [])
         if (!APTITUDES.includes(aptitude)) problems.push(`${prefix}unknown aptitude "${aptitude}"`);
 

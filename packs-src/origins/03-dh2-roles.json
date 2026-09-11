@@ -137,6 +137,7 @@
       "order": 5,
       "key": "mystic",
       "aptitudes": ["Defence", "Intelligence", "Knowledge", "Perception", "Willpower"],
+      "grants": {"eliteAdvances": ["psyker"]},
       "choices": [
         {
           "key": "roleTalent", "type": "one", "label": "Role Talent",

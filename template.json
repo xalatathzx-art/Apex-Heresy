@@ -1688,6 +1688,8 @@
         "traits": [],
         "equipment": [],
         "aptitudes": [],
+        "eliteAdvances": [],
+        "eliteRiders": [],
         "wounds": 0,
         "corruption": 0,
         "insanity": 0,

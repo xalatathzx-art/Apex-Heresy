@@ -154,7 +154,8 @@
           {"key": "forbiddenLore", "name": "The Warp", "advance": 0}
         ],
         "talents": [{"name": "Weapon Training (Las)"}, {"name": "Weapon Training (Low-Tech)"}],
-        "equipment": [{"name": "Laspistol"}]
+        "equipment": [{"name": "Laspistol"}],
+        "eliteRiders": [{"elite": "psyker", "traits": [{"name": "Sanctioned"}]}]
       },
       "choices": [
         {

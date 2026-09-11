@@ -119,3 +119,15 @@ test('merging leaves the plans it was given untouched', () => {
     mergePlans(a, {...emptyPlan(), characteristics: {strength: 3}});
     assert.deepEqual(a, snapshot);
 });
+
+test('elite advances and their riders pass through the plan', () => {
+    const mystic = {...feral, grants: {eliteAdvances: ['psyker']}};
+    const telepathica = {...feral, grants: {eliteRiders: [{elite: 'psyker', traits: [{name: 'Sanctioned'}]}]}};
+    const one = resolveGrantPlan(mystic, {}).plan, two = resolveGrantPlan(telepathica, {}).plan;
+    assert.deepEqual(one.eliteAdvances, ['psyker']);
+    assert.deepEqual(two.eliteRiders, [{elite: 'psyker', traits: [{name: 'Sanctioned'}]}]);
+    const merged = mergePlans(one, two, one);
+    assert.deepEqual(merged.eliteAdvances, ['psyker'], 'the same advance is not granted twice');
+    assert.equal(merged.eliteRiders.length, 1);
+    assert.deepEqual(emptyPlan().eliteAdvances, []);
+});

@@ -19,7 +19,7 @@ import {normaliseOrigin} from "./origin-data.mjs";
  */
 export function emptyPlan() {
     return {characteristics: {}, skills: [], specialities: [], talents: [], traits: [],
-            equipment: [], aptitudes: [], duplicates: [],
+            equipment: [], aptitudes: [], duplicates: [], eliteAdvances: [], eliteRiders: [],
             wounds: 0, corruption: 0, insanity: 0, influence: 0};
 }
 
@@ -110,6 +110,7 @@ export function mergePlans(...plans) {
         for (const gear of plan.equipment ?? []) out.equipment.push({...gear});
         for (const aptitude of plan.aptitudes ?? []) if (!out.aptitudes.includes(aptitude)) out.aptitudes.push(aptitude);
         for (const duplicate of plan.duplicates ?? []) out.duplicates.push({...duplicate});
+        addElite(out, plan);
         for (const key of ["wounds", "corruption", "insanity", "influence"]) out[key] += plan[key] ?? 0;
     }
     return out;
@@ -129,6 +130,16 @@ function addGrants(plan, grants) {
     for (const aptitude of grants.aptitudes ?? [])
         if (!plan.aptitudes.includes(aptitude)) plan.aptitudes.push(aptitude);
     for (const key of ["wounds", "corruption", "insanity", "influence"]) plan[key] += grants[key] ?? 0;
+    addElite(plan, grants);
+}
+
+/** Элитные продвижения и добавки к ним: одно и то же дважды не выдаётся. */
+function addElite(plan, source) {
+    for (const elite of source.eliteAdvances ?? [])
+        if (!plan.eliteAdvances.includes(elite)) plan.eliteAdvances.push(elite);
+    for (const rider of source.eliteRiders ?? [])
+        if (!plan.eliteRiders.some(entry => JSON.stringify(entry) === JSON.stringify(rider)))
+            plan.eliteRiders.push(structuredClone(rider));
 }
 
 function addSkill(plan, skill) {
