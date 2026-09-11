@@ -23,6 +23,38 @@
 - Every entry written from a book carries `system.source` in the form `"Dark Heresy Second Edition, p. 32"`, and the text is the book's wording, not a paraphrase.
 - Commit after every task. Branch: `codex/v14-modernization` (current). Do not push.
 
+## Loop instructions
+
+An autonomous loop works this plan. Each iteration:
+
+1. Open this file. The task for the iteration is the **first `### Task N:` heading that does
+   not end in `— DONE`**. Read its Files block, its Interfaces block and every step.
+2. Implement it test-first: write the failing test in `tests/`, run it and confirm it fails
+   for the intended reason, write the smallest implementation, confirm it passes.
+3. Verify: `node --test "tests/*.test.mjs"` green, `node --check script/dark-heresy.js` clean,
+   `node tools/build-items.mjs origins --check` with no errors.
+4. `git add` the files the task names and commit with an English message ending in the
+   Co-Authored-By line this repo uses.
+5. Append `— DONE` to that task's heading here, and add a Journal line saying what was built
+   and what reading the book or the code changed.
+
+Stop conditions and things the loop must not do:
+
+- **Task 17 is out of scope for the loop.** Building a pack needs Foundry closed and live
+  verification needs it open; both are the user's hands. The loop ends after Task 16.
+- Never build a pack. `--check` only — Foundry holds a LevelDB `LOCK`.
+- Book text comes from **pdf-mcp** (`pdf_search`, `pdf_read_pages`) and nowhere else. Every
+  compendium entry carries `system.source` with a book page, and the text is the book's
+  wording rather than a paraphrase.
+- Comments inside `script/creation/*.mjs` are written in Russian, matching the files already
+  there. Tests, compendium data, language strings and commit messages are English.
+- **Task 14's `_originModifier` sketch is wrong — drop it.** A Dark Heresy characteristic
+  modifier is already inside the generated value, both when rolling and under point buy
+  (see the Journal entry for Task 8). Adding it on top counts it twice.
+
+The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Tasks 9 through
+16 all read `— DONE`, the three verification commands above pass, and nothing is uncommitted.
+
 ## Progress
 
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
