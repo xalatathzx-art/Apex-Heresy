@@ -23,18 +23,28 @@ const STUB = {
 /**
  * Нагрузка для actor.update() по плану — и запись того, что она реально изменила.
  *
+ * `characteristicMode` — чем книга считает модификатор характеристики:
+ *   "flat"       — обычной прибавкой; пишется в base и потом откатывается;
+ *   "generation" — правилом генерации (Dark Heresy, стр. 31). Модификатор попадёт
+ *                  в значение сам — броском 3d10 с выбором двух костей, либо стартом
+ *                  закупки с 30 вместо 25. Писать его ЕЩЁ и в base значит посчитать
+ *                  дважды, поэтому он только записывается — шагу характеристик, чтобы
+ *                  тот знал, какую формулу катать.
+ *
  * @param {object} actor  объект формы актора (нужен только system)
  * @param {object} plan   из grant-data.mjs
+ * @param {{characteristicMode?: "flat"|"generation"}} [options]
  * @returns {{update: object, applied: object}}
  */
-export function planToActorUpdate(actor, plan) {
+export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {}) {
     const update = {};
-    const applied = {characteristics: {}, skills: {}, specialities: [], aptitudes: [],
-                     wounds: 0, corruption: 0, insanity: 0, influence: 0};
+    const applied = {characteristics: {}, generationModifiers: {}, skills: {}, specialities: [],
+                     aptitudes: [], wounds: 0, corruption: 0, insanity: 0, influence: 0};
 
     for (const [key, modifier] of Object.entries(plan.characteristics ?? {})) {
         const current = actor.system.characteristics?.[key];
         if (!current) continue;   // книга назвала характеристику, которой у этого листа нет
+        if (characteristicMode === "generation") { applied.generationModifiers[key] = modifier; continue; }
         update[`system.characteristics.${key}.base`] = (current.base ?? 0) + modifier;
         applied.characteristics[key] = modifier;
     }

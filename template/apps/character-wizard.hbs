@@ -51,6 +51,49 @@
                 <div class="wizard-choice-rows">{{{choiceRows}}}</div>
                 {{/if}}
             {{/if}}
+
+            {{#if (eq step.kind "characteristics")}}
+                {{#if charLocked}}
+                {{!-- Уже сгенерировано. «Назад» снимает запись, и шаг можно пройти заново. --}}
+                <p class="wizard-locked">{{localize "WIZARD.CHAR_LOCKED"}}</p>
+                {{else}}
+                <div class="form-group">
+                    <label>{{localize "WIZARD.METHOD"}}</label>
+                    <div class="form-fields">
+                        <select class="wizard-char-method">
+                            {{#each charMethods as |m|}}
+                            <option value="{{m.key}}" {{#if m.selected}}selected{{/if}}>{{m.label}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                {{#if charPointBuy}}
+                <p class="wizard-note">{{localize "WIZARD.POINT_BUY_HINT"}}
+                    <span class="wizard-budget" data-spent>0</span> / {{charBudget}}</p>
+                {{/if}}
+                <table class="wizard-chars">
+                    {{#each charRows as |row|}}
+                    <tr>
+                        <th>{{row.label}}</th>
+                        <td class="wizard-char-mod">{{#if row.modifier}}{{#if (gt row.modifier 0)}}+{{/if}}{{row.modifier}}{{/if}}</td>
+                        <td>
+                            <input type="number" data-characteristic="{{row.key}}" value="{{row.value}}"
+                                   data-start="{{row.start}}"/>
+                        </td>
+                        <td>
+                            {{#unless ../charPointBuy}}
+                            <button type="button" class="wizard-roll" data-roll="{{row.key}}"
+                                    data-formula="{{row.formula}}">{{row.formula}}</button>
+                            {{/unless}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </table>
+                {{#unless charPointBuy}}
+                <button type="button" class="wizard-roll-all">{{localize "WIZARD.ROLL_ALL_BUTTON"}}</button>
+                {{/unless}}
+                {{/if}}
+            {{/if}}
         </div>
         {{/unless}}
     </div>

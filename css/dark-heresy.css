@@ -13500,3 +13500,24 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   align-items: center;
   gap: var(--dh-space-2, 8px);
 }
+
+/* Шаг характеристик: строка на характеристику, модификатор книги отдельной колонкой. */
+.dark-heresy.character-wizard .wizard-chars {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dark-heresy.character-wizard .wizard-chars th {
+  text-align: left;
+  font-weight: 500;
+}
+.dark-heresy.character-wizard .wizard-chars td { padding: 1px 4px; }
+.dark-heresy.character-wizard .wizard-chars input { width: 5em; text-align: center; }
+.dark-heresy.character-wizard .wizard-char-mod {
+  width: 3em;
+  text-align: center;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.character-wizard .wizard-budget.over {
+  color: var(--dh-danger, #b33);
+  font-weight: 700;
+}

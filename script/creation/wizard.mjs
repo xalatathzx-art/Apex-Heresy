@@ -14,6 +14,9 @@ import {resolveGrantPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
+import {CHARACTERISTIC_KEYS} from "./origin-data.mjs";
+import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
+    from "./creation-roll-data.mjs";
 
 /** Паки, где ищется выданное по имени: сначала общий, потом книжные. */
 const CONTENT_PACKS = ["dark-heresy.dark-heresy", "dark-heresy.black-crusade",
@@ -96,6 +99,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             })),
             step: this.step ? {...this.step, label: game.i18n.localize(this.step.label)} : null,
             ...(this.step?.kind === "origin" ? await this._originStepContext(this.step) : {}),
+            ...(this.step?.kind === "characteristics" ? this._characteristicsStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
             nextDisabled: !this.ruleset || this._busy,
@@ -158,8 +162,46 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             this.render(false);
         });
 
+        this._wireCharacteristics(root);
+
         root.querySelector("[data-action='wizard-back']")?.addEventListener("click", () => this._onBack());
         root.querySelector("[data-action='wizard-next']")?.addEventListener("click", () => this._onNext());
+    }
+
+    /** Кости и счётчик очков на шаге характеристик. */
+    _wireCharacteristics(root) {
+        const method = root.querySelector(".wizard-char-method");
+        if (method) method.addEventListener("change", ev => {
+            this._charMethod = ev.currentTarget.value;
+            this._charValues = null;   // способ сменился — прежние значения уже не те
+            this.render(false);
+        });
+
+        const inputs = [...root.querySelectorAll("input[data-characteristic]")];
+        const remember = () => {
+            this._charValues = Object.fromEntries(inputs.map(i => [i.dataset.characteristic, Number(i.value) || 0]));
+        };
+        const budget = root.querySelector("[data-spent]");
+        const recount = () => {
+            if (!budget) return;
+            const spent = inputs.reduce((sum, i) => sum + (Number(i.value) || 0) - Number(i.dataset.start), 0);
+            budget.textContent = String(spent);
+            budget.classList.toggle("over", spent > POINT_BUY.points);
+        };
+        for (const input of inputs) input.addEventListener("input", () => { remember(); recount(); });
+        recount();
+
+        const rollOne = async button => {
+            const roll = await new Roll(button.dataset.formula).evaluate();
+            const input = root.querySelector(`input[data-characteristic="${button.dataset.roll}"]`);
+            if (input) input.value = String(roll.total);
+            remember();
+        };
+        for (const button of root.querySelectorAll(".wizard-roll"))
+            button.addEventListener("click", () => rollOne(button));
+        root.querySelector(".wizard-roll-all")?.addEventListener("click", async () => {
+            for (const button of root.querySelectorAll(".wizard-roll")) await rollOne(button);
+        });
     }
 
     /**
@@ -223,12 +265,17 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     async _commitStep(step) {
         if (!step) return false;
         if (step.kind === "origin") return this._commitOriginStep(step);
+        if (step.kind === "characteristics") return this._commitCharacteristicsStep();
         return true;
     }
 
     /** Откатить ранее закреплённый шаг. */
     async _revertStep(step) {
         if (step?.kind === "origin") await this._revertOriginStep(step);
+        // Вернувшись к характеристикам, шаг снова можно закрепить — другим способом
+        // или другими значениями. Само закрепление ставит значения, а не прибавляет,
+        // так что повторное не наслаивается.
+        if (step?.kind === "characteristics") await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationRolls");
     }
 
     // ── Шаг происхождения ────────────────────────────────────────────────
@@ -310,7 +357,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`));
         if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
 
-        const {update, applied} = planToActorUpdate(actor, plan);
+        const {update, applied} = planToActorUpdate(actor, plan,
+            {characteristicMode: RULESET_DEFS[this.ruleset].characteristicModifiers});
         if (Object.keys(update).length) await actor.update(update);
         await carrier.setFlag(GRANT_FLAG_SCOPE, "applied", applied);
         return true;
@@ -329,6 +377,101 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             .filter(item => item.getFlag(GRANT_FLAG_SCOPE, "grantedBy") === carrier.id)
             .map(item => item.id);
         await actor.deleteEmbeddedDocuments("Item", [carrier.id, ...granted]);
+    }
+
+    // ── Шаг характеристик ────────────────────────────────────────────────
+
+    /**
+     * Сумма модификаторов происхождений для одной характеристики.
+     *
+     * Читается с носителей шагов. У книги с «generation» это НЕ прибавка к
+     * результату, а указание, чем его катать: модификатор уже окажется внутри
+     * значения. Складывать его сверху нельзя (DH2, стр. 31).
+     */
+    _originModifier(key) {
+        let total = 0;
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            const applied = item.getFlag(GRANT_FLAG_SCOPE, "applied") ?? {};
+            total += applied.generationModifiers?.[key] ?? applied.characteristics?.[key] ?? 0;
+        }
+        return total;
+    }
+
+    /** Контекст шага характеристик: способ, формулы и уже брошенные значения. */
+    _characteristicsStepContext() {
+        const rolled = this.actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls");
+        const method = this._charMethod ?? rolled?.method ?? RULESET_DEFS[this.ruleset].characteristicMethods[0];
+        return {
+            charMethods: RULESET_DEFS[this.ruleset].characteristicMethods.map(key => ({
+                key, label: game.i18n.localize(`WIZARD.METHOD.${key.toUpperCase()}`), selected: key === method
+            })),
+            charMethod: method,
+            charPointBuy: method === "pointBuy",
+            charBase: POINT_BUY.base,
+            charBudget: POINT_BUY.points,
+            charRows: CHARACTERISTIC_KEYS.map(key => {
+                const modifier = this._originModifier(key);
+                return {
+                    key,
+                    label: game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`),
+                    modifier,
+                    formula: rollExpression(method, modifier),
+                    // При закупке модификатор сдвигает СТАРТ, а не результат: «+» начинает
+                    // с 30, «−» с 20 вместо 25.
+                    start: POINT_BUY.base + modifier,
+                    value: rolled?.values?.[key] ?? this._charValues?.[key] ?? ""
+                };
+            }),
+            charLocked: !!rolled
+        };
+    }
+
+    /**
+     * Закрепить характеристики: записать значения, бросить Раны и Судьбу.
+     *
+     * Броски запоминаются флагом — вернувшись на шаг, персонаж не перекатывается.
+     */
+    async _commitCharacteristicsStep() {
+        const actor = this.actor;
+        if (actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls")) return true;
+
+        const root = this.element;
+        const method = root?.querySelector(".wizard-char-method")?.value
+            ?? RULESET_DEFS[this.ruleset].characteristicMethods[0];
+
+        const values = {};
+        for (const key of CHARACTERISTIC_KEYS)
+            values[key] = Number(root?.querySelector(`input[data-characteristic="${key}"]`)?.value ?? 0);
+
+        if (method === "pointBuy") {
+            const problems = pointBuyProblems(values);
+            if (problems.length) { ui.notifications?.warn(problems.join("; ")); return false; }
+        } else if (CHARACTERISTIC_KEYS.some(key => !values[key])) {
+            ui.notifications?.warn(game.i18n.localize("WIZARD.ROLL_ALL"));
+            return false;
+        }
+
+        const update = {};
+        // Значение ставится, а не прибавляется: модификатор уже внутри него.
+        for (const key of CHARACTERISTIC_KEYS) update[`system.characteristics.${key}.base`] = values[key];
+
+        const homeWorld = actor.items.find(item => item.type === "origin" && item.system.stage === "homeWorld");
+        const toughnessBonus = Math.floor((values.toughness ?? 0) / 10);
+        const wounds = await new Roll(woundsExpression(homeWorld?.system.wounds ?? {}, toughnessBonus)).evaluate();
+        const fate = await new Roll(fateExpression(homeWorld?.system.fate ?? {})).evaluate();
+        // Раны, выданные другими шагами, добавляются поверх книжного броска: он
+        // ставится, а не прибавляется, и без этого их бы стёрло.
+        let granted = 0;
+        for (const item of actor.items)
+            if (item.type === "origin") granted += item.getFlag(GRANT_FLAG_SCOPE, "applied")?.wounds ?? 0;
+        update["system.wounds.max"] = update["system.wounds.value"] = wounds.total + granted;
+        update["system.fate.max"] = update["system.fate.value"] = fate.total;
+
+        await actor.update(update);
+        await actor.setFlag(GRANT_FLAG_SCOPE, "creationRolls",
+                            {method, values, wounds: wounds.total, fate: fate.total});
+        return true;
     }
 
     /** Хвост последнего шага. Заглушка каркаса. */

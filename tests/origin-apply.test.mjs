@@ -20,6 +20,33 @@ test('characteristic modifiers raise base values and are recorded for the undo',
     assert.deepEqual(applied.characteristics, {strength: 5, fellowship: -5});
 });
 
+test('under a generation ruleset a characteristic modifier is recorded, not written', () => {
+    // Dark Heresy modifiers are a generation rule (p. 31): a "+" rolls 3d10 and keeps the best
+    // two, point buy starts at 30. The modifier is already inside the generated value, so
+    // writing it to base as well would count it twice.
+    const plan = {...emptyPlan(), characteristics: {strength: 5, fellowship: -5}};
+    const {update, applied} = planToActorUpdate(actor(), plan, {characteristicMode: 'generation'});
+    assert.equal(update['system.characteristics.strength.base'], undefined);
+    assert.deepEqual(applied.characteristics, {});
+    assert.deepEqual(applied.generationModifiers, {strength: 5, fellowship: -5});
+});
+
+test('a recorded generation modifier is not undone, because it was never written', () => {
+    const subject = actor();
+    const {applied} = planToActorUpdate(subject, {...emptyPlan(), characteristics: {strength: 5}},
+                                        {characteristicMode: 'generation'});
+    assert.deepEqual(revertUpdate(subject, applied), {});
+});
+
+test('a flat ruleset writes the modifier and is the default', () => {
+    const plan = {...emptyPlan(), characteristics: {strength: 5}};
+    const asDefault = planToActorUpdate(actor(), plan);
+    const asFlat = planToActorUpdate(actor(), plan, {characteristicMode: 'flat'});
+    assert.equal(asDefault.update['system.characteristics.strength.base'], 35);
+    assert.deepEqual(asDefault.update, asFlat.update);
+    assert.deepEqual(asDefault.applied.generationModifiers, {});
+});
+
 test('a characteristic the actor does not have is skipped rather than written blindly', () => {
     const {update, applied} = planToActorUpdate(actor(), {...emptyPlan(), characteristics: {luck: 5}});
     assert.equal(update['system.characteristics.luck.base'], undefined);
