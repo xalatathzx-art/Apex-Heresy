@@ -1,0 +1,301 @@
+[
+  {
+    "name": "Black Templars",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 1,
+      "key": "blackTemplars",
+      "cost": 0,
+      "description": "<p>An eternal crusade across the galaxy, fought by warriors who renew their oaths on the eve of every battle. Their faith is a weapon, and their intolerance of the witch is a hardship they must master to serve in the Deathwatch.</p>",
+      "source": "Deathwatch, p. 40",
+      "characteristics": {
+        "weaponSkill": 5,
+        "willpower": 5
+      },
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Righteous Zeal",
+        "demeanour": "Zealous",
+        "forbidsSpecialities": [
+          "devastatorMarine",
+          "librarian"
+        ],
+        "note": "His zygotes are deficient: a Black Templar gains nothing from the Betcher's gland or the sus-an membrane (p. 40)."
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Righteous Zeal (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: Zealous",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  },
+  {
+    "name": "Blood Angels",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 2,
+      "key": "bloodAngels",
+      "cost": 0,
+      "description": "<p>Millennia of victories bought with ferocity at close quarters, and a curse carried in the blood. By day a paragon; by night he fights damnation alone in his cell.</p>",
+      "source": "Deathwatch, p. 43",
+      "characteristics": {
+        "weaponSkill": 5,
+        "agility": 5
+      },
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Blood Frenzy",
+        "demeanour": "The Red Thirst",
+        "forbidsSpecialities": []
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Blood Frenzy (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: The Red Thirst",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  },
+  {
+    "name": "Dark Angels",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 3,
+      "key": "darkAngels",
+      "cost": 0,
+      "description": "<p>The First Legion, keepers of a secret they hunt across the galaxy. Unquestioning loyalty, proven in trials no outsider is told of.</p>",
+      "source": "Deathwatch, p. 46",
+      "characteristics": {
+        "ballisticSkill": 5,
+        "intelligence": 5
+      },
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Stoic Defence",
+        "demeanour": "Sons of The Lion",
+        "forbidsSpecialities": []
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Stoic Defence (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: Sons of The Lion",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  },
+  {
+    "name": "Space Wolves",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 4,
+      "key": "spaceWolves",
+      "cost": 0,
+      "description": "<p>Ferocious, blunt and honest to a fault, with senses sharper than any other Chapter's. They mark the eve of battle in bawdy celebration rather than prayer.</p>",
+      "source": "Deathwatch, p. 49",
+      "characteristics": {
+        "perception": 5,
+        "fellowship": 5
+      },
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Wolf Senses",
+        "demeanour": "The Sons of Russ",
+        "forbidsSpecialities": [
+          "apothecary"
+        ]
+      },
+      "grants": {
+        "aptitudes": [],
+        "talents": [
+          {
+            "name": "Heightened Senses (Smell)"
+          }
+        ]
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Wolf Senses (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: The Sons of Russ",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  },
+  {
+    "name": "Storm Wardens",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 5,
+      "key": "stormWardens",
+      "cost": 0,
+      "description": "<p>Clannish, honourable and fond of debate, the Storm Wardens fight with keen fervour and seek out an enemy champion to test themselves against. Their curiosity about mysteries brings many of them to the Deathwatch.</p>",
+      "source": "Deathwatch, p. 52",
+      "characteristics": {
+        "strength": 5
+      },
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Thunder's Call",
+        "demeanour": "Aspire to Glory",
+        "forbidsSpecialities": []
+      },
+      "grants": {
+        "aptitudes": [],
+        "wounds": 2
+      },
+      "choices": [
+        {
+          "key": "sacrisClaymore",
+          "type": "one",
+          "label": "Keep the combat knife or take a Sacris claymore (p. 170)",
+          "options": [
+            {
+              "label": "Astartes combat knife (as issued)",
+              "grants": {}
+            },
+            {
+              "label": "Sacris Claymore",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Sacris Claymore"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Thunder's Call (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: Aspire to Glory",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  },
+  {
+    "name": "Ultramarines",
+    "type": "origin",
+    "folder": "Deathwatch/Chapters",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "chapter",
+      "order": 6,
+      "key": "ultramarines",
+      "cost": 0,
+      "description": "<p>The standard against which all Space Marines are measured: thorough, analytical, slow to anger. A high proportion of Deathwatch leaders are drawn from their ranks.</p>",
+      "source": "Deathwatch, p. 54",
+      "characteristics": {},
+      "characteristicChoices": [
+        {
+          "label": "+5 to two Characteristics of the player's choice",
+          "pick": 2,
+          "value": 5,
+          "from": [
+            "weaponSkill",
+            "ballisticSkill",
+            "strength",
+            "toughness",
+            "agility",
+            "intelligence",
+            "perception",
+            "willpower",
+            "fellowship"
+          ]
+        }
+      ],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "soloMode": "Favoured Son",
+        "demeanour": "Honour the Codex",
+        "forbidsSpecialities": []
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Favoured Son (Solo Mode)",
+          "effect": "The Chapter's own Solo Mode ability; its text is in the Deathwatch compendium."
+        },
+        {
+          "name": "Demeanour: Honour the Codex",
+          "effect": "The beliefs and traditions his Chapter shares, and his to play (p. 32)."
+        }
+      ]
+    }
+  }
+]
