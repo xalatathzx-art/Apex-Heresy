@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-12. 148 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-13. 158 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -119,6 +119,13 @@ The first heading without `— DONE` is the next task.
 - The step-commit contract the later tasks fill in: `_commitStep(step)` returns false to
   stay on the step, `_revertStep(step)` undoes a committed one, and `_busy` blocks a second
   click while the first is still inside its await.
+- Task 13: `choice-blocks.mjs` deliberately has NO Foundry dependency - `root` is anything
+  with `querySelectorAll` and escaping is local - so reading a form into picks is unit
+  tested against a fake root instead of waiting for a world. Ten tests.
+- A committed origin step locks its dropdown. Re-choosing means Back, which reverts first;
+  otherwise a second commit would stack grants on top of the first.
+- `lang/en.json` mixes CRLF and LF line endings. Do not assume one: find the anchor line
+  with a regex and reuse the newline and indent it actually captured.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -2125,7 +2132,7 @@ git commit -m "Add the character wizard shell"
 
 ---
 
-### Task 13: Origin steps inside the wizard
+### Task 13: Origin steps inside the wizard — DONE
 
 **Files:**
 - Create: `script/creation/choice-blocks.mjs`
