@@ -125,7 +125,11 @@ export function validateOrigin(source = {}) {
         if (choice.type === "one" && !(choice.options ?? []).length) problems.push(`${where} has no options`);
         if (choice.type === "target" && !choice.talentTemplate)
             problems.push(`${where} names no talent to apply the target to`);
-        for (const option of choice.options ?? []) problems.push(...grantProblems(option.grants ?? {}, `${where}: `));
+        for (const option of choice.options ?? []) {
+            problems.push(...grantProblems(option.grants ?? {}, `${where}: `));
+            if (option.talentTemplate && !option.talentTemplate.includes("{v}"))
+                problems.push(`${where}: option "${option.label ?? ""}" has a talent template with no {v}`);
+        }
     }
 
     if (origin.requires && !STAGES[origin.ruleset]?.includes(origin.requires.stage))
@@ -167,8 +171,11 @@ export function grantSummaryLines(source = {}) {
     for (const key of ["wounds", "corruption", "insanity", "influence"])
         if (grants[key]) lines.push(`${key[0].toUpperCase()}${key.slice(1)}: ${signed(grants[key])}`);
 
-    for (const choice of origin.choices)
-        lines.push(`Choice "${choice.key}" (${choice.type}): ${(choice.options ?? []).map(o => o.label).join(" / ") || choice.label}`);
+    for (const choice of origin.choices) {
+        const options = (choice.options ?? [])
+            .map(o => o.talentTemplate ? `${o.label} →` : o.label).join(" / ");
+        lines.push(`Choice "${choice.key}" (${choice.type}): ${options || choice.label}`);
+    }
 
     return lines;
 }

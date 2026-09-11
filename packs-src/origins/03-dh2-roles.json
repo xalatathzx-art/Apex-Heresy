@@ -1,0 +1,249 @@
+[
+  {
+    "name": "Assassin",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 1,
+      "key": "assassin",
+      "aptitudes": ["Agility", "Fieldcraft", "Finesse", "Perception"],
+      "choices": [
+        {
+          "key": "roleAptitude", "type": "one", "label": "Ballistic Skill or Weapon Skill",
+          "options": [
+            {"label": "Ballistic Skill", "grants": {"aptitudes": ["Ballistic Skill"]}},
+            {"label": "Weapon Skill", "grants": {"aptitudes": ["Weapon Skill"]}}
+          ]
+        },
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Jaded", "grants": {"talents": [{"name": "Jaded"}]}},
+            {"label": "Leap Up", "grants": {"talents": [{"name": "Leap Up"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Sure Kill",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), when an Assassin successfully hits with an attack, he may spend a Fate point to inflict additional damage equal to his degrees of success on the attack roll on the first hit the attack inflicts.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Talented murderers dedicated to the art of taking life; death merchants of the highest calibre, they are trained to kill and adept at slaying their targets in a variety of gruesome and grisly ways.</p><div class='bc-rule'><p>Even in a universe saturated with blood and death, there are those which turn murder into a sublime art form. The Assassin is such a being, spending their lives perfecting talents in the kill, rising to greater heights with each life they take. While many who serve the Emperor are proficient in battle, Assassins revel only in the act of killing and often care little for commonplace combat.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 62"
+    }
+  },
+  {
+    "name": "Chirurgeon",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 2,
+      "key": "chirurgeon",
+      "aptitudes": ["Fieldcraft", "Intelligence", "Knowledge", "Strength", "Toughness"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Resistance (Pick One)", "talentTemplate": "Resistance ({v})"},
+            {"label": "Takedown", "grants": {"talents": [{"name": "Takedown"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Dedicated Healer",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), when a Chirurgeon character fails a test to provide First Aid, he can spend a Fate point to automatically succeed instead with the degrees of success equal to his Intelligence bonus.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Masters of the flesh, with a knowledge of sacred anatomy that lends itself to both the arts of healing as well as torture; they are devoted to the study of biological forms and the limits of mortal bodies.</p><div class='bc-rule'><p>The secrets of the flesh are closely-guarded lore within the Imperium. Chirurgeons have been ushered into these hidden ways, peeling back the skin of biological science to gaze upon its wet, raw, beating organs. More than a talent for torture or a skill at mending mangled bodies, the Chirurgeon is defined by his thirst for knowledge and a drive for experimentation, often at the expense of his patients and their wellbeing.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 64"
+    }
+  },
+  {
+    "name": "Desperado",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 3,
+      "key": "desperado",
+      "aptitudes": ["Agility", "Ballistic Skill", "Defence", "Fellowship", "Finesse"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Catfall", "grants": {"talents": [{"name": "Catfall"}]}},
+            {"label": "Quick Draw", "grants": {"talents": [{"name": "Quick Draw"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Move and Shoot",
+          "description": "<p>Once per round, after performing a Move action, a Desperado character may perform a single Standard Attack with a Pistol weapon he is currently wielding as a Free Action.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Rogues and mercenaries that live by their wits and the gun on their hip; talented thieves, outlaws, and criminals, they sell their services to the highest bidder to line their pockets with coin.</p><div class='bc-rule'><p>Every world has men and women that live out on its fringes or survive by their skills with a gun, selling their talents to those in need of a bit more muscle with no questions asked. Desperados are a motley group, comprising scum, bounty hunters, slavers, pirates, and renegades, all people who exist on the border or beyond the law. They are defined by their selfish natures and scorn for authority.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 66"
+    }
+  },
+  {
+    "name": "Hierophant",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 4,
+      "key": "hierophant",
+      "aptitudes": ["Fellowship", "Offence", "Social", "Toughness", "Willpower"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Double Team", "grants": {"talents": [{"name": "Double Team"}]}},
+            {"label": "Hatred (Pick One)", "talentTemplate": "Hatred ({v})"}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Sway the Masses",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), a Hierophant character may spend a Fate point to automatically succeed at a Charm, Command, or Intimidate skill test with a number of degrees of success equal to his Willpower bonus.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Zealous followers of the Emperor with an unwavering devotion to the faith; they are missionaries and priests whose sole purpose is to spread the word of the Emperor and bring righteous death to His foes.</p><div class='bc-rule'><p>Hierophants are those dedicated to the Imperial Creed, as priests and confessors, clerics and wise men, or as orators and demagogues spreading His word and enforcing the tenets of the faith upon the teeming masses of humanity. He is defined above all else by his certitude and his relationship to the Emperor; this is his shield and his sword against the enemies of the Imperium.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 68"
+    }
+  },
+  {
+    "name": "Mystic",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 5,
+      "key": "mystic",
+      "aptitudes": ["Defence", "Intelligence", "Knowledge", "Perception", "Willpower"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Resistance (Psychic Powers)", "grants": {"talents": [{"name": "Resistance (Psychic Powers)"}]}},
+            {"label": "Warp Sense", "grants": {"talents": [{"name": "Warp Sense"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Stare into the Warp",
+          "description": "<p>A Mystic character starts the game with the Psyker elite advance (see page 90). It is recommended that a character who wishes to be a Mystic have a Willpower of at least 35.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Souls touched by the Warp and filled with its eldritch power; psykers, Warp-seers, and shamans both cursed and blessed with the power to manipulate the arcane energies of the Immaterium and turn them against their enemies.</p><div class='bc-rule'><p>Mystics are those the Warp has touched in some way, gaining a measure of control over its unnatural tides and a glimmer of insight into its use. Either as Primaris Psykers, primitive Warp-seers, or renegade sorcerers, Mystics represents Mankind's connection to the Sea of Souls and the powers and denizens which dwell within.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 70"
+    }
+  },
+  {
+    "name": "Sage",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 6,
+      "key": "sage",
+      "aptitudes": ["Intelligence", "Knowledge", "Perception", "Tech", "Willpower"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Ambidextrous", "grants": {"talents": [{"name": "Ambidextrous"}]}},
+            {"label": "Clues from the Crowds", "grants": {"talents": [{"name": "Clues from the Crowds"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Quest for Knowledge",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), a Sage character may spend a Fate point to automatically succeed at a Logic or any Lore skill test with a number of degrees of success equal to his Intelligence bonus.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Brilliant minds with a talent for numbers, logic, and cyphers; dedicated scholars and savants brimming with knowledge and lore, they are keepers of truths, and possess an unrivalled understanding of the galaxy.</p><div class='bc-rule'><p>Sages are talented individuals known by many names, such as Autosavants, Lexmechanics, and Calculus Logi. They are often members of the Adeptus Administratum or Adeptus Mechanicus, and trusted with the storing and cataloguing of huge amounts of data. They can see patterns that others cannot, making connections to either retrieve or uncover data considered lost or unattainable.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 72"
+    }
+  },
+  {
+    "name": "Seeker",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 7,
+      "key": "seeker",
+      "aptitudes": ["Fellowship", "Intelligence", "Perception", "Social", "Tech"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Keen Intuition", "grants": {"talents": [{"name": "Keen Intuition"}]}},
+            {"label": "Disarm", "grants": {"talents": [{"name": "Disarm"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Nothing Escapes My Sight",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), a Seeker character may spend a Fate point to automatically succeed at an Awareness or Inquiry skill test with a number of degrees of success equal to his Perception bonus.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Skilled hunters and investigators obsessed with the pursuit of their prey; they sift through the secrets of the Imperium, seeing what others do not and using it to flush out their quarry before closing in for the kill.</p><div class='bc-rule'><p>An Acolyte that treads the path of the Seeker is driven by the hunt, relentless in his investigations. Where others might choose easy violence or give up the pursuit, the Seeker sees signs and clues to the passage of the prey. It is this attention and obsession with detail which defines the Seeker, pushing him on to uncover the next truth, unravel the next lie, and catch the most elusive of prey.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 74"
+    }
+  },
+  {
+    "name": "Warrior",
+    "type": "origin",
+    "folder": "Dark Heresy/Roles",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "role",
+      "order": 8,
+      "key": "warrior",
+      "aptitudes": ["Ballistic Skill", "Defence", "Offence", "Strength", "Weapon Skill"],
+      "choices": [
+        {
+          "key": "roleTalent", "type": "one", "label": "Role Talent",
+          "options": [
+            {"label": "Iron Jaw", "grants": {"talents": [{"name": "Iron Jaw"}]}},
+            {"label": "Rapid Reload", "grants": {"talents": [{"name": "Rapid Reload"}]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Expert at Violence",
+          "description": "<p>In addition to the normal uses of Fate points (see page 293), after making a successful attack test, but before determining hits, a Warrior character may spend a Fate point to substitute his Weapon Skill (for melee) or Ballistic Skill (for ranged) bonus for the degrees of success scored on the attack test.</p>"
+        }
+      ],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Hardened fighters and veterans skilled in all forms of combat; they are adept at both starting and ending conflicts, as well as the brutal application of violence to get the job done, no matter the cost.</p><div class='bc-rule'><p>The one constant of life in the 41st Millennium is war. A Warrior is the result of this constant conflict, either drawn from the frontlines or worlds racked with violence. For a Warrior, life is conflict, and most solutions can be found through the direct and brutal application of force, usually at his own hands. He is also a survivor, having lived long enough to learn a thing or two about getting out alive from even the most violent of situations.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 76"
+    }
+  }
+]

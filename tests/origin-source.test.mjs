@@ -50,6 +50,26 @@ test('every folder an entry names exists in the folder map', () => {
             if (entry.folder) assert.ok(folders.has(entry.folder), `${file}: ${entry.name} is in unknown folder "${entry.folder}"`);
 });
 
+test('every Dark Heresy role grants five aptitudes, counting the one it offers a choice of', () => {
+    for (const file of sourceFiles())
+        for (const entry of entriesOf(file)) {
+            if (entry.system.ruleset !== 'dh2' || entry.system.stage !== 'role') continue;
+            const fixed = entry.system.aptitudes?.length ?? 0;
+            const chosen = (entry.system.choices ?? [])
+                .filter(c => (c.options ?? []).some(o => o.grants?.aptitudes?.length)).length;
+            assert.equal(fixed + chosen, 5, `${entry.name} grants ${fixed} + ${chosen}`);
+        }
+});
+
+test('every Dark Heresy home world, background and role carries a named bonus', () => {
+    for (const file of sourceFiles())
+        for (const entry of entriesOf(file)) {
+            if (entry.system.ruleset !== 'dh2') continue;
+            assert.ok((entry.system.bonuses ?? []).length > 0, `${entry.name} has no bonus`);
+            for (const bonus of entry.system.bonuses) assert.ok(bonus.description, `${entry.name}: ${bonus.name}`);
+        }
+});
+
 test('the origins pack is registered in system.json', () => {
     const system = JSON.parse(readFileSync(new URL('../system.json', import.meta.url), 'utf8'));
     const pack = system.packs.find(p => p.name === 'origins');

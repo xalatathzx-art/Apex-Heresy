@@ -60,6 +60,15 @@ export function resolveGrantPlan(origin, picks = {}, context = {}) {
             const option = choice.options?.[index];
             if (!option) { problems.push(`choice "${choice.key}" has no option ${index}`); continue; }
             addGrants(plan, option.grants ?? {});
+            // Вариант сам может требовать уточнения: «Resistance (Pick One) or Takedown»
+            // (DH2, стр. 64) — выбор внутри выбора. Полноценной вложенности в схеме нет,
+            // и не нужно: уточняется всегда ОДНО — против чего работает талант.
+            if (option.talentTemplate) {
+                const target = picks.target?.[choice.key];
+                if (!target?.value) { problems.push(`choice "${choice.key}" needs a target named`); continue; }
+                addNamed(plan, "talents", "talent",
+                         {name: option.talentTemplate.replace("{v}", target.value), targets: [target]});
+            }
         } else if (choice.type === "many") {
             const want = choice.count === "intelligenceBonus" ? (context.intelligenceBonus ?? 0) : (choice.count ?? 0);
             const got = picks.many?.[choice.key] ?? [];

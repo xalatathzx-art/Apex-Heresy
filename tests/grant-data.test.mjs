@@ -42,6 +42,26 @@ test('a "one" choice contributes only the picked option', () => {
     assert.deepEqual(plan.talents.map(t => t.name), ['Jaded', 'Weapon-Tech']);
 });
 
+test('an option may require naming a target, for "Resistance (Pick One) or Takedown"', () => {
+    const origin = {...feral, choices: [{key: 'roleTalent', type: 'one', label: 'Role Talent', options: [
+        {label: 'Resistance (Pick One)', talentTemplate: 'Resistance ({v})'},
+        {label: 'Takedown', grants: {talents: [{name: 'Takedown'}]}}
+    ]}]};
+
+    const named = resolveGrantPlan(origin, {one: {roleTalent: 0}, target: {roleTalent: {kind: 'text', value: 'Poisons'}}});
+    assert.deepEqual(named.problems, []);
+    const resistance = named.plan.talents.find(t => t.name === 'Resistance (Poisons)');
+    assert.deepEqual(resistance.targets, [{kind: 'text', value: 'Poisons'}]);
+
+    // Picking that option without naming the target is incomplete, not a talent called "Resistance ({v})".
+    assert.match(resolveGrantPlan(origin, {one: {roleTalent: 0}}).problems[0], /roleTalent/);
+
+    // The option that needs no target is unaffected.
+    const takedown = resolveGrantPlan(origin, {one: {roleTalent: 1}});
+    assert.deepEqual(takedown.problems, []);
+    assert.deepEqual(takedown.plan.talents.map(t => t.name), ['Jaded', 'Takedown']);
+});
+
 test('an unanswered "one" choice is reported instead of silently defaulting', () => {
     const origin = {...feral, choices: [{key: 'omnissiah', type: 'one', label: 'x',
         options: [{label: 'a'}, {label: 'b'}]}]};
