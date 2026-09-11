@@ -9,6 +9,7 @@
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, rmSync } from "node:fs";
 import { createRequire } from "node:module";
+import { tableResultFlags } from "./lib/table-effects.mjs";
 
 const require = createRequire(import.meta.url);
 const { ClassicLevel } = require("d:/Foundry/Foundry14/Foundry Virtual Tabletop/resources/app/node_modules/classic-level");
@@ -76,7 +77,8 @@ for (const file of files) {
         resultIds.push(resultId);
         resultCount++;
         batch.put(`!tables.results!${tableId}.${resultId}`, {
-            _id: resultId, _stats: stats(), description: row.text, drawn: false, flags: {},
+            _id: resultId, _stats: stats(), description: row.text, drawn: false,
+            flags: tableResultFlags(row),
             img: row.img ?? null, name: row.name ?? "",
             range: row.range, type: "text", weight: 1
         });

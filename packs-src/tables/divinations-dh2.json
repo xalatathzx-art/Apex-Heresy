@@ -1,0 +1,159 @@
+{
+  "name": "Divinations",
+  "folder": "Character Creation",
+  "formula": "1d100",
+  "sort": 100,
+  "description": "Rolled once during character creation: the character's strange and twisted destiny. Dark Heresy Second Edition, Table 2-9 (p. 84). The `effect` on each row is the part the builder applies automatically; a row whose effect depends on what the character already has, or which offers a choice, is left to the player.",
+  "results": [
+    {
+      "name": "Mutation without, corruption within.",
+      "range": [1, 1],
+      "text": "Roll once on Table 8–15: Malignancies (see page 290) and apply the result.",
+      "effect": {}
+    },
+    {
+      "name": "Trust in your fear.",
+      "range": [2, 5],
+      "text": "Increase this character's Perception by 5. He also gains the Phobia Mental Disorder (see page 288).",
+      "effect": {"characteristics": {"perception": 5}}
+    },
+    {
+      "name": "Humans must die so that humanity can endure.",
+      "range": [6, 9],
+      "text": "This character gains the Jaded talent. If he already possesses this talent, increase his Willpower characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "The pain of the bullet is ecstasy compared to damnation.",
+      "range": [10, 13],
+      "text": "Reduce this character's Agility characteristic by 3. The first time this character suffers Critical damage each session, roll 1d10. On a result of 10, he does not suffer any Critical Effects, though the damage still counts as Critical damage.",
+      "effect": {"characteristics": {"agility": -3}}
+    },
+    {
+      "name": "Be a boon to your allies and the bane of your enemies.",
+      "range": [14, 17],
+      "text": "This character gains the Hatred (choose any one) talent. If he already possessed this talent, increase his Strength characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "The wise learn from the deaths of others.",
+      "range": [18, 21],
+      "text": "Increase this character's Agility or Intelligence characteristic by 3. Reduce his Weapon Skill or Ballistic Skill characteristic by 3.",
+      "effect": {}
+    },
+    {
+      "name": "Kill the alien before it can speak its lies.",
+      "range": [22, 25],
+      "text": "This character gains the Quick Draw talent. If he already possesses this talent, increase his Agility characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "Truth is subjective.",
+      "range": [26, 29],
+      "text": "Increase this character's Perception characteristic by 3. The first time he would gain 1 or more Corruption points each session, he gains that amount plus 1 instead.",
+      "effect": {"characteristics": {"perception": 3}}
+    },
+    {
+      "name": "Thought begets Heresy.",
+      "range": [30, 33],
+      "text": "Reduce this character's Intelligence characteristic by 3. The first time he would gain 1 or more Corruption points each session, he reduces that amount by 1 (to a minimum of 0) instead.",
+      "effect": {"characteristics": {"intelligence": -3}}
+    },
+    {
+      "name": "Heresy begets Retribution.",
+      "range": [34, 38],
+      "text": "Increase this character's Fellowship or Strength characteristic by 3. Reduce his Toughness or Willpower characteristic by 3.",
+      "effect": {}
+    },
+    {
+      "name": "A mind without purpose wanders in dark places.",
+      "range": [39, 43],
+      "text": "When gaining Mental Disorders (see page 287), the character may choose to gain a new Disorder instead of increasing the severity of an existing Disorder.",
+      "effect": {}
+    },
+    {
+      "name": "If a job is worth doing, it is worth dying for.",
+      "range": [44, 49],
+      "text": "Increase this character's Toughness or Willpower characteristic by 3. Reduce his Fellowship or Strength characteristic by 3.",
+      "effect": {}
+    },
+    {
+      "name": "Dark dreams lie upon the heart.",
+      "range": [50, 54],
+      "text": "Whenever this character would roll on Table 8–15: Malignancies (see page 290), he may instead select any one result and gain that Malignancy.",
+      "effect": {}
+    },
+    {
+      "name": "Violence solves everything.",
+      "range": [55, 59],
+      "text": "Increase this character's Weapon Skill or Ballistic Skill characteristic by 3. Reduce his Agility or Intelligence characteristic by 3.",
+      "effect": {}
+    },
+    {
+      "name": "Ignorance is a wisdom of its own.",
+      "range": [60, 63],
+      "text": "Reduce this character's Perception characteristic by 3. The first time he would gain 1 or more Insanity points each session, he reduces that amount by 1 (to a minimum of 0) instead.",
+      "effect": {"characteristics": {"perception": -3}}
+    },
+    {
+      "name": "Only the insane have strength enough to prosper.",
+      "range": [64, 67],
+      "text": "Increase this character's Willpower characteristic by 3. The first time he would gain 1 or more Insanity points each session, he gains that amount plus 1 instead.",
+      "effect": {"characteristics": {"willpower": 3}}
+    },
+    {
+      "name": "A suspicious mind is a healthy mind.",
+      "range": [68, 71],
+      "text": "Increase this character's Perception characteristic by 2. Additionally, he may re-roll Awareness tests to avoid being Surprised.",
+      "effect": {"characteristics": {"perception": 2}}
+    },
+    {
+      "name": "Suffering is an unrelenting instructor.",
+      "range": [72, 75],
+      "text": "Reduce this character's Toughness characteristic by 3. The first time that this character suffers any damage each session, he gains a +20 bonus to the next test he makes before the end of his next turn.",
+      "effect": {"characteristics": {"toughness": -3}}
+    },
+    {
+      "name": "The only true fear is dying without your duty done.",
+      "range": [76, 79],
+      "text": "This character gains the Resistance (Cold, Heat, or Fear) talent. If he already possesses this talent, increase his Toughness characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "Only in death does duty end.",
+      "range": [80, 83],
+      "text": "The first time this character would suffer Fatigue each session, he suffers that amount of Fatigue minus 1 (to a minimum of 0) instead.",
+      "effect": {}
+    },
+    {
+      "name": "Innocence is an illusion.",
+      "range": [84, 87],
+      "text": "This character gains the Keen Intuition talent. If he already possesses this talent, increase his Intelligence characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "To war is human.",
+      "range": [88, 91],
+      "text": "This character gains the Dodge skill as a Known skill (rank 1). If he already possesses this skill, increase his Agility characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "There is no substitute for zeal.",
+      "range": [92, 95],
+      "text": "This character gains the Clues from the Crowds talent. If he already possesses this talent, increase his Fellowship characteristic by 2 instead.",
+      "effect": {}
+    },
+    {
+      "name": "Even one who has nothing can still offer his life.",
+      "range": [96, 99],
+      "text": "When this character burns Fate threshold to survive a lethal injury, roll 1d10. On a result of 10, he survives whatever grievous wound would have killed him but does not reduce his Fate threshold.",
+      "effect": {}
+    },
+    {
+      "name": "Do not ask why you serve. Only ask how.",
+      "range": [100, 100],
+      "text": "Increase this character's Fate threshold by 1.",
+      "effect": {"fate": 1}
+    }
+  ]
+}
