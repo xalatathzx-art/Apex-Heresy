@@ -8364,6 +8364,9 @@ class AcolyteSheet extends DarkHeresySheet {
         // пометка лишь говорит, откуда взялось значение, чтобы случайная правка
         // была заметна, а не молчалива.
         data.fromOrigin = originFilledFields(this.actor);
+        // Каждая книга зовёт эти поля по-своему: у Only War это полк и специальность,
+        // а не предыстория и роль. Подписи берёт профиль книги, а не тип листа.
+        data.bioLabels = Dh.rulesetFor(this.actor).bioLabels ?? Dh.bioLabels.dh2;
         return data;
     }
 
@@ -15155,6 +15158,9 @@ Dh.rulesets = {
 for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"], ["dw", "RULESET.DW"]])
     Dh.rulesets[id] = { ...structuredClone(Dh.rulesets.dh2), id, label };
 
+// Only War fills the same three sheet fields with a regiment and a speciality.
+Dh.rulesets.ow.bioLabels = {homeWorld: "BIO.HOME_WORLD", background: "ORIGIN.STAGE.REGIMENT", role: "ORIGIN.STAGE.SPECIALITY"};
+
 // Only War counts characteristic advances on a four-step ladder, not five (Table 3-14, p. 102).
 // Row 0 is the free starting value; columns are [two, one, no matching aptitudes].
 Dh.rulesets.ow.characteristicCosts = [[0, 0, 0], [100, 250, 500], [250, 500, 750], [500, 750, 1000], [750, 1000, 2500]];
@@ -15560,6 +15566,12 @@ Dh.originRulesets = {
 // Шаги создания всех пяти книг одним словарём — список для выпадающего списка на
 // листе Происхождения. Какие из них есть у конкретной книги, знает
 // script/creation/origin-data.mjs (STAGES), а не этот справочник.
+/* Как книга называет поля анкеты под портретом. */
+Dh.bioLabels = {
+    dh2: {homeWorld: "BIO.HOME_WORLD", background: "BIO.BACKGROUND", role: "BIO.ROLE"},
+    ow: {homeWorld: "BIO.HOME_WORLD", background: "ORIGIN.STAGE.REGIMENT", role: "ORIGIN.STAGE.SPECIALITY"}
+};
+
 Dh.originStages = {
     homeWorld: "ORIGIN.STAGE.HOME_WORLD",
     background: "ORIGIN.STAGE.BACKGROUND",
