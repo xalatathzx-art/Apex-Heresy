@@ -1419,6 +1419,7 @@
       "weapon",
       "weaponModification",
       "race",
+      "origin",
       "vehicleWeapon",
       "vehicleTrait",
       "shipWeapon",
@@ -1657,6 +1658,48 @@
         "itemDescription"
       ],
       "cost": 0
+    },
+    "origin": {
+      "templates": [
+        "itemDescription"
+      ],
+      "ruleset": "dh2",
+      "stage": "homeWorld",
+      "order": 0,
+      "key": "",
+      "cost": 0,
+      "characteristics": {},
+      "characteristicChoices": [],
+      "aptitudes": [],
+      "wounds": {
+        "formula": "",
+        "bonus": 0,
+        "doubleToughnessBonus": false
+      },
+      "fate": {
+        "value": 0,
+        "blessing": 0,
+        "formula": ""
+      },
+      "grants": {
+        "skills": [],
+        "specialities": [],
+        "talents": [],
+        "traits": [],
+        "equipment": [],
+        "wounds": 0,
+        "corruption": 0,
+        "insanity": 0,
+        "influence": 0
+      },
+      "choices": [],
+      "bonus": {
+        "name": "",
+        "description": ""
+      },
+      "requires": null,
+      "adjacency": [],
+      "recommended": []
     },
     "race": {
       "templates": [
