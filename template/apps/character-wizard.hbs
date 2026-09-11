@@ -440,12 +440,17 @@
                         <div class="shop-talent-head">
                             <span class="shop-name">{{offer.name}}</span>
                             <span class="shop-step">{{offer.type}}</span>
-                            <span class="shop-match"></span>
+                            {{!-- У Deathwatch важно, ИЗ КАКОГО списка строка: орденская
+                                  не требует ранга, а список самого Караула при создании
+                                  закрыт (стр. 58). --}}
+                            <span class="shop-match">{{offer.sourceLabel}}</span>
                             <span class="shop-cost">{{offer.cost}}</span>
                             <button type="button" class="shop-buy" data-buy-advance="{{offer.name}}"
                                     {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
                         </div>
-                        <p class="shop-rules">{{offer.effect}}</p>
+                        {{#if offer.effect}}<p class="shop-rules">{{offer.effect}}</p>{{/if}}
+                        {{#if offer.prerequisites}}<p class="shop-prerequisites"><span class="shop-prereq">{{offer.prerequisites}}</span></p>{{/if}}
+                        {{#if offer.note}}<p class="wizard-warn">{{offer.note}}</p>{{/if}}
                     </div>
                     {{/each}}
                 </div>

@@ -12,7 +12,9 @@ import {emptyPlan} from '../script/creation/grant-data.mjs';
 test('Deathwatch runs Space Marine, characteristics, Chapter, Speciality, experience, life (p. 24)', () => {
     assert.deepEqual(stepsFor('dw').map(step => step.id),
         ['spaceMarine', 'characteristics', 'chapter', 'speciality', 'experience', 'life']);
-    assert.deepEqual(STAGES.dw, ['spaceMarine', 'chapter', 'speciality']);
+    // advanceList is not a step the player walks: it is the menu he buys from.
+    assert.deepEqual(STAGES.dw, ['spaceMarine', 'chapter', 'speciality', 'advanceList']);
+    assert.equal(stepsFor('dw').some(step => step.stage === 'advanceList'), false);
 });
 
 test('a Battle-Brother rolls 2d10+30 with one re-roll (p. 26)', () => {

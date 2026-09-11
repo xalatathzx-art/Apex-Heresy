@@ -27,6 +27,8 @@ import {pointBuyRules, pointBuyProblems, rollExpression, woundsExpression, fateE
 import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "./elite-data.mjs";
 import {psychicOffersFor, psyRatingOffer, purchasePsyRating, powerPrice} from "./psychic-data.mjs";
 import {PATRONS, UNDIVIDED, patronRelation, alignmentLeader} from "./patron-data.mjs";
+import {gatherAdvances, cheapestOfEach, advanceOffers, rankForExperience} from "./advance-list.mjs";
+import {skillFromAdvance, isTalentAdvance, talentLookupName} from "./dw-skill-map.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
 import {demeanourFor} from "./life-data.mjs";
@@ -949,6 +951,32 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return Math.max(0, budget - used);
     }
 
+    /**
+     * Списки продвижений Deathwatch: орден, общий десантский и специальность (стр. 58).
+     *
+     * Орденский и специальностный лежат на самом персонаже — он их выбрал; общий
+     * один на всех и живёт отдельным предметом в паке происхождений.
+     */
+    async _advanceLists() {
+        const lists = [];
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            const advances = item.system.rules?.advances;
+            if (!advances?.length) continue;
+            const source = item.system.stage === "chapter" ? "chapter" : "speciality";
+            lists.push({source, rank: 1, advances, from: item.name});
+        }
+        const general = (await this._originsFor("advanceList"))
+            .find(entry => entry.system?.rules?.advanceList === "general");
+        if (general) {
+            const source = (await fromUuid(general.uuid))?.toObject()?.system;
+            if (source?.rules?.advances?.length)
+                lists.push({source: "general", rank: source.rules.rank ?? 1,
+                            advances: source.rules.advances, from: general.name});
+        }
+        return lists;
+    }
+
     /** Продвижения специальности: Comrade-приказы и прочее, что она даёт за опыт. */
     _specialityAdvances() {
         const out = [];
@@ -960,7 +988,77 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return out;
     }
 
+    /**
+     * Купить строку из списка продвижений Deathwatch (стр. 58).
+     *
+     * Строка может оказаться тремя разными вещами: рангом умения, талантом или
+     * тем, чему в этой системе соответствия нет вовсе — Carouse, Gamble, Performer.
+     * Последнее записывается особой способностью: потерять оплаченное нельзя, а
+     * подгонять его к чужому ключу — значит соврать.
+     */
+    async _buyListedAdvance(name) {
+        const lists = await this._advanceLists();
+        const offers = advanceOffers(cheapestOfEach(gatherAdvances(lists, {rank: this._rank()})), {
+            owned: this._advanceNames(),
+            remaining: this._remaining()
+        });
+        const advance = offers.find(entry => entry.name === name);
+        if (!advance || advance.blocked) {
+            if (advance?.lockedAtCreation)
+                ui.notifications?.warn(game.i18n.localize("WIZARD.ADVANCE_DEATHWATCH_CLOSED"));
+            return;
+        }
+
+        const skill = isTalentAdvance(advance) ? null : skillFromAdvance(advance.name);
+        if (skill && !skill.any) {
+            const purchase = skill.name
+                ? purchaseNewSpeciality(this._shopSnapshot(), skill.key, skill.name,
+                                        specialityKeyFor({specialities: {}}, skill.name).specKey)
+                : purchaseSkill(this._shopSnapshot(), skill.key);
+            if (purchase) {
+                purchase.record.cost = advance.cost;
+                purchase.record.label = advance.name;
+                await this._commitPurchase(purchase);
+                return;
+            }
+        }
+
+        if (isTalentAdvance(advance)) {
+            const copy = await this._lookupContent("talent", talentLookupName(advance.name));
+            if (copy) {
+                const data = {...copy, system: {...copy.system, starter: false, cost: advance.cost},
+                              flags: foundry.utils.mergeObject(copy.flags ?? {},
+                                  {[GRANT_FLAG_SCOPE]: {creationPurchase: true}})};
+                delete data._id;
+                await this._commitPurchase({update: {}, record: {kind: "talent", name: advance.name,
+                    cost: advance.cost, label: advance.name}}, {itemData: data});
+                return;
+            }
+        }
+
+        // Ни умения, ни таланта под этим именем нет — записываем как есть.
+        const data = {name: advance.name, type: "specialAbility", img: "icons/svg/aura.svg",
+                      system: {cost: advance.cost, benefit: advance.prerequisites ?? ""},
+                      flags: {[GRANT_FLAG_SCOPE]: {creationPurchase: true}}};
+        await this._commitPurchase({update: {}, record: {kind: "advance", name: advance.name,
+            cost: advance.cost, label: advance.name}}, {itemData: data});
+    }
+
+    /** Ранг по общему опыту: фоновые 12 000 плюс потраченное (стр. 58). */
+    _rank() {
+        const background = RULESET_DEFS[this.ruleset]?.backgroundExperience ?? 0;
+        return rankForExperience(background + spentOn(this._purchases));
+    }
+
+    /** Что уже куплено — по именам, чтобы кратные продвижения считались. */
+    _advanceNames() {
+        return this._purchases.filter(record => ["advance", "talent"].includes(record.kind))
+            .map(record => record.name);
+    }
+
     async _buyAdvance(name) {
+        // У Deathwatch продвижения приходят списками и стоят каждое своё (стр. 58).
+        if (RULESET_DEFS[this.ruleset]?.advanceLists) return this._buyListedAdvance(name);
         const advance = this._specialityAdvances().find(entry => entry.name === name);
         if (!advance) return;
         if (this.actor.items.some(item => item.type === "specialAbility" && item.name === advance.name)) return;
@@ -1566,7 +1664,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         // Вкладка психосил есть только у псайкера: остальным там нечего купить.
         const psyker = snapshot.psyRating >= 1;
-        const advances = this._specialityAdvances();
+        // У Deathwatch продвижения приходят списками: орден, общий и специальность.
+        const listed = RULESET_DEFS[this.ruleset]?.advanceLists
+            ? advanceOffers(cheapestOfEach(gatherAdvances(await this._advanceLists(), {rank: this._rank()})),
+                            {owned: this._advanceNames(), remaining: this._remaining()})
+            : null;
+        const advances = listed ?? this._specialityAdvances();
         const elite = RULESET_DEFS[this.ruleset]?.eliteAdvances ? ["elite"] : [];
         const tabs = ["characteristics", "skills", "talents", ...elite, ...(psyker ? ["psychic"] : []),
                       ...(advances.length ? ["advances"] : [])];
@@ -1594,10 +1697,17 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 rules: game.i18n.localize(`WIZARD.ELITE_${offer.key.toUpperCase()}_RULES`),
                 affordable: !locked && !offer.blocked && offer.cost <= remaining})),
             shopFreePowerExperience: this._freePowerExperience(),
-            shopAdvances: advances.map(entry => ({...entry,
-                owned: this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name),
-                affordable: !locked && entry.cost <= remaining
-                    && !this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name)})),
+            // Строка списка сама знает, можно ли её купить; у книг попроще решает лист.
+            shopAdvances: advances.map(entry => listed
+                ? {...entry, owned: entry.maxed, affordable: !locked && entry.affordable,
+                   sourceLabel: game.i18n.localize(`WIZARD.ADVANCE_FROM_${String(entry.source).toUpperCase()}`),
+                   note: entry.lockedAtCreation ? game.i18n.localize("WIZARD.ADVANCE_DEATHWATCH_CLOSED")
+                       : entry.lockedByRank ? game.i18n.format("WIZARD.ADVANCE_RANK", {rank: entry.rank}) : ""}
+                : {...entry,
+                   owned: this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name),
+                   affordable: !locked && entry.cost <= remaining
+                       && !this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name)}),
+            shopRank: listed ? this._rank() : null,
             // Пси-рейтинг Black Crusade покупается талантом Psy Rating, а не лестницей,
             // поэтому отдельной строки у него там нет (стр. 79).
             shopPsy: psyker && this.ruleset !== "bc"
