@@ -46,6 +46,54 @@
       }
     },
     {
+      "name": "rogue-trader",
+      "label": "Rogue Trader",
+      "banner": null,
+      "path": "packs/rogue-trader",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "only-war",
+      "label": "Only War",
+      "banner": null,
+      "path": "packs/only-war",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "deathwatch",
+      "label": "Deathwatch",
+      "banner": null,
+      "path": "packs/deathwatch",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "origins",
+      "label": "Character Origins",
+      "banner": null,
+      "path": "packs/origins",
+      "type": "Item",
+      "system": "dark-heresy",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
       "name": "bc-tables",
       "label": "Black Crusade Tables",
       "banner": null,
@@ -66,6 +114,10 @@
       "packs": [
         "black-crusade",
         "dark-heresy",
+        "rogue-trader",
+        "only-war",
+        "deathwatch",
+        "origins",
         "bc-tables"
       ]
     }
