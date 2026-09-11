@@ -13407,3 +13407,21 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 .dh-trait-overrides .dh-override-row > input { width: 100px; flex: 0 0 100px; }
 .dh-trait-overrides .dh-override-search { display: grid; gap: 4px; }
 .dh-trait-overrides .hint { overflow-wrap: anywhere; }
+
+/* Сводка выдач Происхождения: читается, не правится — отсюда моноширинный текст
+   и отсутствие полей ввода. Ошибки схемы выводятся тем же списком, но красным. */
+.dark-heresy .sheet.origin .origin-grants,
+.dark-heresy .sheet.origin .origin-problems {
+  margin: 0;
+  padding-left: var(--dh-space-4, 16px);
+  font-size: var(--dh-text-xs);
+  line-height: 1.5;
+}
+.dark-heresy .sheet.origin .origin-problems {
+  color: var(--dh-danger, #b33);
+}
+.dark-heresy .sheet.origin .origin-grants-empty {
+  margin: 0;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}

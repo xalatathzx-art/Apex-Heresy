@@ -124,6 +124,44 @@ export function validateOrigin(source = {}) {
     return problems;
 }
 
+/**
+ * Человекочитаемая сводка выдач — для листа предмета, где она только читается.
+ *
+ * @param {object} source  system-часть предмета
+ * @returns {string[]}     по строке на непустой раздел
+ */
+export function grantSummaryLines(source = {}) {
+    const origin = normaliseOrigin(source);
+    const lines = [];
+    const signed = value => `${value > 0 ? "+" : ""}${value}`;
+
+    const characteristics = Object.entries(origin.characteristics);
+    if (characteristics.length)
+        lines.push(`Characteristics: ${characteristics.map(([key, value]) => `${key} ${signed(value)}`).join(", ")}`);
+    for (const choice of origin.characteristicChoices)
+        lines.push(`Characteristics: ${signed(choice.value)} to ${choice.pick} of ${(choice.from ?? []).join(", ")}`);
+
+    if (origin.aptitudes.length) lines.push(`Aptitudes: ${origin.aptitudes.join(", ")}`);
+
+    const grants = origin.grants;
+    if (grants.skills.length)
+        lines.push(`Skills: ${grants.skills.map(s => `${s.key} ${s.advance}`).join(", ")}`);
+    if (grants.specialities.length)
+        lines.push(`Specialities: ${grants.specialities.map(s => `${s.key} (${s.name})`).join(", ")}`);
+    if (grants.talents.length) lines.push(`Talents: ${grants.talents.map(t => t.name).join(", ")}`);
+    if (grants.traits.length)
+        lines.push(`Traits: ${grants.traits.map(t => t.rating != null ? `${t.name} (${t.rating})` : t.name).join(", ")}`);
+    if (grants.equipment.length)
+        lines.push(`Equipment: ${grants.equipment.map(e => e.quantity > 1 ? `${e.name} ×${e.quantity}` : e.name).join(", ")}`);
+    for (const key of ["wounds", "corruption", "insanity", "influence"])
+        if (grants[key]) lines.push(`${key[0].toUpperCase()}${key.slice(1)}: ${signed(grants[key])}`);
+
+    for (const choice of origin.choices)
+        lines.push(`Choice "${choice.key}" (${choice.type}): ${(choice.options ?? []).map(o => o.label).join(" / ") || choice.label}`);
+
+    return lines;
+}
+
 /** Проверка одного набора выдач — общая для самого происхождения и для варианта выбора. */
 function grantProblems(grants, prefix) {
     const problems = [];

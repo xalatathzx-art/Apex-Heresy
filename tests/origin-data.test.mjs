@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {RULESETS, STAGES, CHARACTERISTIC_KEYS, SKILL_KEYS,
-        normaliseOrigin, validateOrigin} from '../script/creation/origin-data.mjs';
+        normaliseOrigin, validateOrigin, grantSummaryLines} from '../script/creation/origin-data.mjs';
 
 const base = {ruleset: 'dh2', stage: 'homeWorld', key: 'feralWorld', order: 1};
 
@@ -55,6 +55,33 @@ test('the key vocabularies match template.json', () => {
     const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
     assert.deepEqual(CHARACTERISTIC_KEYS, Object.keys(data.Actor.templates.characteristics.characteristics));
     assert.deepEqual(SKILL_KEYS, Object.keys(data.Actor.templates.skills.skills));
+});
+
+test('the summary shows every granted section and nothing else', () => {
+    assert.deepEqual(grantSummaryLines(base), []);
+    const lines = grantSummaryLines({...base,
+        characteristics: {strength: 5, fellowship: -5},
+        aptitudes: ['Toughness'],
+        grants: {skills: [{key: 'survival', advance: 0}], talents: [{name: 'Jaded'}],
+                 traits: [{name: 'Sturdy', rating: 3}], equipment: [{name: 'Sword', quantity: 2}],
+                 corruption: 2}});
+    assert.deepEqual(lines, [
+        'Characteristics: strength +5, fellowship -5',
+        'Aptitudes: Toughness',
+        'Skills: survival 0',   // the scale is -20/0/10/20, so a bare number reads better than a sign
+        'Talents: Jaded',
+        'Traits: Sturdy (3)',
+        'Equipment: Sword ×2',
+        'Corruption: +2'
+    ]);
+});
+
+test('the summary spells out a choice rather than hiding it', () => {
+    const lines = grantSummaryLines({...base, choices: [
+        {key: 'omnissiah', type: 'one', label: "Omnissiah's Chosen",
+         options: [{label: 'Technical Knock'}, {label: 'Weapon-Tech'}]}
+    ]});
+    assert.deepEqual(lines, ['Choice "omnissiah" (one): Technical Knock / Weapon-Tech']);
 });
 
 test('the shipped origin type carries every field the schema fills in', () => {

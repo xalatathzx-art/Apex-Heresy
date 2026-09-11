@@ -1,0 +1,130 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "ORIGIN.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.RULESET"}}</label>
+                    <div class="form-fields">
+                        <select name="system.ruleset">
+                            {{selectOptions (config "originRulesets") selected=system.ruleset localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.STAGE_LABEL"}}</label>
+                    <div class="form-fields">
+                        <select name="system.stage">
+                            {{selectOptions (config "originStages") selected=system.stage localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.KEY"}}</label>
+                    <div class="form-fields">
+                        <input name="system.key" type="text" value="{{system.key}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.ORDER"}}</label>
+                    <div class="form-fields">
+                        <input name="system.order" type="number" value="{{system.order}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.COST"}}</label>
+                    <div class="form-fields">
+                        <input name="system.cost" type="number" value="{{system.cost}}" data-dtype="Number" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats border">
+                <h1>{{localize "ORIGIN.STARTING_VALUES"}}</h1>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.WOUNDS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.wounds.formula" type="text" value="{{system.wounds.formula}}"
+                               placeholder="9+1d5" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.WOUNDS_BONUS"}}</label>
+                    <div class="form-fields">
+                        <input name="system.wounds.bonus" type="number" value="{{system.wounds.bonus}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.FATE"}}</label>
+                    <div class="form-fields">
+                        <input name="system.fate.value" type="number" value="{{system.fate.value}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.BLESSING"}}</label>
+                    <div class="form-fields">
+                        <input name="system.fate.blessing" type="number" value="{{system.fate.blessing}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "ORIGIN.BONUS_NAME"}}</label>
+                    <div class="form-fields">
+                        <input name="system.bonus.name" type="text" value="{{system.bonus.name}}" />
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Сводка только читается. Правят выдачи в исходниках книги
+                  (packs-src/origins), а не здесь: руками тут легко разойтись
+                  с текстом книги, а сверить потом нечем. --}}
+            <div class="stats border">
+                <h1>{{localize "ORIGIN.GRANTS"}}</h1>
+                {{#if grantSummary}}
+                <ul class="origin-grants">
+                    {{#each grantSummary as |line|}}<li>{{line}}</li>{{/each}}
+                </ul>
+                {{else}}
+                <p class="origin-grants-empty">{{localize "ORIGIN.NO_GRANTS"}}</p>
+                {{/if}}
+                {{#if problems}}
+                <ul class="origin-problems">
+                    {{#each problems as |problem|}}<li>{{problem}}</li>{{/each}}
+                </ul>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="tab" data-group="primary" data-tab="effects">
+            {{> systems/dark-heresy/template/sheet/item/effects.hbs}}
+        </div>
+
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div class="notes-editor-body">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,5 @@
 import { createDataModels } from "./data/models.mjs";
+import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -12445,6 +12446,37 @@ class AptitudeSheet extends DarkHeresyItemSheet {
     }
 }
 
+class OriginSheet extends DarkHeresyItemSheet {
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["dark-heresy", "sheet", "origin"],
+            template: "systems/dark-heresy/template/sheet/origin.hbs",
+            width: 620,
+            height: 720,
+            resizable: true,
+            tabs: [
+                {
+                    navSelector: ".sheet-tabs",
+                    contentSelector: ".sheet-body",
+                    initial: "data"
+                }
+            ]
+        });
+    }
+
+    /**
+     * Выдачи и найденные в них ошибки — только для чтения. Правят их в исходниках
+     * книги (packs-src/origins): руками здесь легко разойтись с текстом книги, а
+     * сверить потом нечем.
+     */
+    async getData() {
+        const data = await super.getData();
+        data.grantSummary = grantSummaryLines(this.item.system);
+        data.problems = validateOrigin(this.item.system);
+        return data;
+    }
+}
+
 class RaceSheet extends DarkHeresyItemSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -12812,6 +12844,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/trait.hbs",
         "systems/dark-heresy/template/sheet/special-ability.hbs",
         "systems/dark-heresy/template/sheet/race.hbs",
+        "systems/dark-heresy/template/sheet/origin.hbs",
         "systems/dark-heresy/template/sheet/psychic-power.hbs",
         "systems/dark-heresy/template/sheet/critical-injury.hbs",
         "systems/dark-heresy/template/sheet/weapon.hbs",
@@ -15445,6 +15478,33 @@ Dh.originRulesets = {
     dw: "RULESET.DW"
 };
 
+// Шаги создания всех пяти книг одним словарём — список для выпадающего списка на
+// листе Происхождения. Какие из них есть у конкретной книги, знает
+// script/creation/origin-data.mjs (STAGES), а не этот справочник.
+Dh.originStages = {
+    homeWorld: "ORIGIN.STAGE.HOME_WORLD",
+    background: "ORIGIN.STAGE.BACKGROUND",
+    role: "ORIGIN.STAGE.ROLE",
+    divination: "ORIGIN.STAGE.DIVINATION",
+    birthright: "ORIGIN.STAGE.BIRTHRIGHT",
+    lure: "ORIGIN.STAGE.LURE",
+    trials: "ORIGIN.STAGE.TRIALS",
+    motivation: "ORIGIN.STAGE.MOTIVATION",
+    career: "ORIGIN.STAGE.CAREER",
+    regimentOrigin: "ORIGIN.STAGE.REGIMENT_ORIGIN",
+    regimentCommander: "ORIGIN.STAGE.REGIMENT_COMMANDER",
+    regimentType: "ORIGIN.STAGE.REGIMENT_TYPE",
+    doctrine: "ORIGIN.STAGE.DOCTRINE",
+    equipmentDoctrine: "ORIGIN.STAGE.EQUIPMENT_DOCTRINE",
+    standardKit: "ORIGIN.STAGE.STANDARD_KIT",
+    speciality: "ORIGIN.STAGE.SPECIALITY",
+    race: "ORIGIN.STAGE.RACE",
+    archetype: "ORIGIN.STAGE.ARCHETYPE",
+    pride: "ORIGIN.STAGE.PRIDE",
+    disgrace: "ORIGIN.STAGE.DISGRACE",
+    chapter: "ORIGIN.STAGE.CHAPTER"
+};
+
 
 Dh.armourTypes = {
     basic: "ARMOUR_TYPE.BASIC",
@@ -16260,6 +16320,7 @@ Hooks.once("init", async function() {
     CONFIG.Item.defaultIcons.shipWeapon = "systems/dark-heresy/assets/icons/armoury/ranged_weapons/heavy.webp";
     CONFIG.Item.defaultIcons.aptitude = "systems/dark-heresy/assets/icons/aptitudes/general.webp";
     CONFIG.Item.defaultIcons.race = "systems/dark-heresy/assets/icons/misc/inquisition.webp";
+    CONFIG.Item.defaultIcons.origin = "systems/dark-heresy/assets/icons/misc/inquisition.webp";
     
     // Register item types from template.json
     if (templateData?.Item?.types) {
@@ -16361,6 +16422,7 @@ Hooks.once("init", async function() {
     foundry.documents.collections.Items.registerSheet("dark-heresy", TraitSheet, { types: ["trait"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", AptitudeSheet, { types: ["aptitude"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", RaceSheet, { types: ["race"], makeDefault: true });
+    foundry.documents.collections.Items.registerSheet("dark-heresy", OriginSheet, { types: ["origin"], makeDefault: true });
 
     initializeHandlebars();
 
