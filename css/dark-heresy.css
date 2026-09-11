@@ -13430,119 +13430,253 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   color: var(--dh-ink-faint);
 }
 
-/* Мастер создания персонажа. Шаги — полоса фишек сверху, кнопки снизу, всё
-   остальное между ними прокручивается. */
+
+/* ── МАСТЕР СОЗДАНИЯ ПЕРСОНАЖА ─────────────────────────────────────────────
+   Тот же язык, что у анкеты: бронеплита со скошенными углами и латунным левым
+   ребром, заголовки стенсилом на латунной линейке, латунь — структура,
+   ржавчина — «сюда можно нажать». Своих цветов и шрифтов здесь нет, только
+   токены. */
 .dark-heresy.character-wizard .character-wizard-body {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  gap: var(--dh-space-2, 8px);
+  gap: var(--dh-space-3);
+  padding: var(--dh-space-3);
+  background: var(--dh-ground);
 }
+
+/* Полоса шагов — та же конструкция, что вкладки листа: плитки на подложке,
+   текущая помечена ребром, а не заливкой. Пройденный шаг отмечен латунью:
+   структура, а не действие. */
 .dark-heresy.character-wizard .wizard-steps {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: var(--dh-space-1);
+  background: var(--dh-line);
+  border: 1px solid var(--dh-line);
+  padding: 0;
 }
 .dark-heresy.character-wizard .wizard-step-chip {
-  padding: 2px 8px;
-  border: 1px solid var(--dh-brass-dim);
+  flex: 1 1 auto;
+  padding: var(--dh-space-2h) var(--dh-space-2);
+  text-align: center;
+  white-space: nowrap;
+  background: var(--dh-surface);
+  border-top: 2px solid transparent;
+  color: var(--dh-ink-faint);
   font-family: var(--dh-font-stencil);
   font-size: var(--dh-text-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--dh-track-caption);
-  opacity: 0.45;
-}
-.dark-heresy.character-wizard .wizard-step-chip.done { opacity: 0.75; }
-.dark-heresy.character-wizard .wizard-step-chip.active {
-  opacity: 1;
   font-weight: 600;
-  border-color: var(--dh-brass, #b9975b);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  transition: color var(--dh-transition), background-color var(--dh-transition);
 }
+.dark-heresy.character-wizard .wizard-step-chip.done {
+  border-top-color: var(--dh-brass-dim);
+  color: var(--dh-ink-muted);
+}
+.dark-heresy.character-wizard .wizard-step-chip.active {
+  background: var(--dh-surface-raised);
+  border-top-color: var(--dh-accent);
+  color: var(--dh-ink);
+}
+
 .dark-heresy.character-wizard .wizard-step-body {
   flex: 1 1 auto;
   overflow-y: auto;
-  /* Потолок нужен, иначе длинный шаг (десять характеристик) вытянет окно за экран;
-     минимума нет — короткий шаг занимает ровно столько, сколько занимает. */
+  /* Потолок нужен, иначе длинный шаг вытянет окно за экран; минимума нет —
+     короткий шаг занимает ровно столько, сколько занимает. */
   max-height: 70vh;
 }
-.dark-heresy.character-wizard .wizard-step-title {
-  margin: 0 0 var(--dh-space-2, 8px);
-}
-.dark-heresy.character-wizard .wizard-note {
-  font-size: var(--dh-text-xs);
-  color: var(--dh-ink-faint);
-}
-.dark-heresy.character-wizard .wizard-footer {
+.dark-heresy.character-wizard .wizard-step-content {
   display: flex;
-  justify-content: space-between;
-  gap: var(--dh-space-2, 8px);
+  flex-direction: column;
+  gap: var(--dh-space-3);
 }
 
-/* Строки выбора происхождения: вопрос и варианты в самой форме шага. */
+/* Строка выбора — плита: скошенные углы, латунное ребро слева. */
 .dark-heresy.character-wizard .wizard-choice {
-  margin-bottom: var(--dh-space-2, 8px);
-  padding: var(--dh-space-2, 8px);
-  border: 1px solid var(--dh-brass-dim);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-brass-dim);
+  padding: var(--dh-space-3);
+  clip-path: polygon(var(--dh-cut) 0, 100% 0, 100% calc(100% - var(--dh-cut)),
+                     calc(100% - var(--dh-cut)) 100%, 0 100%, 0 var(--dh-cut));
+}
+.dark-heresy.character-wizard .wizard-choice + .wizard-choice {
+  margin-top: var(--dh-space-2);
 }
 .dark-heresy.character-wizard .wizard-choice-label {
+  color: var(--dh-brass);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
   font-weight: 600;
-  margin-bottom: 4px;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  margin-bottom: var(--dh-space-2);
 }
 .dark-heresy.character-wizard .wizard-choice-options {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--dh-space-2, 8px);
+  gap: var(--dh-space-3);
 }
-.dark-heresy.character-wizard .wizard-choice-count,
-.dark-heresy.character-wizard .wizard-locked {
-  font-size: var(--dh-text-xs);
-  color: var(--dh-ink-faint);
-}
-.dark-heresy.character-wizard .wizard-choice-target {
-  margin-top: 4px;
-  width: 100%;
+.dark-heresy.character-wizard .wizard-choice-option {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-md);
+  text-transform: none;
+  letter-spacing: 0;
 }
 .dark-heresy.character-wizard .wizard-many-group {
   display: flex;
   align-items: center;
-  gap: var(--dh-space-2, 8px);
+  gap: var(--dh-space-3);
+  margin-bottom: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .wizard-many-group b {
+  flex: 0 0 auto;
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .wizard-choice-target {
+  margin-top: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .wizard-choice-count {
+  margin-top: var(--dh-space-2);
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-sm);
+  letter-spacing: var(--dh-track-data);
+}
+.dark-heresy.character-wizard .wizard-choice-count.over {
+  color: var(--dh-danger);
 }
 
-/* Шаг характеристик: строка на характеристику, модификатор книги отдельной колонкой. */
+/* Характеристики: показание — данные, модификатор книги — латунь рядом с ним. */
 .dark-heresy.character-wizard .wizard-chars {
   width: 100%;
   border-collapse: collapse;
 }
 .dark-heresy.character-wizard .wizard-chars th {
   text-align: left;
-  font-weight: 500;
+  padding: var(--dh-space-1) var(--dh-space-2);
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
 }
-.dark-heresy.character-wizard .wizard-chars td { padding: 1px 4px; }
-.dark-heresy.character-wizard .wizard-chars input { width: 5em; text-align: center; }
+.dark-heresy.character-wizard .wizard-chars td {
+  padding: var(--dh-space-1) var(--dh-space-2);
+}
+.dark-heresy.character-wizard .wizard-chars tr + tr {
+  border-top: 1px solid var(--dh-line);
+}
+.dark-heresy.character-wizard .wizard-chars input {
+  width: 5em;
+}
 .dark-heresy.character-wizard .wizard-char-mod {
   width: 3em;
   text-align: center;
-  color: var(--dh-ink-faint);
+  color: var(--dh-brass);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-sm);
+  letter-spacing: var(--dh-track-data);
+}
+.dark-heresy.character-wizard .wizard-budget {
+  font-family: var(--dh-font-data);
 }
 .dark-heresy.character-wizard .wizard-budget.over {
-  color: var(--dh-danger, #b33);
+  color: var(--dh-danger);
   font-weight: 700;
 }
 
-/* Шаги опыта и дивинации: текст и предупреждения, полей ввода тут нет. */
+/* Текстовые строки шага: подпись приглушена, предупреждение — тревога,
+   дивинация — цитата на латунном ребре. */
+.dark-heresy.character-wizard .wizard-note,
+.dark-heresy.character-wizard .wizard-locked {
+  margin: 0;
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+}
 .dark-heresy.character-wizard .wizard-warn {
-  color: var(--dh-danger, #b33);
-  font-size: var(--dh-text-xs);
+  margin: 0;
+  color: var(--dh-alert);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
 }
 .dark-heresy.character-wizard .wizard-divination {
-  font-style: italic;
-  padding: var(--dh-space-2, 8px);
-  border-left: 2px solid var(--dh-brass, #b9975b);
+  margin: 0;
+  padding: var(--dh-space-3);
+  background: var(--dh-surface);
+  border-left: 3px solid var(--dh-brass-dim);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-display);
+  font-size: var(--dh-text-md);
+}
+.dark-heresy.character-wizard .wizard-missing {
+  padding: var(--dh-space-4);
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-text);
+}
+
+/* Низ окна отделён латунной линейкой. «Далее» — единственное действие шага,
+   поэтому ржавчина; «Назад» остаётся обычной кнопкой. */
+.dark-heresy.character-wizard .wizard-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--dh-space-3);
+  padding-top: var(--dh-space-3);
+  border-top: 1px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .wizard-footer button[data-action="wizard-next"] {
+  color: var(--dh-accent);
+  border-color: var(--dh-brass-dim);
+  font-family: var(--dh-font-stencil);
+  font-weight: 600;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .wizard-footer button[data-action="wizard-next"]:hover:not(:disabled) {
+  background: rgba(192, 88, 31, 0.14);
+  border-color: var(--dh-accent);
+  color: var(--dh-accent);
+}
+.dark-heresy.character-wizard .wizard-footer button:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 /* Кнопка «Создать персонажа» в панели «Актёры»: своей разметки у панели нет,
-   узел вставляет код, поэтому ширину задаём здесь. */
+   узел вставляет код, поэтому ширину и отступ задаём здесь. */
 .dh-start-character {
   width: 100%;
-  margin-top: 4px;
+  margin-top: var(--dh-space-2);
+}
+
+/* Сводка выдач Происхождения: читается, не правится — отсюда список без полей
+   ввода. Ошибки схемы выводятся тем же списком, но цветом тревоги. */
+.dark-heresy .sheet.origin .origin-grants,
+.dark-heresy .sheet.origin .origin-problems {
+  margin: 0;
+  padding-left: var(--dh-space-5);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.5;
+}
+.dark-heresy .sheet.origin .origin-problems {
+  color: var(--dh-danger);
+}
+.dark-heresy .sheet.origin .origin-grants-empty,
+.dark-heresy .sheet.origin .origin-bonus {
+  margin: 0;
+  font-size: var(--dh-text-sm);
+  color: var(--dh-ink-muted);
 }

@@ -29,7 +29,7 @@
         <p class="wizard-note">{{localize "WIZARD.UNAUDITED"}} {{unaudited}}</p>
         {{/if}}
         {{else}}
-        <h2 class="wizard-step-title">{{step.label}}</h2>
+        <h1 class="wizard-step-title">{{step.label}}</h1>
         <div class="wizard-step-content" data-step="{{step.id}}" data-kind="{{step.kind}}">
             {{#if (eq step.kind "origin")}}
                 {{#if originLocked}}
