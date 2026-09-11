@@ -1,3 +1,5 @@
+import { createDataModels } from "./data/models.mjs";
+import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
 import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
@@ -97,6 +99,147 @@ function dhDialog({title, content, buttons = {}, default: defaultAction, render,
     return dialog;
 }
 
+const DH_DERIVED_EFFECT_KEYS = new Set([
+    "system.fatigue.max", "system.movement.half", "system.movement.full", "system.movement.charge", "system.movement.run",
+    "system.encumbrance.value", "system.encumbrance.max"
+]);
+
+class DarkHeresyActiveEffect extends ActiveEffect {
+    get isSuppressed() {
+        if (super.isSuppressed) return true;
+        const item = this.parent?.documentName === "Item" ? this.parent : null;
+        if (!item || !this.transfer) return false;
+        const activation = this.flags?.["dark-heresy"]?.activation;
+        if (activation === "always") return false;
+        const equipment = ["weapon", "armour", "forceField"].includes(item.type);
+        return (activation === "equipped" || equipment) && item.system.equipped !== true;
+    }
+
+    shouldApplyChange(change, {phase} = {}) {
+        // Compatibility for derived keys offered by older system versions with no phase selector.
+        const effectivePhase = change.phase === "initial" && DH_DERIVED_EFFECT_KEYS.has(change.key) ? "final" : change.phase;
+        return super.shouldApplyChange({...change, phase: effectivePhase}, {phase});
+    }
+}
+
+class DarkHeresyCombat extends Combat {
+    async rollInitiative(ids, options = {}) {
+            const combatantsToRoll = ids
+                ? ids.map(id => this.combatants.get(id)).filter(c => c)
+                : Array.from(this.combatants.values());
+
+            const withLightningReflexes = [];
+            const withoutLightningReflexes = [];
+
+            for (const combatant of combatantsToRoll) {
+                const actor = combatant?.actor;
+                if (actor?.getFlag("dark-heresy", "lightningReflexes")) {
+                    withLightningReflexes.push(combatant);
+                } else {
+                    withoutLightningReflexes.push(combatant);
+                }
+            }
+
+            for (const combatant of withLightningReflexes) {
+                const actor = combatant.actor;
+                const formula = CONFIG.Combat.initiative.formula;
+                const rollData = actor.getRollData();
+
+                const roll1 = new Roll(formula, rollData);
+                const roll2 = new Roll(formula, rollData);
+
+                await roll1.evaluate();
+                await roll2.evaluate();
+
+                const betterResult = Math.max(roll1.total, roll2.total);
+                const rollMode = options?.messageOptions?.rollMode
+                    || game.settings.get("core", "rollMode");
+                if (options?.messageOptions?.create !== false) {
+                    const roll1Html = await roll1.render();
+                    const roll2Html = await roll2.render();
+                    const content = `
+                        <div class="dh-lightning-reflexes">
+                            <div><strong>Lightning Reflexes</strong></div>
+                            ${roll1Html}
+                            ${roll2Html}
+                            <div class="dice-total">Best: ${betterResult}</div>
+                        </div>
+                    `;
+                    const chatData = {
+                        speaker: ChatMessage.getSpeaker({actor}),
+                        flavor: game.i18n.localize("TALENT.LIGHTNING_REFLEXES"),
+                        content,
+                        rolls: [roll1, roll2]
+                    };
+                    ChatMessage.applyRollMode(chatData, rollMode);
+                    await ChatMessage.create(chatData);
+                }
+                await combatant.update({initiative: betterResult});
+            }
+
+            if (withoutLightningReflexes.length > 0) {
+                const idsWithoutLR = withoutLightningReflexes.map(c => c.id);
+                // Подпись сообщения сокращается до одного слова. Ядро пишет «Имя
+                // rolls for Initiative!», а имя уже стоит заголовком сообщения —
+                // строка повторяла его и занимала всю ширину карточки.
+                const opts = foundry.utils.mergeObject({
+                    messageOptions: { flavor: game.i18n.localize("INITIATIVE") }
+                }, options, { inplace: false });
+                return super.rollInitiative(idsWithoutLR, opts);
+            }
+
+            return this;
+    }
+
+    async _runTurnEvent(phase, combatant, context, task) {
+        const actor = combatant?.actor;
+        if (!actor) return;
+        return _queueDocumentOperation(actor.uuid, async () => {
+            const key = phase + "-" + combatant.id;
+            const eventId = context.round + ":" + context.turn;
+            const events = {...this.getFlag("dark-heresy", "turnEvents")};
+            if (events[key]?.eventId === eventId) return;
+            events[key] = {eventId, status:"processing"};
+            await this.setFlag("dark-heresy", "turnEvents", events);
+            try {
+                await task(actor);
+                events[key].status = "complete";
+            } catch (error) {
+                events[key].status = "needsReview";
+                events[key].error = String(error.message || error);
+                throw error;
+            } finally {
+                await this.setFlag("dark-heresy", "turnEvents", events);
+            }
+        });
+    }
+
+    async _onStartTurn(combatant, context) {
+        await super._onStartTurn(combatant, context);
+        return this._runTurnEvent("start", combatant, context, async actor => {
+            if (actor.hasCondition("dead")) return;
+            for (const [condition, apply] of [["fire", _applyFireEffect], ["bleeding", _applyBleedingEffect],
+                ["vacuum", _applyVacuumEffect], ["suffocating", _applySuffocationEffect], ["pinned", _offerPinningEscape]]) {
+                if (actor.hasCondition("dead")) break;
+                if (actor.hasCondition(condition)) await apply(actor, combatant);
+            }
+            if (actor.type === "voidship") await _onShipTurnStart(actor, combatant);
+        });
+    }
+
+    async _onEndTurn(combatant, context) {
+        await super._onEndTurn(combatant, context);
+        return this._runTurnEvent("end", combatant, context, async actor => {
+            if (!actor.hasCondition("dead") && actor.hasCondition("poisond")) await _applyToxicEffect(actor, combatant);
+        });
+    }
+
+    async _onStartRound(context) {
+        await super._onStartRound(context);
+        if (context.round > 1) await onCombatRoundAdvanced(this);
+    }
+}
+
 class DarkHeresyActor extends Actor {
 
     async _preCreate(data, options, user) {
@@ -115,8 +258,8 @@ class DarkHeresyActor extends Actor {
         this.updateSource(initData);
     }
 
-    prepareData() {
-        super.prepareData();
+    prepareDerivedData() {
+        super.prepareDerivedData();
         // У машины нет характеристик, навыков и ран: её ведут целостность,
         // броня по сторонам и состояние повреждений. Общий путь ей не подходит
         // ни одним шагом, поэтому она сворачивает в свой.
@@ -150,24 +293,44 @@ class DarkHeresyActor extends Actor {
      * только со второй ступени.
      */
     /**
-     * Пустотный корабль — гроссбух, а не боевая модель.
+     * Пустотный корабль (Rogue Trader, глава VIII).
      *
-     * Считаются ровно две вещи, и обе это вычитание того, что записал сам
-     * игрок: сколько осталось Места в корпусе и сколько Мощности не разобрано
-     * компонентами. Правил корабельного боя система не знает и не изображает.
+     * Здесь считается всё, что выводится из записанного: сметы Места и
+     * Мощности, заполнение шкал, разбивка орудий по позициям и состояние
+     * корабля — обездвиженность при пустом корпусе плюс пороги Команды и
+     * Боевого духа. Ничего не бросается: броски живут в листе, не в подготовке.
      */
     _prepareVoidship() {
         const sys = this.system;
         const num = v => Number(v) || 0;
 
-        // Остаток по обеим сметам. Отрицательный означает перегруз — лист его
-        // показывает, но ничего не запрещает: перебор чинится за столом.
+        // Предметы собираются первыми: от них зависят обе сметы.
+        this.shipWeapons = this.items.filter(i => i.type === "shipWeapon");
+        this.shipComponents = this.items.filter(i => i.type === "shipComponent");
+        const tracked = [...this.shipWeapons, ...this.shipComponents];
+
+        // Сметы. Пока на корабле нет ни одного предмета, обе строки заполняются
+        // руками — так лист вёл себя всегда, и уже заведённые корабли этого не
+        // заметят. Как только появился первый компонент или ствол, расход
+        // считается по ним, а ручное поле гаснет: два источника правды на одну
+        // цифру рано или поздно расходятся.
         for (const track of ["space", "power"]) {
             const t = sys[track] ?? (sys[track] = {});
-            t.remaining = num(t.available) - num(t.used);
+            t.auto = tracked.length > 0;
+            if (t.auto) t.used = tracked.reduce((sum, i) => sum + num(i.system?.[track]), 0);
+
+            // Мощность вдобавок вырабатывается: её даёт плазменный привод.
+            // Записанное в поле — это то, что даёт корпус до компонентов;
+            // выработка компонентов прибавляется к нему, а не заменяет его.
+            t.generated = track === "power"
+                ? this.shipComponents.reduce((sum, i) => sum + num(i.system?.powerGenerated), 0)
+                : 0;
+            t.total = num(t.available) + t.generated;
+
+            t.remaining = t.total - num(t.used);
             t.over = t.remaining < 0;
-            t.percent = num(t.available) > 0
-                ? Math.max(0, Math.min(100, Math.round(num(t.used) / num(t.available) * 100)))
+            t.percent = t.total > 0
+                ? Math.max(0, Math.min(100, Math.round(num(t.used) / t.total * 100)))
                 : 0;
         }
 
@@ -183,7 +346,6 @@ class DarkHeresyActor extends Actor {
 
         // Орудия разбираются по расположениям, чтобы лист мог сверить их число
         // с ёмкостью каждой позиции.
-        this.shipWeapons = this.items.filter(i => i.type === "shipWeapon");
         const capacity = sys.weaponCapacity ?? (sys.weaponCapacity = {});
         sys.weaponSlots = Object.keys(Dh.shipLocations).map(key => {
             const mounted = this.shipWeapons.filter(w => w.system.location === key).length;
@@ -193,6 +355,180 @@ class DarkHeresyActor extends Actor {
                 over: mounted > num(capacity[key])
             };
         });
+
+        // Компоненты по спискам книги, плюс счёт бедствий: горящий или
+        // разгерметизированный компонент должен быть виден с первой вкладки,
+        // а не находиться перелистыванием.
+        sys.componentGroups = Object.keys(Dh.shipComponentCategories).map(key => ({
+            key, label: Dh.shipComponentCategories[key],
+            items: this.shipComponents.filter(c => (c.system?.category || "essential") === key)
+        }));
+        sys.componentAlarms = {
+            onFire: this.shipComponents.filter(c => c.system?.onFire).length,
+            depressurised: this.shipComponents.filter(c => c.system?.depressurised).length,
+            damaged: this.shipComponents.filter(c =>
+                ["damaged", "destroyed"].includes(c.system?.status)).length
+        };
+        sys.componentAlarms.total = sys.componentAlarms.onFire
+            + sys.componentAlarms.depressurised + sys.componentAlarms.damaged;
+
+        this._prepareVoidshipCondition();
+        return this;
+    }
+
+    /**
+     * Состояние корабля: обездвиженность и пороги команды.
+     *
+     * Три независимых источника штрафов складываются в одну сводку, из которой
+     * потом читают и стрельба, и манёвры. Считать их на месте броска — значит
+     * пересчитывать одно и то же в пяти местах и однажды разойтись.
+     */
+    _prepareVoidshipCondition() {
+        const sys = this.system;
+        const num = v => Number(v) || 0;
+
+        // Книга говорит прямо (стр. 224): все эффекты складываются, в том числе
+        // эффекты Команды с эффектами Боевого духа. Поэтому пороги проходятся
+        // сверху вниз и каждый добавляет своё к предыдущим.
+        const mods = {
+            speed: 0, manoeuvrability: 0, detection: 0,
+            command: 0, ballisticSkill: 0,
+            // Отдельная графа: абордаж, отражение налёта, тушение пожаров и
+            // аварийный ремонт. Это не Командование вообще — таблица Команды
+            // бьёт именно по этой четвёрке, и валить её в общий штраф значит
+            // раздать его тестам, которых правило не касается.
+            shipboardActions: 0
+        };
+        const notes = [];
+        const speedFactors = [];
+
+        // Подспорья этого хода. «Помочь духу машины» (стр. 216) даёт прибавку до
+        // конца хода — она живёт в отметке хода и снимается с его началом.
+        const turnFlag = this.getFlag?.("dark-heresy", "shipTurn");
+        if (turnFlag?.aid?.value && ["manoeuvrability", "detection"].includes(turnFlag.aid.stat)) {
+            mods[turnFlag.aid.stat] += Number(turnFlag.aid.value) || 0;
+        }
+        // Бесшумный ход (стр. 218): Скорость вдвое, манёвры на ступень труднее.
+        sys.silentRunning = !!this.getFlag?.("dark-heresy", "silentRunning");
+        if (sys.silentRunning) {
+            speedFactors.push(0.5);
+            notes.push("SHIP.STATE.SILENT_RUNNING");
+        }
+
+        // Пороги Команды (табл. 8-13).
+        const crew = num(sys.crew?.value);
+        const crewNotes = [];
+        if (crew < 80) crewNotes.push("SHIP.THRESHOLD.CREW_80");
+        if (crew < 60) { mods.shipboardActions -= 5; crewNotes.push("SHIP.THRESHOLD.CREW_60"); }
+        if (crew < 50) { mods.manoeuvrability -= 10; crewNotes.push("SHIP.THRESHOLD.CREW_50"); }
+        if (crew < 40) crewNotes.push("SHIP.THRESHOLD.CREW_40");
+        if (crew < 20) crewNotes.push("SHIP.THRESHOLD.CREW_20");
+        if (crew < 10) { mods.shipboardActions -= 20; crewNotes.push("SHIP.THRESHOLD.CREW_10"); }
+        if (crew <= 0) crewNotes.push("SHIP.THRESHOLD.CREW_0");
+
+        // Обездвиженность приходит с двух сторон. Пустой корпус — очевидная
+        // (стр. 221); поредевшая команда — вторая, её даёт порог 20 таблицы
+        // 8-13 словами «в бою корабль считается Обездвиженным». Штрафы при этом
+        // одни и те же, поэтому и флаг один.
+        const hullCrippled = num(sys.hullIntegrity?.max) > 0 && num(sys.hullIntegrity?.value) <= 0;
+        sys.hullCrippled = hullCrippled;
+        sys.crippled = hullCrippled || crew < 20;
+        // Ярлык зависит от причины: пустой корпус и выкошенная команда читаются
+        // за столом по-разному, хотя штрафы дают одни и те же.
+        const crippledLabel = hullCrippled ? "SHIP.STATE.CRIPPLED" : "SHIP.STATE.CRIPPLED_BY_CREW";
+        if (sys.crippled) {
+            mods.manoeuvrability -= 10;
+            mods.detection -= 10;
+            speedFactors.push(0.5);
+            notes.push(crippledLabel);
+        }
+        // А вот это уже сложение двух бед: корпус пуст и команды почти нет.
+        // Такой корабль ходит через раунд.
+        sys.halfTurns = hullCrippled && crew < 20;
+        if (sys.halfTurns) notes.push("SHIP.STATE.HALF_TURNS");
+
+        // Пороги Боевого духа (табл. 8-14).
+        const morale = num(sys.morale?.value);
+        const moraleNotes = [];
+        if (morale < 80) { mods.command -= 5; moraleNotes.push("SHIP.THRESHOLD.MORALE_80"); }
+        if (morale < 60) { mods.ballisticSkill -= 5; moraleNotes.push("SHIP.THRESHOLD.MORALE_60"); }
+        if (morale < 50) { mods.command -= 10; moraleNotes.push("SHIP.THRESHOLD.MORALE_50"); }
+        if (morale < 40) {
+            mods.manoeuvrability -= 10; mods.ballisticSkill -= 5;
+            moraleNotes.push("SHIP.THRESHOLD.MORALE_40");
+        }
+        if (morale < 20) moraleNotes.push("SHIP.THRESHOLD.MORALE_20");
+        if (morale < 10) {
+            mods.command -= 15; mods.speed -= 10;
+            mods.manoeuvrability -= 10; mods.detection -= 10;
+            moraleNotes.push("SHIP.THRESHOLD.MORALE_10");
+        }
+        if (morale <= 0) moraleNotes.push("SHIP.THRESHOLD.MORALE_0");
+
+        // Абордаж и налёты запрещены совсем: команды не хватает (Команда ниже
+        // 10) или ей нельзя доверить оружие (Дух ниже 20). Это не штраф, а
+        // запрет. Отбиваться от чужого абордажа корабль при этом может — книга
+        // оговаривает это отдельно (стр. 224).
+        sys.boardingDisabled = crew < 10 || morale < 20;
+
+        sys.mods = mods;
+        sys.crewNotes = crewNotes;
+        sys.moraleNotes = moraleNotes;
+        sys.stateNotes = notes;
+
+        // Эффективные значения — то, чем корабль на самом деле действует.
+        // Скорость сначала делится (обездвиженность), потом уменьшается на
+        // плоский штраф: половина от уже урезанной вдвое — не то же самое.
+        let speed = num(sys.speed);
+        for (const f of speedFactors) speed = Math.ceil(speed * f);
+        sys.speedEffective = Math.max(0, speed + mods.speed);
+        sys.manoeuvrabilityEffective = num(sys.manoeuvrability) + mods.manoeuvrability;
+        sys.detectionEffective = num(sys.detection) + mods.detection;
+
+        // Десятки Обнаружения — бонус к инициативе в пустотном бою (стр. 212).
+        // Считается от действующего значения, а не от записанного: порог Духа
+        // в 10 срезает саму характеристику, а с ней и бонус.
+        sys.detectionBonus = Math.floor(Math.max(0, sys.detectionEffective) / 10);
+        // Формула инициативы у системы одна на всех — @initiative.base +
+        // @initiative.bonus, — и читает она из system. Кораблю достаточно
+        // отдать туда 1d10 и бонус Обнаружения (стр. 212), и общий бросок
+        // инициативы сработает без отдельной ветки.
+        sys.initiative = { base: "1d10", bonus: sys.detectionBonus };
+
+        // Обездвиженный корабль стреляет вполсилы (стр. 221): Сила каждого
+        // ствола делится надвое с округлением вверх.
+        for (const w of (this.shipWeapons ?? [])) {
+            const raw = num(w.system?.strength);
+            w.system.strengthEffective = sys.crippled ? Math.ceil(raw / 2) : raw;
+        }
+
+        // Сводка для шапки листа. Собирается здесь, а не в шаблоне: Handlebars
+        // не умеет ни складывать, ни отбирать ненулевое, а показать надо ровно
+        // то, что сейчас действует.
+        const tags = [];
+        if (sys.crippled) tags.push({ kind: "crippled", label: crippledLabel });
+        if (sys.halfTurns) tags.push({ kind: "crippled", label: "SHIP.STATE.HALF_TURNS" });
+        if (sys.boardingDisabled) tags.push({ kind: "warn", label: "SHIP.STATE.NO_BOARDING" });
+        if (sys.silentRunning) tags.push({ kind: "warn", label: "SHIP.STATE.SILENT_RUNNING" });
+        for (const key of crewNotes) tags.push({ kind: "crew", label: key });
+        for (const key of moraleNotes) tags.push({ kind: "morale", label: key });
+
+        const modLabels = {
+            speed: "SHIP.SPEED",
+            manoeuvrability: "SHIP.MANOEUVRABILITY",
+            detection: "SHIP.DETECTION",
+            command: "SHIP.MOD.COMMAND",
+            ballisticSkill: "SHIP.MOD.BALLISTIC_SKILL",
+            shipboardActions: "SHIP.MOD.SHIPBOARD_ACTIONS"
+        };
+        const modList = Object.entries(mods)
+            .filter(([, v]) => v !== 0)
+            .map(([key, v]) => ({
+                key, label: modLabels[key] ?? key,
+                text: v > 0 ? `+${v}` : `${v}`
+            }));
+
+        sys.conditionSummary = { any: tags.length > 0, tags, mods: modList };
         return this;
     }
 
@@ -556,53 +892,9 @@ class DarkHeresyActor extends Actor {
             (this.characteristics.willpower.base
         + this.characteristics.willpower.advance) / 10);
 
-        // The only thing not affected by itself
-        //
-        // An effect aimed straight at system.fatigue.max used to vanish here.
-        // applyActiveEffects runs inside super.prepareData(), so by this point it has
-        // already written its result - and this line overwrote it. The key was offered
-        // in the effect picker and documented, and did nothing at all.
-        //
-        // The contribution is read straight off the effects rather than inferred from
-        // what is standing in the field: a derived key holds last prepare's result,
-        // not a base value, so a difference taken against it would compound.
-        // Предел усталости у двух игр разный: Black Crusade даёт бонус Стойкости
-        // (BC, стр. 246), Dark Heresy 2 — Стойкость плюс Волю (DH2, стр. 233).
+        // Derived before the final phase; effects on the threshold are applied by Foundry.
         const fatigueBase = Dh.rulesetFor(this).fatigue.threshold === "tb" ? tb : tb + wb;
-        this.fatigue.max = this._applyEffectsTo("system.fatigue.max", fatigueBase);
-    }
-
-    /**
-     * Re-apply the actor's effect changes to a value this class derives itself.
-     *
-     * Foundry applies effects during super.prepareData(); anything computed afterwards
-     * overwrites the result. Nine keys the effect picker advertises were silently doing
-     * nothing for exactly that reason. Derived fields route their final figure through
-     * here so an effect aimed at them still lands.
-     *
-     * @param {string} key    the full change key, e.g. "system.fatigue.max"
-     * @param {number} value  the freshly derived figure
-     * @returns {number}      the figure with enabled effect changes applied
-     */
-    _applyEffectsTo(key, value) {
-        let result = Number(value) || 0;
-        const M = CONST.ACTIVE_EFFECT_MODES;
-        for (const effect of this.appliedEffects ?? []) {
-            for (const change of effect.changes ?? []) {
-                if (change.key !== key) continue;
-                const n = Number(change.value);
-                if (Number.isNaN(n)) continue;
-                switch (change.mode) {
-                    case M.ADD: result += n; break;
-                    case M.MULTIPLY: result *= n; break;
-                    case M.OVERRIDE: result = n; break;
-                    case M.UPGRADE: result = Math.max(result, n); break;
-                    case M.DOWNGRADE: result = Math.min(result, n); break;
-                    // CUSTOM is left to whoever defines it
-                }
-            }
-        }
-        return result;
+        this.fatigue.max = fatigueBase;
     }
 
     _computeSkills() {
@@ -630,8 +922,8 @@ class DarkHeresyActor extends Actor {
 
                 if (equippedMeleeWeapon) {
                     const weaponSpecial = equippedMeleeWeapon.system?.special || equippedMeleeWeapon.special || "";
-                    if (weaponSpecial) {
-                        const weaponTraits = DarkHeresyUtil.extractWeaponTraits(weaponSpecial);
+                    if (weaponSpecial || equippedMeleeWeapon.system?.traitOverrides) {
+                        const weaponTraits = DarkHeresyUtil.extractWeaponTraits(weaponSpecial, equippedMeleeWeapon.system?.traitOverrides);
                         if (weaponTraits.unbalanced) skill.total -= 10;
                         if (weaponTraits.balanced) skill.total += 10;
                         if (weaponTraits.defensive) skill.total += 15;
@@ -786,6 +1078,7 @@ class DarkHeresyActor extends Actor {
             let range = Number(base.range) || 0;
             let clipMax = Number(base.clip?.max) || 0;
             let special = base.special ?? "";
+            let traitOverrides = {...base.traitOverrides};
             let availability = base.availability;
 
             for (const mod of installed) {
@@ -810,6 +1103,8 @@ class DarkHeresyActor extends Actor {
                 if (clipMultiplier && clipMultiplier !== 1) clipMax = Math.round(clipMax * clipMultiplier);
 
                 special = DarkHeresyUtil.applyTraitEdits(special, effect.addTraits, effect.removeTraits);
+                traitOverrides = editTraitOverrides(traitOverrides, effect.addTraits, effect.removeTraits,
+                    text => DarkHeresyUtil.extractWeaponTraits(text));
 
                 // Улучшение делает ствол на ступень реже и дороже (стр. 170),
                 // ухудшение — наоборот, на ступень доступнее (стр. 172).
@@ -824,6 +1119,7 @@ class DarkHeresyActor extends Actor {
             sys.range = range;
             if (sys.clip) sys.clip.max = clipMax;
             sys.special = special;
+            sys.traitOverrides = traitOverrides;
             sys.availability = availability;
         }
     }
@@ -1231,10 +1527,10 @@ class DarkHeresyActor extends Actor {
         // whole object, so all five advertised system.movement.* keys were dead. They
         // now land, alongside the movementBonus.* route that already worked.
         this.system.movement = {
-            half: this._applyEffectsTo("system.movement.half", base + halfBonus),
-            full: this._applyEffectsTo("system.movement.full", (base * 2) + fullBonus),
-            charge: this._applyEffectsTo("system.movement.charge", (base * 3) + chargeBonus),
-            run: this._applyEffectsTo("system.movement.run", (base * 6) + runBonus)
+            half: base + halfBonus,
+            full: (base * 2) + fullBonus,
+            charge: (base * 3) + chargeBonus,
+            run: (base * 6) + runBonus
         };
     }
 
@@ -1255,7 +1551,7 @@ class DarkHeresyActor extends Actor {
         // object threw away anything applyActiveEffects had written.
         this.system.encumbrance = {
             max: 0,
-            value: this._applyEffectsTo("system.encumbrance.value", encumbrance)
+            value: encumbrance
         };
         switch (attributeBonus) {
             case 0:
@@ -1327,7 +1623,7 @@ class DarkHeresyActor extends Actor {
         }
         // The table sets the carry limit from Strength and Toughness; an effect on the
         // limit itself applies on top of it instead of being overwritten by it.
-        this.encumbrance.max = this._applyEffectsTo("system.encumbrance.max", this.encumbrance.max);
+
     }
 
 
@@ -1481,6 +1777,19 @@ class DarkHeresyActor extends Actor {
             const penetration = Number(damage.penetration) || 0;
             const facing = damage.facing || damage.location || "front";
             const zone = damage.zone || "hull";
+
+            // Детонация внутри машины считается не уроном по броне и целостности,
+            // а сразу Критическим Уроном (Табл. 8-32): «suffers 8 Critical Damage
+            // (ignoring Armour)». Целостность при этом не трогается вовсе.
+            if (damage.directCritical) {
+                const straight = Number(damage.amount) || 0;
+                if (straight > 0) {
+                    critical += straight;
+                    this._recordDamage(damageTaken, straight,
+                        { ...damage, location: zone, facing }, "Vehicle Critical");
+                }
+                continue;
+            }
             const armour = Math.max(this._vehicleArmour(facing, zone) - penetration, 0);
             const amount = Number(damage.amount) || 0;
             let left = Math.max(amount - armour, 0);
@@ -1698,36 +2007,9 @@ class DarkHeresyActor extends Actor {
      * @returns {ActiveEffect|undefined} - The effect if found, undefined otherwise
      */
     hasCondition(key) {
-        // First check actor effects
-        const found = this.effects.find(e => {
-            if (e.disabled) return false;
-            
-            if (_effectConditionKey(e) === key) {
-                return true;
-            }
-
-            // Also check statuses (conditions applied via the token HUD carry no dark-heresy key)
-            return _effectStatuses(e).includes(key);
-        });
-        
-        if (found) {
-            return found;
-        }
-        
-        // If not found in actor effects, check token statuses (conditions can be applied via token overlay)
-        const tokens = this.getActiveTokens(true);
-        if (tokens.length > 0) {
-            const token = tokens[0];
-            if (token?.document) {
-                const tokenStatuses = token.document.statuses;
-                if (tokenStatuses instanceof Set && tokenStatuses.has(key)) {
-                    // Return a dummy object to indicate condition exists
-                    return { _fromToken: true, key: key };
-                }
-            }
-        }
-        
-        return found;
+        return Array.from(this.allApplicableEffects()).find(effect =>
+            effect.active && (_effectConditionKey(effect) === key || _effectStatuses(effect).includes(key))
+        );
     }
 
     /**
@@ -1786,6 +2068,14 @@ class DarkHeresyActor extends Actor {
         const createData = DarkHeresyUtil.getCreateData(effectData, key);
         foundry.utils.mergeObject(createData, mergeData);
 
+        const dormant = !existing && this.effects.find(effect =>
+            _effectConditionKey(effect) === key || _effectStatuses(effect).includes(key));
+        if (dormant) {
+            return dormant.update({...createData, disabled: false,
+                duration: {...createData.duration, expired: false},
+                start: ActiveEffect.getEffectStart()});
+        }
+
         // If existing, update it (escalate minor to major)
         if (existing && (existing.flags?.["dark-heresy"]?.type || "minor") === "minor" && type === "major") {
             return existing.update(createData);
@@ -1797,7 +2087,7 @@ class DarkHeresyActor extends Actor {
                 const effects = await this.createEmbeddedDocuments("ActiveEffect", [createData], { keepId: true });
                 if (effects[0]) return effects[0];
             } catch (err) {
-                // Идентификатор занят — состояние уже висит, и это нормальный исход.
+                if (!this.effects.get(createData._id)) throw err;
             }
             return this.effects.get(_conditionDocId(key)) || this.hasCondition(key);
         }
@@ -1823,6 +2113,7 @@ class DarkHeresyActor extends Actor {
             return;
         }
 
+        if (existing.parent?.documentName === "Item") return existing.update({disabled:true});
         const existingType = existing.flags?.["dark-heresy"]?.type || "minor";
 
         if (existingType === "major") {
@@ -2695,7 +2986,106 @@ function _getAttackerToken(rollData) {
  * Roll a generic roll, and post the result to chat.
  * @param {object} rollData
  */
-async function commonRoll(rollData) {
+function createDarkHeresyAPI() {
+    async function actorFor(uuid) {
+        if (game.darkHeresy?.ready) await game.darkHeresy.ready;
+        const actor = await _getActorFromOwnerId(uuid);
+        if (!actor) throw new Error("Actor not found: " + uuid);
+        if (!actor.isOwner && !game.user?.isGM) throw new Error("No permission to operate this Actor");
+        return actor;
+    }
+    return Object.freeze({
+        version: 1,
+        weaponTraitTypes: WEAPON_TRAIT_TYPES,
+        async setItemTraits({actorUuid, itemId, traits = {}} = {}) {
+            const actor = await actorFor(actorUuid);
+            const item = actor.items.get(itemId);
+            if (!item || !["weapon", "vehicleWeapon", "psychicPower"].includes(item.type)) throw new Error("Item does not support weapon traits");
+            validateTraitOverrides(traits);
+            const patch = {};
+            for (const key of Object.keys(item._source?.system?.traitOverrides ?? item.system.traitOverrides ?? {})) {
+                if (!Object.hasOwn(traits, key)) patch[`system.traitOverrides.-=${key}`] = null;
+            }
+            for (const [key,value] of Object.entries(traits)) patch[`system.traitOverrides.${key}`] = value;
+            if (Object.keys(patch).length) await item.update(patch);
+            return {actorUuid:actor.uuid, itemId, traits:{...traits}};
+        },
+        async rollTest({actorUuid, characteristic, skill, modifier = 0, dialog = false} = {}) {
+            const actor = await actorFor(actorUuid);
+            if (!Number.isFinite(Number(modifier))) throw new Error("Modifier must be finite");
+            if (characteristic ? !actor.characteristics?.[characteristic] : !actor.skills?.[skill]) throw new Error("Unknown test");
+            const data = characteristic ? DarkHeresyUtil.createCharacteristicRollData(actor, characteristic)
+                : DarkHeresyUtil.createSkillRollData(actor, skill);
+            data.target.modifier += Number(modifier);
+            if (dialog) { await prepareCommonRoll(data); return {status:"dialog", context:data}; }
+            return commonRoll(data);
+        },
+        async useItem({actorUuid, itemId, dialog = true} = {}) {
+            const actor = await actorFor(actorUuid);
+            const item = actor.items.get(itemId);
+            if (!item) throw new Error("Item not found: " + itemId);
+            const psychic = item.type === "psychicPower";
+            if (!psychic && !item.isWeapon && item.type !== "weapon") throw new Error("This item has no attack action");
+            if (!psychic && !item.isEquipped) throw new Error("Weapon must be equipped");
+            const data = psychic ? DarkHeresyUtil.createPsychicRollData(actor, item) : DarkHeresyUtil.createWeaponRollData(actor, item);
+            if (dialog) {
+                if (psychic) await preparePsychicPowerRoll(data);
+                else await prepareCombatRoll(data, actor);
+                return {status:"dialog", context:data};
+            }
+            return combatRoll(data);
+        },
+        async applyCondition({actorUuid, condition, active = true, rounds} = {}) {
+            const actor = await actorFor(actorUuid);
+            if (!CONFIG.statusEffects.some(effect => effect.id === condition)) throw new Error("Unknown condition: " + condition);
+            if (active) await actor.addCondition(condition, {rounds});
+            else await actor.removeCondition(condition);
+            return {actorUuid:actor.uuid, condition, active:!!actor.hasCondition(condition)};
+        },
+        async applyDamage({messageId} = {}) {
+            const message = game.messages.get(messageId);
+            if (!message || (!message.isOwner && !game.user?.isGM)) throw new Error("No permission to apply this roll");
+            return applyAutoDamageToTarget(message.getRollData(), message);
+        }
+    });
+}
+
+async function _runSystemRoll(rollData, execute) {
+    if (Hooks.call("darkHeresy.preRoll", rollData) === false) return {status:"cancelled", context:rollData};
+    const result = await execute(rollData);
+    if (result?.status === "cancelled") return {...result, context:rollData};
+    Hooks.callAll("darkHeresy.roll", rollData);
+    return {status:"resolved", context:rollData};
+}
+
+async function commonRoll(rollData) { return _runSystemRoll(rollData, _resolveCommonRoll); }
+async function combatRoll(rollData) {
+    return _queueDocumentOperation(`attack:${rollData.actorUuid || rollData.ownerId}:${rollData.itemId}`, () =>
+        _runSystemRoll(rollData, async data => {
+            const attacker = _actorFromRollData(data);
+            if (["stunned", "unconscious", "dead"].some(key => _hasCondition(attacker, key))) {
+                return _resolveCombatRoll(data);
+            }
+            if (!_weaponSupportsAttackType(data)) return {status:"cancelled", reason:"attackType"};
+            // A Fate reroll repeats the original shot; it does not fire the weapon again.
+            if (!data.flags?.isReRoll) {
+                const owner = await _getActorFromOwnerId(data.vehicle?.actorId || data.actorUuid || data.ownerId,
+                    data.vehicle ? undefined : data.tokenId);
+                const currentWeapon = owner?.items?.get(data.itemId);
+                const clip = currentWeapon?.clip || currentWeapon?.system?.clip;
+                if (data.weapon?.isRange && clip) data.weapon.clip = {value:Number(clip.value) || 0, max:Number(clip.max) || 0};
+                const ammo = _checkAmmo(data);
+                if (!ammo.enough) {
+                    ui.notifications.warn(game.i18n.format("DIALOG.RELOAD_MESSAGE", ammo));
+                    return {status:"cancelled", reason:"ammunition"};
+                }
+                if (!await _checkAndMarkRecharge(data)) return {status:"cancelled", reason:"recharge"};
+            }
+            return _resolveCombatRoll(data);
+        }));
+}
+
+async function _resolveCommonRoll(rollData) {
     await _computeCommonTarget(rollData);
     await _rollTarget(rollData);
     if (rollData.flags.isEvasion) {
@@ -2730,7 +3120,7 @@ async function _applyRegeneration(rollData) {
         actor = tokenDoc?.actor || null;
     }
     if (!actor && rollData.ownerId) {
-        actor = game.actors.get(rollData.ownerId) || null;
+        actor = _actorFromRollData(rollData) || null;
     }
     if (!actor) return;
     if (!rollData.flags.isSuccess) return;
@@ -2760,7 +3150,7 @@ async function _applyRegeneration(rollData) {
  * Roll a combat roll, and post the result to chat.
  * @param {object} rollData
  */
-async function combatRoll(rollData) {
+async function _resolveCombatRoll(rollData) {
     if (rollData.attackType?.name === "suppression") {
         await placeSuppressionCone(rollData, 45, rollData.weapon.range);
     }
@@ -2769,13 +3159,13 @@ async function combatRoll(rollData) {
     // отменяется молча, а проваливается — как уже сделано для стрельбы вслепую:
     // в журнале остаётся запись, и ведущему видно, почему хода не было.
     {
-        const a = game.actors.get(rollData.ownerId);
+        const a = _actorFromRollData(rollData);
         const tok = a?.getActiveTokens?.(true)?.[0];
-        let blocking = tok && ["stunned", "unconscious", "dead"].find(k => _hasCondition(tok, k));
+        let blocking = ["stunned", "unconscious", "dead"].find(k => _hasCondition(a, k));
         // Слепой автоматически проваливает любую проверку Меткости — правило
         // одинаково в обеих книгах (BC, стр. 256; DH2, стр. 243). Владение
         // оружием при этом не блокируется, а идёт со штрафом −30.
-        if (!blocking && tok && _hasCondition(tok, "blinded")) {
+        if (!blocking && _hasCondition(a, "blinded")) {
             const melee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
             if (!melee) blocking = "blinded";
         }
@@ -2800,7 +3190,7 @@ async function combatRoll(rollData) {
     }
 
     // Check if actor is blinded and weapon is ranged - auto-fail ranged attacks
-    const actor = game.actors.get(rollData.ownerId);
+    const actor = _actorFromRollData(rollData);
     if (actor && rollData.weapon?.isRange) {
         const tokens = actor.getActiveTokens(true);
         if (tokens.length > 0) {
@@ -3003,6 +3393,7 @@ function _checkAmmo(rollData) {
  * @returns {Promise<void>}
  */
 async function _consumeAmmo(rollData) {
+    if (rollData.flags?.isReRoll) return;
     // Only consume for ranged weapons
     if (!rollData.weapon?.isRange) {
         return;
@@ -3031,7 +3422,7 @@ async function _consumeAmmo(rollData) {
     }
 
     // Get actor and weapon
-    const actor = await _getActorFromOwnerId(rollData.ownerId, rollData.tokenId);
+    const actor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
     if (!actor) {
         console.warn("Dark Heresy: _consumeAmmo - Actor not found");
         return;
@@ -3266,7 +3657,7 @@ async function _computeCombatTarget(rollData) {
             rollData.psy.value = rollData.psy.max;
         }
         
-        const psyRules = Dh.rulesetFor(game.actors.get(rollData.ownerId)).psychic;
+        const psyRules = Dh.rulesetFor(_actorFromRollData(rollData)).psychic;
 
         // Calculate push status (going above current rating)
         // Use currentRating (with sustained applied) instead of base rating
@@ -3320,7 +3711,7 @@ async function _computeCombatTarget(rollData) {
     const hordeBonus = _getHordeAttackBonus(rollData);
     const difficultyMod = Number(rollData?.difficulty?.value) || 0;
     const targetConditionMod = _getTargetConditionModifier(rollData);
-    const actorConditionMod = _getActorConditionModifier(game.actors.get(rollData.ownerId), rollData);
+    const actorConditionMod = _getActorConditionModifier(_actorFromRollData(rollData), rollData);
     const targetSizeMod = _getTargetSizeModifier(rollData);
     
     rollData.targetConditionModifier = targetConditionMod;
@@ -3371,14 +3762,14 @@ function _getHordeAttackBonus(rollData) {
  */
 async function _computeCommonTarget(rollData) {
     const difficultyMod = Number(rollData?.difficulty?.value) || 0;
-    const actor = game.actors.get(rollData.ownerId);
+    const actor = _actorFromRollData(rollData);
     const actorConditionMod = _getActorConditionModifier(actor, rollData);
     
     rollData.actorConditionModifier = actorConditionMod;
     
     // В захвате реакций нет вовсе, а уклонение — реакция (BC, стр. 236).
     if (rollData.flags.isEvasion) {
-        const evader = game.actors.get(rollData.ownerId);
+        const evader = _actorFromRollData(rollData);
         const evaderToken = evader?.getActiveTokens?.(true)?.[0];
         if (evaderToken && _hasCondition(evaderToken, "grappled")) rollData.evasionBlocked = true;
     }
@@ -3495,7 +3886,7 @@ async function _rollTarget(rollData) {
                 // искать его у стрелка бесполезно, и заклинивание пропадало.
                 const owner = rollData.vehicle?.actorId
                     ? game.actors.get(rollData.vehicle.actorId)
-                    : game.actors.get(rollData.ownerId);
+                    : _actorFromRollData(rollData);
                 const jammedWeapon = owner?.items?.get(rollData.itemId);
                 if (jammedWeapon) await jammedWeapon.setFlag("dark-heresy", "jammed", true);
             }
@@ -3554,8 +3945,8 @@ async function _rollWeaponEffectTest(actor, characteristicKey, modifier, label) 
     // один раз. Раньше он клался и в target.modifier, и в difficulty.value, а
     // _computeCommonTarget складывает оба поля: Токсичное (1) вместо Трудной
     // (−10) уходило в −20, и так же удваивались Оглушающее, Опутывающее и
-    // Галлюциногенное.
-    rollData.target.modifier = 0;
+    // Галлюциногенное. Штраф горящей машины при этом остаётся: он не сложность.
+    rollData.target.modifier = _burningCrewModifier(actor);
     rollData.difficulty = {
         value: modifier,
         text: game.i18n.localize(Dh.difficulties[modifier] || "DIFFICULTY.CHALLENGING")
@@ -3934,7 +4325,11 @@ function _getHordeDamageBonusDiceFromActor(actor) {
  */
 function _computeNumberOfHits(attackDos, evasionDos, attackType, shotsFired, weaponTraits) {
 
-    let stormMod = weaponTraits.storm ? 2 : 1;
+    // Качество оружия «Штормовое» удваивает попадания. К психическому шторму оно
+    // не относится: там число болтов задано ступенями успеха и потолком в
+    // психорейтинг, а удвоение сверху давало вдвое больше положенного.
+    const psychicStorm = attackType?.name === "storm";
+    let stormMod = (weaponTraits.storm && !psychicStorm) ? 2 : 1;
     let maxHits = attackType.maxHits * stormMod;
 
     let hits = (1 + Math.floor((attackDos - 1) / attackType.hitMargin)) * stormMod;
@@ -4127,17 +4522,23 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
         }
     }
 
-    r.terms.forEach(term => {
-        if (typeof term === "object" && term !== null) {
-            let rfFace = weaponTraits.rfFace ? weaponTraits.rfFace : term.faces; // Without the Vengeful weapon trait rfFace is undefined
-            term.results?.forEach(async result => {
-                let dieResult = result.count ? result.count : result.result; // Result.count = actual value if modified by term
-                if (result.active && dieResult >= rfFace) damage.righteousFury = await _rollRighteousFury();
-                if (result.active && dieResult < dos) damage.dices.push(dieResult);
-                if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
-            });
+    // forEach не ждёт асинхронный обработчик: бросок 1d5 на Праведную ярость
+    // успевал присвоиться уже после того, как damage уходил наверх, и в карточку
+    // он не попадал почти никогда. Отсюда обычный цикл с await.
+    for (const term of r.terms) {
+        if (typeof term !== "object" || term === null) continue;
+        const rfFace = weaponTraits.rfFace ? weaponTraits.rfFace : term.faces; // Without the Vengeful weapon trait rfFace is undefined
+        for (const result of (term.results ?? [])) {
+            if (!result.active) continue;
+            const dieResult = result.count ? result.count : result.result; // Result.count = actual value if modified by term
+            if (dieResult >= rfFace) {
+                damage.righteousFury = await _rollRighteousFury();
+                damage.righteousFuryDie = dieResult;
+            }
+            if (dieResult < dos) damage.dices.push(dieResult);
+            if (typeof damage.minDice === "undefined" || dieResult < damage.minDice) damage.minDice = dieResult;
         }
-    });
+    }
     return damage;
 }
 
@@ -4148,72 +4549,39 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
  * @param {string} tokenId - Optional token ID from rollData
  * @returns {Promise<Actor|null>} - The actor or null if not found
  */
-async function _getActorFromOwnerId(ownerId, tokenId = null) {
-    if (!ownerId) return null;
-    
-    // PRIORITY: If tokenId is provided, get token actor FIRST (for unlinked tokens)
-    // This ensures we work with the token actor, not the base actor
-    if (tokenId) {
-        const scene = game.scenes.active || canvas?.scene;
-        const token = scene?.tokens?.get(tokenId);
-        if (token?.actor) {
-            return token.actor; // Return token actor immediately
-        }
+function _actorFromRollData(rollData) {
+    if (!rollData) return null;
+    if (rollData.actorUuid) return fromUuidSync(rollData.actorUuid);
+    if (rollData.tokenId) {
+        const matches = Array.from(game.scenes.values()).map(scene => scene.tokens.get(rollData.tokenId))
+            .filter(token => token?.actor && (!rollData.ownerId || token.actor.id === rollData.ownerId));
+        return matches.length === 1 ? matches[0].actor : null;
     }
-    
-    // Try to get actor directly from game.actors
-    let actor = game.actors.get(ownerId);
-    
-    // If actor found and it's NOT a token actor, check if we should get token instead
-    // For unlinked tokens, we want the token actor, not the base actor
-    if (actor && !actor.isToken && tokenId) {
-        const scene = game.scenes.active || canvas?.scene;
-        const token = scene?.tokens?.get(tokenId);
-        if (token?.actor) {
-            return token.actor; // Prefer token actor over base actor
-        }
-    }
-    
-    // If not found, try to get from token (ownerId might be token ID)
-    if (!actor) {
-        const scene = game.scenes.active || canvas?.scene;
-        const tokenIdToCheck = tokenId || ownerId;
-        const token = scene?.tokens?.get(tokenIdToCheck);
-        if (token?.actor) {
-            actor = token.actor;
-        }
-    }
-    
-    // If still not found, try to resolve as UUID
-    if (!actor && ownerId.includes(".")) {
-        try {
-            const resolved = await fromUuid(ownerId);
-            if (resolved) {
-                // If resolved is a token, get its actor
-                if (resolved.documentName === "Token") {
-                    actor = resolved.actor;
-                } else if (resolved.documentName === "Actor") {
-                    actor = resolved;
-                    // If we have tokenId, prefer token actor over resolved base actor
-                    if (tokenId && actor && !actor.isToken) {
-                        const scene = game.scenes.active || canvas?.scene;
-                        const token = scene?.tokens?.get(tokenId);
-                        if (token?.actor) {
-                            actor = token.actor;
-                        }
-                    }
-                } else {
-                    actor = resolved.actor || resolved;
-                }
-            }
-        } catch (e) {
-            // Ignore UUID resolution errors
-        }
-    }
-    
-    return actor;
+    return game.actors.get(rollData.ownerId) ?? null;
 }
 
+async function _getActorFromOwnerId(ownerId, tokenId = null) {
+    if (!ownerId && !tokenId) return null;
+    // New cards retain a full UUID. Never substitute a base Actor for a missing token.
+    if (typeof ownerId === "string" && ownerId.includes(".")) {
+        try {
+            const doc = await fromUuid(ownerId);
+            if (doc?.documentName === "Token") return doc.actor ?? null;
+            if (doc?.documentName === "Actor") return doc;
+        } catch (err) { console.warn("dark-heresy | Cannot resolve actor", ownerId, err); }
+        return null;
+    }
+    if (tokenId) {
+        if (tokenId.includes(".")) {
+            try { return (await fromUuid(tokenId))?.actor ?? null; }
+            catch (err) { return null; }
+        }
+        const matches = Array.from(game.scenes.values()).map(scene => scene.tokens.get(tokenId))
+            .filter(token => token?.actor && (!ownerId || token.actor.id === ownerId || token.id === ownerId));
+        return matches.length === 1 ? matches[0].actor : null;
+    }
+    return game.actors.get(ownerId) ?? null;
+}
 
 /**
  * Evaluate final penetration, by leveraging the dice roll API.
@@ -4254,6 +4622,16 @@ async function _rollPenetration(rollData) {
  * Roll a Righteous Fury dice, and return the value.
  * @returns {number}
  */
+/**
+ * Как называется это правило в книге, по которой играет владелец броска.
+ * Dark Heresy 2 — Праведная ярость, Black Crusade — Ревностная ненависть.
+ * @param {object} rollData
+ * @returns {string} ключ локализации
+ */
+function _righteousFuryLabel(rollData) {
+    return Dh.rulesetFor(_actorFromRollData(rollData)).righteousFury.label;
+}
+
 async function _rollRighteousFury() {
     let r = new Roll("1d5");
     await r.evaluate();
@@ -4266,7 +4644,7 @@ async function _rollRighteousFury() {
  */
 function _computePsychicPhenomena(rollData) {
     // For Bound characters using Psy Rating divided by 2 (not pushing), no phenomena occur
-    const phenomenaRule = Dh.rulesetFor(game.actors.get(rollData.ownerId)).psychic.phenomena;
+    const phenomenaRule = Dh.rulesetFor(_actorFromRollData(rollData)).psychic.phenomena;
     const isDouble = _isDouble(rollData.result);
     const isPush = rollData.psy.push && !rollData.psy.isUnbrake;
 
@@ -4323,7 +4701,7 @@ function _getVehicleHitContext(rollData) {
     const token = canvas.tokens.get(target.tokenId);
     if (token?.actor?.type !== "vehicle") return null;
     // Токен стрелка: сперва тот, чьим листом бросали, потом выделенный на сцене.
-    const owner = game.actors.get(rollData.ownerId);
+    const owner = _actorFromRollData(rollData);
     const attacker = owner?.getActiveTokens?.(true)?.[0] ?? canvas.tokens.controlled[0];
     return { token, facing: _getVehicleFacing(attacker, token) };
 }
@@ -4508,18 +4886,19 @@ async function _checkAndMarkRecharge(rollData) {
     const round = Number(game.combat?.round) || 0;
     if (!round) return true;
 
-    const actor = await _getActorFromOwnerId(rollData.ownerId, rollData.tokenId);
+    const actor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
     const weapon = actor?.items?.get(rollData.itemId);
     if (!weapon) return true;
 
-    const firedOn = Number(weapon.getFlag("dark-heresy", "rechargeFiredRound")) || 0;
-    if (firedOn === round) return true;      // тот же раунд — это тот же выстрел
-    if (round <= firedOn + 1) {
+    const state = weapon.getFlag("dark-heresy", "rechargeState");
+    const firedOn = Number(state?.round ?? weapon.getFlag("dark-heresy", "rechargeFiredRound")) || 0;
+    const firedCombat = state?.combatId ?? weapon.getFlag("dark-heresy", "rechargeCombatId");
+    if (firedOn > 0 && (!firedCombat || firedCombat === game.combat.id) && round <= firedOn + 1) {
         ui.notifications.warn(game.i18n.format("WEAPON.RECHARGE_WAIT", { weapon: weapon.name }));
         return false;
     }
 
-    await weapon.setFlag("dark-heresy", "rechargeFiredRound", round);
+    await weapon.setFlag("dark-heresy", "rechargeState", {combatId:game.combat.id, round});
     return true;
 }
 
@@ -4534,7 +4913,10 @@ async function _checkAndMarkRecharge(rollData) {
  * @returns {boolean}
  */
 function _weaponSupportsAttackType(rollData) {
-    if (!rollData?.weapon?.isRange) return true;
+    if (!rollData?.weapon?.isRange) {
+        return !(rollData.attackType?.name === "lightning"
+            && (rollData.weapon?.traits?.unwieldy || rollData.weapon?.traits?.unbalanced));
+    }
     const rof = rollData.weapon.rateOfFire || {};
     const name = rollData.attackType?.name;
     const needsBurst = name === "semi_auto"
@@ -4545,6 +4927,7 @@ function _weaponSupportsAttackType(rollData) {
         || (name === "suppression" && rollData.suppressionLength === "full");
 
     const has = value => Number(value) > 0;
+    if (["standard", "called_shot"].includes(name) && !has(rof.single)) return false;
     if (needsBurst && !has(rof.burst)) {
         ui.notifications.warn(game.i18n.format("WEAPON.NO_SEMI_AUTO", { weapon: rollData.weapon.name || rollData.name }));
         return false;
@@ -4607,6 +4990,17 @@ function _computeRateOfFire(rollData) {
                 rollData.attackType.text = game.i18n.localize("ATTACK_TYPE.SUPPRESSION_SEMI");
                 rollData.attackType.length = "semi";
             }
+            break;
+
+        // Психический шторм (BC, стр. 210; DH2, стр. 198): болтов столько же,
+        // сколько ступеней успеха, и не больше эффективного психорейтинга —
+        // он лежит в rateOfFire, туда его кладёт createPsychicRollData.
+        // Своей ветки не было, и шторм падал в default с одним попаданием,
+        // которое качество Storm потом удваивало до двух.
+        case "storm":
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = rollData.weapon?.rateOfFire?.full ?? 1;
             break;
 
         case "lightning":
@@ -4704,7 +5098,7 @@ function _getDegree(a, b) {
  * @returns {string}
  */
 function _replaceSymbols(formula, rollData) {
-    let actor = game.actors.get(rollData.ownerId);
+    let actor = _actorFromRollData(rollData);
     let attributeBoni = actor?.attributeBoni || rollData.attributeBoni || [];
     const psyValue = rollData.psy ? (Number(rollData.psy.value) || 0) : 0;
     const psyBonus = psyValue;
@@ -4718,7 +5112,7 @@ function _replaceSymbols(formula, rollData) {
 }
 
 function _getGenderRange(rollData) {
-    const actor = game.actors.get(rollData?.ownerId);
+    const actor = _actorFromRollData(rollData);
     const gender = actor?.system?.bio?.gender;
     switch (gender) {
         case "D0mintarN0siliya":
@@ -4870,7 +5264,7 @@ async function sendDamageToChat(rollData) {
         rollData.tokenId = speaker.token;
     }
 
-    const actor = rollData.ownerId ? game.actors.get(rollData.ownerId) : null;
+    const actor = rollData.ownerId ? _actorFromRollData(rollData) : null;
     const item = actor?.items?.get(rollData.itemId);
     if (!rollData.weapon) rollData.weapon = {};
     if (!rollData.weapon.damageType || rollData.weapon.damageType === "none") {
@@ -4884,6 +5278,7 @@ async function sendDamageToChat(rollData) {
 
     chatData.rolls = rollData.damages.flatMap(r => r.damageRoll);
 
+    rollData.rfLabel = _righteousFuryLabel(rollData);
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
     chatData.content = html;
 
@@ -5425,11 +5820,11 @@ async function prepareCombatRoll(rollData, actorRef) {
 
                         // Подзарядка: раунд после выстрела оружие копит заряд и
                         // стрелять не может (BC, стр. 152).
-                        if (!await _checkAndMarkRecharge(rollData)) return;
+                        // Recharge is checked in combatRoll after ammunition validation.
 
                         // Sync clip from database before checking ammo
                         if (rollData.weapon.isRange) {
-                            const actor = await _getActorFromOwnerId(rollData.ownerId, rollData.tokenId);
+                            const actor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
                             if (actor) {
                                 let currentWeapon = actor.items.get(rollData.itemId);
                                 
@@ -5457,7 +5852,7 @@ async function prepareCombatRoll(rollData, actorRef) {
                         const ammoCheck = _checkAmmo(rollData);
                         if (!ammoCheck.enough && rollData.weapon.isRange && rollData.weapon.clip.max > 0) {
                             // Not enough ammo - offer reload
-                            const actor = await _getActorFromOwnerId(rollData.ownerId, rollData.tokenId);
+                            const actor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
                             if (!actor) {
                                 console.warn("Dark Heresy: prepareCombatRoll - Actor not found for reload");
                                 return;
@@ -5497,7 +5892,7 @@ async function prepareCombatRoll(rollData, actorRef) {
                                                 
                                                 if (reloadResult.success) {
                                                     // Update rollData with new clip value
-                                                    const updatedActor = await _getActorFromOwnerId(rollData.ownerId, rollData.tokenId);
+                                                    const updatedActor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
                                                     if (updatedActor) {
                                                         let updatedWeapon = updatedActor.items.get(rollData.itemId);
                                                         
@@ -5958,17 +6353,20 @@ class DarkHeresyUtil {
     static createCommonAttackRollData(actor, item) {
         const targets = this.getCurrentTargets();
         const primaryTarget = targets[0];
+        // Внутри горящей машины −20 идёт ко всему подряд, стрельба не исключение.
+        const burning = _burningCrewModifier(actor);
         return {
             name: item.name,
             itemName: item.name, // Seperately here because evasion may override it
             // The card header names who acted as well as what they used; without this the
             // chat log showed a weapon with no owner.
             actorName: actor.name,
+            actorUuid: actor.uuid,
             ownerId: actor.id,
             itemId: item.id,
             target: {
                 base: 0,
-                modifier: 0
+                modifier: burning
             },
             weapon: {
                 damageBonus: 0,
@@ -5993,12 +6391,14 @@ class DarkHeresyUtil {
         return {
             target: {
                 base: value.displayTotal ?? value.total,
-                modifier: 0
+                // Горящая машина мешает всему, что делает сидящий в ней боец.
+                modifier: _burningCrewModifier(actor)
             },
             flags: {
                 isAttack: false
             },
             actorName: actor.name,
+            actorUuid: actor.uuid,
             ownerId: actor.id
         };
     }
@@ -6110,7 +6510,9 @@ class DarkHeresyUtil {
         const ammoEffect = loadedAmmo?.system?.effect || {};
         const specialWithAmmo = this.applyTraitEdits(weaponItem.special, ammoEffect.special, ammoEffect.removeSpecial);
 
-        let weaponTraits = this.extractWeaponTraits(specialWithAmmo);
+        const traitOverrides = editTraitOverrides(weaponItem.system?.traitOverrides ?? {}, ammoEffect.special,
+            ammoEffect.removeSpecial, text => this.extractWeaponTraits(text));
+        let weaponTraits = this.extractWeaponTraits(specialWithAmmo, traitOverrides);
         let isMelee = weaponItem.class === "melee";
         let attributeMod = (isMelee && !weaponItem.damage.match(/SB/gi) ? "+SB" : "");
 
@@ -6266,7 +6668,8 @@ class DarkHeresyUtil {
         // для сил, где заполнено только оно.
         const difficultyValue = Number(power.system?.difficulty)
             || Number(power.focusPower?.difficulty) || 0;
-        rollData.target.modifier = 0;
+        // Обнуление снимает удвоение сложности, но не штраф горящей машины.
+        rollData.target.modifier = _burningCrewModifier(actor);
         rollData.difficulty = {
             value: difficultyValue,
             text: game.i18n.localize(Dh.difficulties[difficultyValue] || "DIFFICULTY.CHALLENGING")
@@ -6302,7 +6705,7 @@ class DarkHeresyUtil {
         rollData.weapon = foundry.utils.mergeObject(rollData.weapon, {
             damageFormula: power.damage.formula,
             penetrationFormula: power.damage.penetration,
-            traits: this.extractWeaponTraits(specialWithPsy),
+            traits: this.extractWeaponTraits(specialWithPsy, power.system?.traitOverrides),
             special: specialWithPsy
         });
         rollData.attackType.name = power.damage.zone;
@@ -6416,16 +6819,16 @@ class DarkHeresyUtil {
     }
 
 
-    static extractWeaponTraits(traits) {
+    static extractWeaponTraits(traits, overrides = {}) {
     // These weapon traits never go above 9 or below 2
-        return {
+        return applyTraitOverrides({
             accurate: this.hasNamedTrait(/(?<!in)Accurate|Точное/gi, traits),
             // Числа берём нежадно и допускаем две цифры: Primitive (10) читался
             // как 1, а жадная точка цепляла скобку соседнего свойства.
-            rfFace: this.extractNumberedTrait(/Vengeful.*?\(\d+\)|Мстительное.*?\(\d+\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
-            devastating: this.extractNumberedTrait(/Devastating.*?\(\d+\)|Опустошительное.*?\(\d+\)/gi, traits), // Additional horde size reduction on successful hit
-            proven: this.extractNumberedTrait(/Proven.*?\(\d+\)|Проверенное.*?\(\d+\)|Надёжное.*?\(\d+\)/gi, traits),
-            primitive: this.extractNumberedTrait(/Primitive.*?\(\d+\)|Примитивное.*?\(\d+\)/gi, traits),
+            rfFace: this.extractNumberedTrait(/Vengeful[^,;()]*?\(\d+\)|Мстительное[^,;()]*?\(\d+\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
+            devastating: this.extractNumberedTrait(/Devastating[^,;()]*?\(\d+\)|Опустошительное[^,;()]*?\(\d+\)/gi, traits), // Additional horde size reduction on successful hit
+            proven: this.extractNumberedTrait(/Proven[^,;()]*?\(\d+\)|Проверенное[^,;()]*?\(\d+\)|Надёжное[^,;()]*?\(\d+\)/gi, traits),
+            primitive: this.extractNumberedTrait(/Primitive[^,;()]*?\(\d+\)|Примитивное[^,;()]*?\(\d+\)/gi, traits),
             razorSharp: this.hasNamedTrait(/Razor.?-? *Sharp|Бритвенной остроты|Острое как бритва/gi, traits),
             skipAttackRoll: this.hasNamedTrait(/Spray|Распыление/gi, traits), // Weapons that skip the attack roll
             tearing: this.hasNamedTrait(/Tearing|Разрывающее/gi, traits),
@@ -6447,7 +6850,7 @@ class DarkHeresyUtil {
             force: this.hasNamedTrait(/Force|Психосиловое|Психосиловой/gi, traits),
             inaccurate: this.hasNamedTrait(/Inaccurate|Неточное/gi, traits),
             unwieldy: this.hasNamedTrait(/Unwieldy|Громоздкое/gi, traits),
-            reliable: this.hasNamedTrait(/Reliable|Надёжное|Надежное/gi, traits),
+            reliable: this.hasNamedTrait(/(?<![\p{L}])(?:Reliable|Надёжное|Надежное)(?![\p{L}])/giu, traits),
             unreliable: this.hasNamedTrait(/Unreliable|Ненадёжное|Ненадежное/gi, traits),
             unbalanced: this.hasNamedTrait(/Unbalanced|Несбалансированное/gi, traits),
             // Книга пишет свойство как "Overheats", код искал "Overheating" —
@@ -6481,26 +6884,26 @@ class DarkHeresyUtil {
             powerField: this.hasNamedTrait(/Power Field|Силовое поле/gi, traits),
 
             // Расчёт урона.
-            felling: this.extractNumberedTrait(/Felling.*?\(\d+\)|Валящее.*?\(\d+\)/gi, traits),
+            felling: this.extractNumberedTrait(/Felling[^,;()]*?\(\d+\)|Валящее[^,;()]*?\(\d+\)/gi, traits),
             tainted: this.hasNamedTrait(/Tainted|Осквернённое|Оскверненное/gi, traits),
             sanctified: this.hasNamedTrait(/Sanctified|Освящённое|Освященное/gi, traits),
 
             // Последствия попадания — проверки цели после применения урона.
-            toxic: this.extractNumberedTrait(/Toxic.*?\(\d+\)|Токсичное.*?\(\d+\)/gi, traits),
-            concussive: this.extractNumberedTrait(/Concussive.*?\(\d+\)|Оглушающее.*?\(\d+\)/gi, traits),
-            snare: this.extractNumberedTrait(/Snare.*?\(\d+\)|Опутывающее.*?\(\d+\)/gi, traits),
+            toxic: this.extractNumberedTrait(/Toxic[^,;()]*?\(\d+\)|Токсичное[^,;()]*?\(\d+\)/gi, traits),
+            concussive: this.extractNumberedTrait(/Concussive[^,;()]*?\(\d+\)|Оглушающее[^,;()]*?\(\d+\)/gi, traits),
+            snare: this.extractNumberedTrait(/Snare[^,;()]*?\(\d+\)|Опутывающее[^,;()]*?\(\d+\)/gi, traits),
             // Калечащее задаётся не только числом: у части психосил книга ставит
             // в скобки кость. Система это свойство только объявляет в карточке,
             // поэтому значение хранится строкой — иначе «(1d10)» читалось как 1.
-            crippling: this.extractTraitValue(/Crippling.*?\(([^)]+)\)|Калечащее.*?\(([^)]+)\)/i, traits),
-            hallucinogenic: this.extractNumberedTrait(/Hallucinogenic.*?\(\d+\)|Галлюциногенное.*?\(\d+\)/gi, traits),
+            crippling: this.extractTraitValue(/Crippling[^,;()]*?\(([^)]+)\)|Калечащее[^,;()]*?\(([^)]+)\)/i, traits),
+            hallucinogenic: this.extractNumberedTrait(/Hallucinogenic[^,;()]*?\(\d+\)|Галлюциногенное[^,;()]*?\(\d+\)/gi, traits),
 
             // Площадное: система объявляет радиус в карточке, но сама поле дыма
             // и электромагнитный разряд на сцену не ставит — это работа мастера.
-            smoke: this.extractNumberedTrait(/Smoke.*?\(\d+\)|Дым.*?\(\d+\)/gi, traits),
-            haywire: this.extractNumberedTrait(/Haywire.*?\(\d+\)|Помехи.*?\(\d+\)/gi, traits),
-            blast: this.extractNumberedTrait(/Blast.*?\(\d+\)|Взрыв.*?\(\d+\)/gi, traits)
-        };
+            smoke: this.extractNumberedTrait(/Smoke[^,;()]*?\(\d+\)|Дым[^,;()]*?\(\d+\)/gi, traits),
+            haywire: this.extractNumberedTrait(/Haywire[^,;()]*?\(\d+\)|Помехи[^,;()]*?\(\d+\)/gi, traits),
+            blast: this.extractNumberedTrait(/Blast[^,;()]*?\(\d+\)|Взрыв[^,;()]*?\(\d+\)/gi, traits)
+        }, overrides);
     }
 
     /**
@@ -6758,6 +7161,26 @@ class DarkHeresyUtil {
     }
 }
 
+function effectView(effect) {
+    const item = effect.parent?.documentName === "Item" ? effect.parent : null;
+    const itemOnly = !!item && effect.transfer === false;
+    const state = effect.duration?.expired ? "expired" : effect.disabled ? "disabled"
+        : effect.isSuppressed ? "suppressed" : itemOnly ? "itemOnly" : "active";
+    return {id:effect.id,uuid:effect.uuid,name:effect.name,img:effect.img || "icons/svg/aura.svg",
+        disabled:effect.disabled, inactive:state !== "active", state, stateLabel:`EFFECTS.STATE.${state}`,
+        source:item?.name || effect.sourceName || "Actor",item,flags:effect.flags || {},
+        statuses:_effectStatuses(effect),isCondition:_effectStatuses(effect).length > 0,
+        temporary:effect.isTemporary,itemOnly,expired:!!effect.duration?.expired,
+        durationLabel:effect.isTemporary ? effect.duration?.label : null,
+        durationValue:Number.isFinite(effect.duration?.value) ? effect.duration.value : null,
+        durationUnit:effect.duration?.units ? `EFFECT.DURATION.UNITS.${effect.duration.units}` : null};
+}
+
+async function restartEffect(effect) {
+    if (!effect) return;
+    return effect.update({disabled:false,"duration.expired":false,start:ActiveEffect.getEffectStart()});
+}
+
 class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
 
     /**
@@ -6969,6 +7392,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         // Effects listeners
         html.find(".list-create[data-type='effect']").click(ev => this._onEffectCreate(ev));
         html.find(".list-toggle").click(ev => this._onListToggle(ev));
+        html.find(".list-restart").click(ev => { ev.preventDefault(); return restartEffect(this._getDocument(ev)); });
         html.find(".list-delete").click(ev => this._onListDelete(ev));
         html.find(".list-edit").click(ev => this._onListEdit(ev));
         html.find(".pip").click(ev => this._onConditionPipClick(ev));
@@ -7075,84 +7499,18 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
     /**
      * Organize effects into active, passive, and disabled categories
      */
-    organizeEffects(data) {
-        if (!this.actor) {
-            return {
-                active: [],
-                passive: [],
-                disabled: []
-            };
+    organizeEffects() {
+        const groups = {active:[], passive:[], disabled:[], itemOnly:[]};
+        if (!this.actor) return groups;
+        const effects = [...(this.actor.effects ?? []), ...Array.from(this.actor.items ?? [])
+            .flatMap(item => Array.from(item.effects ?? []))];
+        for (const effect of effects.sort((a,b) => (a.name || '').localeCompare(b.name || ''))) {
+            const view = effectView(effect);
+            if (view.itemOnly) groups.itemOnly.push(view);
+            else if (view.inactive) groups.disabled.push(view);
+            else groups[view.temporary ? 'active' : 'passive'].push(view);
         }
-
-        // Get all effects from actor
-        const actorEffects = this.actor.effects ? Array.from(this.actor.effects) : [];
-        
-        // Get all effects from actor's items
-        const itemEffects = [];
-        if (this.actor.items) {
-            for (const item of this.actor.items) {
-                if (item.effects && item.effects.size > 0) {
-                    for (const effect of item.effects) {
-                        itemEffects.push(effect);
-                    }
-                }
-            }
-        }
-        
-        // Combine all effects
-        const allEffects = [...actorEffects, ...itemEffects];
-        
-        // Sort effects by name
-        const sorted = allEffects.sort((a, b) => {
-            const nameA = a.name || "";
-            const nameB = b.name || "";
-            return nameA.localeCompare(nameB);
-        });
-
-        // Categorize effects
-        const effects = {
-            active: [],
-            passive: [],
-            disabled: []
-        };
-
-        for (const effect of sorted) {
-            // Determine parent (actor or item)
-            const parent = effect.parent;
-            const isItemEffect = parent?.type === "Item";
-            const item = isItemEffect ? parent : null;
-            
-            // Check if effect has statuses (for conditions)
-            const statuses = _effectStatuses(effect);
-            const hasStatuses = statuses.length > 0;
-            
-            const effectData = {
-                id: effect.id,
-                uuid: effect.uuid || effect.id,
-                name: effect.name,
-                img: effect.img || "icons/svg/aura.svg",
-                disabled: effect.disabled,
-                source: item ? item.name : (effect.source?.name || "Actor"),
-                item: item,
-                actor: !isItemEffect ? this.actor : null,
-                flags: effect.flags || {},
-                statuses: statuses || [],
-                isCondition: hasStatuses
-            };
-
-            // Check if effect is temporary (has duration)
-            const isTemporary = effect.duration?.rounds || effect.duration?.turns || effect.duration?.seconds;
-
-            if (effect.disabled) {
-                effects.disabled.push(effectData);
-            } else if (isTemporary) {
-                effects.active.push(effectData);
-            } else {
-                effects.passive.push(effectData);
-            }
-        }
-
-        return effects;
+        return groups;
     }
 
     /**
@@ -7301,6 +7659,10 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         const uuid = li.data("uuid");
         
         if (collection === "effects") {
+            if (uuid) {
+                const candidates = [...this.actor.effects.values(), ...Array.from(this.actor.items ?? []).flatMap(item => Array.from(item.effects?.values() ?? []))];
+                return candidates.find(effect => effect.uuid === uuid) ?? null;
+            }
             // First try to find in actor effects
             if (id) {
                 const actorEffect = this.actor.effects.get(id);
@@ -7368,7 +7730,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         // Set duration for temporary effects
         if (category === "temporary") {
             effectData.duration = {
-                rounds: 1
+                value: 1, units: "rounds"
             };
         } else if (category === "disabled") {
             effectData.disabled = true;
@@ -7723,10 +8085,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
             return;
         }
         
-        await prepareCombatRoll(
-            DarkHeresyUtil.createWeaponRollData(this.actor, weapon),
-            this.actor
-        );
+        await game.darkHeresy.api.useItem({actorUuid:this.actor.uuid, itemId:weapon.id});
     }
 
     async _prepareWeaponDamage(event) {
@@ -8456,6 +8815,8 @@ class VehicleSheet extends DarkHeresySheet {
         html.find(".vehicle-crew-initiative").click(ev => this._onVehicleCrewInitiative(ev));
         html.find(".vehicle-ram").click(ev => this._onVehicleRam(ev));
         html.find(".vehicle-manoeuvre").click(ev => this._onVehicleManoeuvre(ev));
+        html.find(".vehicle-jink").click(ev => this._onVehicleJink(ev));
+        html.find(".vehicle-extinguish").click(ev => this._onVehicleExtinguish(ev));
         // Щелчок по метке снимает объявленный манёвр — он же и подсказка.
         html.find(".manoeuvre-state").click(async ev => {
             ev.preventDefault();
@@ -8617,12 +8978,129 @@ class VehicleSheet extends DarkHeresySheet {
     }
 
     /**
+     * Сбить пламя изнутри — полное действие любого, кто на борту.
+     *
+     * Книга называет проверку Трудной (−20) на Ловкость и тут же оговаривает,
+     * что эти −20 — тот самый штраф, который экипаж уже несёт за пожар, а не
+     * добавка к нему. Поэтому сложность здесь Серьёзная (+0): −20 приезжает
+     * сам вместе с броском любого, кто сидит в горящей машине.
+     *
+     * Удача гасит огонь и оставляет машину Обгоревшей: −10 к Управлению, пока
+     * её не починят.
+     */
+    async _onVehicleExtinguish(event) {
+        event.preventDefault();
+        const vehicle = this.actor;
+        if (!vehicle.system.conditions?.onFire) {
+            return ui.notifications.info(game.i18n.localize("VEHICLE.EXTINGUISH_NOT_ON_FIRE"));
+        }
+        // Тушит тот, кем игрок распоряжается: выделенный токен, иначе оператор.
+        const controlled = canvas?.tokens?.controlled
+            ?.find(t => t.actor?.isOwner && ["acolyte", "heretic", "npc"].includes(t.actor.type));
+        const fighter = controlled?.actor
+            ?? game.actors.get(vehicle.system.operatorId)
+            ?? this._vehicleCrew().find(a => a.isOwner);
+        if (!fighter?.isOwner) {
+            return ui.notifications.warn(game.i18n.localize("VEHICLE.EXTINGUISH_NO_CREW"));
+        }
+
+        const rollData = DarkHeresyUtil.createCharacteristicRollData(fighter, "agility");
+        rollData.name = "VEHICLE.EXTINGUISH";
+        rollData.difficulty = { value: 0, text: game.i18n.localize(Dh.difficulties[0]) };
+        rollData.afterRoll = async data => {
+            const ok = !!data.flags?.isSuccess;
+            if (ok) {
+                await vehicle.update({
+                    "system.conditions.onFire": false,
+                    "system.conditions.burnt": true
+                });
+            }
+            await ChatMessage.create({
+                content: `<div class="dark-heresy chat roll"><div class="dh-card ${ok ? "is-neutral" : "is-fail"}">
+                    <div class="dh-card-h"><span class="who">${vehicle.name}</span>
+                    <span class="verdict">${game.i18n.localize("VEHICLE.EXTINGUISH")}</span></div>
+                    <div class="dh-card-b"><p class="dh-note">${game.i18n.format(
+                        ok ? "VEHICLE.EXTINGUISH_OK" : "VEHICLE.EXTINGUISH_FAIL",
+                        { name: fighter.name })}</p></div>
+                    </div></div>`
+            });
+        };
+
+        await prepareCommonRoll(rollData);
+    }
+
+    /**
+     * Вираж — единственная реакция уклонения, доступная машине.
+     *
+     * Dodge машине не полагается, Парирование — только шагоходу с руками.
+     * Вираж требует, чтобы в прошлом ходу машина прошла хотя бы Тактическую
+     * Скорость (шагоходу это не нужно), катится Управлением на Серьёзную (+0) и
+     * получает штраф, равный поправке за величину машины: чем она крупнее, тем
+     * труднее ей выскользнуть из-под выстрела. Успех снимает одно попадание и
+     * ещё по одному за каждую степень сверх первой; провал на пять степеней
+     * делает машину Неуправляемой.
+     *
+     * Снятые попадания система не вычёркивает из чужой карточки — она называет
+     * их число, а убирает попадания тот, кто применяет урон.
+     */
+    async _onVehicleJink(event) {
+        event.preventDefault();
+        const sys = this.actor.system;
+        if (!sys.can?.swerve) {
+            return ui.notifications.warn(game.i18n.localize("VEHICLE.NO_MANOEUVRE_IMMOBILE"));
+        }
+        // Шагоход виляет корпусом стоя, остальным нужен ход: правило смотрит на
+        // прошлый раунд, и пройденное за него система уже считает сама.
+        const walker = sys.vehicleType === "walker";
+        const tactical = Number(sys.speed?.tactical) || 0;
+        if (!walker && (Number(sys.speed?.movedLastRound) || 0) < Math.max(tactical, 1)) {
+            return ui.notifications.warn(game.i18n.localize("VEHICLE.JINK_TOO_SLOW"));
+        }
+
+        const operator = game.actors.get(sys.operatorId);
+        if (!operator) return ui.notifications.warn(game.i18n.localize("VEHICLE.NO_OPERATOR"));
+        if (!operator.isOwner) return ui.notifications.warn(game.i18n.localize("VEHICLE.GUNNER_NOT_OWNED"));
+
+        const sizePenalty = _sizeModifier(sys.size);
+        const rollData = DarkHeresyUtil.createSkillRollData(operator, "operate");
+        rollData.name = "VEHICLE.ACTION.JINK";
+        rollData.difficulty = { value: 0, text: game.i18n.localize(Dh.difficulties[0]) };
+        rollData.target.modifier = (Number(rollData.target.modifier) || 0)
+            + (Number(sys.operateModifier) || 0) - sizePenalty;
+
+        const vehicle = this.actor;
+        rollData.afterRoll = async data => {
+            const notes = [];
+            if (data.flags?.isSuccess) {
+                const hits = Math.max(1, Number(data.dos) || 1);
+                notes.push(game.i18n.format("VEHICLE.JINK_NEGATED", { hits }));
+            } else if ((Number(data.dof) || 0) >= 5) {
+                notes.push(game.i18n.format("VEHICLE.MANOEUVRE_UNMANAGEABLE", { dof: data.dof }));
+            } else {
+                notes.push(game.i18n.localize("VEHICLE.JINK_FAILED"));
+            }
+            if (sizePenalty) {
+                notes.push(game.i18n.format("VEHICLE.JINK_SIZE", { penalty: -sizePenalty }));
+            }
+            await ChatMessage.create({
+                content: `<div class="dark-heresy chat roll"><div class="dh-card ${data.flags?.isSuccess ? "is-neutral" : "is-fail"}">
+                    <div class="dh-card-h"><span class="who">${vehicle.name}</span>
+                    <span class="verdict">${game.i18n.localize("VEHICLE.ACTION.JINK")}</span></div>
+                    <div class="dh-card-b">${notes.map(n => `<p class="dh-note">${n}</p>`).join("")}</div>
+                    </div></div>`
+            });
+        };
+
+        await prepareCommonRoll(rollData);
+    }
+
+    /**
      * На таран! — полное действие: машина бьёт целью саму себя.
      *
      * Оператор проходит Серьёзную (+0) проверку Управления, и только при успехе
      * машина сталкивается с целью. Урон по книге: 1d10 ударного плюс очки брони
-     * той стороны, которой машина ударила, и ещё 1d10 за каждые полные 10 метров
-     * разгона — того, что она прошла до этого действия.
+     * той стороны, которой машина ударила, и ещё 1d10 за каждые полные 10 метров,
+     * пройденные сверх Тактической Скорости.
      *
      * По другой машине таран отдаёт: таранящая получает урон, равный броне той
      * стороны цели, в которую попала, плюс 1d5.
@@ -8695,7 +9173,11 @@ class VehicleSheet extends DarkHeresySheet {
         // в урон; сторону цели считаем как при выстреле.
         const strikingSide = _getVehicleFacing(victimToken, vehicleToken);
         const strikingArmour = this.actor._vehicleArmour(strikingSide);
-        const runUpDice = Math.floor(runUp / 10);
+        // Лишняя кость идёт за каждые полные 10 метров, пройденных СВЕРХ
+        // Тактической Скорости, а не за весь разгон: сама Тактическая Скорость —
+        // это тот минимум, без которого таран вообще не состоится.
+        const tactical = Number(this.actor.system.speed?.tactical) || 0;
+        const runUpDice = Math.floor(Math.max(0, runUp - tactical) / 10);
 
         const roll = await new Roll(`1d10 + ${strikingArmour}`
             + (runUpDice ? ` + ${runUpDice}d10` : "")).evaluate();
@@ -8715,7 +9197,7 @@ class VehicleSheet extends DarkHeresySheet {
         await roll.toMessage({
             flavor: game.i18n.format("VEHICLE.RAM_FLAVOR", {
                 name: this.actor.name, victim: victim.name,
-                armour: strikingArmour, runUp,
+                armour: strikingArmour, runUp, tactical,
                 push: total,
                 recoil: recoil || "—"
             })
@@ -8894,6 +9376,1761 @@ class VehicleSheet extends DarkHeresySheet {
  * Лист пустотного корабля — тот же бумажный бланк Rogue Trader, только нашей
  * вёрсткой. Ничего не бросает и ничего не решает: это гроссбух.
  */
+/* ══ Пустотный бой ═══════════════════════════════════════════════════════════
+   Rogue Trader, глава VIII, стр. 212-223. Правила чужие для остальной системы:
+   свой счёт ступеней, свои щиты, своя таблица критов и запрет на Праведную
+   ярость. Поэтому весь пустотный бой живёт здесь, отдельным блоком, и ничего
+   не занимает у наземного, кроме броска кубика. */
+
+/**
+ * Ступени успеха по счёту Rogue Trader.
+ *
+ * Привычной по Dark Heresy 2 единицы здесь нет: в примере на стр. 221 разница
+ * 58 − 29 = 29 объявлена «двумя ступенями», а не тремя, и три попадания из неё
+ * выходят как «одно плюс две». Общесистемный счёт (1 + _getDegree) дал бы
+ * лишнее попадание с каждого выстрела, поэтому берётся голое деление.
+ *
+ * @param {number} target итоговое значение Меткости
+ * @param {number} roll выпавшее на d100
+ * @returns {number} ступеней успеха, не меньше нуля
+ */
+function _shipDegrees(target, roll) {
+    return Math.max(0, _getDegree(target, roll));
+}
+
+/**
+ * Сколько попаданий даёт залп.
+ *
+ * Макробатарея кладёт одно попадание плюс по одному за ступень, но не больше
+ * своей Силы. Лэнс — одно плюс по одному за каждые три ступени, и потолка у
+ * него нет: Сила лэнса и так обычно единица.
+ *
+ * @param {string} weaponType "macrobattery" | "lance"
+ * @param {number} degrees ступеней успеха
+ * @param {number} strength действующая Сила орудия
+ * @returns {number}
+ */
+function _shipHitCount(weaponType, degrees, strength) {
+    if (weaponType === "lance") return 1 + Math.floor(degrees / 3);
+    const hits = 1 + degrees;
+    return strength > 0 ? Math.min(hits, strength) : hits;
+}
+
+/**
+ * Погасить попадания пустотными щитами (стр. 220-221).
+ *
+ * Щит снимает столько попаданий, какова его сила, и после этого схлопывается —
+ * но только против того, кто его продавил. Другой стрелок в том же раунде
+ * застаёт щиты снова поднятыми, поэтому счёт ведётся по каждому нападающему
+ * отдельно и сбрасывается со сменой раунда.
+ *
+ * @param {Actor} target
+ * @param {string} attackerId
+ * @param {number} hits
+ * @returns {Promise<{cancelled: number, remaining: number, collapsed: boolean}>}
+ */
+/**
+ * Раунд того боя, в котором стоит корабль.
+ *
+ * game.combat — это бой, открытый в трекере, а не обязательно тот, где идёт
+ * корабельная схватка: на одной сцене легко висит и старая наземная стычка.
+ * Щиты и отметки хода, привязанные к чужому раунду, никогда бы не сбросились.
+ * Поэтому раунд берётся из боя, куда внесён сам корабль, а ключ несёт и id боя,
+ * чтобы раунд 1 одного боя не путался с раундом 1 другого.
+ *
+ * @param {Actor} actor
+ * @returns {string}
+ */
+function _shipCombatRound(actor) {
+    const combat = game.combats.find(c => c.started && c.combatants.some(cb => cb.actor?.id === actor?.id))
+        ?? game.combat;
+    return combat ? `${combat.id}:${combat.round}` : "none";
+}
+
+async function _consumeVoidShields(target, attackerId, hits) {
+    const strength = Number(target?.system?.shields) || 0;
+    if (strength <= 0 || hits <= 0) {
+        return { cancelled: 0, remaining: Math.max(0, hits), collapsed: strength <= 0 };
+    }
+
+    const round = _shipCombatRound(target);
+    const state = target.getFlag("dark-heresy", "voidShields");
+    const absorbed = (state && state.round === round) ? { ...(state.absorbed ?? {}) } : {};
+    const already = Number(absorbed[attackerId]) || 0;
+
+    const cancelled = Math.min(Math.max(0, strength - already), hits);
+    absorbed[attackerId] = already + cancelled;
+    await target.setFlag("dark-heresy", "voidShields", { round, absorbed });
+
+    return {
+        cancelled,
+        remaining: hits - cancelled,
+        collapsed: (already + cancelled) >= strength
+    };
+}
+
+/**
+ * Достать строку из таблицы критов кораблей.
+ *
+ * Таблица лежит в компендиуме, а не в коде: стол должен иметь возможность её
+ * прочитать и подправить. Если компендиума нет — карточка честно скажет, что
+ * крит случился, но текста к нему не нашлось, вместо того чтобы выдумать его.
+ *
+ * @param {number} value номер строки (1d5 при обычном крите, превышение брони
+ *                       у обездвиженного корабля)
+ * @returns {Promise<{value: number, name: string, text: string}|null>}
+ */
+async function _lookupShipCritical(value) {
+    return _lookupTableRow("Starship Critical Hits", value);
+}
+
+/**
+ * Достать строку из таблицы компендиума по номеру.
+ *
+ * Крит — не единственная такая таблица: «Двигатели искалечены» бросаются и
+ * при сорванном Полном ходе, и при крите номер 6. Отсюда же читаются и
+ * таблицы критов машин.
+ *
+ * @param {string} tableName
+ * @param {number} value
+ * @returns {Promise<{value: number, name: string, text: string}|null>}
+ */
+async function _lookupTableRow(tableName, value) {
+    const pack = game.packs.get("dark-heresy.bc-tables");
+    if (!pack) return null;
+    const index = await pack.getIndex();
+    const entry = index.find(e => e.name === tableName);
+    if (!entry) return null;
+    const table = await pack.getDocument(entry._id);
+    const rows = [...(table?.results ?? [])];
+    if (!rows.length) return null;
+    // Превышение брони у обездвиженного корабля легко уходит за 11, а таблица
+    // на 11 кончается: всё, что выше, — та же Катастрофа. Ниже единицы строк
+    // нет вовсе. Поэтому число прижимается к краям таблицы.
+    const top = Math.max(...rows.map(r => r.range[1]));
+    const bottom = Math.min(...rows.map(r => r.range[0]));
+    const looked = Math.min(Math.max(value, bottom), top);
+    const row = rows.find(r => looked >= r.range[0] && looked <= r.range[1]);
+    if (!row) return null;
+    return { value, name: row.name, text: row.description ?? row.text ?? "" };
+}
+
+/**
+ * Выстрел корабельного орудия (стр. 219-221).
+ *
+ * Считает всё до конца — попадания, щиты, урон, броню, крит, — но ничего не
+ * записывает: урон уходит в карточку с кнопкой. Списывать Целостность корпуса
+ * молча нельзя, слишком многое в пустотном бою решается за столом.
+ *
+ * @param {object} options
+ * @returns {Promise<object|null>} разбор выстрела, либо null если стрелять нечем
+ */
+async function rollShipAttack({
+    ship, weapon, gunner = null, target = null,
+    rangeBand = "normal", surprised = false, evasion = 0,
+    lockOn = 0, modifier = 0, post = true, skipDamage = false
+} = {}) {
+    if (!ship || !weapon) return null;
+
+    // Меткость. Наводчик-игрок бросает своей; когда действие поручено команде,
+    // бросает она — по своей выучке (табл. 8-9).
+    const bs = gunner
+        ? (gunner.characteristics?.ballisticSkill?.displayTotal
+            ?? gunner.characteristics?.ballisticSkill?.total ?? 0)
+        : (Number(ship.system.crewRating) || 0);
+
+    // Поправки. Дальность из стр. 220, внезапность из стр. 213, штраф за
+    // просевший Дух приходит готовым из сводки корабля.
+    const rangeMods = { close: 10, normal: 0, long: -10 };
+    const parts = [];
+    const add = (label, value) => { if (value) parts.push({ label, value }); };
+    add(`SHIP.RANGE.${rangeBand.toUpperCase()}`, rangeMods[rangeBand] ?? 0);
+    if (surprised) add("SHIP.MOD.SURPRISED", 20);
+    add("SHIP.MOD.MORALE", Number(ship.system.mods?.ballisticSkill) || 0);
+    // Всё, что манёвры и расширенные действия этого хода повесили на корабли,
+    // подхватывается само: вводить это второй раз в диалоге — значит однажды
+    // забыть или посчитать дважды.
+    const ownTurn = foundry.utils.duplicate(ship.getFlag("dark-heresy", "shipTurn") ?? {});
+    const ownEvasion = Number(ship.getFlag("dark-heresy", "evasion")?.value) || 0;
+    const targetEvasion = Number(target?.getFlag("dark-heresy", "evasion")?.value) || 0;
+    add("SHIP.ACTION.COME_TO_NEW_HEADING", Number(ownTurn.bsPenalty) || 0);
+    // Уклоняющийся корабль и сам стреляет хуже (стр. 215).
+    add("SHIP.MOD.OWN_EVASION", -ownEvasion);
+    add("SHIP.MOD.EVASION", -(targetEvasion + Math.abs(Number(evasion) || 0)));
+    const lockOnBonus = (Number(lockOn) || 0) || (Number(ownTurn.lockOn) || 0);
+    add("SHIP.EXTENDED.LOCK_ON", lockOnBonus);
+    const backsBonus = (Number(ownTurn.backs) || 0) > 0 ? 5 : 0;
+    add("SHIP.ACTION.PUT_BACKS_INTO_IT", backsBonus);
+    add("DIALOG.MODIFIER", Number(modifier) || 0);
+
+    const totalMod = parts.reduce((sum, p) => sum + p.value, 0);
+    const finalTarget = Math.max(0, bs + totalMod);
+
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    const result = roll.total;
+    const attackRender = await roll.render();
+
+    // Разовые подспорья тратятся на этом стволе: наводка — на один компонент
+    // (стр. 218), «Навались!» — на один тест. Отметка «стрелял» ставится всегда.
+    if (lockOnBonus && !lockOn) ownTurn.lockOn = 0;
+    if (backsBonus) ownTurn.backs = (Number(ownTurn.backs) || 0) - 1;
+    ownTurn.shot = true;
+    await ship.setFlag("dark-heresy", "shipTurn", ownTurn);
+
+    const success = result <= finalTarget;
+    const degrees = success ? _shipDegrees(finalTarget, result) : 0;
+
+    const weaponType = weapon.system.weaponType === "lance" ? "lance" : "macrobattery";
+    const strength = Number(weapon.system.strengthEffective ?? weapon.system.strength) || 0;
+    const critRating = Number(weapon.system.critRating) || 0;
+
+    const out = {
+        shipId: ship.id, shipName: ship.name,
+        weaponId: weapon.id, weaponName: weapon.name, weaponType,
+        gunnerName: gunner?.name ?? null,
+        targetId: target?.id ?? null, targetName: target?.name ?? null,
+        bs, parts, totalMod, target: finalTarget, result, success, degrees, attackRender,
+        strength, critRating,
+        hits: 0, cancelled: 0, landed: 0, shieldsCollapsed: false,
+        damageRolls: [], damageTotal: 0, armour: 0, hullDamage: 0,
+        critical: null, notes: []
+    };
+    if (ownTurn.noFire) out.notes.push("SHIP.NOTE.NO_FIRE_DISENGAGE");
+    if (ship.getFlag("dark-heresy", "boarding")) out.notes.push("SHIP.NOTE.BOARDED_NO_FIRE");
+
+    if (!success) {
+        if (post) await _postShipAttackCard(out);
+        return out;
+    }
+
+    out.hits = _shipHitCount(weaponType, degrees, strength);
+
+    // В залпе щиты и урон разбираются позже и разом: сначала надо свести
+    // попадания всех стволов. Выход обязан стоять до щитов — иначе каждый ствол
+    // продавил бы их сам, и залп списал бы щиты второй раз.
+    if (skipDamage) return out;
+
+    // Щиты снимают попадания до того, как бросается урон.
+    if (target) {
+        const shielded = await _consumeVoidShields(target, ship.id, out.hits);
+        out.cancelled = shielded.cancelled;
+        out.landed = shielded.remaining;
+        out.shieldsCollapsed = shielded.collapsed;
+    } else {
+        out.landed = out.hits;
+        out.notes.push("SHIP.NOTE.NO_TARGET");
+    }
+
+    const formula = String(weapon.system.damage || "").trim();
+    if (out.landed > 0 && formula) {
+        for (let i = 0; i < out.landed; i++) {
+            const dmg = new Roll(formula);
+            await dmg.evaluate();
+            out.damageRolls.push(dmg.total);
+        }
+        out.damageTotal = out.damageRolls.reduce((a, b) => a + b, 0);
+    }
+
+    // Броня. Макробатарея складывает броски в один вал и бьётся об неё разом;
+    // лэнс броню не замечает вовсе и идёт прямо в корпус (стр. 220).
+    out.armour = Number(target?.system?.armour) || 0;
+    if (out.landed > 0) {
+        out.hullDamage = weaponType === "lance"
+            ? out.damageTotal
+            : Math.max(0, out.damageTotal - out.armour);
+    }
+
+    // Крит. Две дороги к нему, и книга не говорит, что делать, когда обе
+    // открыты разом. Система берёт вариант для обездвиженного корабля: это
+    // более частное правило, и оно же обычно страшнее.
+    const excess = weaponType === "lance"
+        ? out.damageTotal
+        : out.damageTotal - out.armour;
+    const crippledCrit = !!target?.system?.crippled && excess > 0;
+    const ratingCrit = critRating > 0 && degrees >= critRating;
+
+    if (crippledCrit) {
+        out.critical = await _lookupShipCritical(excess);
+        out.criticalSource = "crippled";
+    } else if (ratingCrit) {
+        // Выстрел, дошедший до Крит-рейтинга, но не пробивший корпус, всё равно
+        // снимает одно очко Целостности — иначе крита бы не было (стр. 220).
+        if (out.hullDamage <= 0) {
+            out.hullDamage = 1;
+            out.notes.push("SHIP.NOTE.CRIT_MINIMUM");
+        }
+        const die = new Roll("1d5");
+        await die.evaluate();
+        out.criticalRoll = die.total;
+        out.critical = await _lookupShipCritical(die.total);
+        out.criticalSource = "rating";
+    }
+    if ((crippledCrit || ratingCrit) && !out.critical) out.notes.push("SHIP.NOTE.CRIT_NO_TABLE");
+
+    // Праведная ярость к корабельным орудиям не применяется (стр. 220) — здесь
+    // её и нет: пустотный бой считает урон сам и мимо _computeDamage.
+
+    if (post) await _postShipAttackCard(out);
+    return out;
+}
+
+/**
+ * Средний бросок формулы урона.
+ *
+ * Нужен только для того, чтобы решить, чьи попадания скормить щитам в залпе:
+ * книга говорит, что стрелок гасит щиты лёгкими стволами, а «лёгкий» — это и
+ * есть меньший средний урон. Разбор грубый (кубики и плюсы), но точнее здесь
+ * и не требуется: сравниваются между собой две-три формулы.
+ *
+ * @param {string} formula
+ * @returns {number}
+ */
+function _averageFormula(formula) {
+    let sum = 0;
+    for (const m of String(formula ?? "").matchAll(/([+-]?)\s*(\d*)d(\d+)|([+-]?\s*\d+)(?!d)/gi)) {
+        if (m[3]) {
+            const sign = m[1] === "-" ? -1 : 1;
+            sum += sign * (Number(m[2] || 1) * (Number(m[3]) + 1) / 2);
+        } else if (m[4]) {
+            sum += Number(m[4].replace(/\s+/g, ""));
+        }
+    }
+    return sum;
+}
+
+/**
+ * Единый залп из нескольких макробатарей (стр. 220).
+ *
+ * Каждый ствол бросает Меткость сам, а вот урон складывается в один вал и
+ * бьётся о броню один раз — в этом весь смысл залпа. Платой идёт крит: сколько
+ * бы стволов ни достало до Крит-рейтинга, залп наносит не больше одного.
+ *
+ * Лэнсы в залп не входят: книга разрешает объединять только макробатареи, да и
+ * складывать нечего — броню лэнс и так не замечает.
+ *
+ * @param {object} options
+ * @returns {Promise<object|null>}
+ */
+async function rollShipSalvo({
+    ship, weapons = [], target = null, gunner = null,
+    rangeBand = "normal", surprised = false, evasion = 0,
+    lockOn = 0, modifier = 0, post = true
+} = {}) {
+    const guns = weapons.filter(w => w?.system?.weaponType !== "lance");
+    if (!ship || guns.length < 2) return null;
+
+    // Каждый ствол стреляет своим броском, но урон пока не катится: сперва надо
+    // узнать, сколько попаданий переживёт щиты.
+    const shots = [];
+    for (const weapon of guns) {
+        const shot = await rollShipAttack({
+            ship, weapon, target, gunner, rangeBand, surprised,
+            evasion, lockOn, modifier, post: false, skipDamage: true
+        });
+        if (shot) shots.push(shot);
+    }
+    if (!shots.length) return null;
+
+    const out = {
+        shipId: ship.id, shipName: ship.name,
+        gunnerName: gunner?.name ?? null,
+        targetId: target?.id ?? null, targetName: target?.name ?? null,
+        shots, hits: 0, cancelled: 0, landed: 0, shieldsCollapsed: false,
+        damageRolls: [], damageTotal: 0, armour: 0, hullDamage: 0,
+        critical: null, notes: []
+    };
+
+    out.hits = shots.reduce((sum, sh) => sum + sh.hits, 0);
+
+    if (target) {
+        const shielded = await _consumeVoidShields(target, ship.id, out.hits);
+        out.cancelled = shielded.cancelled;
+        out.landed = shielded.remaining;
+        out.shieldsCollapsed = shielded.collapsed;
+    } else {
+        out.landed = out.hits;
+        out.notes.push("SHIP.NOTE.NO_TARGET");
+    }
+
+    // Какие именно попадания съедят щиты, выбирает стрелок, и книга говорит,
+    // чем он выбирает: лёгкими стволами, чтобы тяжёлые дошли. Отсюда порядок —
+    // от меньшего среднего урона к большему.
+    const order = [...shots].sort((a, b) =>
+        _averageFormula(_shipWeaponFormula(ship, a.weaponId))
+        - _averageFormula(_shipWeaponFormula(ship, b.weaponId)));
+    let toDiscard = out.cancelled;
+    const surviving = new Map();
+    for (const shot of order) {
+        const kept = Math.max(0, shot.hits - toDiscard);
+        toDiscard = Math.max(0, toDiscard - shot.hits);
+        surviving.set(shot.weaponId, kept);
+    }
+
+    for (const shot of shots) {
+        const count = surviving.get(shot.weaponId) ?? 0;
+        const formula = _shipWeaponFormula(ship, shot.weaponId);
+        shot.landed = count;
+        shot.damageRolls = [];
+        for (let i = 0; i < count && formula; i++) {
+            const dmg = new Roll(formula);
+            await dmg.evaluate();
+            shot.damageRolls.push(dmg.total);
+            out.damageRolls.push(dmg.total);
+        }
+        shot.damageTotal = shot.damageRolls.reduce((a, b) => a + b, 0);
+    }
+    out.damageTotal = out.damageRolls.reduce((a, b) => a + b, 0);
+
+    // Броня вычитается один раз из общего вала — ради этого залп и собирают.
+    out.armour = Number(target?.system?.armour) || 0;
+    const excess = out.damageTotal - out.armour;
+    out.hullDamage = Math.max(0, excess);
+
+    // Крит один на весь залп, даже если до рейтинга дотянулись все стволы.
+    const critShot = shots.find(sh => sh.success && sh.critRating > 0 && sh.degrees >= sh.critRating);
+    if (target?.system?.crippled && excess > 0) {
+        out.critical = await _lookupShipCritical(excess);
+        out.criticalSource = "crippled";
+    } else if (critShot) {
+        if (out.hullDamage <= 0) {
+            out.hullDamage = 1;
+            out.notes.push("SHIP.NOTE.CRIT_MINIMUM");
+        }
+        const die = new Roll("1d5");
+        await die.evaluate();
+        out.criticalRoll = die.total;
+        out.critical = await _lookupShipCritical(die.total);
+        out.criticalSource = "rating";
+    }
+    if (out.criticalSource && !out.critical) out.notes.push("SHIP.NOTE.CRIT_NO_TABLE");
+    if (shots.filter(sh => sh.success && sh.critRating > 0 && sh.degrees >= sh.critRating).length > 1) {
+        out.notes.push("SHIP.NOTE.SALVO_ONE_CRIT");
+    }
+
+    if (post) await _postShipSalvoCard(out);
+    return out;
+}
+
+/**
+ * Формула урона ствола по его идентификатору.
+ * @param {Actor} ship
+ * @param {string} weaponId
+ * @returns {string}
+ */
+function _shipWeaponFormula(ship, weaponId) {
+    return String(ship.items.get(weaponId)?.system?.damage ?? "").trim();
+}
+
+/**
+ * Выложить в чат разбор залпа.
+ * @param {object} data
+ */
+async function _postShipSalvoCard(data) {
+    const view = foundry.utils.duplicate(data);
+    await _enrichShipCritical(view.critical);
+    view.canApply = !!(data.targetId && data.hullDamage > 0);
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/chat/ship-salvo.hbs", view);
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor: game.actors.get(data.shipId) }),
+        content
+    });
+}
+
+/**
+ * Обогатить текст крита для карточки.
+ *
+ * В строках таблицы стоят инлайн-броски вроде [[1d10]] — «брось на тягу»,
+ * «сколько компонентов». Сырым текстом их пришлось бы перебивать руками, а
+ * после обогащения они щёлкаются прямо в карточке.
+ *
+ * @param {object|null} critical
+ */
+async function _enrichShipCritical(critical) {
+    if (!critical?.text) return;
+    critical.html = await foundry.applications.ux.TextEditor.implementation
+        .enrichHTML(critical.text, { async: true });
+}
+
+/**
+ * Выложить в чат разбор выстрела.
+ *
+ * Шаблону отдаётся уже готовое: ключ типа орудия в верхнем регистре, признак
+ * лэнса и признак «есть что применять». Считать это в Handlebars нечем, а
+ * гонять логику через хелперы значит размазать её по двум файлам.
+ *
+ * @param {object} data результат rollShipAttack
+ */
+async function _postShipAttackCard(data) {
+    const view = foundry.utils.duplicate(data);
+    await _enrichShipCritical(view.critical);
+    view.weaponTypeKey = data.weaponType === "lance" ? "LANCE" : "MACROBATTERY";
+    view.isLance = data.weaponType === "lance";
+    view.canApply = !!(data.targetId && data.hullDamage > 0);
+    view.attackRender = data.attackRender ?? "";
+
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/chat/ship-attack.hbs", view);
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor: game.actors.get(data.shipId) }),
+        content
+    });
+}
+
+/**
+ * Списать урон корабля: корпус, а с ним команда и боевой дух.
+ *
+ * Каждое очко Целостности стоит очка Команды и очка Духа (стр. 221) — это
+ * не отдельный бросок, а тот же урон, посчитанный людьми.
+ *
+ * @param {Actor} target
+ * @param {number} hullDamage
+ * @returns {Promise<object>} что именно ушло
+ */
+async function applyShipDamage(target, hullDamage) {
+    const amount = Math.max(0, Number(hullDamage) || 0);
+    if (!target || !amount) return { hull: 0, crew: 0, morale: 0 };
+
+    const num = v => Number(v) || 0;
+    const was = {
+        hull: num(target._source.system.hullIntegrity?.value),
+        crew: num(target._source.system.crew?.value),
+        morale: num(target._source.system.morale?.value)
+    };
+    const hull = Math.max(0, was.hull - amount);
+    const crew = Math.max(0, was.crew - amount);
+    const morale = Math.max(0, was.morale - amount);
+
+    // Потери копятся до начала следующего хода пострадавшего: по ним Триаж и
+    // «Стоять насмерть!» решают, что ещё можно отыграть назад (стр. 218).
+    const loss = foundry.utils.duplicate(target.getFlag("dark-heresy", "shipLoss") ?? {});
+    loss.sinceTurn = {
+        crew: num(loss.sinceTurn?.crew) + (was.crew - crew),
+        morale: num(loss.sinceTurn?.morale) + (was.morale - morale)
+    };
+
+    await target.update({
+        "system.hullIntegrity.value": hull,
+        "system.crew.value": crew,
+        "system.morale.value": morale,
+        "flags.dark-heresy.shipLoss": loss
+    });
+    return { hull: was.hull - hull, crew: was.crew - crew, morale: was.morale - morale };
+}
+
+/**
+ * Итог навыка исполнителя для корабельного действия.
+ *
+ * @param {Actor|null} actor
+ * @param {string} skill ключ из Dh.shipSkillLabels
+ * @returns {number|null} null — у исполнителя такого навыка нет вовсе
+ */
+function _shipPerformerSkill(actor, skill) {
+    if (!actor) return null;
+    const pick = v => (v === undefined || v === null || Number.isNaN(Number(v))) ? null : Number(v);
+    switch (skill) {
+        case "pilot": return pick(actor.skills?.operate?.specialities?.voidship?.total);
+        case "willpower": {
+            const c = actor.characteristics?.willpower;
+            return pick(c?.displayTotal ?? c?.total);
+        }
+        default: return pick(actor.skills?.[skill]?.total);
+    }
+}
+
+/**
+ * Корабельное действие: манёвр или расширенное действие (стр. 213-218).
+ *
+ * Бросок комбинированный, как велит книга: навык исполнителя плюс
+ * характеристика корабля, если действие её называет. Когда действие поручено
+ * команде, бросают по выучке (табл. 8-9).
+ *
+ * Эффекты, которые система умеет держать сама, ложатся на корабль отметками:
+ * уклонение, наводка, помощь духу машины, «Навались!», ремонт, Триаж. То, что
+ * решается картой и расстояниями, карточка называет числом и оставляет столу.
+ *
+ * @param {Actor} ship
+ * @param {string} key ключ Dh.shipActions
+ * @param {object} [options]
+ * @returns {Promise<object|null>}
+ */
+async function rollShipAction(ship, key, { performer = null, modifier = 0, choice = {}, post = true } = {}) {
+    const def = Dh.shipActions[key];
+    if (!ship || !def) return null;
+    const sys = ship.system;
+    const num = v => Number(v) || 0;
+    const warn = k => { ui.notifications.warn(game.i18n.localize(k)); return null; };
+
+    // Противопоставленные тесты с двумя сторонами живут отдельно.
+    const defender = game.actors.get(choice?.defenderId) ?? null;
+    if (key === "boardingRound") return rollBoardingAction(ship, { performer, defender, modifier, post });
+    if (key === "suppressMutiny") {
+        return _rollMutinySuppression(ship, { performer, defender, skill: choice?.skill, modifier, post });
+    }
+
+    const boarding = ship.getFlag("dark-heresy", "boarding");
+    // Сцепленные абордажем корабли не маневрируют и не стреляют (стр. 215).
+    if (def.group === "manoeuvre" && boarding) return warn("SHIP.BOARDING.NO_MANOEUVRE");
+    if (def.boardedOnly && !boarding) return warn("SHIP.BOARDING.NOT_BOARDED");
+    if (["board", "hitAndRun"].includes(key) && sys.boardingDisabled) return warn("SHIP.STATE.NO_BOARDING");
+    const targetShip = def.needsTarget ? (game.actors.get(choice?.targetId) ?? null) : null;
+    if (def.needsTarget && !targetShip) return warn("SHIP.DIALOG.NEED_TARGET");
+    // Что сделать после карточки броска: таран и налёт выкладывают свою.
+    let after = null;
+
+    const skill = (def.skillChoice && def.skillChoice.includes(choice?.skill)) ? choice.skill : def.skill;
+    const own = _shipPerformerSkill(performer, skill);
+    const base = own ?? num(sys.crewRating);
+
+    const parts = [];
+    const add = (label, value) => { if (value) parts.push({ label, value }); };
+    if (def.stat === "manoeuvrability") add("SHIP.MANOEUVRABILITY", num(sys.manoeuvrabilityEffective));
+    if (def.stat === "detection") add("SHIP.DETECTION", num(sys.detectionEffective));
+    add("SHIP.ACTION_PART.DIFFICULTY", num(def.difficulty));
+    if (def.group === "manoeuvre" && sys.silentRunning) add("SHIP.STATE.SILENT_RUNNING", -10);
+    // Штраф Духа — на «все тесты Командования, касающиеся корабля и команды».
+    if (skill === "command") add("SHIP.MOD.COMMAND", num(sys.mods?.command));
+    if (def.shipboard) add("SHIP.MOD.SHIPBOARD_ACTIONS", num(sys.mods?.shipboardActions));
+    // Турели цели мешают подойти налётчикам: −10 за каждое очко (стр. 220).
+    if (key === "hitAndRun") add("SHIP.TURRET_RATING", -10 * num(targetShip?.system?.turretRating));
+
+    const turn = foundry.utils.duplicate(ship.getFlag("dark-heresy", "shipTurn") ?? {});
+    if (def.aidedByBacks && num(turn.backs) > 0) {
+        add("SHIP.ACTION.PUT_BACKS_INTO_IT", 5);
+        turn.backs = num(turn.backs) - 1;
+    }
+    add("DIALOG.MODIFIER", num(modifier));
+
+    const totalMod = parts.reduce((sum, part) => sum + part.value, 0);
+    const target = Math.max(0, base + totalMod);
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    const result = roll.total;
+    const success = result <= target;
+    const degrees = success ? _shipDegrees(target, result) : 0;
+    const failDegrees = success ? 0 : _shipDegrees(result, target);
+
+    const out = {
+        shipId: ship.id, shipName: ship.name, key, label: def.label, group: def.group,
+        performerName: performer?.name ?? null, skillLabel: Dh.shipSkillLabels[skill],
+        base, parts, totalMod, target, result, success, degrees, failDegrees,
+        attackRender: await roll.render(), effect: null, critical: null, notes: []
+    };
+    const say = (k, data = {}) => { out.effect = game.i18n.format(k, data); };
+    // «+5 и ещё +5 за каждые две дополнительные ступени» — у наводки и духа машины.
+    const step5 = 5 + 5 * Math.floor(degrees / 2);
+
+    if (def.group === "manoeuvre") turn.manoeuvre = key;
+
+    switch (key) {
+        case "fightFire": {
+            if (!success) break;
+            const comp = ship.items.get(choice?.componentId);
+            if (!comp?.system?.onFire) {
+                out.notes.push("SHIP.NOTE.NO_FIRE_CHOSEN");
+                break;
+            }
+            await comp.update({ "system.onFire": false, "flags.dark-heresy.fireAge": 0 });
+            say("SHIP.ACTION_OK.FIGHT_FIRE", { name: comp.name });
+            break;
+        }
+
+        case "board":
+            // Абордаж и таран идут вместо стрельбы — при любом исходе.
+            turn.noFire = true;
+            if (success) {
+                await _setBoarding(ship, targetShip);
+                say("SHIP.ACTION_OK.BOARD", { name: targetShip.name });
+            } else {
+                say("SHIP.ACTION_FAIL.BOARD");
+            }
+            break;
+
+        case "ram":
+            turn.noFire = true;
+            if (success) {
+                say("SHIP.ACTION_OK.RAM", { name: targetShip.name });
+                after = () => _resolveRam(ship, targetShip);
+            } else {
+                say("SHIP.ACTION_FAIL.RAM");
+            }
+            break;
+
+        case "breakFree":
+            if (success) {
+                await _clearBoarding(ship);
+                say("SHIP.ACTION_OK.BREAK_FREE");
+            } else {
+                await ship.setFlag("dark-heresy", "breakFreePenalty", -20);
+                say("SHIP.ACTION_FAIL.BREAK_FREE");
+            }
+            break;
+
+        case "hitAndRun":
+            if (success) {
+                say("SHIP.ACTION_OK.HIT_AND_RUN");
+                after = () => _rollHitAndRunRaid(ship, targetShip, { performer, defender });
+            } else {
+                say(failDegrees >= 4 ? "SHIP.ACTION_FAIL.HIT_AND_RUN_SHOT_DOWN" : "SHIP.ACTION_FAIL.HIT_AND_RUN");
+            }
+            break;
+
+        case "mutinyTest":
+            if (ship.getFlag("dark-heresy", "mutinyPending")) await ship.unsetFlag("dark-heresy", "mutinyPending");
+            if (success) {
+                say("SHIP.ACTION_OK.MUTINY_TEST");
+            } else {
+                await ship.setFlag("dark-heresy", "mutiny", true);
+                say("SHIP.ACTION_FAIL.MUTINY_TEST");
+                out.buttons = [{ cls: "ship-mutiny-suppress", label: "SHIP.MUTINY.SUPPRESS" }];
+            }
+            break;
+
+        case "adjustBearing":
+        case "adjustSpeed":
+        case "adjustSpeedBearing":
+            if (success) say(`SHIP.ACTION_OK.${def.code}`, { n: 1 + degrees });
+            break;
+
+        case "comeToNewHeading":
+            if (success) {
+                turn.bsPenalty = -20;
+                say("SHIP.ACTION_OK.COME_TO_NEW_HEADING");
+            }
+            break;
+
+        case "disengage":
+            // Стрелять нельзя при любом исходе (стр. 215).
+            turn.noFire = true;
+            say(success ? "SHIP.ACTION_OK.DISENGAGE" : "SHIP.ACTION_FAIL.DISENGAGE", { n: degrees });
+            break;
+
+        case "evasive":
+            if (success) {
+                // «Успех и каждая следующая ступень» — по −10 за штуку.
+                const value = 10 + 10 * degrees;
+                await ship.setFlag("dark-heresy", "evasion", { value });
+                say("SHIP.ACTION_OK.EVASIVE", { n: value });
+            }
+            break;
+
+        case "activeAugury":
+            if (success) say("SHIP.ACTION_OK.ACTIVE_AUGURY", { n: 20 + 5 * degrees });
+            break;
+
+        case "aidMachineSpirit":
+            if (success) {
+                const stat = choice?.stat === "detection" ? "detection" : "manoeuvrability";
+                turn.aid = { stat, value: step5 };
+                say("SHIP.ACTION_OK.AID_MACHINE_SPIRIT", {
+                    n: step5,
+                    stat: game.i18n.localize(stat === "detection" ? "SHIP.DETECTION" : "SHIP.MANOEUVRABILITY")
+                });
+            }
+            break;
+
+        case "disinformation":
+            if (success) {
+                // «1d5 за каждую ступень». Голый успех по счёту RT — ноль
+                // ступеней; система засчитывает его за одну, иначе удачный
+                // тест не давал бы ничего.
+                const dice = new Roll(`${Math.max(1, degrees)}d5`);
+                await dice.evaluate();
+                const max = num(sys.morale?.max) || 100;
+                const now = num(ship._source.system.morale?.value);
+                const raised = Math.min(max, now + dice.total) - now;
+                await ship.update({ "system.morale.value": now + raised });
+                say("SHIP.ACTION_OK.DISINFORMATION", { n: raised });
+            }
+            break;
+
+        case "emergencyRepairs": {
+            if (!success) break;
+            const comp = ship.items.get(choice?.componentId);
+            if (!comp || comp.type !== "shipComponent" || comp.system.status === "destroyed") {
+                out.notes.push("SHIP.NOTE.NO_COMPONENT");
+                break;
+            }
+            // Ремонт идёт 1d5 ходов, каждая ступень снимает ход, но не меньше одного.
+            const time = new Roll("1d5");
+            await time.evaluate();
+            const turns = Math.max(1, time.total - degrees);
+            await comp.update({ "system.repairTurns": turns });
+            say("SHIP.ACTION_OK.EMERGENCY_REPAIRS", { name: comp.name, n: turns });
+            break;
+        }
+
+        case "flankSpeed":
+            if (success) {
+                say("SHIP.ACTION_OK.FLANK_SPEED", { n: 1 + degrees });
+            } else if (failDegrees >= 2) {
+                const die = new Roll("1d10");
+                await die.evaluate();
+                out.critical = await _lookupTableRow("Starship Engines Crippled", die.total);
+                out.criticalRoll = die.total;
+                say("SHIP.ACTION_FAIL.FLANK_SPEED_BURNOUT");
+            }
+            break;
+
+        case "focusedAugury":
+            if (success) say(`SHIP.ACTION_OK.FOCUSED_AUGURY_${Math.min(3, degrees)}`);
+            break;
+
+        case "holdFast":
+        case "triage": {
+            out.notes.push(key === "holdFast" ? "SHIP.NOTE.HOLD_FAST_TALENT" : null);
+            if (!success) break;
+            // Отыгрывается только урон прошлого хода и не больше 1 + ступени.
+            const track = key === "holdFast" ? "morale" : "crew";
+            const loss = foundry.utils.duplicate(ship.getFlag("dark-heresy", "shipLoss") ?? {});
+            const lost = num(loss.prevTurn?.[track]);
+            const back = Math.min(1 + degrees, lost);
+            if (back <= 0) {
+                out.notes.push("SHIP.NOTE.NOTHING_TO_CANCEL");
+                break;
+            }
+            const max = num(sys[track]?.max) || 100;
+            const now = num(ship._source.system[track]?.value);
+            const restored = Math.min(max, now + back) - now;
+            loss.prevTurn = { ...(loss.prevTurn ?? {}), [track]: lost - restored };
+            await ship.update({
+                [`system.${track}.value`]: now + restored,
+                "flags.dark-heresy.shipLoss": loss
+            });
+            say(`SHIP.ACTION_OK.${def.code}`, { n: restored });
+            break;
+        }
+
+        case "jamComms":
+            if (success) say("SHIP.ACTION_OK.JAM_COMMUNICATIONS", { n: 10 + degrees });
+            break;
+
+        case "lockOn":
+            if (success) {
+                turn.lockOn = step5;
+                say("SHIP.ACTION_OK.LOCK_ON_TARGET", { n: step5 });
+            }
+            break;
+
+        case "prepareRepel":
+            if (success) {
+                // Держится, пока персонаж сплачивает защитников, — не до конца
+                // хода, поэтому отдельной отметкой, а не в отметке хода.
+                const value = 10 + 5 * degrees;
+                await ship.setFlag("dark-heresy", "repelBonus", value);
+                say("SHIP.ACTION_OK.PREPARE_TO_REPEL", { n: value });
+            }
+            break;
+
+        case "putBacks":
+            if (success) {
+                turn.backs = 1 + Math.floor(degrees / 3);
+                say("SHIP.ACTION_OK.PUT_BACKS_INTO_IT", { n: turn.backs });
+            }
+            break;
+    }
+
+    out.notes = out.notes.filter(Boolean);
+    if (!out.effect) {
+        out.effect = game.i18n.localize(success ? "SHIP.ACTION_FAIL.GENERIC"
+            : (def.group === "manoeuvre" ? "SHIP.ACTION_FAIL.MANOEUVRE" : "SHIP.ACTION_FAIL.GENERIC"));
+    }
+
+    await ship.setFlag("dark-heresy", "shipTurn", turn);
+    if (post) await _postShipActionCard(out);
+    if (after) await after();
+    return out;
+}
+
+/**
+ * Выложить в чат разбор корабельного действия.
+ * @param {object} data
+ */
+async function _postShipActionCard(data) {
+    const view = foundry.utils.duplicate(data);
+    await _enrichShipCritical(view.critical);
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/chat/ship-action.hbs", view);
+    await ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor: game.actors.get(data.shipId) }),
+        content
+    });
+}
+
+/**
+ * Начало стратегического хода корабля.
+ *
+ * Снимается всё, что держалось «до начала следующего хода»: уклонение,
+ * отметки манёвра и выстрела, разовые подспорья. Потери, накопленные с
+ * прошлого хода, переезжают в «прошлый ход» — их ещё могут отыграть Триаж и
+ * «Стоять насмерть!». Идущий ремонт отсчитывает ход.
+ *
+ * @param {Actor} ship
+ * @param {object|null} combatant
+ */
+async function _onShipTurnStart(ship, combatant) {
+    const num = v => Number(v) || 0;
+    const loss = ship.getFlag("dark-heresy", "shipLoss") ?? {};
+    await ship.update({
+        "flags.dark-heresy.shipTurn": {
+            round: _shipCombatRound(ship), manoeuvre: null, shot: false, noFire: false,
+            bsPenalty: 0, lockOn: 0, aid: null, backs: 0
+        },
+        "flags.dark-heresy.shipLoss": {
+            sinceTurn: { crew: 0, morale: 0 },
+            prevTurn: { crew: num(loss.sinceTurn?.crew), morale: num(loss.sinceTurn?.morale) }
+        }
+    });
+    if (ship.getFlag("dark-heresy", "evasion")) await ship.unsetFlag("dark-heresy", "evasion");
+
+    const finished = [];
+    for (const comp of (ship.shipComponents ?? [])) {
+        const left = num(comp.system.repairTurns);
+        if (left <= 0) continue;
+        if (left > 1) {
+            await comp.update({ "system.repairTurns": left - 1 });
+            continue;
+        }
+        const update = { "system.repairTurns": 0, "system.depressurised": false };
+        if (["damaged", "unpowered"].includes(comp.system.status)) update["system.status"] = "intact";
+        await comp.update(update);
+        finished.push(comp.name);
+    }
+
+    // Пожары (стр. 223). Огонь, переживший целый ход корабля, пожирает отсек и
+    // перекидывается дальше. Возраст считается по началам хода: загоревшийся
+    // между ходами получает свой ход на тушение.
+    const fireNotes = [];
+    const burning = (ship.shipComponents ?? []).filter(c => c.system.onFire);
+    for (const comp of burning) {
+        const age = num(comp.getFlag("dark-heresy", "fireAge"));
+        if (age < 1) {
+            await comp.setFlag("dark-heresy", "fireAge", age + 1);
+            continue;
+        }
+        const consumed = { "system.onFire": false, "flags.dark-heresy.fireAge": 0, "flags.dark-heresy.burnedOut": true };
+        if (comp.system.status !== "destroyed") consumed["system.status"] = "damaged";
+        await comp.update(consumed);
+
+        const candidates = (ship.shipComponents ?? []).filter(c => c.id !== comp.id && !c.system.onFire
+            && c.system.status !== "destroyed" && !c.getFlag("dark-heresy", "burnedOut"));
+        if (!candidates.length) {
+            // Выгорело всё — корабль превращён в обугленный остов.
+            fireNotes.push(game.i18n.format("SHIP.FIRE.BURNED_OUT", { from: comp.name }));
+            continue;
+        }
+        // Куда перекинется огонь, книга оставляет ведущему — «из разумных
+        // вариантов». Система тянет жребий среди нетронутых отсеков и называет
+        // выбор в карточке, чтобы ведущий мог переиграть его рукой.
+        const next = candidates[Math.floor(Math.random() * candidates.length)];
+        fireNotes.push(game.i18n.format("SHIP.FIRE.SPREAD", { from: comp.name, to: next.name }));
+        await igniteShipComponent(ship, next);
+    }
+
+    const notes = [...fireNotes];
+    if (finished.length) notes.push(game.i18n.format("SHIP.TURN.REPAIRED", { names: finished.join(", ") }));
+    if (ship.system.halfTurns) notes.push(game.i18n.localize("SHIP.TURN.HALF_TURNS"));
+    if (notes.length) await _postConditionCard(ship, combatant, "SHIP.TURN.START", { notes });
+}
+
+/**
+ * Спросить, кто выполняет корабельное действие, и бросить.
+ *
+ * @param {Actor} ship
+ * @param {string} key
+ */
+async function shipActionDialog(ship, key) {
+    const def = Dh.shipActions[key];
+    if (!ship || !def) return;
+    const skills = def.skillChoice ?? [def.skill];
+
+    const performers = game.actors
+        .filter(a => ["acolyte", "heretic", "npc"].includes(a.type) && a.isOwner)
+        .map(a => {
+            const values = skills.map(sk => _shipPerformerSkill(a, sk));
+            return { id: a.id, name: a.name, values: values.map(v => v ?? "—").join(" / "), any: values.some(v => v !== null) };
+        })
+        .filter(p => p.any)
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    const componentChoices = key === "emergencyRepairs"
+        ? (ship.shipComponents ?? [])
+            .filter(c => c.system.status !== "destroyed"
+                && (["damaged", "unpowered"].includes(c.system.status) || c.system.depressurised))
+            .map(c => ({ id: c.id, name: c.name }))
+        : key === "fightFire"
+            ? (ship.shipComponents ?? []).filter(c => c.system.onFire).map(c => ({ id: c.id, name: c.name }))
+            : [];
+
+    const preselected = [...(game.user.targets ?? [])]
+        .map(t => t.actor).find(a => a?.type === "voidship")?.id ?? null;
+    const targets = def.needsTarget
+        ? game.actors.filter(a => a.type === "voidship" && a.id !== ship.id)
+            .map(a => ({ id: a.id, name: a.name, selected: a.id === preselected }))
+        : [];
+    // Защищающуюся сторону ведёт кто угодно, не только свои: это чужой
+    // командир или вожак мятежа, и бросает за него обычно ведущий.
+    const defenders = def.defender
+        ? game.actors.filter(a => ["acolyte", "heretic", "npc"].includes(a.type))
+            .map(a => ({ id: a.id, name: a.name, value: _shipPerformerSkill(a, skills[0]) }))
+            .filter(entry => entry.value !== null)
+            .sort((a, b) => a.name.localeCompare(b.name))
+        : [];
+
+    const d = Number(def.difficulty) || 0;
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/dialog/ship-action.hbs", {
+            hint: def.hint,
+            crewRating: Number(ship.system.crewRating) || 0,
+            performers,
+            skillLabel: Dh.shipSkillLabels[skills[0]],
+            skillChoice: def.skillChoice ? def.skillChoice.map(sk => ({ key: sk, label: Dh.shipSkillLabels[sk] })) : null,
+            statChoice: key === "aidMachineSpirit",
+            hasComponentChoice: ["emergencyRepairs", "fightFire"].includes(key),
+            componentChoices,
+            componentEmpty: key === "fightFire" ? "SHIP.DIALOG.NO_BURNING" : "SHIP.DIALOG.NO_REPAIRABLE",
+            needsTarget: !!def.needsTarget,
+            targets,
+            hasDefender: !!def.defender,
+            defenderDefault: def.defender ?? null,
+            defenders,
+            stat: def.stat === "detection" ? "SHIP.DETECTION" : (def.stat === "manoeuvrability" ? "SHIP.MANOEUVRABILITY" : null),
+            diffText: d > 0 ? `+${d}` : (d < 0 ? `−${Math.abs(d)}` : "+0")
+        });
+
+    dhDialog({
+        title: `${ship.name} — ${game.i18n.localize(def.label)}`,
+        content,
+        buttons: {
+            roll: {
+                label: game.i18n.localize("SHIP.DIALOG.ROLL"),
+                callback: async html => {
+                    await rollShipAction(ship, key, {
+                        performer: game.actors.get(html.find("#shipPerformer").val()) ?? null,
+                        modifier: Number(html.find("#shipActionModifier").val()) || 0,
+                        choice: {
+                            skill: html.find("#shipActionSkill").val(),
+                            stat: html.find("#shipActionStat").val(),
+                            componentId: html.find("#shipActionComponent").val(),
+                            targetId: html.find("#shipActionTarget").val(),
+                            defenderId: html.find("#shipDefender").val()
+                        }
+                    });
+                }
+            },
+            cancel: { label: game.i18n.localize("DIALOG.CANCEL") }
+        },
+        default: "roll"
+    }).render(true);
+}
+
+/**
+ * Бросить формулу и вернуть итог.
+ * @param {string} formula
+ * @returns {Promise<number>}
+ */
+async function _rollTotal(formula) {
+    const roll = new Roll(formula);
+    await roll.evaluate();
+    return roll.total;
+}
+
+/**
+ * Списать людей и Дух, не трогая корпус.
+ *
+ * Пожар, вентиляция отсека, абордажная резня и подавленный мятеж бьют по
+ * команде напрямую. Потери записываются так же, как у урона корпуса, — их
+ * потом ищут Триаж и «Стоять насмерть!».
+ *
+ * @param {Actor} ship
+ * @param {number} crew
+ * @param {number} morale
+ * @returns {Promise<{crew: number, morale: number}>} сколько ушло на деле
+ */
+async function _loseCrewAndMorale(ship, crew, morale) {
+    const num = v => Number(v) || 0;
+    const was = { crew: num(ship._source.system.crew?.value), morale: num(ship._source.system.morale?.value) };
+    const now = {
+        crew: Math.max(0, was.crew - num(crew)),
+        morale: Math.max(0, was.morale - num(morale))
+    };
+    const loss = foundry.utils.duplicate(ship.getFlag("dark-heresy", "shipLoss") ?? {});
+    loss.sinceTurn = {
+        crew: num(loss.sinceTurn?.crew) + (was.crew - now.crew),
+        morale: num(loss.sinceTurn?.morale) + (was.morale - now.morale)
+    };
+    await ship.update({
+        "system.crew.value": now.crew,
+        "system.morale.value": now.morale,
+        "flags.dark-heresy.shipLoss": loss
+    });
+    return { crew: was.crew - now.crew, morale: was.morale - now.morale };
+}
+
+/**
+ * Поджечь компонент (стр. 223).
+ *
+ * Огонь сразу стоит 1d5 Команды и 1d10 Духа — «мало что пугает сильнее
+ * пожара на борту». Возраст пожара обнуляется: у команды есть ход, чтобы его
+ * потушить, прежде чем он сожрёт отсек.
+ *
+ * @param {Actor} ship
+ * @param {Item} comp
+ */
+async function igniteShipComponent(ship, comp) {
+    if (!ship || !comp || comp.system.onFire) return null;
+    await comp.update({ "system.onFire": true, "flags.dark-heresy.fireAge": 0 });
+    const lost = await _loseCrewAndMorale(ship, await _rollTotal("1d5"), await _rollTotal("1d10"));
+    await _postConditionCard(ship, null, "SHIP.FIRE.IGNITED", {
+        figures: [
+            { n: lost.crew, cap: game.i18n.localize("SHIP.CREW") },
+            { n: lost.morale, cap: game.i18n.localize("SHIP.MORALE"), lead: true }
+        ],
+        notes: [game.i18n.format("SHIP.FIRE.IGNITED_NOTE", { name: comp.name })]
+    });
+    return lost;
+}
+
+/**
+ * Стравить горящий отсек в пустоту (стр. 223).
+ *
+ * Огонь гаснет сразу, но отсек разгерметизирован. Вместо обычного урона от
+ * пожара — 1d5 Команды (люди уже бежали) и 2d10 Духа: смотреть, как своих
+ * выбрасывает в пустоту, никому не нравится.
+ *
+ * @param {Actor} ship
+ * @param {Item} comp
+ */
+async function ventShipComponent(ship, comp) {
+    if (!ship || !comp || !comp.system.onFire) return null;
+    await comp.update({ "system.onFire": false, "system.depressurised": true, "flags.dark-heresy.fireAge": 0 });
+    const lost = await _loseCrewAndMorale(ship, await _rollTotal("1d5"), await _rollTotal("2d10"));
+    await _postConditionCard(ship, null, "SHIP.FIRE.VENTED", {
+        figures: [
+            { n: lost.crew, cap: game.i18n.localize("SHIP.CREW") },
+            { n: lost.morale, cap: game.i18n.localize("SHIP.MORALE"), lead: true }
+        ],
+        notes: [game.i18n.format("SHIP.FIRE.VENTED_NOTE", { name: comp.name })]
+    });
+    return lost;
+}
+
+/**
+ * Разгерметизировать компонент (стр. 223): 1d10 Команды и 1d5 Духа.
+ *
+ * Компонент от этого не становится повреждённым и работает дальше — если
+ * расчёт в пустотных скафандрах.
+ *
+ * @param {Actor} ship
+ * @param {Item} comp
+ */
+async function depressuriseShipComponent(ship, comp) {
+    if (!ship || !comp || comp.system.depressurised) return null;
+    await comp.update({ "system.depressurised": true });
+    const lost = await _loseCrewAndMorale(ship, await _rollTotal("1d10"), await _rollTotal("1d5"));
+    await _postConditionCard(ship, null, "SHIP.FIRE.DEPRESSURISED", {
+        figures: [
+            { n: lost.crew, cap: game.i18n.localize("SHIP.CREW"), lead: true },
+            { n: lost.morale, cap: game.i18n.localize("SHIP.MORALE") }
+        ],
+        notes: [game.i18n.format("SHIP.FIRE.DEPRESSURISED_NOTE", { name: comp.name })]
+    });
+    return lost;
+}
+
+/**
+ * Бросок одной стороны противопоставленного теста.
+ * @param {object} side
+ * @returns {Promise<object>}
+ */
+async function _shipRollSide({ label, performerName = null, skillLabel, base, parts = [] }) {
+    const clean = parts.filter(part => part.value);
+    const totalMod = clean.reduce((sum, part) => sum + part.value, 0);
+    const target = Math.max(0, base + totalMod);
+    const result = await _rollTotal("1d100");
+    const success = result <= target;
+    return {
+        label, performerName, skillLabel, base, parts: clean, totalMod, target, result, success,
+        degrees: success ? _shipDegrees(target, result) : 0,
+        failDegrees: success ? 0 : _shipDegrees(result, target),
+        isWinner: false
+    };
+}
+
+/**
+ * Кто выиграл противопоставленный тест и на сколько ступеней.
+ *
+ * Выигрывает прошедший тест; из двух прошедших — у кого больше ступеней, и
+ * разница их и есть перевес. Прошедший против проваленного выигрывает на свои
+ * ступени, но не меньше чем на одну: успех над провалом не может ничего не
+ * стоить. Два провала и равные ступени — ничья.
+ *
+ * @param {object} a
+ * @param {object} b
+ * @returns {{winner: "a"|"b"|null, margin: number}}
+ */
+function _shipOpposed(a, b) {
+    if (!a.success && !b.success) return { winner: null, margin: 0 };
+    if (a.success && !b.success) return { winner: "a", margin: Math.max(1, a.degrees) };
+    if (!a.success && b.success) return { winner: "b", margin: Math.max(1, b.degrees) };
+    if (a.degrees === b.degrees) return { winner: null, margin: 0 };
+    return a.degrees > b.degrees
+        ? { winner: "a", margin: a.degrees - b.degrees }
+        : { winner: "b", margin: b.degrees - a.degrees };
+}
+
+async function _renderShipOpposed(view) {
+    // Одинаковые строки подряд схлопываются в одну с «×N»: когда у проигравших
+    // уже нечего отнимать, десяток одинаковых «−0» только растягивал карточку.
+    const logGroups = [];
+    for (const text of (view.log ?? [])) {
+        const last = logGroups.at(-1);
+        if (last && last.text === text) {
+            last.count += 1;
+            last.many = true;
+        } else {
+            logGroups.push({ text, count: 1, many: false });
+        }
+    }
+    return foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/chat/ship-opposed.hbs", { ...view, logGroups });
+}
+
+/**
+ * Выложить карточку противопоставленного теста. Разбор кладётся во флаг
+ * сообщения: карточка абордажа живая, по ней тратят ступени перевеса.
+ */
+async function _postShipOpposedCard(ship, view) {
+    return ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor: ship }),
+        content: await _renderShipOpposed(view),
+        flags: { "dark-heresy": { shipOpposed: view } }
+    });
+}
+
+async function _updateShipOpposedCard(message, view) {
+    await message.update({ content: await _renderShipOpposed(view), "flags.dark-heresy.shipOpposed": view });
+}
+
+/** Сцепить два корабля абордажем. */
+async function _setBoarding(ship, target) {
+    await ship.setFlag("dark-heresy", "boarding", { with: target.id, boarder: true });
+    try {
+        await target.setFlag("dark-heresy", "boarding", { with: ship.id, boarder: false });
+    } catch (err) {
+        ui.notifications.warn(game.i18n.format("SHIP.BOARDING.NO_PERMISSION", { name: target.name }));
+    }
+}
+
+/** Расцепить корабль и того, с кем он был сцеплен. */
+async function _clearBoarding(ship) {
+    const state = ship.getFlag("dark-heresy", "boarding");
+    if (state) await ship.unsetFlag("dark-heresy", "boarding");
+    const other = game.actors.get(state?.with);
+    if (other?.getFlag("dark-heresy", "boarding")?.with === ship.id) {
+        try { await other.unsetFlag("dark-heresy", "boarding"); } catch (err) { /* чужой корабль — снимет ведущий */ }
+    }
+}
+
+/**
+ * Таран (стр. 215).
+ *
+ * Бьёт бронёй носа плюс кубиком по классу корпуса. Щиты его не держат, а броня
+ * цели держит как обычно: исключение книга делает только для щитов. Таранящий
+ * получает в ответ броню цели плюс 1d5 — против собственной брони носа.
+ *
+ * @param {Actor} ship
+ * @param {Actor} target
+ */
+async function _resolveRam(ship, target) {
+    const num = v => Number(v) || 0;
+    const hull = Dh.shipHullTypes[ship.system.hullType];
+    const view = {
+        shipId: ship.id, shipName: ship.name, targetId: target.id, targetName: target.name,
+        notes: ["SHIP.RAM.IGNORES_SHIELDS"], noHull: !hull
+    };
+    if (!hull) {
+        view.notes = ["SHIP.RAM.NO_HULL_TYPE"];
+    } else {
+        const die = await _rollTotal(hull.ram);
+        const recoil = await _rollTotal("1d5");
+        const ownArmour = num(ship.system.armour);
+        const theirArmour = num(target.system.armour);
+        const impact = die + ownArmour;
+        const back = theirArmour + recoil;
+        view.impact = { formula: hull.ram, die, armour: ownArmour, against: theirArmour, hull: Math.max(0, impact - theirArmour) };
+        view.recoil = { die: recoil, armour: theirArmour, against: ownArmour, hull: Math.max(0, back - ownArmour) };
+        // Обездвиженный корабль берёт крит с любого урона сверх брони.
+        if (target.system.crippled && view.impact.hull > 0) {
+            view.impact.critical = await _lookupShipCritical(view.impact.hull);
+            await _enrichShipCritical(view.impact.critical);
+        }
+        if (ship.system.crippled && view.recoil.hull > 0) {
+            view.recoil.critical = await _lookupShipCritical(view.recoil.hull);
+            await _enrichShipCritical(view.recoil.critical);
+        }
+    }
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/chat/ship-ram.hbs", view);
+    await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: ship }), content });
+    return view;
+}
+
+/**
+ * Ход абордажного боя: противопоставленное Командование (стр. 215).
+ *
+ * Большая команда даёт +10 за каждые полные 10 разницы, крепче корпус — так
+ * же, турели — +10 за очко своей стороне. Защищающимся помогает «Готовься
+ * отражать абордаж!», сорвавшим попытку вырваться мешают −20. Победитель
+ * тратит ступени перевеса кнопками карточки, проигравший затем бросает Дух.
+ *
+ * @param {Actor} ship
+ * @param {object} [options]
+ */
+async function rollBoardingAction(ship, { performer = null, defender = null, modifier = 0, post = true } = {}) {
+    const num = v => Number(v) || 0;
+    const state = ship.getFlag("dark-heresy", "boarding");
+    const enemy = game.actors.get(state?.with);
+    if (!state || !enemy) {
+        ui.notifications.warn(game.i18n.localize("SHIP.BOARDING.NOT_BOARDED"));
+        return null;
+    }
+    // Сцепленные корабли ходят одновременно, и тест Командования за раунд один
+    // на двоих (стр. 215). Кнопка боя есть на мостике у обоих кораблей, и без
+    // этой отметки абордаж шёл бы дважды за раунд — по разу с каждого борта.
+    const roundKey = _shipCombatRound(ship);
+    const enemyState = enemy.getFlag("dark-heresy", "boarding") ?? {};
+    if (roundKey !== "none" && (state.foughtRound === roundKey || enemyState.foughtRound === roundKey)) {
+        ui.notifications.warn(game.i18n.localize("SHIP.BOARDING.ALREADY_FOUGHT"));
+        return null;
+    }
+
+    const sideParts = (me, other) => {
+        const mine = me.getFlag("dark-heresy", "boarding") ?? {};
+        const parts = [];
+        const crewDiff = num(me.system.crew?.value) - num(other.system.crew?.value);
+        if (crewDiff >= 10) parts.push({ label: "SHIP.BOARDING.CREW_ADVANTAGE", value: 10 * Math.floor(crewDiff / 10) });
+        // В книге здесь опечатка: бонус «за Целостность корпуса» отмерен за
+        // разницу в Команде. Считается по Целостности — иначе строка просто
+        // повторяла бы предыдущую.
+        const hullDiff = num(me.system.hullIntegrity?.value) - num(other.system.hullIntegrity?.value);
+        if (hullDiff >= 10) parts.push({ label: "SHIP.BOARDING.HULL_ADVANTAGE", value: 10 * Math.floor(hullDiff / 10) });
+        parts.push({ label: "SHIP.TURRET_RATING", value: 10 * num(me.system.turretRating) });
+        parts.push({ label: "SHIP.MOD.COMMAND", value: num(me.system.mods?.command) });
+        parts.push({ label: "SHIP.MOD.SHIPBOARD_ACTIONS", value: num(me.system.mods?.shipboardActions) });
+        if (!mine.boarder) parts.push({ label: "SHIP.ACTION.PREPARE_TO_REPEL", value: num(me.getFlag("dark-heresy", "repelBonus")) });
+        parts.push({ label: "SHIP.ACTION.BREAK_FREE", value: num(me.getFlag("dark-heresy", "breakFreePenalty")) });
+        return parts;
+    };
+
+    const a = await _shipRollSide({
+        label: ship.name, performerName: performer?.name ?? null, skillLabel: "SHIP.SKILL.COMMAND",
+        base: _shipPerformerSkill(performer, "command") ?? num(ship.system.crewRating),
+        parts: [...sideParts(ship, enemy), { label: "DIALOG.MODIFIER", value: num(modifier) }]
+    });
+    const b = await _shipRollSide({
+        label: enemy.name, performerName: defender?.name ?? null, skillLabel: "SHIP.SKILL.COMMAND",
+        base: _shipPerformerSkill(defender, "command") ?? num(enemy.system.crewRating),
+        parts: sideParts(enemy, ship)
+    });
+    if (roundKey !== "none") {
+        await ship.setFlag("dark-heresy", "boarding", { ...state, foughtRound: roundKey });
+        try {
+            await enemy.setFlag("dark-heresy", "boarding", { ...enemyState, foughtRound: roundKey });
+        } catch (err) { /* чужой корабль — отметки хватит и на этом */ }
+    }
+
+    // Штраф за сорванную попытку вырваться действует на один тест.
+    for (const side of [ship, enemy]) {
+        if (!side.getFlag("dark-heresy", "breakFreePenalty")) continue;
+        try { await side.unsetFlag("dark-heresy", "breakFreePenalty"); } catch (err) { /* чужой корабль */ }
+    }
+
+    const outcome = _shipOpposed(a, b);
+    a.isWinner = outcome.winner === "a";
+    b.isWinner = outcome.winner === "b";
+    const winner = a.isWinner ? ship : (b.isWinner ? enemy : null);
+    const loser = a.isWinner ? enemy : (b.isWinner ? ship : null);
+    const view = {
+        mode: "boarding", title: "SHIP.BOARDING.TITLE", shipId: ship.id, sides: [a, b],
+        winnerId: winner?.id ?? null, loserId: loser?.id ?? null,
+        outcomeText: winner
+            ? game.i18n.format("SHIP.OPPOSED.WINNER", { name: winner.name, n: outcome.margin })
+            : game.i18n.localize("SHIP.BOARDING.STALEMATE"),
+        remaining: winner ? outcome.margin : 0,
+        canSpend: !!winner, canMorale: false,
+        log: [], notes: ["SHIP.BOARDING.SIMULTANEOUS"],
+        verdictClass: winner ? "is-success" : "is-neutral"
+    };
+    if (post) await _postShipOpposedCard(ship, view);
+    return view;
+}
+
+/**
+ * Потратить ступень перевеса в абордаже или бросить Дух проигравшего.
+ *
+ * За каждую ступень победитель выбирает: резня (1d5 Команды и 1d5 Духа) или
+ * подрыв (1 очко Целостности, а с ним, как всегда, и люди). Когда ступени
+ * кончились, проигравший бросает d100 против Духа: выше — команда сдаётся.
+ *
+ * @param {ChatMessage} message
+ * @param {"raid"|"sabotage"|"morale"} how
+ */
+async function _spendBoardingDegree(message, how) {
+    const view = foundry.utils.duplicate(message.getFlag("dark-heresy", "shipOpposed") ?? {});
+    const loser = game.actors.get(view.loserId);
+    if (!loser) return ui.notifications.warn(game.i18n.localize("SHIP.CHAT.NO_TARGET"));
+    view.log = view.log ?? [];
+
+    if (how === "morale") {
+        if (view.moraleRoll) return;
+        const roll = await _rollTotal("1d100");
+        const morale = Number(loser.system.morale?.value) || 0;
+        view.moraleRoll = roll;
+        view.surrendered = roll > morale;
+        // Бросок Духа — итог всей абордажной схватки, а не ещё одна строка
+        // журнала: карточка показывает его отдельной плашкой.
+        view.moraleText = game.i18n.format(view.surrendered ? "SHIP.BOARDING.SURRENDERS" : "SHIP.BOARDING.HOLDS",
+            { roll, morale, name: loser.name });
+        if (view.surrendered) await _clearBoarding(loser);
+    } else {
+        if ((view.remaining ?? 0) <= 0) return;
+        if (how === "raid") {
+            const lost = await _loseCrewAndMorale(loser, await _rollTotal("1d5"), await _rollTotal("1d5"));
+            view.log.push(game.i18n.format("SHIP.BOARDING.RAID_LOG", lost));
+        } else {
+            const lost = await applyShipDamage(loser, 1);
+            view.log.push(game.i18n.format("SHIP.BOARDING.SABOTAGE_LOG", lost));
+        }
+        view.remaining -= 1;
+    }
+    view.canSpend = view.remaining > 0;
+    view.canMorale = !view.canSpend && !view.moraleRoll;
+    await _updateShipOpposedCard(message, view);
+}
+
+/**
+ * Налёт: противопоставленное Обычное (+10) Командование с командиром солдат
+ * на борту цели (стр. 218).
+ *
+ * Победа налётчиков — два броска 1d5 по таблице критов, ведущий выбирает один,
+ * и корпус теряет очко за каждую ступень успеха. Ничья — налётчики уходят ни с
+ * чем: книга требует от них победы.
+ *
+ * @param {Actor} ship
+ * @param {Actor} target
+ * @param {object} [options]
+ */
+async function _rollHitAndRunRaid(ship, target, { performer = null, defender = null } = {}) {
+    const num = v => Number(v) || 0;
+    const a = await _shipRollSide({
+        label: ship.name, performerName: performer?.name ?? null, skillLabel: "SHIP.SKILL.COMMAND",
+        base: _shipPerformerSkill(performer, "command") ?? num(ship.system.crewRating),
+        parts: [
+            { label: "SHIP.ACTION_PART.DIFFICULTY", value: 10 },
+            { label: "SHIP.MOD.COMMAND", value: num(ship.system.mods?.command) }
+        ]
+    });
+    const b = await _shipRollSide({
+        label: target.name, performerName: defender?.name ?? null, skillLabel: "SHIP.SKILL.COMMAND",
+        base: _shipPerformerSkill(defender, "command") ?? num(target.system.crewRating),
+        parts: [
+            { label: "SHIP.ACTION_PART.DIFFICULTY", value: 10 },
+            { label: "SHIP.MOD.COMMAND", value: num(target.system.mods?.command) },
+            // Отражение налёта — из тех тестов, по которым бьёт таблица Команды.
+            { label: "SHIP.MOD.SHIPBOARD_ACTIONS", value: num(target.system.mods?.shipboardActions) },
+            { label: "SHIP.ACTION.PREPARE_TO_REPEL", value: num(target.getFlag("dark-heresy", "repelBonus")) }
+        ]
+    });
+    const outcome = _shipOpposed(a, b);
+    a.isWinner = outcome.winner === "a";
+    b.isWinner = outcome.winner === "b";
+
+    const view = {
+        mode: "hitAndRun", title: "SHIP.HIT_AND_RUN.TITLE", shipId: ship.id, targetId: target.id,
+        sides: [a, b], notes: [], log: [], crits: [], hullDamage: 0
+    };
+    if (a.isWinner) {
+        for (let i = 0; i < 2; i++) {
+            const die = await _rollTotal("1d5");
+            const row = await _lookupShipCritical(die);
+            if (!row) continue;
+            await _enrichShipCritical(row);
+            view.crits.push({ ...row, roll: die });
+        }
+        if (!view.crits.length) view.notes.push("SHIP.NOTE.CRIT_NO_TABLE");
+        view.hullDamage = a.degrees;
+        view.outcomeText = game.i18n.format("SHIP.HIT_AND_RUN.WIN", { n: a.degrees });
+        view.verdictClass = "is-success";
+    } else {
+        view.outcomeText = game.i18n.localize("SHIP.HIT_AND_RUN.LOSE");
+        view.verdictClass = "is-failure";
+    }
+    view.canApply = view.hullDamage > 0;
+    await _postShipOpposedCard(ship, view);
+    return view;
+}
+
+/**
+ * Подавить мятеж (стр. 225): противопоставленный тест с вожаком.
+ *
+ * Навык выбирают игроки, и от него зависит цена победы: Командование — 1d5
+ * Команды и 1d5 Духа, Обаяние — 1d10 Духа, Устрашение — 1 Команды и 1d10
+ * Духа. Мятежники, выигравшие на три ступени и больше, забирают корабль;
+ * выигравшие меньше — борьба продолжается.
+ *
+ * @param {Actor} ship
+ * @param {object} [options]
+ */
+async function _rollMutinySuppression(ship, { performer = null, defender = null, skill = "command", modifier = 0, post = true } = {}) {
+    const num = v => Number(v) || 0;
+    const sk = ["command", "charm", "intimidate"].includes(skill) ? skill : "command";
+    const a = await _shipRollSide({
+        label: ship.name, performerName: performer?.name ?? null, skillLabel: Dh.shipSkillLabels[sk],
+        base: _shipPerformerSkill(performer, sk) ?? num(ship.system.crewRating),
+        parts: [
+            // Пример книги: капитан и в борьбе с мятежом несёт штраф Духа к Командованию.
+            { label: "SHIP.MOD.COMMAND", value: sk === "command" ? num(ship.system.mods?.command) : 0 },
+            { label: "DIALOG.MODIFIER", value: num(modifier) }
+        ]
+    });
+    const b = await _shipRollSide({
+        label: game.i18n.localize("SHIP.DIALOG.MUTINEERS"), performerName: defender?.name ?? null,
+        skillLabel: Dh.shipSkillLabels[sk],
+        base: _shipPerformerSkill(defender, sk) ?? num(ship.system.crewRating)
+    });
+    const outcome = _shipOpposed(a, b);
+    a.isWinner = outcome.winner === "a";
+    b.isWinner = outcome.winner === "b";
+
+    const view = { mode: "mutiny", title: "SHIP.MUTINY.TITLE", shipId: ship.id, sides: [a, b], notes: [], log: [], buttons: [] };
+    if (a.isWinner) {
+        let crew = 0;
+        let morale = 0;
+        if (sk === "command") { crew = await _rollTotal("1d5"); morale = await _rollTotal("1d5"); }
+        else if (sk === "charm") { morale = await _rollTotal("1d10"); }
+        else { crew = 1; morale = await _rollTotal("1d10"); }
+        await ship.unsetFlag("dark-heresy", "mutiny");
+        const lost = await _loseCrewAndMorale(ship, crew, morale);
+        view.outcomeText = game.i18n.format(`SHIP.MUTINY.ENDS_${sk.toUpperCase()}`, lost);
+        view.verdictClass = "is-success";
+    } else if (b.isWinner && outcome.margin >= 3) {
+        await ship.setFlag("dark-heresy", "mutiny", "lost");
+        view.outcomeText = game.i18n.localize("SHIP.MUTINY.LOST");
+        view.verdictClass = "is-failure";
+    } else {
+        view.outcomeText = game.i18n.localize("SHIP.MUTINY.CONTINUES");
+        view.verdictClass = "is-neutral";
+        view.buttons.push({ cls: "ship-mutiny-suppress", label: "SHIP.MUTINY.SUPPRESS" });
+    }
+    if (post) await _postShipOpposedCard(ship, view);
+    return view;
+}
+
+/**
+ * Карточка угрозы мятежа с кнопкой проверки.
+ * @param {Actor} ship
+ * @param {number[]|null} crossed пройденные пороги; null — проверка после боя
+ */
+async function _postMutinyWarning(ship, crossed) {
+    const note = crossed
+        ? game.i18n.format("SHIP.MUTINY.CROSSED", { thresholds: crossed.join(", ") })
+        : game.i18n.localize("SHIP.MUTINY.AFTER_COMBAT");
+    await _postConditionCard(ship, null, "SHIP.MUTINY.WARNING", {
+        notes: [note],
+        extra: `<div class="dh-actions ship-btn-row"><button type="button" class="ship-btn ship-mutiny-test" data-ship-id="${ship.id}">${game.i18n.localize("SHIP.MUTINY.TEST")}</button></div>`
+    });
+}
+
+/**
+ * Спросить поправки и выстрелить.
+ *
+ * Цель подставляется из наведённой мишени, если она наведена: в пустотном бою
+ * целятся токенами так же, как и в наземном, и заставлять выбирать её второй
+ * раз в списке незачем.
+ *
+ * @param {Actor} ship
+ * @param {Item} weapon
+ */
+async function shipAttackDialog(ship, weapon) {
+    const targeted = [...(game.user.targets ?? [])]
+        .map(t => t.actor).filter(a => a?.type === "voidship");
+    const preselected = targeted[0]?.id ?? null;
+
+    const targets = game.actors
+        .filter(a => a.type === "voidship" && a.id !== ship.id)
+        .map(a => ({ id: a.id, name: a.name, selected: a.id === preselected }));
+
+    // В наводчики годится всякий, кем игрок может бросать: правила не требуют
+    // от него ни должности, ни навыка, только Меткости.
+    const gunners = game.actors
+        .filter(a => ["acolyte", "heretic", "npc"].includes(a.type) && a.isOwner)
+        .map(a => ({
+            id: a.id, name: a.name,
+            bs: a.characteristics?.ballisticSkill?.displayTotal
+                ?? a.characteristics?.ballisticSkill?.total ?? 0
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/dialog/ship-attack.hbs", {
+            targets, gunners,
+            crewRating: Number(ship.system.crewRating) || 0,
+            strength: weapon.system.strengthEffective ?? weapon.system.strength,
+            critRating: weapon.system.critRating,
+            damage: weapon.system.damage
+        });
+
+    dhDialog({
+        title: `${weapon.name} — ${game.i18n.localize("SHIP.DIALOG.FIRE")}`,
+        content,
+        buttons: {
+            fire: {
+                label: game.i18n.localize("SHIP.DIALOG.FIRE"),
+                callback: async html => {
+                    const num = sel => Number(html.find(sel).val()) || 0;
+                    await rollShipAttack({
+                        ship, weapon,
+                        target: game.actors.get(html.find("#shipTarget").val()) ?? null,
+                        gunner: game.actors.get(html.find("#shipGunner").val()) ?? null,
+                        rangeBand: html.find("#shipRange").val() || "normal",
+                        surprised: html.find("#shipSurprised").is(":checked"),
+                        modifier: num("#shipModifier")
+                    });
+                }
+            },
+            cancel: { label: game.i18n.localize("DIALOG.CANCEL") }
+        },
+        default: "fire"
+    }).render(true);
+}
+
+/**
+ * Спросить, какие макробатареи свести в залп, и дать его.
+ *
+ * Тот же диалог, что у одиночного выстрела, плюс список стволов. Лэнсов в нём
+ * нет: объединять книга разрешает только макробатареи.
+ *
+ * @param {Actor} ship
+ */
+async function shipSalvoDialog(ship) {
+    const macros = (ship.shipWeapons ?? []).filter(w => w.system.weaponType !== "lance");
+    if (macros.length < 2) {
+        return ui.notifications.warn(game.i18n.localize("SHIP.DIALOG.SALVO_NEEDS_TWO"));
+    }
+
+    const preselected = [...(game.user.targets ?? [])]
+        .map(t => t.actor).find(a => a?.type === "voidship")?.id ?? null;
+    const targets = game.actors
+        .filter(a => a.type === "voidship" && a.id !== ship.id)
+        .map(a => ({ id: a.id, name: a.name, selected: a.id === preselected }));
+    const gunners = game.actors
+        .filter(a => ["acolyte", "heretic", "npc"].includes(a.type) && a.isOwner)
+        .map(a => ({
+            id: a.id, name: a.name,
+            bs: a.characteristics?.ballisticSkill?.displayTotal
+                ?? a.characteristics?.ballisticSkill?.total ?? 0
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/dialog/ship-attack.hbs", {
+            targets, gunners,
+            crewRating: Number(ship.system.crewRating) || 0,
+            salvoWeapons: macros.map(w => ({
+                id: w.id, name: w.name, damage: w.system.damage,
+                strength: w.system.strengthEffective ?? w.system.strength
+            }))
+        });
+
+    dhDialog({
+        title: `${ship.name} — ${game.i18n.localize("SHIP.DIALOG.SALVO")}`,
+        content,
+        buttons: {
+            fire: {
+                label: game.i18n.localize("SHIP.DIALOG.SALVO"),
+                callback: async html => {
+                    const num = sel => Number(html.find(sel).val()) || 0;
+                    const weapons = html.find(".dh-salvo-weapon:checked").toArray()
+                        .map(el => ship.items.get(el.dataset.weaponId)).filter(Boolean);
+                    if (weapons.length < 2) {
+                        return ui.notifications.warn(game.i18n.localize("SHIP.DIALOG.SALVO_NEEDS_TWO"));
+                    }
+                    await rollShipSalvo({
+                        ship, weapons,
+                        target: game.actors.get(html.find("#shipTarget").val()) ?? null,
+                        gunner: game.actors.get(html.find("#shipGunner").val()) ?? null,
+                        rangeBand: html.find("#shipRange").val() || "normal",
+                        surprised: html.find("#shipSurprised").is(":checked"),
+                        modifier: num("#shipModifier")
+                    });
+                }
+            },
+            cancel: { label: game.i18n.localize("DIALOG.CANCEL") }
+        },
+        default: "fire"
+    }).render(true);
+}
+
+/**
+ * Кнопка «применить» на карточке выстрела.
+ *
+ * Урон в пустотном бою не списывается сам: слишком многое здесь решается за
+ * столом — и какой компонент выбрал атакующий, и стоит ли вообще засчитывать
+ * попадание. Поэтому карточка считает всё до конца и ждёт нажатия.
+ */
+function _activateShipChatListeners(html, message = null) {
+    const root = html instanceof HTMLElement ? html : html?.[0];
+    if (!root) return;
+    const loc = k => game.i18n.localize(k);
+    const applied = new Set(message?.getFlag?.("dark-heresy", "appliedButtons") ?? []);
+
+    for (const button of root.querySelectorAll(".ship-damage-apply")) {
+        const card = button.closest(".ship-attack-card, .ship-salvo-card, .ship-ram-card, .ship-opposed-card");
+        const applyKey = button.dataset.applyKey || "hull";
+        // Отметка живёт на сообщении: после перерисовки чата кнопка иначе ожила
+        // бы, и тот же залп списали бы второй раз.
+        if (applied.has(applyKey)) button.disabled = true;
+        button.addEventListener("click", async ev => {
+            const btn = ev.currentTarget;
+            const target = game.actors.get(btn.dataset.targetId || card?.dataset.targetId);
+            const amount = Number(btn.dataset.hullDamage ?? card?.dataset.hullDamage) || 0;
+            if (!target) return ui.notifications.warn(loc("SHIP.CHAT.NO_TARGET"));
+            if (!target.isOwner) return ui.notifications.warn(loc("SHIP.CHAT.NOT_OWNER"));
+
+            btn.disabled = true;
+            const result = await applyShipDamage(target, amount);
+            btn.textContent = game.i18n.format("SHIP.CHAT.APPLIED",
+                { hull: result.hull, crew: result.crew, morale: result.morale });
+            if (message && (game.user.isGM || message.isAuthor)) {
+                await message.setFlag("dark-heresy", "appliedButtons", [...applied, applyKey]);
+            }
+        });
+    }
+
+    for (const button of root.querySelectorAll(".ship-board-raid, .ship-board-sabotage, .ship-board-morale")) {
+        button.addEventListener("click", async ev => {
+            ev.preventDefault();
+            if (!message?.getFlag?.("dark-heresy", "shipOpposed")) return;
+            if (!(game.user.isGM || message.isAuthor)) return ui.notifications.warn(loc("SHIP.CHAT.NOT_OWNER"));
+            const cls = ev.currentTarget.classList;
+            ev.currentTarget.disabled = true;
+            await _spendBoardingDegree(message,
+                cls.contains("ship-board-raid") ? "raid" : (cls.contains("ship-board-sabotage") ? "sabotage" : "morale"));
+        });
+    }
+
+    for (const button of root.querySelectorAll(".ship-mutiny-test, .ship-mutiny-suppress")) {
+        button.addEventListener("click", ev => {
+            ev.preventDefault();
+            const ship = game.actors.get(ev.currentTarget.dataset.shipId);
+            if (!ship) return ui.notifications.warn(loc("SHIP.CHAT.NO_TARGET"));
+            shipActionDialog(ship, ev.currentTarget.classList.contains("ship-mutiny-test") ? "mutinyTest" : "suppressMutiny");
+        });
+    }
+}
+
 class VoidshipSheet extends DarkHeresySheet {
 
     static get defaultOptions() {
@@ -8914,9 +11151,63 @@ class VoidshipSheet extends DarkHeresySheet {
         data.source = this.actor._source.system;
         data.config = {
             locations: Dh.shipLocations,
-            weaponTypes: Dh.shipWeaponTypes
+            weaponTypes: Dh.shipWeaponTypes,
+            hullTypes: Dh.shipHullTypes,
+            crewRatings: Dh.shipCrewRatings,
+            componentStatus: Dh.shipComponentStatus,
+            componentCategories: Dh.shipComponentCategories
         };
         data.weapons = this.actor.shipWeapons ?? [];
+        data.components = this.actor.shipComponents ?? [];
+        data.canSalvo = data.weapons.filter(w => w.system.weaponType !== "lance").length >= 2;
+
+        // Мостик: что уже сделано за ход и что сейчас висит на корабле.
+        const loc = k => game.i18n.localize(k);
+        const turnFlag = this.actor.getFlag("dark-heresy", "shipTurn") ?? {};
+        const evasionFlag = this.actor.getFlag("dark-heresy", "evasion");
+        const repel = Number(this.actor.getFlag("dark-heresy", "repelBonus")) || 0;
+        const chips = [];
+        if (evasionFlag?.value) chips.push({ kind: "good", text: `${loc("SHIP.ACTION.EVASIVE")} −${evasionFlag.value}` });
+        if (turnFlag.bsPenalty) chips.push({ kind: "crippled", text: `${loc("SHIP.ACTION.COME_TO_NEW_HEADING")} ${turnFlag.bsPenalty}` });
+        if (turnFlag.lockOn) chips.push({ kind: "good", text: `${loc("SHIP.ACTION.LOCK_ON_TARGET")} +${turnFlag.lockOn}` });
+        if (turnFlag.aid?.value) chips.push({ kind: "good", text: `${loc("SHIP.ACTION.AID_MACHINE_SPIRIT")} +${turnFlag.aid.value} ${loc(turnFlag.aid.stat === "detection" ? "SHIP.DETECTION" : "SHIP.MANOEUVRABILITY")}` });
+        if (turnFlag.backs) chips.push({ kind: "good", text: `${loc("SHIP.ACTION.PUT_BACKS_INTO_IT")} ×${turnFlag.backs}` });
+        if (repel) chips.push({ kind: "good", text: `${loc("SHIP.ACTION.PREPARE_TO_REPEL")} +${repel}` });
+        if (turnFlag.noFire) chips.push({ kind: "crippled", text: loc("SHIP.BRIDGE.NO_FIRE") });
+        const boardingFlag = this.actor.getFlag("dark-heresy", "boarding");
+        const mutinyFlag = this.actor.getFlag("dark-heresy", "mutiny");
+        const visible = def => (!def.boardedOnly || !!boardingFlag)
+            && (!def.unboardedOnly || !boardingFlag)
+            && (!def.mutinyOnly || mutinyFlag === true);
+        if (boardingFlag) {
+            const other = game.actors.get(boardingFlag.with);
+            chips.push({ kind: "warn", text: game.i18n.format("SHIP.BRIDGE.BOARDED", { name: other?.name ?? "?" }) });
+        }
+        if (mutinyFlag === true) chips.push({ kind: "crippled", text: loc("SHIP.BRIDGE.MUTINY") });
+        if (mutinyFlag === "lost") chips.push({ kind: "crippled", text: loc("SHIP.BRIDGE.MUTINY_LOST") });
+        if (this.actor.getFlag("dark-heresy", "mutinyPending")) chips.push({ kind: "warn", text: loc("SHIP.BRIDGE.MUTINY_PENDING") });
+        const actionList = group => Object.entries(Dh.shipActions)
+            .filter(([, def]) => def.group === group && visible(def))
+            .map(([key, def]) => {
+                const d = Number(def.difficulty) || 0;
+                return {
+                    key, label: def.label, hint: def.hint,
+                    diffText: d > 0 ? `+${d}` : (d < 0 ? `−${Math.abs(d)}` : "+0"),
+                    done: group === "manoeuvre" && turnFlag.manoeuvre === key
+                };
+            });
+        data.bridge = {
+            manoeuvre: turnFlag.manoeuvre ? Dh.shipActions[turnFlag.manoeuvre]?.label : null,
+            shot: !!turnFlag.shot,
+            chips,
+            repel,
+            silentRunning: !!this.actor.system.silentRunning,
+            initiativeBonus: this.actor.system.detectionBonus ?? 0,
+            manoeuvres: actionList("manoeuvre"),
+            extended: actionList("extended"),
+            assault: actionList("assault"),
+            crew: actionList("crew")
+        };
         const enrich = html => foundry.applications.ux.TextEditor.implementation
             .enrichHTML(html ?? "", { async: true, relativeTo: this.actor });
         data.enrichment = {
@@ -8934,6 +11225,46 @@ class VoidshipSheet extends DarkHeresySheet {
         super.activateListeners(html);
         if (!this.isEditable) return;
         html.find(".ship-weapon-create").click(ev => this._onShipWeaponCreate(ev));
+        html.find(".ship-component-create").click(ev => this._onShipComponentCreate(ev));
+        html.find(".ship-weapon-fire").click(ev => this._onShipWeaponFire(ev));
+        html.find(".ship-salvo-fire").click(ev => {
+            ev.preventDefault();
+            shipSalvoDialog(this.actor);
+        });
+        html.find(".ship-action").click(ev => {
+            ev.preventDefault();
+            shipActionDialog(this.actor, ev.currentTarget.dataset.action);
+        });
+        html.find(".ship-silent-running").click(async ev => {
+            ev.preventDefault();
+            const on = !!this.actor.getFlag("dark-heresy", "silentRunning");
+            await this.actor.setFlag("dark-heresy", "silentRunning", !on);
+        });
+        // Вне боевого трекера ход никто не начнёт сам — для этого кнопка.
+        html.find(".ship-turn-reset").click(ev => {
+            ev.preventDefault();
+            _onShipTurnStart(this.actor, null);
+        });
+        html.find(".ship-clear-repel").click(async ev => {
+            ev.preventDefault();
+            await this.actor.unsetFlag("dark-heresy", "repelBonus");
+        });
+        // Бедствия компонента — с последствиями для людей, а не просто флажок.
+        html.find(".ship-comp-ignite").click(async ev => {
+            ev.preventDefault();
+            const comp = this._shipItemFromEvent(ev);
+            if (comp) await igniteShipComponent(this.actor, comp);
+        });
+        html.find(".ship-comp-vent").click(async ev => {
+            ev.preventDefault();
+            const comp = this._shipItemFromEvent(ev);
+            if (comp) await ventShipComponent(this.actor, comp);
+        });
+        html.find(".ship-comp-depressurise").click(async ev => {
+            ev.preventDefault();
+            const comp = this._shipItemFromEvent(ev);
+            if (comp) await depressuriseShipComponent(this.actor, comp);
+        });
         html.find(".item-edit").click(ev => this._onShipItemEdit(ev));
         html.find(".item-delete").click(ev => this._onShipItemDelete(ev));
     }
@@ -8943,6 +11274,31 @@ class VoidshipSheet extends DarkHeresySheet {
         const name = game.i18n.format("DOCUMENT.New",
             { type: game.i18n.localize("TYPES.Item.shipWeapon") });
         await this.actor.createEmbeddedDocuments("Item", [{ name, type: "shipWeapon" }]);
+    }
+
+    /**
+     * Завести компонент в том списке, из которого нажали.
+     *
+     * Список сам говорит свою категорию, поэтому спрашивать её ещё раз в
+     * диалоге незачем: нажали в «Существенных» — значит существенный.
+     */
+    async _onShipComponentCreate(event) {
+        event.preventDefault();
+        const category = event.currentTarget.dataset.category || "essential";
+        const name = game.i18n.format("DOCUMENT.New",
+            { type: game.i18n.localize("TYPES.Item.shipComponent") });
+        await this.actor.createEmbeddedDocuments("Item",
+            [{ name, type: "shipComponent", system: { category } }]);
+    }
+
+    /**
+     * Выстрелить из орудия, на котором нажали.
+     */
+    async _onShipWeaponFire(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const weapon = this._shipItemFromEvent(event);
+        if (weapon) await shipAttackDialog(this.actor, weapon);
     }
 
     _shipItemFromEvent(event) {
@@ -9168,6 +11524,62 @@ async function openWeaponTraitPicker(item) {
     dialog.render(true);
 }
 
+async function openStructuredTraitEditor(item) {
+    if (!item?.isOwner || !["weapon", "vehicleWeapon", "psychicPower"].includes(item.type)) return;
+    const source = item._source.system;
+    const before = structuredClone(source.traitOverrides ?? {});
+    const special = item.type === "psychicPower" ? source.damage?.special : source.special;
+    const inherited = DarkHeresyUtil.extractWeaponTraits(special);
+    const localize = key => game.i18n.localize(key);
+    const aliases = {rfFace:"vengeful", skipAttackRoll:"spray", overheating:"overheats"};
+    const rows = Object.entries(WEAPON_TRAIT_TYPES).map(([key,type]) => {
+        const labelKey = aliases[key] ?? key;
+        const catalog = DH_WEAPON_TRAITS.find(trait => trait.key === labelKey);
+        const mode = !Object.hasOwn(before,key) ? "inherit" : before[key] === false ? "off" : "value";
+        const base = inherited[key];
+        return {key, label:localize(`WEAPON.QUALITY.${labelKey}`), hint:localize(`WEAPON.QUALITY_HINT.${labelKey}`),
+            mode, hasValue:type !== "boolean", numeric:type === "number", editable:mode === "value",
+            value:mode === "value" ? before[key] : base !== false && base !== undefined ? base : catalog?.default ?? "",
+            inherited:base === true ? localize("WEAPON.TRAIT_ON") : base === false || base === undefined ? localize("WEAPON.TRAIT_OFF") : base};
+    });
+    const content = await foundry.applications.handlebars.renderTemplate(
+        "systems/dark-heresy/template/dialog/trait-overrides.hbs", {rows, special,
+            modes:{inherit:"WEAPON.TRAIT_INHERIT",off:"WEAPON.TRAIT_OFF",value:"WEAPON.TRAIT_EXPLICIT"}});
+    const dialog = new foundry.applications.api.DialogV2({
+        window:{title:`${item.name} — ${localize("WEAPON.TRAIT_EDITOR")}`, resizable:true},
+        classes:["dark-heresy-dialog"], position:{width:640}, content,
+        form:{closeOnSubmit:false},
+        buttons:[{action:"save", label:localize("BUTTON.APPLY"), icon:"fas fa-check", default:true,
+            callback:async (_event, button, instance) => {
+                try {
+                    if (!item.isOwner) throw new Error(localize("WEAPON.TRAIT_NO_PERMISSION"));
+                    const after = traitOverridesFromRows(Array.from(button.form.querySelectorAll(".dh-override-row"),row => ({
+                        key:row.dataset.key, mode:row.querySelector("select").value, value:row.querySelector("input")?.value
+                    })));
+                    const patch = traitOverridePatch(before, after, item._source.system.traitOverrides ?? {});
+                    if (Object.keys(patch).length) await item.update(patch);
+                    await instance.close();
+                } catch (error) { ui.notifications.error(error.message); }
+            }},
+            {action:"cancel",label:localize("BUTTON.CANCEL"),callback:(_event,_button,instance)=>instance.close()}]
+    });
+    dialog.addEventListener("render", () => {
+        const root = dialog.element;
+        root.querySelector(".dh-override-filter").addEventListener("input", event => {
+            const query = event.target.value.trim().toLocaleLowerCase();
+            for (const row of root.querySelectorAll(".dh-override-row")) row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+        });
+        for (const row of root.querySelectorAll(".dh-override-row")) {
+            row.querySelector("select").addEventListener("change", event => {
+                const input = row.querySelector("input");
+                if (input) { input.disabled = event.target.value !== "value"; input.required = !input.disabled; }
+            });
+        }
+    }, {once:true});
+    await dialog.render(true);
+    return dialog;
+}
+
 class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
     // Every subclass sets its own `classes` array, and mergeObject replaces arrays
     // rather than concatenating them, so there was no single hook to style all 19
@@ -9189,6 +11601,7 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
         // Effects listeners
         html.find(".list-create[data-type='effect']").click(ev => this._onEffectCreate(ev));
         html.find(".list-toggle").click(ev => this._onListToggle(ev));
+        html.find(".list-restart").click(ev => { ev.preventDefault(); return restartEffect(this._getDocument(ev)); });
         html.find(".list-delete").click(ev => this._onListDelete(ev));
         html.find(".list-edit").click(ev => this._onListEdit(ev));
         
@@ -9214,7 +11627,7 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
         // In Foundry VTT, item.effects is a Collection (read-only), convert it to array for template
         // We create a new property instead of overwriting the read-only one
         if (this.item && this.item.effects) {
-            data.item.effectsList = Array.from(this.item.effects.values());
+            data.item.effectsList = Array.from(this.item.effects.values(), effectView);
         } else {
             data.item.effectsList = [];
         }
@@ -9231,6 +11644,10 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
 
     _getHeaderButtons() {
         let buttons = super._getHeaderButtons();
+        if (this.item.isOwner && ["weapon", "vehicleWeapon", "psychicPower"].includes(this.item.type)) {
+            buttons.unshift({label:game.i18n.localize("WEAPON.TRAIT_EDITOR"), class:"trait-overrides",
+                icon:"fas fa-sliders", onclick:() => openStructuredTraitEditor(this.item)});
+        }
         buttons = [
             {
                 label: game.i18n.localize("BUTTON.POST_ITEM"),
@@ -9383,6 +11800,27 @@ class ShipWeaponSheet extends DarkHeresyItemSheet {
         const data = await super.getData();
         data.locations = Dh.shipLocations;
         data.weaponTypes = Dh.shipWeaponTypes;
+        return data;
+    }
+}
+
+class ShipComponentSheet extends DarkHeresyItemSheet {
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["dark-heresy", "sheet", "ship-component"],
+            template: "systems/dark-heresy/template/sheet/ship-component.hbs",
+            width: 560,
+            height: 540,
+            resizable: true,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "stats" }]
+        });
+    }
+
+    async getData() {
+        const data = await super.getData();
+        data.categories = Dh.shipComponentCategories;
+        data.statuses = Dh.shipComponentStatus;
+        data.qualities = Dh.shipQualities;
         return data;
     }
 }
@@ -10355,6 +12793,15 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/actor/tab/vehicle-traits.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/voidship-profile.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/voidship-components.hbs",
+        "systems/dark-heresy/template/sheet/ship-component.hbs",
+        "systems/dark-heresy/template/chat/ship-attack.hbs",
+        "systems/dark-heresy/template/dialog/ship-attack.hbs",
+        "systems/dark-heresy/template/chat/ship-salvo.hbs",
+        "systems/dark-heresy/template/chat/ship-action.hbs",
+        "systems/dark-heresy/template/dialog/ship-action.hbs",
+        "systems/dark-heresy/template/sheet/actor/tab/voidship-bridge.hbs",
+        "systems/dark-heresy/template/chat/ship-opposed.hbs",
+        "systems/dark-heresy/template/chat/ship-ram.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/voidship-weapons.hbs",
 
         "systems/dark-heresy/template/sheet/mental-disorder.hbs",
@@ -10378,6 +12825,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/force-field.hbs",
 
         "systems/dark-heresy/template/sheet/item/effects.hbs",
+        "systems/dark-heresy/template/sheet/item/effect-group.hbs",
 
         "systems/dark-heresy/template/sheet/characteristics/information.hbs",
         "systems/dark-heresy/template/sheet/characteristics/left.hbs",
@@ -10537,38 +12985,56 @@ function registerHandlebarsHelpers() {
 }
 
 const migrateWorld = async () => {
-    const schemaVersion = 13;
-    const worldSchemaVersion = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
-    if (worldSchemaVersion !== schemaVersion && game.user.isGM) {
-        ui.notifications.info("Upgrading the world, please wait...");
-        for (let actor of game.actors.contents) {
-            try {
-                const update = migrateActorData(actor, worldSchemaVersion);
-                if (!foundry.utils.isEmpty(update)) {
-                    await actor.update(update, {enforceTypes: false});
-                }
-                if (worldSchemaVersion < 7) await migrateActorEffects(actor);
-                if (worldSchemaVersion < 13) await migrateActorItems(actor);
-            } catch(e) {
-                console.error(e);
+    const schemaVersion = 14;
+    if (game.user !== game.users.activeGM) return;
+    const previous = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
+    if (previous > schemaVersion) throw new Error("World schema is newer than this system; migration refused.");
+    if (previous === schemaVersion) return;
+    ui.notifications.info("Upgrading the world, please wait...");
+    try {
+        for (const actor of game.actors.contents) await migrateActorDocument(actor, previous);
+        // Synthetic Actors have independent deltas even when they share a base Actor.
+        for (const scene of game.scenes.values()) {
+            for (const token of scene.tokens.values()) {
+                if (!token.actorLink && token.actor) await migrateActorDocument(token.actor, previous);
             }
         }
-        for (let pack of
-            game.packs.filter(p => p.metadata.package === "world" && ["Actor"].includes(p.metadata.type))) {
-            await migrateCompendium(pack, worldSchemaVersion);
+        for (const item of game.items.contents) {
+            const update = migrateItemData(item);
+            if (!foundry.utils.isEmpty(update)) await item.update(update);
         }
-        // Предметы в сайдбаре — это будущий компендиум, и раздача архетипа
-        // смотрит в них раньше, чем в паки. Их надо привести к новой схеме тоже.
-        if (worldSchemaVersion < 13) {
-            const updates = game.items.contents
-                .map(item => migrateItemData(item))
-                .filter(update => !foundry.utils.isEmpty(update));
-            if (updates.length) await Item.updateDocuments(updates);
+        for (const pack of game.packs.filter(p => (p.metadata.packageType === "world" || p.metadata.package === "world")
+            && ["Actor", "Item"].includes(p.documentName ?? p.metadata.type))) {
+            await migrateCompendium(pack, previous);
         }
-        game.settings.set("dark-heresy", "worldSchemaVersion", schemaVersion);
+        await game.settings.set("dark-heresy", "worldSchemaVersion", schemaVersion);
         ui.notifications.info("Upgrade complete!");
+    } catch (error) {
+        ui.notifications.error("World upgrade incomplete. The version was not advanced; review the console and retry after fixing the error.");
+        throw error;
     }
 };
+
+async function migrateActorDocument(actor, version) {
+    // Import old textual aptitudes before deleting their source. Retrying cannot duplicate items.
+    const oldAptitudes = actor._source?.system?.aptitudes ?? actor._source?.system?.legacyData?.aptitudes;
+    if (version < 4 && oldAptitudes) {
+        const existing = new Set(Array.from(actor.items).filter(i => i.type === "aptitude").map(i => i.name));
+        const items = [];
+        for (const aptitude of Object.values(oldAptitudes)) {
+            const name = aptitude?.name?.trim();
+            if (!name || existing.has(name)) continue;
+            items.push({name, type: "aptitude", img: "systems/dark-heresy/assets/icons/generic.webp"});
+            existing.add(name);
+        }
+        if (items.length) await actor.createEmbeddedDocuments("Item", items);
+    }
+    const update = migrateActorData(actor, version);
+    if (!foundry.utils.isEmpty(update)) await actor.update(update);
+    // Both migrations are idempotent; also repair documents missed by schema 13's world-only traversal.
+    await migrateActorEffects(actor);
+    await migrateActorItems(actor);
+}
 
 /**
  * Move condition metadata on an actor's ActiveEffects into flags (world schema 7).
@@ -10735,126 +13201,34 @@ const migrateActorData = (actor, worldSchemaVersion) => {
             update.img = "systems/dark-heresy/assets/tokens/unknown.webp";
         }
     }
-    if (worldSchemaVersion < 1) {
-        if (actor.data.type === "acolyte" || actor.data.type === "npc") {
-            actor.data.skills.psyniscience.characteristics = ["Per", "WP"];
-            update["system.skills.psyniscience"] = actor.data.data.skills.psyniscience;
+    const source = actor._source?.system ?? {};
+    if (worldSchemaVersion < 1 && ["acolyte", "npc"].includes(actor.type)) {
+        update["system.skills.psyniscience.characteristics"] = ["Per", "WP"];
+    }
+    if (worldSchemaVersion < 2 && ["acolyte", "npc"].includes(actor.type)) {
+        for (const [key, label] of Object.entries({officioAssassinorum:"Officio Assassinorum", pirates:"Pirates",
+            psykers:"Psykers", theWarp:"The Warp", xenos:"Xenos"})) {
+            if (source.skills?.forbiddenLore?.specialities?.[key] !== undefined) continue;
+            update["system.skills.forbiddenLore.specialities." + key] = {label, isKnown:false, advance:-20, cost:0};
         }
     }
-    if (worldSchemaVersion < 2) {
-        if (actor.data.type === "acolyte" || actor.data.type === "npc") {
-
-            let characteristic = actor.data.characteristics.intelligence.base;
-            let advance = -20;
-            let total = characteristic.total + advance;
-
-            actor.data.data.skills.forbiddenLore.specialities.officioAssassinorum = {
-                label: "Officio Assassinorum",
-                isKnown: false,
-                advance: advance,
-                total: total,
-                cost: 0
-            };
-            actor.data.data.skills.forbiddenLore.specialities.pirates = {
-                label: "Pirates",
-                isKnown: false,
-                advance: advance,
-                total: total,
-                cost: 0
-            };
-            actor.data.data.skills.forbiddenLore.specialities.psykers = {
-                label: "Psykers",
-                isKnown: false,
-                advance: advance,
-                total: total,
-                cost: 0
-            };
-            actor.data.data.skills.forbiddenLore.specialities.theWarp = {
-                label: "The Warp",
-                isKnown: false,
-                advance: advance,
-                total: total,
-                cost: 0
-            };
-            actor.data.data.skills.forbiddenLore.specialities.xenos = {
-                label: "Xenos",
-                isKnown: false,
-                advance: advance,
-                total: total,
-                cost: 0
-            };
-            update["system.skills.forbiddenLore"] = actor.data.data.skills.forbiddenLore;
-        }
-
+    if (worldSchemaVersion < 4 && source.aptitudes) {
+        update["system.-=aptitudes"] = null;
+        update["system.legacyData.-=aptitudes"] = null;
     }
-
-    // // migrate aptitudes
-    if (worldSchemaVersion < 4) {
-        if (actor.data.type === "acolyte" || actor.data.type === "npc") {
-
-            let textAptitudes = actor.data.data?.aptitudes;
-
-            if (textAptitudes !== null && textAptitudes !== undefined) {
-                let aptitudeItemsData =
-                    Object.values(textAptitudes)
-                    // Be extra careful and filter out bad data because the existing data is bugged
-                        ?.filter(textAptitude =>
-                            "id" in textAptitude
-                        && textAptitude?.name !== null
-                        && textAptitude?.name !== undefined
-                        && typeof textAptitude?.name === "string"
-                        && 0 !== textAptitude?.name?.trim().length)
-                        ?.map(textAptitude => {
-                            return {
-                                name: textAptitude.name,
-                                type: "aptitude",
-                                isAptitude: true,
-                                img: "systems/dark-heresy/assets/icons/generic.webp"
-                            };
-                        });
-                if (aptitudeItemsData !== null && aptitudeItemsData !== undefined) {
-                    actor.createEmbeddedDocuments("Item", [aptitudeItemsData]);
-                }
-            }
-            update["system.-=aptitudes"] = null;
-        }
-    }
-    if (worldSchemaVersion < 3) {
-        // reset(), not prepareData(): a bare prepare re-applies every effect on top of
-        // the already-applied values, so each call inflates stored figures by the
-        // effect amount. These branches write their result to disk, so the drift
-        // would have been permanent. Measured: wounds.max 20 -> 27 per bare call.
-        actor.reset();
-        update["system.armour"] = actor.data.armour;
-    }
-
-    if (worldSchemaVersion < 5) {
-        // reset(), not prepareData(): a bare prepare re-applies every effect on top of
-        // the already-applied values, so each call inflates stored figures by the
-        // effect amount. These branches write their result to disk, so the drift
-        // would have been permanent. Measured: wounds.max 20 -> 27 per bare call.
-        actor.reset();
-        let experience = actor.data.data?.experience;
-        let value = (experience?.value || 0) + (experience?.totalspent || 0);
-        // In case of an Error in the calculation don't do anything loosing data is worse
-        // than doing nothing in this case since the user can easily do this himself
-        if (!isNaN(value) && value !== undefined) {
+    if (worldSchemaVersion < 5 && source.experience?.totalspent !== undefined) {
+        const value = Number(source.experience.value || 0) + Number(source.experience.totalspent);
+        if (Number.isFinite(value)) {
             update["system.experience.value"] = value;
+            // Consumed source field makes a partially completed migration safe to retry.
+            update["system.experience.-=totalspent"] = null;
+            update["system.legacyData.experience.-=totalspent"] = null;
         }
+    }
+    if (worldSchemaVersion < 6 && actor.type === "npc" && source.bio?.notes && !source.notes) {
+        update["system.notes"] = source.bio.notes;
     }
 
-    if (worldSchemaVersion < 6) {
-        // reset(), not prepareData(): a bare prepare re-applies every effect on top of
-        // the already-applied values, so each call inflates stored figures by the
-        // effect amount. These branches write their result to disk, so the drift
-        // would have been permanent. Measured: wounds.max 20 -> 27 per bare call.
-        actor.reset();
-        if (actor.type === "npc") {
-            if (actor.system.bio?.notes) {
-                actor.system.notes = actor.system.bio.notes;
-            }
-        }
-    }
 
     return update;
 };
@@ -10866,28 +13240,20 @@ const migrateActorData = (actor, worldSchemaVersion) => {
  * @returns {Promise<void>}
  */
 const migrateCompendium = async function(pack, worldSchemaVersion) {
-    const documentType = pack.metadata.type;
-    if (documentType !== "Actor") return;
-
-    const wasLocked = pack.locked;
-    if (wasLocked) await pack.configure({locked: false});
-
+    const type = pack.documentName ?? pack.metadata.type;
+    if (!["Actor", "Item"].includes(type)) return;
+    const locked = pack.locked;
+    if (locked) await pack.configure({locked:false});
     try {
-        const documents = await pack.getDocuments();
-        const updates = [];
-        for (const doc of documents) {
-            const updateData = migrateActorData(doc, worldSchemaVersion);
-            if (!foundry.utils.isEmpty(updateData)) {
-                updates.push({...updateData, _id: doc.id});
+        for (const doc of await pack.getDocuments()) {
+            if (type === "Actor") await migrateActorDocument(doc, worldSchemaVersion);
+            else {
+                const update = migrateItemData(doc);
+                if (!foundry.utils.isEmpty(update)) await doc.update(update);
             }
         }
-        if (updates.length) {
-            await Actor.implementation.updateDocuments(updates, {pack: pack.collection, enforceTypes: false});
-        }
-    } catch(e) {
-        console.error(`Dark Heresy | Failed to migrate compendium ${pack.collection}`, e);
     } finally {
-        if (wasLocked) await pack.configure({locked: true});
+        if (locked) await pack.configure({locked:true});
     }
 };
 
@@ -10987,7 +13353,7 @@ const addChatMessageContextOptions = function(application, options) {
 
     let canReroll = li => {
         const message = game.messages.get(li.dataset.messageId);
-        let actor = game.actors.get(message.getRollData()?.ownerId);
+        let actor = _actorFromRollData(message.getRollData());
         return message.isRoll
             && !message.getRollData()?.flags.isDamageRoll
             && message.isContentVisible
@@ -11066,33 +13432,19 @@ function applyChatCardDamage(roll, multiplier) {
     }));
 }
 
-async function applyAutoDamageToTarget(rollData, message, options = {}) {
-    let target = rollData?.targets?.[0];
-    if (!target) {
-        const currentTargets = DarkHeresyUtil.getCurrentTargets();
-        if (currentTargets.length) {
-            target = currentTargets[0];
-            rollData.targets = [target];
-        }
-    }
-    if (!target || !message) return;
-    if (!canvas?.ready) return;
-    if (target.sceneId && canvas.scene?.id !== target.sceneId) {
-        ui.notifications.warn(game.i18n.localize("NOTIFICATION.TARGET_DIFFERENT_SCENE") || "Target is in another scene.");
-        return;
-    }
-    let token = canvas.tokens.get(target.tokenId);
-    if (!token) {
-        const currentTargets = DarkHeresyUtil.getCurrentTargets();
-        if (currentTargets.length) {
-            target = currentTargets[0];
-            rollData.targets = [target];
-            token = canvas.tokens.get(target.tokenId);
-        }
-    }
-    if (!token?.actor) return;
+// Serialise document mutations on this client; the elected GM owns socket execution.
+const _dhOperationQueues = new Map();
+function _queueDocumentOperation(key, task) {
+    const previous = _dhOperationQueues.get(key) ?? Promise.resolve();
+    const current = previous.catch(() => {}).then(task);
+    _dhOperationQueues.set(key, current);
+    const cleanup = () => { if (_dhOperationQueues.get(key) === current) _dhOperationQueues.delete(key); };
+    current.then(cleanup, cleanup);
+    return current;
+}
 
-        const damages = (rollData.damages || []).map(damage => ({
+function _damageEntriesFromRoll(rollData) {
+    const damages = (rollData.damages || []).map(damage => ({
         amount: Number(damage.total) || 0,
         location: damage.location,
         // Сторона и зона считаются в момент броска по положению фишек на сцене и
@@ -11109,100 +13461,76 @@ async function applyAutoDamageToTarget(rollData, message, options = {}) {
             weaponTraits: damage.weaponTraits || rollData.weapon?.traits || {}, // Pass weapon traits for trait-based checks (prefer from damage object)
             devastating: rollData.weapon?.traits?.devastating // Pass devastating value for horde reduction
     }));
-    if (!damages.length) return;
 
-    if (!token.actor.isOwner && !game.user.isGM) {
-        game.socket.emit("system.dark-heresy", {
-            type: "autoDamage",
-            payload: {
-                sceneId: target.sceneId || canvas.scene?.id,
-                tokenId: target.tokenId,
-                messageId: message.id,
-                damages,
-                force: !!options.force
-            }
-        });
+    return damages;
+}
+
+async function applyAutoDamageToTarget(rollData, message) {
+    const target = rollData?.targets?.[0];
+    if (!target || !message) return;
+    const gm = game.users.activeGM;
+    if (!gm) {
+        ui.notifications.warn("Damage was not applied: no active Gamemaster.");
         return;
     }
-
-    const preview = token.actor.previewDamage(damages);
-    const before = _damageSnapshot(token.actor);
-    token.actor._damageSourceMessageId = message.id;
-    token.actor._suppressCritChat = true;
-    try {
-    await token.actor.applyDamage(damages);
-    } finally {
-        token.actor._suppressCritChat = false;
+    const payload = {sceneId: target.sceneId, tokenId: target.tokenId, messageId: message.id};
+    if (game.user !== gm) {
+        game.socket.emit("system.dark-heresy", {type: "autoDamage", payload});
+        return;
     }
-    delete token.actor._damageSourceMessageId;
-    const after = _damageSnapshot(token.actor);
-    const applied = {
-        tokenId: target.tokenId,
-        sceneId: target.sceneId,
-        woundsDelta: after.wounds - before.wounds,
-        criticalDelta: after.critical - before.critical,
-        woundsBefore: before.wounds,
-        woundsAfter: after.wounds,
-        criticalBefore: before.critical,
-        criticalAfter: after.critical,
-        hordeBefore: before.horde,
-        hordeAfter: after.horde
-    };
-    _recordAppliedDamage(rollData, preview, before, after);
-    await message.setFlag("dark-heresy", "appliedDamage", applied);
-    await message.setFlag("dark-heresy", "rollData", rollData);
-    const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
-    await message.update({ content: html });
+    return applyAutoDamageFromSocket(payload);
 }
 
 async function applyAutoDamageFromSocket(payload) {
-    if (!game.user.isGM) return;
-    if (!payload?.sceneId || !payload?.tokenId || !payload?.damages?.length) return;
-
-    const scene = game.scenes.get(payload.sceneId);
-    const tokenDoc = scene?.tokens?.get(payload.tokenId);
-    const actor = tokenDoc?.actor || game.actors.get(tokenDoc?.actorId);
+    if (game.user !== game.users.activeGM || !game.user?.isGM) return;
+    if (!payload?.sceneId || !payload.tokenId || !payload.messageId) return;
+    const message = game.messages.get(payload.messageId);
+    const rollData = message?.getRollData?.();
+    // A socket request names a recorded operation, never supplies its damage or destination.
+    if (!rollData?.flags?.isDamageRoll || !rollData.targets?.some(target =>
+        target.sceneId === payload.sceneId && target.tokenId === payload.tokenId)) return;
+    const actor = game.scenes.get(payload.sceneId)?.tokens.get(payload.tokenId)?.actor;
     if (!actor) return;
-
-    const preview = actor.previewDamage(payload.damages);
-    const before = _damageSnapshot(actor);
-    actor._damageSourceMessageId = payload.messageId;
-    actor._suppressCritChat = true;
-    try {
-    await actor.applyDamage(payload.damages);
-    } finally {
-        actor._suppressCritChat = false;
-    }
-    delete actor._damageSourceMessageId;
-    const after = _damageSnapshot(actor);
-
-    if (payload.messageId) {
-        const message = game.messages.get(payload.messageId);
-        if (message) {
-            const applied = {
-                tokenId: payload.tokenId,
-                sceneId: payload.sceneId,
-                woundsDelta: after.wounds - before.wounds,
-            criticalDelta: after.critical - before.critical,
-            woundsBefore: before.wounds,
-            woundsAfter: after.wounds,
-            criticalBefore: before.critical,
-            criticalAfter: after.critical,
-            hordeBefore: before.horde,
-            hordeAfter: after.horde
-            };
-            const rollData = message.getRollData?.();
-        if (rollData) {
-                _recordAppliedDamage(rollData, preview, before, after);
-            await message.setFlag("dark-heresy", "rollData", rollData);
-                const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
-                await message.update({ content: html });
-            }
+    const damages = _damageEntriesFromRoll(rollData);
+    if (!damages.length || damages.some(d => !Number.isFinite(d.amount) || d.amount < 0
+        || !Number.isFinite(d.penetration) || d.penetration < 0)) return;
+    return _queueDocumentOperation(actor.uuid, async () => {
+        const operation = message.getFlag("dark-heresy", "damageOperation");
+        if (operation || message.getFlag("dark-heresy", "appliedDamage")) return operation;
+        // Persist intent before changing an Actor. Interrupted/partial execution is never replayed blindly.
+        const requestId = message.id + ":" + payload.sceneId + ":" + payload.tokenId;
+        const before = _damageSnapshot(actor);
+        const preview = actor.previewDamage(damages);
+        await message.setFlag("dark-heresy", "damageOperation", {requestId, status: "processing", before});
+        actor._damageSourceMessageId = message.id;
+        actor._suppressCritChat = true;
+        try {
+            await actor.applyDamage(damages);
+            const after = _damageSnapshot(actor);
+            const applied = {actorUuid: actor.uuid, tokenId: payload.tokenId, sceneId: payload.sceneId,
+                woundsDelta: after.wounds - before.wounds, criticalDelta: after.critical - before.critical,
+                woundsBefore: before.wounds, woundsAfter: after.wounds,
+                criticalBefore: before.critical, criticalAfter: after.critical,
+                hordeBefore: before.horde, hordeAfter: after.horde};
             await message.setFlag("dark-heresy", "appliedDamage", applied);
+            await message.setFlag("dark-heresy", "damageOperation", {requestId, status: "applied", before, after});
+            _recordAppliedDamage(rollData, preview, before, after);
+            await message.setFlag("dark-heresy", "rollData", rollData);
+            rollData.rfLabel = _righteousFuryLabel(rollData);
+            const content = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
+            await message.update({content});
+            return applied;
+        } catch (error) {
+            const completed = message.getFlag("dark-heresy", "appliedDamage");
+            await message.setFlag("dark-heresy", "damageOperation", {requestId,
+                status: completed ? "applied" : "needsReview", before, error: String(error.message || error)});
+            throw error;
+        } finally {
+            delete actor._damageSourceMessageId;
+            delete actor._suppressCritChat;
         }
-    }
+    });
 }
-
 
 /**
  * Rerolls the Test using the same Data as the initial Roll while reducing an actors fate
@@ -11210,7 +13538,7 @@ async function applyAutoDamageFromSocket(payload) {
  * @returns {Promise}
  */
 function rerollTest(rollData) {
-    let actor = game.actors.get(rollData.ownerId);
+    let actor = _actorFromRollData(rollData);
     actor.update({ "system.fate.value": actor.fate.value -1 });
     delete rollData.damages; // Reset so no old data is shown on failure
 
@@ -11330,7 +13658,8 @@ function onTestClick(ev) {
         selected: "dodge"
     };
     rollData.evasions = evasions;
-    rollData.target.modifier = Number(rollData.evasionModifier) || 0;
+    rollData.target.modifier = (Number(rollData.evasionModifier) || 0)
+        + _burningCrewModifier(actor);
     rollData.flags.isEvasion = true;
     rollData.flags.isAttack = false;
     rollData.flags.isDamageRoll = false;
@@ -11679,6 +14008,7 @@ async function sendMassDamageToChat(rollData) {
     chatData.rolls = rollData.multiDamages
         .flatMap(entry => entry.damages || [])
         .flatMap(r => r.damageRoll || []);
+    rollData.rfLabel = _righteousFuryLabel(rollData);
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/damage-mass.hbs", rollData);
     chatData.content = html;
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
@@ -11700,7 +14030,7 @@ async function applyBlastFromMassEvasion(message) {
         return;
                     }
 
-    const hordeBonusDice = _getHordeDamageBonusDiceFromActor(game.actors.get(rollData.ownerId));
+    const hordeBonusDice = _getHordeDamageBonusDiceFromActor(_actorFromRollData(rollData));
     const blastRollData = {
                         ownerId: rollData.ownerId,
                         itemId: rollData.itemId,
@@ -12039,19 +14369,28 @@ async function onManualDamageUndoClick(event) {
         ui.notifications.warn("No applied damage to revert.");
         return;
     }
-    if (!canvas?.ready) return;
     const entries = Array.isArray(applied) ? applied : [applied];
     let revertedAny = false;
 
     for (const entry of entries) {
         if (entry.reverted) continue;
-        if (entry.sceneId && canvas.scene?.id !== entry.sceneId) {
+        const actor = entry.actorUuid ? await fromUuid(entry.actorUuid)
+            : game.scenes.get(entry.sceneId)?.tokens.get(entry.tokenId)?.actor;
+        if (!actor) continue;
+        const current = _damageSnapshot(actor);
+        const expected = Number(entry.hordeBefore) > 0
+            ? [[current.horde, entry.hordeAfter]]
+            : [[current.wounds, entry.woundsAfter], [current.critical, entry.criticalAfter]];
+        if (expected.some(([actual, after]) => !Number.isFinite(Number(after)) || Number(actual) !== Number(after))) {
+            ui.notifications.warn("Cannot undo this damage: the target changed after the attack.");
             continue;
         }
-        const token = canvas.tokens.get(entry.tokenId);
-        if (!token?.actor) continue;
-
-        const actor = token.actor;
+        if (actor.type === "vehicle") {
+            await actor.update({"system.integrity.value": entry.woundsBefore, "system.integrity.critical": entry.criticalBefore});
+            entry.reverted = true;
+            revertedAny = true;
+            continue;
+        }
 
         // Орде возвращают павших: ран она не получала, и правка ран ей ничего не
         // вернёт. Величина восстанавливается до записанной в снимке.
@@ -12116,22 +14455,7 @@ async function onManualDamageUndoClick(event) {
         }
     }
 
-    const idsToMatch = new Set([message.id]);
-    if (sourceMessageId) idsToMatch.add(sourceMessageId);
-    if (sourceMessageId) {
-        const relatedMessages = game.messages.contents.filter(msg => {
-            if (msg.id === sourceMessageId) return false; // keep attack card
-            const data = msg.getRollData?.();
-            const dataSourceId = data?.sourceMessageId;
-            const flagSourceId = msg.getFlag("dark-heresy", "sourceMessageId");
-            return idsToMatch.has(dataSourceId) || idsToMatch.has(flagSourceId);
-        });
-        for (const relatedMessage of relatedMessages) {
-            await relatedMessage.delete();
-        }
-    } else {
-        await message.delete();
-    }
+    await message.setFlag("dark-heresy", "damageReverted", entries.every(entry => entry.reverted));
 }
 
 
@@ -12307,7 +14631,7 @@ async function syncFatigueState(actor) {
     if (over && !has) {
         const tb = Number(actor.characteristics.toughness.bonus) || 0;
         const minutes = Math.max(10 - tb, 1);
-        await actor.addCondition("unconscious", { rounds: minutes * 12 });
+        await actor.addCondition("unconscious", {}, {duration: {value: minutes, units: "minutes"}});
         // Отметка нужна, чтобы при пробуждении откатить усталость до предела
         // (BC, стр. 246). Обморок от крита или иной причины откатывать нечего.
         await actor.setFlag("dark-heresy", "fatigueCollapse", true);
@@ -12320,7 +14644,7 @@ async function syncFatigueState(actor) {
                     <dt>${game.i18n.localize("COLLAPSE.DURATION")}</dt><dd>${minutes} ${game.i18n.localize("COLLAPSE.MINUTES")}</dd>
                 </dl></div></div></div>`
         });
-    } else if (!over && has) {
+    } else if (!over && has && actor.getFlag("dark-heresy", "fatigueCollapse")) {
         // Усталость упала до предела — сознание возвращается.
         await actor.removeCondition("unconscious");
         if (actor.getFlag("dark-heresy", "fatigueCollapse")) {
@@ -12363,19 +14687,6 @@ async function burnVehicles(combat) {
 async function onCombatRoundAdvanced(combat) {
     await burnVehicles(combat);
     await rollOverVehicleMovement(combat);
-
-
-    const lifted = await sweepExpiredConditions(combat);
-    if (lifted.length) {
-        await ChatMessage.create({
-            content: `<div class="dark-heresy chat roll"><div class="dh-card is-neutral">
-                <div class="dh-card-h"><span class="who">${game.i18n.localize("CONDITION.EXPIRED")}</span>
-                <span class="verdict">${game.i18n.localize("COMBAT.ROUND")} ${combat.round}</span></div>
-                <div class="dh-card-b"><dl class="dh-kv">${
-                    lifted.map(t => `<dd class="full">${t}</dd>`).join("")
-                }</dl></div></div></div>`
-        });
-    }
 }
 
 /**
@@ -12422,17 +14733,18 @@ async function _burnVehicle(vehicle) {
     })];
 
     if (detonates) {
-        // Детонация идёт мимо брони: рвануло внутри, защищать уже нечего.
-        // Восемь очков ложатся прямо в Критический Урон машины; что при этом
-        // достаётся экипажу, читает МИ по таблице.
+        // Детонация идёт мимо брони и мимо целостности: рвануло внутри, и книга
+        // прямо называет это восемью очками Критического Урона (Табл. 8-32).
+        // Что при этом достаётся экипажу, читает МИ по строке таблицы корпуса.
         await vehicle.applyDamage([{
             amount: 8,
             location: "hull",
             zone: "hull",
             facing: "front",
-            penetration: 999,
+            penetration: 0,
             type: "explosive",
-            righteousFury: 0
+            righteousFury: 0,
+            directCritical: true
         }]);
         notes.push(game.i18n.localize(vehicle.system.explosive
             ? "VEHICLE.CHAT.DETONATION_EXPLOSIVE" : "VEHICLE.CHAT.DETONATION"));
@@ -12445,44 +14757,6 @@ async function _burnVehicle(vehicle) {
             <div class="dh-card-b">${notes.map(n => `<p class="dh-note">${n}</p>`).join("")}</div>
             </div></div>`
     });
-}
-
-/**
- * Снять состояния, чей срок в раундах истёк.
- *
- * Foundry считает остаток сама, но истёкшие эффекты не удаляет: он остаётся на
- * актёре и на токене. Сметается на смене раунда, ровно там, где срок и мог выйти.
- *
- * @param {Combat} combat
- */
-async function sweepExpiredConditions(combat) {
-    if (!combat) return [];
-    const removed = [];
-    for (const combatant of combat.combatants) {
-        const actor = combatant.actor;
-        if (!actor) continue;
-        const expired = actor.effects.filter(e => {
-            const d = e.duration;
-            if (d?.units !== "rounds" || !d?.value) return false;
-            // Foundry сама выставляет expired и считает остаток; берём и то и другое,
-            // потому что expired появляется только при активном бое.
-            if (d.expired === true) return true;
-            return Number.isFinite(d.remaining) && d.remaining <= 0;
-        });
-        if (!expired.length) continue;
-        // Проснувшийся от усталости приходит в себя с усталостью, равной пределу,
-        // а не с той, что его свалила (BC, стр. 246). Без этого он оставался за
-        // пределом, и следующая же сверка роняла его обратно — навсегда.
-        const wokeFromFatigue = expired.some(e => e.statuses?.has?.("unconscious"))
-            && actor.getFlag("dark-heresy", "fatigueCollapse");
-        await actor.deleteEmbeddedDocuments("ActiveEffect", expired.map(e => e.id));
-        if (wokeFromFatigue) {
-            await actor.update({ "system.fatigue.value": Number(actor.system.fatigue?.max) || 0 });
-            await actor.unsetFlag("dark-heresy", "fatigueCollapse");
-        }
-        removed.push(...expired.map(e => `${actor.name}: ${e.name}`));
-    }
-    return removed;
 }
 
 /**
@@ -12528,7 +14802,7 @@ async function _showCriticalEffectsCard(actor, crit) {
  *
  * Читается она иначе, чем ранение человека: важны не локация тела, а сторона и
  * зона, и то, сколько урона ушло сверх целостности — именно по нему бросается
- * таблица Критических Эффектов Машин, и система этот бросок не делает за МИ.
+ * таблица Критических Эффектов Машин. Строку система читает из компендиума.
  * @param {Actor} actor
  * @param {object[]} damageTaken
  * @param {number} integrity
@@ -12544,24 +14818,40 @@ async function _showVehicleDamageCard(actor, damageTaken, integrity, critical) {
         .reduce((sum, d) => sum + (Number(d.damage) || 0), 0);
     const head = damageTaken[0] ?? {};
 
+    // Заметка может нести строку из таблицы критов: сама заметка говорит,
+    // откуда взялся номер, текст под ней — что стало с машиной.
     const notes = [];
-    // Таблицу крита держит МИ — своя, бумажная или из любого набора. Система
-    // только называет строку, по которой её читать: накопленный Критический
-    // Урон и зону попадания.
+    const chartRow = (zone, value) => _lookupTableRow(
+        Dh.vehicleCriticalCharts[zone] ?? Dh.vehicleCriticalCharts.hull, value);
+    // Критический Урон накопительный: читается строка, равная всему урону сверх
+    // целостности, по таблице зоны, куда пришёлся удар; всё выше 10 — последняя
+    // строка. Нет таблицы в компендиуме — карточка лишь называет номер.
     if (critHits.length) {
-        notes.push(game.i18n.format("VEHICLE.CHAT.CRIT_TAKEN", {
-            total: critical,
-            zone: zoneOf(head)
-        }));
+        const hit = critHits.at(-1);
+        const row = await chartRow(hit.location, critical);
+        notes.push({
+            text: game.i18n.format(row ? "VEHICLE.CHAT.CRIT_EFFECT" : "VEHICLE.CHAT.CRIT_TAKEN", {
+                total: critical,
+                zone: zoneOf(hit)
+            }),
+            effect: row?.text
+        });
     }
+    // Праведный гнев бросает 1d5 по той же таблице, но с накопленным уроном
+    // не складывается.
     if (rfHits.length) {
+        const hit = rfHits.at(-1);
         const roll = await new Roll("1d5").evaluate();
-        notes.push(game.i18n.format("VEHICLE.CHAT.RIGHTEOUS_FURY", {
-            roll: roll.total,
-            zone: zoneOf(head)
-        }));
+        const row = await chartRow(hit.location, roll.total);
+        notes.push({
+            text: game.i18n.format(row ? "VEHICLE.CHAT.RF_EFFECT" : "VEHICLE.CHAT.RIGHTEOUS_FURY", {
+                roll: roll.total,
+                zone: zoneOf(hit)
+            }),
+            effect: row?.text
+        });
     }
-    if (!dealt && !rfHits.length) notes.push(game.i18n.localize("VEHICLE.CHAT.NO_DAMAGE"));
+    if (!dealt && !rfHits.length) notes.push({ text: game.i18n.localize("VEHICLE.CHAT.NO_DAMAGE") });
 
     const state = game.i18n.localize(Dh.vehicleDamageStates[actor.system.integrity.state]);
     await ChatMessage.create({
@@ -12583,7 +14873,8 @@ async function _showVehicleDamageCard(actor, damageTaken, integrity, critical) {
                     ${critical > 0 ? `<div class="dh-fig"><span class="n">${critical}</span>
                         <span class="dh-cap">${game.i18n.localize("VEHICLE.CRITICAL_DAMAGE")}</span></div>` : ""}
                 </div>
-                ${notes.map(n => `<p class="dh-note">${n}</p>`).join("")}
+                ${notes.map(n => `<p class="dh-note">${n.text}</p>${n.effect
+                    ? `<p class="vehicle-crit-text">${n.effect}</p>` : ""}`).join("")}
             </div></div></div>`
     });
 }
@@ -12729,7 +15020,10 @@ Dh.rulesets = {
         corruption: { track: "malignancy", malignancyEveryCp: 10, mutationEveryCp: 30 },
         insanity: { track: "points", traumaTest: true },
         bloodLoss: { lethal: false, fatiguePerRound: 1, staunch: -10 },
-        toxic: { timing: "endOfTurn" }
+        toxic: { timing: "endOfTurn" },
+        // Одно правило, разные имена: DH2 зовёт это Праведной яростью,
+        // Black Crusade — Ревностной ненавистью (BC, стр. 245).
+        righteousFury: { label: "CHAT.RIGHTEOUS_FURY" }
     },
     bc: {
         id: "bc",
@@ -12741,14 +15035,25 @@ Dh.rulesets = {
         // копит (стр. 279): вместо них он со временем набирает Расстройства.
         insanity: { track: "fixed", traumaTest: false },
         bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30 },
-        toxic: { timing: "onHit" }
+        toxic: { timing: "onHit" },
+        righteousFury: { label: "CHAT.ZEALOUS_HATRED" }
     }
 };
+
+// Rogue Trader, Only War and Deathwatch have not been audited rule by rule yet, so they
+// inherit the Dark Heresy mechanics and differ only in identity. They are registered all the
+// same: a character can name its book today, and the audit later changes one profile instead
+// of hunting down actor-type checks scattered through the system.
+for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"], ["dw", "RULESET.DW"]])
+    Dh.rulesets[id] = { ...structuredClone(Dh.rulesets.dh2), id, label };
 
 /**
  * По каким правилам живёт этот актёр.
  *
- * Тип листа решает сам за себя: еретик — это Black Crusade, аколит — Dark Heresy 2.
+ * Персонаж называет свою книгу сам (system.ruleset), и это важнее типа листа: тип
+ * различает только Dark Heresy и Black Crusade, а книг пять. Персонаж Rogue Trader,
+ * Only War или Deathwatch — тоже аколит, и считаться по DH2 только из-за типа листа
+ * он не должен. Пустое значение означает «как решит тип листа».
  * У НИП и техники своего листа правил нет, они идут за настройкой мира: в кампании
  * по BC вражеский псайкер должен считаться по BC.
  *
@@ -12756,13 +15061,12 @@ Dh.rulesets = {
  * @returns {object} профиль из Dh.rulesets
  */
 Dh.rulesetFor = function(actor) {
-    if (actor?.type === "heretic") return Dh.rulesets.bc;
-    if (actor?.type === "acolyte") return Dh.rulesets.dh2;
-    // У НИП своей игры нет, но в смешанной кампании один и тот же тип листа
-    // держит и еретика Black Crusade, и тварь из Dark Heresy. Поэтому лист
-    // может назвать игру сам; пустое значение означает «как в мире».
+    // Лист называет игру сам — и у персонажа, и у НИП. В смешанной кампании один и тот
+    // же тип листа держит и еретика Black Crusade, и тварь из Dark Heresy.
     const own = actor?.system?.ruleset;
     if (own && Dh.rulesets[own]) return Dh.rulesets[own];
+    if (actor?.type === "heretic") return Dh.rulesets.bc;
+    if (actor?.type === "acolyte") return Dh.rulesets.dh2;
     let world = "dh2";
     try {
         world = game.settings.get("dark-heresy", "ruleset") || "dh2";
@@ -13121,6 +15425,26 @@ Dh.availability = {
     unique: "AVAILABILITY.UNIQUE"
 };
 
+/* Ранг Известности Deathwatch, с которого предмет можно затребовать из арсенала.
+   «none» — ограничения нет, так помечены и предметы других книг. */
+Dh.renown = {
+    none: "RENOWN.NONE",
+    respected: "RENOWN.RESPECTED",
+    distinguished: "RENOWN.DISTINGUISHED",
+    famed: "RENOWN.FAMED",
+    hero: "RENOWN.HERO"
+};
+
+// Пять книг, по которым может играться персонаж. Тот же список читает селектор
+// на листе и, позже, предметы Происхождения.
+Dh.originRulesets = {
+    dh2: "RULESET.DH2",
+    rt: "RULESET.RT",
+    ow: "RULESET.OW",
+    bc: "RULESET.BC",
+    dw: "RULESET.DW"
+};
+
 
 Dh.armourTypes = {
     basic: "ARMOUR_TYPE.BASIC",
@@ -13238,6 +15562,14 @@ Dh.vehicleHitZones = {
     turret: "VEHICLE.ZONE.TURRET"
 };
 
+/* Таблицы критов машин в компендиуме «Black Crusade Tables» по зонам попадания. */
+Dh.vehicleCriticalCharts = {
+    hull: "Hull Critical Hit Chart",
+    motive: "Motive Systems Critical Hit Chart",
+    weapon: "Weapon Critical Hit Chart",
+    turret: "Turret Critical Hit Chart"
+};
+
 /* Крепление задаёт сектор обстрела; угол по умолчанию берётся отсюда же.
    Попадание в башню считается попаданием в лоб — у неё своя толстая броня. */
 Dh.vehicleMounts = {
@@ -13293,6 +15625,119 @@ Dh.shipLocations = {
     keel:      "SHIP.LOCATION.KEEL",
     port:      "SHIP.LOCATION.PORT",
     starboard: "SHIP.LOCATION.STARBOARD"
+};
+
+/* Классы корпуса, которые называет книга (стр. 215 и 216). От класса зависят
+   ровно две вещи, и обе оттуда: насколько круто корабль поворачивает и какой
+   кубик бросает при таране. Печатное название корпуса живёт отдельным полем —
+   «Sword-class Frigate» стол пишет как хочет, а считаем мы по этому ключу. */
+Dh.shipHullTypes = {
+    transport:    { label: "SHIP.HULL_TYPE.TRANSPORT",    ram: "1d5",  turn: 90 },
+    raider:       { label: "SHIP.HULL_TYPE.RAIDER",       ram: "1d5",  turn: 90 },
+    frigate:      { label: "SHIP.HULL_TYPE.FRIGATE",      ram: "1d10", turn: 90 },
+    lightCruiser: { label: "SHIP.HULL_TYPE.LIGHT_CRUISER", ram: "2d5", turn: 45 },
+    cruiser:      { label: "SHIP.HULL_TYPE.CRUISER",      ram: "2d10", turn: 45 }
+};
+
+/* Выучка команды (табл. 8-9). Значение — та самая цифра, которой НИП-экипаж
+   бросает всё подряд, когда действие поручено не игроку. Десятки этой цифры
+   заодно говорят, сколько действий за раунд команда потянет. */
+/* Массив, а не объект с числовыми ключами: Handlebars отдаёт ключи объекта
+   строками, и сравнение «40» с записанным числом 40 в шаблоне не сходится —
+   выбранный пункт списка тихо переставал быть выбранным. */
+Dh.shipCrewRatings = [
+    { value: 20, label: "SHIP.CREW_RATING.INCOMPETENT" },
+    { value: 30, label: "SHIP.CREW_RATING.COMPETENT" },
+    { value: 40, label: "SHIP.CREW_RATING.CRACK" },
+    { value: 50, label: "SHIP.CREW_RATING.VETERAN" },
+    { value: 60, label: "SHIP.CREW_RATING.ELITE" }
+];
+
+/* Компоненты делятся надвое (стр. 196): существенные держат корабль на ходу,
+   дополнительные его усиливают. */
+Dh.shipComponentCategories = {
+    essential:    "SHIP.COMPONENT.ESSENTIAL",
+    supplemental: "SHIP.COMPONENT.SUPPLEMENTAL"
+};
+
+/* Четыре состояния компонента (стр. 222-223). Пожар и разгерметизация сюда не
+   входят: они независимы, компонент может гореть, оставаясь целым. */
+Dh.shipComponentStatus = {
+    intact:    "SHIP.COMPONENT.STATUS.INTACT",
+    unpowered: "SHIP.COMPONENT.STATUS.UNPOWERED",
+    damaged:   "SHIP.COMPONENT.STATUS.DAMAGED",
+    destroyed: "SHIP.COMPONENT.STATUS.DESTROYED"
+};
+
+/* Качество компонента. На механику само по себе не влияет — влияют профили
+   конкретных компонентов, — но в списке его держать надо. */
+Dh.shipQualities = {
+    poor:   "SHIP.QUALITY.POOR",
+    common: "SHIP.QUALITY.COMMON",
+    good:   "SHIP.QUALITY.GOOD",
+    best:   "SHIP.QUALITY.BEST"
+};
+
+/* Действия пустотного боя (стр. 213-218, табл. 8-10 и 8-11).
+
+   skill — чем бросает исполнитель; stat — характеристика корабля, которая
+   прибавляется к навыку в комбинированном тесте; shipboard — тест из тех, по
+   которым бьёт таблица Команды (ремонт, пожары, абордаж); aidedByBacks —
+   тест, которому помогает «Навались!»; needsTarget — действие против другого
+   корабля; defender — противопоставленный тест, и это подпись защищающейся
+   стороны. Hail the Enemy книга целиком отдаёт на усмотрение ведущего,
+   бросать там нечего. */
+Dh.shipActions = {
+    adjustBearing:      { group: "manoeuvre", code: "ADJUST_BEARING",       skill: "pilot", stat: "manoeuvrability", difficulty: 0 },
+    adjustSpeed:        { group: "manoeuvre", code: "ADJUST_SPEED",         skill: "pilot", stat: "manoeuvrability", difficulty: 0 },
+    adjustSpeedBearing: { group: "manoeuvre", code: "ADJUST_SPEED_BEARING", skill: "pilot", stat: "manoeuvrability", difficulty: -20 },
+    comeToNewHeading:   { group: "manoeuvre", code: "COME_TO_NEW_HEADING",  skill: "pilot", stat: "manoeuvrability", difficulty: -10 },
+    disengage:          { group: "manoeuvre", code: "DISENGAGE",            skill: "pilot", stat: "manoeuvrability", difficulty: 0 },
+    evasive:            { group: "manoeuvre", code: "EVASIVE",              skill: "pilot", stat: "manoeuvrability", difficulty: -10 },
+
+    activeAugury:     { group: "extended", code: "ACTIVE_AUGURY",       skill: "scrutiny", stat: "detection", difficulty: 0 },
+    aidMachineSpirit: { group: "extended", code: "AID_MACHINE_SPIRIT",  skill: "techUse", difficulty: 0 },
+    disinformation:   { group: "extended", code: "DISINFORMATION",      skill: "deceive", difficulty: -10 },
+    emergencyRepairs: { group: "extended", code: "EMERGENCY_REPAIRS",   skill: "techUse", difficulty: -10, shipboard: true, aidedByBacks: true },
+    flankSpeed:       { group: "extended", code: "FLANK_SPEED",         skill: "techUse", difficulty: 0 },
+    focusedAugury:    { group: "extended", code: "FOCUSED_AUGURY",      skill: "scrutiny", stat: "detection", difficulty: 0 },
+    holdFast:         { group: "extended", code: "HOLD_FAST",           skill: "willpower", difficulty: 0 },
+    jamComms:         { group: "extended", code: "JAM_COMMUNICATIONS",  skill: "techUse", difficulty: -10 },
+    lockOn:           { group: "extended", code: "LOCK_ON_TARGET",      skill: "scrutiny", stat: "detection", difficulty: 0 },
+    prepareRepel:     { group: "extended", code: "PREPARE_TO_REPEL",    skill: "command", difficulty: 0 },
+    putBacks:         { group: "extended", code: "PUT_BACKS_INTO_IT",   skill: "intimidate", skillChoice: ["intimidate", "charm"], difficulty: 0 },
+    triage:           { group: "extended", code: "TRIAGE",              skill: "medicae", difficulty: -10 },
+    fightFire:        { group: "extended", code: "FIGHT_FIRE",          skill: "command", difficulty: -10, shipboard: true, aidedByBacks: true },
+
+    // Абордаж и таран (стр. 215), налёт (стр. 218).
+    board:          { group: "assault", code: "BOARD",          skill: "pilot", stat: "manoeuvrability", difficulty: -20, needsTarget: true, unboardedOnly: true },
+    ram:            { group: "assault", code: "RAM",            skill: "pilot", stat: "manoeuvrability", difficulty: -20, needsTarget: true, unboardedOnly: true },
+    hitAndRun:      { group: "assault", code: "HIT_AND_RUN",    skill: "pilot", difficulty: 0, needsTarget: true, defender: "SHIP.DIALOG.THEIR_CREW" },
+    boardingRound:  { group: "assault", code: "BOARDING_ROUND", skill: "command", difficulty: 0, defender: "SHIP.DIALOG.THEIR_CREW", boardedOnly: true },
+    breakFree:      { group: "assault", code: "BREAK_FREE",     skill: "pilot", stat: "manoeuvrability", difficulty: -20, boardedOnly: true },
+
+    // Мятеж (стр. 224-225).
+    mutinyTest:     { group: "crew", code: "MUTINY_TEST",     skill: "command", difficulty: 0 },
+    suppressMutiny: { group: "crew", code: "SUPPRESS_MUTINY", skill: "command", skillChoice: ["command", "charm", "intimidate"], difficulty: 0, defender: "SHIP.DIALOG.MUTINEERS", mutinyOnly: true }
+};
+for (const def of Object.values(Dh.shipActions)) {
+    def.label = `SHIP.ACTION.${def.code}`;
+    def.hint = `SHIP.ACTION_HINT.${def.code}`;
+}
+
+/* Подписи навыков, которыми бросают корабельные действия. Пилотирование в
+   Rogue Trader зовётся Pilot (Space Craft); в листах этой системы ему
+   соответствует Operate (Voidship). */
+Dh.shipSkillLabels = {
+    pilot: "SHIP.SKILL.PILOT",
+    scrutiny: "SHIP.SKILL.SCRUTINY",
+    techUse: "SHIP.SKILL.TECH_USE",
+    command: "SHIP.SKILL.COMMAND",
+    charm: "SHIP.SKILL.CHARM",
+    intimidate: "SHIP.SKILL.INTIMIDATE",
+    deceive: "SHIP.SKILL.DECEIVE",
+    medicae: "SHIP.SKILL.MEDICAE",
+    willpower: "SHIP.SKILL.WILLPOWER"
 };
 
 /* Тип корабельного орудия: на листе это переключатель у каждой строки. */
@@ -13769,7 +16214,14 @@ Hooks.once("init", async function() {
         console.warn("Dark Heresy: Could not load template.json", e);
     }
     
+    const dataModels = createDataModels(templateData, foundry);
+    Object.assign(CONFIG.Actor.dataModels, dataModels.Actor);
+    Object.assign(CONFIG.Item.dataModels, dataModels.Item);
+
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
+    CONFIG.Combat.documentClass = DarkHeresyCombat;
+    CONFIG.specialStatusEffects.DEFEATED = "dead";
+    CONFIG.ActiveEffect.documentClass = DarkHeresyActiveEffect;
     CONFIG.Actor.documentClass = DarkHeresyActor;
     CONFIG.Item.documentClass = DarkHeresyItem;
     
@@ -13822,6 +16274,7 @@ Hooks.once("init", async function() {
     // Register Active Effect attribute keys for dark-heresy system
     registerActiveEffectAttributeKeys();
     game.darkHeresy = {
+        api: createDarkHeresyAPI(),
         config: Dh,
         templateData: templateData,
         // Разбор свойств оружия пригождается в макросах и в консоли: проверить,
@@ -13843,6 +16296,20 @@ Hooks.once("init", async function() {
         // Без аргументов — только отчёт: game.darkHeresy.repairModifiedWeapons()
         // Починить: game.darkHeresy.repairModifiedWeapons({ apply: true })
         repairModifiedWeapons: repairModifiedWeapons,
+        // Пустотный бой. Диалог не открывается, всё принимается параметрами —
+        // так правила можно прогнать сценарием, не кликая мышью.
+        ship: {
+            attack: rollShipAttack,
+            salvo: rollShipSalvo,
+            action: rollShipAction,
+            startTurn: _onShipTurnStart,
+            boarding: rollBoardingAction,
+            ram: _resolveRam,
+            ignite: igniteShipComponent,
+            vent: ventShipComponent,
+            depressurise: depressuriseShipComponent,
+            applyDamage: applyShipDamage
+        },
         // Проверка принадлежности обычно идёт сама, на очередных десяти очках
         // Порчи. Здесь она открыта макросам: МИ иногда правит Порчу задним
         // числом, и тогда сверку нужно позвать руками.
@@ -13875,6 +16342,7 @@ Hooks.once("init", async function() {
     foundry.documents.collections.Items.registerSheet("dark-heresy", VehicleWeaponSheet, { types: ["vehicleWeapon"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", VehicleTraitSheet, { types: ["vehicleTrait"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", ShipWeaponSheet, { types: ["shipWeapon"], makeDefault: true });
+    foundry.documents.collections.Items.registerSheet("dark-heresy", ShipComponentSheet, { types: ["shipComponent"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", AmmunitionSheet, { types: ["ammunition"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", WeaponModificationSheet, { types: ["weaponModification"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", ArmourSheet, { types: ["armour"], makeDefault: true });
@@ -13968,11 +16436,15 @@ function applyAtmosphereSetting(enabled) {
 
 Hooks.once("ready", async function() {
     applyAtmosphereSetting(game.settings.get("dark-heresy", "atmosphericEffects"));
-    migrateWorld();
+    game.darkHeresy.ready = migrateWorld();
+    await game.darkHeresy.ready;
 
     game.socket.on("system.dark-heresy", data => {
         if (data?.type === "autoDamage") {
-            applyAutoDamageFromSocket(data.payload);
+            applyAutoDamageFromSocket(data.payload).catch(error => {
+                console.error("dark-heresy | Damage operation", error);
+                ui.notifications.error("Damage operation needs review; see its chat message flags. It has not been retried.");
+            });
         }
         // Игрок бросил сам — кнопку с карточки снимает ведущий: обновить чужое
         // сообщение может только он.
@@ -13984,250 +16456,7 @@ Hooks.once("ready", async function() {
         return this.getFlag("dark-heresy", "rollData");
     };
 
-    // Lightning Reflexes: roll initiative twice and keep the better result
-    if (!Combat.prototype._dhLightningReflexes) {
-        Combat.prototype._dhLightningReflexes = true;
-        const originalRollInitiative = Combat.prototype.rollInitiative;
-        Combat.prototype.rollInitiative = async function(ids, options = {}) {
-            const combatantsToRoll = ids
-                ? ids.map(id => this.combatants.get(id)).filter(c => c)
-                : Array.from(this.combatants.values());
 
-            const withLightningReflexes = [];
-            const withoutLightningReflexes = [];
-
-            for (const combatant of combatantsToRoll) {
-                const actor = combatant?.actor;
-                if (actor?.getFlag("dark-heresy", "lightningReflexes")) {
-                    withLightningReflexes.push(combatant);
-                } else {
-                    withoutLightningReflexes.push(combatant);
-                }
-            }
-
-            for (const combatant of withLightningReflexes) {
-                const actor = combatant.actor;
-                const formula = CONFIG.Combat.initiative.formula;
-                const rollData = actor.getRollData();
-
-                const roll1 = new Roll(formula, rollData);
-                const roll2 = new Roll(formula, rollData);
-
-                await roll1.evaluate();
-                await roll2.evaluate();
-
-                const betterResult = Math.max(roll1.total, roll2.total);
-                const rollMode = options?.messageOptions?.rollMode
-                    || game.settings.get("core", "rollMode");
-                if (options?.messageOptions?.create !== false) {
-                    const roll1Html = await roll1.render();
-                    const roll2Html = await roll2.render();
-                    const content = `
-                        <div class="dh-lightning-reflexes">
-                            <div><strong>Lightning Reflexes</strong></div>
-                            ${roll1Html}
-                            ${roll2Html}
-                            <div class="dice-total">Best: ${betterResult}</div>
-                        </div>
-                    `;
-                    const chatData = {
-                        speaker: ChatMessage.getSpeaker({actor}),
-                        flavor: game.i18n.localize("TALENT.LIGHTNING_REFLEXES"),
-                        content,
-                        rolls: [roll1, roll2]
-                    };
-                    ChatMessage.applyRollMode(chatData, rollMode);
-                    await ChatMessage.create(chatData);
-                }
-                await combatant.update({initiative: betterResult});
-            }
-
-            if (withoutLightningReflexes.length > 0) {
-                const idsWithoutLR = withoutLightningReflexes.map(c => c.id);
-                // Подпись сообщения сокращается до одного слова. Ядро пишет «Имя
-                // rolls for Initiative!», а имя уже стоит заголовком сообщения —
-                // строка повторяла его и занимала всю ширину карточки.
-                const opts = foundry.utils.mergeObject({
-                    messageOptions: { flavor: game.i18n.localize("INITIATIVE") }
-                }, options, { inplace: false });
-                return originalRollInitiative.call(this, idsWithoutLR, opts);
-            }
-
-            return this;
-        };
-    }
-
-    // Override TokenDocument.toggleStatusEffect to use actor's addCondition/removeCondition
-    // This ensures token status clicks use the same logic as sheet condition clicks
-    if (!TokenDocument.prototype._dhToggleStatusEffect) {
-        TokenDocument.prototype._dhToggleStatusEffect = true;
-        const originalToggleStatusEffect = TokenDocument.prototype.toggleStatusEffect;
-        TokenDocument.prototype.toggleStatusEffect = async function(statusId, { overlay = false, active = null } = {}) {
-            // Get the actor
-            const actor = this.actor;
-            if (!actor || !(actor instanceof DarkHeresyActor)) {
-                // Fallback to original behavior if no actor or not DarkHeresyActor
-                return originalToggleStatusEffect.call(this, statusId, { overlay, active });
-            }
-            
-            // Check if status is in CONFIG.statusEffects (is a condition)
-            const statusEffect = CONFIG.statusEffects.find(s => s.id === statusId);
-            if (!statusEffect) {
-                // Not a condition, use original behavior
-                return originalToggleStatusEffect.call(this, statusId, { overlay, active });
-            }
-            
-            // Determine if we're adding or removing
-            const currentStatuses = this.statuses || new Set();
-            const isCurrentlyActive = currentStatuses.has(statusId);
-            const shouldBeActive = active !== null ? active : !isCurrentlyActive;
-            
-            // Use actor's methods (same as sheet)
-            if (shouldBeActive && !isCurrentlyActive) {
-                // Add condition
-                await actor.addCondition(statusId, { type: "minor" });
-            } else if (!shouldBeActive && isCurrentlyActive) {
-                // Remove condition
-                await actor.removeCondition(statusId);
-            }
-            
-            // The actor methods will automatically sync to token via transfer: true
-            // So we don't need to manually update token statuses
-            
-            return this;
-        };
-    }
-
-    // Skip dead combatants in initiative
-    if (!Combat.prototype._dhSkipDead) {
-        Combat.prototype._dhSkipDead = true;
-        const originalNextTurn = Combat.prototype.nextTurn;
-        Combat.prototype.nextTurn = async function() {
-            const currentTurn = this.turn;
-            
-            // Find next alive combatant
-            let nextTurn = currentTurn;
-            let attempts = 0;
-            const maxAttempts = this.turns.length * 2; // Prevent infinite loop
-            
-            do {
-                nextTurn = (nextTurn + 1) % this.turns.length;
-                attempts++;
-                
-                if (attempts > maxAttempts) {
-                    // Fallback to original behavior if all are dead
-                    return originalNextTurn.call(this);
-                }
-                
-                const combatant = this.turns[nextTurn];
-                if (!combatant) continue;
-                
-                const actor = combatant.actor;
-                if (!actor) continue;
-                
-                const tokens = actor.getActiveTokens(true);
-                if (!tokens.length) continue;
-                
-                const token = tokens[0];
-                
-                // Skip if dead
-                if (_hasCondition(token, "dead")) {
-                    continue;
-                }
-                
-                // Found alive combatant
-                break;
-            } while (true);
-            
-            // Update turn - THIS IS WHEN THE TURN CHANGES TO THE NEW ACTOR
-            //
-            // The round has to advance here too. This override replaced core's nextTurn,
-            // which ends the round with nextRound() once the last combatant has acted;
-            // the replacement only wrapped the turn index modulo the order length, so the
-            // counter sat on round 1 for the whole fight. Anything measured in rounds -
-            // sustained powers, conditions with a duration - never expired.
-            //
-            // Wrapping is detected by the index not moving forward: the search above walks
-            // the order in one direction, so a next index at or before the current one
-            // means it came round the end.
-            const wrapped = nextTurn <= currentTurn;
-            await this.update(wrapped ? { round: this.round + 1, turn: nextTurn }
-                                      : { turn: nextTurn });
-
-            // Работа на смене раунда — снятие истёкших состояний, огонь по
-            // машинам, сброс пройденного — живёт в хуке onCombatRoundAdvanced:
-            // раунд крутят и кнопкой «Следующий раунд», которая сюда не заходит.
-
-            // NOW the turn has switched to the new actor - apply effects at the START of their turn
-            // This happens IMMEDIATELY when initiative switches to them
-            const newTurnCombatant = this.combatants.get(this.turns[nextTurn]?.id);
-            if (newTurnCombatant) {
-                const actor = newTurnCombatant.actor;
-                if (actor && (actor.hasPlayerOwner || game.user.isGM)) {
-                    // Check if actor is dead - don't apply effects to dead actors
-                    const deadCondition = actor.hasCondition("dead");
-                    if (!deadCondition) {
-                        const token = newTurnCombatant?.token;
-                        let hasFireOnToken = false;
-                        let hasBleedingOnToken = false;
-                        if (token && token.document) {
-                            const tokenStatuses = token.document.statuses;
-                            if (tokenStatuses instanceof Set) {
-                                hasFireOnToken = tokenStatuses.has("fire");
-                                hasBleedingOnToken = tokenStatuses.has("bleeding");
-                            }
-                        }
-                        
-                        // Check for fire condition
-                            const fireCondition = actor.hasCondition("fire");
-                            if (fireCondition || hasFireOnToken) {
-                                // Apply effect asynchronously (don't block turn change)
-                                _applyFireEffect(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error applying fire effect:`, err);
-                                });
-                            }
-                        
-                        // Check for bleeding condition
-                            const bleedingCondition = actor.hasCondition("bleeding");
-                            if (bleedingCondition || hasBleedingOnToken) {
-                                // Apply effect asynchronously (don't block turn change)
-                                _applyBleedingEffect(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error applying bleeding effect:`, err);
-                                });
-                            }
-
-                        // Вакуум идёт раньше удушья: он сам его и вызывает, и
-                        // порядок решает, чей счётчик раундов заведётся первым.
-                            if (actor.hasCondition("vacuum")) {
-                                _applyVacuumEffect(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error applying vacuum effect:`, err);
-                                });
-                            }
-
-                            if (actor.hasCondition("suffocating")) {
-                                _applySuffocationEffect(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error applying suffocation effect:`, err);
-                                });
-                            }
-
-                            if (actor.hasCondition("poisond")) {
-                                _applyToxicEffect(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error applying toxic effect:`, err);
-                                });
-                            }
-
-                            if (actor.hasCondition("pinned")) {
-                                _offerPinningEscape(actor, newTurnCombatant).catch(err => {
-                                    console.error(`Error offering pinning escape:`, err);
-                                });
-                            }
-                    }
-                }
-            }
-            
-            return this;
-        };
-    }
 });
 
 
@@ -14243,28 +16472,6 @@ Hooks.once("ready", async function() {
  * Строгость поведения выбирается настройкой мира — фишку двигают и просто
  * чтобы поправить её положение на карте.
  */
-/* Раунд сменился — неважно, чем именно его сменили. */
-Hooks.on("updateCombat", (combat, changes, options, userId) => {
-    if (changes.round === undefined) return;
-    // Только вперёд: отмотанный назад раунд ничего не поджигает и сроков не тратит.
-    const previous = combat._dhPreviousRound ?? changes.round;
-    combat._dhPreviousRound = changes.round;
-    if (changes.round <= previous) return;
-
-    // Делает тот, кто раунд и переключил, — если у него есть на это права.
-    // Привязка к «основному МИ» тут хуже: в мире с двумя МИ основной может
-    // оказаться простаивающей вкладкой, и тогда не сделает никто. На случай,
-    // если раунд крутит игрок, работа остаётся за основным МИ.
-    const initiator = game.users.get(userId);
-    const doer = initiator?.isGM ? initiator : game.users.activeGM;
-    if (doer !== game.user) return;
-    onCombatRoundAdvanced(combat);
-});
-
-Hooks.on("preUpdateCombat", (combat, changes) => {
-    if (changes.round !== undefined) combat._dhPreviousRound = combat.round;
-});
-
 /**
  * Тихо копить, сколько машина прошла за раунд.
  *
@@ -14288,6 +16495,49 @@ Hooks.on("preUpdateToken", (tokenDoc, changes) => {
 
     const already = Number(tokenDoc.getFlag("dark-heresy", "movedThisRound")) || 0;
     foundry.utils.setProperty(changes, "flags.dark-heresy.movedThisRound", already + metres);
+});
+
+/*
+ * Мятеж (стр. 224). Всякий раз, когда Дух падает ниже 70, 40 и 10, капитан
+ * проверяет Командование. В бою проверка ждёт конца боя, и сколько бы порогов
+ * ни прошли за бой, проверка одна.
+ *
+ * Старое значение запоминает клиент, который правит корабль, — у остальных его
+ * нет, поэтому карточка появится ровно один раз.
+ */
+Hooks.on("preUpdateActor", (actor, changes) => {
+    if (actor?.type !== "voidship") return;
+    if (foundry.utils.getProperty(changes, "system.morale.value") === undefined) return;
+    actor._dhMoralePrev = Number(actor._source.system.morale?.value) || 0;
+});
+
+Hooks.on("updateActor", async (actor, changes, options, userId) => {
+    if (actor?.type !== "voidship") return;
+    const prev = actor._dhMoralePrev;
+    delete actor._dhMoralePrev;
+    if (prev === undefined || userId !== game.user.id) return;
+    const now = Number(actor._source.system.morale?.value) || 0;
+    const crossed = [70, 40, 10].filter(t => prev >= t && now < t);
+    if (!crossed.length) return;
+    const inCombat = game.combats.some(c => c.started && c.combatants.some(cb => cb.actor?.id === actor.id));
+    if (inCombat) {
+        await actor.setFlag("dark-heresy", "mutinyPending", true);
+        return;
+    }
+    await _postMutinyWarning(actor, crossed);
+});
+
+Hooks.on("deleteCombat", async combat => {
+    if (game.users.activeGM !== game.user) return;
+    const seen = new Set();
+    for (const cb of combat.combatants) {
+        const ship = cb.actor;
+        if (ship?.type !== "voidship" || seen.has(ship.id)) continue;
+        seen.add(ship.id);
+        if (!ship.getFlag("dark-heresy", "mutinyPending")) continue;
+        await ship.unsetFlag("dark-heresy", "mutinyPending");
+        await _postMutinyWarning(ship, null);
+    }
 });
 
 Hooks.on("refreshToken", (token) => {
@@ -14409,73 +16659,8 @@ async function checkHereticAllegiance(actor) {
  * @returns {boolean}
  */
 function _hasCondition(tokenOrActor, conditionId) {
-    if (!tokenOrActor) {
-        return false;
-    }
-    
-    const condition = CONFIG.statusEffects.find(e => e.id === conditionId);
-    if (!condition) {
-        return false;
-    }
-    
-    // Get the actor (from token or directly)
-    const actor = tokenOrActor.actor || tokenOrActor;
-    if (!actor) {
-        return false;
-    }
-    
-    // PRIMARY CHECK: Check token statuses first (most reliable - statuses are synced via transfer: true)
-    if (tokenOrActor.document) {
-        const token = tokenOrActor;
-        const statuses = token.document.statuses;
-        
-        if (statuses instanceof Set) {
-            if (statuses.has(conditionId)) {
-                return true;
-            }
-        } else if (statuses) {
-            // Try to check as object/Map
-            if (statuses[conditionId] !== undefined || (statuses instanceof Map && statuses.has(conditionId))) {
-                return true;
-            }
-        }
-    }
-    
-    // SECONDARY CHECK: Check actor effects by statuses array (like impmal)
-    if (actor.effects) {
-        const effectsArray = Array.from(actor.effects);
-        
-        // Check if effect has statuses array containing the conditionId (like impmal)
-        const effectsWithStatuses = effectsArray.filter(e => {
-            // Try multiple ways to access statuses array
-            let effectStatuses = e.statuses || e.toObject?.()?.statuses || e.system?.statuses;
-            if (effectStatuses && Array.isArray(effectStatuses)) {
-                return effectStatuses.includes(conditionId);
-            }
-            return false;
-        });
-        if (effectsWithStatuses.length > 0) {
-            return true;
-        }
-        
-        // Fallback: check by statusId for backwards compatibility
-        const effectsByStatusId = effectsArray.filter(e => e.statusId === conditionId);
-        if (effectsByStatusId.length > 0) {
-            return true;
-        }
-    }
-    
-    // FALLBACK: check actor effects by img (for backwards compatibility)
-    if (actor.effects) {
-        const effectsArray = Array.from(actor.effects);
-        const effectsByImg = effectsArray.filter(e => e.img === condition.img);
-        
-        if (effectsByImg.length > 0) {
-            return true;
-        }
-    }
-    
-    return false;
+    const actor = tokenOrActor?.actor ?? tokenOrActor;
+    return !!actor?.hasCondition?.(conditionId);
 }
 
 /**
@@ -14544,10 +16729,47 @@ function _getTargetSizeModifier(rollData) {
         return 0;
     }
     
-    const targetSize = Number(token.actor.system?.size) || 4; // Default size is 4 (modifier 0)
-    
-    // Size modifier mapping:
-    // 1: -30, 2: -20, 3: -10, 4: 0, 5: +10, 6: +20, 7: +30, 8: +40, 9: +50, 10: +60
+    return _sizeModifier(token.actor.system?.size);
+}
+
+/**
+ * Горит ли машина, в которой сидит этот боец.
+ *
+ * По книге экипаж и пассажиры горящей машины получают −20 ко всем без разбора
+ * проверкам, пока пламя не собьют. Отдельного состояния бойцу не вешаем: он
+ * страдает ровно до тех пор, пока горит машина, и снимать флажок вручную
+ * пришлось бы каждому. Проверка стоит дёшево — машин в мире единицы.
+ * @param {Actor} actor
+ * @returns {Actor|null} машина, если она горит и боец внутри
+ */
+function _burningVehicleFor(actor) {
+    if (!actor?.id || !game.actors) return null;
+    for (const vehicle of game.actors) {
+        if (vehicle.type !== "vehicle" || !vehicle.system?.conditions?.onFire) continue;
+        const members = vehicle.system.crew?.members;
+        if (Array.isArray(members) && members.some(m => m?.actorId === actor.id)) return vehicle;
+    }
+    return null;
+}
+
+/**
+ * Штраф бойцу за то, что он находится внутри горящей машины.
+ * @param {Actor} actor
+ * @returns {number} −20, пока машина горит, иначе 0
+ */
+function _burningCrewModifier(actor) {
+    return _burningVehicleFor(actor) ? -20 : 0;
+}
+
+/**
+ * Поправка за величину цели.
+ *
+ * Одна и та же цифра работает в две стороны: крупную машину легче подстрелить и
+ * ей же труднее вильнуть из-под выстрела, поэтому таблица живёт отдельно.
+ * @param {number} size  Ступень величины, 1..10; по умолчанию 4 — обычная
+ * @returns {number}     Поправка к попаданию: −30 у крошечной, +60 у титанической
+ */
+function _sizeModifier(size) {
     const sizeModifiers = {
         1: -30,
         2: -20,
@@ -14560,8 +16782,7 @@ function _getTargetSizeModifier(rollData) {
         9: 50,
         10: 60
     };
-    
-    return sizeModifiers[targetSize] || 0;
+    return sizeModifiers[Number(size) || 4] || 0;
 }
 
 /**
@@ -14702,6 +16923,19 @@ Hooks.on("renderDarkHeresySheet", (sheet, html, data) => {
  * This allows Health Estimate module to properly calculate health fractions
  */
 // Hook to update actor sheets when effects are updated (for conditions synchronization)
+async function _onFatigueEffectExpired(effect) {
+    if (game.user !== game.users.activeGM || !effect.statuses?.has("unconscious")) return;
+    const actor = effect.actor ?? effect.parent;
+    if (!actor?.getFlag("dark-heresy", "fatigueCollapse")) return;
+    await actor.unsetFlag("dark-heresy", "fatigueCollapse");
+    await actor.update({"system.fatigue.value": Number(actor.system.fatigue?.max) || 0});
+}
+
+Hooks.on("updateActiveEffect", async (effect, changes) => {
+    if (foundry.utils.getProperty(changes, "duration.expired") === true) await _onFatigueEffectExpired(effect);
+});
+Hooks.on("deleteActiveEffect", _onFatigueEffectExpired);
+
 Hooks.on("updateActiveEffect", (effect, updateData, options, userId) => {
     // Update all open sheets for this actor
     if (effect.parent && effect.parent.sheet?.rendered) {
@@ -14850,24 +17084,27 @@ async function onExtinguishFireClick(event) {
     }
 }
 
+async function resolveBloodLoss(actor, rollResult) {
+    const isDead = Number(rollResult) >= 91;
+    if (isDead) await actor.addCondition("dead", {type: "minor"});
+    return {lethal: true, rollResult, isDead};
+}
+
 async function onBloodLossRollClick(event) {
     event.preventDefault();
     event.stopPropagation();
 
     const button = event.currentTarget;
     const actorId = button.dataset.actorId;
-    const actor = game.actors.get(actorId);
-    if (!actor) return;
+    const actor = await _getActorFromOwnerId(button.dataset.actorUuid || actorId, button.dataset.tokenId);
+    if (!actor?.isOwner || button.disabled) return;
 
     button.disabled = true;
-    _resolvePendingCard(button);
 
     const deathRoll = new Roll("1d100");
     await deathRoll.evaluate();
     const rollResult = deathRoll.total;
-    const isDead = rollResult >= 90;
-
-    if (isDead) await actor.addCondition("dead", { type: "minor" });
+    const {isDead} = await resolveBloodLoss(actor, rollResult);
 
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/bleeding-effect.hbs", {
         actorName: actor.name,
@@ -14876,7 +17113,9 @@ async function onBloodLossRollClick(event) {
         rollResult,
         isDead,
         pendingRoll: false,
-        ownerId: actor.id
+        lethal: true,
+        actorUuid: actor.uuid,
+            ownerId: actor.id
     });
 
     await ChatMessage.create({
@@ -14884,6 +17123,7 @@ async function onBloodLossRollClick(event) {
         speaker: ChatMessage.getSpeaker({ actor }),
         flags: { "dark-heresy": { type: "bleeding-effect", actorId: actor.id } }
     });
+    _resolvePendingCard(button);
 }
 
 /**
@@ -14965,7 +17205,8 @@ async function _applyFireEffect(actor, combatant) {
         dof: willpowerRollData.dof,
         difficulty: willpowerRollData.difficulty,
         rolledWith: willpowerRollData.rolledWith || game.i18n.localize("CHARACTERISTIC.WILLPOWER"),
-        ownerId: actor.id
+        actorUuid: actor.uuid,
+            ownerId: actor.id
     };
     
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/fire-effect.hbs", templateData);
@@ -15417,8 +17658,7 @@ async function _applyBleedingEffect(actor, combatant) {
             await deathRoll.evaluate();
             rollResult = deathRoll.total;
             // Ровно 10% — значения 91-100.
-            isDead = rollResult >= 91;
-            if (isDead) await actor.addCondition("dead", { type: "minor" });
+            ({isDead} = await resolveBloodLoss(actor, rollResult));
         }
     } else {
         // Предел не обрезаем: усталость сверх порога обязана уронить бойца,
@@ -15439,7 +17679,8 @@ async function _applyBleedingEffect(actor, combatant) {
         newFatigue: Number(actor.system?.fatigue?.value) || 0,
         maxFatigue: Number(actor.system?.fatigue?.max) || 0,
         pendingRoll: pendingRoll,
-        ownerId: actor.id
+        actorUuid: actor.uuid,
+            ownerId: actor.id
     };
 
     const html = await foundry.applications.handlebars.renderTemplate("systems/dark-heresy/template/chat/bleeding-effect.hbs", templateData);
@@ -15482,9 +17723,12 @@ async function onFireWillpowerTestClick(event) {
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
     const rollData = message.getFlag?.("dark-heresy", "rollData");
 
+    // Карточка пустотного выстрела своя, к rollData отношения не имеет.
+    _activateShipChatListeners(html, message);
+
     // Hide "Roll Damage" button if user doesn't have permission to the actor who made the roll
     if (rollData?.ownerId) {
-        const actor = game.actors.get(rollData.ownerId);
+        const actor = _actorFromRollData(rollData);
         // If actor exists and user is not GM and doesn't own the actor, hide damage button
         if (actor && !game.user.isGM && !actor.isOwner) {
             for (const button of html.querySelectorAll(".invoke-damage")) button.style.display = "none";

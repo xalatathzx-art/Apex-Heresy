@@ -7718,7 +7718,20 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
   color: var(--dh-ink-faint);
   border: 1px solid var(--dh-brass-dim);
   padding: 2px var(--dh-space-2);
-  pointer-events: none;
+}
+
+/* Плашка книги теперь выбор, а не подпись: сам select невидим, всю внешность
+   даёт плашка вокруг него. Раньше здесь стоял pointer-events: none. */
+.dark-heresy .header .sheet-origin select {
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-align: center;
+  cursor: pointer;
 }
 
 .dark-heresy .header .identity {
@@ -10427,6 +10440,15 @@ body:not(.no-theme) .dark-heresy.app.window-app.sheet > .window-header {
 }
 .dark-heresy.chat .dh-card .dh-note b { color: var(--dh-ink); }
 
+/* Строка из таблицы критов машины — под заметкой, которая назвала её номер. */
+.dark-heresy.chat .dh-card .vehicle-crit-text {
+  margin: var(--dh-space-1) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.45;
+  color: var(--dh-ink-muted);
+}
+
 /* ── Карточка предмета: портрет и описание ───────────────────────────────── */
 .dark-heresy.chat .dh-card .dh-item-top {
   display: grid;
@@ -11692,7 +11714,7 @@ body:not(.no-theme) .chat-log {
 /* Список орудий — та же таблица, что внизу бланка. */
 .dark-heresy .voidship .ship-weapon-list {
   display: grid;
-  --dh-sweapon-cols: minmax(0, 2fr) minmax(0, 1.1fr) minmax(0, 1fr) 72px 84px minmax(0, 1fr) 64px 64px;
+  --dh-sweapon-cols: minmax(0, 2fr) minmax(0, 1.1fr) minmax(0, 1fr) 72px 84px minmax(0, 1fr) 64px 92px;
   grid-template-columns: var(--dh-sweapon-cols);
   column-gap: var(--dh-space-2);
   align-content: start;
@@ -11807,6 +11829,873 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
 /* Пять позиций должны вставать в один ряд, как точки на бланке. */
 .dark-heresy .voidship .capacity-grid {
   grid-template-columns: repeat(auto-fit, minmax(66px, 1fr));
+}
+
+/* Очки корабля стоят в заголовке ёмкости позиций: третья смета постройки
+   рядом с двумя первыми, но мельче — на механику боя она не влияет. */
+.dark-heresy .voidship .ship-sp {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  margin-left: auto;
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
+  width: 56px;
+  text-align: center;
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Расход, посчитанный по предметам, читается как показание прибора, а не как
+   поле: цифру набирать больше не нужно, и вид не должен приглашать. */
+.dark-heresy .voidship .stat-field.is-derived > output {
+  display: block;
+  padding: var(--dh-space-1) var(--dh-space-2);
+  background: var(--dh-surface);
+  border: 1px dashed var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-md);
+  font-weight: 700;
+  text-align: center;
+  color: var(--dh-ink-muted);
+}
+.dark-heresy .voidship .budget-note {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+  text-align: right;
+}
+
+/* Значение, которым корабль действует сейчас, — приписка к записанному, а не
+   замена ему: базу стол правит руками, а поправки набегают сами. */
+.dark-heresy .voidship .eff-now {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-alert);
+}
+.dark-heresy .voidship .ship-weapon .strength s {
+  color: var(--dh-ink-faint);
+  text-decoration-thickness: 1px;
+}
+
+/* Полоса состояния под шкалами: всё, что сейчас мешает кораблю, одной строкой.
+   Пороги Команды и Духа складываются друг с другом и с обездвиженностью, и
+   держать эту сумму в голове посреди боя стол не обязан. */
+.dark-heresy .voidship .ship-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dh-space-2);
+  margin-top: var(--dh-space-3);
+  padding-top: var(--dh-space-2);
+  border-top: 1px solid var(--dh-line);
+}
+.dark-heresy .voidship .ship-state-tag {
+  padding: 1px var(--dh-space-2);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-ink-faint);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
+}
+.dark-heresy .voidship .ship-state-tag.is-crippled {
+  border-left-color: var(--dh-danger);
+  color: var(--dh-danger);
+}
+.dark-heresy .voidship .ship-state-tag.is-warn { border-left-color: var(--dh-alert); }
+.dark-heresy .voidship .ship-state-tag.is-crew { border-left-color: var(--dh-accent-dim); }
+.dark-heresy .voidship .ship-state-tag.is-morale { border-left-color: var(--dh-brass-dim); }
+.dark-heresy .voidship .ship-state-mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dh-space-2);
+  margin-left: auto;
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-alert);
+}
+
+/* Бедствия компонентов — шапка вкладки. Горящий отсек должен быть виден
+   сразу, а не находиться перелистыванием списка. */
+.dark-heresy .voidship .ship-alarms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dh-space-3);
+  padding: var(--dh-space-2) var(--dh-space-3);
+}
+.dark-heresy .voidship .ship-alarm {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
+}
+.dark-heresy .voidship .ship-alarm.is-fire { color: var(--dh-accent); }
+.dark-heresy .voidship .ship-alarm.is-vacuum { color: var(--dh-alert); }
+.dark-heresy .voidship .ship-alarm.is-damaged { color: var(--dh-danger); }
+
+/* Список компонентов — та же таблица, что и у орудий, но со своими колонками. */
+.dark-heresy .voidship .all-ship-components { padding: var(--dh-space-3); }
+.dark-heresy .voidship .ship-component-list {
+  display: grid;
+  --dh-scomp-cols: minmax(0, 2.4fr) minmax(0, 1.2fr) 72px 72px 64px 124px;
+  grid-template-columns: var(--dh-scomp-cols);
+  column-gap: var(--dh-space-2);
+  align-content: start;
+}
+.dark-heresy .voidship .ship-component-list > .header,
+.dark-heresy .voidship .ship-component-list > .items,
+.dark-heresy .voidship .ship-component-list .items > .ship-component {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  column-gap: var(--dh-space-2);
+  align-items: center;
+}
+.dark-heresy .voidship .ship-component-list > .header,
+.dark-heresy .voidship .items > .ship-component {
+  padding-inline: var(--dh-space-2h);
+}
+.dark-heresy .voidship .items > .ship-component {
+  padding-block: var(--dh-space-2);
+  margin-bottom: var(--dh-space-1);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-accent-dim);
+  transition: border-left-color var(--dh-transition), background var(--dh-transition);
+}
+.dark-heresy .voidship .items > .ship-component:hover {
+  background: var(--dh-surface-raised);
+  border-left-color: var(--dh-accent);
+}
+.dark-heresy .voidship .ship-component .name {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  text-align: left;
+  min-width: 0;
+  cursor: pointer;
+}
+.dark-heresy .voidship .ship-component .component-name {
+  font-size: var(--dh-text-md);
+  font-weight: 600;
+  color: var(--dh-ink);
+}
+.dark-heresy .voidship .ship-component .flag-fire { color: var(--dh-accent); }
+.dark-heresy .voidship .ship-component .flag-vacuum { color: var(--dh-alert); }
+.dark-heresy .voidship .ship-component .space,
+.dark-heresy .voidship .ship-component .power,
+.dark-heresy .voidship .ship-component .sp {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-sm);
+  text-align: center;
+  color: var(--dh-ink);
+}
+
+/* Состояние компонента — не текст в ячейке, а метка: по ней взгляд находит
+   выбитый отсек, не читая строку целиком. */
+.dark-heresy .voidship .status-pill {
+  display: inline-block;
+  padding: 1px var(--dh-space-2);
+  border: 1px solid var(--dh-line);
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy .voidship .status-pill.is-intact { color: var(--dh-ink-muted); }
+.dark-heresy .voidship .status-pill.is-unpowered {
+  border-color: var(--dh-alert);
+  color: var(--dh-alert);
+}
+.dark-heresy .voidship .status-pill.is-damaged {
+  border-color: var(--dh-danger);
+  color: var(--dh-danger);
+}
+.dark-heresy .voidship .status-pill.is-destroyed {
+  background: var(--dh-danger);
+  border-color: var(--dh-danger);
+  color: var(--dh-surface);
+}
+.dark-heresy .voidship .empty-note {
+  margin: var(--dh-space-2) 0 0;
+  padding-inline: var(--dh-space-2h);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  font-style: italic;
+  color: var(--dh-ink-faint);
+}
+
+/* Прицел в строке орудия — главное действие списка, поэтому он выделен цветом
+   боевой кнопки, а карандаш и корзина остаются служебными. */
+.dark-heresy .voidship .ship-weapon-fire {
+  color: var(--dh-accent);
+  cursor: pointer;
+  transition: color var(--dh-transition);
+}
+.dark-heresy .voidship .ship-weapon-fire:hover { color: var(--dh-alert); }
+
+/* ── Карточка пустотного выстрела ───────────────────────────────────────────
+   Читается сверху вниз тем же порядком, что и правила: бросок, попадания,
+   щиты, урон, броня, корпус, крит. */
+.dark-heresy.chat.ship-attack-card .ship-note {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  font-style: italic;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-attack-card .ship-note.is-warn {
+  font-style: normal;
+  color: var(--dh-alert);
+}
+
+/* Броски урона по каждому попаданию — россыпь мелких цифр под складкой:
+   итог уже показан крупно, а это его расшифровка. */
+.dark-heresy.chat.ship-attack-card .ship-damage-rolls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dh-space-1);
+  padding: var(--dh-space-2) 0;
+}
+.dark-heresy.chat.ship-attack-card .ship-die {
+  min-width: 26px;
+  padding: 1px var(--dh-space-1);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-sm);
+  text-align: center;
+  color: var(--dh-ink);
+}
+
+/* Крит — не число, а то, что вырвало из корабля, поэтому он идёт отдельной
+   плитой с прозой, а не строкой в столбце цифр. */
+.dark-heresy.chat.ship-attack-card .ship-crit {
+  margin-top: var(--dh-space-3);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-danger);
+  border-left-width: 3px;
+}
+.dark-heresy.chat.ship-attack-card .ship-crit-h {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dh-space-2);
+  margin: 0;
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-danger);
+}
+.dark-heresy.chat.ship-attack-card .ship-crit-src {
+  font-family: var(--dh-font-data);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-attack-card .ship-crit-name {
+  margin: var(--dh-space-1) 0 0;
+  font-family: var(--dh-font-display, var(--dh-font-stencil));
+  font-size: var(--dh-text-md);
+  font-weight: 700;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-attack-card .ship-crit-text {
+  margin: var(--dh-space-1) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.45;
+  color: var(--dh-ink-muted);
+}
+
+/* Кнопка применения. Ядро Foundry навязывает <button> свои размеры, поэтому
+   ширина и рамка задаются явно — иначе кнопка растянется во всю карточку. */
+.dark-heresy.chat.ship-attack-card .dh-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--dh-space-3);
+}
+.dark-heresy.chat.ship-attack-card .ship-damage-apply {
+  width: auto;
+  inline-size: auto;
+  box-sizing: border-box;
+  padding: var(--dh-space-1) var(--dh-space-3);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-accent);
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-accent);
+  cursor: pointer;
+  transition: background var(--dh-transition), color var(--dh-transition);
+}
+.dark-heresy.chat.ship-attack-card .ship-damage-apply:hover:not(:disabled) {
+  background: var(--dh-accent);
+  color: var(--dh-surface);
+}
+.dark-heresy.chat.ship-attack-card .ship-damage-apply:disabled {
+  border-color: var(--dh-line);
+  color: var(--dh-ink-faint);
+  cursor: default;
+}
+
+/* Залп: стволы построчно — имя, бросок против цели и сколько положил. */
+.dark-heresy.chat.ship-salvo-card .ship-note {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  font-style: italic;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-salvo-card .ship-note.is-warn { font-style: normal; color: var(--dh-alert); }
+.dark-heresy.chat .ship-salvo-shots {
+  display: grid;
+  gap: var(--dh-space-1);
+  margin: var(--dh-space-2) 0 var(--dh-space-3);
+}
+.dark-heresy.chat .ship-salvo-shot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 64px;
+  gap: var(--dh-space-2);
+  align-items: baseline;
+  padding: var(--dh-space-1) var(--dh-space-2);
+  background: var(--dh-surface);
+  border-left: 3px solid var(--dh-accent-dim);
+  font-size: var(--dh-text-sm);
+}
+.dark-heresy.chat .ship-salvo-shot.is-miss { border-left-color: var(--dh-line); color: var(--dh-ink-faint); }
+.dark-heresy.chat .ship-salvo-shot .name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dark-heresy.chat .ship-salvo-shot .roll,
+.dark-heresy.chat .ship-salvo-shot .hits {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.dark-heresy.chat.ship-salvo-card .ship-damage-rolls {
+  display: flex; flex-wrap: wrap; gap: var(--dh-space-1); padding: var(--dh-space-2) 0;
+}
+.dark-heresy.chat.ship-salvo-card .ship-die {
+  min-width: 26px; padding: 1px var(--dh-space-1);
+  background: var(--dh-surface); border: 1px solid var(--dh-line);
+  font-family: var(--dh-font-data); font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-sm); text-align: center; color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-salvo-card .ship-crit {
+  margin-top: var(--dh-space-3); padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface); border: 1px solid var(--dh-danger); border-left-width: 3px;
+}
+.dark-heresy.chat.ship-salvo-card .ship-crit-h {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--dh-space-2);
+  margin: 0; font-family: var(--dh-font-stencil); text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption); font-size: var(--dh-text-xs); color: var(--dh-danger);
+}
+.dark-heresy.chat.ship-salvo-card .ship-crit-src {
+  font-family: var(--dh-font-data); text-transform: none; letter-spacing: 0; color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-salvo-card .ship-crit-name {
+  margin: var(--dh-space-1) 0 0; font-size: var(--dh-text-md); font-weight: 700; color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-salvo-card .ship-crit-text {
+  margin: var(--dh-space-1) 0 0; font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm); line-height: 1.45; color: var(--dh-ink-muted);
+}
+.dark-heresy.chat.ship-salvo-card .dh-actions {
+  display: flex; justify-content: flex-end; margin-top: var(--dh-space-3);
+}
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply {
+  width: auto; inline-size: auto; box-sizing: border-box;
+  padding: var(--dh-space-1) var(--dh-space-3);
+  background: var(--dh-surface); border: 1px solid var(--dh-accent);
+  font-family: var(--dh-font-stencil); text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption); font-size: var(--dh-text-xs);
+  color: var(--dh-accent); cursor: pointer;
+}
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply:hover:not(:disabled) {
+  background: var(--dh-accent); color: var(--dh-surface);
+}
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply:disabled {
+  border-color: var(--dh-line); color: var(--dh-ink-faint); cursor: default;
+}
+
+/* Список стволов в диалоге залпа. */
+.dark-heresy-dialog .dh-salvo-list {
+  display: grid;
+  gap: var(--dh-space-1);
+  margin-bottom: var(--dh-space-3);
+  padding-bottom: var(--dh-space-2);
+  border-bottom: 1px solid var(--dh-line);
+}
+.dark-heresy-dialog .dh-salvo-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--dh-space-2);
+  align-items: center;
+}
+.dark-heresy-dialog .dh-salvo-row .meta {
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+
+/* ── Мостик ─────────────────────────────────────────────────────────────────
+   Ход корабля: сделанное, висящее, и две сетки действий. */
+.dark-heresy .voidship .voidship-bridge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-3);
+}
+.dark-heresy .voidship .ship-turn,
+.dark-heresy .voidship .ship-actions { padding: var(--dh-space-3); }
+
+.dark-heresy .voidship .ship-turn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--dh-space-2);
+}
+.dark-heresy .voidship .turn-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-1);
+  padding: var(--dh-space-2);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-line);
+  color: var(--dh-ink);
+  text-decoration: none;
+}
+.dark-heresy .voidship .turn-cell .k {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy .voidship .turn-cell .v {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-md);
+  font-weight: 700;
+}
+.dark-heresy .voidship .turn-cell.is-done { border-left-color: var(--dh-accent); }
+.dark-heresy .voidship .ship-silent-running { cursor: pointer; transition: border-color var(--dh-transition); }
+.dark-heresy .voidship .ship-silent-running:hover { border-color: var(--dh-accent-dim); }
+.dark-heresy .voidship .ship-silent-running.is-on { border-left-color: var(--dh-alert); }
+.dark-heresy .voidship .ship-silent-running.is-on .v { color: var(--dh-alert); }
+
+.dark-heresy .voidship .ship-state-tag.is-good { border-left-color: var(--dh-accent); color: var(--dh-ink); }
+.dark-heresy .voidship .ship-clear-repel { color: var(--dh-ink-faint); cursor: pointer; }
+.dark-heresy .voidship .ship-clear-repel:hover { color: var(--dh-danger); }
+
+/* Действия — ссылки, а не <button>: ядро Foundry навязывает кнопкам размеры. */
+.dark-heresy .voidship .ship-action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--dh-space-2);
+}
+.dark-heresy .voidship .ship-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dh-space-2);
+  min-width: 0;
+  padding: var(--dh-space-2) var(--dh-space-2h);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-accent-dim);
+  color: var(--dh-ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dh-transition), border-left-color var(--dh-transition);
+}
+.dark-heresy .voidship .ship-action:hover {
+  background: var(--dh-surface-raised);
+  border-left-color: var(--dh-accent);
+}
+.dark-heresy .voidship .ship-action.is-done {
+  border-left-color: var(--dh-alert);
+  background: var(--dh-surface-raised);
+}
+.dark-heresy .voidship .ship-action .name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--dh-text-sm);
+  font-weight: 600;
+}
+.dark-heresy .voidship .ship-action .diff {
+  flex: none;
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+
+/* Карточка действия. */
+.dark-heresy.chat.ship-action-card .ship-effect {
+  margin: var(--dh-space-3) 0 0;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface);
+  border-left: 3px solid var(--dh-accent);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.45;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-action-card .dh-card.is-failure .ship-effect { border-left-color: var(--dh-line); color: var(--dh-ink-muted); }
+.dark-heresy.chat.ship-action-card .ship-note {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  font-style: italic;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-action-card .ship-crit {
+  margin-top: var(--dh-space-3); padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface); border: 1px solid var(--dh-danger); border-left-width: 3px;
+}
+.dark-heresy.chat.ship-action-card .ship-crit-h {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--dh-space-2);
+  margin: 0; font-family: var(--dh-font-stencil); text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption); font-size: var(--dh-text-xs); color: var(--dh-danger);
+}
+.dark-heresy.chat.ship-action-card .ship-crit-src {
+  font-family: var(--dh-font-data); text-transform: none; letter-spacing: 0; color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-action-card .ship-crit-name {
+  margin: var(--dh-space-1) 0 0; font-size: var(--dh-text-md); font-weight: 700; color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-action-card .ship-crit-text {
+  margin: var(--dh-space-1) 0 0; font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm); line-height: 1.45; color: var(--dh-ink-muted);
+}
+.dark-heresy-dialog .dh-ship-action > .dh-dialog-hint:first-child {
+  margin: 0 0 var(--dh-space-3);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  color: var(--dh-ink-muted);
+}
+.dark-heresy-dialog .dh-ship-action .ship-action-test {
+  margin-top: var(--dh-space-3);
+  padding-top: var(--dh-space-2);
+  border-top: 1px solid var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
+}
+
+/* ── Карточки абордажа, налёта, мятежа и тарана ──────────────────────────── */
+/* Кнопки корабельных карточек говорят тем же языком, что и системные кнопки
+   карточек (.effect-buttons): тонкая рамка, трафарет, ряд во всю ширину, и
+   кнопки делят его поровну. Прижатые вправо кнопки разной ширины читались как
+   случайные — теперь ряд один и тот же во всех карточках пустотного боя. */
+.dark-heresy.chat .ship-btn-row {
+  display: flex;
+  gap: var(--dh-space-2);
+  margin-top: var(--dh-space-3);
+}
+/* Ядро Foundry навязывает <button> свои размеры — всё задаётся явно. */
+.dark-heresy.chat button.ship-btn,
+.dark-heresy.chat.ship-opposed-card .ship-damage-apply,
+.dark-heresy.chat.ship-ram-card .ship-damage-apply,
+.dark-heresy.chat.ship-attack-card .ship-damage-apply,
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply {
+  flex: 1 1 0;
+  box-sizing: border-box;
+  width: auto;
+  inline-size: auto;
+  min-width: 0;
+  height: auto;
+  min-height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  line-height: 1.25;
+  text-align: center;
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  background: none;
+  border: 1px solid var(--dh-accent-dim);
+  border-radius: 0;
+  color: var(--dh-accent);
+  cursor: pointer;
+  transition: color var(--dh-transition), border-color var(--dh-transition),
+              background-color var(--dh-transition);
+}
+.dark-heresy.chat button.ship-btn:hover:not(:disabled),
+.dark-heresy.chat.ship-opposed-card .ship-damage-apply:hover:not(:disabled),
+.dark-heresy.chat.ship-ram-card .ship-damage-apply:hover:not(:disabled),
+.dark-heresy.chat.ship-attack-card .ship-damage-apply:hover:not(:disabled),
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply:hover:not(:disabled) {
+  border-color: var(--dh-accent);
+  background: color-mix(in srgb, var(--dh-accent) 14%, transparent);
+  color: var(--dh-accent);
+}
+.dark-heresy.chat button.ship-btn:disabled,
+.dark-heresy.chat.ship-opposed-card .ship-damage-apply:disabled,
+.dark-heresy.chat.ship-ram-card .ship-damage-apply:disabled,
+.dark-heresy.chat.ship-attack-card .ship-damage-apply:disabled,
+.dark-heresy.chat.ship-salvo-card .ship-damage-apply:disabled {
+  border-color: var(--dh-line);
+  background: none;
+  color: var(--dh-ink-faint);
+  cursor: default;
+}
+.dark-heresy.chat button.ship-btn:focus-visible {
+  outline: 2px solid var(--dh-accent);
+  outline-offset: 1px;
+}
+.dark-heresy.chat button.ship-btn .lbl {
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  line-height: 1.25;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  color: inherit;
+}
+
+/* В узкой колонке чата две кнопки траты рядом ломали подписи на три строки.
+   В панели траты они идут стопкой: название слева, цена справа. */
+.dark-heresy.chat.ship-opposed-card .ship-spend .ship-btn-row { flex-direction: column; }
+.dark-heresy.chat.ship-opposed-card .ship-spend button.ship-btn {
+  flex: none;
+  width: 100%;
+  inline-size: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1px;
+  text-align: left;
+}
+/* Название и цена в одну строку в колонке чата не помещаются и ломались
+   обе. Стопкой каждая остаётся одной строкой. */
+.dark-heresy.chat.ship-opposed-card .ship-spend button.ship-btn .lbl,
+.dark-heresy.chat.ship-opposed-card .ship-spend button.ship-btn .cost {
+  white-space: nowrap;
+}
+
+/* Цена действия — мелкой строкой под названием, без трафарета. */
+.dark-heresy.chat button.ship-btn .cost {
+  font-family: var(--dh-font-data);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+
+.dark-heresy.chat .ship-opposed-sides {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--dh-space-2);
+}
+.dark-heresy.chat .ship-side {
+  min-width: 0;
+  padding: var(--dh-space-2);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-top: 3px solid var(--dh-line);
+}
+.dark-heresy.chat .ship-side.is-winner { border-top-color: var(--dh-accent); }
+.dark-heresy.chat .ship-side.is-failed .ship-side-roll .n { color: var(--dh-ink-faint); }
+.dark-heresy.chat .ship-side-h {
+  margin: 0;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat .ship-side-who,
+.dark-heresy.chat .ship-side-deg {
+  margin: var(--dh-space-1) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
+}
+.dark-heresy.chat .ship-side-roll {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+}
+.dark-heresy.chat .ship-side-roll .n { font-size: var(--dh-text-lg, 1.4em); font-weight: 700; color: var(--dh-ink); }
+.dark-heresy.chat .ship-side-roll .of { font-size: var(--dh-text-sm); color: var(--dh-ink-faint); }
+
+.dark-heresy.chat.ship-opposed-card .ship-effect,
+.dark-heresy.chat.ship-ram-card .ship-effect {
+  margin: var(--dh-space-3) 0 0;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface);
+  border-left: 3px solid var(--dh-accent);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.45;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-opposed-card .ship-note,
+.dark-heresy.chat.ship-ram-card .ship-note {
+  margin: var(--dh-space-2) 0 0;
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+  font-style: italic;
+  color: var(--dh-ink-faint);
+}
+/* Трата перевеса: счётчик, кнопки, журнал и бросок Духа — одна панель. */
+.dark-heresy.chat.ship-opposed-card .ship-spend {
+  margin-top: var(--dh-space-3);
+  padding: var(--dh-space-2) var(--dh-space-2h, var(--dh-space-2));
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+}
+.dark-heresy.chat.ship-opposed-card .ship-spend-h {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.chat.ship-opposed-card .ship-spend-h .k {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-opposed-card .ship-spend-h .v {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-md);
+  font-weight: 700;
+  color: var(--dh-accent);
+}
+.dark-heresy.chat.ship-opposed-card .ship-spend .ship-btn-row { margin-top: var(--dh-space-2); }
+
+/* Журнал — ровный список без полосы у каждой строки. */
+.dark-heresy.chat.ship-opposed-card .ship-log {
+  list-style: none;
+  margin: var(--dh-space-2) 0 0;
+  padding: 0;
+}
+.dark-heresy.chat.ship-opposed-card .ship-log li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dh-space-2);
+  padding: 3px 0;
+  border-top: 1px dashed var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  line-height: 1.35;
+  color: var(--dh-ink);
+}
+/* Общее правило системы (.dark-heresy.chat span) раздувает любой span до
+   крупного кегля. Строке журнала и подписи кнопки кегль задаётся явно. */
+.dark-heresy.chat.ship-opposed-card .ship-log li .t {
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  line-height: 1.35;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-opposed-card .ship-log li:first-child { border-top: 0; }
+.dark-heresy.chat.ship-opposed-card .ship-log .x {
+  flex: none;
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-opposed-card .ship-spend > .ship-log:first-child { margin-top: 0; }
+
+/* Итог броска Духа — плашкой: держатся или сдались. */
+.dark-heresy.chat.ship-opposed-card .ship-verdict {
+  margin: var(--dh-space-2) 0 0;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  border-left: 3px solid var(--dh-accent);
+  background: var(--dh-surface-raised);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.4;
+  color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-opposed-card .ship-verdict.is-bad {
+  border-left-color: var(--dh-danger);
+  color: var(--dh-danger);
+}
+.dark-heresy.chat.ship-opposed-card .ship-crit,
+.dark-heresy.chat.ship-ram-card .ship-crit {
+  margin-top: var(--dh-space-3); padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface); border: 1px solid var(--dh-danger); border-left-width: 3px;
+}
+.dark-heresy.chat.ship-opposed-card .ship-crit-h,
+.dark-heresy.chat.ship-ram-card .ship-crit-h {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--dh-space-2);
+  margin: 0; font-family: var(--dh-font-stencil); text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption); font-size: var(--dh-text-xs); color: var(--dh-danger);
+}
+.dark-heresy.chat.ship-opposed-card .ship-crit-src,
+.dark-heresy.chat.ship-ram-card .ship-crit-src {
+  font-family: var(--dh-font-data); text-transform: none; letter-spacing: 0; color: var(--dh-ink-faint);
+}
+.dark-heresy.chat.ship-opposed-card .ship-crit-name,
+.dark-heresy.chat.ship-ram-card .ship-crit-name {
+  margin: var(--dh-space-1) 0 0; font-size: var(--dh-text-md); font-weight: 700; color: var(--dh-ink);
+}
+.dark-heresy.chat.ship-opposed-card .ship-crit-text,
+.dark-heresy.chat.ship-ram-card .ship-crit-text {
+  margin: var(--dh-space-1) 0 0; font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm); line-height: 1.45; color: var(--dh-ink-muted);
+}
+
+/* Значки бедствий в строке компонента. */
+.dark-heresy .voidship .ship-comp-ignite:hover { color: var(--dh-accent); }
+.dark-heresy .voidship .ship-comp-vent { color: var(--dh-accent); }
+.dark-heresy .voidship .ship-comp-vent:hover,
+.dark-heresy .voidship .ship-comp-depressurise:hover { color: var(--dh-alert); }
+
+/* Шапка крита во всех корабельных карточках: подпись слева, источник справа.
+   Подпись — отдельный кусок текста во flex-контейнере, и без переноса строки и
+   собственного кегля у источника она ломалась на две строки. */
+.dark-heresy.chat .ship-crit-h { flex-wrap: wrap; }
+.dark-heresy.chat .ship-crit-h .ship-crit-src {
+  margin-left: auto;
+  font-size: var(--dh-text-xs);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Сводка орудия под полями диалога: не поле, а напоминание, чем стреляем. */
+.dark-heresy-dialog .dh-ship-attack .dh-dialog-hint {
+  margin-top: var(--dh-space-3);
+  padding-top: var(--dh-space-2);
+  border-top: 1px solid var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
 }
 
 /* Черты, прочитанные из списка, и объявленный манёвр — строкой под состояниями
@@ -12509,3 +13398,12 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-crew .vital-read
   border-radius: 0;
 }
 .dark-heresy.sheet .npc .npc-ruleset select:hover { color: var(--dh-ink); border-color: var(--dh-brass-dim); }
+
+.dh-trait-overrides .dh-override-list { max-height: 55vh; overflow-y: auto; margin-block: 12px; }
+.dh-trait-overrides .dh-override-row { display: flex; align-items: end; gap: 12px; padding: 8px 4px; border-bottom: 1px solid var(--color-border-light-primary); }
+.dh-trait-overrides .dh-override-row[hidden] { display: none; }
+.dh-trait-overrides .dh-override-row > label { display: grid; gap: 4px; flex: 1; min-width: 0; }
+.dh-trait-overrides .dh-override-row small { font-weight: normal; }
+.dh-trait-overrides .dh-override-row > input { width: 100px; flex: 0 0 100px; }
+.dh-trait-overrides .dh-override-search { display: grid; gap: 4px; }
+.dh-trait-overrides .hint { overflow-wrap: anywhere; }

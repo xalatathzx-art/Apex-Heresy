@@ -1178,6 +1178,7 @@
       }
     },
     "acolyte": {
+      "ruleset": "",
       "templates": [
         "characteristics",
         "skills",
@@ -1218,6 +1219,7 @@
       }
     },
     "heretic": {
+      "ruleset": "",
       "race": "",
       "archetype": "",
       "patron": "undivided",
@@ -1352,6 +1354,7 @@
     },
     "voidship": {
       "hullClass": "",
+      "hullType": "",
       "hull": "",
       "speed": 0,
       "manoeuvrability": 0,
@@ -1390,7 +1393,9 @@
       "supplementalComponents": "",
       "complications": "",
       "gmNotes": "",
-      "notes": ""
+      "notes": "",
+      "crewRating": 30,
+      "sp": 0
     }
   },
   "Item": {
@@ -1416,13 +1421,16 @@
       "race",
       "vehicleWeapon",
       "vehicleTrait",
-      "shipWeapon"
+      "shipWeapon",
+      "shipComponent"
     ],
     "templates": {
       "equipment": {
         "craftsmanship": "common",
         "description": "",
         "availability": "common",
+        "requisition": 0,
+        "renown": "none",
         "weight": 0,
         "equipped": false,
         "grantsArmour": {
@@ -1709,7 +1717,23 @@
       "damage": "",
       "range": 0,
       "power": 0,
-      "space": 0
+      "space": 0,
+      "shipPoints": 0
+    },
+    "shipComponent": {
+      "templates": [
+        "itemDescription"
+      ],
+      "category": "essential",
+      "power": 0,
+      "powerGenerated": 0,
+      "space": 0,
+      "shipPoints": 0,
+      "quality": "common",
+      "status": "intact",
+      "depressurised": false,
+      "onFire": false,
+      "repairTurns": 0
     }
   }
 }
