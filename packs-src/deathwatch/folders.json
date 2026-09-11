@@ -1,0 +1,116 @@
+{
+  "Ranged Weapons": {
+    "color": "#8c3a2b",
+    "sort": 100
+  },
+  "Ranged Weapons/Bolt": {},
+  "Ranged Weapons/Plasma": {},
+  "Ranged Weapons/Melta": {},
+  "Ranged Weapons/Flame": {},
+  "Ranged Weapons/Solid Projectile": {},
+  "Ranged Weapons/Las": {},
+  "Ranged Weapons/Launchers": {},
+  "Ranged Weapons/Exotic": {},
+  "Grenades & Missiles": {
+    "color": "#7a6a2b",
+    "sort": 200
+  },
+  "Melee Weapons": {
+    "color": "#8c5a2b",
+    "sort": 300
+  },
+  "Melee Weapons/Chain": {},
+  "Melee Weapons/Power": {},
+  "Melee Weapons/Force": {},
+  "Melee Weapons/Traditional": {},
+  "Weapon Upgrades": {
+    "color": "#6a4a6a",
+    "sort": 400
+  },
+  "Ammunition": {
+    "color": "#7a6a2b",
+    "sort": 500
+  },
+  "Ammunition/Standard": {},
+  "Ammunition/Special Issue": {},
+  "Armour": {
+    "color": "#3a5a7a",
+    "sort": 600
+  },
+  "Armour/Astartes": {},
+  "Armour/Other": {},
+  "Force Fields": {
+    "color": "#2b6a7a",
+    "sort": 700
+  },
+  "Relics": {
+    "color": "#6a5a2b",
+    "sort": 750
+  },
+  "Relics/Chapter Relics": {},
+  "Relics/Deathwatch Relics": {},
+  "Chapter Trappings": {
+    "color": "#7a4a2b",
+    "sort": 780
+  },
+  "Gear": {
+    "color": "#4a6a4a",
+    "sort": 800
+  },
+  "Drugs & Consumables": {
+    "color": "#6a3a55",
+    "sort": 900
+  },
+  "Tools": {
+    "color": "#3a6a55",
+    "sort": 1000
+  },
+  "Cybernetics": {
+    "color": "#5a5a6a",
+    "sort": 1100
+  },
+  "Servitors & Familiars": {
+    "color": "#4a4a5a",
+    "sort": 1150
+  },
+  "Talents": {
+    "color": "#7a5a2b",
+    "sort": 1200
+  },
+  "Traits": {
+    "color": "#6a2b3a",
+    "sort": 1300
+  },
+  "Traits/Mechanicus Implants": {},
+  "Psychic Powers": {
+    "color": "#5a3a8c",
+    "sort": 1400
+  },
+  "Psychic Powers/Telepathy": {},
+  "Psychic Powers/Divination": {},
+  "Psychic Powers/Codex": {},
+  "Psychic Powers/Blood Angels": {},
+  "Psychic Powers/Dark Angels": {},
+  "Psychic Powers/Space Wolves": {},
+  "Psychic Powers/Storm Wardens": {},
+  "Psychic Powers/Ultramarines": {},
+  "Special Abilities": {
+    "color": "#7a3a6a",
+    "sort": 1500
+  },
+  "Special Abilities/Space Marine": {},
+  "Special Abilities/Chapters": {},
+  "Special Abilities/Specialities": {},
+  "Solo Mode Abilities": {
+    "color": "#3a4a8c",
+    "sort": 1600
+  },
+  "Solo Mode Abilities/Codex": {},
+  "Solo Mode Abilities/Chapter": {},
+  "Squad Mode Abilities": {
+    "color": "#2b4a6a",
+    "sort": 1700
+  },
+  "Squad Mode Abilities/Attack Patterns": {},
+  "Squad Mode Abilities/Defensive Stances": {}
+}

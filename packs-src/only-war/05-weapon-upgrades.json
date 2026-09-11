@@ -1,0 +1,310 @@
+[
+  {
+    "name": "Auxiliary Grenade Launcher", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/weapons/grenade-launcher.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, or Bolt weapon.",
+      "availability": "rare", "weight": 2.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A small, single-shot version of the regular grenade launcher is fitted onto another ranged weapon such as a lasgun, allowing the user to fire a single grenade instead of firing as normal.</p><div class='bc-rule'><p>The added weight and cumbersome nature means that most users rarely bother to reload the launcher once it is expended. An auxiliary grenade launcher adds 2.5 kg to the weight of its fitted weapon. A character using a weapon with an auxiliary grenade launcher can choose to either fire the launcher or the weapon it is attached to in their Turn but not both at once. (Basic; 45m; S/–/–; Damage As Grenade; Pen As Grenade; Clip 1; Reload Full)</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Compact", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol or any Basic Las, Solid Projectile, Flame, Bolt, or Plasma weapon.",
+      "availability": "average", "weight": 0,
+      "effect": { "damageBonus": -1, "rangeMultiplier": 0.5, "clipMultiplier": 0.5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Compact weapons are smaller versions of Pistol and Basic weapons favoured by those who prefer concealment over stopping power.</p><div class='bc-rule'><p>This upgrade halves the weight of the weapon but also halves its Clip Size and Range as well as reducing its Damage by 1. Anyone attempting to find a concealed weapon with the Compact upgrade suffers a –20 penalty to any related Skill Test (e.g., Awareness, Scrutiny).</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Exterminator", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-flamer.webp",
+    "system": {
+      "upgrades": "Any non-Low-Tech weapon.",
+      "availability": "common", "weight": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many of the more zealous religious warriors of the Imperium use an exterminator cartridge on their regular weapons. This small device contains a small one-shot flamer weapon that shoots out a sheet of fire.</p><div class='bc-rule'><p>Rather than using the weapon as normal, the shooter may use the exterminator cartridge, working out the effects as if he was armed with a flamer. Exterminators are one-shot weapons and must be replaced once used.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Extra Grip", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic ranged weapon.",
+      "availability": "common", "weight": 0,
+      "effect": { "rangeMultiplier": 0.5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Also known as a pistol grip, this allows the weapon to be wielded in one hand without the usual –20 penalty.</p><div class='bc-rule'><p>However, it becomes more difficult to aim accurately and thus its Range is halved.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Forearm Weapon Mounting", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol Las, Low-Tech Solid Projectile, Bolt, or Melta weapon.",
+      "availability": "scarce", "weight": 1,
+      "effect": { "rangeMultiplier": 0.7 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This heavy bracing allows a single ranged weapon to be mounted along the arm, with specific hand movements triggering the weapon.</p><div class='bc-rule'><p>It allows the user to keep both hands free and can have a strong visual impression on their foes as fire seems to appear from the user’s outstretched arms. This upgrade reduces the Weapon’s range by one-third.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Melee Attachment", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/weapons/knife.webp",
+    "system": {
+      "upgrades": "Any Basic ranged weapon.",
+      "availability": "plentiful", "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bayonets, chain blades, and other long-bladed combat attachments can be fitted to most ranged weapons, making them more useful in assaults.</p><div class='bc-rule'><p>A weapon with a melee attachment counts as a spear in close combat.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Mono", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Low-Tech Melee weapon.",
+      "availability": "scarce", "weight": 0,
+      "effect": { "penetrationBonus": 2, "removeTraits": "Primitive" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mono weapons have specially fashioned blades with superfine edges that can easily cut through armour and never lose their edge.</p><div class='bc-rule'><p>Mono weapons no longer count as Primitive and add a +2 bonus to their Penetration. The mono upgrade can be applied to a power weapon, but it has no effect whilst the power field is active. If the power field is ever lost or deactivated, the mono upgrade’s bonuses then apply.</p><p><strong>Note:</strong> The mono upgrade may be applied to any Low-Tech Melee weapon, but when applied to close-combat weapons that do not use an edge (e.g., hammers, mauls, etc.), it is treated differently. Game Masters are encouraged to come up with interesting definitions for non-edged weapons with the mono upgrade. For example, a hammer with the mono upgrade could be defined as having a pneumo-shock enhancement. The in-game effects remain the same.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 188"
+    }
+  },
+  {
+    "name": "Motion Predictor", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any non-Low-Tech ranged weapon capable of Semi-Auto or Full Auto fire.",
+      "availability": "very-rare", "weight": 0.5,
+      "effect": { "attackBonus": 10 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>A complex target-tracking cogitator in this device is activated once the user has sighted the desired target. The predictor then tracks the target and, when the trigger is pulled, chases the target with all the rounds in a clip in one long burst.</p><div class='bc-rule'><p>A motion predictor adds a +10 to Ballistic Skill Tests, but only functions when the weapon is fired as part of a Semi-Auto Burst or Full-Auto Burst Action.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Omni-Scope", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, Bolt, Low-Tech, or Plasma weapon. An omni-scope counts as a sight and a gun can only have one sight.",
+      "availability": "near-unique", "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A vastly expensive and rare device normally found only in the hands of legendary assassins or bounty hunters, the omni-scope is a cluster of finely-tuned sensor wands linked to a precision lens.</p><div class='bc-rule'><p>Some of these scopes plug directly into a bionic cranial port, allowing the user to shoot around corners without exposing himself—the scope becomes a “third eye.”</p><p>The omni-scope combines the benefits of a Preysense Sight, Red-Dot-Laser Sight, and Telescopic Sight.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Overcharge Pack", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "upgrades": "Any Pistol or Basic Las weapon.",
+      "availability": "common", "weight": 0.5,
+      "effect": { "damageBonus": 1, "clipMultiplier": 0.5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is an enhanced power pack for a las weapon that increases the strength of its fire.</p><div class='bc-rule'><p>An overcharge pack adds 1 to the weapon’s Damage. Unfortunately, the increased output of Damage reduces the number of shots and so the Clip Size is halved.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Photo Sight", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic ranged Las, Solid Projectile, Bolt, Low-Tech, or Plasma weapon. A gun may only have one sight.",
+      "availability": "very-rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a weapon sight that enhances ambient light levels, improving the user’s vision and ability to see in the dark.</p><div class='bc-rule'><p>A character using a photo sight suffers no penalties due to darkness.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Preysense Sight", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic ranged Las, Solid Projectile, Bolt, Low-Tech, or Plasma weapon. A gun can only have one sight.",
+      "availability": "very-rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a weapon sight that shows thermal images and reveals the hiding places of enemies who lurk in the darkness.</p><div class='bc-rule'><p>A character using a preysense sight suffers no penalties due to darkness and gains a +20 bonus to vision-based Perception Tests in the dark.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Red-Dot Laser Sight", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol or Basic class Las, Solid Projectile, Bolt, Low-Tech, or Plasma weapon. A gun may only have one sight.",
+      "availability": "scarce", "weight": 0.5,
+      "effect": { "attackBonus": 10 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a laser sight that grants a +10 bonus to Ballistic Skill Tests when the weapon is fired on single shot.</p></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Silencer", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Autopistol, stub automatic, hand cannon, autogun, needle pistol, and needle rifle.",
+      "availability": "plentiful", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Silencers lower the noise from a weapon’s discharge, preventing detection of the shot.</p><div class='bc-rule'><p>Awareness Tests to hear shots made with a silenced weapon suffer an additional –20 penalty and can only be attempted at half the normal distance.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Suspensors", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Heavy weapon.",
+      "availability": "extremely-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These anti-grav plates and studs attach to a weapon or equipment, making the use of heavy or cumbersome devices much easier by offsetting some of their weight. They are often used by elite troops on their heavy weapons.</p><div class='bc-rule'><p>Suspensors reduce the weight of a weapon by one-half. When firing a weapon with suspensors, the operator counts as having the Auto-stabilised Trait—he always counts as Braced.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189"
+    }
+  },
+  {
+    "name": "Targeter", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Las, Solid Projectile, Bolt, or Heavy weapon.",
+      "availability": "rare", "weight": 1.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Expensive, heavy, and rarely used except by elite forces, a targeter uses a variety of guidance cogitators and omni-sights to improve accuracy. These upgrades are normally hard-wired into a specific weapon for maximum efficiency.</p><div class='bc-rule'><p>Commonly viewed as adding to the weapon’s machine-spirit, they create an even closer bond between gunner and gun. A targeter reduces all penalties on Ballistic Skill Tests by ten. Thus, a Very Hard (–30) penalty to hit becomes Hard (–20).</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 189–190"
+    }
+  },
+  {
+    "name": "Telescopic Sight", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, Bolt, Low-Tech or Plasma weapon. A gun can only have one sight.",
+      "availability": "average", "weight": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Telescopic sights magnify the target’s image, making it easy to see. This is especially useful for long-range shots that need to hit a very specific target location.</p><div class='bc-rule'><p>A weapon with a telescopic sight ignores penalties for long and extreme range, as long as the shooter takes a Full Action to Aim.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 190"
+    }
+  },
+  {
+    "name": "Tox Dispenser", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Low-Tech or Chain Melee weapon.",
+      "availability": "rare", "weight": 0.75,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The custom of lining a blade with deadly toxins has been with humanity since the dawn of recorded time. Although smearing a poison on the blade has the advantage of simplicity, technology has since provided a better solution.</p><div class='bc-rule'><p>A series of micro-dispensers allow a wielder to coat his weapon with poisons by simply pushing a button. As a Free Action, a character with a weapon equipped with a tox dispenser may cause his weapon to gain the Toxic (2) Quality for one Round. Most Tox Dispensers may be used 10 times before requiring refilling.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 190"
+    }
+  },
+  {
+    "name": "Tripod and Bipod", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic or Heavy weapon.",
+      "availability": "average", "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These attachments are for heavier weapons or those using integral ammunition canisters rather than a backpack-mounted source (such as plasma guns or meltaguns). Resting the weapon on the ground increases accuracy but sacrifices mobility, thus making them more common in static defence lines.</p><div class='bc-rule'><p>Bipods and tripods allow a weapon to be braced anywhere there is a reasonably flat surface. A weapon braced on a bipod has a 90-degree fire arc, while one on a tripod has a 180-degree arc.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 190"
+    }
+  },
+  {
+    "name": "Vox-Operated", "type": "weaponModification", "folder": "Weapon Upgrades/Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any non-Low-Tech Pistol, Basic, Launcher, or Heavy weapon.",
+      "availability": "rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Specially coded vox receivers are integrated into the weapon’s trigger mechanisms, so that they user can operate it by voice if needed.</p><div class='bc-rule'><p>Users can also switch firing modes where applicable merely by speaking the appropriate command. For security reasons, each receiver is usually keyed to just one voice pattern. Additionally, if the weapon is equipped with a fire selector, the operation of that upgrade may also be controlled simply by speaking aloud.</p></div></div>",
+      "source": "Only War, p. 189 (Table 6-13), p. 190"
+    }
+  },
+
+  {
+    "name": "Custom Grip", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The weapon’s hilt, under-barrel grip, or handle is modified to better fit the character’s hands. The grip might be textured, changed in size, or grooves might be added that align perfectly with the character’s fingers.</p><div class='bc-rule'><p>As a consequence of these changes, the character for whom the customisation was performed receives a +5 to Ballistic Skill or Weapon Skill when wielding the weapon. Any other character wielding the weapon receives a –5 penalty, as the weapon feels slightly out of alignment when they attempt to use it.</p><p>Weapon customisations may only be applied to a piece of equipment that is part of the Standard Regimental Kit or a favoured weapon of the soldier’s Regiment. Each character may install up to four customisations, and all of them require a Routine (+20) Trade (Armourer) Test.</p></div></div>",
+      "source": "Only War, p. 190"
+    }
+  },
+  {
+    "name": "Deactivate Safety Features", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The weapon has been modified so that its volatile nature is always at the forefront. A weapon with this modification is always ready to be fired or wielded in an instant.</p><div class='bc-rule'><p>When using a Ready Action to prepare a weapon with this modification, a character may Ready another weapon or draw another item as part of the same action. However, any time a character who is carrying a weapon with this modification suffers four or more Degrees of Failure on a Movement Skill Test, this weapon fires, activates, or cuts itself free as a result of the jostling.</p></div></div>",
+      "source": "Only War, p. 190"
+    }
+  },
+  {
+    "name": "Fluid Action", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any ranged weapon capable of Semi-Automatic fire.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The weapon’s internal mechanisms have been thoroughly lubricated and carefully maintained down to the finest detail.</p><div class='bc-rule'><p>When the character uses the weapon as part of a Semi-Auto Burst Action, he counts as scoring one additional Degree of Success than actually rolled for purposes of determining the number of rounds that hit the target. Note that this modifier does not affect whether the initial attack hits the target, only whether additional rounds strike home. Weapons with this customisation are trickier to load as the ammunition feed must be more carefully engaged. Reload time is increased by an additional Half Action.</p></div></div>",
+      "source": "Only War, p. 190"
+    }
+  },
+  {
+    "name": "Reinforced", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Additional support brackets are affixed to the weapon so that it can better handle the stresses of battlefield abuse. These brackets could be scavenged from other equipment, custom fabricated from alternative components, or simply be from alternative patterns of comparable weapons.</p><div class='bc-rule'><p>With the additional reinforcement, the weapon is better suited to melee combat. If the customised arm is a ranged weapon, it receives an additional +1 bonus to Damage when used as an improvised weapon. If the base item is a Melee weapon, when parried by a weapon with a power field, its chance of destruction is reduced to 60%. In any case, the weapon’s weight is increased by 20%.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Sacred Inscription", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The character inscribes a sacred script from the Imperial Creed upon the weapon. These inscriptions are generally etched into the weapon’s surface and might be lavishly illuminated with valuable metals, jewels, and embedded relics, medals, or talismans from members of the Ecclesiarchy.</p><div class='bc-rule'><p>Characters who wield these weapons are held in high regard by any priests or missionaries with whom they work but are also held to the highest standards by these same individuals. The constant reminder of their faith serves to instil additional courage in the weapon’s wielder when his faith is tested. The weapon provides a +10 bonus to any Pinning Test.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Trigger Adjustment", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any ranged weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Through precise adjustments, the weapon is modified so that its trigger pull better fits with the length of the character’s fingers and the way they grip the weapon. This is a very precise adjustment that requires careful workmanship to not disrupt the firing mechanism, safety features, and the travel length of the trigger.</p><div class='bc-rule'><p>When wielding a weapon with a finely adjusted trigger, the character is able to aim the weapon and snap off the first shot much more quickly. During the first Round of combat, a character wielding a weapon with this modification receives a +1 bonus to Initiative. However, due to the variation, if any other individual uses the weapon, he suffers a –5 penalty to Ballistic Skill Tests made with it.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Home Materials", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Some of the weapon’s components—typically stock, grip, hilt, or shaft—is constructed of materials manufactured or grown upon his regiment’s home planet.</p><div class='bc-rule'><p>This serves as a powerful reminder of the Guardsman’s home and a constant reminder of his duty to serve and protect the Imperium of Man. Characters who wield a weapon that features this modification receive a +5 bonus to any Fear Test.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Modified Stock", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>When the character holds a weapon with a modified stock up to aim, its contours perfectly align with his shoulder and cheek. The weapon fits his body perfectly and there is no moment of hesitation. As the character takes aim with the weapon, it feels like a natural extension of his body.</p><div class='bc-rule'><p>When a character takes an Aim Action with weapons modified in this way, he receives an additional +2 bonus on a Half Action or an additional +4 bonus for a Full Action. This customisation is compatible with any other devices that modify Aim Actions. This customisation is most commonly applied to the stock of a Basic ranged weapon, but comparable changes may be made to virtually any weapon.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Quick-Release", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "upgrades": "Any ranged weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mechanism for removing a magazine is carefully modified so that it may be ejected forcibly and rapidly, reducing the amount of time required for inserting fresh ammunition. The mechanism could be more thoroughly lubricated, might have springs or magnets installed, or might use some more sophisticated system.</p><div class='bc-rule'><p>As a consequence of these changes, the weapon’s Reload time is reduced by a Half Action, down to a minimum of a Half Action. For example, a weapon that normally took 2 Full Actions to reload can be reloaded with one Full and one Half Action.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  },
+  {
+    "name": "Reduced Weight", "type": "weaponModification", "folder": "Weapon Upgrades/Customisations",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any weapon.",
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This customisation involves shaving off excess parts, boring holes through non-structural solid features, and generally replacing as many parts of the weapon as possible with alternative components made of lighter weight materials.</p><div class='bc-rule'><p>In some cases, these materials can be obtained from the stores of other regiments, while in others, they must be fabricated from whatever materials are available on the base. Regardless of how the changes are implemented, weapons that undergo this customisation decrease their weight by 20%, or a minimum of a 0.5 kg loss. However, the resulting weapon is substantially more fragile. If it is used in melee—either as intended or as an improvised weapon—it may crumple under an impact. Any unmodified roll of 90–100 results in the weapon shattering and becoming irreparably damaged.</p></div></div>",
+      "source": "Only War, p. 191"
+    }
+  }
+]

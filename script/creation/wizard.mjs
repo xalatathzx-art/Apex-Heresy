@@ -14,7 +14,7 @@ import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
-import {CHARACTERISTIC_KEYS} from "./origin-data.mjs";
+import {CHARACTERISTIC_KEYS, normaliseOrigin} from "./origin-data.mjs";
 import {findContent} from "./content-lookup.mjs";
 import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
@@ -372,14 +372,27 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (problems.length) { ui.notifications?.warn(problems.join("; ")); return false; }
 
         const tag = this._tagFor(step);
+        // Носитель кладётся на актора как есть, поэтому его system сначала приводится
+        // к схеме: пак, собранный более старым шаблоном, может нести пустые поля
+        // значением null, а модель данных их не принимает и валит создание целиком.
+        source.system = normaliseOrigin(source.system);
         source.flags = foundry.utils.mergeObject(source.flags ?? {},
             {[GRANT_FLAG_SCOPE]: {[GRANT_FLAG_KEY]: tag, picks}});
         const [carrier] = await actor.createEmbeddedDocuments("Item", [source]);
 
         const copies = new Map();
+        const unresolved = [];
         for (const [kind, list] of [["talent", plan.talents], ["trait", plan.traits], ["equipment", plan.equipment]])
-            for (const entry of list)
-                copies.set(`${kind}:${entry.name}`, await this._lookupContent(kind, entry.name));
+            for (const entry of list) {
+                const copy = await this._lookupContent(kind, entry.name);
+                copies.set(`${kind}:${entry.name}`, copy);
+                if (!copy) unresolved.push(entry.name);
+            }
+        // Имя, которого нет ни в одном паке, становится пустой заглушкой. Молчать об
+        // этом нельзя: на листе она выглядит настоящим предметом, только без правил.
+        if (unresolved.length)
+            ui.notifications?.warn(game.i18n.format("WIZARD.UNRESOLVED_GRANTS",
+                                                    {names: unresolved.join(", ")}));
         const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`));
         if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
 
@@ -442,14 +455,18 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                     key,
                     label: game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`),
                     modifier,
-                    formula: rollExpression(method, modifier),
+                    formula: rollExpression(RULESET_DEFS[this.ruleset].characteristicModifiers, modifier),
                     // При закупке модификатор сдвигает СТАРТ, а не результат: «+» начинает
                     // с 30, «−» с 20 вместо 25.
                     start: POINT_BUY.base + modifier,
                     value: rolled?.values?.[key] ?? this._charValues?.[key] ?? ""
                 };
             }),
-            charLocked: !!rolled
+            charLocked: !!rolled,
+            charBlessing: rolled?.blessing
+                ? game.i18n.format(rolled.blessing.granted ? "WIZARD.BLESSING_GRANTED" : "WIZARD.BLESSING_MISSED",
+                                   {rolled: rolled.blessing.rolled, threshold: rolled.blessing.threshold})
+                : ""
         };
     }
 
@@ -486,17 +503,27 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const toughnessBonus = Math.floor((values.toughness ?? 0) / 10);
         const wounds = await new Roll(woundsExpression(homeWorld?.system.wounds ?? {}, toughnessBonus)).evaluate();
         const fate = await new Roll(fateExpression(homeWorld?.system.fate ?? {})).evaluate();
+        // Благословение Императора (стр. 30): кидается 1d10, и при результате не ниже
+        // порога родного мира порог Судьбы поднимается на 1. Без этого броска персонаж
+        // просто недополучает очко, о котором нигде не сказано.
+        const blessingThreshold = homeWorld?.system.fate?.blessing ?? 0;
+        let blessing = null;
+        if (blessingThreshold > 0) {
+            const roll = await new Roll("1d10").evaluate();
+            blessing = {threshold: blessingThreshold, rolled: roll.total, granted: roll.total >= blessingThreshold};
+        }
+        const fateTotal = fate.total + (blessing?.granted ? 1 : 0);
         // Раны, выданные другими шагами, добавляются поверх книжного броска: он
         // ставится, а не прибавляется, и без этого их бы стёрло.
         let granted = 0;
         for (const item of actor.items)
             if (item.type === "origin") granted += item.getFlag(GRANT_FLAG_SCOPE, "applied")?.wounds ?? 0;
         update["system.wounds.max"] = update["system.wounds.value"] = wounds.total + granted;
-        update["system.fate.max"] = update["system.fate.value"] = fate.total;
+        update["system.fate.max"] = update["system.fate.value"] = fateTotal;
 
         await actor.update(update);
         await actor.setFlag(GRANT_FLAG_SCOPE, "creationRolls",
-                            {method, values, wounds: wounds.total, fate: fate.total});
+                            {method, values, wounds: wounds.total, fate: fateTotal, blessing});
         return true;
     }
 

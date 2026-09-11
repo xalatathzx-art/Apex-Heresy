@@ -1,0 +1,158 @@
+[
+  {
+    "name": "Compact", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol or Basic Las, Solid Projectile, Flame, Bolt or Plasma weapon.",
+      "availability": "average", "weight": 0,
+      "effect": { "damageBonus": -1, "rangeMultiplier": 0.5, "clipMultiplier": 0.5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Compact weapons are smaller versions of pistol and basic weapons favoured by those who prefer concealment over stopping power.</p><div class='bc-rule'><p>This upgrade halves the weight of the weapon but also halves its clip size and range as well as reducing its Damage by 1. Anyone attempting to find a concealed weapon with the Compact upgrade suffers a –20 penalty to any related Skill Test (e.g., Awareness, Search).</p><p>Weight: x1/2 of the weapon.</p><p>Upgrades: Any Pistol or Basic Las, Solid Projectile, Flame, Bolt or Plasma weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 133"
+    }
+  },
+  {
+    "name": "Fire Selector", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/magazine_mod.webp",
+    "system": {
+      "upgrades": "(Bolt) and (SP) Pistols or (SP) and (Bolt) Basic Weapons.",
+      "availability": "scarce", "weight": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>For weapons that can use differing ammunition rounds, a shot selector can be fitted for ease of switching from one type to another.</p><div class='bc-rule'><p>A weapon with a fire selector can have up to three different clips added. At the start of the shooter’s Turn, he can use his fire selector to choose which clip he wishes to draw ammo from that round.</p><p>Upgrades: (Bolt) and (SP) Pistols or (SP) and (Bolt) Basic Weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 133"
+    }
+  },
+  {
+    "name": "Forearm Weapon Mounting", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/grip_mod.webp",
+    "system": {
+      "upgrades": "Primitive, Las, Solid Projectile, Bolt, or Melta pistol.",
+      "availability": "scarce", "weight": 1,
+      "effect": { "rangeMultiplier": 0.7 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This heavy bracing allows a single ranged weapon to be mounted along the arm, with specific hand movements triggering the weapon. It allows the user to keep both hands free, and can have a strong visual impression on their foes as fire seems to appear from the user’s outstretched arms.</p><div class='bc-rule'><p>This upgrade reduces the Weapon’s range by 30%.</p><p>Upgrades: Primitive, Las, Solid Projectile, Bolt, or Melta pistol.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 133"
+    }
+  },
+  {
+    "name": "Melee Attachment", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/bayonetta.webp",
+    "system": {
+      "upgrades": "Any Basic ranged weapon can have melee attachments.",
+      "availability": "plentiful", "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bayonets, chain blades, and other long-bladed combat attachments can be fitted to most ranged weapons, making them more useful in assaults.</p><div class='bc-rule'><p>A weapon with a melee attachment counts as a spear in close combat.</p><p>Upgrades: Any Basic ranged weapon can have melee attachments.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 133"
+    }
+  },
+  {
+    "name": "Mono", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/modification.webp",
+    "system": {
+      "upgrades": "Any primitive close combat weapon.",
+      "availability": "scarce", "weight": 0,
+      "effect": { "penetrationBonus": 2, "removeTraits": "Primitive" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mono weapons have specially fashioned blades with superfine edges that can easily cut through armour and never lose their edge.</p><div class='bc-rule'><p>Mono weapons no longer count as Primitive and add a +2 bonus to their Penetration. The Mono upgrade can be applied to a power weapon, but it has no effect whilst the power field is active. If the power field is ever lost or deactivated, the Mono upgrade’s bonuses will then apply.</p><p>Note: The Mono upgrade may be applied to any primitive melee weapon, but when applied to close-combat weapons that do not use an edge (e.g., hammers, mauls, etc.), it is treated differently. Game Masters are encouraged to come up with interesting definitions for non-edged weapons with the Mono upgrade. For example, a hammer with the Mono upgrade could be defined as having a pneumo-shock enhancement. The in-game effects remain the same.</p><p>Upgrades: Any primitive close combat weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Motion Predictor", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any non-primitive ranged weapon capable of Semi-Auto or Full Auto fire.",
+      "availability": "very-rare", "weight": 0.5,
+      "effect": { "attackBonus": 10 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>A complex target-tracking cogitator in this device is activated once the user has sighted the desired target. The Predictor then tracks the target, and when the trigger is pulled will chase the target with all the rounds in a clip in one long burst.</p><div class='bc-rule'><p>A Motion Predictor adds a +10% bonus to Ballistic Skill Tests, but only functions when the weapon is fired on semi-automatic or fully automatic modes.</p><p>Upgrades: Any non-primitive ranged weapon capable of Semi-Auto or Full Auto fire.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Photo-scope", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any Basic ranged Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A photo sight counts as a sight and a gun may only have one sight.",
+      "availability": "very-rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a weapon sight that enhances ambient light levels, improving the user’s vision and ability to see in the dark.</p><div class='bc-rule'><p>A character using a Photo Sight suffers no penalties due to darkness.</p><p>Upgrades: Any Basic ranged Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A photo sight counts as a sight and a gun may only have one sight.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Preysense-scope", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any Basic ranged Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A preysense sight counts as a sight and a gun may only have one sight.",
+      "availability": "very-rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a weapon sight that shows thermal images and reveals the hiding places of enemies who lurk in the darkness.</p><div class='bc-rule'><p>A character using a Preysense sight suffers no penalties due to darkness and gains a +20 bonus to vision-based Perception Tests at night.</p><p>Upgrades: Any Basic ranged Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A preysense sight counts as a sight and a gun may only have one sight.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Omni-scope", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any Basic-class Las, Solid Projectile, Bolt, Primitive or Plasma weapon. An Omni-scope counts as a sight and a gun may only have one sight.",
+      "availability": "near-unique", "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A vastly expensive and rare device normally found only in the hands of legendary assassins or bounty hunters, the Omni-scope is a cluster of finely-tuned sensor wands linked to a precision lens. Some of these scopes plug directly into a bionic cranial port, allowing the user to shoot around corners without exposing himself—the scope becomes a “third eye.”</p><div class='bc-rule'><p>The Omni-scope combines the benefits of a Preysense Sight, Red-Dot-Laser Sight, and Telescopic Sight.</p><p>Upgrades: Any Basic-class Las, Solid Projectile, Bolt, Primitive or Plasma weapon. An Omni-scope counts as a sight and a gun may only have one sight.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Overcharge Pack", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/magazine_mod.webp",
+    "system": {
+      "upgrades": "Any Pistol (Las) or Basic weapon (Las).",
+      "availability": "common", "weight": 0.5,
+      "effect": { "damageBonus": 1, "clipMultiplier": 0.5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is an enhanced power pack for a las weapon that increases the strength of its fire.</p><div class='bc-rule'><p>An overcharge pack adds 1 to the weapon’s Damage. Unfortunately the increased output of damage reduces the number of shots and so the clip size is halved.</p><p>Upgrades: Any Pistol (Las) or Basic weapon (Las).</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Red-Dot Laser Sight", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any Pistol- or Basic-class Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A red-dot laser sight counts as a sight and a gun may only have one sight.",
+      "availability": "scarce", "weight": 0.5,
+      "effect": { "attackBonus": 10 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a laser sight that grants a +10 bonus to Ballistic Skill Tests when the weapon is fired on single shot.</p><div class='bc-rule'><p>The bonus applies only to single shot attacks.</p><p>Upgrades: Any Pistol- or Basic-class Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A red-dot laser sight counts as a sight and a gun may only have one sight.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Silencer", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/modification.webp",
+    "system": {
+      "upgrades": "Stub revolver, stub automatic, hand cannon, autogun, long-las, needle rifle, and needle pistol.",
+      "availability": "plentiful", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Silencers lower the noise from a weapon’s discharge, preventing detection of the shot.</p><div class='bc-rule'><p>Awareness Tests to hear shots made with a silenced weapon suffer an additional –20 penalty and can only be attempted at half the normal distance.</p><p>Upgrades: Stub revolver, stub automatic, hand cannon, autogun, long-las, needle rifle, and needle pistol.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Suspensors", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/grip_mod.webp",
+    "system": {
+      "upgrades": "Any Heavy weapon.",
+      "availability": "extremely-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These anti-grav plates and studs attach to a weapon or equipment, making the use of heavy or cumbersome devices much easier by offsetting some of their weight. They are often used by elite troops on their heavy weapons.</p><div class='bc-rule'><p>Suspensors reduce the weight of a weapon by one-half. When firing a weapon with suspensors, the operator counts as having the Auto-stabilized Trait—he always counts as braced and may fire the weapon on semi- or full-automatic as a Half Action.</p><p>Weight: x1/2 of the weapon.</p><p>Upgrade: Any Heavy weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134"
+    }
+  },
+  {
+    "name": "Telescopic Sight", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/scope_mod.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A telescopic sight counts as a sight and a gun may only have one sight.",
+      "availability": "average", "weight": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Telescopic sights magnify the target’s image making it easy to see. This is especially useful for long-range shots that need to hit a very specific target location.</p><div class='bc-rule'><p>A weapon with a telescopic sight ignores penalties for long and extreme range as long as the shooter takes a Full Action to Aim.</p><p>Upgrades: Any Basic Las, Solid Projectile, Bolt, Primitive or Plasma weapon. A telescopic sight counts as a sight and a gun may only have one sight.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 134–135"
+    }
+  },
+  {
+    "name": "Vox Operated", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/armoury/modifications/modification.webp",
+    "system": {
+      "upgrades": "Any non-primitive Pistol, Basic, Grenade, or Heavy weapon.",
+      "availability": "rare", "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Specially coded vox receivers are integrated into the weapon’s trigger mechanisms, so that they user can operate it by voice if needed. Users can also operate the shot selector and switch firing modes where applicable merely by speaking the appropriate command. For security reasons each receiver is usually keyed to just one voice pattern.</p><div class='bc-rule'><p>Additionally, if the weapon is equipped with a fire selector, the operation of that upgrade may also be controlled simply by speaking aloud.</p><p>Upgrade: Any non-primitive Pistol, Basic, Grenade, or Heavy weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 133 (Table 5-9), p. 135"
+    }
+  }
+]

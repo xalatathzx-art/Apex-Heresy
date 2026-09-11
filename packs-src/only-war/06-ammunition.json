@@ -1,0 +1,343 @@
+[
+  {
+    "name": "Arrows/Quarrels", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Bows, crossbows, and hand bows",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Arrows and quarrels come in a variety of shapes, sizes and materials ranging from crude wooden shafts with flint tips to steel darts with razor points.</p></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Shot", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Flintlock pistol and musket",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shot is solid lead or stone balls used with a powder charge in primitive blackpowder weapons.</p></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Bullets", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "plentiful", "quantity": 1, "weapon": "Autopistols, stub revolvers, stub automatics, hand cannons, autoguns, sniper rifles, and heavy stubbers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Hard rounds are common for many weapons within the Imperium and vary greatly in calibre and design.</p><div class='bc-rule'><p>Bullets from one kind of firearm cannot be used in another unless they are very similar in make. So, for example, you could use bullets bought for a stub revolver in a stub automatic, but not in an autogun.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Cartridge", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Any shotgun",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cartridges contain dozens of tiny balls and are designed to scatter over a wide area when fired, making them ideal for close-in work where accuracy is less important.</p></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Backpack Power Pack", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "rare", "quantity": 1, "weight": 25, "weapon": "Any ranged weapon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many weapons require larger ammunition sources to function during large battles or when the wearer is away from an extended supply line. A backpack power pack is worn like a normal backpack. For energy weapons, it is a portable source of power in the form of a massive battery or charge-unit. For flame weapons, it is composed of tanks of volatile promethium.</p><div class='bc-rule'><p>Other ammunition packs are simply stacks of regular stubber or bolt rounds with a feeder line that links into the weapon itself. These items hold 80 rounds of ammunition for Plasma, Melta, and Las weapons, 200 rounds of ammunition for Solid Projectile or Bolt weapons, and 60 shots for Flame weapons. A weapon connected to a backpack power pack uses the power pack for its ammunition and ignores its normal clip size. Backpack ammo packs or power packs weigh 25 kg.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Charge Cell", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Laslocks",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Not every world within the Imperium maintains the capacity to generate a charge pack capable of releasing a limited charge at a time. Some must make do with individual cells that expend their entire capacity in a single rapid burst.</p><div class='bc-rule'><p>These have sufficient energy for a single las shot and must be changed after every firing.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Charge Pack (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "All las weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Charge Pack (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "All las weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Charge Pack (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "All las weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 192"
+    }
+  },
+  {
+    "name": "Fuel (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Hand flamers, flamers, and heavy flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Fuel (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Hand flamers, flamers, and heavy flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Fuel (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Hand flamers, flamers, and heavy flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Bolt Shells", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Bolt pistols, bolters, and heavy bolters",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mass-reactive explosive bolt shell is one of the deadliest rounds in the Imperial arsenal.</p><div class='bc-rule'><p>However, the difficulty and cost of its manufacture restricts its use to all but the most wealthy or well connected.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Melta Canister (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Inferno pistols, meltaguns, and multi-meltas",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Melta Canister (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Inferno pistols, meltaguns, and multi-meltas",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Melta Canister (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Inferno pistols, meltaguns, and multi-meltas",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Plasma Flask (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Plasma pistols, plasma guns, and plasma cannons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Plasma Flask (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Plasma pistols, plasma guns, and plasma cannons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Plasma Flask (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Plasma pistols, plasma guns, and plasma cannons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Exotic Ammunition", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Needle pistols, needle rifles, and any other exotic ranged weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>There are many kinds of weapons in the Imperium that use unusual types of ammunition, from the viscous gel of a webber to the finely crafted darts of a needle pistol.</p><div class='bc-rule'><p>Table 6-14 names this row simply “Exotic”.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+  {
+    "name": "Artillery Ammunition", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weight": 20, "weapon": "Any Vehicle-class cannon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These massive shells are proprietary to the weapons with which they are associated.</p><div class='bc-rule'><p>Individual rounds weigh at least twenty kilograms and often substantially more than that. These volatile shells may be extremely unstable and require careful and expert handling when loading and transporting.</p><p>Table 6-14 names this row simply “Artillery”.</p></div></div>",
+      "source": "Only War, p. 192 (Table 6-14), p. 193"
+    }
+  },
+
+  {
+    "name": "Amputator Shell", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "extremely-rare", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, shotguns (all types), sniper rifles, hand cannons, autopistols, and autoguns",
+      "effect": { "damage": { "modifier": 2, "type": "impact" } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Filled with explosive micro-shrapnel, these bullets are designed to shear flesh and shatter bone, causing limbs to be blown away.</p><div class='bc-rule'><p><strong>Effects:</strong> Amputator Shells add 2 to the weapon’s Damage.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 193"
+    }
+  },
+  {
+    "name": "Bleeder Round", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, hand cannons, autopistols, and autoguns",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This ammunition is treated with toxins to prevent coagulation and keep wounds bleeding freely. These shells are designed to burst on penetration and spread the anti-coagulants quickly.</p><div class='bc-rule'><p><strong>Effect:</strong> If a target takes Damage from Bleeder Rounds, it begins to gush blood. All subsequent attacks against the target deal +2 Damage until the end of combat. This effect does not stack with other Bleeder Rounds, and does not affect targets with the Daemonic or Machine Traits.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 193"
+    }
+  },
+  {
+    "name": "Dumdum Bullets", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, sniper rifles, and hand cannons",
+      "effect": { "damage": { "modifier": 2, "type": "impact" } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These heavy, blunt bullets are designed to cause maximum tissue damage and can tear apart soft targets, though they are less effective against armour.</p><div class='bc-rule'><p><strong>Effect:</strong> Dumdum bullets add +2 to the weapon’s Damage, but Armour Points count double against them.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 193"
+    }
+  },
+  {
+    "name": "Expander Rounds", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, sniper rifles, autopistols, and autoguns",
+      "effect": { "damage": { "modifier": 1, "type": "impact" }, "penetration": "+1" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vicious and outlawed on some worlds, these dense shells are designed to shred open after impact, creating huge exit wounds.</p><div class='bc-rule'><p><strong>Effect:</strong> Shots fired with these rounds add 1 to both Damage and Penetration.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 193"
+    }
+  },
+  {
+    "name": "Explosive Arrows/Quarrels", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Bows, crossbows, and hand bows",
+      "effect": { "damage": { "modifier": 0, "type": "explosive" }, "removeSpecial": "Primitive", "attack": { "modifier": -10 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Explosive arrows and quarrels might be crudely tipped with shells or treated with one of a variety of unstable alchemical compounds.</p><div class='bc-rule'><p><strong>Effects:</strong> Attacks are made with a –10 penalty, the weapon’s Damage type becomes Explosive, and the weapon loses the Primitive quality.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 193"
+    }
+  },
+  {
+    "name": "Hot-Shot Charge Pack", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Laspistols, lascarbines, lasguns, and long-las",
+      "effect": { "damage": { "modifier": 1, "type": "energy" }, "penetration": "4", "special": "Tearing", "removeSpecial": "Reliable" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a powerful charge pack for a las weapon, favoured by snipers in some Imperial Guard regiments. Each hot-shot charge pack is good for only a single shot.</p><div class='bc-rule'><p><strong>Effects:</strong> A weapon using a hot-shot charge adds 1 to its Damage, gains the Tearing Quality, and gains a Penetration of 4. However, the weapon loses its Reliable Quality, and its Clip Size is reduced to 1.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 194"
+    }
+  },
+  {
+    "name": "Inferno Shell", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1,
+      "weapon": "Shotguns, pump-action shotguns, combat shotguns, and all bolt weapons",
+      "effect": { "special": "Flame" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells contain a volatile, clinging gel that ignites on contact with the target.</p><div class='bc-rule'><p><strong>Effects:</strong> A weapon using inferno shells gains the Flame Quality.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 194"
+    }
+  },
+  {
+    "name": "Man-Stopper Bullets", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, sniper rifles, hand cannons, autopistols, and autoguns",
+      "effect": { "penetration": "+3" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These densely tipped bullets are designed to punch through many forms of personal armour.</p><div class='bc-rule'><p><strong>Effects:</strong> A weapon using man-stopper rounds increases its Penetration by 3.</p><p>The book’s “Used With” line lists sniper rifles twice.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 194"
+    }
+  },
+  {
+    "name": "Tempest Bolt Shell", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "near-unique", "quantity": 1,
+      "weapon": "Bolt pistols, boltguns, and heavy bolters",
+      "effect": { "damage": { "modifier": 0, "type": "energy" }, "special": "Shocking" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Tempest bolt shells are perhaps the rarest variety, manufactured only in the temples of Mars. They contain a powerful miniaturised plasma-shock generator that releases a pulse of electromagnetic and thermal energy as the shell detonates.</p><div class='bc-rule'><p>They are particularly effective against machine targets, but obtaining them from the Machine Cult is a nigh-impossible task.</p><p><strong>Effect:</strong> Change the weapon’s Damage class to Energy and the weapon gains the Shock Quality. The weapon adds 3 Damage when used against a target with the Machine Trait.</p></div></div>",
+      "source": "Only War, p. 193 (Table 6-15), p. 194"
+    }
+  },
+
+  {
+    "name": "Anti-Tank Shell", "type": "ammunition", "folder": "Ammunition/Artillery Shells",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "extremely-rare", "quantity": 1, "weight": 20,
+      "weapon": "Battle cannon, Demolisher cannon, Vanquisher battle cannon, and Earthshaker cannon",
+      "effect": { "penetration": "12" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells typically sacrifice explosive capacity for a hardened core and an increase in propellant to accelerate muzzle velocity. The proportionate increase in kinetic energy adds to the chance of these shells blasting through even the strongest of armours.</p><div class='bc-rule'><p><strong>Effects:</strong> An Anti-Tank shell has a Penetration of 12. Note that these shells may not be fired Indirectly.</p></div></div>",
+      "source": "Only War, p. 194 (Table 6-16), p. 194"
+    }
+  },
+  {
+    "name": "High Explosive Shell", "type": "ammunition", "folder": "Ammunition/Artillery Shells",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weight": 20,
+      "weapon": "Battle cannon, Demolisher cannon, Vanquisher battle cannon, and Earthshaker cannon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells are more commonly available than the specialized shells used in some artillery weapons and are the standard ammunition for a Leman Russ battle cannon. They use a generalised explosive core that sends a blast of shrapnel and a potent wave of concussive force through the target area.</p><div class='bc-rule'><p><strong>Effects:</strong> When fired, the weapon profile changes (Damage 3d10+10 X; Pen 8; Blast (10), Concussive (3)). Any other Qualities intrinsic to the weapon are unmodified.</p></div></div>",
+      "source": "Only War, p. 194 (Table 6-16), p. 194"
+    }
+  },
+  {
+    "name": "Illumination Shell", "type": "ammunition", "folder": "Ammunition/Artillery Shells",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weight": 20,
+      "weapon": "Battle cannon, Demolisher cannon, Vanquisher battle cannon, and Earthshaker cannon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Essentially a massive flare, these shells are fired to light up battlefields under even the darkest of conditions. At the zenith of their fire arc, the shell deploys a massive parachute and ignites an enormous flare.</p><div class='bc-rule'><p>Unless shot down, these shells fully illuminate more than a square kilometre for up to ten minutes. Much rarer than the Starflare round commonly used in mortars, the Illumination Shell is typically only deployed for armoured units operating without access to such support.</p><p><strong>Effects:</strong> Once fired, the region beneath the descending flare is considered fully illuminated.</p></div></div>",
+      "source": "Only War, p. 194 (Table 6-16), p. 194"
+    }
+  },
+  {
+    "name": "Infernus Shell", "type": "ammunition", "folder": "Ammunition/Artillery Shells",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "extremely-rare", "quantity": 1, "weight": 20,
+      "weapon": "Battle cannon, Demolisher cannon, Vanquisher battle cannon, and Earthshaker cannon",
+      "effect": { "special": "Flame", "removeSpecial": "Concussive" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells replace the standard high explosive contents of a normal artillery shell with incendiary material, commonly phosphorine or thermite. While the initial blast is substantially less damaging than a normal artillery shell, its victims are almost invariably set aflame.</p><div class='bc-rule'><p><strong>Effects:</strong> The weapon’s stat line changes as follows: Damage 2d10+10 E, Pen 6. It loses the Concussive Quality but gains the Flame Quality.</p></div></div>",
+      "source": "Only War, p. 194 (Table 6-16), p. 194"
+    }
+  },
+  {
+    "name": "Smoke Shell", "type": "ammunition", "folder": "Ammunition/Artillery Shells",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weight": 20,
+      "weapon": "Battle cannon, Demolisher cannon, Vanquisher battle cannon, and Earthshaker cannon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>While most Imperial vehicles are equipped with short range smoke launchers, sometimes a tank commander wishes to shut down visibility some distance away from the vehicle.</p><div class='bc-rule'><p>For such circumstances, these shells, loaded with thermal smoke and electromagnetic chaff, are ideal for eliminating visibility within a region for several minutes.</p><p><strong>Effects:</strong> Smoke shells do no Damage. Instead, their dense smoke blocks all natural, thermographic, and electronic visual devices within a 10-metre radius hemisphere for up to 10 Rounds. This duration is subject to the Game Master’s judgement based upon weather conditions.</p></div></div>",
+      "source": "Only War, p. 194 (Table 6-16), p. 194"
+    }
+  }
+]

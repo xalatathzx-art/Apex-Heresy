@@ -1,0 +1,288 @@
+[
+  {
+    "name": "Jovian Pattern Class 1 Drive", "type": "shipComponent", "folder": "Essential Components/Plasma Drives",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 35, "space": 8, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A plasma drive does more than move a ship. It also provides power to all of a ship’s other systems—the vessel’s fiery heart.</p><p>The STC standard drive for transports, compact but underpowered.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Transports.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Lathe Pattern Class 1 Drive", "type": "shipComponent", "folder": "Essential Components/Plasma Drives",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 40, "space": 12, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for transports has been extended to provide additional power in exchange for less available space.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Transports.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Jovian Pattern Class 2 Drive", "type": "shipComponent", "folder": "Essential Components/Plasma Drives",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 45, "space": 10, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for escort-grade warships.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Jovian Pattern Class 3 Drive", "type": "shipComponent", "folder": "Essential Components/Plasma Drives",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 60, "space": 12, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for smaller capital-grade warships.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Light Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Jovian Pattern Class 4 Drive", "type": "shipComponent", "folder": "Essential Components/Plasma Drives",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 75, "space": 14, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for cruiser-grade warships.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+
+  {
+    "name": "Strelov 1 Warp Engine", "type": "shipComponent", "folder": "Essential Components/Warp Engines",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 10, "space": 10, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The warp drive rips a vessel from the material world and hurls it into the warp, allowing it to cross vast distances in a heartbeat, but exposing it to the dangers of the immaterium.</p><p>Allows the vessel to enter and remain in the immaterium.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Strelov 2 Warp Engine", "type": "shipComponent", "folder": "Essential Components/Warp Engines",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 12, "space": 12, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Allows the vessel to enter and remain in the immaterium.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+
+  {
+    "name": "Geller Field", "type": "shipComponent", "folder": "Essential Components/Geller Fields",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 0, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A starship’s Geller Field creates a bubble of reality around the vessel when it traverses the warp, protecting it from the dangers that lurk there.</p><p>Protects the vessel from the myriad dangers of the Immaterium.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Warpsbane Hull", "type": "shipComponent", "folder": "Essential Components/Geller Fields",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The entire hull of the vessel is covered with silver, hand-inscribed hexagramic wards. These reinforce a Geller Field projected from a 50 metre statue of an Imperial Saint, located just fore of the bridge.</p><div class='bc-rule'><p><strong>Shield of Faith:</strong> Any Navigation Tests to pilot the ship through the warp gain a +10 bonus. When rolling on Table 7-4: Warp Travel Encounters (see page 186), the GM rolls twice and allows the Navigator to chose which result is applied.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+
+  {
+    "name": "Single Void Shield Array", "type": "shipComponent", "folder": "Essential Components/Void Shields",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 5, "space": 1, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Void shields create barriers of energy around a starship to protect it from stellar debris and incoming fire.</p><p>A single double-layered void shield. Provides 1 Void Shield.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 199"
+    }
+  },
+  {
+    "name": "Multiple Void Shield Array", "type": "shipComponent", "folder": "Essential Components/Void Shields",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 7, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Twin, multiple-layered void shields. Provides 2 Void Shields.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+
+  {
+    "name": "Combat Bridge (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 1, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bridge is the starship’s brain, where the captain commands the vessel and directs its every action.</p><p>A holdover from the ship’s Navy days, this bridge was laid out and equipped with combat in mind.</p><div class='bc-rule'><p><strong>Damage Control Station:</strong> As long as the bridge remains undamaged, all Tech-Use Tests to repair the ship gain +10.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Combat Bridge (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A holdover from the ship’s Navy days, this bridge was laid out and equipped with combat in mind.</p><div class='bc-rule'><p><strong>Damage Control Station:</strong> As long as the bridge remains undamaged, all Tech-Use Tests to repair the ship gain +10.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Command Bridge (Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This bridge has been modified to give the ship’s master greater control over his vessel.</p><div class='bc-rule'><p><strong>Enhanced Cogitator Relays:</strong> As long as the bridge remains undamaged, all Command Tests made by the captain gain +5 and all Ballistic Skill Tests to fire shipboard weapons gain +5. If this Component ever suffers a Critical Hit, it becomes unpowered on a 1d10 roll of 3 or higher.</p><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Command Bridge (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 3, "space": 2, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This bridge has been modified to give the ship’s master greater control over his vessel.</p><div class='bc-rule'><p><strong>Enhanced Cogitator Relays:</strong> As long as the bridge remains undamaged, all Command Tests made by the captain gain +5 and all Ballistic Skill Tests to fire shipboard weapons gain +5. If this Component ever suffers a Critical Hit, it becomes unpowered on a 1d10 roll of 3 or higher.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Commerce Bridge", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 1, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This bridge has a station equipped with cogitator-servitors and a hololithic projector, given over to quickly loading and unloading cargo.</p><div class='bc-rule'><p><strong>Organised:</strong> When working towards a Trade objective, the Explorers earn an additional 50 Achievement Points towards completing that objective.</p><p><strong>Appropriate Hull Types:</strong> Transports.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Armoured Command Bridge (Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bridges of warships are often reinforced with additional armour plating, to ensure the survival of their occupants.</p><div class='bc-rule'><p><strong>Reinforced Armour:</strong> If this Component takes a Critical Hit or becomes damaged or unpowered, roll 1d10. On a 4 or higher, the component is unharmed.</p><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Armoured Command Bridge (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 3, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bridges of warships are often reinforced with additional armour plating, to ensure the survival of their occupants.</p><div class='bc-rule'><p><strong>Reinforced Armour:</strong> If this Component takes a Critical Hit or becomes damaged or unpowered, roll 1d10. On a 4 or higher, the component is unharmed.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Ship Master's Bridge", "type": "shipComponent", "folder": "Essential Components/Ship's Bridge",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 4, "space": 3, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bridge of a ship of the line is designed with one goal in mind—winning battles.</p><div class='bc-rule'><p><strong>Master Plotting Table:</strong> All Piloting and Navigation tests by crew on the Bridge gain +5.</p><p><strong>Improved Fire Direction:</strong> All Ballistic Skill Tests to fire shipboard weapons gain +10.</p><p><strong>Appropriate Hull Types:</strong> Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+
+  {
+    "name": "M-1.r Life Sustainer (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Life Sustainers",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 3, "space": 1, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Life sustainers fill a vital role, providing a ship with clean air and water.</p><p>The life-support system was designed for reliability and does little to remove the stink of oil and warp engine discharge.</p><div class='bc-rule'><p><strong>Stale Air:</strong> Increase all Morale loss by 1.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "M-1.r Life Sustainer (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Life Sustainers",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 4, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The life-support system was designed for reliability and does little to remove the stink of oil and warp engine discharge.</p><div class='bc-rule'><p><strong>Stale Air:</strong> Increase all Morale loss by 1.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Vitae Pattern Life Sustainer (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Life Sustainers",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 4, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This life sustainer is of STC origins, and is in common use in the Calixis Sector.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Vitae Pattern Life Sustainer (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Life Sustainers",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 5, "space": 3, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This life sustainer is of STC origins, and is in common use in the Calixis Sector.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+
+  {
+    "name": "Pressed-crew Quarters (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Crew Quarters",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 2, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Even the lowliest crew require bunks and mess-halls to live in.</p><p>The masters of this vessel have done little to improve the quarters left from this ship’s Navy days.</p><div class='bc-rule'><p><strong>Cramped:</strong> Decrease Morale permanently by 2.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Pressed-crew Quarters (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Crew Quarters",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 3, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The masters of this vessel have done little to improve the quarters left from this ship’s Navy days.</p><div class='bc-rule'><p><strong>Cramped:</strong> Decrease Morale permanently by 2.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Voidsmen Quarters (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Essential Components/Crew Quarters",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 3, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Standard living quarters for the voidsmen of a long-distance trader.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+  {
+    "name": "Voidsmen Quarters (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Essential Components/Crew Quarters",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 4, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Standard living quarters for the voidsmen of a long-distance trader.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 200"
+    }
+  },
+
+  {
+    "name": "M-100 Auger Array", "type": "shipComponent", "folder": "Essential Components/Augur Arrays",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 3, "space": 0, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The starship’s eyes, allowing it to ‘see’ space far beyond the range of normal eyesight.</p><p>The Imperial Navy’s standard sensor array.</p><div class='bc-rule'><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3)"
+    }
+  },
+  {
+    "name": "M-201.b Auger Array", "type": "shipComponent", "folder": "Essential Components/Augur Arrays",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 5, "space": 0, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A modified version of the Imperial Navy’s standard sensor array, with boosted wideband gain.</p><div class='bc-rule'><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Sensitive:</strong> Increased power draw provides a +5 bonus to the ship’s Detection.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3)"
+    }
+  },
+  {
+    "name": "R-50 Auspex Multi-band", "type": "shipComponent", "folder": "Essential Components/Augur Arrays",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 4, "space": 0, "shipPoints": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The sensors of this ship have been optimised for navigation, at the expense of the sensor’s other uses.</p><div class='bc-rule'><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Stellar Detection:</strong> Mapping protocols provide a +5 bonus to Manoeuvre Tests to avoid celestial phenomena, but subtracts –2 from the ship’s Detection.</p><p><strong>Long Distance Scan:</strong> When working toward an Exploration objective, the players earn an additional 50 Achievement Points toward completing that objective.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 202"
+    }
+  },
+  {
+    "name": "Deep Void Auger Array", "type": "shipComponent", "folder": "Essential Components/Augur Arrays",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 7, "space": 0, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These, quite simply, are the some of the best sensors created by the Adeptus Mechanicus, and are reserved for their own ships and Imperial Naval scout vessels.</p><div class='bc-rule'><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Eye of the Omnissiah:</strong> The exceptional sensitivity of the array grants +10 to the ship’s Detection.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 201 (Table 8-3), p. 202"
+    }
+  }
+]

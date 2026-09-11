@@ -1,0 +1,197 @@
+[
+  {
+    "name": "Astartes Chainsword", "type": "weapon", "folder": "Melee Weapons/Chain",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
+    "system": {
+      "class": "melee", "type": "chain", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "rending", "penetration": "4",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced, Tearing",
+      "weight": 10, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Chainsword has served many a Battle-Brother during his time in an Assault Squad.</p><div class='bc-rule'><p>These weapons generally have a flat carapace containing the chain with only the forward curved section open where the spinning chain teeth can bite into flesh and bone.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 153"
+    }
+  },
+  {
+    "name": "Astartes Chainfist", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-fist.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Tearing",
+      "weight": 48, "requisition": 40, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A chainfist combines the matter-cleaving power field of a power fist with the rending adamantite teeth of a chainblade.</p><div class='bc-rule'><p>The field envelopes both the huge gauntlet and the whirring blade, yielding a weapon capable of slicing through armour, vehicles, heavy cruiser bulkheads, or nearly any other substance in the galaxy given enough time. These weapons are too unbalanced for even a Battle-Brother in standard Astartes power armour to wield effectively; chainfists are only capable of being used with Terminator armour. This is just as well, as any foe dreadful enough to warrant use of this weapon certainly calls for equally potent protection.</p><p>A chainfist replaces the normal glove on Terminator Armour, and imposes the same weapon restrictions and manual dexterity penalties as a lightning claw.</p><p>† Chainfists and Power Fists double the wielder’s Strength Bonus when adding to Melee Damage.</p><p><strong>Class: Mounted.</strong> Some Melee weapons (such as the Chainfist) are also in this category.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 154"
+    }
+  },
+  {
+    "name": "Astartes Lightning Claw", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-fist.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+6", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Tearing",
+      "weight": 30, "requisition": 30, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Simply wearing lightning claws is a statement about the wielder’s expertise in battle.</p><div class='bc-rule'><p>Constantly honed melee prowess and a willingness to sacrifice easy access to ranged weaponry is necessary to utilise these weapons to their full effect. For these reasons, lightning claws are usually seen in the hands of senior assault specialists.</p><p>A lightning claw is a heavy gauntlet that replaces the normal glove on Astartes power armour. Its extra bulk contains the mechanisms that power four individual power blades, which extend like crackling talons from the back of the hand. While the lethal design of these weapons is enough to ensure they can shear through armour nearly as easily as flesh, when used as a pair by an accomplished close combatant, they become pure instruments of death.</p><p>Lightning claws do an additional point of Damage per degree of success on the Attack roll. When a character is equipped with a pair of lightning claws, they instead do 2 additional points of Damage per degree of success. The blades on lightning claws may be sheathed or unsheathed as a Ready action, but their bulk makes it impossible to effectively use ranged weapons of any class other than Thrown in the applicable hand(s) even when the blades are retracted. In addition, the poor manual dexterity penalty increases to –20. When Requisitioning a pair of lightning claws for one character, the Requisition needed for the second claw is halved.</p><p>Requisition 30/45 — one claw / a pair.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 154–155"
+    }
+  },
+  {
+    "name": "Astartes Power Axe", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+8", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Unbalanced",
+      "weight": 10, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power axes allow for greater impact when striking than a power sword, but are less nimble in the hand.</p><div class='bc-rule'><p>Their inferior defensive capabilities are often mitigated by pairing them with combat shields or even more sophisticated means of protection. Still, they have a reputation as a brutal and unsubtle weapon; the choice to employ one is often more personal than strategic.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155"
+    }
+  },
+  {
+    "name": "Astartes Power Fist", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-fist.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "energy", "penetration": "9",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Unwieldy",
+      "weight": 25, "requisition": 30, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A power fist generates an energy field so violently disruptive that the weapon inside it is of little consequence.</p><div class='bc-rule'><p>Therefore, instead of surrounding a traditional weapon, the field envelopes an oversized and augmented glove. Backed by a Battle-Brother’s strength, a power fist can sunder even the heaviest armour or rupture flesh as though bursting a bloody, overripe fruit. Keeping these superior energy fields charged requires heavy cables linked to the armour’s power system. The generators are also rare and difficult to maintain, making such a weapon a sign of status, even within the Adeptus Astartes.</p><p>A power fist adds a multiplier to the wielder’s Strength Bonus. (Note: A Space Marine already doubles his Strength Bonus from his Unnatural Strength Trait. Therefore, the Power Fist increases the multiplier by one, tripling the Space Marine’s Strength Bonus) It replaces the normal glove on Astartes power armour, and imposes the same weapon restrictions and manual dexterity penalties as a lightning claw.</p><p>† Chainfists and Power Fists double the wielder’s Strength Bonus when adding to Melee Damage.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155"
+    }
+  },
+  {
+    "name": "Astartes Power Sword", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-sword.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+6", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced, Power Field",
+      "weight": 5, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power weapons require great investments of time and rare materials to produce.</p><div class='bc-rule'><p>Therefore, power swords are typically reserved for ranking members of the Adeptus Astartes. Elegant but effective, they allow the user greater attack options and defensive responses than many other varieties of power weapon. This efficient design makes them popular with officers regardless of whether they specialise in close combat or not.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155"
+    }
+  },
+  {
+    "name": "Astartes Thunder Hammer", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+5", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Concussive, Unwieldy",
+      "weight": 18, "requisition": 30, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The furious energy blast released when these weapons strike creates waves of booming concussive force as loud as thunder, from which their name originates.</p><div class='bc-rule'><p>Enemies that survive the pulverising blow are likely to be incapacitated by the shockwave that follows. Many Battle-Brothers balance the clumsy nature of attempting to parry with a thunder hammer by pairing it with a storm shield; the Storm Wardens are said to be so fond of this combination that some practice a combat style developed specifically around it.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155–156"
+    }
+  },
+  {
+    "name": "Omnissian Axe (Astartes-Pattern)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+6", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field, Unbalanced",
+      "weight": 14, "requisition": 30, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Often carried by Techmarines to show their devotion to the Omnissiah, this weapon has a long staff-like body tipped with half of the circular Adeptus Mechanicus skull and cog icon.</p><div class='bc-rule'><p>The symbol forms a blade and is sheathed in a power field. Arcs of energy illuminate the ridged blade and light the skull’s eyes with a hungry glow, leaving little doubt that—even while covered with inscribed circuitry designs indicating its sacred nature—this religious icon is also a deadly weapon in a Space Marine’s powerful hands. The Ommnisian axe also functions as a combi-tool.</p><p>†† Only Techmarines are entrusted with this weapon.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155"
+    }
+  },
+  {
+    "name": "Astartes Combat Knife", "type": "weapon", "folder": "Melee Weapons/Traditional",
+    "img": "systems/dark-heresy/assets/icons/weapons/combat-knife.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "",
+      "weight": 2, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>When a Battle-Brother’s last grenade has been thrown, when his bolt rounds are spent and the enemy tide continues to swell, he can always turn to his combat knife.</p><div class='bc-rule'><p>Every Space Marine is issued one of these blades as soon as he recovers from receiving his implants, and he carries it up until his final moment of battle. This large knife—easily the size of a normal human’s sword—holds a mono-molecular edge that never dulls, even through centuries of service. In some Chapters combat knives are passed down through the generations, with the deeds of their owners etched upon them. In others, the forging of metal into blade is simultaneous with the forging of a recruit into Space Marine, and his combat knife is laid to rest when he is.</p><p>Requisition 3††† — ††† For additional weapons beyond standard issue.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 156"
+    }
+  },
+  {
+    "name": "Ceremonial Sword", "type": "weapon", "folder": "Melee Weapons/Traditional",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced",
+      "weight": 5, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Dark Angels frequently carry swords with winged hilts in echo of their Chapter symbol.</p><div class='bc-rule'><p>These weapons are used more in ceremony than in combat, but they are perfectly functional weapons should the Battle-Brother have reason to draw one. They are carried either in addition to, or in lieu of, a combat knife depending on the individual’s preferences.</p><p>Chapter Trapping (Dark Angels). Requisition 3††† — ††† For additional weapons beyond standard issue.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 170"
+    }
+  },
+  {
+    "name": "Sacris Claymore", "type": "weapon", "folder": "Melee Weapons/Traditional",
+    "img": "systems/dark-heresy/assets/icons/weapons/great-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Unbalanced",
+      "weight": 10, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The feral clansmen of Sacris are raised with giant claymores in their hands.</p><div class='bc-rule'><p>After a warrior’s transfiguration into a Space Marine is complete, the sword of his youth is a light and simple thing, but the Storm Wardens have made a habit of forging improved versions of these primitive weapons of size and materials befitting an Adeptus Astartes. It is far from unheard of for an enraged Storm Warden to favour his simple claymore over a power sword, particularly when matters of honour are at stake. A Sacris claymore replaces the Astartes combat knife, and requires two hands to wield.</p><p>Chapter Trapping (Storm Wardens). Requisition 3††† — ††† For additional weapons beyond standard issue.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 170"
+    }
+  },
+  {
+    "name": "Primitive Weapons", "type": "weapon", "folder": "Melee Weapons/Traditional",
+    "img": "systems/dark-heresy/assets/icons/weapons/melee-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Primitive",
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Catalogues of low-tech weapon variants across the galaxy fill floors of Administratum archives in the Prol system.</p><div class='bc-rule'><p>However, such distinctions are largely frivolous when a Primitive weapon is pitted against the armour and constitution of an Adeptus Astartes. Sticks, iron knives, finely crafted feudal swords, or giant two-handed warhammers; if made of common materials, none of these have but a prayer of cracking a Battle-Brother’s advanced armour, much less doing him harm. Therefore, melee weapons with the Primitive Quality are represented by one general profile. GMs should feel free to add appropriate modifiers and Qualities for different variations if it becomes relevant.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 156"
+    }
+  },
+  {
+    "name": "Improvised", "type": "weapon", "folder": "Melee Weapons/Traditional",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10-2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Primitive, Unbalanced",
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Improvised weapons can take many forms, but are generally any handy weighted object such as table legs, severed limbs or artillery shell casings.</p><div class='bc-rule'><p>Hitting someone with the butt of a basic ranged weapon (such as a boltgun) counts as an improvised weapon.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 156"
+    }
+  },
+  {
+    "name": "Astartes Force Staff", "type": "weapon", "folder": "Melee Weapons/Force",
+    "img": "systems/dark-heresy/assets/icons/weapons/force-staff.webp",
+    "system": {
+      "class": "melee", "type": "force", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+1", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced, Force",
+      "weight": 5, "requisition": 25, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A force staff houses its core psi-lattice inside a sturdy casing made from polished metal, bone, exotic wood, or any number of other materials.</p><div class='bc-rule'><p>Usually topping a force staff is an elaborate, circuitry-laced concentration icon whose imagery coincides with the weapon’s origin. A force staff acts as an exceptional Psy-Focus, granting +15 to Invocation Tests. This bonus applies as long as the staff is held in at least one hand. However, striking with the weapon requires both hands.</p><p>Unless wielded by a psyker, force weapons simply count as a Common Astartes-sized weapon of the appropriate type with the Damage listed in the weapon’s profile. However, in the hands of a wielder with a Psy Rating, they are much more potent. For every point of Psy Rating the wielder has, the weapon’s Damage and Penetration increase by +1. For example, an Astartes force sword wielded by a character with Psy Rating 3 would inflict 1d10+5 (plus SB) and have a Penetration of 5.</p><p>In addition to normal Damage, whenever a psyker damages an opponent, he may, as a Free Action, channel psychic force and killing will into the blade. This requires a Focus Power Test using Opposed Willpower. For every degree of success, the force weapon’s wielder deals an additional 1d10 Damage, ignoring the victim’s Armour and Toughness Bonus. Force weapons cannot be destroyed by a power weapon’s field.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 155"
+    }
+  },
+  {
+    "name": "Astartes Force Sword", "type": "weapon", "folder": "Melee Weapons/Force",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-sword.webp",
+    "system": {
+      "class": "melee", "type": "force", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced, Force",
+      "weight": 5, "requisition": 25, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A force sword’s blade glows with the pattern of embedded channelling circuitry, and flares brightly every time the wielder activates the sword.</p><div class='bc-rule'><p>The composite adamantine alloys are honed to a monomolecular edge. Empowered by both the Battle-Brother’s superhuman strength and his powerful mind, a force sword in a Librarian’s hand can shear through flesh and armour with astonishing ease.</p><p>Unless wielded by a psyker, force weapons simply count as a Common Astartes-sized weapon of the appropriate type with the Damage listed in the weapon’s profile. However, in the hands of a wielder with a Psy Rating, they are much more potent. For every point of Psy Rating the wielder has, the weapon’s Damage and Penetration increase by +1. For example, an Astartes force sword wielded by a character with Psy Rating 3 would inflict 1d10+5 (plus SB) and have a Penetration of 5.</p><p>In addition to normal Damage, whenever a psyker damages an opponent, he may, as a Free Action, channel psychic force and killing will into the blade. This requires a Focus Power Test using Opposed Willpower. For every degree of success, the force weapon’s wielder deals an additional 1d10 Damage, ignoring the victim’s Armour and Toughness Bonus. Force weapons cannot be destroyed by a power weapon’s field.</p></div></div>",
+      "source": "Deathwatch, p. 154 (Table 5-8), p. 156"
+    }
+  }
+]

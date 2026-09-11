@@ -1,0 +1,537 @@
+[
+  {
+    "name": "Archeotech Laspistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 90, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "2", "clip": { "max": 70, "value": 70 }, "reload": "Full",
+      "special": "Accurate, Reliable", "weight": 4, "availability": "near-unique",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes known as lasrods and gelt guns, these ancient designs pack much greater range and power. It can be fired like a pistol, though many also can mount folding stocks and longer barrels allow the weapon to be braced two handed for a more accurate shot. It is also more efficient than most las weapons, getting more shots per charge. Rare and arcane, few outside of Rogue Traders or collectors would ever know of—let alone possess—one, but many regard these weapons as statements of rank and status in the Expanse.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Belasco Dueling Pistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 45, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "4", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Accurate", "weight": 1.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>While certainly lethal, Belasco dueling pistols more often serve as ostentatious displays of wealth and status than as field weapons. Most can only fire one powerful las-blast before needing a reload, but they are extremely accurate over longer ranges.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 119"
+    }
+  },
+  {
+    "name": "Hellpistol (Lucius)", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/hellpistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 35, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "7", "clip": { "max": 40, "value": 40 }, "reload": "2 Full",
+      "special": "", "weight": 4, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes also known as “hot-shot” weapons, hellguns are almost exclusively used by high ranking Imperial officers and elite forces who favour the higher power over regular las weapons. While hellguns are rarely seen outside of elite Storm Trooper units, hellpistols can be seen among many of the officer corps and Inquisitorial agencies where the extra hitting power they provide over a regular laspistol often means the difference between their life and failure to the Emperor.</p><div class='bc-rule'><p>Lucius-pattern weapons use a 10 kg backpack power source rather than a standard plug-in pack, even for the smaller hellpistol. Larger power packs mean greater power behind each shot but make reloading more impractical, which is a trade off most are willing to take. Hellguns can also be linked to larger backpack power sources (see page 135).</p><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 119"
+    }
+  },
+  {
+    "name": "Hellgun (Lucius)", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/hellgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 110, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "7", "clip": { "max": 30, "value": 30 }, "reload": "2 Full",
+      "special": "", "weight": 6, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes also known as “hot-shot” weapons, hellguns are almost exclusively used by high ranking Imperial officers and elite forces who favour the higher power over regular las weapons. While hellguns are rarely seen outside of elite Storm Trooper units, hellpistols can be seen among many of the officer corps and Inquisitorial agencies where the extra hitting power they provide over a regular laspistol often means the difference between their life and failure to the Emperor.</p><div class='bc-rule'><p>Lucius-pattern weapons use a 10 kg backpack power source rather than a standard plug-in pack, even for the smaller hellpistol. Larger power packs mean greater power behind each shot but make reloading more impractical, which is a trade off most are willing to take. Hellguns can also be linked to larger backpack power sources (see page 135).</p><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 119"
+    }
+  },
+  {
+    "name": "Las Gauntlets", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 50, "rateOfFire": { "single": 1, "burst": 4, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "1", "clip": { "max": 20, "value": 20 }, "reload": "Full",
+      "special": "Reliable", "weight": 3, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is still debated whether these devices are of xeno manufacture or an intact pattern from the Dark Age of Technology. Each fits over the forearm with glove controls, and can fire salvos of long raking beams rather than the short crisp blasts of most las weapons. They are mostly viewed as a plaything for rich nobles on the hunt for exotic prey of any type (even xenos or humans), but some assassins favour the gauntlets as an affectation designed to frighten.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Lascarbine (Locke)", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/las-carbine.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 60, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0", "clip": { "max": 40, "value": 40 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 2.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A lighter, cut down version of the lasgun, the lascarbine has fewer shots and a shorter range but is easier to carry and aim, often coming with a folding stock.</p><div class='bc-rule'><p>Lascarbines can be fired in one hand with only a –10 penalty rather than the normal –20 for basic weapons.</p><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 100, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0", "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Reliable", "weight": 4, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Produced in a multitude of different styles and patterns, the lasgun can be found on almost every world of the Imperium, where its robust design and dependability make it a favoured weapon of both the Emperor’s faithful and many of their foes.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 119"
+    }
+  },
+  {
+    "name": "Laspistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "energy", "penetration": "0", "clip": { "max": 30, "value": 30 }, "reload": "Full",
+      "special": "Reliable", "weight": 1.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The laspistol is most commonly used by lower ranking Imperial officers and agents. On many worlds it is common for almost every member of society to be armed with one as a matter of course. Almost every forge-world has their own pattern and style, as the basic weapon is so simple that it allows a multitude of variations.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 119"
+    }
+  },
+  {
+    "name": "Long-las", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/long-las.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 150, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "1", "clip": { "max": 40, "value": 40 }, "reload": "Full",
+      "special": "Accurate, Reliable", "weight": 4.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Favoured by snipers, the long-las is a specially modified version of the lasgun constructed for added range and accuracy. As its name implies, a long-las also has a much longer barrel than a lasgun both to increase range and prevent overheating. This can make a long-las up to twice as long as a standard lasgun, making it unwieldy in close quarters.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Man Portable Lascannon", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "class": "heavy", "type": "las", "range": 300, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "5d10+10", "damageType": "energy", "penetration": "10", "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "", "weight": 55, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Built for war, lascannons use huge power packs that provide enough energy to punch holes in the thickest armour even at extreme ranges. Lascannons also require separate power packs, which is why they are often crewed by two or more people.</p><div class='bc-rule'><p>To use the various classes of las weapons a character must have the Pistol Training (Las), Basic Weapon Training (Las) or Heavy Weapon Training (Las) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+
+  {
+    "name": "Autogun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autogun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 90, "rateOfFire": { "single": 1, "burst": 3, "full": 10 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0", "clip": { "max": 30, "value": 30 }, "reload": "Full",
+      "special": "", "weight": 3.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cheap and easy to produce, autoguns are a common weapon across the galaxy as even alien races acquire and use them or sometimes make their own equivalents. These rapid-firing automatic weapons use common solid low-calibre shells fed via standardised clips. Reliable, rugged, and easily stocked with ammunition, they are a mainstay on many a planet.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Autopistol", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autopistol.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 6 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0", "clip": { "max": 18, "value": 18 }, "reload": "Full",
+      "special": "", "weight": 2.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Small but effective, autopistols are a favourite amongst many military veterans as a supplement for their standard lasgun. They have a faster rate of fire than most pistols, and can put down most targets in a single burst of shells.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Hand Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-cannon.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 35, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "2", "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "", "weight": 3, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A variant of the stub gun is the huge hand cannon, used mostly by enforcers or bounty hunters who aren’t picky on the state of their quarry.</p><div class='bc-rule'><p>These weapons kick with a strong recoil and, unless used with two hands or a Recoil Glove, impose a –10 penalty on Ballistic Skill Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 120"
+    }
+  },
+  {
+    "name": "Heavy Stubber (Orthlack)", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 120, "rateOfFire": { "single": 0, "burst": 0, "full": 10 },
+      "damage": "1d10+5", "damageType": "impact", "penetration": "3", "clip": { "max": 200, "value": 200 }, "reload": "2 Full",
+      "special": "", "weight": 35, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy stubbers are popular amongst military forces and gangers alike, as they are one of the more easily maintained heavy weapons available. Though not as powerful as an autocannon, heavy stubbers can lay down a curtain of suppressive fire and cut swaths though light infantry and vehicles alike. As with other stubber weapons, ammunition is cheap and plentiful.</p><div class='bc-rule'><p>Lighter than most other heavy weapons, the heavy stubber is commonly used hand-held but a bipod mount can be employed by those seeking to avoid the jarring recoil. The Orthlack-pattern, manufactured for planetary defence force armouries in the Calixis sector and widely exported, uses an ammunition belt which allows for long firing periods, while the locally copied ‘Ursid’ pattern supposedly originating on the war world of Zayth is more compact and uses a smaller ammunition drum which most users find easier to port and reload.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Heavy Stubber (Ursid)", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 120, "rateOfFire": { "single": 0, "burst": 0, "full": 10 },
+      "damage": "1d10+5", "damageType": "impact", "penetration": "3", "clip": { "max": 40, "value": 40 }, "reload": "Full",
+      "special": "", "weight": 35, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy stubbers are popular amongst military forces and gangers alike, as they are one of the more easily maintained heavy weapons available. Though not as powerful as an autocannon, heavy stubbers can lay down a curtain of suppressive fire and cut swaths though light infantry and vehicles alike. As with other stubber weapons, ammunition is cheap and plentiful.</p><div class='bc-rule'><p>Lighter than most other heavy weapons, the heavy stubber is commonly used hand-held but a bipod mount can be employed by those seeking to avoid the jarring recoil. The Orthlack-pattern, manufactured for planetary defence force armouries in the Calixis sector and widely exported, uses an ammunition belt which allows for long firing periods, while the locally copied ‘Ursid’ pattern supposedly originating on the war world of Zayth is more compact and uses a smaller ammunition drum which most users find easier to port and reload.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Naval Pistol (Mars)", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 20, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 6, "value": 6 }, "reload": "Full",
+      "special": "Tearing", "weight": 3, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The naval officer’s standard sidearm is a variant of the basic autopistol that uses fragmenting ammunition designed to stop a target dead in its tracks, at the expense of range. Most Imperial ships engrave the vessel’s name on the stock, making those from famous naval warships extremely valuable (if illegal) to wealthy collectors from high society and the nobility.</p><div class='bc-rule'><p>Note that without its special ammunition (which cannot be combined with other types) the weapon’s attacks lose the Tearing quality.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Naval Shotcannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/shotgun.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 40, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "2d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 24, "value": 24 }, "reload": "2 Full",
+      "special": "Scatter, Unreliable", "weight": 7, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These much larger variants of a regular shotgun fire a huge shell (nearly twice the normal size) and can lay waste to large hordes of attackers. A close range hit from one can literally explode a man into a burst of shredded clothing and flesh.</p><div class='bc-rule'><p>As imagined they generate tremendous recoil and must be mounted down or fired from a braced position to be effective.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Pump-Action Shotgun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/pump-action-shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 8, "value": 8 }, "reload": "2 Full",
+      "special": "Scatter", "weight": 5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common amongst enforcers, mercenaries, and raiders, these weapons are robust and practical, holding more shells than a regular shotgun. The distinctive sound of a new round being chambered into a pump shotgun has lead to many a scummer fleeing or a colonist’s surrender before the shot can be fired.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Shotgun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 2, "value": 2 }, "reload": "2 Full",
+      "special": "Scatter", "weight": 5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Even low-tech manufactories can produce these basic weapons in great quantities, and their ability to hit several targets with a single shot make shotguns appealing to those with little actual skill in shooting. Their relatively short range and low shot velocity makes them appealing for shipboard use as well, as they have little risk of causing hull breaches.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Shotgun Pistol", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-cannon.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 10, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Reliable, Scatter", "weight": 1, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Also known as a “Foehammer,” this weapon is a squat, brutal looking weapon with an extremely short barrel in a pistol configuration resembling a single-shot hand cannon. It can fire a standard shotgun shell, and is popular with many naval ship’s officers as well as crew chiefs who need an intimidating weapon close at hand.</p><div class='bc-rule'><p>Due to the recoil, it applies a –10 penalty to Ballistic Skill Tests unless fired with two hands or a Recoil Glove.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Stub Automatic", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/stub_automatic.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0", "clip": { "max": 9, "value": 9 }, "reload": "Full",
+      "special": "", "weight": 1.5, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Unlike the Stub revolver, this pistol weapon also can fire in rapid semi-automatic mode as well as single shots. Like the autopistol it is easy to produce and maintain, but less accurate at longer ranges.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+  {
+    "name": "Stub Revolver", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-revolver.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0", "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 1, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Perhaps the most ancient of pistol designs, the stub revolver carries fewer rounds than most pistols but is very reliable and easy to operate. As shells can be inserted individually, it is relatively easy to load in specialised rounds when needed.</p></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 121"
+    }
+  },
+
+  {
+    "name": "Boltgun (Locke)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 90, "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4", "clip": { "max": 24, "value": 24 }, "reload": "Full",
+      "special": "Tearing", "weight": 7, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common bolter weapon is the boltgun or bolter. Care and maintenance is a matter of supreme importance to an owner of such a weapon, and many have outlasted a long line of bearers. The Locke-pattern weapon is a variant of an old Adeptus Arbites design and the most ‘common’ of these uncommon weapons found traded in the Koronus Expanse, although how it came first to be manufactured remains something of a mystery.</p><div class='bc-rule'><p>To use the various classes of bolt weapons a character must have the Pistol Training (Bolt), Basic Weapon Training (Bolt) or Heavy Weapon Training (Bolt) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Bolt Pistol (Ceres)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/bolt-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "bolt", "range": 30, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4", "clip": { "max": 8, "value": 8 }, "reload": "Full",
+      "special": "Tearing", "weight": 3.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bolt pistols are rare outside of elite Imperial forces, and possessing one is a sign of status and power. They are sometimes passed down through the generations, becoming valuable heirlooms for noble families. Adorned with elaborate scrollwork and family crests these devices are more relic than weapon in some dynasties. The Ceres-pattern is one associated with the Imperial Navy and perhaps fittingly enough the one found most often in the arsenals of Rogue traders.</p><div class='bc-rule'><p>To use the various classes of bolt weapons a character must have the Pistol Training (Bolt), Basic Weapon Training (Bolt) or Heavy Weapon Training (Bolt) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Storm Bolter (Mars)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/storm_bolter.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 90, "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4", "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Storm, Tearing", "weight": 9, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Storm Bolters arose from experiments in combining weapons together to achieve greater rates of fire. Here, two linked bolters form a single weapon which can shred most foes in a single burst. Rarely seen outside of the elite Astartes, most Storm Bolters are relic-weapons covered with glyphs and purity seals that speak of their ancient origin.</p><div class='bc-rule'><p>To use the various classes of bolt weapons a character must have the Pistol Training (Bolt), Basic Weapon Training (Bolt) or Heavy Weapon Training (Bolt) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Heavy Bolter (Solar)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "class": "heavy", "type": "bolt", "range": 120, "rateOfFire": { "single": 0, "burst": 0, "full": 10 },
+      "damage": "2d10+2", "damageType": "explosive", "penetration": "5", "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Tearing", "weight": 40, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy bolters are a common heavy weapon in the armed forces of the Imperium. Used for anti-infantry and support rolls, they can lay down impressive swathes of fire, able to slaughter enemy troopers and destroy light vehicles with their explosive armour-piercing rounds. Each uses much larger versions of the standard bolt shell with more propellant and greater range. Like all bolter weapons they require careful and regular maintenance, along with ancient litanies to appease the weapon’s spirit. Jamming is often a problem due to their high rate of fire, and when used in two-man teams the loader can expect to be clearing shells as well as loading new ammunition packs or feed belts.</p><div class='bc-rule'><p>To use the various classes of bolt weapons a character must have the Pistol Training (Bolt), Basic Weapon Training (Bolt) or Heavy Weapon Training (Bolt) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+
+  {
+    "name": "Inferno Pistol (Mars)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/inferno-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "melta", "range": 10, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+8", "damageType": "energy", "penetration": "13", "clip": { "max": 3, "value": 3 }, "reload": "Full",
+      "special": "", "weight": 2.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The inferno pistol represents very specialised and ancient technology, almost impossible to recreate. Mere handfuls might exist in any sector, each jealously guarded.</p><div class='bc-rule'><p>To use the various classes of melta weapons a character must have the Pistol Training (Melta), Basic Weapon Training (Melta), or Heavy Weapon Training (Melta) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Meltagun (Mars)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "basic", "type": "melta", "range": 20, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+8", "damageType": "energy", "penetration": "13", "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "", "weight": 7.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns are the most common form of melta weapon and are found in many Imperial forces. As they are less prone to failure than plasma guns and work best at shorter ranges, they are also prized by raiders and corsairs where close-in fighting and boarding actions are often the norm. It is an ideal weapon for cutting through bulkheads or armour. Most use a built-in fuel canister like the Mars-pattern, but the Mezoa forge-world version using a backpack is also common.</p><div class='bc-rule'><p>To use the various classes of melta weapons a character must have the Pistol Training (Melta), Basic Weapon Training (Melta), or Heavy Weapon Training (Melta) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Meltagun (Mezoa)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "basic", "type": "melta", "range": 20, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+8", "damageType": "energy", "penetration": "13", "clip": { "max": 10, "value": 10 }, "reload": "3 Full",
+      "special": "", "weight": 8.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns are the most common form of melta weapon and are found in many Imperial forces. As they are less prone to failure than plasma guns and work best at shorter ranges, they are also prized by raiders and corsairs where close-in fighting and boarding actions are often the norm. It is an ideal weapon for cutting through bulkheads or armour. Most use a built-in fuel canister like the Mars-pattern, but the Mezoa forge-world version using a backpack is also common.</p><div class='bc-rule'><p>To use the various classes of melta weapons a character must have the Pistol Training (Melta), Basic Weapon Training (Melta), or Heavy Weapon Training (Melta) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 122"
+    }
+  },
+  {
+    "name": "Thermal Lance (Mars)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/heavy.webp",
+    "system": {
+      "class": "heavy", "type": "melta", "range": 10, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "12", "clip": { "max": 2, "value": 2 }, "reload": "2 Full",
+      "special": "Accurate", "weight": 40, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The thermal lance is a rare weapon, nearly as large as a standard multi-melta. It fires a more accurate and directed heat beam using a much longer barrel with added directional containment beams to reduce dispersal, at the cost of lowered damage to the target.</p><div class='bc-rule'><p>To use the various classes of melta weapons a character must have the Pistol Training (Melta), Basic Weapon Training (Melta), or Heavy Weapon Training (Melta) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 123"
+    }
+  },
+  {
+    "name": "Multi-Melta (Mars)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/heavy.webp",
+    "system": {
+      "class": "heavy", "type": "melta", "range": 60, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+5", "damageType": "energy", "penetration": "13", "clip": { "max": 10, "value": 10 }, "reload": "2 Full",
+      "special": "Blast (1)", "weight": 40, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The largest type of melta weapon is the multi-melta, usually only employed by the Adeptus Astartes or mounted upon Imperial vehicles. This huge weapon carries more fuel, fires at much longer ranges, and creates a larger blast area, cooking several square metres at a time. It also generates much more heat than its smaller cousins, and most users must insulate themselves with protective clothing or armour.</p><div class='bc-rule'><p>To use the various classes of melta weapons a character must have the Pistol Training (Melta), Basic Weapon Training (Melta), or Heavy Weapon Training (Melta) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 123"
+    }
+  },
+
+  {
+    "name": "Plasma Pistol (Ryza)", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "plasma", "range": 30, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+6", "damageType": "energy", "penetration": "6", "clip": { "max": 10, "value": 10 }, "reload": "3 Full",
+      "special": "Overheats, Maximal", "weight": 4, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Few pistols are deadlier than the plasma pistol, and those willing to take the risk of using one possess a weapon capable of taking down almost any foe at close range. Plasma pistols are a favourite weapon of Imperial officers, who view it as a status symbol to be entrusted with such a valuable and venerated weapon. It can only hold smaller hydrogen flasks (or sometimes only a single flask) and thus can only fire a handful of shots. They are dangerous to use on board a vessel, as a single shot can penetrate several bulkheads.</p><div class='bc-rule'><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes—single shot (the normal and safest method), or a higher powered blast with a longer range and higher temperature. The latter though requires a short recharge time to replenish the plasma and bring it to firing levels; this time will vary with the level of precision technology used in construction. Like most Imperial devices the older it is the better it is; the more ancient Craftsmanship almost always indicates the superior design. Imperial plasma weapons can fire in Maximal mode, gaining an extra 10 metres to range, 1d10 to Damage and +2 Pen, but use 3 rounds of ammunition. When fired on the Maximal setting, plasma weapons gain the Recharge Quality. Additionally, plasma weapons with the Blast Quality firing in Maximal add +2 to the Blast (so a Ryza-pattern plasma cannon would fire a Blast (3) on Maximal setting).</p><p>To use the various classes of plasma weapons a character must have the Pistol Training (Plasma), Basic Weapon Training (Plasma) or Heavy Weapon Training (Plasma) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 123"
+    }
+  },
+  {
+    "name": "Plasma Gun (Mezoa)", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "class": "basic", "type": "plasma", "range": 90, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+7", "damageType": "energy", "penetration": "6", "clip": { "max": 40, "value": 40 }, "reload": "5 Full",
+      "special": "Overheats, Maximal", "weight": 18, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a squad-support weapon intended for use by battlefleet armsmen, which has subsequently found extensive use in the private cadres of many Rogue Traders and with renegades and pirates wealthy or fortunate enough to acquire them.</p><div class='bc-rule'><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes—single shot (the normal and safest method), or a higher powered blast with a longer range and higher temperature. The latter though requires a short recharge time to replenish the plasma and bring it to firing levels; this time will vary with the level of precision technology used in construction. Like most Imperial devices the older it is the better it is; the more ancient Craftsmanship almost always indicates the superior design. Imperial plasma weapons can fire in Maximal mode, gaining an extra 10 metres to range, 1d10 to Damage and +2 Pen, but use 3 rounds of ammunition. When fired on the Maximal setting, plasma weapons gain the Recharge Quality. Additionally, plasma weapons with the Blast Quality firing in Maximal add +2 to the Blast (so a Ryza-pattern plasma cannon would fire a Blast (3) on Maximal setting).</p><p>To use the various classes of plasma weapons a character must have the Pistol Training (Plasma), Basic Weapon Training (Plasma) or Heavy Weapon Training (Plasma) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 123"
+    }
+  },
+  {
+    "name": "Plasma Cannon (Ryza)", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/heavy_plasma.webp",
+    "system": {
+      "class": "heavy", "type": "plasma", "range": 120, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "8", "clip": { "max": 16, "value": 16 }, "reload": "5 Full",
+      "special": "Blast (1), Overheats, Unreliable, Maximal", "weight": 40, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The largest portable plasma weapon is the plasma cannon or heavy plasma gun, which is also seen in service on some Imperial war machines. Rather than using attached flasks, the wielder wears a large backpack containing the weapon’s store of hydrogen fuel. This weapon has a much longer range and ammunition supply, and its violent discharges, hurled like miniature suns from the barrel, have a large impact area. It can also be fired in a special Maximal mode which exhausts even more fuel but provides an even larger blast of heat on impact, creating a fireball capable of destroying even armoured targets.</p><div class='bc-rule'><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes—single shot (the normal and safest method), or a higher powered blast with a longer range and higher temperature. The latter though requires a short recharge time to replenish the plasma and bring it to firing levels; this time will vary with the level of precision technology used in construction. Like most Imperial devices the older it is the better it is; the more ancient Craftsmanship almost always indicates the superior design. Imperial plasma weapons can fire in Maximal mode, gaining an extra 10 metres to range, 1d10 to Damage and +2 Pen, but use 3 rounds of ammunition. When fired on the Maximal setting, plasma weapons gain the Recharge Quality. Additionally, plasma weapons with the Blast Quality firing in Maximal add +2 to the Blast (so a Ryza-pattern plasma cannon would fire a Blast (3) on Maximal setting).</p><p>To use the various classes of plasma weapons a character must have the Pistol Training (Plasma), Basic Weapon Training (Plasma) or Heavy Weapon Training (Plasma) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 123"
+    }
+  },
+
+  {
+    "name": "Hand Flamer (Mezoa)", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-flamer.webp",
+    "system": {
+      "class": "pistol", "type": "flame", "range": 10, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "2", "clip": { "max": 2, "value": 2 }, "reload": "2 Full",
+      "special": "Flame", "weight": 3.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame pistols or hand flamers are small and good for only several shots, being designed for personal combat at close ranges. Each uses a canister mounted under the small barrel, making it a somewhat difficult to aim due to the heavy propellant case. Luckily the short ranged spray of flame it produces is enough to deal with most enemies.</p><div class='bc-rule'><p>To use the various classes of flame weapons a character must have the Pistol Training (Flame), Basic Weapon Training (Flame) or Heavy Weapon Training (Flame) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Flamer (Mezoa)", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "basic", "type": "flame", "range": 20, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "2", "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Flame", "weight": 6, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The flamer or flame gun is ideal for flushing out enemies in cover and cleansing areas with purifying flame. Many armsmen and pirates favour heavier Mezoa versions copied by heretek armourers in the Expanse. This version has a weapon-mounted canister as it allows for faster refuelling and easier use while wearing a void suit if needed.</p><div class='bc-rule'><p>To use the various classes of flame weapons a character must have the Pistol Training (Flame), Basic Weapon Training (Flame) or Heavy Weapon Training (Flame) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Heavy Flamer (Locke)", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/heavy_flamer.webp",
+    "system": {
+      "class": "heavy", "type": "flame", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+4", "damageType": "energy", "penetration": "4", "clip": { "max": 10, "value": 10 }, "reload": "2 Full",
+      "special": "Flame", "weight": 20, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy flamers are large and cumbersome, normally only used on vehicles, power armoured users or teams of troopers. Like the basic flamer pattern, Locke Heavy Flamers use heavy tanks carried on a backpack (which also helps ensure they are not in the direct line of incoming shells). The twin nozzles produce huge gouts of fire, enough to purge the densest terrain of xeno taint.</p><div class='bc-rule'><p>To use the various classes of flame weapons a character must have the Pistol Training (Flame), Basic Weapon Training (Flame) or Heavy Weapon Training (Flame) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 118 (Table 5-4), p. 124"
+    }
+  },
+
+  {
+    "name": "Bolas", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/bolas.webp",
+    "system": {
+      "class": "thrown", "type": "lowtech", "range": 10, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Primitive, Snare, Inaccurate", "weight": 1.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bolas are sometimes preferred by bounty hunters or law enforcement members on low-tech worlds, where the swirling weights—some styles use up to eight of these dense objects—can swiftly entangle a target with heavy cords or wire with minimal chance of lethal damage to their pay check.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Bow", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/bow.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Half",
+      "special": "Primitive, Reliable", "weight": 2, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bows have changed little through their many countless centuries of usage, and can be found across the galaxy in a variety of designs and constructions. Many technologically advanced worlds still favour their use as a sign of individual marksmanship and skill.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Crossbow", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/crossbow.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "2 Full",
+      "special": "Primitive", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Crossbows are a higher tech, mechanical version of a bow, with a smaller size but often harder hitting strike. They take more time to reload but generally require less skill to use, making them more attractive to many explorers where more advanced weapons cannot be found or re-supplied. Crossbows are a staple weapon on many feral and feudal worlds along with those that have suffered collapse and tech-regression.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Hand Bow", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/crossbow.webp",
+    "system": {
+      "class": "pistol", "type": "lowtech", "range": 15, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Primitive", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This weapon offers the hitting power of a crossbow but in a pistol grip, suitable for one-handed operation but at shorter ranges. Assassins often favour them for their ease of concealment and storage, while many of the void born use simple spring-pistols for self defence.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Flintlock Pistol", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "lowtech", "range": 15, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "3 Full",
+      "special": "Primitive, Unreliable, Inaccurate", "weight": 4, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These primitive black powder weapons can take many forms, from finely crafted pistols constructed for the nobles of feudal worlds to simple pipe and powder affairs used by underhive scum.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Musket", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/laslock.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "5 Full",
+      "special": "Primitive, Unreliable, Inaccurate", "weight": 7, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These crude devices can only fire once before reloading, are prone to failure, and only the most low-tech savage or desperate renegade would generally fight with one. When they do strike, however, they are deadly against un-armoured foes.</p><div class='bc-rule'><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+  {
+    "name": "Sling", "type": "weapon", "folder": "Ranged Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 15, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10-2", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Primitive", "weight": 0.5, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Slings are easy to create and conceal, and can be used to hurl any suitable object: rocks picked off the ground, specialised metallic balls, even grenades.</p><div class='bc-rule'><p>When using a sling to throw grenades, replace the sling’s Damage with the effects of the grenade but reduce the weapon’s range to 7 metres. A jam roll in this case will mean an additional roll (see page 126).</p><p>To use the various classes of primitive weapons a character must have the appropriate Weapon Training talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 124"
+    }
+  },
+
+  {
+    "name": "Grenade Launcher (Mezoa)", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/grenade-launcher.webp",
+    "system": {
+      "class": "basic", "type": "launcher", "range": 80, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "", "clip": { "max": 1, "value": 1 }, "reload": "Half",
+      "special": "", "weight": 10, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Grenade launchers can fire a variety of grenade types but generally at a shorter range than other basic weapons due to the heavier nature of their payload. Unlike most weapons they can be fired in arcing shots designed to clear obstructions and strike farther into an enemy formation as well as simply being fired directly at foes. The common Voss design holds a clip of six rounds, but most find the weapon inaccurate even for a launcher. The Forge World of Mezoa produces what many believe a superior shoulder-mounted weapon with a longer range, for though it is a single shot device it has superior firing systems and is highly accurate.</p><div class='bc-rule'><p>Damage, Penetration and Special Qualities vary with ammunition.</p><p>To use the various classes of launchers a character must have the Pistol Training (Launcher), Basic Weapon Training (Launcher), or Heavy Weapon Training (Launcher) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 125"
+    }
+  },
+  {
+    "name": "Grenade Launcher (Voss)", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/grenade-launcher.webp",
+    "system": {
+      "class": "basic", "type": "launcher", "range": 60, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "", "clip": { "max": 6, "value": 6 }, "reload": "Full",
+      "special": "Inaccurate", "weight": 12.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Grenade launchers can fire a variety of grenade types but generally at a shorter range than other basic weapons due to the heavier nature of their payload. Unlike most weapons they can be fired in arcing shots designed to clear obstructions and strike farther into an enemy formation as well as simply being fired directly at foes. The common Voss design holds a clip of six rounds, but most find the weapon inaccurate even for a launcher. The Forge World of Mezoa produces what many believe a superior shoulder-mounted weapon with a longer range, for though it is a single shot device it has superior firing systems and is highly accurate.</p><div class='bc-rule'><p>Damage, Penetration and Special Qualities vary with ammunition.</p><p>To use the various classes of launchers a character must have the Pistol Training (Launcher), Basic Weapon Training (Launcher), or Heavy Weapon Training (Launcher) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 125"
+    }
+  },
+  {
+    "name": "Missile Launcher (Locke)", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 250, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "", "weight": 12, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Like the grenade launcher, missile launchers fire a variety of explosive rounds at long distances. A missile is fitted with stabilisation and guidance systems to aid in their accuracy, which is excellent at long ranges. Most launchers, like the Locke-pattern, are shoulder mounted tube-like weapons that fire a single round at great accuracy, while the ancient Retobi design holds a huge vertical clip of 5 rounds but is much more awkward to fire and has less precision.</p><div class='bc-rule'><p>Damage, Penetration and Special Qualities vary with ammunition.</p><p>To use the various classes of launchers a character must have the Pistol Training (Launcher), Basic Weapon Training (Launcher), or Heavy Weapon Training (Launcher) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 125"
+    }
+  },
+  {
+    "name": "Missile Launcher (Retobi)", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 200, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "", "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "", "weight": 35, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Like the grenade launcher, missile launchers fire a variety of explosive rounds at long distances. A missile is fitted with stabilisation and guidance systems to aid in their accuracy, which is excellent at long ranges. Most launchers, like the Locke-pattern, are shoulder mounted tube-like weapons that fire a single round at great accuracy, while the ancient Retobi design holds a huge vertical clip of 5 rounds but is much more awkward to fire and has less precision.</p><div class='bc-rule'><p>Damage, Penetration and Special Qualities vary with ammunition.</p><p>To use the various classes of launchers a character must have the Pistol Training (Launcher), Basic Weapon Training (Launcher), or Heavy Weapon Training (Launcher) talents.</p></div></div>",
+      "source": "Rogue Trader, p. 119 (Table 5-4), p. 125"
+    }
+  }
+]

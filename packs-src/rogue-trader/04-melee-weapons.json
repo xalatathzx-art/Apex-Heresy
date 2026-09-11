@@ -1,0 +1,276 @@
+[
+  {
+    "name": "Chain Axe", "type": "weapon", "folder": "Melee Weapons/Chain",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainaxe.webp",
+    "system": {
+      "class": "melee", "type": "chain", "range": 0, "damage": "1d10+4", "damageType": "rending", "penetration": "2",
+      "special": "Tearing", "weight": 13, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chainaxes are more deadly, packing the greater weight of the axe swing behind each blow, but lacking a chainsword’s ability to turn aside enemy strikes in defensive manoeuvres. Like a regular axe, these can have one edge or be two-sided. Each open edge contains its own chain loop, meaning that the double-sided version can still operate if one side is fouled.</p><div class='bc-rule'><p>To use chain weapons a character must have the Melee Weapon Training (Chain) talent.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 129"
+    }
+  },
+  {
+    "name": "Chainsword (Hecate)", "type": "weapon", "folder": "Melee Weapons/Chain",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
+    "system": {
+      "class": "melee", "type": "chain", "range": 0, "damage": "1d10+2", "damageType": "rending", "penetration": "2",
+      "special": "Tearing, Balanced", "weight": 6, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chainswords generally have a large flat carapace containing the chain with only the forward curved section open where the spinning chain teeth can bite into flesh and bone. On Chaos and pirate vessels they are preferred over power weapons mostly due to the messy deaths they can bring, the better to intimidate both enemies and crew-scum alike.</p><div class='bc-rule'><p>To use chain weapons a character must have the Melee Weapon Training (Chain) talent.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 129"
+    }
+  },
+
+  {
+    "name": "Omnissian Axe (Sollex)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/omnissian_axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "2d10+4", "damageType": "energy", "penetration": "6",
+      "special": "Power Field, Unbalanced", "weight": 8, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Granted to suitably devoted followers of the Omnissiah, this weapon has a long staff-like body tipped with half of the circular Adeptus Mechanicus skull and cog icon. The symbol forms a blade and is sheathed in a power field. Covered with inscribed circuitry designs indicating the sacred nature of the weapon, many a foe has realised far too late that what appeared to be a religious walking staff was really a deadly weapon.</p><div class='bc-rule'><p>The Omnissian axe also functions as a combi-tool.</p><p>A power weapon can still be used as an ordinary weapon should its power source run dry or become damaged.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Power Axe (Mezoa)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "1d10+7", "damageType": "energy", "penetration": "7",
+      "special": "Power Field, Unbalanced", "weight": 6, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power axes allow for greater impact when striking than a power sword, but are clumsier to use. They are viewed as a brutal and unsubtle weapon, more suited for crude assault work against rebellious underhive scum or foul xenos races. The huge arc needed to properly attack with one makes use difficult in most ships, so the Mezoa-pattern features a shorter handle but larger and crescent blade.</p><div class='bc-rule'><p>A power weapon can still be used as an ordinary weapon should its power source run dry or become damaged.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Power Fist (Mezoa)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-fist.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "2d10", "damageType": "energy", "penetration": "9",
+      "special": "Power Field, Unwieldy", "weight": 13, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Rather than encasing an edged weapon with a power field, a power fist uses the energy to disrupt material in a more violent fashion. Worn as a huge glove, when the mechanically augmented fist strikes its target it can tear open even the heaviest armour and burst flesh into a shower of blood and tissue. Unless worn as part of power armour, they normally require heavy backpack-mounted power sources connected to the fist via heavy cables. The Mezoa-pattern specialises in an oversized mantle to increase punching power, and suitably braced the user can knock through the strongest bulkheads. Most are ancient relics, with the mantle inscribed with family heraldry or iconography indicating impressive victories.</p><div class='bc-rule'><p>Power Fists add the user’s SB×2 to the Damage.</p><p>A power weapon can still be used as an ordinary weapon should its power source run dry or become damaged.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Power Maul (High)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-maul.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "1d10+5", "damageType": "energy", "penetration": "4",
+      "special": "Power Field, Shock", "weight": 3.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power Mauls are solid truncheon-like rods with a discharge cap at one end, and a hand grip at the other. Controls along the haft allow the user to adjust the energy field’s strength from a mild stunning blast to a heavy force suitable for breaking down reinforced doors. They are popular with the Adeptus Arbites, as well as many senior naval officers as they can be used in a non-lethal capacity when desired.</p><div class='bc-rule'><p>This is the maul’s high setting; see Power Maul (Low) for the mild setting.</p><p>A power weapon can still be used as an ordinary weapon should its power source run dry or become damaged.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Power Maul (Low)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-maul.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "1d10+1", "damageType": "energy", "penetration": "2",
+      "special": "Shock", "weight": 3.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power Mauls are solid truncheon-like rods with a discharge cap at one end, and a hand grip at the other. Controls along the haft allow the user to adjust the energy field’s strength from a mild stunning blast to a heavy force suitable for breaking down reinforced doors. They are popular with the Adeptus Arbites, as well as many senior naval officers as they can be used in a non-lethal capacity when desired.</p><div class='bc-rule'><p>This is the maul’s low setting, which projects no power field; see Power Maul (High) for the heavy setting.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Power Sword (Mordian)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-sword.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0, "damage": "1d10+5", "damageType": "energy", "penetration": "5",
+      "special": "Power Field, Balanced", "weight": 3, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power swords are elite weapons and a sure sign of high status in the Imperium; many captains favour them as a prestige item to impress crewmen and enemies alike. Like a common sword, they allow the user greater attack options and defensive responses than many weapons. Entire specialised styles of combat have been designed around the expansive number of variants found across the galaxy and beyond. The Mordian variant is designed to support a defensive parry, with a lighter weight and thinner, two sided blade.</p><div class='bc-rule'><p>The Mordian-pattern’s distinctive styling adds an additional +5 bonus to parry for a total of +15.</p><p>A power weapon can still be used as an ordinary weapon should its power source run dry or become damaged.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+
+  {
+    "name": "Fractal Blade", "type": "weapon", "folder": "Melee Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "exotic", "range": 0, "damage": "1d10+1", "damageType": "rending", "penetration": "7",
+      "special": "Power Field, Balanced", "weight": 1, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These rare swords are made from a diamond-like living crystal, each blade harvested from an unknown planet in the Koronus Expanse, its location a carefully kept secret by the Rogue Trader who sells them. When struck (such as in a Parry action) small slivers flake off, and the blade emits a shrieking sound akin to nails on chalkboard. The crystal constantly grows and replaces shards as they are struck off, keeping the edge sharp at all times but also meaning it must be frequently used lest it become dull and blunt. Each sliver is a fractal seed, a replica in miniature of the full sized blade. Indeed, if planted back on its home world it would grow into a new sword.</p><div class='bc-rule'><p>Rogue Traders often encounter the unusual and the strange, including many weapons meant for close combat that are of alien or unknown origin.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130"
+    }
+  },
+  {
+    "name": "Ghost Sword", "type": "weapon", "folder": "Melee Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "exotic", "range": 0, "damage": "1d10+3", "damageType": "energy", "penetration": "6",
+      "special": "Power Field, Balanced", "weight": 1, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most races have some sort of long bladed item in their armoury and many Explorers make good use of those they find that take their fancy, either as trophies or for more practical reasons. Many have been linked to known alien cultures, but some resist clear identification. “Ghost Sword” is the name given to a common style found on many newly explored worlds in the Calixis Sector and beyond, often amongst the remains of ancient battles. This deadly sword is clearly of fine but alien craftsmanship, lightweight but stronger than any Imperial steel. Despite warnings from the Adeptus Mechanicus and Inquisition, some bold Rogue Traders wear these weapons in open scabbards to show off their independence and prowess as explorers.</p><div class='bc-rule'><p>The Ghost Sword adds an additional +5 bonus to parry for a total of +15.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 130–131"
+    }
+  },
+  {
+    "name": "Harlequin’s Kiss", "type": "weapon", "folder": "Melee Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/fist.webp",
+    "system": {
+      "class": "melee", "type": "exotic", "range": 0, "damage": "1d10+8", "damageType": "rending", "penetration": "10",
+      "special": "Tearing", "weight": 1, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Among the deadliest of all Eldar weapons, the harlequin’s kiss resembles a long tube attached to the back of the forearm. The rear of the tube is filled with highly compressed coiled loops of monomolecular wire, nearly a hundred metres worth. When the weapon’s spiked tip strikes the target, the wire is released and instantly bursts through even the smallest puncture to fill the interior of a body or vehicle. In seconds flesh is turned into liquid as the wire races through the enclosed space and then retracts back into the device for its next use. Most victims are dead before knowing they were even struck.</p><div class='bc-rule'><p>Unlike other melee weapons, do not add the wielder’s Strength bonus to the damage inflicted by a Harlequin’s Kiss.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 131"
+    }
+  },
+  {
+    "name": "Ork Choppa", "type": "weapon", "folder": "Melee Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/axe.webp",
+    "system": {
+      "class": "melee", "type": "exotic", "range": 0, "damage": "1d10+1", "damageType": "rending", "penetration": "2",
+      "special": "Unbalanced", "weight": 8, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Orks prefer these huge and heavy bladed, oversized weapons, sometimes edged with jagged teeth to make them even more deadly. Anyone strong enough to lift one will find their crude design effective for cutting tough armour.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Kroot Rifle (Melee)", "type": "weapon", "folder": "Melee Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/spear.webp",
+    "system": {
+      "class": "melee", "type": "exotic", "range": 0, "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "special": "Balanced", "weight": 6, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Kroot Rifles are balanced to fit deadly combat blades, allowing them to function as a halberd in close combat, especially in the hands of a Kroot Warrior.</p><div class='bc-rule'><p>This is the close combat profile of the Kroot Rifle; the book prints no separate weight or Availability for it.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 128"
+    }
+  },
+
+  {
+    "name": "Officer’s Cutlass", "type": "weapon", "folder": "Melee Weapons/Shock",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "shock", "range": 0, "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "special": "Shock", "weight": 3, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A standard variation on the basic cutlass used in almost every Imperial vessel in the Calixis Sector. In close quarters fighting, the heavy metal guard is often used as an offensive weapon on its own where the armoured shell can provide a powerful punch. Many ship’s officers heighten this effect by incorporating a shock generator in the guard, so that when hit, an opponent is felled by both the electrical shock and the solid impact. Rogue Traders often use even more lethal versions, strengthening their blades with actual power fields.</p><div class='bc-rule'><p>To use shock weapons a character must have the Melee Weapon Training (Shock) talent.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Shock Glove", "type": "weapon", "folder": "Melee Weapons/Shock",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/fist.webp",
+    "system": {
+      "class": "melee", "type": "shock", "range": 0, "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "special": "Shock", "weight": 1.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>While most shock weapons use a long pole or whip to strike the target, shock gloves use a heavy (and heavily insulated) gauntlet covered with wiring. On impact the charges jolt the victim with electrical force, making the heavy blow even more painful.</p><div class='bc-rule'><p>To use shock weapons a character must have the Melee Weapon Training (Shock) talent.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Shock-Staff", "type": "weapon", "folder": "Melee Weapons/Shock",
+    "img": "systems/dark-heresy/assets/icons/weapons/shock-maul.webp",
+    "system": {
+      "class": "melee", "type": "shock", "range": 0, "damage": "1d5+3", "damageType": "impact", "penetration": "0",
+      "special": "Shock", "weight": 2, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are simple plasteel or wooden lengths with a single-setting shock emitter housed in a fixture at the far end, often ornamented into an Imperial or naval icon. These are a frequent site in the low-decks, used to encourage indentured slaves and ratings to improve their work. Many press gangs also use shock-staffs to recruit new crewmen for their ship.</p><div class='bc-rule'><p>To use shock weapons a character must have the Melee Weapon Training (Shock) talent.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+
+  {
+    "name": "Great Weapon", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/great-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "2d10", "damageType": "rending", "penetration": "0",
+      "special": "Primitive, Unbalanced", "weight": 7, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most melee weapons can also be found in larger and heavier versions, usable only with two hands. Great weapons of this kind—such as huge axes, giant hammers, double-handed swords, and so on, including huge clubs—are massive, brutal weapons that can inflict serious damage with each blow.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Groxwhip", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/whip.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 3, "damage": "1d10+3", "damageType": "rending", "penetration": "0",
+      "special": "Flexible, Tearing, Primitive", "weight": 4, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>“Groxwhip” may be an apocryphal name, as there is no strong evidence they were developed to help herd these massive beasts. It is more likely that most onlookers feel that a barbed steel whip covered with serrated edges could be used on nothing else. Unlike most whips, these are deliberately designed for lethal use as strikes will tear away chunks of flesh with each attack.</p><div class='bc-rule'><p>Range: 3 m.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Improvised", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10-2", "damageType": "impact", "penetration": "0",
+      "special": "Primitive, Unbalanced", "weight": 0, "availability": "",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Improvised weapons can take many forms, but are generally any handy weighted object such as table legs, severed limbs or artillery shell casings. Hitting someone with the butt of a basic ranged weapon (such as a lasgun or boltgun) counts as an improvised weapon.</p><div class='bc-rule'><p>The book prints no weight or Availability for improvised weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Knife", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/knife.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 5, "damage": "1d5", "damageType": "rending", "penetration": "0",
+      "special": "Primitive", "weight": 1, "availability": "abundant",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The knife is the ubiquitous back-up weapon for warriors all across the Imperium, be they lowly hive scum or the elite soldiers of a planetary governor. Some, such as the Catachan fighting knife, are designed for a specific purpose, whilst others are more generic in nature.</p><div class='bc-rule'><p>Class: Melee/Thrown. Thrown range 5 m.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Kraken Tooth Dagger", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/combat-knife.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 5, "damage": "1d5+1", "damageType": "rending", "penetration": "1",
+      "special": "Primitive", "weight": 0.4, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Though dismissed as legend or myth, those who spend their lives in the void know that krakens do indeed exist, travelling from system to system the slow way, possibly living for millennia. No one claims to have seen a kraken, but the huge teeth found embedding in wrecked ships indicate something indeed exists to prey on ships and their crews. Each tooth is upwards of a metre long, and the pearlescent material can be carved into elegant daggers or short swords. Veteran void-farers often inscribe the blades with intricate drawings depicting mighty krakens, hoping this will appease their beast-spirits and keep them safely away.</p><div class='bc-rule'><p>Class: Melee/Thrown. Thrown range 5 m.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 132"
+    }
+  },
+  {
+    "name": "Shield", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/shield.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d5", "damageType": "impact", "penetration": "0",
+      "special": "Defensive, Primitive", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shields are a useful protective device, either in conjunction with armour or on their own. They can be made from a variety of materials, ranging from improvised wooden or plastic sheets to advanced metal or plasteel plates. Sizes range from light bucklers to huge full-body shields as large as a man.</p><div class='bc-rule'><p>Provides Armour 2 to the Body and Arm wielding the Shield. Attacks made with a shield suffer a –20 penalty.</p></div></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  },
+  {
+    "name": "Spear", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/spear.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "special": "Primitive", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common on feral and feudal worlds, spears can equally be found in the hands of hunters as well as warriors.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  },
+  {
+    "name": "Staff", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/staff.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "special": "Balanced, Primitive", "weight": 3, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Longer basic weapons use a staff of wood or other material, with the longer reach useful for hitting an enemy before he can strike. The staff is just that, and is a common sight especially among pilgrims trekking throughout the galaxy to retrace the steps of the saints.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  },
+  {
+    "name": "Sword", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "special": "Balanced, Primitive", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Swords can range from short dagger-like models to longer, elaborate dueling blades. The nature of the blade (single- or double-edged, curved or straight, flexible or stiff, cutting or stabbing, and so on) varies with the intent of the sword and the taste of its user.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  },
+  {
+    "name": "Truncheon", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/turcheon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "special": "Primitive", "weight": 2, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Small and easily concealable, these short and heavy sticks of dense wood or metal are often used by press gangs to “sign up” new crewmen with a swift blow to the back of the head.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  },
+  {
+    "name": "Warhammer", "type": "weapon", "folder": "Melee Weapons/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/melee_weapons/warhammer.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0, "damage": "1d10+2", "damageType": "impact", "penetration": "1",
+      "special": "Primitive", "weight": 4.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mounted on a longer pole grip than a regular hammer, warhammers generally have a thinner striking head with a sharply pointed reverse. Both of these make it ideal for penetrating light armour and causing deeper wounds by concentrating the force of the blow into a smaller area.</p></div>",
+      "source": "Rogue Trader, p. 131 (Table 5-8), p. 133"
+    }
+  }
+]

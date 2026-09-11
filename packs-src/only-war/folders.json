@@ -1,0 +1,94 @@
+{
+  "Ranged Weapons": {
+    "color": "#8c3a2b",
+    "sort": 100
+  },
+  "Ranged Weapons/Las": {},
+  "Ranged Weapons/Solid Projectile": {},
+  "Ranged Weapons/Bolt": {},
+  "Ranged Weapons/Melta": {},
+  "Ranged Weapons/Plasma": {},
+  "Ranged Weapons/Flame": {},
+  "Ranged Weapons/Low-Tech": {},
+  "Ranged Weapons/Launchers": {},
+  "Ranged Weapons/Exotic": {},
+  "Grenades & Missiles": {
+    "color": "#7a6a2b",
+    "sort": 200
+  },
+  "Melee Weapons": {
+    "color": "#8c5a2b",
+    "sort": 300
+  },
+  "Melee Weapons/Chain": {},
+  "Melee Weapons/Power": {},
+  "Melee Weapons/Force": {},
+  "Melee Weapons/Low-Tech": {},
+  "Weapon Upgrades": {
+    "color": "#6a4a6a",
+    "sort": 400
+  },
+  "Weapon Upgrades/Upgrades": {},
+  "Weapon Upgrades/Customisations": {},
+  "Ammunition": {
+    "color": "#7a6a2b",
+    "sort": 500
+  },
+  "Ammunition/Standard": {},
+  "Ammunition/Unusual": {},
+  "Ammunition/Artillery Shells": {},
+  "Armour": {
+    "color": "#3a5a7a",
+    "sort": 600
+  },
+  "Armour/Primitive": {},
+  "Armour/Flak": {},
+  "Armour/Carapace": {},
+  "Force Fields": {
+    "color": "#2b6a7a",
+    "sort": 700
+  },
+  "Gear": {
+    "color": "#4a6a4a",
+    "sort": 800
+  },
+  "Drugs & Consumables": {
+    "color": "#6a3a55",
+    "sort": 900
+  },
+  "Tools": {
+    "color": "#3a6a55",
+    "sort": 1000
+  },
+  "Cybernetics": {
+    "color": "#5a5a6a",
+    "sort": 1100
+  },
+  "Cybernetics/Bionics": {},
+  "Cybernetics/Implants": {},
+  "Vehicle Weapons": {
+    "color": "#6a3a2b",
+    "sort": 1200
+  },
+  "Vehicle Traits": {
+    "color": "#3a6a6a",
+    "sort": 1300
+  },
+  "Talents": {
+    "color": "#7a5a2b",
+    "sort": 1400
+  },
+  "Psychic Powers": {
+    "color": "#5a3a8c",
+    "sort": 1500
+  },
+  "Psychic Powers/Biomancy": {},
+  "Psychic Powers/Divination": {},
+  "Psychic Powers/Pyromancy": {},
+  "Psychic Powers/Telekinesis": {},
+  "Psychic Powers/Telepathy": {},
+  "Traits": {
+    "color": "#6a2b3a",
+    "sort": 1600
+  }
+}

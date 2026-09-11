@@ -1,0 +1,188 @@
+[
+  {
+    "name": "Bolt Shells", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Any Bolt-class Pistol, Basic, or Heavy weapon.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mass-reactive explosive bolt shell is among the deadliest kind of round in the Imperial arsenal.</p><div class='bc-rule'><p>The Deathwatch takes great advantage of variations that have been made on this design over the years, yielding a wide variety of alternate rounds that still fire from a standard bolt weapon. The majority of bolt shell manufacturing capacity is reserved for the Adeptus Astartes, making them costly for others to obtain but a matter of course among Battle-Brothers.</p><p>Used with: Any Bolt-class Pistol, Basic, or Heavy weapon.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Bullets", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Autopistols, autoguns, and assault cannons.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Hard rounds are common for many weapons within the Imperium and vary greatly in calibre and design.</p><div class='bc-rule'><p>Bullets from one kind of firearm cannot be used in another unless they are very similar in make. Autoguns and autopistols can usually interchange rounds, but the calibrated bullets fired in terrible volleys from Astartes assault cannons are unique to that weapon.</p><p>Used with: Autopistols, autoguns, and assault cannons.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Charge Pack", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Laspistols, lasguns, lascannons.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The size of a charge pack depends on the class of the weapon. In all cases it provides shots equal to the weapon’s full clip value.</p><p>Used with: Laspistols, lasguns, lascannons.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Exotic", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Needle rifles and any other exotic ranged weapons.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>There are many kinds of weapons wielded by the Deathwatch that use unusual types of ammunition, from the special ammunition reloads for digi-weapons, to the finely crafted darts of a needle rifle.</p><div class='bc-rule'><p>Used with: Needle rifles and any other exotic ranged weapons.</p><p>Renown: Varies.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Fuel", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Flamers, hand flamers, heavy flamers.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality.</p><div class='bc-rule'><p>Underhivers on poor Imperial worlds may construct shoddy weapons using nothing but flammable alcohols, while the Adeptus Astartes weapons use only the purest promethium. A fuel tank always provides shots equal to the weapon’s full clip value.</p><p>Used with: Flamers, hand flamers, heavy flamers.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Melta Canister", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Infernus pistols, meltaguns, and multi-meltas.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The size and mounted position varies depending on the model and class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used with: Infernus pistols, meltaguns, and multi-meltas.</p><p>Renown: Varies.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Needle Precipitator", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Needle rifles",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These devices can be issued with weapons that use needle rounds, and are often built directly into the holster or carrying case for the weapon.</p><div class='bc-rule'><p>A precipitator crystallises liquid or powdered chemicals into the rounds fired by needle weapons. One dose of a drug or toxin yields one shot of ammunition. See Drugs and Consumables on page 172 for toxin options. Unless otherwise stated, any toxin may be precipitated into needle rounds.</p><p>Used with: Needle rifles.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Plasma Flask", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Plasma pistols, plasma guns, and plasma cannons.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and precariously contained within reinforced flasks.</p><div class='bc-rule'><p>It was almost surely a plasma flask whose handling rites were rushed that gave birth to the plasma grenade.</p><p>Used with: Plasma pistols, plasma guns, and plasma cannons.</p><p>Renown: Varies.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Shells", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "Shotguns.",
+      "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shells contain dozens of tiny balls and are designed to scatter over a wide area when fired, making them ideal for close-in work where accuracy is less important.</p><div class='bc-rule'><p>Used with: Shotguns.</p></div></div>",
+      "source": "Deathwatch, p. 158 (Table 5-10), p. 158"
+    }
+  },
+  {
+    "name": "Astartes Backpack Ammo Supply", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/ammo-box.svg",
+    "system": {
+      "quantity": 1, "weapon": "Plasma, Melta, Las, SP, Bolt and Flame weapons",
+      "weight": 40, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many weapons require larger ammunition sources to function during extended battles.</p><div class='bc-rule'><p>A backpack supply fits over the standard backpack power unit on Astartes power armour. For energy weapons, the supply is a massive battery or charge-unit. For flame and plasma weapons, it consists of volatile fuel tanks or canisters. Other ammunition packs are simply stacks of regular rounds with a feeder line that links into the weapon. Backpack supplies hold 100 rounds of ammunition for Plasma, Melta, and Las weapons, 250 rounds of ammunition for SP or Bolt weapons, and 75 shots for Flame weapons. A weapon connected to a backpack supply uses that supply for its ammunition and ignores its normal clip size. Backpack Ammo/Power supplies weigh 40 kg and are automatically issued with any heavy weapon.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Dragonfire Shells", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "damage": { "modifier": -2 } },
+      "requisition": 28, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Dragonfire shells replace their main explosive charge with an air-reactive concentrate.</p><div class='bc-rule'><p>When the round detonates, the payload combusts in a burst of fire, offering area saturation comparable to a flamer.</p><p><strong>Effects:</strong> Decrease the weapon’s Damage by 2. Anyone within 2 metres of, and including, the target must succeed on an Agility Test or catch on fire. The firer may choose to target an object or specific area instead of an opponent. In this case the shot is Routine (+20), and everyone in the 2 metre radius must Test to avoid catching fire.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Hellfire Rounds", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "special": "Tearing" },
+      "requisition": 25, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Originally designed to combat the Tyranid threat, hellfire rounds have a devastating effect on organic matter.</p><div class='bc-rule'><p>Their cores are replaced with vials of mutagenic acid that eats through any living material with horrific speed.</p><p><strong>Effects:</strong> The weapon ignores Natural Armour and may inflict Righteous Fury on any damage die results of a 9 or 10. In addition, the weapon gains the Tearing Quality (if it did not already possess it). When used in a Heavy Bolter, it changes the weapon’s ROF to S/–/– and adds the Blast (3) Quality. When used against a Horde, Hellfire Rounds add one additional point of damage to the Horde’s Magnitude per hit.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Implosion Shells", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "requisition": 27, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The result of early experiments with alternative krak technology, an implosion shell replaces its explosive core with an infinitesimal amount of antimatter; this creates a violently decompressing vacuum when exposed to matter.</p><div class='bc-rule'><p>Like the standard bolt shell, these rounds activate via their mass-reactive core, meaning they embed partially in their target before the implosion takes effect. The round’s force is therefore not directed at cracking open armour, but to collapsing the unfortunate victim’s body from the inside out—enough to debilitate even a Space Marine.</p><p><strong>Effects:</strong> In addition to taking normal damage, a target who takes one or more points of Damage (after Armour and Toughness) from an implosion shell suffers 1d5 points of Agility Damage.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Kraken Rounds", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "penetration": "8" },
+      "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The superior propellants in kraken rounds provide increased range without sacrificing armour penetration, while their ultra-dense adamantine composition and improved explosive charge provide a final burst of force for puncturing the heaviest armours.</p><div class='bc-rule'><p><strong>Effects:</strong> The weapon’s Penetration increases to 8, and its Range increases by 50%.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Metal Storm Rounds", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "damage": { "modifier": -2 }, "special": "Blast (2)" },
+      "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Metal storm rounds are tipped with proximity triggers, causing them to detonate sooner than standard bolt shells and release their payload of explosive frag before fully penetrating the target.</p><div class='bc-rule'><p>When employed in a bolter with a high rate of fire, they can decimate groups of lightly armoured enemies.</p><p><strong>Effects:</strong> The weapon’s Damage and Penetration are each reduced by 2, but it gains the Blast (2) Quality.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 159"
+    }
+  },
+  {
+    "name": "Stalker Rounds", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "damage": { "modifier": -2 } },
+      "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stalker rounds were designed for sniping use in Stalker-pattern boltguns, and that is still where they achieve maximum efficacy.</p><div class='bc-rule'><p>However, they may be used in other bolt weapons to reduce their report. A stalker round’s core is replaced with gas propellant and the mass-reactive explosive replaced with solid mercury.</p><p><strong>Effects:</strong> Awareness Tests to hear shots made with stalker rounds suffer an additional –30 penalty and can only be attempted at half the normal distance. Reduce the weapon’s Damage by 2. When used in a Stalker-pattern Boltgun, this damage penalty does not apply. Additionally in such a weapon, no Tests to detect the shot are possible (however, depending on the situation, the appropriate Opposed Skill Test may be required for the firer himself to remain hidden).</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 160"
+    }
+  },
+  {
+    "name": "Vengeance Rounds", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "effect": { "penetration": "9", "special": "Felling (1)" },
+      "requisition": 25, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vengeance rounds were originally created to combat the Adeptus Astartes’ most bitter foe: Chaos Space Marines.</p><div class='bc-rule'><p>Designed to breach power armour of Space Marine calibre, the core of each round contains a spark of unstable matter that creates a micro-fission explosion upon detonation. Each delicately engineered bolt is supremely effective at thwarting armour and eradicating even the most resilient target, but the technology needed to imbue a bolt shell with such power carries great risks.</p><p><strong>Effects:</strong> The weapon gains the Felling (1) Quality, and its Penetration increases to 9. Vengeance rounds detonate prematurely on an attack roll of 91–100. When this happens, the firer suffers explosive damage equal to the weapon’s damage with a Penetration of 5 to an arm location (the arm holding the weapon if it was fired one-handed, or a random arm if fired with two hands). This automatically causes the weapon to Jam, and happens too quickly to avoid the damage by dropping the weapon.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 160"
+    }
+  },
+  {
+    "name": "Witch Bolts", "type": "ammunition", "folder": "Ammunition/Special Issue",
+    "img": "systems/dark-heresy/assets/icons/magazine.svg",
+    "system": {
+      "quantity": 1, "weapon": "All bolt weapons.",
+      "requisition": 12, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Based on a Black Templars design, these bolts release a small core of neuro-inhibitors laced with warp-reductive compounds that disrupt a creature’s connection to the warp.</p><div class='bc-rule'><p><strong>Effects:</strong> In addition to taking normal Damage from the weapon, any creature with a Psy Rating who takes Damage from a witch bolt reduces its Psy Rating by 1 for 1d10 Rounds each time. During this time, the creature may not Push its Psychic Strength. Additionally, creatures with Warp Instability must immediately make a Willpower Test to check for disruption as described in the Trait.</p><p>Used With: All bolt weapons.</p><p>The cost to Requisition special ammunition listed in Table 5–11: Special Issue Ammunition represents one clip for any applicable weapon, except Pistols which halve the listed Requisition cost due to their smaller magazine. Special issue ammunition for Heavy Bolters adds +5 to the Requisition total.</p></div></div>",
+      "source": "Deathwatch, p. 159 (Table 5-11), p. 160"
+    }
+  }
+]

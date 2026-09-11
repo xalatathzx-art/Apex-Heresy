@@ -1,0 +1,1325 @@
+[
+  {
+    "name": "Air of Authority", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fellowship.webp",
+    "system": {
+      "prerequisites": "Fellowship 30", "benefit": "Affect more targets with Test.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer was born to command, either motivating or terrifying those under his charge.</p><div class='bc-rule'><p>On a successful Command Test, the Explorer may affect a number of targets equal to 1d10 plus his Fellowship Bonus. This talent has no effect on hostile targets, and only affects NPCs.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Ambidextrous", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 30", "benefit": "Use either hand equally well.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This Talent does not represent true ambidexterity so much as sufficient training with both hands to make the distinction moot.</p><div class='bc-rule'><p>The Explorer can use either hand equally well for any task, and does not suffer the –20 penalty for actions using his off hand.</p><p><strong>Special:</strong> When combined with a Two-Weapon Wielder Talent, the penalty for making attacks with both weapons in the same Turn drops to –10.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Armour of Contempt", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "Willpower 40", "benefit": "The Explorer is resistant to corruption.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s hatred of all the impure armours his soul against malign influence.</p><div class='bc-rule'><p>Whenever the Explorer gains Corruption Points, reduce the total by 1, to a minimum of 0. With a successful Willpower Test, taken as a Free Action, he may ignore the effects of accumulated Corruption Points for 1 Round.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Assassin Strike", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 40, Acrobatics", "benefit": "On a successful Acrobatics Test after making a melee attack, the Explorer may move as a Free Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s natural agility and graceful martial forms turn him into a dervish of death on the battlefield.</p><div class='bc-rule'><p>After making a melee attack, a successful Acrobatics Test allows him to move at half rate as a Free Action. The Explorer’s opponent does not receive a free attack resulting from this move. He may only take this additional move once per Round.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Autosanguine", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Heal 2 damage/day, always Lightly Wounded.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The ancient and blessed technology of the Mechanicus or some corrupt xeno tech flows through the Explorer’s blood.</p><div class='bc-rule'><p>These miniscule machines repair minor injuries and speed healing. When applying healing, he is always considered Lightly Wounded, and heals at an increased rate, removing 2 points of Damage per day.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Basic Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Use weapon group without penalty.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has received Basic Weapon Training in a group of weapons, and can use them without penalty.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Bolt, Las, Launcher, Primitive, SP, Universal.</p><p>The Universal group includes the Bolt, Las, Launcher, Melta, Plasma, and SP groups. When a character attempts to use a weapon he does not have the correct Weapon Training Talent for, he suffers a –20 penalty to any relevant Weapon Skill or Ballistic Skill Test.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Bastion of Iron Will", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Psy Rating, Strong Minded, Willpower 40", "benefit": "Double Defensive Psy Rating for Opposed Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s sheer willpower and psychic focus have become one and the same over years of practice and training, such that their combined use is second nature.</p><div class='bc-rule'><p>He doubles his defensive Psy Rating on any Opposed Test involving the Psyniscience Skill or Psychic Techniques.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Battle Rage", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Frenzy", "benefit": "Parry while Frenzied.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Long experience and indomitable will have allowed the Explorer to master the beast within, directing its rage while keeping a level head.</p><div class='bc-rule'><p>He can Parry while Frenzied.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Berserk Charge", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +20 bonus when charging.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has learned to put the whole force of his momentum behind his weapon blows. When he charges into combat, few can stand before him.</p><div class='bc-rule'><p>If he uses the Charge Action, he gains a +20 bonus to Weapon Skill instead of +10.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Binary Chatter", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "+10 bonus to control servitors.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has optimised his use of Techna-Lingua for controlling servitors.</p><div class='bc-rule'><p>He receives a +10 bonus to any attempt to communicate with servitors, and any vessel upon which he serves receives a +1 bonus to Crew Morale due to increased servitor efficiency.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Blademaster", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 30, Melee Weapon Training (any)", "benefit": "Re-roll missed attack, once per Round.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s mastery of bladed weapons and their martial disciplines has no peer.</p><div class='bc-rule'><p>When attacking with any bladed weapon, including chain weapons, power axes, and power swords, he may re-roll one missed attack per Round.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 94"
+    }
+  },
+  {
+    "name": "Blessed Radiance", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "Pure Faith, Divine Ministration, The Emperor Protects, or Wrath of the Righteous", "benefit": "Extends Faith Powers to allies.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s holiness shines out, allowing all to see the truth of their own souls. Where he treads, those who follow need have no fear of the darkness, nor suffer the predations of the blasphemous.</p><div class='bc-rule'><p>When spending a Fate Point to activate the Pure Faith Talent, the Explorer extends the immunity to daemonic presence to a number of targets equal to twice his Willpower Bonus.</p><p>As a free action, he may bestow a single Fate Point to an ally. If the Fate Point is unspent, it returns at the end of the encounter.</p><p>Upon burning a Fate Point, the Explorer and a number of allies equal to twice his Willpower Bonus become immune to the effects of daemonic presence, Fear Tests, and Corruption Points. In addition, all affected targets gain a +10 bonus on Tests made to resist psychic attack or any other form of psychic manipulation. In addition, affected targets take only half Damage from psychic and warp sources. These benefits last for the duration of the encounter.</p><p>The entry on page 95 lists the prerequisites as Purge the Unclean, Divine Ministration, the Emperor Protects, or Wrath of the Righteous, where Table 4-1 lists Pure Faith in place of Purge the Unclean.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Blind Fighting", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "prerequisites": "Perception 30", "benefit": "Suffer half the usual penalties when vision is obscured.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Years of practice and development of the Explorer’s other senses allows him to fight in close combat without the benefit of sight.</p><div class='bc-rule'><p>This Talent reduces all penalties for obscured vision by half, permitting the character to fight in fog, smoke, or darkness.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Bloodtracker", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fieldcraft.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Receive benefits for capturing bounties.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is an experienced and cunning bounty hunter who commands the highest price for bringing in a quarry in dead or alive.</p><div class='bc-rule'><p>When turning in a fugitive for bounty, the character’s group gains a bonus of +100 Objective Points towards Military or Criminal Objectives.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Bulging Biceps", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
+    "system": {
+      "prerequisites": "Strength 45", "benefit": "Remove bracing requirement for certain weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Whereas a weaker man would be sent flying when using powerful weapons, the Explorer’s strong physique allows him to remain standing.</p><div class='bc-rule'><p>He can fire heavy weapons using Semi-Auto Burst or Full Auto Burst without bracing, and he does not suffer the –30 penalty for failing to brace.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Catfall", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 30", "benefit": "Reduce falling Damage.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Gymnastic ability and natural balance enables the Explorer to fall far greater distances without harm than the common man.</p><div class='bc-rule'><p>Whenever he falls, he may take an Agility Test as a Free Action. Success, and each additional Degree of Success, reduces the distance fallen by a number of metres equal to the character’s Agility Bonus for the purposes of determining the Damage from the fall.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Chem Geld", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Immune to seduction, resistant to charm.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Either chemical and surgical treatments or sheer will has rendered the Explorer immune to most mundane temptations.</p><div class='bc-rule'><p>Seduction attempts against him automatically fail, and Charm Tests increase their Difficulty by one level. Taking this Talent causes one Insanity Point.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Cleanse and Purify", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Flame Weapons Training (Universal)", "benefit": "Penalty to avoid being hit by the Explorer’s flamer attacks.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can control the flow of molten promethium like no other, manipulating flame like an old accomplice.</p><div class='bc-rule'><p>The targets of his flamer attacks take a –20 penalty their Agility Tests to escape its effects.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Combat Formation", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/intelligence.webp",
+    "system": {
+      "prerequisites": "Intelligence 40", "benefit": "Use Intelligence Bonus for initiative.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has directed his comrades to be prepared for danger, planning out their actions for many contingencies if attacked.</p><div class='bc-rule'><p>Before rolling initiative, all other members of the group may choose to use the character’s Intelligence Bonus for all initiative rolls rather than individual Agility Bonuses.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 95"
+    }
+  },
+  {
+    "name": "Combat Master", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 30", "benefit": "Opponents get no bonus for outnumbering the Explorer.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s weapon seems to be everywhere at once, keeping many more opponents at bay in close combat than even skilled fighters.</p><div class='bc-rule'><p>Opponents gain no bonuses for outnumbering the character in hand-to-hand combat.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Combat Sense", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "prerequisites": "Perception 40", "benefit": "Use Per Bonus instead of Ag Bonus for initiative.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has the ability to consciously recognise the proddings of his subconscious as it reacts to his preternaturally sharp senses, giving the character an edge that mere speed cannot match.</p><div class='bc-rule'><p>He can use his Perception Bonus in place of his Agility Bonus when rolling Initiative.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Concealed Cavity", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fieldcraft.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer has a secret compartment on his person.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The character’s flesh or augmetics conceals a small compartment. This might be a pouch hidden under a flap of flesh, or a chamber fitted into a cybernetic enhancement.</p><div class='bc-rule'><p>The Explorer may conceal one small item, no larger than a closed fist, within this cavity. Discovering this compartment requires success on a Difficult (–10) Search Test. If using a medicae scanner or auspex, the Difficulty is reduced to Ordinary (+10).</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Counter Attack", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 40", "benefit": "Gain free attack with successful Parry.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s lightning ripostes are things of beauty—if they were slow enough to be seen.</p><div class='bc-rule'><p>After successfully Parrying an opponent’s attack, he may immediately make an attack against that opponent using the Parry weapon as a Free Action. This attack suffers a –20 penalty.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Crack Shot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40", "benefit": "Deal +2 Critical Damage with ranged weapon.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can place his shots where they will inflict more harm: at creases, gaps, or joints in armour.</p><div class='bc-rule'><p>When his ranged attack causes Critical Damage, add +2 to the Damage.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Crippling Strike", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 50", "benefit": "Deal +4 Critical Damage with melee weapon.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can land blows precisely where they will inflict the most harm, cutting into seams or hammering at weak points.</p><div class='bc-rule'><p>When the character’s melee attack causes Critical Damage, add +4 Damage.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Crushing Blow", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
+    "system": {
+      "prerequisites": "Strength 40", "benefit": "Deal +2 Damage with melee weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has the ability to focus his entire body into close combat attacks.</p><div class='bc-rule'><p>He adds +2 to damage inflicted in melee.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Dark Soul", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Take half the penalty on Malignancy Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Prolonged exposure to darkness has acted as an inoculation against all that is foul, granting the Explorer resilience against corruption.</p><div class='bc-rule'><p>Whenever he makes a Malignancy Test, he takes half the normal penalty. See Chapter X: The Game Master for details on corruption.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Deadeye Shot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 30", "benefit": "Called shots are at –10 penalty.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s rock-steady hand and hawk-like eyesight make him a dreaded marksman. No target, however precise, can escape his crosshairs.</p><div class='bc-rule'><p>When making a called shot, the character takes a –10 penalty instead of –20.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Decadence", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "Toughness 30", "benefit": "Gain uncanny resistance to drugs and alcohol.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Through conditioning or long years of abuse, the Explorer has built up a tolerance to many inebriants, drugs, and chemicals.</p><div class='bc-rule'><p>When drinking alcohol or similar beverages, he does not pass out until he has failed a number of Toughness Tests equal to twice his Toughness Bonus. The character also gains a +10 bonus to resist the effects of addiction.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Die Hard", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "Willpower 40", "benefit": "Re-roll death chance incurred by blood loss.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Through either willpower or sheer stubbornness, the Explorer refuses to cross into shadow.</p><div class='bc-rule'><p>When he suffers from blood loss, the character may roll twice to avoid death.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Disarm", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 30", "benefit": "Force opponent to drop weapon.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can wrest weapons from an opponent’s hands through practiced technique or brute force.</p><div class='bc-rule'><p>If in close combat, he may use a Full Action to disarm his foe by making an Opposed Weapon Skill Test. If he wins the Test, the opponent drops his weapon at his feet. If the character scores three or more Degrees of Success, he takes his opponent’s weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Disturbing Voice", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fellowship.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "+10 bonus to Intimidate and Interrogation, –10 penalty to Fel.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s voice has particularly baleful or menacing qualities, causing others to quail before it.</p><div class='bc-rule'><p>He gains +10 bonus to all Intimidate or Interrogation Tests when he employs this Talent, but suffers a –10 penalty to Fellowship Tests when dealing with others in a non-threatening manner, such as animals, children, or the easily startled.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96"
+    }
+  },
+  {
+    "name": "Divine Ministration", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "Pure Faith", "benefit": "Spend a Fate Point to remove Fatigue or heal.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is a vessel for the Emperor’s mercy and beneficence, his faith in his divinity can heal where no mere skill can.</p><div class='bc-rule'><p>When testing Medicae, the Explorer may spend a Fate Point to restore an amount of Damage equal to his Willpower Bonus instead of the normal amount. This amount is then added to and multiplied in the normal way depending on the type of care (see the Medicae description on page 83). In the case of first aid to a Lightly Wounded character, the Explorer restores an amount of Damage equal to his Willpower Bonus plus his Intelligence Bonus.</p><p>The Explorer may spend a Fate Point to remove all Fatigue from a number of people equal to twice his Willpower Bonus.</p><p>The Explorer may burn a Fate Point to allow a character who has just died to have become Critically Wounded instead. This power has its limits though, (bullet in the chest—yes, decapitation—no) and it’s subject to the GM’s approval. If a use of the Divine Ministration fails to work in this way, the Fate Point is not lost.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 96–97"
+    }
+  },
+  {
+    "name": "Double Team", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain additional +10 bonus for ganging up.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has the experience from many mass combats and swirling melees under his belt.</p><div class='bc-rule'><p>When ganging up on an opponent, he gains an additional +10 bonus to Weapon Skill Tests. If both characters have this Talent, both gain an additional +10 bonus, for a total of +20. This bonus is in addition to the normal bonus gained from outnumbering opponents.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Dual Shot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Agility 40, Two-Weapon Wielder (Ballistic)", "benefit": "One Ballistic Skill Test hits target twice.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s skill with guns is such that he can target two shots on exactly the same point.</p><div class='bc-rule'><p>When armed with two pistols, he can fire both simultaneously as a Full Action. Make a single Ballistic Skill Test, and if successful he hits his target with both shots. As the character is firing both guns as a single attack, he may take an Aim Action before firing to get a +10 or +20 bonus to the BS Test, and a red-dot laser sight mounted on any one of the weapons will provide its +10 bonus. The Explorer does not suffer from the normal –20 BS penalty for wielding two weapons. If he hits, the target’s Armour gets applied as normal to both hits individually, but Toughness only counts once against the combined Damage rolls of both hits. A single successful Dodge Test from the target will avoid both shots.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Dual Strike", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Agility 40, Two-Weapon Wielder (Melee)", "benefit": "One Weapon Skill Test hits target twice.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s skill with melee weapons can place two blows together to maximise damage.</p><div class='bc-rule'><p>When armed with two melee weapons, he can attack with both simultaneously as a Full Action. Make a single Weapon Skill Test, and if successful, he hits the target with both weapons. As he is swinging both weapons as a single attack, the character may take an Aim Action before attacking to get a +10 or +20 bonus to the WS Test. He does not suffer from the normal –20 WS penalty for wielding two weapons. If he hits, the target’s Armour gets applied as normal to both hits individually, but Toughness only counts once against the combined Damage rolls of both hits. A single successful Dodge or Parry Test from the target will avoid both blows.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Duty Unto Death", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "Willpower 45", "benefit": "Temporarily ignore injuries.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s will or faith can sustain him when his flesh is weak.</p><div class='bc-rule'><p>He ignores the effects of injury, Fatigue, and Stunning during combat. This Talent does not prevent the Damage, but allows the character to temporarily ignore its effects for the duration of the combat. Death still affects him normally.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Electrical Succour", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "+10 bonus to T Tests to remove Fatigue.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can channel the sacred flow of energy from his Potentia Coil or other energy source to replenish his flesh.</p><div class='bc-rule'><p>Whilst in contact with a functioning, powered machine, or fully charged battery or power cell, the character may make an Ordinary (+10) Toughness Test. Success removes one level of Fatigue plus one additional level of Fatigue for each additional Degree of Success. This takes one minute of meditation and ritual incantation.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Electro Graft Use", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "+10 bonus to Inquiry, Tech-Use, Common Knowledge.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer may use his Electro Graft to access data ports and commune with machine spirits.</p><div class='bc-rule'><p>This grants a +10 bonus to Common Lore, Inquiry, or Tech-Use Tests whilst connected to a data port.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Enemy", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "An organisation or group particularly despises the Explorer.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The opposite of Good Reputation on page 99, the Explorer is particularly despised by a specific social group or organisation.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Academics, Adepta Sororitas, Adeptus Arbites, Adeptus Mechanicus, Administratum, Astropaths, Ecclesiarchy, Government, Imperial Guard, Imperial Navy, Inquisition, Military, Navigators, Nobility, Rogue Trader, Underworld, Workers.</p><p>He suffers an additional –10 penalty to Fellowship Tests when dealing with this group. This Talent is cumulative with the Rival Talent, for a total –20 penalty.</p><p>The GM and player may agree to award this Talent when appropriate to the adventure or campaign. This Talent can be removed with an Elite Advance and the approval of the GM if the Acolyte has redeemed herself with the group in question.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Energy Cache", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "Luminen Blast, Charge, and Shock Fatigue-free.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has learned to focus the power stored within his Potentia Coil with greater efficiency.</p><div class='bc-rule'><p>He no longer gains Fatigue from using Luminen Charge, Luminen Shock, and Luminen Blast.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 97"
+    }
+  },
+  {
+    "name": "Enhanced Bionic Frame", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Machinator Array", "benefit": "The Explorer gains the Auto-stabilised Trait.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s already impressive bionic body structure is steadied by a gyro-array guided by a targeting system linked to the machine-spirit.</p><div class='bc-rule'><p>The Explorer gains the Auto-stablilised Trait (see page 364).</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Exotic Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with an exotic weapon type.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has received Exotic Weapon Training in a single Exotic Weapon, and can use it without penalty.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> All Exotic Weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Favoured by the Warp", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Willpower 35", "benefit": "Roll twice for Psychic Phenomena (see page 160) and take better result.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Whenever a Focus Power Test results in Psychic Phenomena, the Explorer may roll twice on that table and take the more favourable result.</p></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Fearless", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Immune to fear and pinning.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Through hard experience with horrifying situations, fear no longer commands the Explorer’s actions.</p><div class='bc-rule'><p>He is immune to the effects of Fear and Pinning, but disengaging from combat or backing down from a fight requires a successful Willpower Test.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Feedback Screech", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "30m radius, test WP or lose Half Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can haywire his vox synthesisers, causing a hideous blast of noise that shocks and distracts others.</p><div class='bc-rule'><p>All unprotected creatures within a 30-metre radius who have the ability to hear must make a Willpower Test or lose a Half Action on their next Turn as they involuntarily react to the cacophonous shriek.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Ferric Lure", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "WP Test to call 1kg/WP Bonus of metal objects.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can cause an unsecured metal object within his field of vision to fly into his hand.</p><div class='bc-rule'><p>The object may mass up to 1 kilogram per point of the character’s Willpower Bonus, and must lie within a 20 metres. Using this Talent requires a Full Action and a successful a Willpower Test.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Ferric Summons", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants, Ferric Lure", "benefit": "WP Test to call 2kg/WP Bonus of metal objects.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can call an unsecured metal object to his hand as with Ferric Lure.</p><div class='bc-rule'><p>But he may summon objects of up to 2 kilograms per point of his Willpower Bonus. The object may be up to 40 metres distant. The character must spend a Full Action and succeed on a Willpower Test to enact this rite.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Flame Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with a group of flame weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The sight of flaming streams of promethium brings joy to the Explorer’s heart and dread to his foes. He has mastered the art of a wide variety of flamer weapons.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Universal.</p><p>The Universal Talent group encompasses all non-Exotic weapons with the Flame special quality.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Foresight", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/intelligence.webp",
+    "system": {
+      "prerequisites": "Intelligence 30", "benefit": "Contemplate to gain +10 bonus on next Test.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Logic and analysis do for the Explorer what Tarot and the bones claim to do for the superstitious masses.</p><div class='bc-rule'><p>By careful consideration of all the possible consequences, and examination of all evidence and information, he can identify the best path for success. By spending ten minutes studying or analysing a problem, he gains a +10 bonus to his next Intelligence Test.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98"
+    }
+  },
+  {
+    "name": "Frenzy", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Enter psychotic rage to gain combat bonuses.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s temper and passion boil just below the surface of his psyche, mostly held in check by his rational mind, but easily released when needed.</p><div class='bc-rule'><p>If the character spends one full Round fuelling his anger – by flagellation, drugs, or other means—on the next Round he goes into an uncontrolled rage, gaining a +10 bonus to Weapon Skill, Strength, Toughness, and Willpower, but suffering a –20 penalty to Ballistic Skill and Intelligence. The Explorer must attack the nearest enemy in melee combat if possible. If he is not engaged with the nearest enemy, he must move towards that enemy and engage it if possible. The character will not take obviously suicidal actions such as leaping off a building in order to engage someone on the ground, but he will take any actions that have a reasonable opportunity to engage in melee with the nearest enemy.</p><p>While Frenzied, he is immune to Fear, Pinning, stunning effects, the effects of Fatigue, and he may not Parry, retreat, or flee. The Explorer must use the All-Out Attack Manoeuvre in melee combat if possible. He remains Frenzied for the duration of the combat. Unless the character has a Talent that allows him to do so, he may not use Psychic Techniques whilst in Frenzy. Some beings are either permanently Frenzied or can Frenzy at will.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 98–99"
+    }
+  },
+  {
+    "name": "Furious Assault", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 35", "benefit": "On a successful WS Test, gain a free second attack.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s speed and martial prowess allow him to land several blows where lesser combatants land one.</p><div class='bc-rule'><p>If he successfully hits his target using the All Out Attack Action, he may spend his Reaction to make an additional attack using the same bonuses or penalties as the original attack.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Good Reputation", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "Fellowship 50, Peer", "benefit": "The Explorer has a good reputation amongst a certain group.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s reputation precedes him in interactions with a specific group or organisation, opening doors that might otherwise remain closed.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Academics, Adeptus Arbites, Adeptus Mechanicus, Administratum, Astropaths, Ecclesiarchy, Feral Worlders, Government, Hivers, Imperial Guard, Imperial Navy, Inquisition, Middle Classes, Nobility, the Insane, Underworld, Void Born, Workers.</p><p>The Explorer gains an additional +10 bonus to Fellowship Tests when dealing with this group. This Talent is cumulative with Peer, for a total bonus of +20.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Guardian", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 40", "benefit": "Switch location with an ally.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Years of serving as a bodyguard allow the Explorer to put himself in the line of fire, or to take a murderous attack that was intended for another.</p><div class='bc-rule'><p>He may sacrifice all of his Actions for the next Round to switch places with an ally within 2 metres (as long as there is no obstruction in the way). This may be done at any time, even interrupting another action. The character become the target of any attacks previously targeting the ally. This Talent may not be used more than once per combat.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Gun Blessing", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "Un-jam Int Bonus guns in 10m radius.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Using the Explorer’s sacred ability to subtly affect ferrous materials, he can un-jam a number of weapons equal to his Intelligence Bonus, so long as they are within a 10-metre radius.</p><div class='bc-rule'><p>A successful Intelligence Test indicates the character has appeased the spirits of the weapons. This blessing requires a Full Action.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Gunslinger", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40, Two-Weapon Wielder", "benefit": "Fighting with two pistols incurs only –10 penalty.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has trained with pistols for so long that they are like extensions of his own body, barely requiring conscious thought to aim and fire.</p><div class='bc-rule'><p>When armed with two pistols, he reduces the penalty for Two-Weapon Fighting by –10. If he also possesses the Ambidextrous Talent, the penalty is reduced to 0.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Hard Bargain", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +1 to Profit Factor.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s shrewd negotiations and bartering skills are without peer, and he has a knack for seeing opportunities for profit where others see nothing.</p><div class='bc-rule'><p>Whenever Profit Factor is awarded for completing an Endeavour, you gain a bonus of +1 Profit Factor to the group’s total.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Hard Target", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 40", "benefit": "Opponents take –20 to BS Tests when the Explorer charges or runs.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Light on his feet, the Explorer dodges and weaves as he moves, skills learned from long years in the line of fire.</p><div class='bc-rule'><p>When he selects the Charge or Run Actions, opponents suffer a –20 penalty to Ballistic Skill Tests made to hit the character with a ranged weapon. This penalty continues until the start of the Explorer’s next Turn.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Hardy", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "Toughness 40", "benefit": "The Explorer always heals as if Lightly Wounded.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s constitution rebounds quickly from shock or injury.</p><div class='bc-rule'><p>When undergoing medical treatment or healing from injures, he recovers Damage as if Lightly Wounded.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Hatred", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +10 bonus to attack hated creatures.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A group, organisation or race has wronged the Explorer in the past, fuelling this animosity.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Criminals, Rogue Trader (specific), Pirates, Xeno (specific), Psykers, Mutants.</p><p>When fighting opponents of that group in close combat, he gains a +10 bonus to all Weapon Skill Tests made against them.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Heavy Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with a heavy weapon group.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can employ some of the most devastating weapons of the battlefield, able to vaporise single foes and strike fear into the machine spirits of vehicles everywhere.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Bolt, Flame, Las, Launcher, Melta, Plasma, Primitive, and SP.</p><p>He can use weapons of the groups for which this Talent has been selected, choosing one new group each time. When a character attempts to use a weapon and he does not have the correct Weapon Training Talent for, he suffers a –20 penalty to any relevant Weapon Skill or Ballistic Skill Test.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 99"
+    }
+  },
+  {
+    "name": "Heightened Senses", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +10 bonus to particular sense.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Either genetics or augmetics have made one of the Explorer’s senses superior to others.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Sight, Sound, Smell, Taste, Touch.</p><p>When he gains this Talent, select one of the five senses. The character gains a +10 bonus to any Tests specifically involving this sense. Thus, Heightened Senses (Sight) would apply to an Awareness Test to see a distant flock of shale crows, but not to something as general as a Ballistic Skill Test with any ranged weapon or a Weapon Skill Test simply because the character is using his eyes.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Hip Shooting", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40, Agility 40", "benefit": "Gain a free attack when the Explorer moves.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s prowess with ranged weapons is such that he can still fire accurately without using the sights.</p><div class='bc-rule'><p>As a Full Action, the character may both move up to his Full Move rate and make a single attack with a ranged weapon. This attack can only be a single shot—no automatic fire.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Hotshot Pilot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Any Pilot Skill, Agility 40", "benefit": "All Pilot Skills are Basic Skills.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can pilot vehicles as if they were extensions of his own body.</p><div class='bc-rule'><p>He may only select this Talent if he has obtained one Pilot Skill as an Advanced Skill. The character treats all other Pilot skills as Basic Skills, and receives a +10 bonus to the Pilot Skills he already possesses.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Improved Warp Sense", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Warp Sense", "benefit": "Allows Psyniscience Test as Free Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can now see the warp and physical universe side by side, no longer taking any concentration on his part.</p><div class='bc-rule'><p>After gaining this Talent, the character may use the Psyniscience Skill as a Free Action.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Independent Targeting", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40", "benefit": "Fire at two or more targets further than 10m apart.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has developed his peripheral vision and situational awareness to a point where he can fire in two directions within a split second.</p><div class='bc-rule'><p>When firing two weapons as part of a single action, the targets need not be less than 10 metres apart.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Infused Knowledge", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/knowledge.webp",
+    "system": {
+      "prerequisites": "Intelligence 40", "benefit": "Treat Common and Scholastic Lore as Basic Skills.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has been infused with a great wealth of lore and knowledge, either through punishing noetic techniques or by arcane methods kept secret by the guardians of technology and knowledge.</p><div class='bc-rule'><p>The Explorer treats all Common and Scholastic Lore Skills as untrained Basic Skills. This Talent also provides a +10 bonus to any Tests involving Common or Scholastic Lore for which he already possesses the Skill.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Inspire Wrath", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fellowship.webp",
+    "system": {
+      "prerequisites": "Fellowship 30", "benefit": "Inspires crowds to anger.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer knows just the turn of phrase that incites individuals or groups to rage against others.</p><div class='bc-rule'><p>His rhetoric grants +20 to Interaction Tests when inspiring hatred or anger, and double the number of individuals affected. This Talent can be combined with Master Orator to further increase the number of listeners affected.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Into the Jaws of Hell", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "prerequisites": "Iron Discipline", "benefit": "Minions gain immunity to pinning and fear whilst in the Explorer’s presence.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer inspires loyalty and devotion in his followers such that they would follow him into the warp or on a boarding action against xeno corsairs.</p><div class='bc-rule'><p>In personal combat, while visible to them, they are immune to Fear and Pinning. While the character is known to be on board a ship in which he serves, the ship has a +5 bonus to its Morale.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Iron Discipline", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "prerequisites": "Willpower 30, Command", "benefit": "Minions can re-roll fear and pinning Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Iron sharpens iron. The Explorer does not coddle his crew, nor motivate them through kindness. His stalwart example and stern leadership exhorts them with steel instead of spoils.</p><div class='bc-rule'><p>If the character is visible to his followers, either in person or via vox- or pict-caster, they may re-roll failed Willpower Tests made to resist Fear and Pinning. Iron Discipline can affect a number of targets equal to the character’s Willpower Bonus, who must be under his command. PCs can benefit from Iron Discipline if the character with this Talent is the official group leader. If the Explorer is leading a boarding action (see page 215), he gains a +10 bonus to his Command Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Iron Jaw", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "Toughness 40", "benefit": "Test Toughness to overcome stunning.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has taken blows from Orks and given back as good as he got. He can bounce back from most strikes without ill effects.</p><div class='bc-rule'><p>If ever Stunned, a successful Toughness Test allows him to ignore the effects.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Jaded", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "Willpower 30", "benefit": "Never gain IP from ordinary horrors.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s wide travels have shown both wonders and horrors beyond the ken of most. The galaxy has thrown its worst at him and he has yet to flinch.</p><div class='bc-rule'><p>Outrageous events, from death’s horrific visage to xenos abominations, will not cause Insanity Points or Fear Tests. Terrors of the Warp still affect the character normally.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Last Man Standing", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "prerequisites": "Nerves of Steel", "benefit": "Immune to Pinning by Pistols and Basic Weapons. Improves Cover.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has developed a sixth sense about hails of gunfire, allowing him to sense gaps and pauses in the lethal rain.</p><div class='bc-rule'><p>He is immune to Pinning by Pistols and Basic Weapons, and adds +1 AP to the value of any cover protecting him from ranged attacks.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Leap Up", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 30", "benefit": "Stand up as a Free Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A combination of athletic ability and speed allow the Explorer to spring to his feet in virtually any circumstance.</p><div class='bc-rule'><p>He may stand up as a Free Action.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 100"
+    }
+  },
+  {
+    "name": "Light Sleeper", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "prerequisites": "Perception 30", "benefit": "Counts as awake, even when asleep.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The slightest change in conditions or disturbance brings the Explorer from sleep to full awareness, remaining alert even in slumber.</p><div class='bc-rule'><p>He is always assumed to be awake, even when asleep, for the purposes of Awareness Tests or surprise. Unfortunately, the character’s sleep is not deep and can be frequently interrupted, resulting in a less-than-cheery disposition when awake.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Lightning Attack", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Swift Attack", "benefit": "Attack three times with a Full Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s speed with weapons is legendary, allowing him to launch flurries of attacks.</p><div class='bc-rule'><p>As a Full Action, the character may make three melee attacks on his Turn. The effects of this Talent replace those of Swift Attack rather than adding to them.</p><p>The use of Lightning Attack may not be combined with Dual Strike. If the Explorer has the Two-Weapon Wielder Talent and is wielding two melee weapons, he gets the advantage of Lightning Attack with only one of the weapons, and a single attack with the other. If he has the Two-Weapon Wielder Talent and is wielding a melee weapon in one hand and a gun in the other, he gets the advantage of Lightning Attack with the melee weapon and a single attack with the gun.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Lightning Reflexes", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Add twice AB to Initiative rolls.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer always expects trouble, even in the most innocuous situations, allowing him to act quickly when needed.</p><div class='bc-rule'><p>The character adds twice his Agility Bonus when rolling for Initiative. If he has Unnatural Agility, add +1 to the multiplier before factoring the bonus into the Initiative roll.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Litany of Hate", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "prerequisites": "Hatred (any)", "benefit": "Extend benefits of Hatred to allies.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s belief in the righteousness of his hatred is so ingrained that he can rouse others to join his crusade.</p><div class='bc-rule'><p>As a Full Action, the character may make a Charm Test to extend the effects of his Hatred Talent to any allies in the immediate vicinity. Success on the Test confers a +10 bonus to Weapon Skill when fighting hated foes to one target per point of the Explorer’s Fellowship Bonus. The effects last for the duration of the encounter.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Logis Implant", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "+10 bonus on WS and BS on successful Tech-Use Test.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer may use analytical circuits to calculate trajectory and reactions to a preternatural extent. His ability to read possible outcomes lets him anticipate the movement of his opponents.</p><div class='bc-rule'><p>By using his Reaction for the Round, the character may make a Tech-Use Test to make use of this Talent. He gains a +10 bonus to all Weapon Skill and Ballistic Skill Tests until the end of his next Turn. The Explorer must pass a Toughness Test when he uses this ability or gain a level of Fatigue.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Luminen Blast", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "1d10+WP Bonus Energy Damage Bolt. Causes Fatigue.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Omnissiah has blessed the Explorer with augmetic conduits that parallel the bones of his arms. By reciting the proper litany, he can channel the energy stored in his Potentia Coil down these channels and direct it at his enemies.</p><div class='bc-rule'><p>Success on a Ballistic Skill Test allows him direct this energy against a single target within 10 meters. The target takes 1d10 plus the Explorer’s Willpower Bonus in Energy Damage. The character must pass a Toughness Test when using this ability or gain a level of Fatigue.</p><p><strong>Talent Use:</strong> Half Action Attack.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Luminen Charge", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "T Test to power/charge tech. Causes Fatigue.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has mastered the union between his holy mechanical elements and his mortal flesh, allowing the former to power the latter.</p><div class='bc-rule'><p>With a successful Toughness Test the character may recharge or power machinery with his internal coils. This requires one minute of meditation and ritual incantation. The difficulty of the Toughness Test varies depending on the nature of the powered system:</p><dl class='bc-prof'><dt>Ordinary (+10)</dt><dd>Simple Power Cell, Illuminator</dd><dt>Challenging (+0)</dt><dd>Weapon Charge Pack, Data Slate, Bridge Terminal</dd><dt>Difficult (–10)</dt><dd>Hotshot Charge Pack, Shuttle Electronics, Servo-Skull</dd><dt>Hard (–20)</dt><dd>Lascannon Charge Pack, Servitor, Bridge Hololith</dd><dt>Very Hard (–30)</dt><dd>Ship’s Cogitator Core, Reactor Machine Spirit, Xenos Tech</dd></dl><p>The Explorer must pass a Toughness Test when he uses this ability or gain a level of Fatigue. No matter the power bestowed by the Omnissiah, some systems are either too large or too alien for this Talent—the GM will be the final judge.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101"
+    }
+  },
+  {
+    "name": "Luminen Shock", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "1d10+3 Energy Damage Shock. Causes Fatigue.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The power of the Explorer’s Potentia Coil flows through a network of inductors within his flesh, allowing him to channel this energy into his blows.</p><div class='bc-rule'><p>In close combat, a successful Weapon Skill Test or Grapple delivers the shock. The Luminen Shock inflicts 1d10+3 points of Energy Damage with the Shocking Quality (see page 116). The Explorer must pass a Toughness Test when using this ability or gain a level of Fatigue.</p><p><strong>Talent Use:</strong> Half Action Attack.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 101–102"
+    }
+  },
+  {
+    "name": "Machinator Array", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "The Explorer has advanced Mechanicus augmetics.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has returned to the crèches of the Mechanicus so they can bring him closer to the most holy of forms, adding an extensive machinator array to his existing augmetics.</p><div class='bc-rule'><p>The Explorer’s Strength and Toughness Characteristics are increased by +10, and his Agility and Fellowship are reduced by –5. His mass increases to three times that of a normal person, and he may no longer stay afloat or swim in water or similar liquids. The character may mount a single pistol type or close combat weapon on any Ballistic Mechadendrites he posseses. He must still have the proper Talent to use the mounted weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Maglev Grace", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "Hover 1d10+TB minutes once per day.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer stitches augmetic coils throughout the systems or flesh of his legs, granting him the ability to float a short distance above the ground.</p><div class='bc-rule'><p>Using a Half Action, the character may hover 20 to 30 centimetres off the ground for a number of minutes equal to 1d10 plus his Toughness Bonus. The Explorer must employ a Half Action each round to maintaining the rite, and may use the other actions to move normally. He may activate this rite to slow his rate of descent when falling, reducing all falling Damage to 1d10+3 Impact. Each use of Maglev Grace exhausts the power stored in the Potentia Coil, and cannot be reused until the Coil has been recharged.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Maglev Transcendence", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants, Maglev Grace", "benefit": "Hover 2d10+TB minutes twice per day.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has proven his devotion to the Machine God by lacing augmetic coils through every portion of his body.</p><div class='bc-rule'><p>Using a Half Action, he may hover 20–30 centimetres off the ground for a number of minutes equal to 2d10 plus his Toughness Bonus. The Explorer must employ a Half Action each round to concentrate on maintaining this rite, but any Move Action allows him to move up to his running speed. He can slow his rate of descent when falling so long as this rite is active when he reaches the ground, taking no falling damage. Each time he enacts this rite, it drains 50% of his Potentia Coil.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Marksman", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 35", "benefit": "No penalties for firing at long or extreme range.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s steady hand and eagle eye allows him to keep crosshairs steady on any target, regardless of range. Distance is no protection against his fire.</p><div class='bc-rule'><p>The Explorer suffers no penalties for Ballistic Skill Tests at long or extended range.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Master & Commander", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "prerequisites": "Intelligence 35, Fellowship 35", "benefit": "The Explorer’s commands coordinate others in combat.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>There can be only one commander of a vessel, and the Explorer’s guiding hand, stern judgment, and sage leadership have captained his crew through countless conflicts.</p><div class='bc-rule'><p>By spending a Half Action in combat to direct the efforts of his allies, none of them suffer the penalties for ganging up until his next Turn. If defending against a boarding action, a Half Action directs the efforts of his armsmen, granting them a +10 bonus in combat (see page 215).</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Master Chirurgeon", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/knowledge.webp",
+    "system": {
+      "prerequisites": "Medicae +10", "benefit": "Perform advanced medical procedures.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s advanced medical skills enable him knit flesh with deft mastery. His exceptional education in use of the Narthecium, Med-Slate, and supplemental drugs gives his patients an enormous advantage.</p><div class='bc-rule'><p>The Explorer gains a +10 bonus on all Medicae Tests. If treating a Heavily or Critically Wounded patient, a successful Test heals 2 points of Damage instead of 1. If the patient is in danger of losing a limb from a Critical Hit (see Chapter IX: Playing the Game), the Explorer provides him with a +20 bonus to the Toughness Test to prevent limb loss.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Master Enginseer", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Tech-Use +20, Mechanicus or Explorator Implants", "benefit": "Use a Fate Point for automatic success.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s knowledge of starships and their machine spirits surpasses all his planet-bound brethren. The character can almost feel the plasma pulsing through the ship’s conduits as if it were his own veins.</p><div class='bc-rule'><p>He may spend a Fate Point for automatic success on a Tech-Use Test for enhancement, repair, or upgrade of starship systems, taking the minimum amount of time possible on the task.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Master Orator", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fellowship.webp",
+    "system": {
+      "prerequisites": "Fellowship 30", "benefit": "Affect 10 times the normal numbers with a Fellowship Test.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has learned the techniques required to influence large audiences.</p><div class='bc-rule'><p>His Fellowship Tests and Fellowship-based Skill Tests affect 10 times the normal number of targets.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Mechadendrite Use", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "The Explorer can use a type of Mechadendrite.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Though there are many different types of Mechadendrite, this Talent divides them into two broad categories.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Weapon, Utility.</p><p><strong>Weapon:</strong> Mechadendrites of this type end in either ranged or close combat weapons, and have the supplemental support and strength necessary for combat.</p><p><strong>Utility:</strong> Including such varied types as Machine Spirit Interface, Manipulator, Medicae, Utility, Optical, and countless others, these Mechadendrites generally require less hardy mountings, but all interface with the Cyber Mantle in a similar manner.</p><p>The entry on page 102 gives the prerequisite as Explorator, where Table 4-1 gives Mechanicus Implants.</p></div></div>",
+      "source": "Rogue Trader, p. 91 (Table 4-1), p. 102"
+    }
+  },
+  {
+    "name": "Meditation", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer may enter a trance to remove Fatigue.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has mastered his body and its reactions by prayer to the Emperor, shutting down unnecessary functions to refresh his body and mind.</p><div class='bc-rule'><p>Success on a Willpower Test and 10 minutes without interruptions removes one level of Fatigue.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Melee Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with a group of melee weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has trained extensively with hand-to-hand weaponry, becoming proficient in the use of virtually all hand-held close combat arms.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Primitive, Universal.</p><p>The universal group includes the Chain, Shock, and Power groups, and allows proficient use off all those weapon types. When a character attempts to use a weapon he does not have the correct Weapon Training Talent for, he suffers a –20 penalty to any relevant Weapon Skill or Ballistic Skill Test.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Mighty Shot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40", "benefit": "Deal +2 damage with ranged attacks.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer knows the weak points in every armour and material, and has the skill to place shots exactly where they will do the most damage.</p><div class='bc-rule'><p>He adds +2 to Damage with a ranged weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Mimic", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fellowship.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer can copy voices.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vox synthesisers, training or innate abilities allow the Explorer to accurately mimic the voice of another.</p><div class='bc-rule'><p>He must study the voice patterns of his target for at least one hour for proper imitation, and speak the same language. He cannot accurately copy the voice of a xeno due to the difference in physiology and the subtle complexities of most alien languages. Listeners must succeed on a Difficult (–10) Scrutiny Test to penetrate the deception. If the character studies used vox recordings, or comm-link conversations rather than in-person observation, the Difficulty of the Scrutiny Test is reduced to Challenging (+0). His deception automatically fails if the listener can clearly see he is not the imitated individual.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Navigator", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer possesses the Navigator gene.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer was born with the Navigator gene, either of the Navis Nobilite or in the shadowed ranks of the unlicensed.</p><div class='bc-rule'><p>The Warp Eye stares balefully from his forehead, allowing him to perceive the ebbs and flows of the empyrean. For more details, see Chapter 7: Navigator Powers.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Navigator Power", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Navigator", "benefit": "Gain the ability to use a power within one of the Explorer’s groups.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s trainers or natural ability allows use of an additional Navigator Power.</p><div class='bc-rule'><p>This Talent may be chosen multiple times, each selection granting a new Power.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Nerves of Steel", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Re-roll failed tests to avoid pinning.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Long years on the battlefield enable the Explorer to remain calm as fire impacts all around.</p><div class='bc-rule'><p>He may re-roll failed Willpower Tests to avoid or recover from Pinning.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Orthoproxy", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "+20 bonus to resist mind control or interrogation.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A liturgical circuit has been implanted within the Explorer’s skull, allowing him to focus on the prayers recited by the proxy unit when his mental fortitude is in peril.</p><div class='bc-rule'><p>He receives a +20 bonus to Willpower Tests made to resist mind control or interrogation.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Paranoia", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer is alert for danger.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer knows that danger lurks behind every corner and knows the galaxy will hit him as soon as he lets his guard down.</p><div class='bc-rule'><p>The character gains a +2 bonus on Initiative rolls, and the GM may secretly Test his Perception to notice hidden threats. The price of his eternal vigilance is a twitchy disposition and the inability to relax.</p></div></div>",
+      "source": "Rogue Trader, p. 92 (Table 4-1), p. 103"
+    }
+  },
+  {
+    "name": "Peer", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "Fellowship 30", "benefit": "Gain +10 bonus on Fel Tests to interact with organisation.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is adept at dealing with a particular social group or organisation.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Academics, Adeptus Arbites, Adeptus Mechanicus, Administratum, Astropaths, Ecclesiarchy, Feral Worlders, Government, Hivers, Inquisition, Middle Classes, Military, Nobility, the Insane, Underworld, Void Born, Workers.</p><p>He gains a +10 bonus to all Fellowship Tests when interacting with the chosen group.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 103–104"
+    }
+  },
+  {
+    "name": "Pistol Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with a group of pistol weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has practiced with nearly every single-handed ranged weapon within the confines of the Imperium, and no small number without.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Primitive, Universal.</p><p>The Universal group confers proficiency with most pistol weapons, including the Bolt, Las, Launcher, Melta, Plasma, and SP groups. When a character attempts to use a weapon he does not have the correct Weapon Training Talent for, he suffers a –20% penalty to any relevant Weapon Skill or Ballistic Skill Test.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Polyglot", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/intelligence.webp",
+    "system": {
+      "prerequisites": "Intelligence 30, Fellowship 30", "benefit": "The Explorer has an innate ability with languages.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has an innate ability to derive meaning from unknown languages and make himself understood using this intuitive grasp.</p><div class='bc-rule'><p>He treats all languages as Basic Skills. This is not the same as true knowledge of the language, and tests using this Talent suffer a –10 penalty due to the simplistic nature of translation.</p><p>The entry on page 104 gives the prerequisite as Intelligence 40, where Table 4-1 gives Intelligence 30.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Precise Blow", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 40, Sure Strike", "benefit": "No penalty for attacks against specific locations.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s eye, hand, and weapon act seamlessly together, placing blows exactly where the attacker intends.</p><div class='bc-rule'><p>When making a called shot with a melee weapon, the Explorer does not incur the –20 penalty.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Prosanguine", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Autosanguine", "benefit": "Heal 1d5 Damage once per day.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Through the Explorer’s iron will or via appeals to the Omnissiah, he is able to speed the function of his Autosanguinators.</p><div class='bc-rule'><p>By spending 10 minutes in meditation and ritual incantation, the character may make a Tech-Use Test, and if successful, remove 1d5 points of Damage. If he rolls a 96–100, he overstrains his implants, losing the ability to use them for one week. During that week, the Explorer may use neither the Autosanguine nor Prosanguine Talents.</p><p>Table 4-1 lists no prerequisite; the entry on page 104 requires Autosanguine.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Psy Rating", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Become a more powerful Psyker, rated 1–10.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is a psyker, and his power in game terms is rated on a scale of 1 to 10, where Psy Rating 1 is the lowest to warrant the attentions of the Scholastia Psykana and the Black Ships, and a rating of 10 represents one of the most powerful of the entire human sphere.</p><div class='bc-rule'><p>An Astropath Transcendent begins play with Psy Rating 2. See Chapter VI: Psychic Powers for detailed rules on the game mechanics of this ability. Increasing a character’s Psy Rating represents that character unlocking more of his psychic potential and becoming more and more powerful. Note that Psy Ratings in Rogue Trader do not automatically grant additional Psychic Powers. A higher Psy Rating indicates a more powerful psyker. An Explorer can take this Talent multiple times; each time it is taken, his current Psy Rating increases by 1.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Psychic Discipline", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Psy Rating", "benefit": "Gain access to an additional Psychic Discipline.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer gains access to a new Psychic Discipline, and may select techniques from this new field of study as his abilities increase.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Psy Rating.</p><p>Psykers may access a maximum of three separate Disciplines. For further details, see Chapter VI: Psychic Powers.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Psychic Technique", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain an extra Psychic Technique.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Either through training or natural development, the Explorer has learned an additional Psychic Technique.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> See Psychic Techniques.</p><p>Once this Talent has been selected, the Explorer must select one new Psychic Technique in any Discipline he possesses that possesses an xp cost equal to or lower than the xp cost of the Talent. Then, the Explorer spends xp equal to the cost of the Technique selected (if the Explorer cannot spend this xp for any reason, he may not select this Talent). Note: this Talent is unique in that the Explorer will not spend the xp cost listed in the Advance Tables of his Career in order to purchase it, but the xp cost of the Technique itself. The xp cost listed in the Advance Tables is provides solely to determine which Psychic Techniques may be selected via that particular Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Pure Faith", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer is immune to Daemonic Presence.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s faith in the God Emperor of Mankind, his divine power and grace, is total and complete. This faith wraps around him and suffuses his soul, armouring him against the foul influences and weapons of the heretic.</p><div class='bc-rule'><p>Pure Faith provides all of the following benefits:</p><p>The Explorer is always immune to the effects of Daemonic Presence including the negative modifiers to his Willpower.</p><p>The Explorer may spend a Fate Point to not take Fear Tests, not acquire Insanity Points, and not gain any Corruption Points. These safeguards remain for the duration of the encounter.</p><p>The Explorer may burn a Fate Point to resist the effects of any single daemonic or psychic attack, effectively allowing him to emerge unscathed as if by a miracle.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104"
+    }
+  },
+  {
+    "name": "Purge the Unclean", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "Pure Faith", "benefit": "Spend a Fate Point to repel daemons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can focus his faith through words, gestures, and force of will such that a daemon may be cowed or cast out by the power of the Emperor.</p><div class='bc-rule'><p>As a half action, the Explorer may spend a Fate Point to intone holy words to repel a warp entity. Make an opposed Willpower Test against the warp entity. If the Test succeeds, the warp creature is repelled a distance of metres away equal to twice the character’s Willpower Bonus. It cannot approach closer than this distance for 2d5 Rounds.</p><p>As a full action, the Explorer may spend a Fate Point to speak the rites of exorcism and force out a possessing warp entity from its host. Make an opposed Willpower Test against the warp entity. If the Test succeeds, the warp entity is driven out of the thing it was possessing and manifests in an adjacent space to its former host. The warp entity may not possess the host again for a number of hours equal to twice character’s Willpower Bonus.</p><p>As a full action, the Explorer may burn a Fate Point to chant the litanies of detestation to purge a warp entity from reality. He must be actually confronting the thing and not just thinking about it. Test the character’s Willpower; if successful, he deals Damage equal to his Willpower Bonus, plus his Willpower Bonus for each Degree of Success. On a failed Test, the warp creature takes damage equal to the character’s Willpower Bonus. Damage inflicted by this method is not reduced by the creature’s Toughness or Armour.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 104–105"
+    }
+  },
+  {
+    "name": "Quick Draw", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Ready as a Free Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has practised so frequently with his weapons that they practically leap into his hands, ready for action.</p><div class='bc-rule'><p>He can Ready as a Free Action when armed with a Pistol or Basic class ranged weapon, or a melee weapon that can be wielded in one hand.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rapid Reaction", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "Agility 40", "benefit": "Test Ag to negate surprise.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has honed his reactions to a razor’s edge, allowing him to act while most stand dumbfounded.</p><div class='bc-rule'><p>When surprised or ambushed, a successful Agility Test allows him to act normally.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rapid Reload", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/finesse.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Reduce reload time.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The practice bays aboard the Explorer’s vessel are like a second home, and he has reloaded countless magazines or power cells for his weapons until he can replace them with his eyes closed.</p><div class='bc-rule'><p>The Explorer halves all reload times, rounding down. Thus, Half Action reload become a Free Action, a Full Action reload becomes a Half Action, and so on.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Renowned Warrant", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Provides bonus to Interaction Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s Warrant of Trade is ancient and hallowed, signed before the Imperium knew of the Expanse, and garners the respect of merchants and officials alike.</p><div class='bc-rule'><p>The character gains a +10 bonus to Interaction Skill Tests with those who understand the importance of the warrant, such as other traders and Imperial officials.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Resistance", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +10 bonus to Resistance Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s background, experience, training, exposure, or plain stubbornness has inured him to a particular type of hardship.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Cold, Fear, Heat, Poisons, Psychic Techniques.</p><p>Each time the Explorer selects this Talent, choose one group. He gains a +10 bonus when making Tests to resist the effects of this group. The GM may wish to approve certain choices or have them justified by the character’s past.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rite of Awe", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "50m radius, –10 to all Tests due to fear.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Omnissiah has augmetically blessed the Explorer’s voice box, allowing him to recite infrasonic liturgies that trigger awe and fear.</p><div class='bc-rule'><p>All humans, regardless of their ability to hear, within a 50-metre radius feel a sense of dread and take a –10 penalty to their next Skill Test. Characters may ignore these effects with a successful Willpower Test. Whilst incanting the rite, the character may not talk or communicate with others. The rite requires two minutes of litanies, and it is considered very bad form to break off the recitation before completion. Humans without auditory implants cannot hear infrasonic sound, and though still affected, will not know the Explorer is speaking.</p><p>The entry on page 105 gives the prerequisite as Explorator, where Table 4-1 gives Mechanicus Implants.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rite of Fear", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "Fear rating 1 for two minutes in a 50m radius.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s infrasonic dirges cause terror in the weak.</p><div class='bc-rule'><p>All humans, regardless of their ability to hear, within a 50-metre radius treat the character as if he has a Fear Rating of 1. While incanting the dirge, he may not communicate in any other way. The rite requires two minutes of chanting, and most would not consider halting the incantations prior to their completion. Humans without auditory augmentation cannot hear infrasonic sound, and though still affected, will not know the Explorer is speaking.</p><p>The entry on page 105 gives the prerequisite as Explorator, where Table 4-1 gives Mechanicus Implants.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rite of Pure Thought", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "The Explorer is immune to emotion.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has replaced the creative half of his brain with sacred cranial circuitry.</p><div class='bc-rule'><p>He can no longer feel emotion, and instead embraces the crystal purity of logic, making him immune to Fear, Pinning and any effects that stem from emotional disturbance. The GM will remove any Mental Disorders that no longer apply, and grant appropriate new ones of equal severity. The character’s fellow Explorers may find him somewhat cold, though other followers of the Omnissiah will rejoice in his newfound freedom.</p><p>The entry on page 105 gives the prerequisite as Explorator, where Table 4-1 gives Mechanicus Implants.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rite of Sanctioning", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Psy Rating, Special", "benefit": "Reduces Psychic Phenomenon.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has been brought before the Emperor and has received a miniscule fraction of His awesome strength, making the character far more resistant to the predations of the Warp.</p><div class='bc-rule'><p>Choose one result on the Psychic Phenomena chart on page 160 (other than Perils of the Warp). When rolling for Psychic Phenomena, the Explorer may substitute his trademark result for the effect rolled on the table, so long as he does not roll Perils of the Warp.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 105"
+    }
+  },
+  {
+    "name": "Rival", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "A group or organisation bears the Explorer animosity.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Essentially the opposite of Peer on page 103, this Talent represents aggressive competition and some animosity with a particular social group or organisation.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Academics, Adepta Sororitas, Adeptus Arbites, Adeptus Mechanicus, Administratum, Astropaths, Ecclesiarchy, Government, Imperial Guard, Imperial Navy, Inquisition, Middle Class, Military, Navigators, Nobility, Rogue Traders, Underworld, Workers.</p><p>The Explorer suffers a –10 penalty to all Fellowship Tests when interacting with the group in question.</p><p>The GM and player may agree to award this Talent when appropriate to the storyline. This Talent may be removed with an Elite Advance and the approval of the GM if the player has taken suitable actions to earn the trust of the group.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Sharpshooter", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 40, Deadeye Shot", "benefit": "No penalties for called shots.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s steady hand and eagle eye allow him to place shots exactly where he wants.</p><div class='bc-rule'><p>When making a called shot, he does not incur the normal –20 penalty. This Talent replaces the effects of Deadeye Shot.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Sound Constitution", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain an additional Wound.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer gains an additional Wound.</p><div class='bc-rule'><p>He may purchase this Talent multiple times in accordance with his Career Advances. In this case note the number of times it’s been taken after the Talent, such as Sound Constitution 3.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Sprint", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Move more quickly in combat.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s fleet feet can propel him faster than his comrades.</p><div class='bc-rule'><p>When taking the Full Move Action, the character can move an extra number of metres equal to his Agility Bonus. When taking the Run Action, he may double his movement for one Round. The Explorer gains one level of Fatigue if he uses this Talent two Turns in a row.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Step Aside", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "prerequisites": "Agility 40, Dodge", "benefit": "Gain an extra Dodge each Round.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can sway his body out of the path of an attack, causing it to pass through thin air.</p><div class='bc-rule'><p>He may make an additional Dodge once per Round. In effect this gives him a second Reaction that may only be used to Dodge, allowing two Dodges in a Turn. However, he may still only attempt a single Dodge against one attack.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Strong Minded", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "prerequisites": "Willpower 30, Resistance (Psychic Techniques)", "benefit": "Re-roll failed WP Tests made to resist Psychic Techniques.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s mind acts as a fortress against psychic attacks.</p><div class='bc-rule'><p>He may re-roll failed Willpower Tests to resist any Psychic Techniques that affect his mind. Psychic Techniques that have a physical effect, such as Telekinesis, are unaffected by this Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Sure Strike", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 30", "benefit": "Choose location on a successful attack.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer can direct his blows far better than most, giving him some control over where they land.</p><div class='bc-rule'><p>When determining hit location for a melee attack, he may use the dice as he rolled them or reverse them, choosing the location he prefers. For example, if Vidor rolls a 37 to hit an Eldar corsair, this would ordinarily strike the Right Leg (73). However, since he has the Sure Strike Talent, he could choose to hit the corsair in the Body (37).</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Swift Attack", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 35", "benefit": "Attack twice with a Full Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s speed and martial ability allow him to land flurries of blows.</p><div class='bc-rule'><p>As a Full Action, he may make two melee attacks on his Turn. If he has the Two-Weapon Wielder Talent and is wielding two melee weapons, he gets the advantage of Swift Attack with only one of the weapons, and a single attack with the other. If he has the Two-Weapon Wielder Talent and is wielding a melee weapon in one hand and a gun in the other, he gets the advantage of Swift Attack with the melee weapon and a single attack with the gun.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 106"
+    }
+  },
+  {
+    "name": "Takedown", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Make a special attack to stun the Explorer’s opponent.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As a Half Action the Explorer may declare that he is attempting a takedown before testing Weapon Skill.</p><div class='bc-rule'><p>If he hits and would have done at least 1 point of Damage, then ignore the Damage and the opponent must make a Toughness Test or be stunned for 1 Round. When performing a Stun Action, the character does not suffer a –20 penalty to his Weapon Skill.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Talented", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/general.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain +10 bonus to corresponding Skill Test.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has a natural affinity for a particular Skill.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Any skill.</p><p>He chooses any one Skill and gains +10 bonus to Tests made using that Skill.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Technical Knock", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Intelligence 30", "benefit": "Un-jam a gun as Half Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Either through the ease of long practice, or the proper ritual to appease a weapon’s machine spirit, the Explorer can clear stoppages in weapons.</p><div class='bc-rule'><p>He may un-jam any gun as a Half Action, but may only perform this rite on one weapon per Round. He must touch the weapon to enact this rite.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "The Emperor Protects", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "Pure Faith", "benefit": "Spend a Fate Point to inspire fearlessness and heroism.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The power of the Emperor flows through the Explorer, protecting the faithful and emboldening them to heroism in the face of terrible things.</p><div class='bc-rule'><p>By spending a Fate Point, the character grants himself and a number of allies equal to his Willpower Bonus immunity to the effects of Fear and Pinning. Additionally all ranged or close combat acts made against the character and the specified allies are at a –10 modifier. These benefits last for the duration of the encounter.</p><p>By burning a Fate point, the character may allow an ally (never himself) to resist the effects of any single attack, effectively allowing the ally to emerge unscathed as if by a miracle. The Fate point must be burnt once the attack has hit but before Damage has been rolled.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "The Flesh is Weak", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "prerequisites": "Mechanicus Implants", "benefit": "The Explorer gains the Machine Trait.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s body has undergone significant bionic replacement to the point where he is far more machine than man.</p><div class='bc-rule'><p>This Talent grants the Explorer the Machine Trait (see page 365) with Armour Points equal to the number of times this Talent has been taken. The Explorer may purchase this Talent multiple times in accordance with his Career Advances. In this case, note the number of times this Talent has been taken, such as The Flesh is Weak 3.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Thrown Weapon Training", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "Gain proficiency with a group of thrown weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s mastery of the balance, spin, and weight of thrown weapons makes him a formidable foe at any distance, even if only armed with a knife.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Universal.</p><p>The Universal group includes all thrown weapons from the Primitive, Chain, Shock, and Power groups. When a character attempts to use a weapon he does not have the correct Weapon Training Talent for, he suffers a –20 penalty to any relevant Weapon Skill or Ballistic Skill Test.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Total Recall", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/knowledge.webp",
+    "system": {
+      "prerequisites": "Intelligence 30", "benefit": "The Explorer can remember trivial facts and minor details.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mental conditioning or augmetics enable the Explorer to record and recall great amounts of information, effectively granting him a perfect memory.</p><div class='bc-rule'><p>He can automatically remember trivial facts or pieces of information that might feasibly have picked up in the past. When dealing with more detailed, complex, or obscure facts, such as the deck plans of a space hulk or a complex xeno pictograph, the GM may require an Intelligence Test.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "True Grit", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "prerequisites": "Toughness 40", "benefit": "Reduce Critical Damage the Explorer takes.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is able to shrug off wounds that would fell lesser men.</p><div class='bc-rule'><p>Whenever he suffers Critical Damage, halve the result (rounding up).</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Two-Weapon Wielder", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/finesse.webp",
+    "system": {
+      "prerequisites": "Ballistic Skill 35 or Weapon Skill 35, Agility 35", "benefit": "Attack twice when wielding two weapons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Years of training allow the Explorer to use a weapon in each hand when needed.</p><div class='bc-rule'><p><strong>Talent Groups:</strong> Ballistic, Melee.</p><p>When armed with two weapons of the same type, he may spend a Full Action to attack with both. Both tests made to attack with the weapons suffer a –20 penalty (see Chapter IX: Playing the Game for more details on fighting with two weapons). He must possess Two-Weapon Wielder (Melee) and Two-Weapon Wielder (Ballistic) if he wishes to use a gun and hand weapon with this Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Unarmed Master", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 45, Agility 40, Unarmed Warrior", "benefit": "Attacks do 1d10+SB damage and lack the Primitive trait.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has developed unequalled mastery of unarmed combat techniques.</p><div class='bc-rule'><p>His unarmed combat attacks do 1d10+SB (I) Damage and his attacks no longer have the Primitive quality.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107"
+    }
+  },
+  {
+    "name": "Unarmed Warrior", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/weapon_skill.webp",
+    "system": {
+      "prerequisites": "Weapon Skill 35, Agility 35", "benefit": "Deal 1d10-3+SB with unarmed attacks.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Due to extensive training in unarmed combat, the Explorer’s unarmed combat attacks do 1d10-3 (+SB) Damage instead of 1d5-3.</p><div class='bc-rule'><p>Because of his advanced training against both armed and unarmed foes, he does not count as Unarmed, as defined on page 245, when making attacks against armed opponents. The character’s attacks still count as having the Primitive quality.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 107–108"
+    }
+  },
+  {
+    "name": "Unremarkable", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/fieldcraft.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer is easily forgettable.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has mastered the art of blending into any crowd by adopting its mannerisms.</p><div class='bc-rule'><p>Attempts to notice the character when amongst other people, or attempts to describe him or recall details incur a –20 penalty.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Unshakeable Faith", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "—", "benefit": "The Explorer may re-roll failed Fear Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s confidence in the Emperor and his abilities is so strong that he can face any danger.</p><div class='bc-rule'><p>He may re-roll any failed Willpower Tests to avoid the effects of Fear.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Void Tactician", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "prerequisites": "Intelligence 35", "benefit": "Grants a bonus to starship combat.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s ability to conceptualise three-dimensional space gives him an advantage in starship combat.</p><div class='bc-rule'><p>This grants a +10 bonus to Ballistic Skill Tests made to fire a starship’s guns in combat.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Wall of Steel", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "prerequisites": "Agility 35", "benefit": "Gain extra Parry each round.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s skill with blades is so profound that the merest hint of attack allows him to assume a defensive position.</p><div class='bc-rule'><p>He may make one additional Parry per Round, in effect granting a second Reaction that may only be used to Parry. He may only attempt a single Parry against any one attack.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Warp Affinity", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Psy Rating, Special", "benefit": "Re-roll Psychic Phenomena.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer has a special connection to the warp, allowing him to occasionally sense and avoid its less desirable effects as he channels its power.</p><div class='bc-rule'><p>The character may not select this Talent if he has undergone the Rite of Sanctioning. When rolling for Psychic Phenomenon, the Explorer may discard the die roll, suffer 1d5 Corruption Points, and then re-roll with no modifiers.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Warp Conduit", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Psy Rating, Strong Minded, Willpower 50", "benefit": "+1 to Psy Rating when pushing.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The sheer power of the Explorer’s mind allows him to channel much more warp energy than his peers.</p><div class='bc-rule'><p>When pushing, he may add a +1 bonus to his Psy Rating and subtract –10 on any resultant Psychic Phenomenon rolls.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Warp Sense", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "prerequisites": "Navigator or Psy Rating, Psyniscience Skill, Perception 30+", "benefit": "Allows Psyniscience Test as Half Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer’s senses have evolved to perceive the warp in parallel with the physical world, though it requires some concentration to do so.</p><div class='bc-rule'><p>After gaining this Talent, using the Psyniscience Skill requires a Half Action instead of a Full Action.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Whispers", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "prerequisites": "Intelligence 40, Fellowship 30", "benefit": "Provides bonuses to Investigations.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Such is the Explorer’s reputation for having ears everywhere aboard the ship and a finely tuned network of invisible informants that the crew no longer even bothers to keep secrets from him.</p><div class='bc-rule'><p>The Explorer receives a +10 bonus to any Skill Test for Investigation or the Interview special use of the Inquiry Skill.</p><p>The entry on page 108 gives the prerequisites as Intelligence 45, Fellowship 35, where Table 4-1 gives Intelligence 40, Fellowship 30.</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  },
+  {
+    "name": "Wrath of the Righteous", "type": "talent", "folder": "Talents",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "prerequisites": "Pure Faith", "benefit": "Spend a Fate Point to deal extra Damage.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorer is a killing angel, and he visits the Emperor’s righteous fury on those who deny His dominion over the stars, or who profane that which is sacred.</p><div class='bc-rule'><p>When making an attack, the Explorer may spend a Fate Point to deal an additional 1d5 points of Damage.</p><p>At any time while the Explorer is attacking, he may burn a Fate Point to trigger Righteous Fury on a single successful attack. The attack automatically deals the maximum Damage for the weapon plus 1d10 points of Damage. If the second roll results in 10, further Damage is possible (see Righteous Fury on page 245).</p></div></div>",
+      "source": "Rogue Trader, p. 93 (Table 4-1), p. 108"
+    }
+  }
+]

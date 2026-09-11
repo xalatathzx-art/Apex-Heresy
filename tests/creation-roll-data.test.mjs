@@ -6,24 +6,26 @@ import {CHARACTERISTIC_KEYS} from '../script/creation/origin-data.mjs';
 
 const even = Object.fromEntries(CHARACTERISTIC_KEYS.map(key => [key, 31]));
 
-test('the three book methods are offered', () => {
-    assert.deepEqual(CHARACTERISTIC_METHODS, ['roll', 'rollModified', 'pointBuy']);
+test('the two book methods are offered', () => {
+    assert.deepEqual(CHARACTERISTIC_METHODS, ['roll', 'pointBuy']);
 });
 
-test('plain rolling adds the modifier to a flat 2d10+20', () => {
-    assert.equal(rollExpression('roll', 0), '2d10+20');
-    assert.equal(rollExpression('roll', 5), '2d10+20+5');
-    assert.equal(rollExpression('roll', -5), '2d10+20-5');
+test('a generation modifier keeps two of three dice; the book has no flat bonus to a roll', () => {
+    // Dark Heresy p. 31: "+" rolls 3d10 and takes the two highest, "-" the two lowest.
+    assert.equal(rollExpression('generation', 0), '2d10+20');
+    assert.equal(rollExpression('generation', 5), '3d10kh2+20');
+    assert.equal(rollExpression('generation', -5), '3d10kl2+20');
+    assert.equal(rollExpression('generation', 3), '3d10kh2+20', 'the size of the modifier does not matter');
 });
 
-test('modified rolling keeps two of three dice instead of adding the modifier', () => {
-    assert.equal(rollExpression('rollModified', 0), '2d10+20');
-    assert.equal(rollExpression('rollModified', 5), '3d10kh2+20');
-    assert.equal(rollExpression('rollModified', -5), '3d10kl2+20');
+test('a flat modifier is added to the roll, for books that work that way', () => {
+    assert.equal(rollExpression('flat', 0), '2d10+20');
+    assert.equal(rollExpression('flat', 5), '2d10+20+5');
+    assert.equal(rollExpression('flat', -5), '2d10+20-5');
 });
 
-test('an unknown method rolls plainly rather than producing nothing', () => {
-    assert.equal(rollExpression('pointBuy', 5), '2d10+20+5');
+test('an unstated mode falls back to adding rather than to nothing', () => {
+    assert.equal(rollExpression(null, 5), '2d10+20+5');
 });
 
 test('point buy enforces the budget and the cap', () => {

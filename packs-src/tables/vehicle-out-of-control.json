@@ -1,0 +1,12 @@
+{
+  "name": "Out of Control Direction",
+  "folder": "Vehicle Combat",
+  "formula": "1d5",
+  "sort": 140,
+  "description": "Direction a Tracked or Wheeled vehicle lurches when it goes Out of Control; it must move during its next Round. Skimmers Crash and Walkers Fall Over instead. Only War, Table 8-29 (p. 280); Dark Heresy 2e, Table 7-30 (p. 255) rolls 1d10 with the same odds (1–4 left, 5–6 ahead, 7–10 right).",
+  "results": [
+    { "name": "45° left", "range": [1, 2], "text": "45 degrees to the vehicle’s left. The vehicle moves its Tactical Speed +[[1d10]] metres in that direction. Anything hit by the Out of Control vehicle counts as being hit by a Ram Action. If the vehicle hits anything solid enough to stop it moving (another vehicle, a building) it comes to an immediate halt and suffers the usual Damage from conducting a Ram Action against that type of target, but takes the full Damage rather than half the Damage. The crew/passengers must take a Challenging (+0) Toughness Test or be Stunned for one Round if the vehicle hits something in this manner." },
+    { "name": "Straight ahead", "range": [3, 3], "text": "Straight ahead. The vehicle moves its Tactical Speed +[[1d10]] metres in that direction. Anything hit by the Out of Control vehicle counts as being hit by a Ram Action. If the vehicle hits anything solid enough to stop it moving (another vehicle, a building) it comes to an immediate halt and suffers the usual Damage from conducting a Ram Action against that type of target, but takes the full Damage rather than half the Damage. The crew/passengers must take a Challenging (+0) Toughness Test or be Stunned for one Round if the vehicle hits something in this manner." },
+    { "name": "45° right", "range": [4, 5], "text": "45 degrees to the vehicle’s right. The vehicle moves its Tactical Speed +[[1d10]] metres in that direction. Anything hit by the Out of Control vehicle counts as being hit by a Ram Action. If the vehicle hits anything solid enough to stop it moving (another vehicle, a building) it comes to an immediate halt and suffers the usual Damage from conducting a Ram Action against that type of target, but takes the full Damage rather than half the Damage. The crew/passengers must take a Challenging (+0) Toughness Test or be Stunned for one Round if the vehicle hits something in this manner." }
+  ]
+}

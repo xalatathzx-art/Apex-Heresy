@@ -1,0 +1,278 @@
+[
+  {
+    "name": "Chainsword", "type": "weapon", "folder": "Melee Weapons/Chain",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
+    "system": {
+      "class": "melee", "type": "chain", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Tearing, Balanced", "weight": 6, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chainswords generally have a large flat carapace containing the chain, with only the forward curved section open where the spinning chain teeth can bite into flesh and bone, although double-edged versions can also be found.</p><div class='bc-rule'><p>Within Chaos and Ork forces they are often preferred over power weapons due to the messy deaths they can bring, the better to intimidate both enemies and rivals alike. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 185"
+    }
+  },
+  {
+    "name": "Eviscerator", "type": "weapon", "folder": "Melee Weapons/Chain",
+    "img": "systems/dark-heresy/assets/icons/weapons/eviscerator.webp",
+    "system": {
+      "class": "melee", "type": "chain", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "rending", "penetration": "9",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Razor Sharp, Tearing, Unwieldy", "weight": 15, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Often carried into battle by the Priests of the Adeptus Ministorum, the eviscerator is an obscenely large double-handed chain weapon fitted with a crude version of the disrupter field generator more commonly found on power weapons.</p><div class='bc-rule'><p>Although very unwieldy and tiring to use, the eviscerator is fully capable of ripping an armoured man in half. This a two-handed melee weapon.</p><p>If an attack made with an eviscerator triggers Righteous Fury (see page 250), the wielder adds +1 to the resulting roll on the appropriate Critical Hit Table.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 185"
+    }
+  },
+
+  {
+    "name": "Power Fist", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-fist.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "energy", "penetration": "9",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Power Field, Unwieldy", "weight": 13, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Rather than encasing an edged weapon with a power field, a power fist uses the energy to disrupt material in a more violent fashion. Worn as a huge glove, when the mechanically augmented fist strikes its target it can tear open even the heaviest armour and burst flesh into a shower of blood and tissue.</p><div class='bc-rule'><p>Unless worn as part of power armour, it normally requires heavy backpack-mounted power sources connected to the fist via heavy cables. Some variants are designed to maximise rending and crushing power, while others are better suited to exert a maximum of force when punching. A suitably braced user can knock through the strongest bulkheads or rend even reinforced armour. Most are ancient relics, with the mantle inscribed with family heraldry or iconography indicating impressive victories. This a one-handed melee weapon.</p><p>Power Fists add the user’s SB×2 to the Damage.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186"
+    }
+  },
+  {
+    "name": "Power Sword", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-sword.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "5",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Power Field, Balanced", "weight": 3, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power swords are elite weapons and a sure sign of high status in the Imperium; many officers favour them as a prestige item to impress Guardsmen and enemies alike.</p><div class='bc-rule'><p>Like a common sword, they allow the user greater attack options and defensive responses than many weapons. Entire specialised styles of combat have been designed around the expansive number of variants found across the galaxy and beyond. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186"
+    }
+  },
+  {
+    "name": "Power Axe", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+7", "damageType": "energy", "penetration": "7",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Power Field, Unbalanced", "weight": 6, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power axes allow for greater impact when striking than a power sword, but are clumsier to use. They are viewed as a brutal and unsubtle weapon, more suited for crude assault work against rebellious underhive scum or foul xenos races.</p><div class='bc-rule'><p>The huge arc needed to properly attack with one makes use difficult when fighting within enclosed spaces. To compensate for this, some feature shorter handles, while others ignore this detriment to maximise swing length. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186"
+    }
+  },
+  {
+    "name": "Power Maul (High)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-maul.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "4",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Power Field, Shocking", "weight": 3.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power Mauls are solid truncheon-like rods with a discharge cap at one end, and a hand grip at the other. Controls along the haft allow the user to adjust the energy field’s strength from a mild stunning blast to a heavy force suitable for breaking down reinforced doors.</p><div class='bc-rule'><p>They are popular with the Adeptus Arbites, as well as Inquisitorial agents, as they can be used in a non-lethal capacity when desired. This weapon has two entries in the weapons table, representing its two power settings: high and low. Switching the Power Maul between its two settings is a Free Action. This a one-handed melee weapon. However, when used with two hands, it gains the Concussive (0) Quality.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186"
+    }
+  },
+  {
+    "name": "Power Maul (Low)", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-maul.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+1", "damageType": "energy", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Shocking", "weight": 3.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The low setting of the Power Maul: the energy field is dialled down to a mild stunning blast.</p><div class='bc-rule'><p>Switching the Power Maul between its two settings is a Free Action. Table 6-12 gives this row no Weight or Availability of its own — it is the same weapon as Power Maul (High).</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186"
+    }
+  },
+  {
+    "name": "Omnissian Axe", "type": "weapon", "folder": "Melee Weapons/Power",
+    "img": "systems/dark-heresy/assets/icons/weapons/power-axe.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Power Field, Unbalanced", "weight": 8, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Granted to suitably devoted followers of the Omnissiah, this weapon has a long staff-like body tipped with half of the circular Adeptus Mechanicus skull and cog icon. The symbol forms a blade and is sheathed in a power field.</p><div class='bc-rule'><p>Covered with inscribed circuitry designs indicating the sacred nature of the weapon, many a foe has realised far too late that what appeared to be a religious walking staff was really a deadly weapon. The Omnissian axe also functions as a combi-tool. This a two-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 186–187"
+    }
+  },
+
+  {
+    "name": "Force Sword", "type": "weapon", "folder": "Melee Weapons/Force",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "force", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+1", "damageType": "rending", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Balanced, Force", "weight": 5, "availability": "near-unique",
+      "description": "<div class='bc-entry'><p class='bc-lead'>On the surface, force swords look just like any regular sword, albeit of unusual colouration. It is only upon closer inspection that the tiny but elaborate runes appear, giving away their arcane nature.</p><div class='bc-rule'><p>Most psykers are not skilled fighters, but for those who are, a force sword is the perfect weapon as it allows them to fully use both their psychic as well as martial abilities. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Force Staff", "type": "weapon", "folder": "Melee Weapons/Force",
+    "img": "systems/dark-heresy/assets/icons/weapons/force-staff.webp",
+    "system": {
+      "class": "melee", "type": "force", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "impact", "penetration": "2",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Force", "weight": 2, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Longer-length force weapons typically take the form of a staff, and they can be used as a weapon in regular combat.</p><div class='bc-rule'><p>Some are fashioned to appear as a simple walking staff, only giving away their real function as psychic powers are channelled through them. This a two-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+
+  {
+    "name": "Great Weapon", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/great-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Ogryn-Proof, Unbalanced", "weight": 7, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most melee weapons can also be found in larger and heavier versions, usable only with two hands.</p><div class='bc-rule'><p>Great weapons—such as huge axes, giant hammers, double-handed swords, and so on, including huge clubs—are massive, brutal weapons that can inflict serious damage with each blow. This a two-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Groxwhip", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/whip.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 3,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Flexible, Tearing, Primitive (6)", "weight": 4, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>“Groxwhip” may be an apocryphal name, as there is no strong evidence they were developed to help herd these massive beasts. It is more likely that most onlookers felt that a barbed steel whip covered with serrated edges could be meant for nothing else.</p><div class='bc-rule'><p>Unlike most whips, these are deliberately designed for lethal use, as strikes will tear away chunks of flesh with each attack. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Hunting Lance", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/melee-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+3", "damageType": "explosive", "penetration": "7",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Concussive (3)", "weight": 4, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The lance, most commonly used by Imperial Rough Riders, is tipped with an explosive charge which blows apart on impact, shattering armour and flesh alike.</p><div class='bc-rule'><p>While commonly used to hunt big game on their native worlds, these single-use weapons are spectacularly effective against even the most well-armoured infantry—especially when wielded by a soldier mounted on a frenzied war beast. This a one-handed, single-use melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Improvised", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10-2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Ogryn-Proof, Primitive (7), Unbalanced", "weight": 0, "availability": "ubiquitous",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Improvised weapons are generally any handy, weighted object, such as table legs, severed limbs, or artillery shell casings.</p><div class='bc-rule'><p>Hitting someone with the butt of a basic ranged weapon (such as a lasgun or boltgun) also counts as an improvised weapon.</p><p>Table 6-12 gives this row no Weight and no Availability.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Knife", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/knife.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 5,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d5", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "", "weight": 1, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The knife is the ubiquitous back-up weapon for warriors all across the Imperium, be they lowly hive scum or the elite soldiers of a planetary governor.</p><div class='bc-rule'><p>Some, such as the Catachan fighting knife, are designed for a specific purpose, whilst others are more generic in nature. This a one-handed melee weapon.</p><p>Table 6-12 gives the Class as Melee/Thrown with a 5m range when thrown.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Shield", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/melee-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d5", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Defensive, Primitive (6)", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shields are a useful protective device, either in conjunction with armour or on their own. Sizes range from light bucklers to huge full-body shields.</p><div class='bc-rule'><p>Attacks made with shields suffer a –20 instead of the normal penalty from the Defensive Quality. This a one-handed melee weapon.</p><p>Provides Armour 2 to the Body and Arm wielding the Shield.</p><p>Table 6-12 names this row “Shields”.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Spear", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/melee-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Primitive (8)", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common on feral and feudal worlds, spears can be found in the hands of hunters and warriors. This a two-handed melee weapon.</p></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Staff", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/staff.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Balanced, Primitive (7)", "weight": 3, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Longer basic weapons use a staff of wood or other material, with the extra reach useful for hitting an enemy before he can strike.</p><div class='bc-rule'><p>The staff is just that, and is a common sight, especially among pilgrims trekking throughout the galaxy to retrace the steps of the saints. This a two-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Sword", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Balanced", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Swords can range from short dagger-like models to longer, elaborate duelling blades.</p><div class='bc-rule'><p>The nature of the blade (single- or double-edged, curved or straight, flexible or stiff, cutting or stabbing, and so on) varies with the intent of the sword and the taste of its user. This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Truncheon", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/melee-weapon.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Ogryn-Proof, Primitive (7)", "weight": 2, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Small and easily concealable, these short and heavy sticks of dense wood or metal are often used by press gangs to “sign up” new Guardsmen with a swift blow to the back of the head.</p><div class='bc-rule'><p>This a one-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  },
+  {
+    "name": "Warhammer", "type": "weapon", "folder": "Melee Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
+    "system": {
+      "class": "melee", "type": "lowtech", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "1",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Ogryn-Proof, Primitive (8)", "weight": 4.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mounted on a longer pole grip than a regular hammer, warhammers generally have a thinner striking head with a sharply pointed reverse.</p><div class='bc-rule'><p>Both of these make it ideal for penetrating light armour and causing deeper wounds by concentrating the force of the blow into a smaller area. This a two-handed melee weapon.</p></div></div>",
+      "source": "Only War, p. 185 (Table 6-12), p. 187"
+    }
+  }
+]

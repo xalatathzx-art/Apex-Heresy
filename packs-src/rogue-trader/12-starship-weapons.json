@@ -1,0 +1,91 @@
+[
+  {
+    "name": "Thunderstrike Macrocannons", "type": "shipWeapon", "folder": "Starship Weapons/Macrobatteries",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "dorsal",
+      "strength": 3, "damage": "1d10+1", "critRating": 6, "range": 4,
+      "power": 2, "space": 2, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Macrobatteries are ranks of massive cannons or other weapons, fired in volley to overwhelm an enemy in a barrage of destruction.</p><p>An older version of the Mars Pattern, these macrocannons lack range and power. They are most often found on transports.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4)"
+    }
+  },
+  {
+    "name": "Mars Pattern Macrocannons", "type": "shipWeapon", "folder": "Starship Weapons/Macrobatteries",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "dorsal",
+      "strength": 3, "damage": "1d10+2", "critRating": 5, "range": 6,
+      "power": 4, "space": 2, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common macrobattery, these are reliable, hard-hitting weapons firing kilo-tonne ordinance, mounted along the vessel’s dorsal ridge or in broadside.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4)"
+    }
+  },
+  {
+    "name": "Mars Pattern Macrocannon Broadside", "type": "shipWeapon", "folder": "Starship Weapons/Macrobatteries",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "port",
+      "strength": 6, "damage": "1d10+2", "critRating": 5, "range": 6,
+      "power": 4, "space": 5, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common macrobattery, these are reliable, hard-hitting weapons firing kilo-tonne ordinance, mounted in a warship’s extended broadside.</p><div class='bc-rule'><p><strong>Broadside:</strong> These weapons must occupy a Port or Starboard Weapon Capacity slot.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4)"
+    }
+  },
+  {
+    "name": "Sunsear Laser Battery", "type": "shipWeapon", "folder": "Starship Weapons/Macrobatteries",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "dorsal",
+      "strength": 4, "damage": "1d10+2", "critRating": 4, "range": 9,
+      "power": 6, "space": 4, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These laser batteries are common on Naval frigates, providing a balance between power used and damage inflicted.</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4)"
+    }
+  },
+  {
+    "name": "Ryza Pattern Plasma Battery", "type": "shipWeapon", "folder": "Starship Weapons/Macrobatteries",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "dorsal",
+      "strength": 4, "damage": "1d10+4", "critRating": 4, "range": 5,
+      "power": 8, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These weapons are rare and expensive examples of the ancient art of plasma-craft. Their power draw is considerable, but so is their effectiveness.</p><div class='bc-rule'><p><strong>Vapourisation:</strong> When this Weapon Component rolls a 1 or 2 on the Critical Hit Chart, it effects two Components instead of one.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4), p. 203"
+    }
+  },
+
+  {
+    "name": "Starbreaker Lance Weapon", "type": "shipWeapon", "folder": "Starship Weapons/Lances",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "lance", "location": "prow",
+      "strength": 1, "damage": "1d10+2", "critRating": 3, "range": 5,
+      "power": 6, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Lances are the rapier to the macrobatteries’ hammer. They send a single beam of energy burning through their enemy’s armour and deep into its vitals.</p><p>The Starbreaker is a recent attempt by lesser forge worlds to copy the STC Titanforge. Unfortunately, they are less powerful than the weapons they emulate.</p><div class='bc-rule'><p>If a lance weapon is installed on a vessel of frigate size or smaller (transports and raiders, for example), it must be installed in a prow weapon slot. Lances are large and cumbersome weapons and in respects to smaller vessels, can only be installed on ships specifically designed to carry them. If a ship of frigate size or smaller does not have a prow weapon slot, it cannot carry a lance.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4), p. 203"
+    }
+  },
+  {
+    "name": "Titanforge Lance Weapon", "type": "shipWeapon", "folder": "Starship Weapons/Lances",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "lance", "location": "prow",
+      "strength": 1, "damage": "1d10+4", "critRating": 3, "range": 6,
+      "power": 9, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Titanforge Lances are an STC standard for lance weaponry, found on naval warships throughout the Calixis Sector.</p><div class='bc-rule'><p>If a lance weapon is installed on a vessel of frigate size or smaller (transports and raiders, for example), it must be installed in a prow weapon slot. Lances are large and cumbersome weapons and in respects to smaller vessels, can only be installed on ships specifically designed to carry them. If a ship of frigate size or smaller does not have a prow weapon slot, it cannot carry a lance.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4), p. 203"
+    }
+  },
+  {
+    "name": "Titanforge Lance Battery", "type": "shipWeapon", "folder": "Starship Weapons/Lances",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "lance", "location": "dorsal",
+      "strength": 2, "damage": "1d10+4", "critRating": 3, "range": 6,
+      "power": 13, "space": 6, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Titanforge Lances are an STC standard for lance weaponry, found on naval warships throughout the Calixis Sector. On larger vessels, multiple lances may be mounted in a set of gargantuan turrets (not to be confused with the smaller defence turrets).</p><div class='bc-rule'><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 202 (Table 8-4), p. 203"
+    }
+  }
+]

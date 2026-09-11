@@ -1,0 +1,14 @@
+{
+  "name": "Haywire Field Effects (Deathwatch)",
+  "folder": "Armoury",
+  "formula": "1d100",
+  "sort": 150,
+  "description": "A Haywire weapon generates an electro-magnetic field that troubles the machine spirits of most technology. Everything within the field's radius is affected; roll here with any modifiers from the weapon. As the field slowly dissipates, the strength lessens one step in severity each round until it becomes Insignificant. Deathwatch, Table 5-4 (p. 143).",
+  "results": [
+    { "name": "Insignificant", "range": [1, 20], "text": "There is no noticeable effect on nearby technology." },
+    { "name": "Minor Disruption", "range": [21, 40], "text": "All actions utilising technology, including firing Ranged weapons without the Primitive Quality, Tech-Use Tests, and any physical actions attempted while wearing power armour or employing cybernetics, suffer a –10 penalty. The Base Movement of anyone in power armour is reduced by 1." },
+    { "name": "Major Disruption", "range": [41, 60], "text": "All actions utilising technology, including firing Ranged weapons without the Primitive Quality, Tech-Use Tests, and any physical actions attempted while wearing power armour or employing cybernetics, suffer a –20 penalty. The Base Movement of anyone in power armour is reduced by 3. Melee weapons with technological components function as a Primitive weapon of the analogous type." },
+    { "name": "Dead Zone", "range": [61, 80], "text": "Technology within the affected area completely ceases to function. Power armour becomes Unpowered as per Table 5–13: Power Unit Critical Effects. Characters with cybernetic replacements to any internal organ(s) suffer one level of Fatigue each round they remain in the Dead Zone. Melee weapons with technological components function as a Primitive weapon of the analogous type." },
+    { "name": "Prolonged Dead Zone", "range": [81, 100], "text": "As Dead Zone." }
+  ]
+}

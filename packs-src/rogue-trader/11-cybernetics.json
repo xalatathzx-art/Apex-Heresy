@@ -1,0 +1,250 @@
+[
+  {
+    "name": "Bionic Limb", "type": "cybernetic", "folder": "Cybernetics/Bionics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/arm.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common versions of these systems mirror the function of the human arm and hand exactly, retaining strength, dexterity, and sense of touch.</p><div class='bc-rule'><p>Bionic replacement limbs are assumed to operate at the same level of strength and dexterity as the body they are attached to—rather than risk ripping themselves out of their host through overpressure—though their robust construction does add 2 to the owner’s Toughness Bonus against hits scored to the particular location. Damage taken to these locations counts towards Damage to the character, and Critical Damage dealt to these locations functions as normal. Any result that causes bleeding or some other inappropriate result renders the bionic limb useless. Critical Damage to a limb that results in death has the full effect as it can be assumed that the limb explodes into shrapnel, incinerates, or discharges stored energy through its owner with lethal effect.</p><p>Poor versions halve the owner’s Agility score where matters of fine dexterity are involved and Weapon Skill and Ballistic Skill Tests suffer a –10 penalty when using the limb.</p><p>Good bionic arms provide a +10 bonus on Agility Tests requiring delicate manipulation (such as Sleight of Hand) and add a +10 bonus to Strength Tests using the arm.</p><p>Replacement and additional limbs—such as mechadendrites—can only be used to perform tasks that the owner already knows how to do. Note that bonuses and penalties relate only to Tests made using the bionic limb, and characters who possess two bionic limbs do not gain double the bonus, but rather they may apply the bonus regardless of which bionic limb they are using.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 147–148"
+    }
+  },
+  {
+    "name": "Bionic Locomotion", "type": "cybernetic", "folder": "Cybernetics/Bionics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/leg.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common locomotion bionics must be fully integrated into the spine and nervous system to function properly; basic models accomplish this without any loss of function over the human norm.</p><div class='bc-rule'><p>Poor versions halve the character’s Movement Rates—round up—and such characters that attempt to run must succeed on an Agility Test or fall at the end of their movement.</p><p>Good versions of these systems grant the owner the Sprint talent. In addition they add a +20 bonus to Tests made to jump or leap.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148"
+    }
+  },
+  {
+    "name": "Bionic Respiratory System", "type": "cybernetic", "folder": "Cybernetics/Bionics",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/capacitor.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common bionic lungs and implanted respiratory systems mimic the action of human lungs and keep the body supplied with oxygen.</p><div class='bc-rule'><p>Such characters gain a +20 bonus to Toughness Tests made to resist airborne toxins and gas weapons.</p><p>Poor bionic lungs offer the same benefits as the Common system. However, they are raucously loud affairs and characters suffer a –20 penalty to all Silent Move checks. A generally poor oxygen supply to the body means all tests involving strenuous physical activity are increased by one level of Difficulty.</p><p>Good bionic lungs count as a full life support system—thus if for any reason the user’s own respiratory system fails, his bionic lungs will keep his blood oxygenated—and their presence may be unnoticeable if designed to be so.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148"
+    }
+  },
+
+  {
+    "name": "Augur Array", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/wires.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These implanted devices duplicate the effects of sensor systems that go beyond normal human senses. In all cases their use requires concentration and a Half Action.</p><div class='bc-rule'><p>Common systems function identically to a standard hand-held auspex device.</p><p>Poor systems possess only a single detection ability (either heat, radiation, or electromagnetics) and have the limited range of 20 metres.</p><p>Good systems function as a full auspex but also allow re-rolls on all Perception based Tests when using its functions.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148"
+    }
+  },
+  {
+    "name": "Augmented Senses", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/wires.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This catch-all category can include additional aural and scent receptors, atmospheric pressure detectors, sonar imaging systems, and more depending on the type of implant desired. These can work in concert with existing bionics or even natural senses.</p><div class='bc-rule'><p>This implant grants the Heightened Senses Talent for any one sense (sight, smell, etc.).</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148"
+    }
+  },
+  {
+    "name": "Baleful Eye", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "availability": "near-unique", "weight": 0,
+      "grantsAttack": { "enabled": true, "damage": "1d10+4", "damageType": "energy", "penetration": "7", "special": "", "class": "pistol" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>A legendary archeotech bionic eye pattern that incorporates a tiny las weapon, sacrificing some of the normal abilities of a cybernetic vision implant in order to include this device. Each baleful eye has been passed from recipient to recipient across centuries or millennia, reclaimed by the Machine Cult whenever its present owner dies. As might be imagined, it is very intimidating when used as a part of negotiations with primitive societies.</p><div class='bc-rule'><p>A character with this implant has a weapon equal to a hellpistol in his eye with a range of 10m. The baleful eye can be fired even if the character’s hands are full, and the baleful eye may be used as a pistol in melee. The baleful eye of Sebastian Winterscale is said to have contained a much more potent weapon, but it has been lost for centuries.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148"
+    }
+  },
+  {
+    "name": "Ballistic Mechadendrite", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This solid, shoulder-mounted mechadendrite is designed for self-defence. This two metre limb is mounted with a sleek laspistol of Adeptus Mechanicus design.</p><div class='bc-rule'><p>This weapon counts as a laspistol with the Compact upgrade. The owner may use this mechadendrite as his Reaction for the Round or as a Half Action Attack on his own turn, but it can only be fired once per Round. The firer uses his full Ballistic Skill for the attack. Note that this weapon has no optical targeting facilities built in. You must have the appropriate Mechadendrite Use talent to operate this implant.</p><p>Some cybernetic systems are only provided to tech-adepts of the Adeptus Mechanicus—though it is possible that skilled hereteks might risk the Machine Cult’s wrath by implanting crude versions of these systems in anyone willing to pay their price.</p><p>The maximum number of Mechadendrites a character may have mounted upon his body is equal to his Toughness bonus. All mechadendrite cybernetics are considered to be of Good Craftsmanship unless otherwise noted.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 148–149"
+    }
+  },
+  {
+    "name": "Bionic Heart", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/capacitor.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "grantsArmour": { "enabled": true, "isAdditive": true, "part": { "head": 0, "leftArm": 0, "rightArm": 0, "body": 1, "leftLeg": 0, "rightLeg": 0 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The paranoid (or prepared) are ever willing to replace crude flesh with more durable, armoured materials—the light armour shielding of a bionic heart provides a last line of defence. Superior models can be triggered to pump more rapidly to increase physical capacity, though this risks stroke or other catastrophe as the rest of the circulatory system is put under pressure.</p><div class='bc-rule'><p>A character with this implant gains +1 armour to the body location—this bonus stacks with any armour worn—and gains the Sprint Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 149"
+    }
+  },
+  {
+    "name": "Calculus Logi Upgrade", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/cybernetics.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Internal cogitator implants which aid in data retention and processing. The user can rapidly sift through stacked data-slates and parchments, applying intuition to vast reams of data far beyond the capabilities of a normal man.</p><div class='bc-rule'><p>This implant grants the user a +10 bonus to any Literacy, Logic, or Scholastic Lore Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 149"
+    }
+  },
+  {
+    "name": "Cortex Implants", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/cybernetics.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These systems may be used to repair a severely damaged brain or augment its abilities.</p><div class='bc-rule'><p>Common cortex implants are used to restore paralysed and brain-damaged individuals to some semblance of normality. The best that can be managed by these systems is a permanent loss of 1d10 points from the character’s Weapon Skill, Ballistic Skill, Agility, Intelligence and Fellowship. In addition, such characters gain 1d10 Insanity Points.</p><p>Poor cortex implants restore brain function but destroy the personality and memories of the subject, effectively making them a servitor, and are therefore unsuitable for player characters.</p><p>Good cortex implants are unusual even among the Mechanicus, and their creation is an almost lost art. They grant the trait Unnatural Intelligence (×2) and in addition perform all the functions of a cogitator system. However, characters with this implant gain 1d10 Insanity Points.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 149"
+    }
+  },
+  {
+    "name": "Cranial Armour", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/armor.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "grantsArmour": { "enabled": true, "isAdditive": true, "part": { "head": 1, "leftArm": 0, "rightArm": 0, "body": 0, "leftLeg": 0, "rightLeg": 0 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This augmentation covers or replaces most of the skull with layers of plasteel and gel padding to better prevent concussion and other brain injuries.</p><div class='bc-rule'><p>This implant adds +1 Armour—this bonus stacks with any worn Armour—to the Head location.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 149"
+    }
+  },
+  {
+    "name": "Cybernetic Senses", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sight, hearing, touch, and taste can be duplicated artificially, and more esoteric senses may be added.</p><div class='bc-rule'><p>Common systems, while usually very obviously artificial and often oversized, manage to more or less duplicate the approximate human range of senses adequately and have no further game effects.</p><p>Poor cybernetic senses are problem-ridden imitations of the real thing (hearing may be troubled by static, vision rendered in low-resolution monochrome, and so on). A character with this system suffers a –20 penalty to Tests made involving the cybernetic sense.</p><p>Good cybernetic senses grant the Heightened Senses talent for that particular sense, and a +20 bonus to Tests made to resist attacks on the sense itself—such as deafening noises or blinding flashes. Basic and advanced cybernetic eyes may also incorporate magnifying lenses (counting as a telescopic sight), a full photo-visor, and/or a system allowing the Dark Sight trait. Likewise, basic or advanced cybernetic hearing may also include an internal micro-bead system.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 149–150"
+    }
+  },
+  {
+    "name": "Locator Matrix", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/magnet.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Micro-cogitators implanted at the base of the skull allow the user to be aware of the direction of true magnetic north, present location to within a few metres, relative velocity, altitude, time of day, and other valuable information.</p><div class='bc-rule'><p>The user must still have access to maps and other planetary data in order to benefit from this information, however—knowing you are at a specific location on a planetary surface has little meaning if you have no idea what is over the next rise, or what direction you must travel to reach a given destination.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 150"
+    }
+  },
+  {
+    "name": "Manipulator Mechadendrite", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This powerful shoulder-mounted mechadendrite is designed for heavy lifting and manipulation of industrial machinery. Built of ceramite and steel, it may extend to a length of 1.5m.</p><div class='bc-rule'><p>When using the arm, the character gains a +20 bonus to Strength Tests. This limb is tipped with two sets of gripping and crushing pincers. These may be locked around a suitable anchor point as a Free Action to safely tether the tech-priest to lifting gear, high gantries, and so on. Finally, a character may use the manipulator as a club. It counts as a Primitive weapon that deals 1d5+2 Impact Damage.</p><p>The manipulator may not be used for any task requiring fine manipulation such as typing on a key pad or handling delicate objects. A character must have the appropriate Mechadendrite Use talent to operate this implant.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 150"
+    }
+  },
+  {
+    "name": "Medicae Mechadendrite", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This two-meter long, flexible limb is designed to provide medical and surgical assistance in the field.</p><div class='bc-rule'><p>It grants a +10 bonus to Medicae Tests. The mechadendrite houses six injector pistons, each of which may be filled with one dose of a drug. These must be supplied separately. In addition to providing first aid, the mechadendrite’s flesh staplers may be used to staunch Blood Loss as a Half Action. A small chainscalpel attachment reduces the difficulty of limb amputation to Challenging (+0). This blade may be used as an improvised weapon, and on a hit it deals 1d5 Rending Damage. Finally, the medicae mechadendrite may be used to gain a +10 bonus to Interrogation Tests. This mechadendrite may be shoulder or sternum-mounted. A character must have the appropriate Mechadendrite Use talent to operate this implant.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 150"
+    }
+  },
+  {
+    "name": "Memorance Implant", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/cybernetics.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A neurally linked datavault and pict-capture array, often incorporating augmetic replacement of one or both eyes, that records information of people or scenes viewed. It can then later replay that information, or overlay the present view with additional data on people and objects viewed. It is a tool of chroniclers, remembrancers, and masters of ceremonies—as well as factors or nobles who like to see the secrets of their rivals overlaid upon their view of the negotiating table.</p><div class='bc-rule'><p>It can provide a +10 bonus to Trade (Remembrancer) Tests, or other Tests in social situations where the recorded information provides leverage or value. The implant also grants the user the Total Recall Talent if he does not already possess it.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 150"
+    }
+  },
+  {
+    "name": "Mind Impulse Unit", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/wires.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These devices, also known as sense-links, allow the owner to directly interface with a machine or technological device. MIUs see widespread use among the Adeptus Mechanicus who regard them as objects of divine communion. A basic MIU implant involves a single spinal or cortex connector, while advanced variants include wrist connector probes—and possibly mechadendrite connectors—in addition to the spinal plug.</p><div class='bc-rule'><p>Common models impose no modifiers to machine spirit communication and add a +10 bonus to Tech-Use, Pilot, or Drive Tests used in conjunction with devices capable of MIU linking.</p><p>Poor MIU systems require a successful Willpower Test to use and impose a –10 penalty to interact with machine spirits.</p><p>Good models grant a +10 bonus to communicate with machine spirits, and for Tech-Use, Pilot, Drive, Logic, Inquiry, and Ballistic Skill Tests when interfaced with MIU systems. In addition, an MIU gives the user the ability to experience the senses of any familiars he controls (such as a servo-skull or grapplehawk) as if he were present.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 150–151"
+    }
+  },
+  {
+    "name": "MIU Weapon Interface", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/wires.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Unlike the more advanced version normally only granted to priests of the Adeptus Mechanicus, this version is more simplified, allowing the user to remotely operate a single weapon which is normally attached to the shoulder. While not as elaborate, it is easier to use and a favourite of many militant professions.</p><div class='bc-rule'><p>This system allows user to fire an additional ranged weapon as a Free Action—using his full Ballistic Skill—no matter what other actions he may be taking at the time. This additional weapon must be connected to the user via the MIU weapon interface, and are often equipped as a shoulder-mount.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Optical Mechadendrite", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This highly flexible mechadendrite set with pict-capture and sensor devices is designed to assist in inspection and detection. This mechadendrite extends to a length of three metres, and can reduce its width to pencil thickness.</p><div class='bc-rule'><p>It grants a +10 bonus to all Perception-based Tests. The pict-devices mounted on the mechadendrite allow the user to examine surfaces at a microscopic level and may be used as a telescopic sight. The mechadendrite is also mounted with an infra-red torch and sensors. A character using the mechadendrite suffers no penalties due to darkness and gains a +20 bonus to vision-based Perception Tests at night. Finally, the mechadendrite is fitted with a light that may be tinted a variety of different colours, depending on the controller’s whim. This mechadendrite may be shoulder or sternum-mounted. A character must have the appropriate Mechadendrite Use talent to operate this implant.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Respiratory Filter Implant", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/capacitor.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are implanted inside the lungs and can sift out most toxic gases. Inhaled particulate matter is also filtered, making breathing easier in heavily polluted atmospheres.</p><div class='bc-rule'><p>This implant allows the user to ignore any inhaled toxic gases or atmospheric contaminants.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Scribe-tines", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/body_parts/hand.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The hand and lower forearm are replaced with specialised and sensitive tools ideal for page turning, autoscribing, data-slate manipulation, and other invaluable abilities for a sage. While somewhat disquieting in appearance, they are viewed with favour by hive-world scholars and lexmechanics.</p><div class='bc-rule'><p>This implant gives the user a +10 bonus to all Investigation Skill Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Subskin Armour", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/armor.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "grantsArmour": { "enabled": true, "isAdditive": true, "part": { "head": 0, "leftArm": 2, "rightArm": 2, "body": 2, "leftLeg": 2, "rightLeg": 2 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Thin carapace plating is inserted under the skin in various locations, giving the user added protection against damage. While not as impressive as most augmentations, and sometimes uncomfortable, subskin armour is very reliable.</p><div class='bc-rule'><p>This implant adds +2 Armour to the Arms, Body, and Legs locations. The armour bonus is added to any other armour for those locations.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Synthetic Muscle Grafts", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/augmetics/augmetic.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vat-grown muscle tissue, hyperdense and augmented with flakweave, is implanted into existing muscle groups to increase their strength.</p><div class='bc-rule'><p>Users gain a +1 to their Strength Bonus for a normal implantation. Best-Craftsmanship grafts will grant the Unnatural Strength (×2) Trait but also impose a –10 penalty to any Agility Tests due to the misshapen nature of the body.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151"
+    }
+  },
+  {
+    "name": "Utility Mechadendrite", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/mechadendrite.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This two-meter long limb houses a variety of tools and attachments designed to assist a tech-priest in the course of his holy duties.</p><div class='bc-rule'><p>The mechadendrite counts as a combi-tool, granting a +10 bonus to all Tech-Use Tests. The limb also houses six injector pistons, each of which may be filled with one dose of sacred unguent. These must be supplied separately. In addition to this, the limb contains an electrically powered censer, which can gust incense fumes over particularly troublesome faults. The censer generates one “blast” of smoke every fifteen minutes. This may be employed in melee combat to distract and choke, imposing a –5 penalty to Weapon Skill Tests made by all living creatures within a two metre radius for one Round. This is a Half Action. Unless the censer is deactivated, all Perception Tests made to detect the Tech-Priest that rely on a sense of smell gain a +10 bonus. Finally, the mechadendrite contains a cutting blade. This counts as a knife with the Defensive quality and Mono upgrade. A character must have the appropriate Mechadendrite Use talent to operate this implant.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 151–152"
+    }
+  },
+  {
+    "name": "Voidskin", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/armor.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Subdermal skin tissue is treated with flakweave and chemical toughening agents, such that the wearer can tolerate a longer term of void exposure before ill effects occur. Chemplant agents also minimize the damage suffered due to the raw energies of the void.</p><div class='bc-rule'><p>Voidskin allows the user to resist damage due to void exposure for an additional d10+3 rounds past the normal duration.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 152"
+    }
+  },
+  {
+    "name": "Volitor Implant", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/cybernetics/cybernetics.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The subject has cranial surgery to work in neural receptors and artificial nerve routing, and can be compelled not to reveal a certain item of information, remain within a set area, or perform a specific task.</p><div class='bc-rule'><p>If the subject attempts—or is forced—to counter this compulsion, his brain shuts down into unconsciousness—or even death for some severe volitor patterns. Many bodyguards receive this implantation in the course of their employment.</p></div></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 152"
+    }
+  },
+  {
+    "name": "Vox Implant", "type": "cybernetic", "folder": "Cybernetics/Implants",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/headset.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This implant is a built in micro-bead, often hardwired to a ship’s vox frequencies.</p></div>",
+      "source": "Rogue Trader, p. 152 (Table 5-16), p. 152"
+    }
+  }
+]

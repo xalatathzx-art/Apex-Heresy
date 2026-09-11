@@ -1,0 +1,27 @@
+{
+  "name": "Malignancies",
+  "folder": "Corruption",
+  "formula": "1d100",
+  "sort": 90,
+  "description": "Rolled when a Malignancy Test fails (for every 10 Corruption Points gained). Only War, Table 9-9 (p. 308); Dark Heresy 2e, Table 8-15 (p. 290). Only War misprints Skin Afflictions as 21–22; the range follows Dark Heresy 2e.",
+  "results": [
+    { "name": "Palsy", "range": [1, 10], "text": "The character suffers from numerous minor tics, shakes, and tremors with no medical cause. Reduce his Agility by [[1d10]]." },
+    { "name": "Dark-hearted", "range": [11, 15], "text": "The character grows increasingly cruel, callous, and vindictive. Reduce his Fellowship by [[1d10]]." },
+    { "name": "Ill-fortuned", "range": [16, 20], "text": "Whenever a character uses a Fate Point, roll 1d10. On a result of 7–10, the Fate Point has no effect but is spent anyway." },
+    { "name": "Skin Afflictions", "range": [21, 25], "text": "The character is plagued by boils, scabs, weeping sores and the like. He takes a –20 penalty to all Charm Tests." },
+    { "name": "Night Eyes", "range": [26, 30], "text": "Light pains the character, and unless he shields his eyes he suffers a –10 penalty on all Tests made in an area of bright light." },
+    { "name": "Morbid", "range": [31, 33], "text": "The character finds it hard to concentrate as his mind turns increasingly macabre and he becomes prone to tortured, gloom-filled trains of thought. The character’s Intelligence is reduced by [[1d10]]." },
+    { "name": "Witch-mark", "range": [34, 45], "text": "The character develops some minor physical deformity or easily concealable mutation. It is small, but perhaps enough to consign him to death if found out by a fanatical witch hunter or a particularly vigilant Commissar. It’s in his best interests to hide it well." },
+    { "name": "Fell Obsession", "range": [46, 50], "text": "This functions like the Obsession Disorder (see page 307), but in this case the character is obsessed by something sinister or malign (such as collecting finger-bone trophies, ritual scarification, carrying out meaningless vivisections, etc.)." },
+    { "name": "Irrational Nausea", "range": [51, 55], "text": "The character feels sick at the sight, sound, or smell of something otherwise innocuous (such as prayer books and holy items, bare flesh, human laughter, fresh food, etc.). When he encounters an object of his revulsion he must make a Toughness Test or suffer a –10 penalty to all Tests as long as he remains in its presence." },
+    { "name": "Wasted Frame", "range": [56, 60], "text": "The character’s pallor becomes corpse-like and his muscles waste away. The character’s Strength is reduced by [[1d10]]." },
+    { "name": "Night Terrors", "range": [61, 63], "text": "The character is plagued by daemonic visions in his sleep. This functions identically to the Horrific Nightmares Disorder (see page 307)." },
+    { "name": "Poor Health", "range": [64, 70], "text": "The character constantly suffers petty illnesses and phantom pains, and his wounds never seem to fully heal. The character’s Toughness is reduced by [[1d10]]." },
+    { "name": "Distrustful", "range": [71, 75], "text": "The character cannot conceal the distrust and antipathy he has for others. He must take a –10 penalty to Fellowship Tests when dealing with strangers." },
+    { "name": "Malign Sight", "range": [76, 80], "text": "The world seems to darken, tarnish, and rot if the character looks at anything too long. The character’s Perception is reduced by [[1d10]]." },
+    { "name": "Ashen Taste", "range": [81, 83], "text": "Food and drink taste foul and provide little sustenance to the character, and he can barely stomach eating. The character doubles the negative effects for levels of Fatigue." },
+    { "name": "Bloodlust", "range": [84, 90], "text": "Murderous rage is never far from the character’s mind. After being wounded in combat, he must succeed at a Willpower Test to allow his enemies to flee, be captured, or incapacitated, rather than killing them outright, even if his intent is otherwise." },
+    { "name": "Blackouts", "range": [91, 93], "text": "The character suffers from inexplicable blackouts. When they occur and what happens during them is up to the GM." },
+    { "name": "Strange Addiction", "range": [94, 100], "text": "The character is addicted to some bizarre and unnatural substance (such as eating rose petals, drinking blood, the taste of widows’ tears, etc.). This acts like a Minor Compulsion Disorder (see page 307), but is freakish enough to cause serious suspicion if discovered." }
+  ]
+}

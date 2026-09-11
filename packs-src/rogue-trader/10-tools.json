@@ -1,0 +1,337 @@
+[
+  {
+    "name": "Almanac Astrae Divinitus", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/instruments-of-divination.webp",
+    "system": {
+      "availability": "extremely-rare", "weight": 4, "shortDescription": "+10 Navigation, Pilot, Astromancy or Astrographer",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A tech-device of the Divine Astrometricum, a Calixian faction of tech-priests concerned with cataloguing stars, nebulae, and distant events in the voids. Its clicking arrangement of spheres and hololithic projections form a catalogue of sorts, which is of use to those who make their way between stars.</p><div class='bc-rule'><p>It can provide a +10 bonus to Navigation, Pilot, Scholastic Lore (Astromancy), or Trade (Astrographer) Tests where its information is directly relevant to the circumstances.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 143"
+    }
+  },
+  {
+    "name": "Arms Coffer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/box.webp",
+    "system": {
+      "availability": "average", "weight": 6, "shortDescription": "Protective weapon case",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A long protective case of many quick-release compartments and sockets for power packs designed to be slung over the back. It is intended to protect the diverse wargear of a professional militant from the environment and pilfering hands.</p><div class='bc-rule'><p>The Arms Coffer has enough room for two Basic weapons or four Pistol weapons (or one Basic weapon and up to two Pistol weapons). In addition, there is enough room for up to four clips of Basic weapon ammunition, or eight clips of Pistol weapon ammunition (or any combination thereof, where one clip of Basic weapon ammunition takes up the space of two clips of Pistol weapon ammunition).</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 143"
+    }
+  },
+  {
+    "name": "Auspex/Scanner", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/auspex.webp",
+    "system": {
+      "availability": "scarce", "weight": 0.5, "shortDescription": "+20 Awareness, 50 m scan",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These devices are used to detect energy emissions, motion, and biological life signs.</p><div class='bc-rule'><p>A character using an auspex gains a +20 bonus to Awareness Tests and may make a Tech-Use Test to spot things not normally detectable to human senses alone, such as invisible gases, nearby bio-signs, or ambient radiation. The standard range for an auspex is 50m, though walls more than 50cm thick and certain shielding materials can block the scanner.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 143"
+    }
+  },
+  {
+    "name": "Auto-quill", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/auto-quill.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "+10 Trade (Rememberancer)",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These scribing devices of arcane appearance allow the user to copy text at an impressive rate with great accuracy.</p><div class='bc-rule'><p>A character with the Trade (Rememberancer) skill can use an auto quill to gain a +10 to their Skill Tests.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 143"
+    }
+  },
+  {
+    "name": "Calculance Array", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/scanner.webp",
+    "system": {
+      "availability": "scarce", "weight": 120, "shortDescription": "+10 Commerce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Grand mercantile initiatives are attended by a swarm of scribes and ledgers, and the greatest can only thrive when supported by machines such as the calculance array. It is a noisy, man-sized stack of chugging, promethium-fueled rod-cogitators, often mounted upon a tracked platform. Its machine spirit accepts reams of figures, and other data, ordering them and spitting forth parchment summations and predictions upon command.</p><div class='bc-rule'><p>It provides a +10 bonus to all Commerce Skill Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Combi-tool", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/combi-tool.webp",
+    "system": {
+      "availability": "rare", "weight": 1, "shortDescription": "+10 Tech-Use",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Commonly found in the hands of member of the Adeptus Mechanicus, combi-tools are versatile, if somewhat bizarre, mechanical devices.</p><div class='bc-rule'><p>A character using a combi-tool gains a +10 bonus to Tech-Use Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Data-loom (Hadd-pattern)", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/data-slate.webp",
+    "system": {
+      "availability": "very-rare", "weight": 13, "shortDescription": "+10 Logic",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A limited data-engine and geometric display that has proven useful to those faced with challenging problems of logic or fragmentary information.</p><div class='bc-rule'><p>It gives a +10 bonus to Logic skill Tests, and at the GM’s discretion may reduce the time taken for research or investigations, provided that the investigator has the Tech-Use skill.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Data-slate", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/data-slate.webp",
+    "system": {
+      "availability": "common", "weight": 0.5, "shortDescription": "Stores and reads text and media",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Data-slates are commonplace in the Imperium, the primary means of storing and reading printed text and other media such as video or audio recordings. They are so cheap and easy to make that many contain a single media recording, such as text, and can only play that single file. Others can re-record new information, or transmit and receive data from other devices.</p></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Demolition Charge", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/weapons/demolition-charge.webp",
+    "system": {
+      "availability": "scarce", "weight": 1, "shortDescription": "3d10 X per kg, 5 m blast per kg",
+      "grantsAttack": { "enabled": true, "damage": "3d10", "damageType": "explosive", "penetration": "0", "special": "", "class": "thrown" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>A demolition charge is a simple explosive device, commonly used for blowing open doors, breaching bulkheads, and destroying infrastructure.</p><div class='bc-rule'><p>The listed weight for a demolition charge represents 1 kg of explosives, though it is possible to rig charges together—thus increasing their destructive potential. When a demolition charge explodes, anyone (or anything) caught within its blast radius takes 3d10 Explosive Damage plus an additional 2 points of Damage for every kilogram used. The blast radius of the charge is 5 metres for each kilogram used. For setting and defusing explosives see the Demolition Skill in Chapter III: Skills, page 80.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Diagnostor", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/diagnostor.webp",
+    "system": {
+      "availability": "very-rare", "weight": 4, "shortDescription": "+20 Medicae or Perception to diagnose",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The diagnostor is a sophisticated medical device used among high ranking planetary officials and other powerful individuals. It can detect and diagnose almost every ailment known to the Imperium, and can be incorporated into medical kits, servo-skulls, and other dedicated servitors. Rogue Traders who are often away from proper medical assistance feel that such devices are essential on their voyages.</p><div class='bc-rule'><p>A Diagnostor provides +20 to Medicae or Perception Tests to determine an ailment. Any success indicates the proper medical countermeasures.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Glow-globe/Lamp Pack", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/glow-globe.webp",
+    "system": {
+      "availability": "abundant", "weight": 0.5, "shortDescription": "Light for 1d5 hours",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A common source of light at night or in darkened areas, these handy devices can illuminate an area a dozen or more metres in diameter.</p><div class='bc-rule'><p>A typical glow-globe or lamp pack lasts 1d5 hours before it needs to be recharged or have its power cell replaced.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Grapnel", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/grapnel-launcher.webp",
+    "system": {
+      "availability": "average", "weight": 2, "shortDescription": "100 m line with powered winch",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A small launcher or gun that fires a hooked or magnetic grapnel, connected to the launcher with a thin but strong 100m wire. Once the grapnel attaches to the desired spot, such as a rooftop, the user can manually climb the line or activate a powered winch.</p><div class='bc-rule'><p>In a pinch they can also be used as a crude—and messy—projectile weapon, counting as a single-shot crossbow.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Grapplehawk", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/servo_skull.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0, "shortDescription": "Aerial cyber-familiar",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Aerial machines fashioned in the shape of avian predators, Grapplehawks are an unusual form of cyber-familiar used by some Adeptus Arbites squads and wealthy bounty-hunters (see page 375 for details). Once launched into the air a Grapplehawk glides in search of its target before swooping to strike with metallic claws and stunning electrical discharges.</p><div class='bc-rule'><p>Potent internal suspensors provide enough lift for a Grapplehawk to carry a man’s weight through the air for short distances.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Grav Chute", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/grav-chute.webp",
+    "system": {
+      "availability": "rare", "weight": 15, "shortDescription": "Safe guided fall from any height",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A smaller version of a jump pack, these rely on suspensor fields to counter gravity to slow descent. Two small jets on either side above the shoulders offer extra braking as well. Unlike a jump pack it is designed to allow the user to land safely from a long fall—such as combat drop from a transport—rather than leap into the air.</p><div class='bc-rule'><p>The grav chute allows for a safe, guided fall from any height. The user can hover in place for up to a minute at a time if so desired. After an hour of use, the power supply must be replaced.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144"
+    }
+  },
+  {
+    "name": "Jump Pack (Lathe-pattern)", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/grav-chute.webp",
+    "system": {
+      "availability": "rare", "weight": 25, "shortDescription": "Flyer (12) for up to a minute",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Jump packs are large backpacks containing powerful turbofan or rocket engines. A user triggers a jump pack to lift high into the air and then swoop down as part of their assault. Jump packs are also useful in leaping over high obstacles and reaching rooftops in a single bound, but without training most users will seriously injure themselves in crashes. Though bulky, loud, and somewhat dangerous to use they are ideal for the maximum in personal mobility on the ground or even in the void.</p><div class='bc-rule'><p>Jump packs require the operator to have the Pilot (Personal) skill. A standard jump pack allows for a safe, guided fall from any height and, with a thruster boost, make an unlimited series of short jumps (landing at the end of each Round’s movement). Alternatively, the pack can duplicate the Flyer (12) trait for up to a minute at a time.</p><p>A jump pack’s power supply will last for about an hour of strenuous operation before requiring replacement.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 144–145"
+    }
+  },
+  {
+    "name": "Lord-Captain’s Baton", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/licence.webp",
+    "system": {
+      "availability": "very-rare", "weight": 1, "shortDescription": "Insignia of rank; reinforced rod",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many officers of the Imperial Navy carry one of these short rods as an insignia of rank and station. Most are highly engraved and ornamented with the heraldry of their ship and fleet. Underlings refer to them dismissively as “Calixian Crutches” or worse, seeing them only as another symbol of their oppression.</p><div class='bc-rule'><p>What most do not know—and only find out too late—is that naval batons are often strongly reinforced and can easily shatter bones. Some even contain specialised micro-cogitators or datavaults—for example, the bridge baton of the Rogue Trader ship Aigiarn contains the code-prayers for the bridge machine spirits. It is ceremoniously re-inserted into the main helm station as part of each shift change in an elaborate ceremony of phrases and counter-phrases. Failure to properly perform this ritual results in the lockdown of all command systems—a means of preventing piracy or mutiny.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Magboots", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/mag-boots.webp",
+    "system": {
+      "availability": "rare", "weight": 2, "shortDescription": "Walk on metal in zero gravity",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy and bulky, these oversized boots contain electromagnets that allow the wearer to adhere to metallic surfaces such as exterior hull plating and are often found in void-ship emergency lockers.</p><div class='bc-rule'><p>Magboots reduce Movement and AB by half when used, but otherwise allow normal movement in low- or zero-gravity areas provided there is a suitable surface to walk upon.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Magnoculars", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/magnoculars.webp",
+    "system": {
+      "availability": "average", "weight": 0.5, "shortDescription": "Magnify distant objects",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are powerful vision aids that magnify distant objects. More advanced, high-quality magnoculars can also do such things as give range read-outs, detect heat sources, calculate target location positioning, and take pict-captures of a view for later analysis.</p></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Manacles", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/manacles.webp",
+    "system": {
+      "availability": "plentiful", "weight": 1, "shortDescription": "Restraints",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are solid restraints often used by bounty hunters and enforcers—and can also be found in the hands of more nefarious individuals or used for darker purposes.</p></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Mefonte’s Orthodoxy", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/papers.webp",
+    "system": {
+      "availability": "scarce", "weight": 2, "shortDescription": "+10 Charm in religious oratory",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A tome or data-slate containing a thrice-blessed collection of catechisms, castigations, and psalms first assembled by Pius Mefonte in the 4th century M41. These are some of the best-known verses of the Calixian Ministorum, and the work itself—ornamented, gilded, and set with flowing pennons of scripture—is a sign that he who owns it is holy and well-versed in the God-Emperor’s teachings.</p><div class='bc-rule'><p>It grants a +10 bonus to Charm Tests involving religious oratory or inspiration and an Imperial audience.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Melta Bomb", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/weapons/melta-bomb.webp",
+    "system": {
+      "availability": "very-rare", "weight": 12, "shortDescription": "6d10 E, Pen 12 within two metres",
+      "grantsAttack": { "enabled": true, "damage": "6d10", "damageType": "energy", "penetration": "12", "special": "", "class": "thrown" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Melta bombs are affixed to their target with mag-adhesives designed to quickly adhere to metallic surfaces. They detonate with a powerful shaped charge of intense heat akin to a melta-gun beam, and are ideal for destroying bulkheads, vehicle hulls, and other heavily armoured targets.</p><div class='bc-rule'><p>Melta bombs are typically unwieldy and not designed to be thrown, only placed in contact with their target material to ensure the charge explodes to maximum effect. When a melta bomb explodes it deals 6d10 E Damage to anything within two metres with a Penetration of 12. Anything surviving must take an Agility Test or catch on fire.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Micro-bead", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/micro-bead.webp",
+    "system": {
+      "availability": "average", "weight": 0, "shortDescription": "Short-range comm, about 1 km",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A micro-bead or comm-bead is a short-range communication device worn in the ear, good for communication out to about one kilometre.</p><div class='bc-rule'><p>Bad weather, dense terrain, and intervening rock or plasteel can greatly reduce this range, however.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Multikey", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/multikey.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "+30 Security to open locks",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As it can open most standard Imperial locks, the multikey is not a standard item for most honest Imperial citizens. For the same reason though, they are widely sought after by criminals and other disreputable elements.</p><div class='bc-rule'><p>A character with a multikey gains a +30 bonus to any Security Test when trying to open locks.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 145"
+    }
+  },
+  {
+    "name": "Multicompass", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/multicompass.webp",
+    "system": {
+      "availability": "near-unique", "weight": 4, "shortDescription": "+10 Survival and Navigation (Land)",
+      "description": "<div class='bc-entry'><p class='bc-lead'>When exploring new worlds, a device of this ancient tech-pattern is indispensable—but few have the means or influence to acquire one. After a few seconds of analysing planetary data, a multicompass can display directions, show topographical maps, point out compass bearings, indicate altitude, and much more. Even the Mechanicus Calixis do not fully understand all the capabilities of such a rare and hallowed device.</p><div class='bc-rule'><p>Possessing a multicompass adds a +10 bonus to all Survival and Navigation (Land) Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Navis Prima", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/papers.webp",
+    "system": {
+      "availability": "very-rare", "weight": 1, "shortDescription": "Warp route charts; +10 or +20 Navigation by Craftsmanship",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are perhaps some of the most valuable items an Explorer can possess, as they outline safe routes through the warp, or at least as safe as warp travel can get. Some cover jump locations and travel times known to many, but others can reveal translation timetable plots known only to a few who guard their secrets with their lives. Even rarer are those maps presumed lost, describing jump passages thought forgotten or only known as hearsay or legend. These are all items that can spur decades-long quests, either establishing new fortunes and houses or wrecking them utterly.</p><div class='bc-rule'><p>Common-Craftsmanship examples of this item grant no bonus, but Good-Craftsmanship primas grant a +10 to Navigation (either Stellar or Warp) Tests. Best-Craftsmanship primas increase this bonus to +20.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Pict Recorder", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/pict-recorder.webp",
+    "system": {
+      "availability": "common", "weight": 1, "shortDescription": "Records live media",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Pict recorders (or simply picters) are relatively simple live-media recording devices, and some have holographic capabilities. Most also allow for playback as well as recording, and some are even built into dedicated pict-servitors so they can capture important archaeological quests, weapons tests, alien interrogations, and other dangerous events.</p></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Psy-focus", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/psy-focus.webp",
+    "system": {
+      "availability": "rare", "weight": 0, "shortDescription": "+10 Invocation",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Psykers often use devices to help them focus their powers. A psy-focus could be a sacred bone, carved wytch stave, blessed icon, or a chain of crystals.</p><div class='bc-rule'><p>When a Psyker with a Psy-focus makes an Invocation Skill Test he gains a +10 bonus.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Remuneration Engine", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/money.webp",
+    "system": {
+      "availability": "very-rare", "weight": 7, "shortDescription": "–30 to cheat at counting coin",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A tool and symbol of status for wealthy factors and brokers, the optics and prongs of this heavy device rapidly stack, count, and assay the worth of diverse currencies.</p><div class='bc-rule'><p>Any attempt to cheat by Sleight of Hand or similar method of distraction suffers a –30 penalty where a Remuneration Engine is used. Its temperamental machine spirit requires the constant attention of tech-adepts, however.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Shipboard Emergency Kit", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/survival-gear.webp",
+    "system": {
+      "availability": "common", "weight": 6, "shortDescription": "Void survival kit",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Even the most secure and reliable ship possesses emergency kits on most decks—though often decks can measure in the kilometres. Some work crews will also carry smaller versions in case of hull breaches or bulkhead failure.</p><div class='bc-rule'><p>A standard kit weighs roughly 20kg and can include:</p><p>Glowstick: Good for 1d5 hours of steady illumination.</p><p>Universal Power Cell: Using either integral plugs or adaptor leads, it can power a glowstick or emergency vox for 1d5 hours or a laspistol for 5 shots.</p><p>Ration pack and water canister: Contains enough to provide sustenance for roughly 1 day, because if rescue doesn’t come by then it probably won’t come at all.</p><p>Emergency Vox: Usually pre-tuned to the ship’s vox, but advanced models are more versatile, and may also be capable of issuing automatic distress cants such as the standard “Voidfarer’s Prayer for Aid.”</p><p>Air bottle &amp; mask: Contains roughly 30 minutes of air, usually enough to get through toxic passageways.</p><p>Anti-radiation tablets: Essential when exposed to plasma drive leaks or the raw energies of the void.</p><p>Hull sealant spray-gel: This foul-smelling gel can be sprayed onto vents and bulkheads to seal against the void. Each tube can cover 20 or so small (10 sq cm) punctures.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Screamer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/screamer.webp",
+    "system": {
+      "availability": "average", "weight": 1.5, "shortDescription": "Proximity alarm, Perception 75",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Screamers are proximity alarms that detect motion or sound—depending on the model—and alert their users to incoming dangers by making a horrendous noise.</p><div class='bc-rule'><p>To use a screamer, you must succeed on a Tech-Use Test. The GM rolls this test in secret so you are not sure of whether or not the device will work properly. Once set, a screamer has a Perception of 75 for the purposes of detecting sounds or motions. If it detects an intruder, it sounds its alarm, which can be heard anywhere out to one kilometre. Doors, walls and other barriers may reduce the alarm’s range.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Servitor (Labor, Simple Monotask)", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/monotask-servo-skull.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "Mindless labour drone",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A servitor is an automaton whose controlling components are organic and mostly human in origin. Some are grown in vats, while others are formed from the aged bodies of honoured tech-priests or despised criminals whose punishment is to serve the Imperium in this fashion. The process of creating a servitor purges higher brain functions and psychic pattern of the subject, rendering him a blank slate for reprogramming.</p><div class='bc-rule'><p>The most common forms of servitor are mindless labour drones, dedicated to a small selection of simple tasks, and fitted with devices necessary to this toil. Some are not even mobile, being built into the machinery they control. Examples familiar to voidfarers include bridge servitors, pilot servitors, and the hulking monotask servitors that transport cargo pallets in Imperial docking transepts.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Servitor (Combat)", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/monotask-servo-skull.webp",
+    "system": {
+      "availability": "rare", "weight": 0, "shortDescription": "Armed servitor",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A servitor is an automaton whose controlling components are organic and mostly human in origin. The process of creating a servitor purges higher brain functions and psychic pattern of the subject, rendering him a blank slate for reprogramming.</p><div class='bc-rule'><p>More complex or specialised servitors are less common, and have correspondingly more rare Availabilities—where the Mechanicus Calixis agree to provide them at all (see Page 374 for details).</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Servitor (Complex Multitask)", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/monotask-servo-skull.webp",
+    "system": {
+      "availability": "rare", "weight": 0, "shortDescription": "Specialised servitor",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A servitor is an automaton whose controlling components are organic and mostly human in origin. The process of creating a servitor purges higher brain functions and psychic pattern of the subject, rendering him a blank slate for reprogramming.</p><div class='bc-rule'><p>More complex or specialised servitors are less common, and have correspondingly more rare Availabilities—where the Mechanicus Calixis agree to provide them at all (see Page 374 for details).</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 146"
+    }
+  },
+  {
+    "name": "Servo-Skull", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/servo_skull.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "Floating single-task construct",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A human skull—often that of a favoured servant or lowly tech-adept—that has been fitted with a rudimentary machine-spirit, support systems, and a suspensor device to allow it to float through the air. These limited constructs are devoted to a particular task and have the basic equipment to carry out their purpose. Their small size and manoeuvrability allows them to enter otherwise inaccessible spaces and act as eyes and ears for their masters. The servo-skull is synonymous with the Adeptus Mechanicus, whom these creations serve faithfully. Servo-skulls can also be found as cyber-familiars, weapon-bearing guardians, librarium functionaries, medical assistants, lumen-bearers, proclaimers, and scroll-carriers in the greater Imperium.</p><div class='bc-rule'><p>Servo-skull equipment is usually one pair of simple manipulator pincers, a weapon, pict-capture device, surgical implements, stab-light, or loudhailer, but many other functions and servo-skull patterns exist (see page 375 for details).</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 147"
+    }
+  },
+  {
+    "name": "Stummer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/stummer.webp",
+    "system": {
+      "availability": "average", "weight": 2, "shortDescription": "+30 Silent Move",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The reverse of a screamer, stummers generate sound waves to cancel out ambient sounds and noises made by moving personnel in a small area.</p><div class='bc-rule'><p>A character carrying an active stummer gains a +30 bonus to Silent Move Tests. A stummer typically has enough power for 20 minutes of continuous use before needing to be recharged—a process that takes about one hour.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 147"
+    }
+  },
+  {
+    "name": "Venom Ring", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/armoury/misc/key.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0, "shortDescription": "–20 to notice poisoning",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A tool of assassins and dangerous nobility, the ring contains a small reservoir compartment that discretely opens with the right muscle movements of the finger bearing it.</p><div class='bc-rule'><p>It gives a –20 penalty to any Test required to notice that the ring-wearer is introducing a substance into food or drink.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 147"
+    }
+  },
+  {
+    "name": "Vox-caster", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/vox-caster.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "Long-range communications",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A vox-caster is a simple communication device that can be used to send signals over great distances, up to and including ships in orbit from a planet’s surface.</p><div class='bc-rule'><p>Using a vox to receive or transmit signals through interference or other unusual conditions requires a successful Ordinary (+10) Tech-Use Test.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 143 (Table 5-15), p. 147"
+    }
+  }
+]

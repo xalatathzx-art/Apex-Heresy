@@ -1,0 +1,203 @@
+[
+  {
+    "name": "Adamantine Mantle", "type": "gear", "folder": "Relics/Deathwatch Relics",
+    "img": "systems/dark-heresy/assets/icons/equipment/cameleoline-cloak.webp",
+    "system": {
+      "weight": 15, "requisition": 50, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These intricately worked cloaks take their name from the most common variation: small adamantine scales worked into a protective yet flexible defensive covering.</p><div class='bc-rule'><p>Similar, personalised designs exist, all using unbreakable materials to form an impressive cloak. Each one is the labour of decades by master artificers, who temper each individual scale and thread for maximum resilience. Their work is then blessed by Chaplains before finally being laid upon the shoulders of its first bearer. The mantle protects him not just through its physical strength, but also by making his movements more difficult to predict as the opaque cloak whirls about him in combat.</p><p>An adamantine mantle negates 2 points of Armour Penetration from any incoming attack. The wearer gains a +10 to his Opposed Weapon Skill Test to Feint, and if he takes the Defensive Stance Action, foes suffer an additional –10 on Weapon Skill Tests to attack him.</p><p>Unless otherwise stated, a Relic is always Master-Crafted, granting the appropriate Skill Test bonuses.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 168"
+    }
+  },
+  {
+    "name": "Deathwatch Relic Blade", "type": "weapon", "folder": "Relics/Deathwatch Relics",
+    "img": "systems/dark-heresy/assets/icons/weapons/great-weapon.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+7", "damageType": "energy", "penetration": "9",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Power Field",
+      "weight": 25, "requisition": 50, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A standard power sword is no better than a flimsy metal spike in the humbling aura of a relic blade.</p><div class='bc-rule'><p>Remembrancer works from the Horus Heresy depict these magnificent power weapons in the hands of its heroes, and accounts can be found through the ages of how their wielders turned the tides of key battles. Few enough have survived the millennia, and only a precious handful of those are reserved for the Deathwatch.</p><p>Relic blades take various forms, but are always a great weapon of some fashion. They require two hands for even a Space Marine to wield. A relic blade that successfully Parries a weapon without the Power Field Quality automatically destroys the attacker’s weapon. It has the same effect on weapons used to Parry it, shearing through such inferior defences and striking as though opposition was never rendered. A relic blade has a 25% chance to destroy a weapon normally immune to Power Fields (including one with a Power Field) that is not also a Relic.</p><p>Unless otherwise stated, a Relic is always Master-Crafted, granting the appropriate Skill Test bonuses. The effects to Damage are included in their profiles.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 169"
+    }
+  },
+  {
+    "name": "Skapulan Bolter", "type": "weapon", "folder": "Relics/Deathwatch Relics",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 120,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "2d10+9", "damageType": "explosive", "penetration": "7",
+      "clip": { "max": 28, "value": 28 }, "reload": "Full", "special": "Accurate, Tearing",
+      "weight": 16, "requisition": 75, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Deathwatch of the Jericho Reach is strangely silent about the history of Watch Station Skapula, and how this lethal bolter remains from the abandoned station.</p><div class='bc-rule'><p>Techmarines fortunate enough to examine the advanced weapon frequently debate the number and nature of machine spirits necessary to achieve its flawless performance, but the most widely accepted theories place a union of over one hundred machine spirits within the casing of tenebrous alloys.</p><p>In addition to accuracy and power unrivalled in other bolters of its size, the Skapulan Bolter integrates a Fire Selector, a Targeter, and a melee attachment equivalent to a Master-Crafted combat knife. The gun never Jams, and any Attack roll of 96–100 may be re-rolled as the machine spirits —however many they may be— strive for perfection.</p><p>Unless otherwise stated, a Relic is always Master-Crafted, granting the appropriate Skill Test bonuses. The effects to Damage are included in their profiles.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 169"
+    }
+  },
+  {
+    "name": "Armour of the Remorseless Crusader (Black Templars)", "type": "armour", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
+    "system": {
+      "type": "power", "weight": 110, "requisition": 70, "renown": "hero",
+      "part": { "head": 12, "leftArm": 12, "rightArm": 12, "body": 12, "leftLeg": 12, "rightLeg": 12 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This artificer armour is one of a trinity crafted by the Black Templars.</p><div class='bc-rule'><p>Each suit is gilded with detestations of the warp and said to have the blood of saints layered into the thousand-folded adamantite of its construction. The Armour of the Pitiless Crusader and the Fearless Crusader remain with the Chapter, but one unit was tithed to the Deathwatch.</p><p>In addition to the normal benefits of artificer armour, hexagrammic wards provide +20 to Tests made to resist psychic effects, and double the suit’s armour points against psychic or warp attacks that deal damage. It retains full armour value against attacks with the Warp Weapon effect. The Armour of the Remorseless Crusader also incorporates a Master-Crafted, Sanctified sword that can extend from the forearm.</p><p>On rare occasion a Chapter permanently contributes a relic of Chapter significance to the Deathwatch as a reaffirmation of their oaths. Other such items sometimes find their way into Deathwatch armouries when the Battle-Brother who owned it dies in service with his Mission unfulfilled. Even if many Deathwatch vaults did not protect their own contents through gene-coded locks, no Space Marine would be so crass as to use a relic sacred to another Chapter. These relics are only issued to Battle-Brothers of the same affiliation as the relic’s legacy.</p><p>Sword profile: Melee, 1d10+8 R, Pen 6, Sanctified.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 167"
+    }
+  },
+  {
+    "name": "Remorseless Crusader Sword", "type": "weapon", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/weapons/sword.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+8", "damageType": "rending", "penetration": "6",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Sanctified",
+      "weight": 0, "requisition": 0, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Armour of the Remorseless Crusader also incorporates a Master-Crafted, Sanctified sword that can extend from the forearm.</p><div class='bc-rule'><p>This is the sword profile of the Armour of the Remorseless Crusader (Black Templars); its weight and Requisition are those of the armour.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 167"
+    }
+  },
+  {
+    "name": "Chalice of Vision (Blood Angels)", "type": "gear", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/equipment/holy-icon.webp",
+    "system": {
+      "weight": 5, "requisition": 70, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The shrouded motives of the Omega Vault revealed this ornate gold chalice the day Watch Captain Mordigael assumed his role as Master of the Vigil.</p><div class='bc-rule'><p>Unknown hands engraved it with the image of Sanguinius’ final battle and set a reservoir of a ritual compounds in its base that releases when the cup is filled. The resulting draught can be used in the Rite of Vision, said to grant a Blood Angel the same almost prescient clarity their Primarch possessed. Bearers of the Chalice typically carry a flask of scarlet sacramental wine to use with the relic.</p><p>Those who imbibe from the Chalice gain +10 to all WS, BS, and Skill Tests, and the Unnatural Perception Trait for 1 hour. Dire consequences exist for those who violate the strictures against performing the Rite of the Vision too often. At the GM’s discretion, those who drink from the Chalice may experience strange oracular visions that my reveal hints about the future.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 167"
+    }
+  },
+  {
+    "name": "Deathroar (Dark Angels)", "type": "weapon", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "plasma", "range": 40,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+13", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 10, "value": 10 }, "reload": "3 Full", "special": "Blast (1), Felling (1), Volatile, Maximal",
+      "weight": 7, "requisition": 70, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This venerated Plasma Pistol was recently left to the Deathwatch by Captain Raziel of the Dark Angels, who gave his life to hold a fortress on the edge of the Cellebos Warzone against Chaos sieges until reinforcements arrived.</p><div class='bc-rule'><p>Deathroar contains the power of a heavy weapon in its small casing. The super-heated air around the muzzle as the weapon discharges produces a unique sound reminiscent of predatory felines from which Deathroar derives its name. Firing Deathroar on Maximal setting does not cause the Overheats Quality.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 168"
+    }
+  },
+  {
+    "name": "Frost Blade (Space Wolves)", "type": "weapon", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
+    "system": {
+      "class": "melee", "type": "power", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+11", "damageType": "energy", "penetration": "9",
+      "clip": { "max": 0, "value": 0 }, "reload": "", "special": "Balanced, Power Field, Tearing",
+      "weight": 10, "requisition": 60, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Frost blades are master works from the Space Wolves’ Iron Priests—each incredibly rare and prestigious.</p><div class='bc-rule'><p>The teeth of these icy chain weapons are always cut from nigh-unbreakable substances such as Kraken fangs or tempered diamond. The unique power fields enveloping frost blades have a distinct blue cast. A frost blade combines the best of a chain weapon and a power weapon, and adds +3 Damage when an attack from the weapon causes Critical Damage.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 168"
+    }
+  },
+  {
+    "name": "Helm of Varthion (Ultramarines)", "type": "gear", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/protection/flak-helmet.webp",
+    "system": {
+      "weight": 18, "requisition": 70, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sergeant Varthion is a legend on Watch Fortress Erioch.</p><div class='bc-rule'><p>Long before Warmaster Achilus ever dreamed of conquest through the Warp Gate, the Deathwatch kept vigil over it. In the fourth century of M41, Varthion and his squad destroyed a xenos warhost hundreds of times their number in defence of the Gate. Records conflict as to which side of the Gate originated the enemy assault, but accounts of the aftermath in the control structure are identical. They describe alien corpses of an aspect uncatalogued before or since, “in such volumes that Varthion’s squad stood atop them like Titans astride a demolished hive.”</p><p>The Ultramarine Sergeant’s ancient helm contains the pinnacle of augury sensors and prophesier readouts. It grants +10 to all Attack rolls, and unerringly divines the enemy’s weakest point, granting a +3 bonus to the Penetration of any weapon wielded by the helm’s wearer. A dedicated cogitator bank also provides tactical recommendations based on thousands of years of compiled Ultramarines combat theory. This increases the wearer’s effective Rank by 1 for purposes of calculating Cohesion or for Ultramarines Chapter abilities in Solo Mode.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 168"
+    }
+  },
+  {
+    "name": "The Levin Shield (Storm Wardens)", "type": "forceField", "folder": "Relics/Chapter Relics",
+    "img": "systems/dark-heresy/assets/icons/protection/brute-shield.webp",
+    "system": {
+      "protectionRating": 55, "overloadChance": 1, "weight": 10, "requisition": 50, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Storm Wardens Chapter Master, Lorgath Maclir, once wielded the Levin Shield.</p><div class='bc-rule'><p>It is said he passed it to the Deathwatch in payment of an honour debt to Watch Captain Mordigael. This storm shield adjusts to the bearer’s bio-electric signature and uses his body as part of the circuit to generate its powerful energy field. The crackling nimbus protects the wielder while electrifying his foes. The Shield’s kinetic repercussion plating also unleashes thunderous fury when struck.</p><p>This Force Field has a Protection Rating of 55 and an Overload number of 1, and causes 1d10+4 Energy Damage each Round to all creatures in melee with the wielder, ignoring armour. If the Storm Warden successfully Parries with the Levin Shield, the attacker must immediately make a Toughness Test at –10 per degree of success by which the Parry succeeded, or be Stunned for 1 Round. As a storm shield, it also provides +4 AP to the Body and the Arm carrying it and reduces the time necessary for a Guarded Attack to a Half Action.</p></div></div>",
+      "source": "Deathwatch, p. 167 (Table 5-15), p. 168"
+    }
+  },
+  {
+    "name": "Devotion Chain (Black Templars)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/manacles.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Black Templars frequently wrap sections or their armour with chains, or bind their weapons to themselves to symbolize that they are unendingly bound to war against the Emperor’s enemies.</p><div class='bc-rule'><p>These constant reminders of a Black Templar’s vows steel his resolve. Add +3 to any Willpower Test to resist Fear effects and Cohesion Damage.</p><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 169"
+    }
+  },
+  {
+    "name": "Tabard (Black Templars)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/macharian-clothing.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Tabards may bear personal, Deathwatch, Chapter, or even Squad-specific heraldry.</p><div class='bc-rule'><p>In other cases they are ornamental and without symbols of any kind. Black Templars in the Deathwatch typically wear tabards only from the waist to avoid marring the uniform intent of the Squad colouring, but less conforming individuals have been known to wear the full tabards most commonly seen back in their home Chapter. Choose one of the following types of tabard:</p><ul><li><strong>Ornamental:</strong> Add +2 to Fellowship Tests.</li><li><strong>Deathwatch / Squad heraldry:</strong> The Kill-team restores 1 bonus Cohesion for every Primary Objective achieved.</li><li><strong>Chapter heraldry:</strong> Add 1 to the character’s effective Rank for determining Black Templar Solo Ability effectiveness, but subtract 1 from Squad Base Cohesion.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 169"
+    }
+  },
+  {
+    "name": "Blood Drop Pendant (Blood Angels)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These ornaments are representations of the Blood Angels’ Chapter symbol and the blood of Sanguinius that runs through their collective veins.</p><div class='bc-rule'><p>Some are literally filled with the Battle-Brother’s own precious blood, while others are jewelled or crystalline representations. They are most often, but not always, worn around the neck. Whenever the character spends a Fate Point to gain a bonus on a Test, he may add +13 instead of the usual +10.</p><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 169"
+    }
+  },
+  {
+    "name": "Golden Icons (Blood Angels)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/holy-icon.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blood Angels frequently hang sacred gilded icons on their armour or from their belts.</p><div class='bc-rule'><p>The exact form of these items varies, but they are considered a display of devotion as well as serving as a focus for spiritual meditation. Choose one of the following types:</p><ul><li><strong>Icon of Inspiration:</strong> Add +3 to Command Tests.</li><li><strong>Wings of Wrath:</strong> Add +1 to Damage if the character hits with his attack during the Charge action.</li><li><strong>Purity Focus:</strong> Whenever the Battle-Brother gains Corruption Points, reduce the total by 1.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Robe (Dark Angels)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/macharian-clothing.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Hooded robes are a common sight amongst Dark Angels.</p><div class='bc-rule'><p>While they are most often worn by veterans and other high ranking warriors, Battle-Brothers of all ranks may be found wearing them. The exact reasons and hidden meanings of wearing such a robe are difficult to discern even for members of the Chapter, but a few examples exist below:</p><ul><li><strong>Scholar’s Robe:</strong> Choose one Scholastic Lore and add +3 to all Tests on it.</li><li><strong>Robe of Secrets:</strong> Choose one Forbidden Lore and add +3 to all Tests on it.</li><li><strong>Seeker’s Robe:</strong> add +3 to Scrutiny Tests.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Wolf Pelt (Space Wolves)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/survival-gear.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Fenrisian wolves are renowned across the galaxy for their viciousness.</p><div class='bc-rule'><p>They are respected creatures, and greatly entwined with Space Wolf beliefs. Unarmed hunting rituals exist on Fenris to prove a warrior’s prowess. Should a Battle-Brother succeed on such a hunt, he typically displays the pelt of the animal thereafter. Add +2 to Intimidate Tests.</p><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Runic Totem (Space Wolves)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/instruments-of-divination.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Sons of Russ have many traditions that are unique to their Chapter, and at the heart of Fenrisian mysticism stand the Rune Priests.</p><div class='bc-rule'><p>Using their arcane arts they craft rune totems to call upon the powers of Fenris’ mythic beasts, and Space Wolves fiercely believe that these talismans can lend the bearer power from the spirit whose name is inscribed upon it. Listed here are some representative totems:</p><ul><li><strong>Totem of the Bloodied Hunter:</strong> add +1 to any damage inflicted by Righteous Fury.</li><li><strong>Totem of the Sea Wolf:</strong> Choose one Drive or Pilot Skill and add +3 to all Tests on it.</li><li><strong>Totem of the Sun Wolf:</strong> add +3 to Awareness Tests.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Tempest Amulet (Storm Wardens)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/holy-icon.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The native traditions of Sacris place a strong emphasis on the ability of an individual to affect change in the world through strength of arm and force of will.</p><div class='bc-rule'><p>Tempest Amulets are rooted in mysticism, but also serve as a focus for the Storm Warden’s stubborn will. These small leather pouches contain “tempest stones,” rocks fused into glass by the fierce lightning storms of Sacris and wrapped in prayer scripts written by the owner.</p><ul><li><strong>Amulet of Might:</strong> Add +2 to Strength (after all other modifiers).</li><li><strong>Victory Scripture:</strong> Gain +2 WS when fighting an enemy in single melee combat.</li><li><strong>Guardian Amulet:</strong> The enveloped scripts venerate the Storm Warden’s lost 1st Company, so that they will send aid to the bearer in times of greatest peril. The amulet counts as a Charm.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Cingulum (Ultramarines)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/backpack.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The cingulum is a belt formed from several studded straps of leather or a similar strong and flexible material, which serves as a place for the hanging of victorex and other accolades of valour.</p><div class='bc-rule'><p>Such belts are common decorations amongst the Ultramarines and their successor chapters. The appearance of a cingulum also varies with the type of small, detailed plates that have been used to stud it and the choices of what terminal decorations hang upon it.</p><ul><li><strong>Adamantine Inlays:</strong> The detailed plates are strong enough to deflect weak blows. Add +3 to Parry Tests.</li><li><strong>Honour Bells:</strong> The clinking scales and bells hung at the end of each strap herald the bearer’s approach. Gain +3 WS on your first Attack roll in a combat.</li><li><strong>Marks of Leadership:</strong> Add +3 to any tests made to regain Cohesion or prevent Cohesion Damage.</li></ul><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  },
+  {
+    "name": "Heraldry Scroll (Ultramarines)", "type": "gear", "folder": "Chapter Trappings",
+    "img": "systems/dark-heresy/assets/icons/equipment/writing-kit.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Scrolls worked into a Battle-Brother’s armour, either as metalwork or a placard are popular in many chapters, and the Ultramarines are no exception.</p><div class='bc-rule'><p>This crest may display a motto or title, but most commonly it bears the Ultramarine’s name so that his enemies know who brings their deaths, and tales of his deeds may travel. Add +10 Kill Markers to any Assault Mission where the scroll was displayed in at least one battle.</p><p>A character may start with one Chapter-appropriate trapping from this section.</p></div></div>",
+      "source": "Deathwatch, p. 170"
+    }
+  }
+]

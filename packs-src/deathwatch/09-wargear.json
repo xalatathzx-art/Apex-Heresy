@@ -1,0 +1,488 @@
+[
+  {
+    "name": "Astartes Harness", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/climbing-harness.webp",
+    "system": {
+      "weight": 8, "requisition": 4, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Offering more safety than a grapnel but less noise and bulk than a jump pack, this Battle-Brother-sized harness can be used to aid in safely descending from terrain or buildings.</p><div class='bc-rule'><p>The simple harness fits over a character’s power amour. A hook-shaped magnetic clip can then be anchored to a wide variety of surfaces as the coiled safety line slowly unspools. The Battle-Brother gains a +30 bonus to Climb Tests, and will not fall if he fails.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171"
+    }
+  },
+  {
+    "name": "Astartes Jump Pack", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/grav-chute.webp",
+    "system": {
+      "weight": 50, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These large rocket thrusters typically attach to the backpack power unit on Astartes power armour.</p><div class='bc-rule'><p>The user triggers a jump pack to lift high into the air and then swoops down as part of his assault. Jump packs are also useful in leaping over high obstacles and reaching distant enemies. Most Battle-Brothers receive the specialised training necessary to operate these devices as part of an assault squad, where the extra noise and bulk is secondary to the extra mobility that would allow him to charge that much faster into the thick of battle.</p><p>A Jump Pack requires the Pilot (Personal) skill to operate effectively. An Astartes Jump Pack allows for a safe, guided fall from any height, and any number of short jumps. Such jumps allow the Battle-Brother to double his Base Movement and travel in any direction without regard for obstacles. For all other purposes, he counts as having taken the appropriate Movement action. He must land by the end of his Turn. Alternatively, the pack can use maximal thrust to duplicate the Flyer (12) trait for up to a minute before the turbines require a minute to cool.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171"
+    }
+  },
+  {
+    "name": "Astartes Magboots", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/mag-boots.webp",
+    "system": {
+      "weight": 5, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Astartes power armour can be upgraded to contain strong electromagnets built into the boot soles, allowing the wearer to adhere to metallic surfaces such as exterior hull plating.</p><div class='bc-rule'><p>These magnets may be activated or de-activated at the beginning of the wearer’s Turn. Magboots reduce Agility Bonus (recalculate Movement accordingly) by half when used, but otherwise allow normal movement in low- or zero- gravity areas provided there is a suitable surface to walk upon. Standalone versions of Magboots can be found outside the Adeptus Astartes.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171"
+    }
+  },
+  {
+    "name": "Astartes Psychic Hood", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/psy-focus.webp",
+    "system": {
+      "weight": 15, "requisition": 25, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arcane devices known as psychic hoods are lined with psi-enhancing crystals that amplify the wearer’s psychic powers.</p><div class='bc-rule'><p>Some would say more importantly, they render the wearer capable of nullifying the effects that other psykers have on the warp nearby. A character equipped with a psychic hood may spend his Reaction to attempt to nullify a psychic technique being used by another psyker within a number of metres equal to the character’s Willpower. This attempt should be declared before the enemy psyker makes his Focus Power roll. The psychic hood’s wearer first makes a Focus Power (Willpower) Test. Every degree of success imposes a –10 penalty on the enemy’s Focus Power Test. Alternatively, the wearer may attempt to nullify the effects of a Psychic Technique on himself only, regardless of Range. To do this, the character takes a Focus Power (Willpower) Test. If he succeeds, he is unaffected by the Psychic Technique, but any other targets or areas are affected normally. A nullification Test may trigger psychic phenomena based on Psychic Strength as normal. Additionally, the psychic hood grants the wearer a +5 bonus to all Focus Power Tests, including nullification attempts.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171"
+    }
+  },
+  {
+    "name": "Back Banner", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "weight": 5, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A Battle-Brother is asked to leave his home Chapter allegiances and the majority of its heraldry behind when he joins the Deathwatch.</p><div class='bc-rule'><p>However, that does not mean his squad is without honour, inspiration, or heroes, for devoting oneself to the grisly war against the alien is its own great reward. Back banners fly on ornate poles wrought with the Deathwatch symbol and icons of Imperial faith, mounted on a backpack power unit or rising from between the shoulder blades. These elaborate banners often tower as tall again as the Battle-Brother’s height itself, heralding the valour of the Emperor’s avenging angels to brother and foe alike.</p><p>When the Kill-team’s leader spends a Fate Point to restore a point of Cohesion (see page 212), he restores one bonus point of lost Cohesion if he is wearing a back banner.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171"
+    }
+  },
+  {
+    "name": "Charm", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/holy-icon.webp",
+    "system": {
+      "weight": 0, "requisition": 6, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A charm is a keepsake, holy relic, or good luck token that is intended to draw the benevolent eye of the Emperor, a Primarch, or other patron to the bearer.</p><div class='bc-rule'><p>They take myriad forms including such things as fragments of blessed bolter casings, water from holy seas, and pelts of sacred animals.</p><p>Charm choices vary with Chapter and with the individual. Charms have no tangible benefits. However, when the unfolding plot calls for something bad to happen to a random squad member, at the GM’s discretion a character with a charm may be exempt. If all characters carry charms, then it is up to the GM to choose which charms are the most potent.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 171–172"
+    }
+  },
+  {
+    "name": "Chrono", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/chrono.webp",
+    "system": {
+      "weight": 0, "requisition": 1, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chronos are timepieces, which are dependable and simple to use.</p><div class='bc-rule'><p>General models are usually hand-held or worn on the wrist, while Space Marines typically rely on the ones built into their armour.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 172"
+    }
+  },
+  {
+    "name": "Dilation Field", "type": "gear", "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/protection/field.webp",
+    "system": {
+      "weight": 1, "requisition": 45, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Remnants of largely abandoned experiments with inverting stasis field technology, a few of these devices linger in the armouries of Jericho Reach.</p><div class='bc-rule'><p>These small, unembellished boxes are similar in size to a force field projector, but rather than surrounding the user with a protective field, within their sphere of effect time seems to pass at a different rate. While this enables a Battle-Brother to react with unprecedented swiftness to the events around him, the sudden shift in his perceptions can be disorienting.</p><p>A dilation field grants the owner the Unnatural Agility and Unnatural Speed Traits. Activating the field is a Ready Action with all effects (including any change to the character’s place in the Initiative Order) beginning at the start of the next Round. Dilation fields consume huge amounts of power, and once activated remain on for only 1d10 Rounds before requiring 1 hour to recharge. Furthermore, the character is at –10 WS and BS on the first Turn the field goes into effect, and the first Turn after the field’s effects end, as he adjusts his timing.</p><p>The interactions between dilation fields and force fields can have disastrous consequences, and only one type of field should be activated at a time on a character.</p></div></div>",
+      "source": "Deathwatch, p. 171 (Table 5-17), p. 172"
+    }
+  },
+  {
+    "name": "De-Tox", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A more powerful form of the anti-toxins found in Astartes power armour, this drug can negate the effects of most dangerous gases and toxins if administered quickly enough.</p><div class='bc-rule'><p>A dose of de-tox immediately ends the ongoing effects, both positive and negative, of any drugs, toxins, or gases affecting the character (unless the effect states that de-tox is not effective against them) and renders him immune for another 1d10 Rounds. Given that natural Space Marine resilience protects him against many of the common chemicals that pose a threat to other beings, de-tox is manually administered to avoid unintended interruption of injector system effects.</p><p>Unless otherwise noted, all drugs listed here are Astartes-grade. They may be used on normal humans, but this requires a Routine (+10) Medicae Test when administered to correctly cut the dosage and avoid causing 1d5 levels of Fatigue and 1 Round of Stun in addition to the intended effect. Unless otherwise noted, the Requisition cost listed in Table 5–19: Drugs and Consumables is for a single unit or dose.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 172"
+    }
+  },
+  {
+    "name": "Deadlock (Toxin)", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This paralytic chemical causes the target’s muscles to seize, immobilising him for easy elimination or capture without rendering him unconscious.</p><div class='bc-rule'><p>This toxin is most commonly found in the form of needler rounds. If the victim fails a Difficult (–10) Toughness Test, he suffers 1d10 temporary Strength Damage, plus a further 1d10 per degree of Failure. If he reaches “0” Strength, he is completely paralysed and unable to act. This paralysis and Strength Damage wears off in 2d5 minutes, minus the victim’s Toughness Bonus (minimum 1 minute).</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 172"
+    }
+  },
+  {
+    "name": "Delay Agent (Toxin)", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 6, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Not a toxin in and of itself, a delay agent encapsulates the molecules of drugs and poisons with a slowly decaying non-reactive microshell that allows the payload to take effect substantially after delivery.</p><div class='bc-rule'><p>Any drug or toxin may be cut with a delay agent, causing it to take effect 1d5 hours after it is administered.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 172"
+    }
+  },
+  {
+    "name": "Genophage (Toxin)", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Lethally effective, every dose of genophage is tailored to attack the weaknesses in the molecular structure of a particular individual.</p><div class='bc-rule'><p>As such, it may never be simply Requisitioned, and must always be custom made. Victims of genophage stand little chance of resisting the quick-acting enzymes that immediately shut down circulatory and respiratory functions.</p><p>Genophage is so deadly that it only needs to make contact with its intended target to be effective. If used in weapon form, this means the attack must deal at least 1 point of Damage after AP, but does not need to overcome TB. If contact is made, the target must pass a Hard (–20) Toughness Test. Failure indicates he takes 1d10+5 impact Damage with no reduction for armour or Toughness. This continues every Round until the victim either passes the Test or dies. If genophage is used upon a creature other than the individual it was made for, it simply has the standard Toxic effect.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 172–173"
+    }
+  },
+  {
+    "name": "Injector", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Injectors carried by the Adeptus Astartes are usually hypo-sprays that require helmets to be removed so that skin contact can be made.</p><div class='bc-rule'><p>An injector can hold a single dose of any drug (or toxin), which a character may administer as a Full Action. An injector may be used on an unwilling target through standard melee combat rules as though it were a weapon, but the injector itself deals no Damage and cannot penetrate armour.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Narthecium", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/chirugeons-kit.webp",
+    "system": {
+      "weight": 5, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The tool of an Apothecary’s trade, a narthecium contains implements specially designed for Space Marine physiology and for performing first aid without having to remove the patient’s power armour.</p><div class='bc-rule'><p>It also comprises various counterseptics, skin patches, transfusions and other compounds engineered for the Space Marines’ physiology, and several stasis tubes for storing recovered gene-seed.</p><p>A narthecium grants a +20 Bonus to Medicae Tests made on a Space Marine patient. It also raises the Threshold at which the patient is considered Lightly Damaged to 3 times his Toughness Bonus, and doubles the amount of damage healed by first aid. A narthecium also holds ten doses of any one drug. The drug must be acquired separately.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Pain Suppressant", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The same chemical is found in most Astartes power armour injectors and allows a character to ignore Critical Effects for 1d10 Rounds.</p><div class='bc-rule'><p>Additional doses are often carried in nartheciums, and may also be used in the Sacraments of Renewal to refill power armour injectors with a Routine (+10) Tech-Use Test.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Repair Cement", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/equipment.webp",
+    "system": {
+      "weight": 0.5, "requisition": 1, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Repair Cement is a spray-gel composed of dual tubes of polyplas allomers that bond instantly with each other to seal power armour damage.</p><div class='bc-rule'><p>It is typically used for quick field repair of breaches until the armour can be attended properly by a follower of the Omnissiah. A Space Marine learns how to use repair cement as soon as he is issued power armour; its application takes one Round but requires no Test.</p><p>†Requisition value is only for evaluating requests deemed “excessive”.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Resuscitex", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "weight": 0, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This stimm is intended to revive an unconscious comrade.</p><div class='bc-rule'><p>It immediately wakes an unconscious character. If the character has taken Fatigue levels in excess of his Toughness Bonus, it reverts the level of Fatigue to a number equal to his TB. It has no effect on conscious characters suffering Fatigue levels equal to or less than their TB.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Sacred Unguents", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/sacred-unguents.webp",
+    "system": {
+      "weight": 0, "requisition": 20, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sacred unguents blessed by the Omnissiah are much sought after for their mystical properties when applied to machines.</p><div class='bc-rule'><p>If applied to a weapon (a Full Action) it becomes immune to Jamming (see Chapter VIII: Combat, page 249) for a number of shots equal to its clip size. If the weapon is Jammed and the unguent is then applied, it immediately unjams, but there is no further effect.</p></div></div>",
+      "source": "Deathwatch, p. 172 (Table 5-18), p. 173"
+    }
+  },
+  {
+    "name": "Astartes Cluster Mines", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/weapons/blasting-charge.webp",
+    "system": {
+      "weight": 4, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cluster mines are designed not just for explosive power, but to avoid the enemy’s notice until he is blown into tiny bits.</p><div class='bc-rule'><p>Cluster mines achieve this aim by packing triple-intensity fyceline or similarly potent explosives into dozens of micro-explosive nodules that are linked to a single trigger, typically a tripwire or pressure sensor. The networked explosives have a synergistic effect and produce a massive blast when detonated.</p><p>A standard mine array covers two square metres; this can be increased by linking multiple mine arrays, but the area’s smallest dimension must not be less than one metre for the mines to have their full effect. Cluster mines are designed for even the relatively green Scout squads to plant without extensive training. When setting cluster mines, the character makes a Concealment Test, receiving a +20 bonus if he is also trained in Demolitions. Note the degrees of success, as any character about to pass through a mined area Opposes those successes with an Awareness Test. If the potential victim wins the contest, he may stop short to avoid the mines. If he fails, he and anyone else in the mined area take 4d10 X Damage with a Penetration of 4.</p><p>A successful Demolitions Test while planting mines allows for more sophisticated trigger techniques such as time-delays. These booby traps are particularly effective when used to damage the vulnerable underside of most vehicles. Cluster mines double their Penetration to any vehicle in their area of effect.</p><p>†This is the cost for one mine array. Each cluster of mines must be Requisitioned individually.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 173"
+    }
+  },
+  {
+    "name": "Astartes Signum", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/auspex.webp",
+    "system": {
+      "weight": 5, "requisition": 35, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A signum is a sensorium and transmitter array that can be mounted on a Battle-Brother’s armour.</p><div class='bc-rule'><p>It broadcasts enhanced tactical readings to all members of a Squad, allowing them to benefit from the targeting data. While a character equipped with a signum is in Squad Mode, all characters in Squad Mode receive a +5 bonus to Ballistic Skill Tests. If the equipped character spends a Full Action and succeeds on a Tech-Use Test, this bonus increases to +10 until the end of the next Round. The effects of multiple signums are not cumulative, but see the signum link below.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 173"
+    }
+  },
+  {
+    "name": "Astartes Signum Link", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/micro-bead.webp",
+    "system": {
+      "weight": 0.5, "requisition": 20, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A signum is a useful tool alone, but by equipping the targeting systems of one or more squad members with a signum link, they can make optimal use of the signum’s readings to achieve unparalleled acts of teamwork by forming a web of their interconnected autosenses.</p><div class='bc-rule'><p>This allows all participating members to make a concerted attack on the same foe, striking with a coordinated precision that makes their assault all but inescapable.</p><p>To form a signum web, at least one member of a Squad must be equipped with a signum. One or more other characters in the squad then equip their armour with signum links. All characters in Squad Mode on the web (via the signum or a link) may benefit from the rules for ganging up on an opponent, regardless of whether they are engaged in melee or using ranged attacks, and with the benefits applying both to Weapon Skill and Ballistic Skill. Characters in Solo mode gain no benefits from being part of the signum’s web.</p><p>Wt +0.5.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 173–174"
+    }
+  },
+  {
+    "name": "Astartes Targeter", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/magnoculars.webp",
+    "system": {
+      "weight": 4, "requisition": 25, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Space Marine version of a Targeter encompasses several sights connected to a guidance cogitator array that improves overall accuracy.</p><div class='bc-rule'><p>Rather than being hard-wired to a specific weapon, the array fixes at the shoulder or backpack unit and links into the power armour’s general targeting systems, providing its benefits to all ranged weapons the user wields regardless of their Class.</p><p>A Targeter combines the effects of a Red-Dot Laser Sight and Telescopic Sight. In addition, its sophisticated target-lock system makes evading a shot from a weapon guided by it extremely difficult. Attempts to Dodge ranged attacks from a character equipped with a Targeter suffer a –10 penalty.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Auspex", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/auspex.webp",
+    "system": {
+      "weight": 0.5, "requisition": 12, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These devices are used to detect energy emissions, motion, and biological life signs.</p><div class='bc-rule'><p>A character using an auspex gains a +20 bonus to Awareness Tests and may make a Tech-Use Test to spot things not normally detectable to human senses alone, such as invisible gases, nearby bio-signs, or ambient radiation. The standard range for an auspex is 50m, though walls more than 50cm thick and certain shielding materials can block the scanner.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Cartograph", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/data-slate.webp",
+    "system": {
+      "weight": 0.5, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This specialised data-slate accepts geographical and navigational information on a planet, either from existing data-banks or gathered by a ship’s Augur Arrays in orbit.</p><div class='bc-rule'><p>Its geo-locator tracks the user’s planetary coordinates, enabling it to provide distance and bearing to any known location. This provides a +10 to all Navigation (Surface) Tests. It is also capable of storing detailed maps and schematics, which can be useful for objective approach planning. Many cartographs are also equipped with a small holo-projector that displays three-dimensional maps of its contents.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Codex Astartes", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/writing-kit.webp",
+    "system": {
+      "weight": 0.5, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The entirety of the Codex Astartes fills immense librariums, but many Space Marines carry the heart of this sacred text into battle.</p><div class='bc-rule'><p>Of course, interpretations of what passages form the core of the codex vary even more than the forms it has been transcribed into over the millennia since the Second Founding. From hand-copied tomes bound in etched leather to crystal-circuited datacrypts, the collected wisdom of Roboute Guilliman, the Primarch of the Ultramarines—and arguably the most celebrated war tactician the Imperium has ever seen—endures in forms uncounted. It is also the guiding doctrine for how most Chapters operate today. Many Battle-Brothers, particularly the descendants of Guilliman, never pass a day without studying from this text.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Combi Tool", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/combi-tool.webp",
+    "system": {
+      "weight": 1, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Commonly found in the hands of Techmarines, combi-tools are versatile, if somewhat bizarre, mechanical devices.</p><div class='bc-rule'><p>They are spindled with small implements that interface, cut, solder, and anoint, granting a +10 bonus to Tech-Use Tests.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Data Slate", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/data-slate.webp",
+    "system": {
+      "weight": 0.5, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Data-slates are commonplace in the Imperium—the primary means of storing and reading printed text, schematics, and other media such as video (pict) or audio (vox) recordings.</p><div class='bc-rule'><p>Models range from cheap, single purpose devices built to play only a certain recording, to sophisticated models that can re-record new information and transmit and receive data from other devices.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 174"
+    }
+  },
+  {
+    "name": "Demolition Charges", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/weapons/demolition-charge.webp",
+    "system": {
+      "weight": 1, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A demolition charge is a simple explosive device, commonly used for blowing open doors, breaching bulkheads, and destroying infrastructure.</p><div class='bc-rule'><p>The listed weight for a demolition charge represents 1 kg of explosives, though it is possible to rig charges together, thus increasing their destructive potential. When a demolition charge explodes, anyone (or anything) caught within its blast radius takes 3d10 Explosive Damage plus an additional 2 points of Damage for every kilogram used. The blast radius of the charge is 3 metres for each kilogram used. For setting and defusing explosives see the Demolition Skill in Chapter III: Skills, pages 97-98.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Elucidator", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/data-slate.webp",
+    "system": {
+      "weight": 1, "requisition": 25, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Jericho Reach is rife with planets out of contact with the Imperium for thousands of years, pockets of humanity lost during the Age of Shadow or even before.</p><div class='bc-rule'><p>During that time, their language may have diverged radically from Low Gothic. An elucidator is a hand-held device that can analyse speech or text, and translate it into a standard language and dialect (and vice versa). It is most useful in dealing with cultures whose languages have a basis in Low Gothic, requiring no Test to perform this function. However, a character with the Logic Skill may make a Difficult (–20) Test to use an elucidator to decipher basic meanings from truly alien languages. (The GM may adjust this modifier depending on the language’s similarity to ones the character does know.) An elucidator’s output can display on its screen, project from its vox, or transmit through a vox channel.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Lamp/Glow-globe", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/glow-globe.webp",
+    "system": {
+      "weight": 0.5, "requisition": 1, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These common devices can illuminate an area a dozen or more metres in diameter.</p><div class='bc-rule'><p>A typical lamp lasts 1d5 hours before it needs to be recharged.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Locus Seeker", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/multicompass.webp",
+    "system": {
+      "weight": 0, "requisition": 30, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A locus seeker is actually a pair of devices.</p><div class='bc-rule'><p>The smaller component, the locus caller, is a dull metal sphere only millimetres in diameter. The larger component is a small, translucent globe with a needle of identical metal suspended mysteriously inside. The needle, called the locus seeker, is usually carved in the shape of a grasping talon and reaches unerringly towards the caller, with no observed limits on its distance. Occasionally these globes have been unearthed with missing callers, and unlucky men have been sent to search for decades or even lifetimes to locate the other piece, so valuable is a completed locus seeker.</p><p>Although difficult to come by, these devices can be invaluable for tracking suspicious ships, cargo, or individuals over not just planets, but sectors. Plotting a course towards the caller using the globe requires the appropriate Navigation Test with a Difficulty based on how much distance lies between the two. Hiding a locus caller on a person or object requires a Concealment Test, with the degrees of success noted for later Opposed Search Tests by any potential detectors. One may also embed a caller in an object through a Routine (+10) Test on the appropriate Skill (Tech-Use for a data-slate, Trade (Armourer) for a weapon, and so on).</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Magnoculars", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/magnoculars.webp",
+    "system": {
+      "weight": 0.5, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are powerful vision aids that magnify distant objects.</p><div class='bc-rule'><p>More advanced, high-quality magnoculars can also give range read-outs, detect heat sources, calculate target location positioning, and take pict-captures of a view for later analysis.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Melta Bomb", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/weapons/melta-bomb.webp",
+    "system": {
+      "weight": 12, "requisition": 25, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Melta bombs affix to their target with mag-adhesives designed to quickly adhere to metallic surfaces.</p><div class='bc-rule'><p>They detonate with a powerful shaped charge of intense heat akin to a meltagun beam, and are ideal for destroying dangerous alien relics, vehicle hulls, and other heavily armoured targets. Melta bombs are typically unwieldy and not designed to be thrown, only placed in contact with their target material to ensure the charge explodes to maximum effect. When a melta bomb explodes it deals 6d10 E Damage to anything within 2 metres with a Penetration of 12. Anything surviving must pass an Agility Test or catch on fire.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Multikey", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/multikey.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As it can open most standard Imperial locks, a multikey is reason for suspicion in the hands of a common citizen.</p><div class='bc-rule'><p>For organisations like the Deathwatch they are indispensable, as it is considerably faster and quieter to infiltrate the enemy’s fortifications than to blast through them. A character with a multikey gains a +30 bonus to any Security Test when trying to open locks.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Pict Recorder", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/pict-recorder.webp",
+    "system": {
+      "weight": 1, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Pict recorders (or simply picters) are relatively simple live-media recording devices, and some have holographic capabilities.</p><div class='bc-rule'><p>Most also allow for playback as well as recording, and some are even built into dedicated pict-servitors so they can capture important battles, weapon tests, alien interrogations, and other dangerous events.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Psy-Focus", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/psy-focus.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Psykers and Librarians often use these items to help them focus their powers.</p><div class='bc-rule'><p>A psy-focus could be a book of meditations, a blessed icon, or a carved witch stave from the Battle-Brother’s homeworld. When a psyker with a Psy-focus makes an Invocation Skill Test (see Chapter III: Skills, page 99) he gains a +10 bonus.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175"
+    }
+  },
+  {
+    "name": "Reductor", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/lascutter.webp",
+    "system": {
+      "weight": 4, "requisition": 8, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Retrieval and storage of a fallen Battle-Brother’s gene-seed is so critical that Apothecaries carry a special tool for this operation.</p><div class='bc-rule'><p>While a reductor is not required for Progenoid removal, it significantly reduces the time. This surgical implement fastens under the wrist. It includes a monomolecular saw for penetrating power armour and Ossmodula-enhanced rib cages, and a diamantine-tipped extractor drill.</p><p>A reductor reduces the time to remove the Progenoid glands to 1 Round per gland (2 for a full recovery). Although generally regarded as disrespectful to the machine’s sombre purpose, it can also be used as a melee weapon that does 1d10+2 R with a Penetration of 10. If used as a weapon, a reductor does not add the Battle-Brother’s SB to Damage; its design emphasises control and precision, but does not provide adequate leverage to take advantage of the wielder’s strength.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 175–176"
+    }
+  },
+  {
+    "name": "Restraints", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/manacles.webp",
+    "system": {
+      "weight": 4, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Despite their designation, Kill-teams’ Mission objectives are far more varied than simple target elimination.</p><div class='bc-rule'><p>Live capture may be the means to an end or the goal itself. Simple but effective, Deathwatch restraints size to most roughly human-shaped bodies and are strong enough to hold even a thrashing Ork.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 176"
+    }
+  },
+  {
+    "name": "Screamer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/screamer.webp",
+    "system": {
+      "weight": 1.5, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Screamers are proximity alarms that detect motion or sound—depending on the model—and alert their users to incoming dangers by making a horrendous noise.</p><div class='bc-rule'><p>To use a screamer, you must succeed on a Tech-Use Test. The GM rolls this test in secret so you are not sure of whether or not the device will work properly. Once set, a screamer has a Perception of 75 for the purposes of detecting sound or motion. If it detects an intruder, it sounds its alarm, which can be heard anywhere out to 1 kilometre and may also be set to broadcast over a pre-programmed vox channel. Doors, walls, and other barriers may reduce the alarm’s auditory range.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 176"
+    }
+  },
+  {
+    "name": "Stummer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/stummer.webp",
+    "system": {
+      "weight": 2, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The reverse of a screamer, stummers generate sound waves to cancel out ambient sounds and noises made by moving personnel in a small area.</p><div class='bc-rule'><p>A character carrying an active stummer gains a +30 to Silent Move Tests. The device may also be used as a countermeasure against vox-bugs and other surveillance attempts. A stummer typically has enough power for 20 minutes of continuous use before needing to be recharged, a process that takes about 1 hour.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 176"
+    }
+  },
+  {
+    "name": "Teleport Homer", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/signal-jammer.webp",
+    "system": {
+      "weight": 0, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These powerful signal transmitters allow ships equipped with a Teleportarium or similar technology to zero in on a person, object, or area.</p><div class='bc-rule'><p>Teleport homers may be used to target points for squad deployment or to locate a moving individual who needs to be retrieved.</p><p><strong>Teleportation.</strong> Space Marines often use a teleportarium aboard one of their Strike Cruisers, Battle Barges, or other space vessels to arrive directly into the thick of the action. Typically, this is done only by the heavily-armoured Terminators.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 176"
+    }
+  },
+  {
+    "name": "Vox-Caster", "type": "tool", "folder": "Tools",
+    "img": "systems/dark-heresy/assets/icons/equipment/vox-caster.webp",
+    "system": {
+      "weight": 0.5, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Short-range voxes (like those in power armour) lack the range to coordinate across an entire planet or reach spacecraft in orbit.</p><div class='bc-rule'><p>A vox-caster can be used to send signals over great distances, up to and including ships in orbit from a planet’s surface. Using a vox-caster to receive or transmit signals through interference or other unusual conditions requires a successful Tech-Use Test with a Difficulty commensurate to the adversity of the conditions.</p></div></div>",
+      "source": "Deathwatch, p. 174 (Table 5-19), p. 176"
+    }
+  },
+  {
+    "name": "Astartes Servo-Arm", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/augmetics/augmetic.webp",
+    "system": {
+      "weight": 0, "requisition": 30, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Techmarine servo-arms are powerful manipulators tipped with crushing pincers, useful for field repairs and punishing enemies.</p><div class='bc-rule'><p>Ports for these detachable appendages are installed at the shoulder, and the Battle-Brother’s armour must also be upgraded with more powerful gyro-stabilisers to use one effectively. So supported, a servo-arm can lift one side of a Rhino APC to repair a broken tread link.</p><p>A servo-arm can extend up to 1.5 metres. A Techmarine uses the arm’s Strength value of 75 with Unnatural Strength (X2) rather than his own (this value cannot be increased or decreased through devices or abilities that affect the Techmarine’s strength). The limb’s gripping mandibles allow the Techmarine to lift heavy objects or anchor himself to a suitable point as a Free Action.</p><p>Astartes servo-arms are more than just repair tools, and make deadly weapons. The Techmarine may strike with the arm as his Reaction for the round, or as a Standard Attack during his turn (so long as the servo-arm only makes one attack per round). This attack uses the Techmarine’s Weapon Skill, and deals 2d10+14 Impact Damage with Pen 10. Exceptional craftsmanship servo-arms increase their Strength value to 85 (increasing damage to 2d10+16) and add a +10 to Grapple Tests.</p><p>It is important to note that the Requisition cost for a Cybernetic is a one-time payment. Once the cybernetic is installed, the character possesses it until he dies.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 177"
+    }
+  },
+  {
+    "name": "Astartes Servo-Harness", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/augmetics/augmetic.webp",
+    "system": {
+      "weight": 0, "requisition": 50, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Like a servo-arm, a full servo-harness integrates with the Techmarine’s power armour and is controlled through the same spine interface that makes him one with his armour.</p><div class='bc-rule'><p>Radiating from a boosted fusion backpack capable of powering them all, this cluster of auxiliary limbs aid in battlefield repairs as well as combat. The composition of each servo-harness is unique, customised with the tools most preferred by its previous owners for tending to machine spirits and laying waste to the God-Emperor’s enemies. Some bear only a few appendages, while others are great spiders of diagnostors, interface tines, drills, weapons, plasma cutters, and even more arcane elements that future inheritors may struggle to fully understand.</p><p>At a minimum, a servo-harness consists of two servo-arms, a Combi-tool, a fyceline torch, and a plasma cutter. The torch is identical to an Astartes flamer. The plasma cutter can cut through a metre of adamantine plating up to 20 centimetres thick every minute (thinner material can be cut through faster). It may also be used as though it were an Astartes Plasma Pistol (see page 148) with a Range of 10m and no option to fire on Maximal Mode.</p><p>The ingenious machine spirit of a servo-harness is capable of far more sublime communion with its master than a simple servo-arm. A character with Talents that make him capable of taking the Multiple Attacks Action may use any weapon (or equivalent) on his servo-harness for any of the attacks he would normally be allowed, subject to all normal limitations including weapon Class. Additionally, the Techmarine may use his Reaction to make a single shot or strike with any one weapon on the harness. Exceptional servo-harnesses enhance the servo-arms to Exceptional as discussed above, and add a +5 to all Skill, WS, and BS Tests made using the components of the harness. The Servo-Harness Integration Talent is required in order to use a Servo-Harness.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 177"
+    }
+  },
+  {
+    "name": "Auger Array", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These implanted devices duplicate the effects of sensor systems that go beyond the human horizons of perception.</p><div class='bc-rule'><p>In all cases their use requires concentration and a Half Action.</p><p>Common systems function identically to a standard hand-held auspex (see page 174). Exceptional systems function as a full auspex and also allow re-rolls on Perception based Tests when using its functions.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 177"
+    }
+  },
+  {
+    "name": "Bionic Arm", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/arm.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common versions of these systems replace the function of the Battle-Brother’s arms and hand exactly, retaining his strength, dexterity, and sense of touch.</p><div class='bc-rule'><p>Exceptional bionic arms provide a +10 bonus on Tests requiring delicate manipulation (such as Tech-Use Tests to repair small circuitry) and add a +10 bonus to Strength Tests using the arm.</p><p>The robust construction of cybernetics adds 2 to the owner’s Toughness Bonus (after Unnatural Toughness) in the relevant location. Damage taken to these locations counts as Damage to the character, and Critical Damage dealt to these locations functions as normal. Any result that causes bleeding or some other inappropriate result has a 50% chance of rendering the bionic limb useless; otherwise the durable natures of the appendage and its owner manage to shrug off the effect. Critical Damage to a limb that results in death always has the full effect; it can be assumed that the limb explodes into shrapnel, incinerates, or discharges stored energy through the owner with lethal results.</p><p>Replacement and additional limbs—such as servo-arms—can only be used to perform tasks that the owner already knows how to do. Any bonuses or penalties relate only to Tests made using the bionic limb, and characters that possess two bionic limbs do not double the modifier.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 176–177"
+    }
+  },
+  {
+    "name": "Bionic Heart", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/heart.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A Space Marine is quite capable of living through the destruction of one of his two hearts.</p><div class='bc-rule'><p>Naturally if this happens, the organ must be replaced. The necessarily lightweight materials of a bionic heart do not provide quite as much shielding as the thick plating of an external bionic, adding only 1 to the Body location’s Toughness Bonus.</p><p>Exceptional models can be triggered to pump more rapidly to increase physical capacity, though prolonged operation puts stress on the circulatory system. This provides the Sprint Talent.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 177"
+    }
+  },
+  {
+    "name": "Bionic Locomotion (Legs etc)", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/leg.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common locomotion bionics must be fully integrated into the spine and nervous system to function properly; basic models accomplish this while retaining complete motor function.</p><div class='bc-rule'><p>Exceptional versions of these systems grant the owner the Sprint Talent. In addition, they add a +20 bonus to Tests made to jump or leap.</p><p>The robust construction of cybernetics adds 2 to the owner’s Toughness Bonus (after Unnatural Toughness) in the relevant location. Damage taken to these locations counts as Damage to the character, and Critical Damage dealt to these locations functions as normal. Any result that causes bleeding or some other inappropriate result has a 50% chance of rendering the bionic limb useless; otherwise the durable natures of the appendage and its owner manage to shrug off the effect. Critical Damage to a limb that results in death always has the full effect; it can be assumed that the limb explodes into shrapnel, incinerates, or discharges stored energy through the owner with lethal results.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 178"
+    }
+  },
+  {
+    "name": "Bionic Respiratory System", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/lungs.webp",
+    "system": {
+      "weight": 0, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common bionic lungs and implanted respiratory systems mimic the action of human lungs and keep the body supplied with oxygen.</p><div class='bc-rule'><p>Characters with such a system installed gain a +20 bonus to Toughness Tests made to resist airborne toxins and gas weapons.</p><p>Exceptional bionic lungs count as a full life support system; if for any reason the user’s power armour loses integrity or his own respiratory system fails, his bionic lungs keep his blood oxygenated. If desired, Exceptional bionic lungs may be designed to go undetected by scans.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 178"
+    }
+  },
+  {
+    "name": "Cybernetic Senses", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sight, hearing, touch, and taste may all need to be duplicated artificially when nerves or organs are damaged.</p><div class='bc-rule'><p>Followers of the Machine God sometimes add more esoteric senses.</p><p>Common systems, while usually very obviously artificial, duplicate the approximate range of normal senses adequately and have no further game effects.</p><p>Exceptional cybernetic senses grant the Heightened Senses Talent for that particular sense, and a +20 bonus to Tests made to resist attacks on the sense itself, such as deafening noises or blinding flashes. Basic and advanced cybernetic eyes may also incorporate magnifying lenses (duplicating the effect of a telescopic sight for any ranged weapon used, a full photo-visor, and/or a system duplicating the Dark Sight Trait. Likewise, basic or advanced cybernetic hearing may also include an internal micro-bead system.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 178"
+    }
+  },
+  {
+    "name": "MIU", "type": "cybernetic", "folder": "Cybernetics",
+    "img": "systems/dark-heresy/assets/icons/body_parts/intelligence.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These devices, also known as sense-links, allow the owner to directly interface with a machine or technological device.</p><div class='bc-rule'><p>MIUs see widespread use among Techmarines. A basic MIU implant involves a single spinal or cortex connector, while advanced variants include wrist connector probes—and possibly mechadendrite connectors—in addition to the spinal plug.</p><p>Common models give no modifiers to machine spirit communication and add a +10 bonus to the Tech-Use, Pilot, or Drive Tests used in conjunction with devices capable of MIU link. Exceptional models grant a +10 bonus to communicate with machine spirits, and for Tech-Use, Pilot, Drive, Logic, Inquiry, and Ballistic Skill Tests when interfaced with MIU systems.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-20), p. 178"
+    }
+  },
+  {
+    "name": "Servitor (Battle)", "type": "gear", "folder": "Servitors & Familiars",
+    "img": "systems/dark-heresy/assets/icons/augmetics/augmetic.webp",
+    "system": {
+      "weight": 0, "requisition": 20, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A servitor is an automaton whose controlling components are organic and mostly human in origin.</p><div class='bc-rule'><p>Some are grown in vats, while others are formed from failed recruits or civilian criminals whose sentence is an un-life of service to the Imperium’s heroes. The process of creating a servitor purges higher brain functions and psychic patterns of the subject, rendering him a blank slate for reprogramming.</p><p>Like all machines, Servitors fall into the domain of the Techmarines to oversee. The most common form of servitor are mindless labour drones, dedicated to the most menial tasks needed to maintain a Chapter’s equipment and fitted with the devices necessary to their toil. Other varieties can be found serving the Space Marines and the rest of the Imperium as pilots, heavy lifters, veritable guns on legs, and in countless other roles where little thought is required, or given. The right programming and equipment makes servitors and servo-skulls effective as cyber-familiars, medical assistants, scribes, proclaimers, scroll-carriers, or virtually any other task where a light hand and simple, obedient mind is all that is required.</p><p>For the profiles of the above Servitors, see page 376.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-22), p. 178"
+    }
+  },
+  {
+    "name": "Servitor (Monotask)", "type": "gear", "folder": "Servitors & Familiars",
+    "img": "systems/dark-heresy/assets/icons/augmetics/augmetic.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A servitor is an automaton whose controlling components are organic and mostly human in origin.</p><div class='bc-rule'><p>Some are grown in vats, while others are formed from failed recruits or civilian criminals whose sentence is an un-life of service to the Imperium’s heroes. The process of creating a servitor purges higher brain functions and psychic patterns of the subject, rendering him a blank slate for reprogramming.</p><p>Like all machines, Servitors fall into the domain of the Techmarines to oversee. The most common form of servitor are mindless labour drones, dedicated to the most menial tasks needed to maintain a Chapter’s equipment and fitted with the devices necessary to their toil. Other varieties can be found serving the Space Marines and the rest of the Imperium as pilots, heavy lifters, veritable guns on legs, and in countless other roles where little thought is required, or given. The right programming and equipment makes servitors and servo-skulls effective as cyber-familiars, medical assistants, scribes, proclaimers, scroll-carriers, or virtually any other task where a light hand and simple, obedient mind is all that is required.</p><p>For the profiles of the above Servitors, see page 376.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-22), p. 178"
+    }
+  },
+  {
+    "name": "Servo-skull", "type": "gear", "folder": "Servitors & Familiars",
+    "img": "systems/dark-heresy/assets/icons/equipment/monotask-servo-skull.webp",
+    "system": {
+      "weight": 0, "requisition": 15, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The right programming and equipment makes servitors and servo-skulls effective as cyber-familiars, medical assistants, scribes, proclaimers, scroll-carriers, or virtually any other task where a light hand and simple, obedient mind is all that is required.</p><div class='bc-rule'><p>Like all machines, Servitors fall into the domain of the Techmarines to oversee.</p><p>For the profiles of the above Servitors, see page 376.</p></div></div>",
+      "source": "Deathwatch, p. 178 (Table 5-22), p. 178"
+    }
+  }
+]

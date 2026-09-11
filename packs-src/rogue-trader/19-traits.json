@@ -1,0 +1,299 @@
+[
+  {
+    "name": "Auto-stabilised", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "benefit": "Always counts as braced.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The creature always counts as braced when firing heavy weapons and may fire on semi- or full-automatic as a half action.</p><div class='bc-rule'><p>A creature with this Trait suffers no penalties for moving and firing on semi- or full-automatic.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Bestial", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
+    "system": {
+      "benefit": "No need to make Survival Tests in natural habitat, test Willpower to avoid flight.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait is animalistic, tending to behave instinctively rather than rationally. No matter how high its Intelligence score is, it is still bestial.</p><div class='bc-rule'><p>A creature with this Trait never needs to make a Survival Test whilst in its natural habitat. Unless starving or desperate, a bestial creature must make a Willpower Test when frightened, startled or injured. On a failed test, the creature flees.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Blind", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "benefit": "Cannot see.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blind creatures automatically fail all tests based on vision and automatically fail all Ballistic Skill Tests.</p><div class='bc-rule'><p>Such creatures take a –30 penalty to Weapon Skill Tests and most other tests that ordinarily involve or are benefited by vision.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Brutal Charge", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
+    "system": {
+      "benefit": "+3 damage on a charge.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait deals an extra 3 points of damage with attacks made while charging.</p></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Burrower", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "benefit": "Moves by digging.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait can move through solid objects by burrowing through them. This Trait always includes a number to indicate speed.</p><div class='bc-rule'><p>Such creatures can burrow through soil, rock, sand, and so on, though some (expressed in the creature entry) can burrow through metal. When a creature burrows, it leaves behind a tunnel. Creatures at least one size smaller than the creature that created the tunnel can enter these areas without impediment. There’s a 50% chance each round that the tunnel collapses behind the creature.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Crawler", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "benefit": "Calculate Movement by half Agility Bonus. No penalties for moving over difficult terrain.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Worms, serpents, and similar creatures crawl and slither rather than walk.</p><div class='bc-rule'><p>The base move for a creature with this Trait is half their Agility Bonus (rounded up), but they do not take penalties for moving over difficult terrain.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Daemonic", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/demon.webp",
+    "system": {
+      "benefit": "Double TB against normal weapons, immune to disease and poison.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Daemonic creatures are creatures of the Warp, but can manifest in realspace either through sheer strength of will, hunger, or occult rituals.</p><div class='bc-rule'><p>Creatures with this Trait double their Toughness Bonus against all damage, except for damage inflicted by force weapons, psychic powers, holy attacks, or other creatures with this Trait. Daemonic creatures are also immune to poison and disease.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Dark Sight", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "benefit": "See in darkness.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait sees normally even in areas of total darkness, and never takes a penalty for fighting in areas of dim or no lighting.</p><div class='bc-rule'><p>Table 14-1 lists this Trait as Dark-sight; the entry on page 364 heads it Dark Sight.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364"
+    }
+  },
+  {
+    "name": "Fear", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/demon.webp",
+    "system": {
+      "benefit": "Forces others to make Fear Tests to avoid Shock and Madness.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait has an unnerving appearance. The fear of it always has an associated rating (1–4) to reflect just how awful the creature is to behold. The higher the Fear Rating the harder it is for others to resist going insane from the encounter.</p><div class='bc-rule'><dl class='bc-prof'><dt>1 Disturbing</dt><dd>–0</dd><dt>2 Frightening</dt><dd>–10</dd><dt>3 Horrifying</dt><dd>–20</dd><dt>4 Terrifying</dt><dd>–30</dd></dl><p>When a character encounters a creature with this Trait, they must make a Willpower Test, modified by the severity of the creature’s Trait. On a success, the character may act normal. On a failure, the character must roll on Table 10–4: The Shock Table on page 294, adding +10 to the roll for every 10 points by which the Willpower Test failed. The results of this roll have variable effects, but generally leave the character a gibbering mess. For more details on the effects of Fear and Insanity, see Chapter X: The Games Master.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 365"
+    }
+  },
+  {
+    "name": "Flyer", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/wings.webp",
+    "system": {
+      "benefit": "Can fly and enter any altitude.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait has the natural ability to fly, whether with broad leathery wings, strange Warp energies, or inflatable gas sacs.</p><div class='bc-rule'><p>This Trait always includes a number to indicate at what speeds it moves when it flies. This number replaces your agility bonus for Movement Actions. For more details on flying, see Chapter IX: Playing the Game.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 365"
+    }
+  },
+  {
+    "name": "From Beyond", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/chaos.svg",
+    "system": {
+      "benefit": "Immune to Fear, Pinning, Insanity Points, and mind-affecting powers.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mind of a creature with this Trait is beyond the petty frailties and precarious sanity of a mortal mind.</p><div class='bc-rule'><p>It is immune to Fear, Pinning, and Psychic Techniques used to cloud, control, or delude its mind. It no longer gains Insanity Points.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 365"
+    }
+  },
+  {
+    "name": "Hoverer", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/wings.webp",
+    "system": {
+      "benefit": "Limited flight, no higher than two metres.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Creatures with this Trait have a limited capability for flight, flying no higher than two metres.</p><div class='bc-rule'><p>As with the Flyer trait, this Trait always includes a number to indicate speed. For more details on flying, see Chapter VII: Playing the Game.</p><p>This Trait is described on page 364 but is absent from Table 14-1.</p></div></div>",
+      "source": "Rogue Trader, p. 364"
+    }
+  },
+  {
+    "name": "Incorporeal", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/deathless.webp",
+    "system": {
+      "benefit": "Insubstantial and weightless, cannot be affected by mundane weaponry.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Incorporeal creatures are insubstantial and weightless, able to pass through solid objects such as walls and weapons.</p><div class='bc-rule'><p>An incorporeal creature gains a +30 bonus on Concealment Tests when hiding inside something. They may also automatically pass any Silent Move Tests they are required to make.</p><p>An incorporeal creature is also immune to normal weapons—they simply pass through its body as if it wasn’t there. Daemons, psychic powers, Warp creatures, other creatures with the Incorporeal Trait, and opponents armed with force weapons may all injure an incorporeal creature normally. An incorporeal creature can’t normally affect the mortal world, and thus can’t damage non-incorporeal opponents unless noted otherwise.</p><p>Incorporeal creatures cannot pass through certain devices or barriers, such as a wall with hexagramic wards, or a starship’s Geller Field.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 364–365"
+    }
+  },
+  {
+    "name": "Machine", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "benefit": "Creature gains immunities and resistances.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with the Machine Trait is fashioned from inorganic materials and is generally more rigorous than fleshy folks.</p><div class='bc-rule'><p>Machines do not breathe, are immune to the effects of a vacuum, extremes of cold, any mind-influencing psychic effect, and their Armour Points apply toward fire damage. Machines are also resilient to injury, having 1 to 5 Armour Points for each location. This number is indicated next to the Trait.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 365–366"
+    }
+  },
+  {
+    "name": "Mechanicus Implants", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "benefit": "The standard augmetics of the Adeptus Mechanicus.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>You have been judged a suitable vessel for the following implants.</p><div class='bc-rule'><p><strong>Electro-graft:</strong> This is a small port that is grafted into your nervous system. Once you have been properly trained, this will allow you to interface with machine data ports and certain types of data nets. Electro-grafts can take many forms, such as electoos, skull shunts, finger probes, or spine jacks.</p><p><strong>Electoo Inductors:</strong> These are palm-sized metal skin grafts that appear much like tattoos to the uninitiated. The electoos are wired into your nervous system, where they derive power from the bio-electrical emanations of the flesh. They can be used to emit or siphon power in many ways. Electoo inductors can be any colour, and can appear anywhere on the body—though hands or mechadendrites are the usual sites.</p><p><strong>Respirator Unit:</strong> This implant involves tubes, wires, vox-grills, or other augmetic parts replacing the lower face and neck. It purifies your air supply, granting a +20% bonus to resist airborne toxins and gas weapons. The respirator unit also contains a vox-synthesiser capable of transmitting your voice in a variety of ways. Respirators can appear as simple grill units or intricate mask-like carvings.</p><p><strong>Cyber-mantle:</strong> This is a framework of metal, wires, and impulse transmitters that is bolted onto your spine and lower ribcage. As you gain further implants, this mantle acts as a sub-dermal anchorage point. Amongst some servants of the Omnissiah, this cyber-mantle is often referred to as “the true flesh.” One would have to look beneath the red robes of a Tech-Priest to discover what a cyber-mantle looks like, and thus no one admits to having seen one.</p><p><strong>Potentia Coil:</strong> Cradled within the cyber-mantle is a power unit known as the potentia coil. This mass can store energy and produce various types of fields. Coils come in many types, from small crystal stack affairs to bulky electrical galvinators salvaged from vehicle engines. Many a hunchback within the Adeptus Mechanicus is blamed upon a primitive coil.</p><p><strong>Cranial Circuitry:</strong> This is a series of linked processors, implants, and cortical circuits that augments your mental capacities. Most sit within housing bolted onto the skull, whilst others nestle within the brain itself. As you grow in the seriousness of your devotions, more and more of the brain that deals with useless things such as emotion and intuition can be scooped away to provide room for additional augmentations. Cranial circuits are often very crude-looking and rather aged.</p><p>This Trait is described on page 366 but is absent from Table 14-1.</p></div></div>",
+      "source": "Rogue Trader, p. 366"
+    }
+  },
+  {
+    "name": "Multiple Arms", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/body_parts/arm.webp",
+    "system": {
+      "benefit": "Creature gains extra attack with multiple attack action, +10 T, +10 to Strength Tests involving movement.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This creature has more than one pair of arms.</p><div class='bc-rule'><p>It increases its Toughness Characteristic by +10 and gains a +10 bonus on Strength Tests involving movement such as Climb and Swim. Finally, the creature may use the Multiple Attack action to gain two attacks on its turn.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 366"
+    }
+  },
+  {
+    "name": "Natural Armour", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "benefit": "Gain one or more Armour Points to all locations.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This creature has a naturally tough hide or an exoskeleton, affording it some protection against attacks.</p><div class='bc-rule'><p>This Trait always includes a numeric value to indicate how many Armour Points the creature gains to all locations.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 366"
+    }
+  },
+  {
+    "name": "Natural Weapons", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/bone_blade.webp",
+    "system": {
+      "benefit": "Unarmed attacks deal 1d10+SB damage.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This creature has sharp claws, teeth, spines or some other natural weapon to attack its foes. It counts as being armed even when not wielding weapons.</p><div class='bc-rule'><p>Its attacks deal 1d10 points of damage plus its Strength Bonus. The creature may make attacks with its Natural Weapons using its Weapon Skill, though it cannot parry with its natural weapons, nor can it be disarmed—unless, of course, you hack off its limbs! Natural weapons always count as Primitive.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 366"
+    }
+  },
+  {
+    "name": "Phase", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/deathless.webp",
+    "system": {
+      "benefit": "Switch between incorporeal and corporeal as a half action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait can transform its body into an insubstantial state, passing ghost-like through solid objects or barriers of any sort.</p><div class='bc-rule'><p>This Trait functions exactly like the Incorporeal Trait, except the creature may become solid or insubstantial by spending a half action.</p><p>Phase carries additional limitations. A creature in a phased state cannot cross psychically charged barriers, holy wards, or energy fields designed to flux space or manipulate the Warp such as a Gellar Field or a Void Shield.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 366"
+    }
+  },
+  {
+    "name": "Quadruped", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Movement equals AB×2.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Quadrupeds are much quicker over a distance than their bipedal counterparts.</p><div class='bc-rule'><p>To calculate their movement, double their Agility Bonus. This Trait is intended to cover creatures with hind legs and forepaws. Creatures with more than four legs may gain this Trait, but they increase the Agility Bonus by 1 multiplier for every extra set of legs (six legs equals AB ×3, eight legs AB × 4, and so on).</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 367"
+    }
+  },
+  {
+    "name": "Regeneration", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/deathless.webp",
+    "system": {
+      "benefit": "Test Toughness to remove 1 damage.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Creatures with this Trait heal very quickly.</p><div class='bc-rule'><p>Each round, at the start of its turn the creature tests Toughness to remove 1 point of damage. It loses this Trait when slain.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 367"
+    }
+  },
+  {
+    "name": "Size", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
+    "system": {
+      "benefit": "Determines creature size and benefits.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Creatures come in one of seven different size categories. Size affects movement and how easy or hard it is to strike that creature in combat. For the purposes of comparison, a human is an average-sized creature.</p><div class='bc-rule'><p><strong>Trait Groups:</strong> Miniscule, Puny, Scrawny, Hulking, Enormous, Massive.</p><p>When calculating a creature’s movement, apply the size modifier first, and then other modifiers from other Traits or talents. Base movement can never be reduced below 1.</p><dl class='bc-prof'><dt>Miniscule</dt><dd>Modifier –30, Concealment +30, Base Movement AB–3</dd><dt>Puny</dt><dd>Modifier –20, Concealment +20, Base Movement AB–2</dd><dt>Scrawny</dt><dd>Modifier –10, Concealment +10, Base Movement AB–1</dd><dt>Average</dt><dd>Modifier 0, Concealment 0, Base Movement AB</dd><dt>Hulking</dt><dd>Modifier +10, Concealment –10, Base Movement AB+1</dd><dt>Enormous</dt><dd>Modifier +20, Concealment –20, Base Movement AB+2</dd><dt>Massive</dt><dd>Modifier +30, Concealment –30, Base Movement AB+3</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 367 (Table 14-2)"
+    }
+  },
+  {
+    "name": "Sonar Sense", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "benefit": "Perceive surroundings flawlessly within 30 metres.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait perceives its surroundings by emitting a frequency noise, allowing the creature to locate the position of any solid object within 30 metres.</p><div class='bc-rule'><p>Other creatures within range, and that succeed on a Difficult (–10) Awareness Test, may detect the curious keening.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 367"
+    }
+  },
+  {
+    "name": "Soul-bound", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Bound to a particular group or creatures in exchange for certain benefits.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The soul of this creature is bound to a higher purpose or being, in return for a measure of protection.</p><div class='bc-rule'><p>When this Trait is first gained, the entity to which the soul is bound must be decided. Many Imperial psykers, especially astropaths, are soul-bound to the Emperor, for example, whereas Chaos sorcerers may be bound to one of the Ruinous Powers. A soul-bound psyker rolls an additional d10 when forced to roll on Table 6-3: Perils of the Warp on page 161, discarding whichever one he chooses to get a more favourable result.</p><p>Upon becoming soul-bound, a character must choose one of the following effects: 1d10 Insanity Points, the permanent loss of sight, the permanent loss of 1d10 from one Characteristic or a random mutation (only if soul-bound to the Ruinous Powers).</p><p>In addition, a soul-bound character is permanently indebted to the entity, which undoubtedly entails all manner of other duties and consequences.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 367"
+    }
+  },
+  {
+    "name": "Strange Physiology", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "benefit": "Death when damage equals Wounds.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait has an unusual, alien, or altogether bizarre anatomy.</p><div class='bc-rule'><p>All hits count as Body hits and death results when damage equals or exceeds the creature’s Wounds.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "The Stuff of Nightmares", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/chaos.svg",
+    "system": {
+      "benefit": "Gain appalling list of immunities.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Some Warp entities are so terribly powerful that the will perpetuating their bodies in our reality is almost impossible to break or disrupt.</p><div class='bc-rule'><p>Such entities are completely immune to the effects of poisons, diseases, the need to breathe, most environmental hazards, bleeding, stunning, and any critical result other than one that would destroy them outright, unless caused by a psychic power, force weapon, or holy attack.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Sturdy", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "benefit": "+20 bonus to resist grapple and takedown.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sturdy creatures are hard to move and gain a +20 bonus to tests made to resist grappling and the Takedown talent.</p></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Toxic", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "benefit": "Gain a poisonous attack.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A creature with this Trait is poisonous.</p><div class='bc-rule'><p>A target hit by its natural weapons must make a Toughness Test. The toxins might instead be delivered by contact with the creature’s skin or by inhaling its stench, in which case a Toughness Test must be made upon coming into contact or proximity. A failed Toughness Test indicates the victim has been poisoned. A typical poison deals 1d10 points of damage, ignoring Armour Points. Variations, if present, are included in the creature’s description.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Unnatural Characteristic", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/general.webp",
+    "system": {
+      "benefit": "Increases one Characteristic Bonus.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>One or more of the creature’s Characteristics is unnatural. Each time this Trait is gained, select a Characteristic, and double its bonus.</p><div class='bc-rule'><p>For example, a creature with a Strength of 41 normally has a 4 Strength Bonus. With this Trait, its Strength Bonus increases to 8.</p><p>The Trait may be gained multiple times. Each time, you may select a new Characteristic or one chosen previously. Each time you apply this Trait to the same Characteristic, the Bonus multiplier increases by 1. For example, one selection multiplies the Characteristic Bonus by ×2, two selections by ×3, and three selections by ×4. Note this Trait does not modify the creature’s movement. Movement is based on a creature’s unmodified Agility Bonus.</p><p>During Opposed Characteristic Tests, on a success, the bonus multiplier is added to the degree of success.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Unnatural Senses", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "benefit": "Perceive surroundings by uncanny means.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The creature can perceive its surroundings using senses other than sight or hearing, using special organs, fine hairs, or some other disturbing Trait to make itself aware of what’s around it.</p><div class='bc-rule'><p>This Trait always includes a range, usually 15 metres.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Unnatural Speed", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Double Agility Bonus for purpose of determining movement.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The creature moves with incredible speed.</p><div class='bc-rule'><p>For the purposes of determining movement, the creature doubles its Agility Bonus (after modifiers from other Traits and factors, specifically size).</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Warp Instability", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/chaos.svg",
+    "system": {
+      "benefit": "Creature must deal damage if damaged, or be cast back into the Warp.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most Warp-entities have a tenuous hold on our reality, often maintained only by horror and bloodshed, and may be disrupted if sufficient harm can be done to their manifested forms.</p><div class='bc-rule'><p>If a creature with this Trait takes damage and does not deal damage or Insanity Points to other creatures by the end of its next turn, it must make a Willpower Test. The creature takes 1 damage for failure, plus 1 damage for each degree of failure. If this would deal damage equal to or in excess of the creature’s Wounds, it is cast back into the Warp.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  },
+  {
+    "name": "Warp Weapon", "type": "trait", "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/chaos.svg",
+    "system": {
+      "benefit": "Creature’s attacks ignore armour.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Creatures with this Trait have weapons that are partially insubstantial, able to ignore such mundane things as armour or cover.</p><div class='bc-rule'><p>Natural weapons and attacks made by a creature with this Trait ignore physical armour unless it is created from psychoactive materials or carries the holy quality. Force fields still work against these attacks normally.</p><p>Table 14-1 lists this Trait as Warp Weapons; the entry on page 368 heads it Warp Weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 365 (Table 14-1), p. 368"
+    }
+  }
+]

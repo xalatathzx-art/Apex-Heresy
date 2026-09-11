@@ -1695,7 +1695,7 @@
       },
       "choices": [],
       "bonuses": [],
-      "requires": null,
+      "requires": {},
       "adjacency": [],
       "recommended": []
     },

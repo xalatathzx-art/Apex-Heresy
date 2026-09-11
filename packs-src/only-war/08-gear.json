@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Chameleoline Cloak",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/cameleoline-cloak.webp",
+    "system": {
+      "availability": "rare",
+      "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chameleoline material is made up of mimic fibres that blend the coloration of the wearer into their surroundings and are the garb of choice for snipers.</p><div class='bc-rule'><p>A character wearing a chameleoline cloak gains a +20 bonus to Stealth Tests. If the wearer remains stationary, any Ballistic Skill Tests to target him suffer a –30 penalty.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Clip/Drop Harness",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/climbing-harness.webp",
+    "system": {
+      "availability": "common",
+      "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are useful when operating on rooftops or rappelling down buildings and consist of a coiled safety line with a stout magnetic or hook fixture, all attached to a belt or torso harness.</p><div class='bc-rule'><p>A character using a clip harness to descend a vertical surface gains a +30 bonus to Climb Tests and cannot fall if he fails. Common quality harnesses can hold 150kg, while Good quality harnesses can support 200 kg.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Deadspace Earpiece",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/micro-bead.webp",
+    "system": {
+      "availability": "very-rare",
+      "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Each of these devices can limit high-volume sonic disturbances such as explosions by automatically detecting and dampening the excessive noise down to a tolerable level.</p><div class='bc-rule'><p>Users make any Toughness Tests against sonic effects or against the auditory effects of a Concussive weapon with a +20 bonus.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Filtration Plugs",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/filtration-plugs.webp",
+    "system": {
+      "availability": "common",
+      "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These simple plugs of porous fibres are worn in each nostril to screen out most pollutants and harmful gases.</p><div class='bc-rule'><p>A character wearing filtration plugs gains a +20 bonus to any Toughness Test made to resist the effects of damaging gases. Good Craftsmanship models add another +10 bonus, while Poor models must be replaced after five hours usage as the filter becomes clogged and unusable.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Photo-Visors/Contacts",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/photo-visors.webp",
+    "system": {
+      "availability": "scarce",
+      "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These advanced lenses are designed to enhance low-level light so that even in the darkest nights users can see almost as well as in daylight.</p><div class='bc-rule'><p>Characters wearing these gain the Dark-Sight Trait (see page 155). Good Craftsmanship visors also dampen the effects of photon flash grenades, making the wearer immune to their effects.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Preysense Goggles",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/photo-visors.webp",
+    "system": {
+      "availability": "very-rare",
+      "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Preysense goggles allow the wearer to see thermal images in low lighting, revealing hidden bodies (and other heat sources) against the coolness surrounding them.</p><div class='bc-rule'><p>Poor Craftsmanship models cannot belie their true nature and are bulky goggles with glowing lenses; Good and Best Craftsmanship models are disguised as normal (if elaborate) eyeglasses. A character wearing these goggles suffers no penalties due to darkness and gains a +20 bonus to vision-based Perception Tests at night.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Rebreather",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/rebreather.webp",
+    "system": {
+      "availability": "scarce",
+      "weight": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Rebreathers are designed to keep the wearer alive in even the most toxic atmospheres.</p><div class='bc-rule'><p>Consisting of a mask or helmet, each contains an air supply and a character wearing a rebreather is immune to the effects of gases and can even survive underwater at limited depths. The air canisters last only for about one hour and then must be replaced, which takes a full action. Good Craftsmanship models last two hours, while Poor ones take two Full Actions to replace the canister. Replacement canisters are Scarce.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 197"
+    }
+  },
+  {
+    "name": "Recoil Gloves",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/equipment.webp",
+    "system": {
+      "availability": "common",
+      "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These specialised gauntlets use interlocking plates connected with memory wire so that when the user grips a weapon, it locks together into a rigid strut around the hand and wrist and prevents wrist or arm damage when the weapon discharges.</p><div class='bc-rule'><p>A character using a recoil glove can fire a Basic weapon with one hand without the normal –20 penalty and pistol weapons that require two hands can be used one-handed without penalty. Note that specialised weapon training is still required to use the weapon properly, without which the untrained penalty of –20 still applies.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 198"
+    }
+  },
+  {
+    "name": "Respirator/Gas Mask",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/respirator.webp",
+    "system": {
+      "availability": "average",
+      "weight": 0.5,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A simple breathing mask that covers the nose and mouth or entire face, these offer much better protection than filtration plugs.</p><div class='bc-rule'><p>A character wearing a respirator gains a +30 bonus to Toughness Tests made to resist the effects of gas and may re-roll failed results. Good Craftsmanship models add another +10 bonus, while poor models must be replaced after 10 hours usage as the filter becomes clogged and unusable.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 198"
+    }
+  },
+  {
+    "name": "Survival Suit",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/survival-gear.webp",
+    "system": {
+      "availability": "average",
+      "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>When working in harsh and extreme conditions (especially when it is not known in advance what they will be), survival suits are a must. No matter if it is too hot or too cold, the suit can maintain proper body temperature and hydration via excellent insulation capabilities.</p><div class='bc-rule'><p>Using the differential between body temperature and outside temperature to drive thermoelectric power cells, it also has reclamation systems for turning sweat into drinking water. Most suits come complete with a hood, as well as goggles to protect the head and face. While it does not protect forever, for medium duration emergencies it can help sustain life until a rescue.</p><p>The suit grants a +20 bonus to any Tests against the effects of extreme environments. Good and Best Craftsmanship suits grant a +25 and +30 bonus, respectively, while Poor outfits only last three days before their internal mechanisms falter and need removal from the extreme temperatures to recharge.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 198"
+    }
+  },
+  {
+    "name": "Synskin",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/synskin.webp",
+    "system": {
+      "availability": "very-rare",
+      "weight": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Synskin is a bio-reactive body glove with an inert non-reflective surface that moulds itself to the wearers form.</p><div class='bc-rule'><p>It grants 2 Armour Points to all locations not already armoured and the wearer gains a +10 bonus to Stealth Tests. It also renders the wearer invisible to the use of infra-red goggles and Dark Sight.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 198"
+    }
+  },
+  {
+    "name": "Void Suit",
+    "type": "gear",
+    "folder": "Gear",
+    "img": "systems/dark-heresy/assets/icons/equipment/void-suit.webp",
+    "system": {
+      "availability": "scarce",
+      "weight": 8,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Void suits are clumsy affairs designed to protect a user against vacuum.</p><div class='bc-rule'><p>A Common Craftsmanship void suit has 12 hours of air and imposes a –10 penalty to Agility Tests. Poor Craftsmanship versions have six hours of air, while Good and Best Craftsmanship versions eliminate the Agility penalty.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-20), p. 198"
+    }
+  }
+]

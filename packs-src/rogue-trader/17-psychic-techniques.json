@@ -1,0 +1,432 @@
+[
+  {
+    "name": "Thought Sending", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 0, "prerequisite": "Telepathy Discipline", "action": "Free Action", "sustained": "Yes",
+      "subtype": "Telepathy — Basic Technique", "range": "10 metres x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "The basic technique of the Telepathy Discipline: send thoughts into the minds of those around you.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can send his thoughts into the minds of those around him.</p><div class='bc-rule'><p>This can be a select group, either to individuals he can see, or minds he is familiar with within range, or a generalised broadcast to every mind within range indiscriminately at the psyker’s discretion. Much of the mind’s processes are still affected by the structure of language, so that if telepathy is attempted without a shared language it suffers a –20 penalty. Minds who do not wish to be open to such a communication can resist with an Opposed Willpower test.</p><p><strong>Focus Power Test:</strong> No. <strong>Technique Trees:</strong> Communication, Domination.</p><p><strong>Power Scale:</strong> At Psy Rating 1–2, the psyker can only send or receive verbal communications but no images. At Psy Rating 3–4, the psyker can send or receive visual communication as well, but all images will only be in black and white, with a dream-like quality. At Psy Rating 5–6, any images will be crisp, clear, in colour, and accompanied by other sensory input—sound, taste, etc—as appropriate. At Psy Rating 7+, the psyker sends so powerfully that any communication at higher than the Fettered Psychic Strength level will come across as “shouting” unless carefully modulated.</p></div></div>",
+      "source": "Rogue Trader, p. 162"
+    }
+  },
+  {
+    "name": "Astral Telepathy", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 0, "prerequisite": "Soul-bound to the Emperor", "action": "Varies", "sustained": "No",
+      "subtype": "Telepathy — Communication", "range": "Interstellar (see Table 6-5)",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Free (Astropaths only). Send and receive messages across interstellar distances.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As part of the Soul Binding process, astropaths become able to send and receive messages across vast distances using the warp as a medium.</p><div class='bc-rule'><p>Using astro-telepathic abilities in this way requires careful concentration, meditation, and freedom from distraction, and so cannot be done “on the move,” let alone during combat or strife. Transmitting a message over interstellar distances normally takes 1d5 hours (this time may be adjusted at the GM’s discretion based on the length and complexity of the message).</p><p>An astropath’s “signal strength”—broadly how far in average conditions in the warp he may transmit clearly with a successful focused use of his power—is determined by his Psy Rating (see Table 6–5: Astral Signals). After this distance, unless relayed on, the signal will sharply degrade, imposing a –20 penalty to understand per additional range bracket until it dissolves into nothingness.</p><p>Picking up an astropathic communication by its intended target within clear range is a Routine (+10) Psyniscience Test for an astropath in a meditative state to receive one, and a Challenging (+0) test for one going about ordinary life, increasing to Hard (–20) if he is in life or death combat or other such distracting circumstances.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 162"
+    }
+  },
+  {
+    "name": "Short Range Telepathy", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "10m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "A single telepathic connection at Unfettered Strength that does not provoke Psychic Phenomena.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A successful Focus Power Test allows the psyker to establish and maintain a single telepathic connection to another character at Unfettered Psychic Strength.</p><div class='bc-rule'><p>However, using this ability does not provoke Psychic Phenomena.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 165"
+    }
+  },
+  {
+    "name": "Mind’s Eye", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "Personal",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Multiply the range of all Telepathic communications by ten.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This technique allows the psyker to increase the range of all of his Telepathic communications (with the exception of Astro-telepathy) by a factor of 10.</p><div class='bc-rule'><p>Thus, standard Telepathy would have a range of 10km x Psy Rating, Short Range Telepathy would be 100m x Psy Rating, and so forth.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 163"
+    }
+  },
+  {
+    "name": "Mind Link", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "1km x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Link a number of willing minds up to the psyker’s Willpower Bonus.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A successful Focus Power Test allows the psyker to create a Fettered Strength telepathic communication link for a number of willing minds up to his Willpower Bonus at the same time.</p><div class='bc-rule'><p>This technique does not require line of sight.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 163"
+    }
+  },
+  {
+    "name": "Mind Probe", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "1m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Peel back the layers of another’s mind over five Rounds.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This technique allows the psyker to peel back the layers of another’s mind to read the basic surface thoughts and beyond.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>It takes 5 rounds of sustained effort to complete the mind probe. The psyker must win an Opposed Willpower Test to successfully establish the forced link to the target’s mind. Each Round, the psyker digs successively deeper into the subject’s consciousness. If the psyker wins the Opposed Willpower Test, he gleans certain information from the target’s mind, depending on what level of contact he has achieved (see Table 6–6: Mind Probe). If the psyker fails the Opposed Willpower Test, the probe is rebuffed, the technique fails, and the psyker suffers one level of Fatigue for every degree of failure. This is also not a gentle process, brute force is a factor, and the target will be aware that his mind is being plundered. However, the psyker retains any knowledge he received at each level he successfully attained.</p><p>If the psyker wants to perform the Probe without the target’s knowledge, then the psyker takes a –20 penalty to the Opposed Willpower Test and can only use this technique at the Fettered Psychic Strength.</p><p>Although a successful Mind Probe takes five Rounds to complete, it only requires a single Focus Power Test. Failing the Focus Power Test (or losing, as it is an Opposed Test) only takes one Round for the psyker manifesting the power.</p><dl class='bc-prof'><dt>Round One (Contact)</dt><dd>The psyker makes initial contact, and learns basic information about the target such as his name, mood, Insanity level, and the state of his physical health.</dd><dt>Round Two (Surface Thoughts)</dt><dd>Now the psyker can sense the thoughts uppermost in the target’s mind, such as immediate fears/concerns, conscious lies, etc. The target’s Corruption level is also now known to the psyker.</dd><dt>Round Three (Short Term Memory)</dt><dd>The psyker can now sort through the target’s memories over the last 12 hours. Less casual information the subject may keep as secrets—such as simple passwords or recent experiences he might wish to hide—may also be available at this level.</dd><dt>Round Four (Subconscious)</dt><dd>The psyker now gains detailed information about people, places, or objects that the target considers as important and how they relate to each other. The target’s beliefs, motivations and personal goals are known, as any contacts or complicated hidden ciphers. The psyker is also aware of the pivotal moments in the target’s life.</dd><dt>Round Five (Broken)</dt><dd>The psyker may plunder the target’s mind at will. Any information contained in the target’s psyche is an open book for the psyker. The psyker can also use this technique to identify implanted memories or personalities.</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 164 (Table 6-6)"
+    }
+  },
+  {
+    "name": "Terrify", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Mind Probe", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Assail a target with raw fear; the psyker counts as having the Fear (1) Trait.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By using his psychic abilities to intrude forcefully on another mind, the psyker assails his target with raw fear and horrific imagery.</p><div class='bc-rule'><p>If the psyker succeeds at the Focus Power Test, the target is affected as if the psyker possessed the Fear (1) Trait. The psyker may increase the level of the Fear Trait by 1 for every 3 Psy Rating he uses in the Focus Power Test.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 165"
+    }
+  },
+  {
+    "name": "Mind Scan", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300, "prerequisite": "Mind’s Eye, Mind Probe", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Communication", "range": "250m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Contact and identify other sentient minds within range; more Degrees of Success reveal more.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker extends his mind to contact and identify other sentient minds within range.</p><div class='bc-rule'><p>This technique does not require line of sight, enabling the psyker to garner impressions and information about the consciousnesses within range. The information the psyker receives from this technique is based on the degrees of success from the Focus Power Test:</p><dl class='bc-prof'><dt>One Success</dt><dd>The psyker gains a crude impression of the number of conscious minds in his range and his general position in relation to them.</dd><dt>Two Successes</dt><dd>The psyker knows the number, general location and relative ‘strength’ of conscious minds within the area of effect, and may determine if those minds are themselves psykers with a successful Challenging (+0) Psyniscience Test.</dd><dt>Three Successes</dt><dd>As per two successes, plus the psyker may attempt to initiate telepathic communication with any of the minds he has sensed in the area.</dd><dt>Four or More Successes</dt><dd>As per three successes, plus the psyker may attempt to carry out a Mind Probe on one of the minds he has sensed in the area.</dd></dl><p>Untouchables, mindless creatures—such as servitors or robots—and other psychically inert creatures are invisible to Mind Scan. Also, individuals with the Resistance (Psychic Techniques) Talent inflict a –10 penalty on the Psyker’s Focus Power Test (the penalty does not stack with itself). Other creatures or individuals that are resistant to psychic powers may be hidden entirely at the GM’s discretion.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 164"
+    }
+  },
+  {
+    "name": "Mental Bond", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300, "prerequisite": "Mind Link", "action": "N/A", "sustained": "N/A",
+      "subtype": "Telepathy — Communication", "range": "1 km x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": -10 },
+      "shortDescription": "Forge a permanent Fettered Strength telepathic connection to another being.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>With a successful Focus Power Test, the psyker can create a permanent Fettered Strength telepathic connection to another being.</p><div class='bc-rule'><p>The psyker must succeed at a Difficult (–10) Focus Power Test in order to forge the link, and doing so takes 1d5 hours. If the Test is failed, the psyker must start the process again. If he succeeds, a permanent mental link is formed. No effort is needed to establish or maintain the link, it automatically works as long as the psyker and his target are within range of each other and the psyker wishes to engage it.</p><p>The psyker can only maintain one Mental Bond at a time. If the target dies, the bond is dissolved, and the psyker suffers 1d10 Insanity points in the backlash. If the psyker wants to eliminate the bond at any time, he must succeed at a Hard (–20) Willpower Test.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 162–163"
+    }
+  },
+  {
+    "name": "Psychic Scream", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300, "prerequisite": "Mind Probe", "action": "Half Action", "sustained": "No",
+      "subtype": "Telepathy — Communication", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "bolt", "type": "impact", "formula": "1d10", "penetration": "0", "special": "Ignores Armour; +1 Damage per point of effective Psy Rating" },
+      "shortDescription": "1d10 Impact Damage +1 per Psy Rating, ignoring Armour, and the target may be Stunned.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By focusing all of his will behind one massive psychic scream, the psyker can injure or stun an opponent out to a range of 5m x Psy Rating.</p><div class='bc-rule'><p>If the psyker succeeds on his Focus Power Test, he deals 1d10 Impact Damage +1 additional Damage per point of effective Psy Rating. This attack ignores Armour. The target must pass a Toughness Test with a penalty equal to 5 x the psyker’s effective Psy Rating, or be Stunned for one Round, plus a number of additional Rounds equal to his Degrees of Failure.</p></div></div>",
+      "source": "Rogue Trader, p. 163 (Table 6-4), p. 164"
+    }
+  },
+
+  {
+    "name": "Inspire", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "2m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Allies overcome Pinning and gain +10 to Willpower rolls to resist Fear.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can bolster his comrades by sending out waves of reassurance and martial spite.</p><div class='bc-rule'><p>A number of targets equal to the psyker’s Psy Rating (including the psyker himself) may immediately overcome the effects of Pinning and gain a +10 bonus to all Willpower rolls to resist Fear. This effect lasts as long as the targets stay within range of the psyker and the psyker maintains the power.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 166"
+    }
+  },
+  {
+    "name": "Delude", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "1m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. +30 to all Interaction Skill Tests against the target.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>One of the simpler Telepathic tricks, Delude allows the psyker to subtly mask his intentions and manipulate others into reacting favourably to him for a short time.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>The psyker makes an Opposed Willpower Test against the target. If the psyker succeeds, the target will find the psyker to be a person deserving of respect and react positively to any friendly overtures he makes. For as long as the psyker maintains this power, he gains a +30 bonus to all Interaction Skill Tests against the target. Note that this technique is not ‘mind control’ as such and the psyker cannot force others to act against their better judgement, harm themselves, nor hide acts of overt hostility by the psyker.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 165"
+    }
+  },
+  {
+    "name": "Beastmaster", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Establish rudimentary control over a number of animals equal to Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can establish rudimentary control over animals.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>He can affect a number of animals (creatures with the Bestial trait) equal to his Psy Rating, and if the psyker succeeds at the Opposed Willpower Test, the target animals must follow his psychic commands. Each round, the psyker may spend a Reaction to give a single animal a simple command such as “Come here”, “Guard me,” “Run,” “Attack,” and so forth. The animal will do its best to follow the command. If the animal feels threatened, becomes injured, or is commanded to act in manner contrary to its nature, it may make a further Opposed Willpower Test against the psyker with a +10 bonus to break free of the psyker’s control. How the animal reacts if it breaks free depends largely on how the psyker treated the animal.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 165"
+    }
+  },
+  {
+    "name": "Compel", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Delude", "action": "Half Action", "sustained": "No",
+      "subtype": "Telepathy — Domination", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Force the target to obey a simple command for one round.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The next level of compulsion, this technique allows the psyker to force others to briefly act against their will.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>The psyker makes an Opposed Willpower Test against the target. If the psyker succeeds, the target must follow his commands. The commands must be simple and achievable in one round. Some examples include “Flee,” “Fall,” “Attack the closest target,” and so forth. If the command is a potentially suicidal act, the target gets a +20 to his Opposed Willpower Test.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 165"
+    }
+  },
+  {
+    "name": "Sensory Deprivation", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Compel", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "10m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Strike the target deaf and blind, or mask one sense from many targets.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker has learned how to block the messages of the target’s senses.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>The psyker makes an Opposed Willpower Test against the target. If he succeeds, the target is struck deaf, blind, and is unable to scent or taste for as long as the psyker maintains the power plus 1d5 rounds.</p><p>This power can also be used as a crude form of effective ‘invisibility’ allowing the psyker to pass unnoticed to sight or sound. The psyker selects a number of targets equal to his Willpower Bonus and selects which single sense he wishes to suppress. This must be the same sense for each target. Each target must make an Opposed Willpower Test. Those that fail notice nothing out of the ordinary, and the sensory information is successfully masked by the psyker until he stops maintaining the power.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 167"
+    }
+  },
+  {
+    "name": "Dominate", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300, "prerequisite": "Sensory Deprivation", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Control the target like a puppet for a number of rounds equal to Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker has gained the most infamous power attributed to witches and renegades, the control of another’s mind.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>The psyker makes an Opposed Willpower Test against the target. If the psyker succeeds, the target is controlled as if he were a puppet. For as long as the psyker maintains the power, he can divide his Actions between himself and the target. The dominated target uses its own Characteristics, but at a –10 penalty to all Tests—except Opposed Willpower Tests—due to the crudity of the control. Any action deemed suicidal forces another Opposed Willpower Test to try and break the hold. The range for Dominate counts for both for the initial Test and for ongoing control. The psyker may maintain this power for a maximum number of rounds equal to his effective Psy Rating.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 165–166"
+    }
+  },
+  {
+    "name": "Puppet Master", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 500, "prerequisite": "Dominate", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "1 km x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": -10 },
+      "shortDescription": "Opposed Willpower at –10. The psyker’s mind takes over the victim’s body entirely.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This rare and dreaded power takes psychic domination to its final expression.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>The psyker makes an Opposed Willpower Test against the target—in this Test, the psyker suffers a –10 penalty. If the psyker wins, the target’s body is completely under his control. The psyker’s mind leaves his body behind to take over the victim’s body completely, whilst the victim’s consciousness is suppressed into a nightmarish dream state. The psyker’s own body is vulnerable during this time, as if he were in a deep sleep. The psyker may end this power at any time but suffers 1d5 Fatigue levels for doing so.</p><p>The possessed target retains its prior physical characteristics (Weapon Skill, Ballistic Skill, Strength, Toughness, and Agility), but its mental characteristics (Intelligence, Willpower, and Fellowship) are those of the psyker. The psyker in control of the body may use either his skills or the target’s at a –10 penalty. Any action deemed suicidal forces another Opposed Willpower Test to try and break the hold. However, the target is now suffering a –10 penalty rather than the psyker. Should the target’s body be killed, the psyker’s consciousness is hurled violently out of the dying vessel, suffering 1d5 Wounds—these Wounds bypass all defences—and 1d10 Insanity Points.</p><p>If the distance between the psyker and his victim reaches beyond the technique’s range, the link is severed, and the psyker returns to his own body whilst suffering 1d5 Fatigue levels in the process.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 166"
+    }
+  },
+  {
+    "name": "Reprogram", "type": "psychicPower", "folder": "Psychic Techniques/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 500, "prerequisite": "Dominate, Mind Probe", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telepathy — Domination", "range": "1m",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Opposed Willpower. Enter another mind and reshape its memories and experiences.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Requiring utmost skill and experience, this technique enables the psyker to enter into another mind and completely reprogram the contents, insidiously reshaping its memories and experiences as he desires.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>This can be something as simple as an engram designed to fool casual searches by other telepaths, or something more crafted and elaborate to remake an entire personality and constructed as ‘false self’ the unfortunate victim will believe to be true.</p><p>The briefest expression of this power takes 2d5 rounds. The psyker must win an Opposed Willpower Test against the victim, delving one level deeper into the target’s mind with every two degrees of success. If the target wins, he rejects the reprogramming and forces the psyker out ending the procedure and inflicting a Fatigue level on the psyker, who may not re-attempt this technique for 1d5 hours. This is also not a gentle process, and the target will be aware that his mind is being reordered until the reprogramming is successful, at which point the reprogramming itself will be forgotten as an event, buried deep in the subject’s unconscious mind. For every 2 Psy Rating the psyker uses, he gains a +10 bonus to the Opposed Willpower Test. The effects of Reprogramming are permanent unless they are forcibly broken down.</p><dl class='bc-prof'><dt>1 (Sow Confusion)</dt><dd>The psyker can shroud a single event or memory in the subject’s mind in doubt and mental fog, inflicting a –20 penalty to his recall of facts concerning it.</dd><dt>2 (Implant Falsehood)</dt><dd>The psyker can now implant simple information like a false face on a killer in a witness’s mind, a false pass code, or any other single sentence’s worth of knowledge the subject will now recall as fact.</dd><dt>3 (Rewritten History)</dt><dd>The psyker can now alter a single event or series of events in the subject’s recent memories to his specification. The subject will now earnestly believe this ‘new’ version of events to be the truth.</dd><dt>4 (Sculpt Synapses)</dt><dd>The psyker can now supplant a single major long term memory or obliterate it entirely, affecting potentially the perception of an entire sequence of events in the subject’s lives, and perhaps influencing the subject’s personality in the process. This also inflicts 1D5 Insanity Points on the subject.</dd><dt>5+ (Psychic Block)</dt><dd>In addition to his other workings, the psyker can put in place a basic psychic block that grants the target a +10 bonus to his Willpower Test when resisting Mind Probes. This also conceals the psyker’s tampering.</dd></dl><p><strong>Major Reprogramming:</strong> Given extensive time, effort and the malign will to do so, a psyker with this power can freely implant a complete new personality, restructure memories, counterfeit experience, and implant hate with this ability. However, the level of effort and detailed attention required to do this without overtaxing the psyker and driving the subject mad is far beyond most immediate game use, and requires a minimum of 2d10 hours.</p><p><strong>The Danger of Paradox:</strong> The mind is a complex thing, and a reprogrammed individual—if faced with evidence of the truth, or major discrepancies between what he has been manipulated into believing and the facts—may break through his reprogramming. If the GM judges such an event occurs, the victim must succeed at a Hard (–20) Willpower Test. If successful, the mental reprogramming breaks down. If the Test is failed, the victim goes on believing what he has been manipulated into thinking is the truth. In either case the mental strain inflicts 1d10 Insanity points on the subject.</p></div></div>",
+      "source": "Rogue Trader, p. 165 (Table 6-7), p. 166–167 (Table 6-8)"
+    }
+  },
+
+  {
+    "name": "Aura Reading", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 0, "prerequisite": "Divination Discipline", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Divination — Basic Technique", "range": "You",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "The basic technique of the Divination Discipline: read the aura of anyone the psyker can see.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Diviners can read a person’s aura, the unconscious projection of his being in to the warp. This is a very pale shadow, beneath the notice of most beings, but the diviner can study this aura to learn about the person.</p><div class='bc-rule'><p>The psyker can attempt to read the aura of any person he can see as a Full Action. This requires a successful Focus Power Test, with every degree of success providing more information. A psyker can only maintain this power on one target. If he wishes to divine the well-being of a different person, he must activate the power again.</p><p>If the psyker maintains the power on the same target, he can increase his Degrees of Success by +1 per round cumulatively, eventually getting to the full 3 Degrees of Success.</p><dl class='bc-prof'><dt>0</dt><dd>The psyker gains superficial impressions about the target person. This includes the three strongest emotions the target is currently experiencing, his race, whether or not he has any psychic powers, and a rough idea of his state of mental and physical health (No numbers, just good, poor, weak, etc.). Lastly, it determines if the target is an untouchable–naturally, in this case, the psyker receives no further information, including the effects from this technique!</dd><dt>1</dt><dd>The psyker gets all of the information above, plus he gets a deeper insight in to all of the target’s feelings, granting a +10 to all Fellowship Tests made against the target while Divination is active. The psyker also gets a better idea about the target’s well-being, including current Wounds and Fatigue levels. Finally, if the target is also a psyker, he can sense the target’s Psy Rating.</dd><dt>2</dt><dd>The psyker gets all of the above results, plus he can now determine the target’s Insanity Points, as well as which addictions or madness he might be suffering from. If the target is a psyker, he can determine which Discipline(s) and Techniques the target possesses.</dd><dt>3</dt><dd>The psyker gets all of the above information, and now he can determine how many Corruption Points the target might have accumulated. Also, the psyker can determine if the aura is genuine, or has been produced by some other means—technologically, psychically, daemonically, etc.</dd></dl><p><strong>Power Scale:</strong> At Psy Rating 1–3, the psyker receives images that are hazy and indistinct. At Psy Rating 4–6, the same images are clearer and sharply in focus. At Psy Rating 7+, any images will be crisp, clear, and accompanied by other sensory input—sound, taste, etc.—as appropriate. <strong>Technique Trees:</strong> Emperor’s Tarot.</p></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-10)"
+    }
+  },
+  {
+    "name": "Psycholocation", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "1km x Psy Rating",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "Locate and track down a single familiar object or person.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By succeeding at a Psyniscience Test, the psyker can locate and track down a single object or person in his immediate vicinity.</p><div class='bc-rule'><p>The psyker can find anything, but there must be some degree of familiarity. Touching a lock and trying to find the key to that lock is fine, but just thinking “I want a key” without a corresponding lock will not work. In the same vein, the psyker must have seen the person he wants to find—either directly or through some image, painting, etc.—or have the target’s true name.</p><p>Once the psyker has chosen a target, he makes a Psyniscience Test modified by the following factors:</p><dl class='bc-prof'><dt>+10</dt><dd>Intimately familiar with target (Knows subject well, or has an item that has been with the subject for a long time)</dd><dt>+5</dt><dd>Has a portion of the subject (Fragment from the item, lock of hair from a person)</dd><dt>–10</dt><dd>Subject is surrounded by others of its kind (a coin in a coin purse, a person in a crowd, etc.)</dd><dt>+5</dt><dd>Subject is within 50m x Psy Rating</dd><dt>–20</dt><dd>Subject is over 2 km away</dd></dl><p>If the psyker passes the Psyniscience Test, and the subject is within range, the psyker receives a rough idea of where the subject is located, based on how many degrees of success he has scored.</p><dl class='bc-prof'><dt>0</dt><dd>The psyker knows the rough direction of the subject.</dd><dt>2</dt><dd>The psyker knows the specific direction of the subject, and roughly how far away it is.</dd><dt>4</dt><dd>The psyker knows the specific direction of the subject, and exactly how far away it is.</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 169–170 (Table 6-13)"
+    }
+  },
+  {
+    "name": "Foreshadow", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "No",
+      "subtype": "Divination — Emperor’s Tarot", "range": "Personal",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Gain a bonus to one Skill Test equal to 5 times the effective Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Peering in to the future for a brief instant, the psyker is able to see possible outcomes and potential dangers.</p><div class='bc-rule'><p>Until the end of the next turn, the psyker gains a bonus to one Skill Test equal to 5 times his effective Psy Rating. Using “Foreshadow” does not count as sustaining a Psychic Technique.</p></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 169"
+    }
+  },
+  {
+    "name": "In Harm’s Way", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Free Action", "sustained": "No",
+      "subtype": "Divination — Emperor’s Tarot", "range": "Personal",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Anticipate the enemy: bonus to WS and BS Tests, penalty to BS Tests against the psyker.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By taking a deep look into the near future, the psyker can anticipate the actions of his enemies.</p><div class='bc-rule'><p>Until the end of the next turn, the psyker gains a bonus to all Weapon Skill and Ballistic Skill Tests equal to 5 times his effective Psy Rating (to a maximum of +20), and Ballistic Skill Tests against him suffer the same value as a penalty. Using “In Harm’s Way” does not count as sustaining a Psychic Power.</p></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 169"
+    }
+  },
+  {
+    "name": "Augury", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Foreshadow", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "1m",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "Read the Emperor’s Tarot for a subject to answer a specific question.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By reading the Emperor’s Tarot for a specific individual, the psyker can grant insight into what troubles lay ahead.</p><div class='bc-rule'><p>A specific question must be asked, though it can be as detailed as “What must we overcome to defeat the xenos on Choir?” or as broad as “How can I turn a greater profit?” After that, the psyker will read the Emperor’s Tarot for the subject as they both concentrate on the question asked. At the end of this time, typically 30 minutes—though some readings take longer to interpret—the psyker makes a Psyniscience Test. Every two degrees of success reveals more information. However, any rolls on the Psychic Phenemona chart that are provoked from this technique also add +10.</p><dl class='bc-prof'><dt>0 (Opposition)</dt><dd>The psyker can determine the greatest opposition that the subject will face.</dd><dt>2 (Fears)</dt><dd>The psyker also can determine other negative forces that may be in play—the number of these is equal to the Psy Rating used in this power.</dd><dt>4 (Hopes)</dt><dd>The psyker can now determine the greatest advantage or tool the subject has at hand.</dd><dt>6+ (Outcome)</dt><dd>The psyker may offer a single sentence of advice to the subject about the clearest path to his answer.</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 168–169 (Table 6-11)"
+    }
+  },
+  {
+    "name": "Psychometry", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Augury", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "1m x Psy Rating radius",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "Read the psychic traces others leave behind on objects and places.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Learning to read the Tarot is in part the act of learning to divine the Emperor’s word from psychic impressions. Refining this skill allows the psyker to learn more about others from the crude psychic traces they leave behind on objects and places in the world around them.</p><div class='bc-rule'><p>In its simplest form, the psyker can gain rough impressions from an object or a general area by maintaining physical contact and making a Psyniscience Test. More information beyond the strongest emotions requires time, and the longer the psyker stays in a given area, the more information he can ascertain. These numbers are modified by the raw strength of the psyker, and he may subtract a number of rounds equal to his Psy Rating from each result level. Example: A psyker with Psy Rating 5 will get the first result in 5 rounds, the second result in 10, etc.</p><dl class='bc-prof'><dt>10 rounds</dt><dd>The psyker can detect the strongest emotion associated with the area or object.</dd><dt>20 rounds</dt><dd>The psyker can see the general features of the person who experienced the emotion.</dd><dt>30 rounds</dt><dd>The psyker gets a clear image of the person who experienced the emotion.</dd><dt>40 rounds</dt><dd>The psyker is able to identify the person’s occupation (e.g. Career and Rank).</dd><dt>50 rounds</dt><dd>The psyker can now determine the name of the person.</dd><dt>+10 rounds</dt><dd>The psyker discovers an additional fact about the person as determined by the GM.</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 170 (Table 6-14)"
+    }
+  },
+  {
+    "name": "Divining the Future", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Augury", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "Personal",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "Augury in a single minute, with deeper answers at higher Degrees of Success.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Divining the Future represents the psyker’s growing affinity for the Emperor’s Tarot, and his ability to access answers about the future with greater speed and precision.</p><div class='bc-rule'><p>Just like Augury, a specific question must be asked, though it can be as detailed as “When will Da Wurldbreaka return to this planet?” or as broad as “How can I turn a greater profit?” However the time involved is considerably less—only one minute is required for a use of this technique. The psyker makes a Psyniscience Test. Every two degrees of success reveals more information. However, any rolls on the Psychic Phenomena chart that are provoked from this technique also add +10.</p><dl class='bc-prof'><dt>0 (Opposition)</dt><dd>The psyker can determine the greatest opposition that the subject will face.</dd><dt>2 (Fears)</dt><dd>The psyker also can determine other negative forces that may be in play—the number of these is equal to the Psy Rating used in this power.</dd><dt>4 (Hopes)</dt><dd>The psyker can now determine the greatest advantage or tool the subject has at hand.</dd><dt>6+ (Outcome)</dt><dd>The psyker may offer two sentences of advice to the subject about the clearest path to their answer. This grants the subject a +10 bonus on a number of Tests equal to the psyker’s Psy Rating for the next month or until the question is resolved, whichever occurs first.</dd></dl></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 169 (Table 6-12)"
+    }
+  },
+  {
+    "name": "Walking the Path", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Divining the Future", "action": "Free Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "Personal (1m x Psy Rating)",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "+10 to WS and BS Tests, –20 to Ballistic Skill Tests against the psyker.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>At this level of skill, the psyker has learned how to explore multiple outcomes to different choices and actions, and to be able to sort through them in less than a heartbeat.</p><div class='bc-rule'><p>The psyker must succeed at a Focus Power Test. If successful, the psyker gains a +10 bonus to all Weapon Skill and Ballistic Skill Tests, and Ballistic Skill Tests against him are at a –20 penalty—these benefits apply for one round, unless the psyker sustains this technique. Additionally, he can see glimpses of the dangers in his immediate vicinity and shout warnings to his comrades within 1m x Psy Rating to warn them of incoming attacks. Allies beyond this range are outside of the scope of his power to foresee. All Ballistic Attacks against those so warned suffer a –5 penalty. This technique may not be used at the Fettered Psychic Strength.</p></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 170"
+    }
+  },
+  {
+    "name": "Blessed by the Emperor", "type": "psychicPower", "folder": "Psychic Techniques/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 300, "prerequisite": "Divining the Future", "action": "Free Action", "sustained": "Yes",
+      "subtype": "Divination — Emperor’s Tarot", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Psyniscience", "difficulty": 0 },
+      "shortDescription": "Bonus to WS and BS equal to 5 x Psy Rating, and warn allies of incoming fire.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>At this level of skill, the psyker has learned how to explore multiple outcomes to different choices and actions, and to be able to sort through them to choose the safest course.</p><div class='bc-rule'><p>The psyker must succeed at a Focus Power Test. If successful, the psyker gains a bonus to all Weapon Skill and Ballistic Skill Tests equal to 5 times his effective Psy Rating, and Ballistic Skill Tests against him suffer the same value as a penalty. Additionally, he can shout warnings to his comrades within 5m x Psy Rating and warn them of incoming attacks. Allies beyond this range are outside of the scope of his power to foresee. All Ballistic Skill Tests against those so warned suffer a –10 penalty. This technique may not be used at the Fettered Psychic Strength.</p></div></div>",
+      "source": "Rogue Trader, p. 168 (Table 6-9), p. 169"
+    }
+  },
+
+  {
+    "name": "Mind over Matter", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 0, "prerequisite": "Telekinesis Discipline", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Basic Technique", "range": "up to 5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "bolt", "type": "impact", "formula": "1d10", "penetration": "0", "special": "Thrown object: +1 Damage per 5 kg of the missile’s weight" },
+      "shortDescription": "The basic technique of the Telekinesis Discipline: lift, hurl, or shove with force of will.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Telekinesis is the ability to move physical objects with force of will. The psyker’s initial gift in Telekinesis has several applications.</p><div class='bc-rule'><p>The psyker may lift or move any object within his range and line of sight that does not exceed the weight limit of 10 kg x Psy Rating. The object may be moved slowly within the range of the power. Objects move far too slowly to be used as an attack, however. Additionally, this raw lifting ability does not function on living beings, as the smallest movements tend to unbalance the psyker’s mental focus. Once an object is released from Telekinesis, it begins to slowly settle back to earth as the last vestiges of the power leave it.</p><p>A more forceful approach can be taken with lighter objects, weighing up to 5 kg x Psy Rating. These may be accelerated with greater speed and force, out to a maximum of 5 metres x Psy Rating. To hit a target, the psyker makes a Ballistic Skill Test. Damage is equal to 1d10 Impact Damage plus 1 point per 5 kg of the missile’s weight.</p><p>Lastly, the psyker can direct a sharp wave of force against a target to shove it away. The psyker must make an Opposed Test, pitting his Willpower against the target’s Strength. If the psyker wins, he knocks the target to the ground and pushes it away a number of metres equal to his Psy Rating.</p><p><strong>Power Scale:</strong> The majority of the power scale in Telekinesis is reflected in the actual power or psychic techniques. However at lower levels (below Psy Rating 4), a psyker’s telekinesis will seem tentative; the hold on objects/people will be shaky. At higher levels, this will turn into a rock solid mental force. <strong>Technique Trees:</strong> Telekinetic Force.</p></div></div>",
+      "source": "Rogue Trader, p. 171"
+    }
+  },
+  {
+    "name": "Precision Telekinesis", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "Do anything at range that the psyker could do with his bare hands.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Unlike the first gross manipulations of Telekinesis, this allows the psyker to fine tune his ability until he can do anything at range that he could do with his bare hands.</p><div class='bc-rule'><p>In any situation where the task in question would require a Characteristic Test, the psyker substitutes Willpower instead. The psyker’s Psy Rating substitutes for his Strength Bonus when using this technique.</p><p>If using this Technique to attack with a weapon, the psyker must still spend Actions as he would were he wielding the weapon. He benefits and suffers from all penalties and bonuses he would normally have were he wielding the weapon (including Proficiency penalties), and measures all ranges to targets from himself, not the weapon. If he (not the weapon) does not have line of sight to the target, he suffers the usual penalties for blind firing.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 171"
+    }
+  },
+  {
+    "name": "Force Bolt", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 100, "prerequisite": "None", "action": "Half Action", "sustained": "No",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "10m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "bolt", "type": "impact", "formula": "1d10+2", "penetration": "0", "special": "+2 Damage per point of effective Psy Rating" },
+      "shortDescription": "A psychic ranged attack dealing 1d10+2 Impact Damage, +2 per Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can hurl a bolt of force at an opponent.</p><div class='bc-rule'><p>If he activates the Technique, he hits the target with a psychic ranged attack that deals 1d10+2 Impact Damage, with a bonus of +2 Damage per point of effective Psy Rating. This attack can be dodged in the same manner as any other ranged attack, but if it hits and the psyker scores at least 3 Degrees of Success, the target is also pushed back 1d5 metres and knocked prone.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 171"
+    }
+  },
+  {
+    "name": "Telekinetic Crush", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "None", "action": "Half Action", "sustained": "No",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "10m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "bolt", "type": "impact", "formula": "1d10", "penetration": "0", "special": "+2 Damage per effective Psy Rating; cannot be dodged" },
+      "shortDescription": "Opposed Willpower against Toughness. 1d10 Impact Damage, +2 per Psy Rating; cannot be dodged.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can wrap a target in crushing bands of force.</p><div class='bc-rule'><p><strong>Focus Power Test:</strong> Opposed Willpower.</p><p>Make an Opposed Test, pitting the psyker’s Willpower against the target’s Toughness. If the psyker wins, he may inflict 1d10 Impact Damage with a bonus of +2 Damage per effective Psy Rating. The psyker may also Grapple the opponent (see page 240), substituting his Willpower bonus for his Strength bonus. This Technique cannot be dodged.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 171"
+    }
+  },
+  {
+    "name": "Telekinetic Weapon", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Force Bolt", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "Personal",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "none", "type": "rending", "formula": "1d10", "penetration": "Psy Rating", "special": "+3 Damage per effective Psy Rating; counts as a sword; not destroyed by Power Field" },
+      "shortDescription": "A blade of force counting as a sword: 1d10 Rending, +3 per Psy Rating, Penetration equal to Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shaping the force of the psyker’s mind into a blade of destructive force, the Telekinetic Weapon is a powerful manifestation of the psyker’s discipline and control.</p><div class='bc-rule'><p>The Telekinetic Weapon counts as a sword in the hand of the psyker, but there is no penalty for lacking the required Weapon Training Talent.</p><p>To strike with the Psychic Weapon, the psyker makes a Weapon Skill Test—the Telekinetic weapon may be parried, but is not destroyed by weapons with the Power Field quality (see page 116). If the weapon hits, it does 1d10 Rending Damage with a bonus of +3 Damage per effective Psy Rating. Additionally, the weapon has a Penetration value equal to the psyker’s Psy Rating.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 171–172"
+    }
+  },
+  {
+    "name": "Telekinetic Shield", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 200, "prerequisite": "Telekinetic Crush", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "Personal",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "shortDescription": "1 point of AP per Psy Rating on every location, stacking with worn armour.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker can create a field of telekinetic energy for self-defence.</p><div class='bc-rule'><p>The form-fitting shield grants the psyker 1 point of AP per Psy Rating—this technique lasts for one round unless the psyker chooses to sustain it. This protection counts as armour on every location that stacks with any other armour the psyker may be wearing. The shield is not opaque and does not block line of sight. The defence provided by this power will also work against attacks with the Warp Weapon quality.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 172"
+    }
+  },
+  {
+    "name": "Force Shards", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 400, "prerequisite": "Precision Telekinesis, Telekinetic Weapon", "action": "Half Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "5m x Psy Rating",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "storm", "type": "rending", "formula": "1d10", "penetration": "Psy Rating", "special": "+2 Damage per Psy Rating; one hit plus one per Degree of Success" },
+      "shortDescription": "Hovering blades of force: –10 to attack the psyker, then launched for 1d10 Rending each.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This technique is an elegant manifestation of the psyker’s killing will in the form of multiple hovering blades of destructive force, visible as hazy distortions in the air.</p><div class='bc-rule'><p>When activated, the psyker brings a number of force shards into existence equal to his effective Psy Rating. The force shards hover around the psyker, acting as a potential barrier to incoming attacks. Any opponent attacking the psyker when he has one or more force shards orbiting suffers a –10 to Weapon Skill or Ballistic Skill tests.</p><p>The force shards can be launched at targets as a ranged attack in subsequent turns. The psyker makes a Challenging (+0) Willpower Test to hit the target. On a success he hits with one force shard, plus one additional hit per degree of success, to a maximum number of hits equal to the number of force shards. Each shard deals 1d10 Rending Damage with a bonus of +2 Damage per Psy Rating and a Penetration equal to the Psy Rating used in the Technique. The shards may hit any number of targets within two metres of the primary target. This attack can be dodged in the same manner as any other ranged attack.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 172"
+    }
+  },
+  {
+    "name": "Storm of Force", "type": "psychicPower", "folder": "Psychic Techniques/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 500, "prerequisite": "Telekinetic Weapon", "action": "Full Action", "sustained": "Yes",
+      "subtype": "Telekinesis — Telekinetic Force", "range": "5m x Psy Rating radius",
+      "focusPower": { "test": "Willpower", "difficulty": 0 },
+      "damage": { "zone": "storm", "type": "impact", "formula": "2d10", "penetration": "0", "special": "+3 Damage per Psy Rating; one target per Psy Rating, no target hit more than once a round" },
+      "shortDescription": "A rain of force bolts: 2d10 Impact, +3 per Psy Rating, against one target per Psy Rating.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker has developed his powers to the furthest reaches. He can generate a rain of force bolts that can smash his enemies in a savage storm of psychic fury.</p><div class='bc-rule'><p>The psyker can pick out a number of targets equal to his Psy Rating for each round that he maintains this power. The psyker must make a Challenging (+0) Willpower Test to hit each of his targets, and deals 2d10 Impact Damage with a bonus of +3 Damage per Psy Rating. No target may be hit more than once a round. This attack can be dodged in the same manner as any other ranged attack.</p></div></div>",
+      "source": "Rogue Trader, p. 171 (Table 6-15), p. 172"
+    }
+  }
+]

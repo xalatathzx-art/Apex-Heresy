@@ -1,0 +1,737 @@
+[
+  {
+    "name": "Smite",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "None",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Biomancy — Attack, Concentration",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Called by many names, Smite is a common destructive power used throughout the galaxy by many different psykers.</p><div class='bc-rule'><p>The psyker conjures up bio-energy from deep within himself, summoning lethal bolts of lightning which leap from his fingertips to burn and blast his enemies to ash. Smite is a Psychic Barrage that deals 1d10 + Psy Rating Energy Damage with a Pen of 4.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Iron Arm",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Endurance, Strength 35+, Toughness 35+",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Biomancy — Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -20
+      },
+      "shortDescription": "Hard (–20) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker’s flesh transforms, hardening into a slick, living metal, weighing him down but also rendering him incredibly resistant.</p><div class='bc-rule'><p>His new form allows him to shrug off small arms fire and crush his enemies with his bare hands. While this power is in effect, the psyker gains the Unnatural Toughness and Unnatural Strength Traits with ratings equal to half his Psy Rating, rounded up. However, his flesh’s more sturdy form weighs the psyker down, causing him to suffer a –10 penalty to his Agility characteristic while the power is in effect.</p><p><strong>Focus Power:</strong> Hard (–20) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Enfeeble",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 100,
+      "prerequisite": "Toughness 35+",
+      "action": "Half Action",
+      "sustained": "Half Action",
+      "subtype": "Biomancy — Attack, Concentration",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker lashes at his target with tendrils of Warp energy.</p><div class='bc-rule'><p>The vile power quickly strips the victim of vitality, draining its spirit with every caress. The psyker nominates a single target in range and line of sight who opposes this power with a Toughness Test. If the target fails to resist the 230 power, it is Stunned for one Round. In addition, as long as this power remains in effect, if the target rolls doubles on any Test it makes, it gains a number of levels of Fatigue equal to half the psyker’s Psy Rating rounded down. A single target can only be affected by one instance of the Enfeeble power at a time.</p><p><strong>Focus Power:</strong> Challenging (+0) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Endurance",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Toughness 30+",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Biomancy — Concentration",
+      "range": "3 metres x Psy Rating radius",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Extending his will over his allies, the psyker reaches into their bodies to mend their flesh and reinvigorate their will to fight by ridding their bodies of fatigue.</p><div class='bc-rule'><p>Psykers trained in this power have been known to turn the tides of entire battles. A number of allies in range equal to the psyker’s Psy Rating, plus the psyker himself, recover Wounds equal to half the psyker’s Psy Rating, rounded up. They also may immediately overcome the effects of Pinning. This power is incredibly taxing and requires at least 12 hours of recovery before it may be used again.</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Life Leech",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Enfeeble, Toughness 40+",
+      "action": "Full Action",
+      "sustained": "Free Action",
+      "subtype": "Biomancy — Attack, Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker latches on to his target’s life force and tears it from the hapless victim’s body.</p><div class='bc-rule'><p>The psyker absorbs this stolen essence, using it to reinvigorate and bolster his own flesh. The psyker nominates a single target in range and line of sight who opposes this power with a Toughness Test. If the target fails to resist the power, he suffers 1d10 + Psy Rating Toughness Damage, and the psyker gains Unnatural Toughness (1), +1 for every full 5 points of Toughness damage the power inflicts. This Unnatural Toughness remains for as long as the power’s effect persists.</p><p><strong>Focus Power:</strong> Difficult (–10) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Warp Speed",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 500,
+      "prerequisite": "Psy Rating 5",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Biomancy — Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The immaterium flows through the psyker, allowing him the means to defy the limits of time, hastening his movements and reflexes far beyond the range of any human.</p><div class='bc-rule'><p>He becomes but a blur to his enemies, striking out with lightning speed. The psyker gains the Unnatural Weapon Skill, Unnatural Ballistic Skill, and Unnatural Agility Traits, all at values equal to his Psy Rating. @@@P 232</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Haemorrhage",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Biomancy",
+    "img": "systems/dark-heresy/assets/icons/powers/biomancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Psy Rating 4, Smite",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Biomancy — Attack, Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Opposed Willpoower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bypassing exterior defences, the psyker reaches his mind out into the body of his adversary, using the writhing power of the Warp to set a fire deep within his victim’s flesh.</p><div class='bc-rule'><p>Boiling blood begins bursting from every pore as the target’s body tears itself apart from the inside. The psyker nominates a single target in range and line of sight who opposes this power with a Toughness Test. If the target fails to resist the power, it suffers Energy Damage equal to the psyker’s Psy Rating plus one additional Damage per Degree of Failure on its Toughness Test; this Damage ignores Toughness Bonus and Armour. If this Damage successfully kills the target, the psyker may immediately recast this Psychic Power as a Free Action on any legal target within 5 metres of the original target. DIVINATION Diviners seek to discern the hidden past and know the course of future events. Their abilities allow them to look into the Immaterium to find the answers they seek. However, to look upon the Warp is taxing and even dangerous, often leading to insanity for those not fully prepared to embrace the glory of the aethyr. Example Minor Manifestations: Gain a vague feeling about future events. Cause a small event of fortune or misfortune to befall a nearby character (finding a lho-stick on the ground, tripping on a root). VII: Psychic Powers</p><p><strong>Focus Power:</strong> Difficult (–10) Opposed Willpoower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Prescience",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "Psyniscience Rank 1",
+      "action": "Half Action",
+      "sustained": "Half Action",
+      "subtype": "Divination — Concentration",
+      "range": "3 metres x Psy Rating radius",
+      "focusPower": {
+        "test": "Psyniscience",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Psyniscience Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker taps into the immaterium, using its energies to spread his senses over the battle, seeing what is, what has been, and what will be.</p><div class='bc-rule'><p>By focussing this Warp- sight to a razor’s edge he can guide his allies’ aims, directing their attacks to strike home. For the duration of this power, a number of allies within range equal to the Psyker’s Psy Rating, plus the psyker himself, gain a bonus to their Weapon Skill and Ballistic Skill equal to twice the psyker’s Psy Rating. Allies affected by this power lose its benefit as soon as they move out of range.</p><p><strong>Focus Power:</strong> Challenging (+0) Psyniscience Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Foreboding",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "Psyniscience Rank 1",
+      "action": "Reaction",
+      "sustained": "No",
+      "subtype": "Divination — Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Perception Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker’s awareness of the Warp grants him the means to elude his opponents’ attacks without needing to rely on mortal reflexes.</p><div class='bc-rule'><p>He walks through the battlefield unscathed, dodging incoming fire with a simple ease. In any situation where the psyker would be called upon to make an Evasion Test, he may instead attempt to use this power. If the power is successful, the psyker avoids the attack exactly as if he has passed an Evasion Test. 231 @@@P 233</p><p><strong>Focus Power:</strong> Difficult (–10) Perception Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Forewarning",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Foreboding",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Divination — Concentration",
+      "range": "3 metres x Psy Rating radius",
+      "focusPower": {
+        "test": "Psyniscience",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Psyniscience Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker’s mind skims the Warp for glimpses of the immediate future, seeking to prepare himself and his allies for any incoming threats.</p><div class='bc-rule'><p>His insight keeps them ahead of the battle, making them aware of incoming attacks before their enemies even fire a shot. For the duration of this power, a number of allies within range equal to the Psyker’s Psy Rating, plus the psyker himself, gain a bonus to all Evasion Tests equal to twice the psyker’s Psy Rating. Allies affected by this power lose its benefits as soon as they move out of range. VII: Psychic Powers</p><p><strong>Focus Power:</strong> Challenging (+0) Psyniscience Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Misfortune",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Divination — Attack, Concentration",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Staring down his unfortunate victim, the psyker simply snaps his fingers, twisting the strands of his target’s fate.</p><div class='bc-rule'><p>Suddenly, everything around the psyker’s opponent begins to fail. His vision blurs, his weapons jam, and every bullet flying his way easily finds its way into the weakest points of his armour. The psyker nominates a single target in range and line of sight who opposes this power with a Willpower Test. If the target fails to resist the power, misfortune follows it wherever it goes. For the duration of this power, the target’s Armour points are reduced in all locations by half the psyker’s Psy Rating, rounded up. Additionally, the target’s weapons jam on any Attack in which they fail to hit their target.</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Perfect Timing",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Prescience",
+      "action": "Half Action",
+      "sustained": "Half Action",
+      "subtype": "Divination — Concentration",
+      "range": "3 metres x Psy Rating Radius",
+      "focusPower": {
+        "test": "Psyniscience",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Psyniscience Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Tearing through the boundary to the Warp with his consciousness, the psyker begins to see vivid images of his foes’ future actions with an unnatural precision.</p><div class='bc-rule'><p>Empowered by this information, the psyker and his allies can predict exactly when their foes will peer from cover, allowing them to place their shots perfectly. For the duration of this power, a number of allies within range equal to the Psyker’s Psy Rating, plus 232 the psyker himself, ignore the effects of cover when firing on a target. If their attacks would hit a location on the enemy that would benefit from cover, that benefit is ignored. Allies affected by this power lose its benefits as soon as they move out of range.</p><p><strong>Focus Power:</strong> Difficult (–10) Psyniscience Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Precognition",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Perfect Timing",
+      "action": "Full Action",
+      "sustained": "No",
+      "subtype": "Divination — Concentration",
+      "range": "5 metres x Psy Rating radius",
+      "focusPower": {
+        "test": "Psyniscience",
+        "difficulty": -20
+      },
+      "shortDescription": "Hard (–20) Psyniscience Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Such is the psyker’s power that he has witnessed every action, every decision, that will bring his Squad to victory.</p><div class='bc-rule'><p>With tremendous focus he uses his power to impart this incredible knowledge to his allies, guiding them along the true path to victory. The psyker gains a number of re-rolls equal to his Psy Rating that last until the beginning of the his next Turn. For the duration of that Round, whenever an ally in range, or the psyker himself, rolls a Test or Damage Roll, the psyker may spend one of these re-rolls to allow that ally to re-roll all dice involved in that Test or Damage Roll. If the psyker is killed or rendered unconscious before the beginning of his next Turn, all remaining re-rolls are lost.</p><p><strong>Focus Power:</strong> Hard (–20) Psyniscience Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Scrier’s Gaze",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Divination",
+    "img": "systems/dark-heresy/assets/icons/powers/divination-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "Psyniscience Rank 2",
+      "action": "Special",
+      "sustained": "No",
+      "subtype": "Divination — Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Psyniscience",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Psyniscience Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker’s gaze is cast upon the infinite tides of the Warp, seeing the entire battlefield clearly in his mind’s eye.</p><div class='bc-rule'><p>This rush of information is too much for weaker psyker’s to handle, often casting them into madness. But those who can focus are able to divine information regarding them battle with astounding precision, capturing every movement of troops and war machines under their omniscient gaze. To begin the ritual, the psyker must spend at least thirty minutes using assorted psychic foci to concentrate his vision— drawing Tarot cards, casting runes, gazing deep into fire, the methods to this are as varied as the stars of the Imperium. At the end of this thirty minutes, the psyker makes his Focus Power Test to project his vision over the battlefield. Each Degree of Success reveals more information, as explained on Table 7–4: Scrier’s Gaze Results. @@@P 234 Table 7–4: Scrier’s Gaze Results DoS Result Single Threat: The psyker manages to focus his view on a single key manoeuvre the enemy is either planning, or currently enacting. This could be an ambush, an all out assault, or a flanking manoeuvre, ambush, an all out assault, or a flanking manoeuvre, but regardless of its nature, it is a key manoeuvre to the enemy’s plans. 1 Troop Movements: The psyker’s visions stretches over the entire battlefield, able to see the movement of all allied and enemy troops. However, he is unable to focus his vision enough to see the exact number and makeup of each unit. 2 Troop Numbers: The psyker controls the focus of his vision, he is aware of all previous effects and is also able to discern the number and makeup of each individual unit. 3 Commander’s Plans: The psyker breaks through the veil of time, seeing the battle and its countless different outcomes. He is aware of all previous effects, and also knows details of the enemy commanders’ battle plans. 4+ PYROMANCY The righteous flames will burn away the wickedness, both without and within. Pyromancers are feared by all whom serve with them. They are exactly what the Generals want from their psykers: utter destruction in the most visually potent manner. Example Minor Manifestations: Create a small flame in the palm of the psyker’s hand. Cause all of the candles in a room to simultaneously go out.</p><p><strong>Focus Power:</strong> Challenging (+0) Psyniscience Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Flame Breath",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Psy Rating 3, Spontaneous Combustion",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Pyromancy — Attack",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A truly horrifying sight, the psyker faces his enemy, opening his eyes and mouth wide as torrents of psychic flame spew forth from them at his target.</p><div class='bc-rule'><p>This power is a Psychic Barrage that deals 1d10+2 Energy Damage, +2 per point of Psy Rating, with a Pen of 0 and the Flame Quality. Damage, +2 per point of Psy Rating, with a Pen of 0 and the Flame Quality. Range Sustai Subty Descr Warp, enemi smash Thi psyker 2d10 Pen of</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Fiery Form",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Fire Shield, Psy Rating 4",
+      "action": "Half Action",
+      "sustained": "Half Action",
+      "subtype": "Pyromancy — Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker engulfs his own body in the fire of the Warp.</p><div class='bc-rule'><p>It spreads over every inch of his skin, transforming his very flesh into living Warpfire. Reborn a being of living flame, the psyker burns everything he touches, transforming his surrounding into a burning hellscape with every step he takes. While this power is in effect, all of the psyker’s melee attacks deal addition Energy Damage equal to his Psy Rating and gain the Flame Quality. In addition, at the end of each of the psyker’s Turns in which he sustains this power he emits a Psychic Blast centred on himself with a radius equal to his Psy Rating. All creatures within the area of effect, with the exception of the psyker, suffer 1d10 + Psy Rating Energy Damage with a Pen of 0 and the Flame Quality. VII: Psychic Powers</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Fire Shield",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "None",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Pyromancy — Concentration",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>With a sweep of his hand, the psyker surrounds himself with a wall of writhing flame.</p><div class='bc-rule'><p>The living fire lashes out at his attackers, sending tendrils of flame lashing at any foolish enough to take him on. While this power is in effect, any creatures in range and line of sight that successfully hit the Psyker with an Attack immediately suffer Energy Damage equal to the psyker’s Psy Rating, this Damage is not reduced by Armour or Toughness.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Inferno",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 500,
+      "prerequisite": "Molten Beam, Psy Rating 5, Sunburst",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Pyromancy — Attack, Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Channelling his rage into the fires of the Warp, the psyker calls down a pillar of flame upon his enemies.</p><div class='bc-rule'><p>The whirling blast sets the very air aflame as it smashes into his foes. This power is a Psychic Blast with a radius equal to the psyker’s Psy Rating. All creatures caught in the blast suffer 2d10 Energy Damage, +3 per point of Psy Rating, with a Pen of 0 and the Flame Quality. 233 233 @@@P 235</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Spontaneous Combustion",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "None",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Pyromancy — Attack",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 10
+      },
+      "shortDescription": "Ordinary (+10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker reaches into the body of his foe, pooling his anger into his victim and igniting his rage with the powers of the Warp.</p><div class='bc-rule'><p>The target’s blood boils and flesh smoulders, and as the psyker rage reaches its pinnacle, the target’s body begins to explode in blasts of ash and flame. This power is a Psychic Bolt that deals 1d10+2 Energy Damage, +2 per point of Psy Rating, with a Pen of 0 and the Flame Quality. VII: Psychic Powers</p><p><strong>Focus Power:</strong> Ordinary (+10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Sunburst",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Flame Breath, Psy Rating 4",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Pyromancy — Attack",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker pools his hate inside himself, channelling it into the power of the Warp.</p><div class='bc-rule'><p>As he collects his rage he begins to glow with energy until he surrounded by a blinding globe of light that dulls out the very light of the sun. As he opens his eyes he unleashes this pent-up energy on his unfortunate target, assailing them with an unending barrage of flame. This power is a Psychic Storm that deals 1d10+2 Energy Damage, +2 per point of Psy Rating, with a Pen of 0 and the Flame Quality.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Molten Beam",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Pyromancy",
+    "img": "systems/dark-heresy/assets/icons/powers/pyromancy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Flame Breath, Psy Rating 4",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Pyromancy — Attack",
+      "range": "5 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker extend his palm towards his enemy and unleashes a concentrated, white-hot beam of energy.</p><div class='bc-rule'><p>Such is the heat of the focused beam of Warpfire that armour melts to slag and flesh simply vaporises as it effortlessly cuts through them. This power is a Psychic Bolt that deals 1d10+5 Energy Damage, +3 per point of Psy Rating, with a Pen equal to twice the psyker’s Psy Rating, and the Melta quality. 234 TELEKINESIS Those psykers who focus on telekinesis use mental energy to directly influence the material world around them. These Telekines are capable using the sheer force of their mind to shield themselves from attacks, strike out at their foes with invisible energy, and even shred the thick armour of enemy vehicles. Example Minor Manifestations: Cause a small object to float or move across a room. Tap a squad-mate on the shoulder from across the room.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Assail",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "None",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telekinesis — Attack, Concentration",
+      "range": "20 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 10
+      },
+      "shortDescription": "Ordinary (+10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>With nothing but the power of his own mind, the psyker picks up a nearby object; lifting a plasteel barrel, ripping a metal pipe from a wall, or even tearing a boulder from the earth.</p><div class='bc-rule'><p>He then pushes the object through the air, hurling it at his opponent with startling speed. This power is a Psychic Bolt that deals 1d10 + Psy Rating Impact Damage with a Pen of 2. If the psyker scores at least three Degrees of Success on the Focus Power Test, the target is also thrown 1d5 metres away and knocked prone (certain especially large targets such as battle tanks, Greater Daemons, and Titans are immune to this at the GM’s discretion).</p><p><strong>Focus Power:</strong> Ordinary (+10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Crush",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Assail",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telekinesis — Attack, Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker extends his hand towards his foe and clenches his fist.</p><div class='bc-rule'><p>As he presses his finger tighter and tighter together, invisible forces push in on his target from all sides, crushing flesh, armour, and bone alike. The psyker nominates a single target in range and line of sight who opposes this power with a Toughness Test. If the target fails to resist the power, it suffers 1d10 + Psy Rating Impact Damage with a Pen of 2 to the Body Location and counts as being affected by the Snare Quality with a value equal to half the psyker’s Psy Rating rounded down. @@@P 236</p><p><strong>Focus Power:</strong> Challenging (+0) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Gate of Infinity",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Psy Rating 5",
+      "action": "Extended Action (3)",
+      "sustained": "No",
+      "subtype": "Telekinesis — Concentration",
+      "range": "1 kilometres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -20
+      },
+      "shortDescription": "Hard (–20) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Controlling the roiling nature of time and space in the Warp, the psyker can open a hole through the immaterium, bending the fabric of reality to his will.</p><div class='bc-rule'><p>Using this gateway, the psyker and his allies can cross great distances in a blink of the eye, travelling miles in naught but a few steps. The psyker chooses a point anywhere within 5 metres times his Psy Rating, and opens a gate to the immaterium at that point. He then chooses a point within range of the power, and opens an exit to the gate at that location. The psyker must be aware of the location in which he is opening the exit to the gate, either having visited it before, seen it from afar, or simply studied it on a map. The gate last for a number of Rounds equal to the psyker’s Psy Rating, and has a radius in metres equal to the psyker’s Psy Rating as well. For the duration of the power, the two sides of the gate are linked, and any person or objects may pass between them freely provided they can fit through the gate. This power is incredibly taxing and requires at least 12 hours of recovery before it may be used again.</p><p><strong>Focus Power:</strong> Hard (–20) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Objuration Mechanicum",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Assail",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telekinesis — Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker releases the havoc of the Warp into the orderly inner workings of nearby machines.</p><div class='bc-rule'><p>The maligned energy twists and deforms the machines spirits, causing weapons to jam and engines to seize up. The psyker chooses a point anywhere within range and line of sight. This power creates a Haywire Field (see page 170) centred at this point with a radius in metres equal to the psyker’s Psy Rating. VII: Psychic Powers</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Shockwave",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Assail",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telekinesis — Attack, Concentration",
+      "range": "Self",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker slams his palms together and uses his considerable power to amplify the noise exponentially, creating a torrential shockwave.</p><div class='bc-rule'><p>The energy batters any unfortunate enough to be nearby, throwing them away from the psyker in a barrage of force. This power is a Psychic Blast centred on the psyker with a radius equal to the psyker’s Psy Rating. Any creature within the area of effect, with the exception of the psyker, suffers 1d10 + Psy Rating Explosive Damage with Pen 0 and is pushed directly away from the Psyker a number of metres equal to the psyker’s Psy Rating.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Telekine Dome",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Psy Rating 4",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Telekinesis — Concentration",
+      "range": "5 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Extending his power over his allies, the psyker creates a shimmering dome of energy around them that deflects enemy fire as effectively as any bunker.</p><div class='bc-rule'><p>Despite its sturdy protection, the dome feels no different than thin air, and allies and enemies alike can pass through it unheeded. The psyker chooses a point in range and line of sight, and creates a dome of invisible energy centred on that point with a radius equal to half the psyker’s Psy Rating, rounded up. All allies standing inside the dome gain a number of Armour Points equal to the psyker’s Psy Rating to all Locations against any attack that originated outside of the dome’s radius. However, enemies may still physically pass through the dome at no penalty. 235 235 @@@P 237 VII: Psychic Powers</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Vortex of Doom",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telekinesis",
+    "img": "systems/dark-heresy/assets/icons/powers/telekinesis-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Crush, Objuration Mechanicum, Psy Rating 5, Shockwave",
+      "action": "Half Action",
+      "sustained": "Half Action",
+      "subtype": "Telekinesis — Attack, Concentration",
+      "range": "5 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Playing with impossible energies of the immaterium, the psyker uses his power to punch a hole in reality, opening a tear to the Warp.</p><div class='bc-rule'><p>Roiling energies pour into reality, tearing apart anything unlucky enough to be close to the unstable rift. The psyker struggles to keep the volatile torrent of energy in check, pouring all his energy into constraining the vortex, lest it break out of control and cause untold destruction. The psyker chooses a point in range and line of sight, and creates a vortex of energy centred on that point that starts with a radius of 2 metres. Anyone who is touching the vortex at the end of the psyker’s Turn must take 2d10 Energy Damage, +2 per point of Psy Rating, with a Pen equal to the vortex’s current radius in metres. The psyker may not voluntarily stop sustaining this power. Instead, at the beginning of each Turn the Psyker is sustaining the vortex, he must take a Challenging (+0) Willpower Test with a –5 penalty for each metre in the vortex’s current radius. If he passes the Test he may perform one of the following actions: 236 • Increase the vortex’s radius by one metre. • Decrease the vortex’s radius by one metre. • Move the vortex any direction a number of metres equal to the psyker’s Psy Rating. If the psyker fails the Willpower Test to sustain the vortex, or if he is unable to make the Test due to other circumstances, its radius increases by one metre and it moves a number of metres equal to the psyker’s Psy Rating in a random direction (see the Scatter Diagram on page 255). If the vortex’s radius ever decreases to zero metres, the power ends and the vortex disappears. If the vortex’s radius ever grows larger than the psyker’s Psy Rating, it explodes, ending the power, destroying the vortex, and dealing 2d10 Energy Damage, +4 per point of Psy Rating, with a Pen equal to the vortex’s current radius is metres, to anyone with a number of metres of the centre of the vortex equal to twice the Psy Rating of the psyker. The psyker is hit by this Damage regardless of his proximity to the exploding vortex as the energy of the Warp he was channelling lashes back into him. @@@P 238 TELEPATHY Telepathy is one of the most important psychic disciplines in the Imperium. It allows millions upon millions of worlds to stay connected. In addition to their unparalleled powers of communication, telepaths posses the capability to manipulate the minds of others. They can tear away the sanity of their target, mould their thoughts like clay and bend their will. Example Minor Manifestations: Gain fleeting glimpses into a nearby character’s thoughts. Cause a nearby character to hear whispering voices.</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Psychic Shriek",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Psy Rating 3",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telepathy — Attack",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker draws in a deep breath, pulling the power of the Warp inside of his body.</p><div class='bc-rule'><p>He unleashes the energy in an other-worldly howl focussed with pinpoint accuracy on an enemy. The psyker’s screech of psychic energy shreds the mind and body of his victim, tearing them apart with barrages of vicious resonance. This power is a Psychic Bolt that deals 1d10+2 Explosive Damage, +2 per point of Psy Rating, with a Pen of 0 and the Concussive (1) Quality.</p><p><strong>Focus Power:</strong> Challenging (+0) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Dominate",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "Willpower 40+",
+      "action": "Full Action",
+      "sustained": "No",
+      "subtype": "Telepathy — Concentration",
+      "range": "5 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker extends his will into the mind of his enemies, twisting around their thoughts and beating down their mental defences.</p><div class='bc-rule'><p>With their protection down, the psyker can plant ideas into their heads, making them perform his bidding as if it were their own idea. The psyker nominates a number targets in range and line of sight up to half his Psy Rating (rounded up) who opposes this power with a Willpower Test. Those targets that fail to resist the power must follow a simple command given by the psyker. Some example orders include “Flee,” “Fall,” or “Attack your friend.” If the command is a potentially suicidal act, the targets receive a +20 to their Willpower Tests. In all cases the command must be achievable in a single Round. e and line o opposes hat fail to ven by the or “Attack dal act, the l cases the</p><p><strong>Focus Power:</strong> Challenging (+0) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Mental Fortitude",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 300,
+      "prerequisite": "Fearless",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Telepathy — Concentration",
+      "range": "3 metres x Psy Rating radius",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker uses his mastery of the human mind to bolster his allies in battle.</p><div class='bc-rule'><p>He extends his power over them, projecting inspirational thoughts into their minds and banishing fear, moving even the greatest cowards to acts of heroism. For the duration of this power, a number of allies within range equal to the Psyker’s Psy Rating, plus the psyker himself, count as having the Fearless Talent. Allies affected by this power lose its benefits as soon as they move out of range. VII: Psychic Powers</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Puppet Master",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Dominate",
+      "action": "Full Action",
+      "sustained": "Special",
+      "subtype": "Telepathy — Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Focussing his telepathic ability, the psyker is able to fully extend his mind into the will of another.</p><div class='bc-rule'><p>He wraps his influence around their mind, controlling not only their thoughts, but their physical actions as well. He gains full command over his victim’s body, controlling them like a puppet under his grasp. The psyker nominates a single target in range and line of sight with total Wounds no greater than 3 times the psyker’s Psy Rating, who opposes this power with a Willpower Test. If the target fails to resist the power, it is controlled by the psyker like a puppet. For the duration of the power, the psyker may divide his Actions between himself and the target. The dominated target uses its own Characteristics, but at –10 due to the crudity of the control. If at any point the psyker would make the target perform a potentially suicidal action, the target may attempt a Challenging (+0) Opposed Willpower Test to try and break free of the power. Additionally, the power breaks as soon as the target moves out of range. suicidal action, the target may attempt a Challenging (+0) Opposed Willpower Test to try and break free of the power. Additionally, the power breaks as soon as the target moves out of range. 237 237 @@@P 239</p><p><strong>Focus Power:</strong> Difficult (–10) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Terrify",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Hallucination",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telepathy — Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Slithering deep into the mind of his victim, the psyker unearths their greatest failings, greatest weaknesses, and greatest fears.</p><div class='bc-rule'><p>Using these as tools against his opponent, the psyker can turn even the most courageous warriors into pathetic, whimpering cowards before him. The psyker nominates a single target in range and line of sight who opposes this power with a Willpower Test. If the target fails to resist the power, it must roll on Table 9–5: Shock on page 304, adding +10 times the psyker’s Psy Rating to the roll in place of the normally addition for Degrees of Failure, and immediately apply the effects.</p><p><strong>Focus Power:</strong> Difficult (–10) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Invisibility",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 400,
+      "prerequisite": "Agility 30, Psy Rating 4",
+      "action": "Half Action",
+      "sustained": "Free Action",
+      "subtype": "Telepathy — Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Difficult (–10) Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The psyker worms his way into his opponents’ senses, causing even their sight to betray them.</p><div class='bc-rule'><p>Using this control he can bend their vision around a target, rendering it all but invisible to their eyes. The psyker nominates a single target within range and line of sight, this could be the psyker himself. For the duration of the power, the target counts as being Trained in the Stealth Skill, and gains a bonus to Stealth Tests equal to +5 times the psyker’s Psy Rating. Additionally, all ranged attacks made against the target suffer a penalty equal to –5 times the psyker’s Psy Rating. The target loses this power’s benefits as soon as it moves out of range.</p><p><strong>Focus Power:</strong> Difficult (–10) Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  },
+  {
+    "name": "Hallucination",
+    "type": "psychicPower",
+    "folder": "Psychic Powers/Telepathy",
+    "img": "systems/dark-heresy/assets/icons/powers/telepathy-power.webp",
+    "system": {
+      "cost": 200,
+      "prerequisite": "None",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Telepathy — Concentration",
+      "range": "10 metres x Psy Rating",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Challenging (+0) Opposed Willpower Test",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As with many things, the mind is much easier to break than it is to control.</p><div class='bc-rule'><p>The psyker reaches into his victim’s mind, snapping the fragile controls over its own paranoia, confusion, and panic that roil beneath the surface. Once freed, these violent mental energies do the psyker’s work for him, tearing through his opponent’s mind, bending the hapless victim’s very perception of reality. The psyker nominates a single target in range and line of sight who opposes this power with a Willpower Test. If the target fails to resist the power, it must roll on Table 6–7: Hallucinogenic Effects on page 170, and immediately apply the effects. The effect rolled on the table lasts for a number of Rounds equal to half the psyker’s Psy Rating, rounded up.</p><p><strong>Focus Power:</strong> Challenging (+0) Opposed Willpower Test</p></div></div>",
+      "source": "Only War, p. 230–239"
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "name": "Starship Thrusters Damaged",
+  "folder": "Starship Combat",
+  "formula": "1d10",
+  "sort": 120,
+  "description": "Rogue Trader, Table 8-12, result 4 (p. 222). How badly the manoeuvring thrusters were hit.",
+  "results": [
+    { "name": "Slowed", "range": [1, 7], "text": "The ship can still manoeuvre, albeit slowly. Manoeuvrability bonus drops by -20. Repairable." },
+    { "name": "Thrusters Wrecked", "range": [8, 10], "text": "The thrusters are completely damaged and the ship cannot turn. Repairable." }
+  ]
+}

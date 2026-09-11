@@ -1,0 +1,11 @@
+{
+  "name": "Starship Engines Crippled",
+  "folder": "Starship Combat",
+  "formula": "1d10",
+  "sort": 130,
+  "description": "Rogue Trader, Table 8-12, result 6 (p. 222). How badly the plasma drives were hit. Also used when the Flank Speed Extended Action fails by two or more degrees.",
+  "results": [
+    { "name": "Drives Damaged", "range": [1, 7], "text": "The plasma drives are still usable, though heavily damaged. Speed is halved. Repairable." },
+    { "name": "Drives Wrecked", "range": [8, 10], "text": "The drives are completely wrecked. Speed drops to 1. Repairable." }
+  ]
+}

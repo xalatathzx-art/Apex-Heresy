@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Exceptional Leader", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "benefit": "Rogue Trader. Grant an ally +10 to one test as a free action once per round.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As a free action once per round, the Rogue Trader may grant an ally that he can see and who can hear him +10% to any one test.</p><div class='bc-rule'><p>The Rogue Trader’s Exceptional Leader ability may be used once per Strategic Turn in Space Combat, provided that they can both see and hear the Rogue Trader. Typically, this means they must be in the same location aboard the ship (such as the bridge).</p><p>The Rogue Trader may not give himself the bonus from Exceptional Leader.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Weapon Master", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/offence.webp",
+    "system": {
+      "benefit": "Arch-Militant. +10 to hit, +2 damage and +2 initiative with one chosen weapon class.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Choose one (and only one!) class of weapon.</p><div class='bc-rule'><p>The Arch-militant gains a +10% bonus to hit, +2 to damage, and +2 initiative when using a weapon of his chosen class in Combat.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Soul-Bound to the Emperor", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Astropath Transcendent. +20 Willpower against daemons, and a re-roll on Perils of the Warp.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>An Astropath Transcendent is soul-bound to the Emperor during a complex ritual on Terra.</p><div class='bc-rule'><p>An Astropath Transcendent gains +20 to his Willpower when resisting Possession, in any opposed Willpower Test against a daemon, or whenever making a Willpower Test to resist any Talent, Psychic Power, special ability, or other effect originating from a daemon. An Astropath Transcendent rolls an additional d10 when rolling on the Perils of the Warp table and may discard any one d10 for a more favourable result.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Psychic Powers", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/psyker.webp",
+    "system": {
+      "benefit": "Astropath Transcendent. Begins play with the Telepathic Discipline and Psy Rating 2.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>An Astropath Transcendent begins play with access to techniques from the Telepathic Discipline.</p><div class='bc-rule'><p>Astropath Transcendent characters also begin play with the technique Astral Telepathy (see page 162) and may select two additional techniques from the Telepathic Discipline. Astropaths Transcendent begin with a Psy Rating of 2.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "See Without Eyes", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "benefit": "Astropath Transcendent. Blind, yet perceives without physical senses.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>An Astropath Transcendent is blind yet at the same time has a strange ability to perceive without using his physical senses.</p><div class='bc-rule'><p>An Astropath Transcendent is functionally treated as if he can see normally (including seeing colours and being limited by walls, etc.). However, Astropaths Transcendent are not affected by effects that target their vision, such as blind grenades and cameleoline. They are, however, completely incapable of seeing Untouchables (see page 156).</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Explorator Implants", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/tech.webp",
+    "system": {
+      "benefit": "Explorator. Begins play with Mechanicus Implants and two bionic implants.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Explorator begins play with the Mechanicus Implants Trait (see page 366) and may select up to two additional common-Craftsmanship bionic implants (see page 147).</p><div class='bc-rule'><p>He may spend 200 xp to increase the Craftsmanship of one of his bionic implants by one level (i.e., increasing from common to good costs 200 xp). The Explorator may increase the Craftsmanship up to twice (i.e, taking a common-Craftsmanship to good, then good to best) in this manner, and may only do so at character creation.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Pure Faith (Missionary)", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Missionary. Begins play with the Pure Faith Talent.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Missionary begins play with the Pure Faith Talent.</p><div class='bc-rule'><p>See page 104 for more details.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Warp Eye", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "benefit": "Navigator. Begins with the Lidless Stare and one further power or improvement.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>All Navigators begin with the Lidless Stare Navigator power as detailed in Chapter VII: Navigator Powers and may either select one additional power or improve an existing power.</p><div class='bc-rule'><p>As the Navigator develops, he may select more powers or improve existing powers by selecting the Navigator Power Advance.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "The Boons of Lineage", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/social.webp",
+    "system": {
+      "benefit": "Navigator. Advantages and quirks from the Navigator’s House.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A Navigator hails from a lineage of a particular type that grants him a number of advantages and quirks.</p><div class='bc-rule'><p>The Lineages which a Navigator may hail from are Nomadic Houses, Magisterial Houses, Shrouded Houses, or Renegade Houses. The details and effects of each of these lineages may be found on pages 176 to 178 in Chapter VII: Navigator Powers.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Navigator Mutations", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/mutations/demon.webp",
+    "system": {
+      "benefit": "Navigator. Begins play with mutations determined by his Lineage.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Navigator begins play with a number of Navigator Mutations determined by the nature of his Lineage.</p></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Seeker of Lore", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/knowledge.webp",
+    "system": {
+      "benefit": "Seneschal. Spend a Fate Point to succeed at Ciphers, Lore, or Logic; extra Degree on Commerce, Inquiry, Evaluate.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Seneschal may spend a Fate Point to automatically succeed at any Ciphers, Lore, or Logic Test.</p><div class='bc-rule'><p>Doing so means that the Test is resolved in the minimum time required. In addition, the Seneschal adds one bonus Degree of Success to any successful Commerce, Inquiry, or Evaluate Test.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Mastery of Space", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "benefit": "Void-master. Re-roll all failed Manoeuvre Action Tests aboard a space ship.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Void-master can re-roll all failed Tests with Manoeuvre Actions (see page 212) aboard a space ship.</p><div class='bc-rule'><p>A Void-master selects one of the four Masteries.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Mastery of Gunnery", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "benefit": "Void-master. Re-roll all failed Shooting Action Tests aboard a starship.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Void-master can re-roll all failed Tests with Shooting Actions (see page 215) aboard a starship.</p><div class='bc-rule'><p>A Void-master selects one of the four Masteries.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Mastery of Augurs", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "benefit": "Void-master. Re-roll all failed Tests involving Detection aboard a starship.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Void-master can re-roll all failed Tests involving Detection aboard a starship.</p><div class='bc-rule'><p>A Void-master selects one of the four Masteries.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  },
+  {
+    "name": "Mastery of Small Craft", "type": "specialAbility", "folder": "Special Abilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "benefit": "Void-master. Re-roll all failed Pilot Tests with small craft.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Void-master can re-roll all failed Pilot Tests with small craft (shuttles, heavy lifters, guncutters, starfighters, bombers, and so forth).</p><div class='bc-rule'><p>A Void-master selects one of the four Masteries.</p></div></div>",
+      "source": "Rogue Trader, p. 72"
+    }
+  }
+]

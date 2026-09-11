@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Mole Mortar", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "exotic", "range": 200,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "explosive", "penetration": "2",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Inaccurate, Indirect (2), Shocking, Blast (4)", "weight": 50, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mole Mortars are odd devices that look much like regular Imperial Mortars, but they fire their shells under the ground rather than through the air via special tunnelling torpedo rounds.</p><div class='bc-rule'><p>The rounds penetrate the earth then arc back up in almost a reverse of a normal mortar round, timed to explode just underneath the surface. While not particularly accurate, they can often catch the enemy unprepared, and the resulting underground explosion can be devastating, since those enemies not killed or injured outright are typically knocked off their feet.</p><p>Mole Mortars fire specially designed ammo and may not fire any unusual ammo that is not specifically designed to be used with a Mole Mortar.</p><p>Table 6-11 gives the Range as 50–200m: it cannot fire closer than 50 metres.</p></div></div>",
+      "source": "Only War, p. 184 (Table 6-11), p. 184"
+    }
+  },
+  {
+    "name": "Needle Pistol", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 6, "value": 6 }, "reload": "Full",
+      "special": "Accurate, Toxic (5), Felling (1)", "weight": 1.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Needle pistols use a low-power laser beam to propel small slivers of crystal coated in viral toxins.</p><div class='bc-rule'><p>Enemies wounded by them are almost instantly paralysed or dead within moments. As they are virtually silent and have no muzzle flash, needle weapons are ideal for assassins.</p><p>Because these weapons are so specialised, a character must have a Talent for each individual exotic weapon he wishes to use.</p></div></div>",
+      "source": "Only War, p. 184 (Table 6-11), p. 184"
+    }
+  },
+  {
+    "name": "Needle Rifle", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-rifle.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 180,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Accurate, Toxic (5), Felling (1)", "weight": 2, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Prized by snipers, the needle rifle offers the perfect combination of range, stealth, and deadliness.</p><div class='bc-rule'><p>The only argument against these exquisite weapons is that they are next to useless against heavily armoured targets.</p></div></div>",
+      "source": "Only War, p. 184 (Table 6-11), p. 184"
+    }
+  }
+]

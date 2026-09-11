@@ -1,0 +1,14 @@
+{
+  "name": "Perils of the Waaagh!",
+  "folder": "Psychic Powers",
+  "formula": "1d100",
+  "sort": 210,
+  "description": "An Ork Weirdboy who rolls a Perils of the Warp result on Psychic Phenomena rolls here instead of on Perils of the Warp. Only War, Table 11-1 (p. 369).",
+  "results": [
+    { "name": "Vessel of Waaagh!", "range": [1, 30], "text": "Overcome with the amassed Waaagh! energy, the Weirdboy convulses as bolts of green lightning crawl across his body. The Weirdboy must make a Challenging (+0) Willpower Test or take [[2d5]] Energy Damage which is not reduced by Armour or Toughness." },
+    { "name": "Thump’d", "range": [31, 55], "text": "The gathering Waaagh! energy is too much for the even the Weirdboy’s thick skull to handle. With a sharp crack, the Weirdboy falls to the ground, unconscious for [[1d5]] Rounds. All Orks within [[3d10]] metres must make a Routine (+10) Willpower Test or be Stunned for one Round." },
+    { "name": "Were’d ya go?", "range": [56, 75], "text": "With a crack of thunder and a small mushroom cloud of green smoke, the Weirdboy is thrown [[3d10]] meters into the air, falling to the ground moments later (see page 267 for Falling Damage)." },
+    { "name": "Waaagh! Eruption", "range": [76, 90], "text": "The Weirdboy’s brain overloads on Waaagh! Energy, bolts of green lightning arcing out at those nearby. Anyone within [[1d10]] metres (including the Weirdboy) takes [[1d10+5]] Energy Damage with a Penetration value of 5. The Weirdboy may not Dodge this effect. In addition, all of the Weirdboy’s clothing and gear is destroyed, leaving him naked on the ground with green smoke pouring from his ears and mouth." },
+    { "name": "’Ead Bang", "range": [91, 100], "text": "The Weirdboy’s head is consumed in a brilliant gout of emerald fire, killing the Weirdboy outright—though it takes his body a moment or two to realise it." }
+  ]
+}

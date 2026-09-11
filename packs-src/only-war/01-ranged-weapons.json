@@ -1,0 +1,698 @@
+[
+  {
+    "name": "Laspistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+2", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 30, "value": 30 }, "reload": "Half",
+      "special": "Reliable", "weight": 1.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The laspistol is a light, compact, and reliable weapon, common throughout the Imperium. Designs vary widely and can range from elaborate heirloom devices inscribed with ornate carvings and gold filigree to simplistic but brutally robust weapons used by gangs and criminals.</p><div class='bc-rule'><p>Laspistols benefit from the lasgun variable setting rule (see M36 lasgun).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 175"
+    }
+  },
+  {
+    "name": "Las Carbine", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/las-carbine.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 75,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 60, "value": 60 }, "reload": "Half",
+      "special": "Reliable", "weight": 2.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A lighter, cut down version of the lasgun, the las carbine has a lower rate of fire and a shorter range but is easier to carry and aim, often coming with a folding stock.</p><div class='bc-rule'><p>Las carbines can be fired in one hand with only a –10 penalty rather than the normal –20 for Basic weapons. Las Carbines benefit from the lasgun variable setting rule (see M36 lasgun).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 175"
+    }
+  },
+  {
+    "name": "M36 Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Reliable", "weight": 4, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Produced in a multitude of different styles and patterns, the lasgun can be found on almost every world of the Imperium. The M36 pattern is one of the most ubiquitous patterns.</p><div class='bc-rule'><p><strong>Lasgun Variable Setting:</strong> The M36 Lasgun has a variable setting option, allowing it to fire higher-powered bursts. It may be changed to overcharge mode, dealing +1 Damage, but using two shots worth of ammunition per shot fired. Further, the lasgun may be changed to overload mode, dealing +2 Damage and gaining +2 Penetration. In this case, the lasgun uses four shots of ammunition per shot fired, loses Reliable, and gains Unreliable.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 175"
+    }
+  },
+  {
+    "name": "Laslock", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 70,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Half",
+      "special": "Unreliable", "weight": 4, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>On worlds where the standard power pack pattern has been lost, laslocks are commonly used in place of lasguns. Sometimes known as “blaze guns” or “las-muskets” among more sophisticated worlds, these may instead be cobbled together and ill-made weapons.</p><div class='bc-rule'><p>Often found in the hands of desperate and poorly equipped insurgents or renegades, laslocks might be scratch-built or modifications of antique or damaged las rifles brought back into service by scav-workshops and heretek forges. A laslock’s jury-rigged cells are temperamental things at best, but still potent, firing a more powerful discharge than that of a standard lasgun.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Long Las", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/long-las.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 150,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "1",
+      "clip": { "max": 40, "value": 40 }, "reload": "Full",
+      "special": "Accurate, Reliable, Felling (4)", "weight": 4.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Favoured by snipers, the long las is a specially modified version of the lasgun constructed for added range and accuracy. As its name implies, a long las also has a much longer barrel than a standard lasgun, sometimes being up to twice the length, which makes it awkward in close quarters.</p><div class='bc-rule'><p>The long las benefits from the lasgun variable setting rule (see M36 lasgun).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Triplex Pattern Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 30, "value": 30 }, "reload": "Full",
+      "special": "", "weight": 4.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A highly refined variant of the standard lasgun, the triplex offers alternative firing modes that make the weapon more versatile on the battlefield.</p><div class='bc-rule'><p>When fired in standard mode, the weapon uses the Rate of Fire, Range, and Damage listed. When fired in precision mode, the Rate of Fire is changed to S/–/–, the Range is changed to 150m, and the weapon gains the Accurate Quality. When fired in burst mode, the Rate of Fire is changed to S/–/–, the Range is changed to 50m, and the weapon gains Proven (5) and Felling (4).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Bullpup Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 90,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Reliable", "weight": 3.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Units focused towards aerial or vehicular deployment often utilise lasgun variants that are designed to increase portability and minimise size. While many employ las carbines, many such units are unwilling to sacrifice the lasgun’s effective range.</p><div class='bc-rule'><p>The bullpup design counters this by extending the barrel into the weapon’s stock, as well as mounting the power pack within the base of the stock behind the grip. In this way, the rifle achieves a balance between the compact design of a carbine while retaining most of the full capability of a standard lasgun. Bullpup lasguns benefit from the lasgun variable setting rule (see M36 lasgun).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Hot-shot Laspistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/hot-shot-laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 20,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "7",
+      "clip": { "max": 40, "value": 40 }, "reload": "2 Full",
+      "special": "", "weight": 4, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes known as hellguns and hellpistols, “hot-shot” weapons are almost exclusively used by high ranking Imperial officers and elite forces who favour the higher power over regular las weapons.</p><div class='bc-rule'><p>While hellguns are rarely seen outside of elite Storm Trooper units, hellpistols can be seen among many of the officer corps and Inquisitorial agencies where the extra hitting power they provide over a regular laspistol often means the difference between their life and failure to the Emperor.</p><p>Hot-shot weapons use a 10 kg backpack power source rather than a standard plug-in pack, even for the smaller hellpistol. Larger power packs mean greater power behind each shot but make reloading more impractical, which is a trade-off most are willing to make.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Hot-shot Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/hot-shot-lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 60,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "7",
+      "clip": { "max": 30, "value": 30 }, "reload": "2 Full",
+      "special": "", "weight": 6, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes known as hellguns and hellpistols, “hot-shot” weapons are almost exclusively used by high ranking Imperial officers and elite forces who favour the higher power over regular las weapons.</p><div class='bc-rule'><p>Hot-shot weapons use a 10 kg backpack power source rather than a standard plug-in pack. Hellguns can also be linked to larger backpack power sources (see page 192).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "Man Portable Lascannon", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "class": "heavy", "type": "las", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "5d10+10", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "Proven (3)", "weight": 55, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Built for war, lascannons use huge power packs that provide enough energy to punch holes in the thickest armour even at very long ranges.</p><div class='bc-rule'><p>Lascannons also require separate power packs, which is why they are often crewed by two or more people.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+  {
+    "name": "M41 Multi-laser", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "class": "heavy", "type": "las", "range": 150,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 5 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "2",
+      "clip": { "max": 100, "value": 100 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 35, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Often found mounted on vehicles as a counter to infantry and light vehicles, the multi-laser is a multi-barrelled gatling laser with an impressive rate of fire.</p><div class='bc-rule'><p>However, its blasts lack the penetration of the lascannon, making it less effective against heavy armour.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 176"
+    }
+  },
+
+  {
+    "name": "Autopistol", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autopistol.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 6 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 18, "value": 18 }, "reload": "Full",
+      "special": "", "weight": 1.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Small but effective, autopistols are a favourite amongst many military veterans as a supplement for their standard lasgun.</p><div class='bc-rule'><p>They have a faster rate of fire than most pistols and can put down most targets in a single burst of shells.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Stub Automatic", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 9, "value": 9 }, "reload": "Full",
+      "special": "", "weight": 1.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Unlike the stub revolver, this pistol weapon also can fire in rapid semi-automatic mode as well as single shots.</p><div class='bc-rule'><p>Like the autopistol, it is easy to produce and maintain, but less accurate at longer ranges.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Stub Revolver", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-revolver.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 1.5, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Perhaps the most ancient of pistol designs, the stub revolver carries fewer rounds than most pistols but is very reliable and easy to operate.</p><div class='bc-rule'><p>As shells can be inserted individually, it is relatively easy to load specialised rounds when needed.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Hand Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-cannon.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 35,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "2",
+      "clip": { "max": 5, "value": 5 }, "reload": "2 Full",
+      "special": "", "weight": 3, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A variant of the stub gun is the huge hand cannon, used mostly by enforcers or bounty hunters who aren’t picky on the state of their quarry.</p><div class='bc-rule'><p>These weapons kick with a strong recoil and, unless used with two hands or a Recoil Glove, impose a –10 penalty on Ballistic Skill Tests.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Sniper Rifle", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/sniper-rifle.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 200,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "3",
+      "clip": { "max": 20, "value": 20 }, "reload": "Full",
+      "special": "Accurate, Reliable", "weight": 5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Less advanced than the needle rifles prized by Ratlings, the sniper rifle is none-the-less effective against lightly armoured targets. Complete with tripod brace, silencer, and telescopic sight, in the hands of a skilled marksman it can easily turn the tide of a battle.</p><div class='bc-rule'><p>The integral noise baffles built into the rifle make it very quiet. Any attempts to detect the sound of a shot fired by this weapon require a Hard (–20) Awareness Test. Sniper rifles can be loaded with unusual ammo.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Autogun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autogun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 10 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 30, "value": 30 }, "reload": "Full",
+      "special": "", "weight": 5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cheap and easy to produce, autoguns are a common weapon across the galaxy as even alien races acquire and use them or sometimes make their own equivalents.</p><div class='bc-rule'><p>These rapid-firing automatic weapons use common solid low-calibre shells fed via standardised clips. Reliable, rugged, and easily stocked with ammunition, they are a mainstay on many planets.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Shotgun (Pump-Action)", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/pump-action-shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 12, "value": 12 }, "reload": "2 Full",
+      "special": "Scatter", "weight": 5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Common amongst enforcers, mercenaries, and raiders, these weapons are robust and practical, holding more shells than a regular shotgun.</p><div class='bc-rule'><p>The distinctive sound of a new round being chambered into a pump shotgun has led to many a scummer fleeing or a colonist’s surrender before the shot can be fired.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Shotgun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/pump-action-shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 8, "value": 8 }, "reload": "2 Full",
+      "special": "Scatter", "weight": 5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Even low-tech manufactorums can produce these basic weapons in great quantities, and their ability to hit several targets with a single shot make shotguns appealing to those with little actual skill in shooting.</p><div class='bc-rule'><p>Their relatively short range and low shot velocity makes them appealing for shipboard use as well, as they have little risk of causing hull breaches.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Combat Shotgun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/combat-shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 18, "value": 18 }, "reload": "Full",
+      "special": "Scatter", "weight": 6.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These automatic shotguns, often fed from a drum magazine, are designed purely for warfare and are even deadlier than the normal shotgun.</p><div class='bc-rule'><p>In addition to their short-range destructive power, they hammer out an intimidating racket when being fired.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Ripper Gun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/combat-shotgun.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 6 },
+      "damage": "1d10+8", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 48, "value": 48 }, "reload": "2 Full",
+      "special": "Ogryn-Proof, Scatter", "weight": 35, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Designed to accommodate the primitive nature and vast strength of an Ogryn, the ripper gun is a massive combat shotgun.</p><div class='bc-rule'><p>The substantial drum feed mechanism of these fully automatic shotguns is designed to provide enough ammunition to entertain the Ogryns as they charge towards their foes. Its firing mechanism is limited so that the user may not fire off the entire clip in a single burst—something that Ogryns are otherwise prone to due.</p><p>Ripper guns are also designed to function effectively as Ogryn melee weapons. In close combat, a ripper gun counts as a warhammer (see page 187).</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 177"
+    }
+  },
+  {
+    "name": "Heavy Stubber", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 100,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 8 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "3",
+      "clip": { "max": 75, "value": 75 }, "reload": "2 Full",
+      "special": "Ogryn-Proof", "weight": 30, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy stubbers are popular amongst military forces and gangers alike, as they are one of the more easily maintained heavy weapons available. Though not as powerful as an autocannon, heavy stubbers can lay down a curtain of suppressive fire and cut swaths through light infantry and vehicles alike. As with other stubber weapons, ammunition is cheap and plentiful.</p><div class='bc-rule'><p>Lighter than most other heavy weapons, the heavy stubber can be used hand-held, but a bipod mount can be employed by those seeking to avoid the jarring recoil, and it is often utilized as a defensive anti-infantry weapon mounted on vehicles. The Orthlack pattern, manufactured for planetary defence force armouries in the Calixis Sector and widely exported, uses an ammunition belt that allows for long firing periods, while the locally copied “Ursid” pattern, supposedly originating on the war world of Zayth, is more compact and uses a smaller ammunition drum which most users find easier to port and reload.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+  {
+    "name": "M34 Autocannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "3d10+8", "damageType": "impact", "penetration": "6",
+      "clip": { "max": 20, "value": 20 }, "reload": "2 Full",
+      "special": "Ogryn-Proof, Reliable", "weight": 40, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>An autocannon is a crew-served heavy weapon, a self-loading, high calibre cannon that uses dense solid shells to punch through armour. Though unlikely to fully penetrate the ceramite of Space Marine power armour, they decimate light to medium vehicles and see widespread use in the Imperial Guard and many renegade armies.</p><div class='bc-rule'><p>The M34 autocannon is an older version of a common Imperial Guard pattern used throughout the Calixis Sector and uses a tripod mount. It can be manned by one person, though it ideally employs a crew of two to move and set up.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+  {
+    "name": "Battle Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "vehicle", "type": "solidprojectile", "range": 750,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+10", "damageType": "explosive", "penetration": "8",
+      "clip": { "max": 12, "value": 12 }, "reload": "3 Full",
+      "special": "Blast (10), Concussive (3), Reliable", "weight": 350, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A massive version of the autocannon, the battle cannon fires a huge, explosive shell which is proportionately more damaging.</p><div class='bc-rule'><p>One of the largest and most destructive weapons that see common use on the battlefield, these cannons, their ammunition, and support equipment are far too large for infantry units to carry and use. Instead, the weapons are generally mounted upon vehicles or fortifications. The Leman Russ main battle tank most commonly employs a battle cannon in its main turret.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+  {
+    "name": "Demolisher Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "vehicle", "type": "solidprojectile", "range": 50,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+20", "damageType": "explosive", "penetration": "10",
+      "clip": { "max": 2, "value": 2 }, "reload": "Full",
+      "special": "Blast (10), Concussive (3)", "weight": 400, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A variant of the battle cannon, the demolisher cannon is specifically designed as a siege support weapon. While it suffers a decreased range, its plasma charged shells are capable of blasting through layers of plasteel and ceramite with each devastating volley.</p><div class='bc-rule'><p>Its massive shells wrap an outer layer of explosives and shrapnel around an unstable chemical core. When the outer explosives detonate, weakening their target, they also trigger the chemical reagents to unleash a potent jet of plasma that is channelled directly into its victims. The combination of shrapnel and flaming metal can eliminate even the most robust defences.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+  {
+    "name": "Vanquisher Battle Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "vehicle", "type": "solidprojectile", "range": 900,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+10", "damageType": "explosive", "penetration": "16",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Accurate", "weight": 400, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Veteran tank commanders highly respect this rare pattern battle cannon for its unique efficacy in battles against heavily armoured opponents. While few forge worlds remain capable of producing it, the legends of its ability to penetrate any known armour make its extended profile immediately recognisable.</p><div class='bc-rule'><p>The vanquisher battle cannon gains the extra Damage granted by Accurate Quality as if it were a Basic weapon.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+  {
+    "name": "Earthshaker Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "vehicle", "type": "solidprojectile", "range": 3500,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+10", "damageType": "explosive", "penetration": "8",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Blast (10+1d10), Concussive (5), Indirect (5)", "weight": 800, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This massive artillery gun is designed for long range bombardments, but it may also be used as a direct fire weapon when necessary. In either situation, it is ideal for levelling fortifications, destroying massive war machines, and obliterating any unsuspecting infantry.</p><div class='bc-rule'><p>Earthshaker cannons are far larger than the indirect weapons carried by infantry, and fire over a much longer distance.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 178"
+    }
+  },
+
+  {
+    "name": "Bolt Pistol", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/bolt-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "bolt", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4",
+      "clip": { "max": 8, "value": 8 }, "reload": "Full",
+      "special": "Tearing", "weight": 3.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Carrying a bolt pistol is a sign of high status in the Imperium, one that only a minority can afford due to the high cost of maintenance and ammunition.</p><div class='bc-rule'><p>However, few can argue with their destructive power in combat and, after experiencing their potent capabilities, a man might beggar himself to own one.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+  {
+    "name": "Boltgun", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4",
+      "clip": { "max": 24, "value": 24 }, "reload": "Full",
+      "special": "Tearing", "weight": 7, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Boltguns are known for the unique roar they make when fired, as the propellant in their shells ignites, followed shortly by the explosive detonation as they hit their target.</p><div class='bc-rule'><p>Hearing one is an experience only slightly less satisfying than seeing the results of such a weapon in action.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+  {
+    "name": "Storm Bolter", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 90,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Storm, Tearing", "weight": 9, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Storm Bolters arose from experiments in combining weapons together to achieve greater rates of fire. Here, two linked bolters form a single weapon which can shred most foes in a single burst.</p><div class='bc-rule'><p>Rarely seen outside of the elite Astartes, most Storm Bolters are relic-weapons covered with glyphs and purity seals that speak of their ancient origin.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+  {
+    "name": "Heavy Bolter", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "class": "heavy", "type": "bolt", "range": 150,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 6 },
+      "damage": "1d10+8", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Tearing", "weight": 40, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A larger, support version of the boltgun, the heavy bolter is seldom seen outside military organisations.</p><div class='bc-rule'><p>It uses a much larger version of the standard bolt shell, with more propellant for greater distance and stopping power, which also makes it more deadly to armoured vehicles and infantry.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+
+  {
+    "name": "Inferno Pistol", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/inferno-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "melta", "range": 10,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "12",
+      "clip": { "max": 3, "value": 3 }, "reload": "Full",
+      "special": "Melta", "weight": 3, "availability": "near-unique",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The inferno pistol, a single-handed melta weapon, represents very specialised and ancient technology, almost impossible to recreate.</p><div class='bc-rule'><p>Mere handfuls might exist in any sector, each jealously guarded.</p><p>Table 6-9 prints the name as “Infeferno Pistol”.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+  {
+    "name": "Meltagun", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "basic", "type": "melta", "range": 20,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "12",
+      "clip": { "max": 5, "value": 5 }, "reload": "Full",
+      "special": "Melta", "weight": 15, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns are the most common form of melta weapon, coveted by soldiers of the Imperium for their massive close-range destructive power.</p><div class='bc-rule'><p>There are also few things as good at cutting through armour than a meltagun and they are often pressed into service for breaching the heavy armour of opposing vehicles or quickly cutting through bulkheads during hive battles. As an alternative to using a meltagun with attached canisters, a character may instead have a backpack and feed line, which doubles the Clip Size and adds 6 kg to the weight.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 179"
+    }
+  },
+  {
+    "name": "Multi-melta", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "heavy", "type": "melta", "range": 60,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+16", "damageType": "energy", "penetration": "12",
+      "clip": { "max": 12, "value": 12 }, "reload": "Full",
+      "special": "Melta, Blast (1)", "weight": 40, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The multi-melta is a larger type of melta weapon, usually only employed by the Adeptus Astartes or mounted upon Imperial vehicles.</p><div class='bc-rule'><p>This huge weapon carries more fuel, fires at much longer ranges, and creates a larger blast area, cooking several square metres at a time. It also generates much more heat than its smaller cousins and most users must insulate themselves with protective clothing or armour.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 180"
+    }
+  },
+
+  {
+    "name": "Plasma Pistol", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "plasma", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+6", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 10, "value": 10 }, "reload": "3 Full",
+      "special": "Maximal, Overheat", "weight": 4, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Few pistols are deadlier than the plasma pistol, and those willing to take the risk of using one possess a weapon capable of taking down almost any foe at close range.</p><div class='bc-rule'><p>Plasma pistols are a favourite weapon of Imperial officers, who view it as a status symbol to be entrusted with such a valuable and venerated weapon. The pistol variant can only hold smaller hydrogen flasks (or sometimes only a single flask) and thus can only fire a handful of shots. They are dangerous to use on board a vessel, as a single shot can penetrate several bulkheads.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 180"
+    }
+  },
+  {
+    "name": "Plasma Gun", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "class": "basic", "type": "plasma", "range": 90,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+7", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 40, "value": 40 }, "reload": "5 Full",
+      "special": "Maximal, Overheat", "weight": 18, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a squad-support weapon intended for use by Imperial Guardsmen. Most extant plasma guns are hundreds if not thousands of years old.</p><div class='bc-rule'><p>However, as a testament to their design, they remain as deadly today as they were on the day of their fabrication. Through their sturdy construction, even in the event of an overheat, the weapon is likely to survive, though the wielder is often less fortunate.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 180"
+    }
+  },
+  {
+    "name": "Plasma Cannon", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "class": "heavy", "type": "plasma", "range": 120,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 16, "value": 16 }, "reload": "5 Full",
+      "special": "Blast (1), Maximal, Overheat", "weight": 40, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The largest man-portable plasma weapon is the plasma cannon or heavy plasma gun, which is also seen in service on some Imperial war machines.</p><div class='bc-rule'><p>Rather than using attached flasks, the wielder wears a large backpack containing the weapon’s store of hydrogen fuel. This weapon has a much longer range and ammunition supply, and its violent discharges, hurled like miniature suns from the barrel, have a large impact area. It can also be fired in a special Maximal mode that exhausts more fuel but provides an even larger blast of heat on impact, creating a fireball capable of destroying heavily armoured targets.</p></div></div>",
+      "source": "Only War, p. 174 (Table 6-9), p. 180"
+    }
+  },
+
+  {
+    "name": "Hand Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-flamer.webp",
+    "system": {
+      "class": "pistol", "type": "flame", "range": 10,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "2",
+      "clip": { "max": 2, "value": 2 }, "reload": "2 Full",
+      "special": "Flame, Spray", "weight": 3.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame pistols or hand flamers are miniaturised versions of the larger flamer.</p><div class='bc-rule'><p>Small enough to carry in one hand, these weapons are favoured by assault troops who can fire them once or twice as they close with the enemy.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 180"
+    }
+  },
+  {
+    "name": "Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "basic", "type": "flame", "range": 20,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "2",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Flame, Spray", "weight": 6, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The flamer, or flame gun, comes in a wide variety of designs and patterns, but all are ideal for flushing out enemies in cover and putting groups of foes to the torch. The two most common variants of flamers either have a detachable fuel canister under the barrel or a hose connecting to a backpack canister.</p><div class='bc-rule'><p>A flamer can have a backpack fuel canister instead of a detachable clip. The backpack canister must be worn on the user’s back, doubles the flamer’s Clip Size, and adds 10 kg to the weight. The Availability remains unchanged.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Heavy Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "heavy", "type": "flame", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "4",
+      "clip": { "max": 10, "value": 10 }, "reload": "2 Full",
+      "special": "Flame, Spray", "weight": 45, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The heavy flamer is a larger and more cumbersome version of the flamer. It is often mounted on vehicles, though it is just reasonable enough in size to be carried by a team of two troopers.</p><div class='bc-rule'><p>Any lack of accuracy is more than offset by the wide gout of burning promethium that is almost impossible to dodge. Heavy flamers must be fuelled by backpack fuel canisters—the weight is already part of the weapon profile, but again, the canister must be worn on the back of one of the two wielders.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Inferno Cannon", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "vehicle", "type": "flame", "range": 50,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+15", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 50, "value": 50 }, "reload": "—",
+      "special": "Flame, Spray", "weight": 600, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Specifically designed as part of the Hellhound Flame Tank, the inferno cannon has a limited number of other uses within the Tactica Imperialis. These enormous flamers send huge gouts of white hot flames over an extended portion of the battlefield.</p><div class='bc-rule'><p>Their accelerated pumping mechanisms grant the turreted weapons the abilities to shoot massive jets of destruction at a range that drastically exceeds that of a traditional flamer. Because of this, when calculating the weapon’s spray area, the cannon’s wielder may choose to begin the spray at a point up to half the weapon’s range away from the firing point. Due to the inferno cannon’s power, other vehicles do not add their Armour value when making the Operate Test to avoid catching on fire from the Flame Quality.</p><p>The inferno cannon draws fuel from a large storage tank, and can’t be easily reloaded on the battlefield. Reloading one requires at least thirty minutes at a properly equipped facility.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+
+  {
+    "name": "Bolas", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "thrown", "type": "lowtech", "range": 10,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "—",
+      "special": "Primitive (1), Snare (1), Inaccurate", "weight": 1.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bolas are normally non-lethal and as such can be seen employed by bounty hunters or local law enforcement members, where the swirling balls (some styles use up to eight of these dense objects) can entangle a target with heavy cords or wire.</p></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Hand Bow", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/ranged-weapon.webp",
+    "system": {
+      "class": "pistol", "type": "lowtech", "range": 15,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Primitive (5)", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This weapon offers the hitting power of a crossbow but in a pistol grip, suitable for one-handed operation but at shorter ranges.</p><div class='bc-rule'><p>The ease at which they can be broken down and concealed, as well as their almost silent operation, makes them a favoured weapon of assassins.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Flintlock Pistol", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/stub-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "lowtech", "range": 15,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "3 Full",
+      "special": "Primitive (8), Inaccurate, Unreliable", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These primitive blackpowder weapons can take many forms, from finely crafted pistols constructed for the nobles of low-tech worlds to simple pipe and powder affairs used by underhive scum.</p></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Flintlock Musket", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/ranged-weapon.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "5 Full",
+      "special": "Primitive (8), Inaccurate, Unreliable", "weight": 7, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These crude devices can only fire once before reloading, are prone to failure, and only the most low-tech savage or desperate renegade would generally fight with one.</p><div class='bc-rule'><p>When they do strike, however, they are deadly against unarmoured foes.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Bow", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/ranged-weapon.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Half",
+      "special": "Primitive (6), Reliable", "weight": 2, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Bows have changed little through their many countless centuries of usage and can be found across the galaxy in a variety of designs and constructions.</p><div class='bc-rule'><p>Even on high-tech worlds, these weapons, like hand bows, are a favourite amongst assassins and gangers for their silence and reliability.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Sling", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/improvised.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 15,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10-2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Primitive (5)", "weight": 0.5, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Slings are difficult weapons to master, but can be used to throw anything from rocks picked off the ground, to specialised metallic balls, or even grenades.</p><div class='bc-rule'><p>When using a sling to throw grenades, replace the sling’s Damage with the effects of the grenade but retain the weapon’s Range.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+  {
+    "name": "Crossbow", "type": "weapon", "folder": "Ranged Weapons/Low-Tech",
+    "img": "systems/dark-heresy/assets/icons/weapons/ranged-weapon.webp",
+    "system": {
+      "class": "basic", "type": "lowtech", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "2 Full",
+      "special": "Primitive (7)", "weight": 3, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Crossbows are less common than bows as they require more advanced mechanical fittings, but they are equally as deadly.</p></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 181"
+    }
+  },
+
+  {
+    "name": "Grenade Launcher", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/grenade-launcher.webp",
+    "system": {
+      "class": "basic", "type": "launcher", "range": 60,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "", "weight": 12, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The standard grenade launcher uses compressed gas charges to launch a variety of grenade types at the enemy.</p><div class='bc-rule'><p>These shots can be arced high into the air as suppressive fire at unseen targets as well as being used directly against foes.</p><p>The Damage, Penetration, and Special Qualities of Launcher weapons with variable ammunition are dependent upon the grenade or missile used.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 182"
+    }
+  },
+  {
+    "name": "Hellstrike Missiles", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "vehicle", "type": "launcher", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+7", "damageType": "explosive", "penetration": "7",
+      "clip": { "max": 1, "value": 1 }, "reload": "N/A",
+      "special": "Blast (5)", "weight": 85, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The hellstrike missile is an air to surface missile commonly mounted on Imperial attack and assault craft used in support of ground-based operations.</p><div class='bc-rule'><p>These weapons use a solid propellant core to deliver a high explosive load, designed to effectively penetrate even well-armoured targets. Because they are generally launched from fixed wing aircraft, these missiles often strike their targets with a speed that substantially exceeds that of rockets fired from ground-based platforms. Hellstrike missiles may not be loaded with unusual ammo.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 182"
+    }
+  },
+  {
+    "name": "Hunter-Killer Missile", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "vehicle", "type": "launcher", "range": 350,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+6", "damageType": "explosive", "penetration": "6",
+      "clip": { "max": 1, "value": 1 }, "reload": "N/A",
+      "special": "", "weight": 64, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This missile launcher is often mounted on vehicles and fires a specialised krak missile. Fitted with advanced guidance systems and fuel, it has longer range and better accuracy than standard missiles, as the internal cogitator’s sensorum suite guides it to the target. Each comes in a complete launching package, good for one shot only.</p><div class='bc-rule'><p>A hunter-killer missile grants a +20 to Ballistic Skill Tests made to fire it. Hunter-Killer Missile Launchers cannot be loaded with unusual ammo.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 182"
+    }
+  },
+  {
+    "name": "Missile Launcher", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "", "weight": 35, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Like the grenade launcher, missile launchers fire a variety of explosive rounds at long distances. A missile is fitted with guidance systems to aid target acquisition, which is excellent at long ranges.</p><div class='bc-rule'><p>Most launchers, like the Locke-pattern, are shoulder mounted tube-like weapons that fire a single round with great accuracy, while the ancient Retobi design holds a huge vertical clip of 5 rounds but is much more awkward to fire and has less precision.</p><p>The Damage, Penetration, and Special Qualities of Launcher weapons with variable ammunition are dependent upon the grenade or missile used.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 182"
+    }
+  },
+  {
+    "name": "Mortar", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Inaccurate, Indirect (2)", "weight": 41, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>While relatively simple in construction, this weapon provides a medium-range attack capability, particularly against targets behind cover or out of sight, as it fires its explosive rounds in a high, indirect arc.</p><div class='bc-rule'><p>Mortar shells explode with a strong blast effect and also suppress enemy fire as the targets are forced to dive for protective cover. Many are operated in teams, with one manning the weapon whilst the other acts as a spotter to provide targeting information and often communicating the data via voxlink.</p><p>The mortar’s Range in Table 6-9 is 50–300m: it cannot fire closer than 50 metres. The Damage, Penetration, and Special Qualities depend upon the round used.</p></div></div>",
+      "source": "Only War, p. 175 (Table 6-9), p. 182"
+    }
+  }
+]

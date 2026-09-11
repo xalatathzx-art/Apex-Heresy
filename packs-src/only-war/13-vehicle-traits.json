@@ -1,0 +1,200 @@
+[
+  {
+    "name": "Amphibious", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Treats bodies of water as open ground.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle has additional waterproofing, sealed fuel lines, or is just simply resistant to water.</p><div class='bc-rule'><p>Amphibious vehicles treat bodies of water as open ground.</p></div></div>",
+      "source": "Only War, p. 212"
+    }
+  },
+  {
+    "name": "Bike", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Counts as Open-Topped; rider may be attacked without a Called Shot; may Hit & Run but never Ram.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The smallest sub-type of vehicles, bikes take many different forms from the iron steeds ridden by the Adeptus Astartes, to the nimble darts of the Eldar, right through to the smoke-belching contraptions favoured by the Orks.</p><div class='bc-rule'><p>Bikes follow all the standard rules for vehicles and are treated as having the Open-Topped Vehicle Trait. However, due to their size and lower profiles, in Melee those attacking a vehicle with the Bike Vehicle Trait can choose between the rider and the vehicle without needing to make a Called Shot. Additionally, Bikes may make the specialist Hit &amp; Run Action, as described on page 273, but may never make Ram! Actions. Bikes are usually Wheeled Vehicles, but can be Skimmers and, in some rare circumstances, Tracked Vehicles.</p></div></div>",
+      "source": "Only War, p. 212"
+    }
+  },
+  {
+    "name": "Command and Control", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Command affects units equal to Fellowship Bonus; +10 to Command Tests.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vehicles are often designated as a command vehicle to ensure there is a central point for all orders and instructions. This is often done via enhanced communication systems, but can be just as easily achieved with large banners, racks of trophies and totems, or burning symbols of devotion.</p><div class='bc-rule'><p>The commander (or driver if there is no designated commander) of a vehicle with the Command and Control Vehicle Trait may use his Command Skill to affect a number of squads or units (such as a Leman Russ or Chimera), in any combination, equal to his Fellowship bonus. This effect combines with Fellowship-based Talents such as Iron Discipline, Master Orator, and the like. Any character using this equipment also gains a +10 bonus to Command Skill Tests.</p></div></div>",
+      "source": "Only War, p. 212"
+    }
+  },
+  {
+    "name": "Daemonic Possession", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/chaos.svg",
+    "system": {
+      "benefit": "The vehicle needs no crew and ignores Critical Damage inflicted on its crew.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Thanks to the bound Daemonic essence that drives it, a vehicle with the Daemonic Possession Trait does not require a pilot or gunners to function. Instead, the vehicle uses its own Characteristics profile on all necessary tests. Essentially, a vehicle with this Trait is its own pilot and gunner.</p><div class='bc-rule'><p>This Trait allows a vehicle to fire all of its weapons as a part of a single Attack Action as though each weapon had its own gunner. A vehicle with this Trait may make melee attacks if it is armed with a melee weapon and adjacent to a viable target. In addition, a Possessed vehicle that suffers any Critical Damage that results in Damage to the crew will ignore these effects. The vehicle itself can still suffer critical effects from these results, but any Damage that would be inflicted upon the crew is ignored.</p></div></div>",
+      "source": "Only War, p. 212"
+    }
+  },
+  {
+    "name": "Damage Control", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Re-roll Critical Damage from Righteous Fury; putting out fires is a Free Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle possesses some limited form of self-repair. This could be an ancient machine spirit, slaved servitors, quick-growing Wraithbone, or even a team of Grots scurrying across the hull hammering at loose armour plates and holding wires together.</p><div class='bc-rule'><p>When a vehicle with the Damage Control Vehicle Trait suffers Critical Damage due to Righteous Fury, the vehicle’s commander (or driver if there is no designated commander) may force the 1d5 to be re-rolled. The second result must be accepted even if it is worse than the first. Additionally, if a vehicle with the Damage Control Vehicle Trait ever catches fire, then attempting to put out that fire is a Free Action for whichever member of the crew or passengers makes the attempt.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Enclosed", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Crew and passengers cannot fire out, and cannot be targeted from outside.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The greater majority of vehicles are completely enclosed, keeping their crew and passengers safe from the outside elements with thick slabs of armour, bulky hatchways and heavy ramps.</p><div class='bc-rule'><p>Crew and passengers within an Enclosed vehicle may not attack targets with their own personal weapons unless they have some way of getting outside of the vehicle, be it through a hatch, doorway, or firing slit. Within an Enclosed vehicle, crew and passengers cannot be specifically targeted by those outside the vehicle (unless there is a particularly good reason, such as a mind-based Psychic Attack).</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Enhanced Motive Systems", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Moves twice Tactical Speed as a Half Action and three times as a Full Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle has some way of gaining extra speed out of its engines, either via an enhanced form of promethium, ancient xeno-technology, or even a squig fuel injector!</p><div class='bc-rule'><p>Vehicles with the Enhanced Motive Systems Vehicle Trait may move twice their Tactical Speed as a Half-Action rather than a Full Action, and may move three times their Tactical Speed as a Full Action. This applies to the Floor It! Action as well, where vehicles with the Enhanced Motive Systems Vehicle Trait move triple rather than double their Tactical Speed and the Operate Test for this Action is treated as Ordinary (+10) rather than Difficult (–10). If a vehicle has both the Enhanced Motive Systems Vehicle Trait and the Ponderous Vehicle Trait, then these two Traits cancel each other out and it may move as a regular vehicle.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Environmentally Sealed", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Sealed against any environment and carries its own life support.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle is sealed off from the outside world completely, allowing it to function in almost any environment. It will also have its own life support system.</p><div class='bc-rule'><p>Vehicles that become exposed due to Critical Damage results lose this ability until their armour is repaired. Passengers and crew cannot fire their own personal weaponry from a vehicle with the Environmentally Sealed Vehicle Trait without first breaching those seals.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Extremely Volatile", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Double the chance of exploding when on fire; the blast sets others alight.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle possesses an unstable power plant, large ammunition bays, or great quantities of explosive fuel.</p><div class='bc-rule'><p>Extremely Volatile vehicles double their chance of exploding whenever they catch fire. Additionally, when an Extremely Volatile vehicle explodes, all those caught in the blast must make a Difficult (–10) Agility Test or catch fire.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Immobile", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Cannot move under its own power; Manoeuvrability +0; cannot Jink.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Some vehicles, such as drop pods, are deployed via types of motive systems that do not operate on the ground.</p><div class='bc-rule'><p>An Immobile vehicle cannot move under its own power, has a default Manoeuvrability Value of +0, and cannot make use of the Jink Action. Immobile vehicles often have some other method of movement (such as large engines to bring them in via orbital drop), and Motive Systems Critical Damage applies to these methods.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Improved Command and Control", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "As Command and Control, but +20 to Command Tests and failed Tests may be re-rolled.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vehicles that are in command of larger formations often have even greater command and control systems than low-level command vehicles. Further enhanced communication systems and scanning equipment are a good way to achieve this, but more primitive races, such as the Orks, can achieve much the same result with massive “Shoutin’ Tubes” or even groups of Grots enthusiastically waving large banners and glyphs.</p><div class='bc-rule'><p>The commander (or driver if there is no designated commander) of a vehicle with the Improved Command and Control Vehicle Trait may use his Command Skill to affect a number of squads or units (such as a Leman Russ or Chimera), in any combination, equal to his Fellowship bonus. This effect combines with Fellowship-based Talents such as Iron Discipline, Master Orator, and the like. Any character using this equipment also gains a +20 bonus to Command Skill Tests and may re-roll any failed Command Skill Tests. These systems are often used to coordinate the actions of large forces, up to the size of an Imperial Guard Company or Super-Heavy Tank Regiment.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Open-Topped", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Passengers may fire their own weapons, but can be targeted and are caught by Blast and Spray.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle’s passenger or crew compartments are not sealed and are instead exposed to the open air around them. This limits their protection, but it does allow transported troops to fire their own weapons as the vehicle moves.</p><div class='bc-rule'><p>Crew and passengers mounted on an Open-topped vehicle can be specifically targeted by those outside the vehicle via the use of the Called Shot Action. Additionally, passengers mounted in Open-Topped vehicles are struck by any Blast or Spray attacks which they would be in range of. Crew and passengers within an Open-topped may attack targets with their own personal weaponry.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Orbital Deployment", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Lands from orbit, scattering 2d10 metres; –30 to hit it in flight.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Some vehicles possess the ability to be deployed from orbit, allowing for rapid movements of troops and other vital materiel. The most famous of this type of vehicle is the Drop Pod used by the Adeptus Astartes, but there are a number of other vehicle types that are capable of orbital insertion, including Ork Roks, which are little more than hollowed out asteroids hurled at a planet in vast numbers in the hope that some will survive the impact!</p><div class='bc-rule'><p>A vehicle with the Orbital Deployment Vehicle Trait can choose a location on the battlefield to land rather than moving to that location like other vehicles. After choosing a location, the vehicle scatters 2d10 metres in a random direction. All shooting at a vehicle undergoing an Orbital Deployment suffers a –30 to hit whilst it is in flight. If the vehicle is capable of moving after that, it may do so during the next Round. Any weapons the vehicle possesses and any passengers that were transported by the vehicle must wait a full Round before they fire or disembark.</p></div></div>",
+      "source": "Only War, p. 213"
+    }
+  },
+  {
+    "name": "Ponderous", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "May not Floor It!; moving its Tactical Speed takes a Full Action.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Some vehicles are so massive and so bulky that their ability to move at any significant speed is greatly reduced.</p><div class='bc-rule'><p>A Ponderous Vehicle may not use the Floor It! Action and moving its Tactical Speed requires a Full Action (therefore it can never move twice its Tactical Speed). If a vehicle has both the Ponderous Vehicle Trait and the Enhanced Motive Systems Vehicle Trait, then these two Traits cancel each other out and it may move as a regular vehicle.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Ramshackle", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Righteous Fury rolls 1d10; repairs take half the time at +20; always counts as Lightly Damaged.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle’s construction methods are so haphazard that it is both more fragile than regular vehicles, yet at the same time has many more redundant and jury rigged systems, making the vehicle easier to repair.</p><div class='bc-rule'><p>When rolling Righteous Fury against a vehicle with the Ramshackle Vehicle Trait, the player rolls 1d10 rather than 1d5. The vehicle takes twice the rolled Damage against itself when attempting a Ram Action against another vehicle, building, or something equally solid. Repairing a vehicle with the Ramshackle Vehicle Trait takes half the listed time, and Tests to implement these repairs gain a +20 bonus. Damaged vehicles with the Ramshackle Vehicle Trait are always treated as Lightly Damaged unless they have taken Critical Damage.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Reinforced Armour", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Halve Critical Damage taken (rounding up).",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle’s armour and vital locations have been internally reinforced with additional layers or ceramite and adamantine.</p><div class='bc-rule'><p>Vehicles with the Reinforced Armour Vehicle Trait that receive Critical Damage halve the total (rounding up) and then apply the result. This ability does not affect rolls on the Vehicle Critical Hit Charts caused by Righteous Fury.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Rugged", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "+20 to all Repair Tests made on the vehicle.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Robust power systems, modular armour plates, and redundant fuel systems can make a vehicle far easier to repair, saving time and resources and allowing the vehicle to be put back into the field far quicker than more specialised designs.</p><div class='bc-rule'><p>All Repair Tests made to repair a vehicle with the Rugged Vehicle Trait gain a +20 bonus.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Skimmer", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Hovers 2 metres up, ignores Difficult Terrain, +10 Manoeuvrability, –10 to be hit in melee.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The following rules apply to Skimmer Vehicles.</p><div class='bc-rule'><p>Skimmers move roughly 2 metres above the ground at all times, in much the same way as people and creatures with the Hoverer Trait, but can adjust that height slightly when moving over ground-based obstacles. Skimmers can also move to Low Altitude, as described in the rules for Flying.</p><p>Skimmers ignore all forms of Difficult Terrain (except those deemed appropriate by the GM).</p><p>Skimmers gain a +10 bonus on all Tests involving Manoeuvrability.</p><p>Skimmers are not true aircraft and therefore cannot fly at any significant altitude. Nevertheless, a sudden loss in motive power can be catastrophic to a skimmer as it ploughs into the ground, often at great speed. All Skimmers are subject to the rules for Crashing.</p><p>Skimmers can make use of the Ram Action, but if the Operate Test is failed they are treated as having Crashed into their target. This is usually a bad thing.</p><p>Skimmers are often far more difficult to hit in melee combat than their ground-based counterparts and thus all Weapon Skill Tests made to attack a skimmer in Melee suffer a –10 penalty.</p><p>Vehicles with the Skimmer Vehicle Trait may turn as many times as they like when moving, regardless of how far they move.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Super-Heavy", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Ignores difficult terrain and obstacles; also gains Ponderous.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Enormous leviathans that dominate the battlefield, super-heavy vehicles are often used to take on entire troop and tank formations by themselves, or to take on massive targets such as Titans and Ork Gargants.</p><div class='bc-rule'><p>Heavily armed and armoured, super-heavy vehicles suffer from few of the trivial problems that plague their smaller cousins. A vehicle with the Super-Heavy Trait is able to ignore penalties for moving through difficult terrain and can negotiate obstacles such as rockslides, tank traps, fallen trees, and shattered buildings without penalty. Walkers with the Super-Heavy Vehicle Trait can walk over obstacles 5 metres high, or simply bulldoze through walls, forests, or medium-sized buildings without suffering negative effects. Vehicles with the Super-Heavy Trait automatically gain the Ponderous Vehicle Trait.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Tracked Vehicle", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "–10 to Manoeuvrability, +10 in Difficult Terrain; motive repairs take twice as long.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The following rules apply to Tracked Vehicles.</p><div class='bc-rule'><p>Vehicles with the Tracked Vehicle Trait suffer a –10 penalty to all Tests involving Manoeuvrability.</p><p>Vehicles with the Tracked Vehicle Trait gain a +10 bonus to all Tests involving Difficult Terrain.</p><p>To represent their more robust nature, whenever a vehicle with the Tracked Vehicle Trait suffers Critical Damage to its Motive Systems that results in the vehicle being slowed, the result of the roll to determine how much Tactical Speed is lost is halved (rounded down).</p><p>The motive systems of vehicles with the Tracked Vehicle Trait are often far more complex than simple wheeled mechanisms, and therefore repairing Critical Damage to the vehicle’s Motive Systems, as well as any lasting Motive System damage, takes twice as long as normal.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Walker", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "Ignores most Difficult Terrain, cannot Ram, and may turn freely.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The following rules apply to a vehicle with the Walker Trait.</p><div class='bc-rule'><p>Vehicles with the Walker Trait are able to ignore many types of Difficult Terrain due to their large feet and heavy legs. Vehicles with the Walker Vehicle Trait treat conditions such as rockslides, tank traps, fallen trees, and basic rubble and ruins as Open Ground. It is up to the GM to determine what other types of terrain a walker can ignore.</p><p>Vehicles with the Walker Trait cannot make use of the Ram Action. They make a standard Charge Action instead.</p><p>Far more combat capable than most other vehicle types, walkers (or rather their pilots) are better able to turn to face their opponents in the midst of a melee. Any vehicle with the Walker Trait may turn to face its melee opponents at the end of its Turn as a Free Action. This does not count as a form of movement and it may in fact put other attackers in a better position if the Walker is fighting multiple opponents in melee.</p><p>Vehicles with the Walker Trait may turn as many times as they like when moving, regardless of how far they move.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  },
+  {
+    "name": "Wheeled Vehicle", "type": "vehicleTrait", "folder": "Vehicle Traits",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "benefit": "–20 in Difficult Terrain, +10 to Manoeuvrability; motive repairs take half as long.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The following rules apply to Wheeled Vehicles.</p><div class='bc-rule'><p>Vehicles with the Wheeled Vehicle suffer a –20 penalty to all Tests involving Difficult Terrain.</p><p>Vehicles with the Wheeled Vehicle Trait gain a +10 bonus to all Tests involving Manoeuvrability.</p><p>Wheeled Vehicles become extremely difficult to control once they start suffering serious damage to their motive systems, and the loss of even one wheel can make even the most experienced of drivers struggle to keep the vehicle moving in a straight line, especially in the heat of combat. Vehicles with the Wheeled Vehicle Trait suffer Motive Systems Critical Damage as normal, but once any such Damage has been taken, all forms of movement require Operate Tests, and all Tests related to the vehicle’s Manoeuvrability are made at a –10 penalty.</p><p>Wheeled mechanisms are far less complex than those belonging to tracked vehicles, and therefore repairing Critical Damage to the vehicle’s Motive Systems, as well as any lasting Motive System damage, takes half as long as normal.</p></div></div>",
+      "source": "Only War, p. 214"
+    }
+  }
+]

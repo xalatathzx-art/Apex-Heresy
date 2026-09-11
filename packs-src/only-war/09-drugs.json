@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Amasec", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Amasec is a popular alcoholic drink that is distilled from wine.</p><div class='bc-rule'><p>It can range from lesser quality brews that are barely fit for firebombs to well-aged and flavourful brands that have the tendency to get confiscated by higher ranked officers due to the fact that they are suitable for only the finest of the Emperor’s servants.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 198"
+    }
+  },
+  {
+    "name": "De-Tox", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A common drug distributed by the Departmento Munitorum to squads likely to face chemical warfare, this drug can negate the effects of most dangerous gases and toxins if administered quickly enough.</p><div class='bc-rule'><p>A dose of de-tox immediately ends the ongoing effects of both positive and negative drugs, toxins, or gases affecting the character (unless the description states that de-tox is not effective against them).</p><p>Using de-tox, however, is both painful and debilitating, and can cause several unpleasant side effects such as vomiting, nose bleeds, and a great voiding of the bowels. Upon taking this drug, a character is Stunned for a number of Rounds equal to 1d10 minus his Toughness Bonus. A result of 0 or less means that the character suffers no ill effects.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 198"
+    }
+  },
+  {
+    "name": "Frenzon", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A generic name for a variety of combat drugs most often used with Penal Legions. Once administered, the subject becomes fanatical and fearless.</p><div class='bc-rule'><p>A character using Frenzon gains the Frenzy Talent and becomes immune to the effects of Fear for the duration of the drug. A single dose of Frenzon lasts for 1d10 minutes.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 198"
+    }
+  },
+  {
+    "name": "Lho-Sticks", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "common", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Lho-sticks are common with Imperial Guard troopers and many menial workers.</p><div class='bc-rule'><p>Each rolled paper tube contains a scented, mildly narcotic (and addictive) plant-derived substance, which is then lit, and the resulting smoke is inhaled through the tube.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199"
+    }
+  },
+  {
+    "name": "Obscura", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Though this drug is prohibited and the subject of widespread crackdowns in the ranks of the Imperial Guard, obscura remains a widely used narcotic among Imperial subjects. Smugglers can make a good living importing and selling the drug to all classes of civilians and military personnel.</p><div class='bc-rule'><p>Obscura-users enter a dream-like state for 1d5 hours (if required to engage in combat, consider them under the effects of a hallucinogen grenade). For 1d10 hours after the effects wear off, they enter a deep depression, unless another dose of obscura is taken.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199"
+    }
+  },
+  {
+    "name": "Recaf", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "abundant", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Recaf is a popular hot beverage that is made from crushed and brewed leaves.</p><div class='bc-rule'><p>The composition can vary from planet to planet, but most blends incorporate some form of stimulant such as caffeine or detoxified pharamoxine compounds. The perfect companion for a sentry’s long watch at night.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199"
+    }
+  },
+  {
+    "name": "Sacred Unguents", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/sacred-unguents.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Sacred unguents blessed by the Omnissiah are much sought after for their mystical properties when applied to machines.</p><div class='bc-rule'><p>If applied to a weapon—which requires a Full Action—the weapon becomes immune to jamming (see page 255) for a number of shots equal to its Clip Size. If the unguent is applied to an already jammed weapon, it immediately unjams, but there is no further effect.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199"
+    }
+  },
+  {
+    "name": "Slaught", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "scarce", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Also known as “onslaught,” this drug heightens awareness and improves reaction time, literally speeding up the user but causing Fatigue and neural damage with prolonged use.</p><div class='bc-rule'><p>Taking a dose increases the user’s Agility Bonus and Perception Bonus by 3 for 2d10 minutes. When the drug runs its course, the user must pass a Challenging (+0) Toughness Test or suffer a –20 penalty to Agility Tests and Perception Tests for 1d5 hours.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199"
+    }
+  },
+  {
+    "name": "Spook", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This drug can augment and even produce short-term psychic abilities in the user.</p><div class='bc-rule'><p>If a character without any Psy Rating takes a dose of spook, he must successfully make a Challenging (+0) Willpower Test or gain 1d5 Insanity Points due to his mind being filled with terrifying visions of the Warp. If he succeeds, the user gains a Psychic Power from Table 6–22: Spook Effects (see descriptions in the chapter on Psychic Powers). The power lasts for 1d5 hours and the user makes all Focus Power Tests as if he has a Psy Rating of 1.</p><p>If a character with a Psy Rating of 1 or more uses spook, he must make a Challenging (+0) Willpower Test. If he fails, he gain 1 Insanity Point and the drug has no further effects. If he passes, he adds 1 to his Psy Rating for the next hour. However, add +25 to any rolls made on Table 7–2: Psychic Phenomena.</p><p>Saying that foreign drugs such as spook are frowned upon is a grave understatement. Anyone caught with this drug would find themselves on the wrong end of a Commissar’s bolt pistol, but addicts will be addicts and it is not uncommon to hear tales of a Guardsman fighting under the influence of spook.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 199 (Table 6-22)"
+    }
+  },
+  {
+    "name": "Stimm", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "average", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stimm is a powerful drug that works to mask pain and drive fighters on when their bodies would otherwise give up.</p><div class='bc-rule'><p>A dose of stimm works for 3d10 Rounds. During this time, a character ignores any negative effects to their Characteristics from Damage or Critical Damage and cannot be Stunned. When the stimm wears off, the character suffers a –20 penalty to Strength, Toughness, and Agility Tests for one hour.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 200"
+    }
+  },
+  {
+    "name": "Tranq", "type": "drug", "folder": "Drugs & Consumables",
+    "img": "systems/dark-heresy/assets/icons/equipment/inhaler.webp",
+    "system": {
+      "availability": "abundant", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The term tranq covers an array of artificial, alcoholic chem-distillates made by the low-hive masses of the Golgenna Reach.</p><div class='bc-rule'><p>The techniques for producing tranq have been carried throughout the Calixis Sector by crew-scum, criminals, and most importantly Guardsmen. Drinking tranq numbs the body and mind, which provides a very different feeling than being drunk on amasec, rotgut, or other spirits. Though similar in the end result, the effects of tranq are unpleasant, depressive, and require an acquired taste.</p></div></div>",
+      "source": "Only War, p. 198 (Table 6-21), p. 200"
+    }
+  }
+]

@@ -1,0 +1,184 @@
+[
+  {
+    "name": "Backpack", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/backpack.webp",
+    "system": {
+      "availability": "plentiful", "weight": 1, "shortDescription": "Carries about 50 kg",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A personal carrying device can take many forms, but is usually some kind of bag with attached straps for ease of carrying.</p><div class='bc-rule'><p>A backpack can usually carry approximately 50 kilograms.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 139"
+    }
+  },
+  {
+    "name": "Cameleoline Cloak", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/cameleoline-cloak.webp",
+    "system": {
+      "availability": "rare", "weight": 0.5, "shortDescription": "+20 Concealment",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cameleoline material is made up of mimic fibres that blend the colouration of the wearer into their surroundings.</p><div class='bc-rule'><p>A character wearing a cameleoline cloak gains a +20 bonus to Concealment Tests. If the wearer remains stationary, he counts as being one Range Bracket further away when targeted by ranged weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 139"
+    }
+  },
+  {
+    "name": "Charm", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/holy-icon.webp",
+    "system": {
+      "availability": "average", "weight": 0, "shortDescription": "A keepsake or holy relic",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A charm is a keepsake, holy relic or good luck token that is intended to draw the benevolent eye of the Emperor to the wearer. They take myriad forms including such things as saintly finger bones, fragments of blessed bolter casings, water from holy rivers, and even corpse hair woven into significant patterns. Throughout the Imperium, there is no shortage of folk who will sell such items, though discerning true relics from the false is an almost impossible task (thus the cost of a charm is entirely up to the GM and how well the Explorer can haggle with the seller).</p><div class='bc-rule'><p>Charms have no tangible benefits. However, when the unfolding plot calls for something bad to happen to a random character, at the GM’s discretion a character with a charm will be exempt. If all the characters carry charms (as all Emperor-fearing citizens should) then it is up to the GM to choose which charms are the most potent.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 139"
+    }
+  },
+  {
+    "name": "Chrono", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/chrono.webp",
+    "system": {
+      "availability": "abundant", "weight": 0, "shortDescription": "A timepiece",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Chronos are hand-held or wrist-worn timepieces, generally dependable and simple to use.</p><div class='bc-rule'><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 139"
+    }
+  },
+  {
+    "name": "Clip Harness/Drop Harness", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/climbing-harness.webp",
+    "system": {
+      "availability": "common", "weight": 2, "shortDescription": "+30 Climb, cannot fall",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A compact spool-stored safety line, with a magnetic or hooked clasp.</p><div class='bc-rule'><p>A character using a clip harness to descend a vertical surface gains a +30 bonus to Climb Tests and cannot fall if he fails.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Clothing and Adornment (Common)", "type": "gear", "folder": "Gear/Clothing",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/clothes.webp",
+    "system": {
+      "availability": "abundant", "weight": 0, "shortDescription": "Everyday attire",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The citizens of the Imperium wear a staggering range of clothing, jewellery, and other forms of adornment. All manner of styles imaginable exist to illustrate the role or importance of the individual. Explorers might wear bodygloves and rings, the best in noble finery, wigs, ship-suits, practical hive world clothes, military uniforms and dress weapons, scholarly robes, tattoos, or religious garb from any one of a thousand temples, depending on taste, profession, and background.</p><div class='bc-rule'><p>The Availability of clothing and adornment is determined by how much an Explorer chooses to spend on his apparel, from basic rags up to exquisite and expensive attire far beyond even lesser nobles. Clothing and Adornment may have any appropriate Availability. There is always a way to spend more on appearance, to find yet more exclusive fabrics, clothiers, and jewelers, and otherwise display the ways that your wealth glitters more brightly than that of your rivals.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Clothing and Adornment (Merchant Guilder)", "type": "gear", "folder": "Gear/Clothing",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/clothes.webp",
+    "system": {
+      "availability": "average", "weight": 0, "shortDescription": "Guilder attire",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The citizens of the Imperium wear a staggering range of clothing, jewellery, and other forms of adornment. All manner of styles imaginable exist to illustrate the role or importance of the individual.</p><div class='bc-rule'><p>The Availability of clothing and adornment is determined by how much an Explorer chooses to spend on his apparel. Clothing and Adornment may have any appropriate Availability.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Clothing and Adornment (Noble)", "type": "gear", "folder": "Gear/Clothing",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/clothes.webp",
+    "system": {
+      "availability": "scarce", "weight": 0, "shortDescription": "Noble finery",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The citizens of the Imperium wear a staggering range of clothing, jewellery, and other forms of adornment. All manner of styles imaginable exist to illustrate the role or importance of the individual.</p><div class='bc-rule'><p>The Availability of clothing and adornment is determined by how much an Explorer chooses to spend on his apparel. Clothing and Adornment may have any appropriate Availability.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Filtration Plugs", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/filtration-plugs.webp",
+    "system": {
+      "availability": "common", "weight": 0, "shortDescription": "+20 Toughness vs gas",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are simple plugs worn in each nostril to screen out most pollutants and harmful gases.</p><div class='bc-rule'><p>A character wearing filtration plugs gains a +20 bonus to any Toughness Test made to resist the effects of gas.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Night Cloak", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/cloak.webp",
+    "system": {
+      "availability": "average", "weight": 2, "shortDescription": "+30 Concealment in the dark",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Normally fashioned into a large cloak, or more rarely a stormcoat complete with hood, a night cloak will absorb almost all ambient light and emit almost no heat. When the hood is completely furled the user can disappear into the dark, hidden even from infrared sensors.</p><div class='bc-rule'><p>It gets very hot inside the cloak from the internalised heat, and a wearer must pass a Challenging (+0) Toughness Test or suffer a fatigue level after every hour of heavy exertion.</p><p>The cloak grants the user a +30 bonus to Concealment Skill Tests when in the dark, even when there is no applicable terrain.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Photo-visors/Photo-contacts", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/photo-visors.webp",
+    "system": {
+      "availability": "scarce", "weight": 0.5, "shortDescription": "Dark Sight",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Advanced lenses designed to enhance the low-level light available on even the darkest nights. Users can see in the dark almost as well as in daylight with them.</p><div class='bc-rule'><p>Characters wearing these gain the Dark Sight trait. Good Craftsmanship visors also dampen the effects of photon flash grenades, making the wearer immune to their effects.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Preysense Goggles", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/googles.webp",
+    "system": {
+      "availability": "rare", "weight": 0.5, "shortDescription": "No darkness penalties, +20 sight at night",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Relatively simple devices, Preysense goggles allow the wearer to see thermal images from warm bodies, revealing hiding enemies at night.</p><div class='bc-rule'><p>A character wearing Preysense goggles suffers no penalties due to darkness and gains a +20 bonus to vision-based Perception Tests at night.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Rebreather", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/rebreather.webp",
+    "system": {
+      "availability": "scarce", "weight": 1, "shortDescription": "Immune to gases for one hour",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Consisting of a mask or helmet, rebreathers contain their own air supply and are designed to preserve the user in even the most toxic atmospheres.</p><div class='bc-rule'><p>A character wearing a rebreather is immune to the effects of gases and can even survive underwater. However, rebreathers typically have air canisters that last for about one hour and then must be replaced. Replacing a canister is a Full Action.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Recoil Gloves", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/gloves.webp",
+    "system": {
+      "availability": "rare", "weight": 0.5, "shortDescription": "One-handed Basic weapons without penalty",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These gloves have interlocking plates connected with memory wire. When the user grips a weapon, it locks together into a rigid strut around the hand and wrist, thus preventing wrist or arm damage when the weapon discharges.</p><div class='bc-rule'><p>A character using a recoil glove can fire a Basic weapon with one hand without the normal –20 penalty. In addition, Pistol weapons that require two hands can be used one-handed without penalty.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Respirator/Gas Mask", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/respirator.webp",
+    "system": {
+      "availability": "average", "weight": 0.5, "shortDescription": "+30 Toughness vs gas, re-roll failures",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a breathing mask that covers the nose and mouth or entire face, and offers much better protection than filtration plugs.</p><div class='bc-rule'><p>A character wearing a respirator or gas mask gains a +30 bonus to Toughness Tests made to resist the effects of gas, and may re-roll failed results.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 140"
+    }
+  },
+  {
+    "name": "Shifting Fabric", "type": "gear", "folder": "Gear/Clothing",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/clothes.webp",
+    "system": {
+      "availability": "very-rare", "weight": 0, "shortDescription": "Fashionable ever-changing cloth",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This exotic material is fashionable in the pleasure zones of the Drusus Marches—the more so for its great expense and rarity. The raw fibres are imported from the Koronus Expanse and, when woven into fabric, react ambient light, altering colours and patterns in an ever-changing stylised display. Some claim it also reacts to the wearer’s mental state, though opinions vary. Either way shifting fabric clothing is surprisingly comfortable, stylish, and certain to make an impression.</p><div class='bc-rule'><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 141"
+    }
+  },
+  {
+    "name": "Survival Suit", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/survival-gear.webp",
+    "system": {
+      "availability": "plentiful", "weight": 0, "shortDescription": "+20 Toughness vs extreme environments",
+      "description": "<div class='bc-entry'><p class='bc-lead'>When working in harsh, extreme conditions, survival suits are a must. No matter whether it is too hot or too cold, the suit can maintain proper body temperature via excellent insulation capabilities. Using the differential between body temperature and outside temperature to drive power cells, its reclamation systems produce drinking water for the wearer. Most suits come complete with a hood and goggles to protect the head and face. While it will not sustain life indefinitely, it is usually enough to allow survivors to wait for rescue.</p><div class='bc-rule'><p>The suit grants the wearer a +20 bonus to any Toughness Tests against the effects of extreme environments.</p><p>The book prints no weight for this item.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 141"
+    }
+  },
+  {
+    "name": "Synskin", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/synskin.webp",
+    "system": {
+      "availability": "extremely-rare", "weight": 2, "shortDescription": "2 AP all locations, +10 Concealment and Silent Move",
+      "grantsArmour": { "enabled": true, "isAdditive": false, "part": { "head": 2, "leftArm": 2, "rightArm": 2, "body": 2, "leftLeg": 2, "rightLeg": 2 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Synskin is a bio-reactive bodyglove with an inert non-reflective surface that moulds itself to the wearer’s form.</p><div class='bc-rule'><p>Synskin adds 2 Armour Points to all locations (these Armour Points do not stack with other worn armour) and the wearer gains a +10 bonus to Concealment and Silent Move Tests. In addition, synskin renders the wearer invisible to the effects of Preysense goggles and Dark Sight. Synskin does not stack with other armour. If worn under other armour, the wearer does not benefit from the bonus to Concealment and Silent Move Tests, but is still rendered invisible to infra-red goggles and Dark Sight unless he is wearing power armour.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 141"
+    }
+  },
+  {
+    "name": "Void Suit", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/equipment/void-suit.webp",
+    "system": {
+      "availability": "plentiful", "weight": 8, "shortDescription": "Survive in vacuum",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These sealed suits are intended to preserve the wearer in the most hostile environments. A void suit incorporates a rebreather and allows the wearer to survive in vacuum. Many incorporate simple void-kits that include tether lines, void-steel clamps, and similar small pieces of useful equipment.</p><div class='bc-rule'><p>However, poor void suits may not adequately shield the wearer from the energies of the void over long periods of exposure, leading to sickness or death.</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 141"
+    }
+  },
+  {
+    "name": "Void Suit (Selenite-pattern)", "type": "gear", "folder": "Gear/General",
+    "img": "systems/dark-heresy/assets/icons/armoury/tools_and_gear/void_suit.webp",
+    "system": {
+      "availability": "scarce", "weight": 25, "shortDescription": "Heavy void suit, 3 AP body/arms/legs and 4 AP head",
+      "grantsArmour": { "enabled": true, "isAdditive": false, "part": { "head": 4, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>A truly ancient design and a relic of the sacred STC, the Selenite-pattern is perhaps the most common heavy void suit used in the Imperium. Intended for use by voidwalkers, belt miners, and the like, the suit’s insulated ceramic-fibre weave provides much better protection than a simple sealed suit from the hazards of space such as temperature extremes, radiation, and micro-fragment impact. Widely fabricated and hugely durable, some Selenite suits are treasured relics of the void born families and star vessels, and may have served many generations in a particular ship’s crew.</p><div class='bc-rule'><p>The Selenite can sustain life in hard vacuum for up to ten hours before the dual re-breather cells of its life support system must be replaced (which may even be done without removing the suit). A fully functioning suit in good order also contains an internal vox-link, a seal patching kit, a compact grapnel/clasp plus ten metres of line, and a photo-visor. The suit’s reinforced structure provides 3 Armour Points to the Body, Arms and Legs and 4 Armour Points from the helmet to the Head. The suit however is quite bulky and imposes a –10 penalty on all Agility Tests whilst worn. Selenite suits appear in several local variants and are subject to the rules for Armour Quality.</p><p>Selenite suits common to Port Wander and Footfall are fitted with impellor units, allowing the wearer to propel himself through open space in zero or reduced gravity conditions with a Movement of 6 (they are not powerful enough to use in a normal gravity environment, however).</p></div></div>",
+      "source": "Rogue Trader, p. 140 (Table 5-13), p. 141"
+    }
+  }
+]

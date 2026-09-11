@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Battle Cannon (Turret)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 750, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+10", "damageType": "explosive", "penetration": "8",
+      "clip": { "max": 12, "value": 12 }, "reload": "3 Full",
+      "special": "Blast (10), Concussive (3), Reliable", "availability": "average", "weight": 350,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The main turret gun of the Leman Russ battle tank: a huge, explosive shell, proportionately more damaging than the autocannon it grew out of.</p><div class='bc-rule'><p>Turret-mounted Battle Cannon (750m; S/–/–; 3d10+10 X; Pen 8; Clip 12; Reload 3 Full; Blast [10], Concussive [3], Reliable).</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Demolisher Cannon (Vehicle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 50, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+20", "damageType": "explosive", "penetration": "10",
+      "clip": { "max": 2, "value": 2 }, "reload": "Full",
+      "special": "Blast (10), Concussive (3)", "availability": "rare", "weight": 400,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A siege variant of the battle cannon, mounted in the turret of a Leman Russ Demolisher or in the hull of a Baneblade.</p><div class='bc-rule'><p>Demolisher Cannon (50m; S/–/–; 4d10+20 X; Pen 10; Clip 2; Reload Full; Blast [10], Concussive [3]).</p></div></div>",
+      "source": "Only War, p. 217"
+    }
+  },
+  {
+    "name": "Vanquisher Cannon (Turret)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 900, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+5", "damageType": "explosive", "penetration": "16",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Accurate", "availability": "very-rare", "weight": 400,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The rare anti-armour pattern of the battle cannon, prized by veteran tank commanders for its ability to penetrate any known armour.</p><div class='bc-rule'><p>Turret-mounted Vanquisher Cannon (900m; S/–/–; 3d10+5 X; Pen 16; Clip 6; Reload 2 Full; Accurate).</p><p>The vehicle entry gives Damage 3d10+5, where Table 6-9 gives the Vanquisher battle cannon 3d10+10.</p></div></div>",
+      "source": "Only War, p. 218"
+    }
+  },
+  {
+    "name": "Earthshaker Cannon (Fixed)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "fixed", "facing": "front", "arc": 0, "class": "vehicle", "type": "solidprojectile",
+      "range": 3500, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+10", "damageType": "explosive", "penetration": "8",
+      "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Blast (20), Concussive (3), Indirect (5)", "availability": "very-rare", "weight": 800,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Basilisk’s artillery piece, mounted on a fixed carriage and firing over the horizon.</p><div class='bc-rule'><p>Earthshaker Cannon on a Fixed weapon mounting (3,500m; S/–/–; 4d10+10 X; Pen 8; Clip 1; Reload Full; Blast [20], Concussive [3], Indirect [5]).</p><p>The vehicle entry gives Blast (20) and Concussive (3), where Table 6-9 gives Blast (10+1d10) and Concussive (5).</p></div></div>",
+      "source": "Only War, p. 219"
+    }
+  },
+  {
+    "name": "Baneblade Cannon (Turret)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 750, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+15", "damageType": "explosive", "penetration": "10",
+      "clip": { "max": 12, "value": 12 }, "reload": "3 Full",
+      "special": "Blast (12), Concussive (3), Reliable", "availability": "very-rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The main gun of the Baneblade super-heavy tank, larger and heavier than the battle cannon it resembles.</p><div class='bc-rule'><p>Turret-mounted Baneblade Cannon (750m; S/–/–; 3d10+15 X; Pen 10; Clip 12; 3 Full; Blast [12], Concussive [3], Reliable).</p></div></div>",
+      "source": "Only War, p. 220"
+    }
+  },
+  {
+    "name": "Inferno Cannon (Turret)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/vehicle.svg",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "flame",
+      "range": 50, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+15", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 100, "value": 100 }, "reload": "—",
+      "special": "Flame, Spray", "availability": "rare", "weight": 600,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The turret flamer of the Hellhound flame tank, throwing gouts of white hot flame across an extended portion of the battlefield.</p><div class='bc-rule'><p>Turret-mounted Inferno Cannon (50m; S/–/–; 2d10+15 E; Pen 8; Clip 100; Reload —; Flame, Spray).</p><p>The vehicle entry gives Clip 100, where Table 6-9 gives 50.</p></div></div>",
+      "source": "Only War, p. 219"
+    }
+  },
+  {
+    "name": "Heavy Bolter (Vehicle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "mount": "hull", "facing": "front", "arc": 45, "class": "vehicle", "type": "bolt",
+      "range": 150, "rateOfFire": { "single": 0, "burst": 0, "full": 6 },
+      "damage": "1d10+8", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Tearing", "availability": "very-rare", "weight": 40,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The standard hull or sponson mount of most Imperial Guard armour.</p><div class='bc-rule'><p>Heavy Bolter (150m; –/–/6; 1d10+8 X; Pen 5; Clip 60; Reload Full; Tearing).</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Twin-linked Heavy Bolter", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "bolt",
+      "range": 150, "rateOfFire": { "single": 0, "burst": 0, "full": 6 },
+      "damage": "1d10+8", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Tearing, Twin-Linked", "availability": "very-rare", "weight": 80,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Two heavy bolters slaved to one trigger, mounted in the turrets and sponsons of super-heavy tanks.</p><div class='bc-rule'><p>Twin-linked Heavy Bolter (150m; –/–/6; 1d10+8 X; Pen 5; Clip 60; Reload Full; Tearing, Twin-Linked).</p></div></div>",
+      "source": "Only War, p. 220"
+    }
+  },
+  {
+    "name": "Lascannon (Vehicle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "mount": "hull", "facing": "front", "arc": 45, "class": "vehicle", "type": "las",
+      "range": 300, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "5d10+10", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 30, "value": 30 }, "reload": "2 Full",
+      "special": "Proven (3)", "availability": "very-rare", "weight": 55,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The vehicle mounting of the lascannon, fed from the vehicle’s own reactor rather than a man-portable pack.</p><div class='bc-rule'><p>Lascannon (300m; S/–/–; 5d10+10 E; Pen 10; Clip 30; Reload 2 Full; Proven [3]).</p><p>The vehicle mounting has Clip 30, where the man-portable lascannon of Table 6-9 has 5.</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Heavy Flamer (Vehicle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "mount": "hull", "facing": "front", "arc": 45, "class": "vehicle", "type": "flame",
+      "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "4",
+      "clip": { "max": 20, "value": 20 }, "reload": "2 Full",
+      "special": "Flame, Spray", "availability": "rare", "weight": 45,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A heavy flamer fed from the vehicle’s own promethium tanks.</p><div class='bc-rule'><p>Heavy Flamer (30m; S/–/–; 1d10+5 E; Pen 4; Clip 20; Reload 2 Full; Flame, Spray).</p><p>The vehicle mounting has Clip 20, where Table 6-9 gives 10.</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Plasma Cannon (Sponson)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "mount": "sponson", "facing": "leftSide", "arc": 180, "class": "vehicle", "type": "plasma",
+      "range": 120, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 32, "value": 32 }, "reload": "5 Full",
+      "special": "Blast (1), Maximal, Overheat", "availability": "extremely-rare", "weight": 40,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A plasma cannon in a sponson mounting, drawing hydrogen from the tank’s own reserves.</p><div class='bc-rule'><p>Plasma Cannons (Left Facing/Right Facing; 120m; S/–/–; 2d10+10 E; Pen 8; Clip 32; Reload 5 Full; Blast [1], Maximal, Overheat).</p><p>The vehicle mounting has Clip 32, where Table 6-9 gives 16.</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Heavy Stubber (Pintle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "mount": "pintle", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 100, "rateOfFire": { "single": 0, "burst": 0, "full": 8 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "3",
+      "clip": { "max": 80, "value": 80 }, "reload": "2 Full",
+      "special": "", "availability": "rare", "weight": 30,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The commander’s pintle-mounted stubber, swept across the hull top on its ring mount.</p><div class='bc-rule'><p>Heavy Stubber (100m; –/–/8; 1d10+4 I; Pen 3; Clip 80; Reload 2 Full).</p><p>The vehicle mounting has Clip 80 and drops Ogryn-Proof, where Table 6-9 gives Clip 75 with Ogryn-Proof.</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Storm Bolter (Pintle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "mount": "pintle", "facing": "front", "arc": 360, "class": "vehicle", "type": "bolt",
+      "range": 90, "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "1d10+5", "damageType": "explosive", "penetration": "4",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full",
+      "special": "Storm, Tearing", "availability": "extremely-rare", "weight": 9,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A pintle or co-axial storm bolter, the commander’s answer to infantry that get too close.</p><div class='bc-rule'><p>Storm Bolter (90m; S/2/4; 1d10+5 X; Pen 4; Clip 60; Reload Full; Storm, Tearing). The same profile is used for the co-axial mounting of the Leman Russ Vanquisher.</p></div></div>",
+      "source": "Only War, p. 216"
+    }
+  },
+  {
+    "name": "Multi-laser (Turret)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "las",
+      "range": 150, "rateOfFire": { "single": 0, "burst": 0, "full": 5 },
+      "damage": "2d10+10", "damageType": "energy", "penetration": "2",
+      "clip": { "max": 100, "value": 100 }, "reload": "2 Full",
+      "special": "Reliable", "availability": "very-rare", "weight": 35,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The turret weapon of the Chimera and the Sentinel: a multi-barrelled gatling laser that shreds infantry and light vehicles.</p><div class='bc-rule'><p>Multi-laser (150m; –/–/5; 2d10+10 E; Pen 2; Clip 100; Reload 2 Full; Reliable).</p></div></div>",
+      "source": "Only War, p. 217"
+    }
+  },
+  {
+    "name": "Autocannon (Vehicle)", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "mount": "turret", "facing": "front", "arc": 360, "class": "vehicle", "type": "solidprojectile",
+      "range": 300, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "3d10+8", "damageType": "impact", "penetration": "6",
+      "clip": { "max": 40, "value": 40 }, "reload": "2 Full",
+      "special": "Reliable", "availability": "very-rare", "weight": 40,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A vehicle-mounted autocannon, most often seen in the arms of a Sentinel walker.</p><div class='bc-rule'><p>Autocannon (300m; S/3/–; 3d10+8 I; Pen 6; Clip 40; Reload 2 Full; Reliable).</p><p>The Sentinel mounting has Clip 40 and no Ogryn-Proof; the Baneblade’s auto-cannon keeps Clip 20 with Ogryn-Proof, Reliable, as in Table 6-9.</p></div></div>",
+      "source": "Only War, p. 219"
+    }
+  },
+  {
+    "name": "Sentinel Chainblade", "type": "vehicleWeapon", "folder": "Vehicle Weapons",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainaxe.webp",
+    "system": {
+      "mount": "hull", "facing": "front", "arc": 45, "class": "vehicle", "type": "chain",
+      "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+4", "damageType": "rending", "penetration": "4",
+      "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Tearing, Unwieldy", "availability": "rare", "weight": 0,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A large chainblade fitted to a Sentinel’s manipulator arm, used for clearing jungle as often as for war.</p><div class='bc-rule'><p>A Sentinel may be given a large chainblade (Melee; 2d10+4; Pen 4; Tearing, Unwieldy).</p></div></div>",
+      "source": "Only War, p. 219"
+    }
+  }
+]

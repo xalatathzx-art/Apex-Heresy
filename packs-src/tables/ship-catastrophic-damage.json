@@ -1,0 +1,12 @@
+{
+  "name": "Starship Catastrophic Damage",
+  "folder": "Starship Combat",
+  "formula": "1d10",
+  "sort": 110,
+  "description": "Rogue Trader, Table 8-12, result 11 (p. 222). Rolled when a starship suffers Catastrophic Damage.",
+  "results": [
+    { "name": "Space Hulk", "range": [1, 7], "text": "The ship is left a drifting, smouldering wreck. Roll [[1d10]] for each Component: on 1-2 it is untouched but unpowered, on 3-7 it is depressurised and damaged, on 9-10 it is destroyed and everyone inside is killed. Crew Population drops to [[1d10]]." },
+    { "name": "Plasma Drive Explosion", "range": [8, 9], "text": "Every starship within [[1d10]] VUs must pass a Hard (-20) Pilot (Space Craft) + Manoeuvrability Test or be struck by flaming debris: [[1d5]] macrobattery hits doing [[1d10+4]] damage each, against which void shields and armour protect normally." },
+    { "name": "Warp Drive Explosion", "range": [10, 10], "text": "Every starship within [[2d10]] VUs must pass a Hard (-20) Pilot (Space Craft) + Manoeuvrability Test or take one lance strike of [[1d10]] damage that void shields do not stop. Every starship within [[1d5]] VUs must also pass a Challenging (+0) Pilot (Space Craft) + Manoeuvrability Test or be pulled into the rift." }
+  ]
+}

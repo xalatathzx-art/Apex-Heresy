@@ -1,0 +1,207 @@
+[
+  {
+    "name": "Heavy Leathers/Furs", "type": "armour", "folder": "Armour/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/vest.webp",
+    "system": {
+      "type": "basic", "availability": "common", "weight": 7,
+      "part": { "head": 0, "leftArm": 2, "rightArm": 2, "body": 2, "leftLeg": 2, "rightLeg": 2 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Primitive Armour is the norm on many feudal or feral planets, the lower levels of some hives where technology is unreliable or too expensive, and many alien worlds. Protection at this level often consists of reinforced animal hides, metal plating worn over the chest, chainmail, or combinations of these and other crude methods.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 2.</p><p>Primitive armour will rarely stop a lasgun hit outright, but can turn a blade and is better than no protection at all. Armour with the Primitive quality only offers full protection against weapons also having the Primitive quality, otherwise it only provides half its normal AP value (rounding up). Primitive armour’s APs are halved before being reduced for the weapon’s penetration.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Grox Hide/Chainmail", "type": "armour", "folder": "Armour/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/vest.webp",
+    "system": {
+      "type": "basic", "availability": "common", "weight": 15,
+      "part": { "head": 0, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Primitive Armour is the norm on many feudal or feral planets, the lower levels of some hives where technology is unreliable or too expensive, and many alien worlds. Protection at this level often consists of reinforced animal hides, metal plating worn over the chest, chainmail, or combinations of these and other crude methods.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 3.</p><p>Armour with the Primitive quality only offers full protection against weapons also having the Primitive quality, otherwise it only provides half its normal AP value (rounding up). Primitive armour’s APs are halved before being reduced for the weapon’s penetration.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Feudal World Plate", "type": "armour", "folder": "Armour/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/full_armor.webp",
+    "system": {
+      "type": "basic", "availability": "scarce", "weight": 30,
+      "part": { "head": 5, "leftArm": 5, "rightArm": 5, "body": 5, "leftLeg": 5, "rightLeg": 5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Primitive Armour is the norm on many feudal or feral planets, the lower levels of some hives where technology is unreliable or too expensive, and many alien worlds. Protection at this level often consists of reinforced animal hides, metal plating worn over the chest, chainmail, or combinations of these and other crude methods.</p><div class='bc-rule'><p>Locations Covered: All. AP 5.</p><p>Armour with the Primitive quality only offers full protection against weapons also having the Primitive quality, otherwise it only provides half its normal AP value (rounding up). Primitive armour’s APs are halved before being reduced for the weapon’s penetration.</p><p>Any armour that provides 7 or more APs inflicts a –30% penalty on the wearer’s Concealment and Silent Move Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Burnscour Beast Hide", "type": "armour", "folder": "Armour/Primitive",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/vest.webp",
+    "system": {
+      "type": "basic", "availability": "very-rare", "weight": 20,
+      "part": { "head": 0, "leftArm": 0, "rightArm": 0, "body": 6, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Primitive Armour is the norm on many feudal or feral planets, the lower levels of some hives where technology is unreliable or too expensive, and many alien worlds. Protection at this level often consists of reinforced animal hides, metal plating worn over the chest, chainmail, or combinations of these and other crude methods.</p><div class='bc-rule'><p>Locations Covered: Body. AP 6.</p><p>Armour with the Primitive quality only offers full protection against weapons also having the Primitive quality, otherwise it only provides half its normal AP value (rounding up). Primitive armour’s APs are halved before being reduced for the weapon’s penetration.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+
+  {
+    "name": "Flak Helmet", "type": "armour", "folder": "Armour/Flak",
+    "img": "systems/dark-heresy/assets/icons/protection/flak-helmet.webp",
+    "system": {
+      "type": "flak", "availability": "average", "weight": 2,
+      "part": { "head": 2, "leftArm": 0, "rightArm": 0, "body": 0, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common type of armour in the galaxy is Flak Armour as it is standard issue to the countless millions of Imperial Guardsmen. Many layers of ablative and impact absorbent material go into making each suit, enough to deflect or negate most low-level attacks such as small arms, shrapnel and proximity blasts. Solid hits from high impact weapons can generally negate it, but given that it is relatively lightweight, cheap to produce, and dependable in most combat situations many veterans keep using it even when offered better.</p><div class='bc-rule'><p>Locations Covered: Head. AP 2.</p><p>As long as the wearer is not on the target spot of the blast, Flak Armour counts as AP 5 against damage from weapons with the Blast quality.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Flak Cloak", "type": "armour", "folder": "Armour/Flak",
+    "img": "systems/dark-heresy/assets/icons/protection/flak-armour.webp",
+    "system": {
+      "type": "flak", "availability": "scarce", "weight": 8,
+      "part": { "head": 0, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common type of armour in the galaxy is Flak Armour as it is standard issue to the countless millions of Imperial Guardsmen. Many layers of ablative and impact absorbent material go into making each suit, enough to deflect or negate most low-level attacks such as small arms, shrapnel and proximity blasts.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 3.</p><p>As long as the wearer is not on the target spot of the blast, Flak Armour counts as AP 5 against damage from weapons with the Blast quality.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Flak Coat", "type": "armour", "folder": "Armour/Flak",
+    "img": "systems/dark-heresy/assets/icons/protection/flak-armour.webp",
+    "system": {
+      "type": "flak", "availability": "average", "weight": 5,
+      "part": { "head": 0, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common type of armour in the galaxy is Flak Armour as it is standard issue to the countless millions of Imperial Guardsmen. Given that it is relatively lightweight, cheap to produce, and dependable in most combat situations many veterans keep using it even when offered better.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 3.</p><p>As long as the wearer is not on the target spot of the blast, Flak Armour counts as AP 5 against damage from weapons with the Blast quality.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Guard Flak Armour", "type": "armour", "folder": "Armour/Flak",
+    "img": "systems/dark-heresy/assets/icons/protection/flak-armour.webp",
+    "system": {
+      "type": "flak", "availability": "scarce", "weight": 11,
+      "part": { "head": 4, "leftArm": 4, "rightArm": 4, "body": 4, "leftLeg": 4, "rightLeg": 4 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common type of armour in the galaxy is Flak Armour as it is standard issue to the countless millions of Imperial Guardsmen. Many layers of ablative and impact absorbent material go into making each suit, enough to deflect or negate most low-level attacks such as small arms, shrapnel and proximity blasts.</p><div class='bc-rule'><p>Locations Covered: All. AP 4.</p><p>As long as the wearer is not on the target spot of the blast, Flak Armour counts as AP 5 against damage from weapons with the Blast quality.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+
+  {
+    "name": "Mesh Cowl", "type": "armour", "folder": "Armour/Mesh",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/helmet.webp",
+    "system": {
+      "type": "mesh", "availability": "rare", "weight": 0.5,
+      "part": { "head": 3, "leftArm": 0, "rightArm": 0, "body": 0, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mesh armour is often of a high tech or even xeno design and is formed from thousands of bonded thermoplas cells linked together to create a fabric-like weave. Lightweight and surprisingly comfortable, it can withstand most impacts or heat energy by becoming briefly rigid, dissipating the force through the now stiff material.</p><div class='bc-rule'><p>Locations Covered: Head. AP 3.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Xeno Mesh", "type": "armour", "folder": "Armour/Mesh",
+    "img": "systems/dark-heresy/assets/icons/protection/mesh-armour.webp",
+    "system": {
+      "type": "mesh", "availability": "rare", "weight": 2,
+      "part": { "head": 0, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mesh armour is often of a high tech or even xeno design and is formed from thousands of bonded thermoplas cells linked together to create a fabric-like weave. Lightweight and surprisingly comfortable, it can withstand most impacts or heat energy by becoming briefly rigid, dissipating the force through the now stiff material.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 3.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Mesh Combat Cloak", "type": "armour", "folder": "Armour/Mesh",
+    "img": "systems/dark-heresy/assets/icons/protection/mesh-armour.webp",
+    "system": {
+      "type": "mesh", "availability": "very-rare", "weight": 1.5,
+      "part": { "head": 0, "leftArm": 4, "rightArm": 4, "body": 4, "leftLeg": 4, "rightLeg": 4 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mesh armour is often of a high tech or even xeno design and is formed from thousands of bonded thermoplas cells linked together to create a fabric-like weave. Lightweight and surprisingly comfortable, it can withstand most impacts or heat energy by becoming briefly rigid, dissipating the force through the now stiff material.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 4.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Mesh Vest", "type": "armour", "folder": "Armour/Mesh",
+    "img": "systems/dark-heresy/assets/icons/protection/mesh-armour.webp",
+    "system": {
+      "type": "mesh", "availability": "rare", "weight": 2,
+      "part": { "head": 0, "leftArm": 0, "rightArm": 0, "body": 4, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Mesh armour is often of a high tech or even xeno design and is formed from thousands of bonded thermoplas cells linked together to create a fabric-like weave. Lightweight and surprisingly comfortable, it can withstand most impacts or heat energy by becoming briefly rigid, dissipating the force through the now stiff material.</p><div class='bc-rule'><p>Locations Covered: Body. AP 4.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+
+  {
+    "name": "Carapace Helm", "type": "armour", "folder": "Armour/Carapace",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/helmet.webp",
+    "system": {
+      "type": "carapace", "availability": "rare", "weight": 2,
+      "part": { "head": 4, "leftArm": 0, "rightArm": 0, "body": 0, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Carapace Armour is generally a sign of status, and is mostly worn by Imperial officers and agents. Made from moulded plates of armaplas, ceramite, or other strong materials, it can cover the entire body or just sections depending on the desired level of protection.</p><div class='bc-rule'><p>Locations Covered: Head. AP 4.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  },
+  {
+    "name": "Enforcer Light Carapace", "type": "armour", "folder": "Armour/Carapace",
+    "img": "systems/dark-heresy/assets/icons/protection/light-carapace-armour.webp",
+    "system": {
+      "type": "carapace", "availability": "rare", "weight": 15,
+      "part": { "head": 5, "leftArm": 5, "rightArm": 5, "body": 5, "leftLeg": 5, "rightLeg": 5 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Carapace Armour is generally a sign of status, and is mostly worn by Imperial officers and agents. The Adeptus Arbites for example wear full body suits including a helmet, while many explorers favour a simple chestplate to wear over more comfortable mesh or flak weave suits.</p><div class='bc-rule'><p>Locations Covered: All. AP 5.</p><p>Some bodysuits have slots designed for simple carapace plates to be inserted in, so that the overall suits can be rapidly configured for as much or little protection as desired. Damaged plates can be more easily replaced without requiring the purchase of an entire new suit.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  },
+  {
+    "name": "Carapace Chestplate", "type": "armour", "folder": "Armour/Carapace",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/vest.webp",
+    "system": {
+      "type": "carapace", "availability": "rare", "weight": 7,
+      "part": { "head": 0, "leftArm": 0, "rightArm": 0, "body": 6, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Carapace Armour is generally a sign of status, and is mostly worn by Imperial officers and agents. Made from moulded plates of armaplas, ceramite, or other strong materials, it can cover the entire body or just sections depending on the desired level of protection.</p><div class='bc-rule'><p>Locations Covered: Body. AP 6.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  },
+  {
+    "name": "Storm Trooper Carapace", "type": "armour", "folder": "Armour/Carapace",
+    "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
+    "system": {
+      "type": "carapace", "availability": "very-rare", "weight": 15,
+      "part": { "head": 6, "leftArm": 6, "rightArm": 6, "body": 6, "leftLeg": 6, "rightLeg": 6 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Carapace Armour is generally a sign of status, and is mostly worn by Imperial officers and agents. Made from moulded plates of armaplas, ceramite, or other strong materials, it can cover the entire body or just sections depending on the desired level of protection.</p><div class='bc-rule'><p>Locations Covered: All. AP 6.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  },
+
+  {
+    "name": "Advanced Helmet Systems", "type": "armour", "folder": "Armour/Other",
+    "img": "systems/dark-heresy/assets/icons/armoury/protective_gear/helmet.webp",
+    "system": {
+      "type": "basic", "availability": "very-rare", "weight": 0,
+      "part": { "head": 0, "leftArm": 0, "rightArm": 0, "body": 0, "leftLeg": 0, "rightLeg": 0 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most personal armour includes a helmet of some sort, and some provide sensory capabilities linked into them as well as standard cranial protection. The common catch-all term for these upgrades is auto-senses, and can cover many forms of auditory and visual aids, both ranging outside the spectrum of normal eyes and ears. Most helmets at the least include comm-links and microphones, the latter often linked to megaphone speakers for shouting over rioting crowds or battlefield noise.</p><div class='bc-rule'><p>Locations Covered: —. AP —. The book prints no weight for these upgrades.</p><p>A Helmet may have any of the following upgrades:</p><p>Communications: Inbuilt Microbead or Vox-caster.</p><p>Auto-senses: Grants the user Heightened Senses (sight).</p><p>Preysense: Grants the user the Dark Sight trait; at the best Craftsmanship level, also grants the user the ability to always make an Awareness roll against a hidden target as a free action.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+  {
+    "name": "Armoured Bodyglove", "type": "armour", "folder": "Armour/Other",
+    "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
+    "system": {
+      "type": "basic", "availability": "rare", "weight": 5,
+      "part": { "head": 0, "leftArm": 3, "rightArm": 3, "body": 3, "leftLeg": 3, "rightLeg": 3 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Armoured bodygloves are a favourite for assassins, as they offer full body protection with little or no reduction in mobility. Each bodysuit is normally tailored to the wearer, and can vary in effectiveness depending on the materials used from simple flak protection levels to degrees rivalling the finest carapace armour plating. Many are simply worn underneath normal clothing or robes so as to not reveal their nature.</p><div class='bc-rule'><p>Locations Covered: Arms, Body, Legs. AP 3.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 138"
+    }
+  },
+
+  {
+    "name": "Light Power Armour", "type": "armour", "folder": "Armour/Power",
+    "img": "systems/dark-heresy/assets/icons/protection/light-power-armour.webp",
+    "system": {
+      "type": "power", "availability": "extremely-rare", "weight": 40,
+      "part": { "head": 7, "leftArm": 7, "rightArm": 7, "body": 7, "leftLeg": 7, "rightLeg": 7 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Like the boltgun, power armour is symbolic of the Imperium. It dates back to the original Crusades led by the Emperor to reclaim the galaxy for mankind, and has evolved over the millennia in a number of styles or marks. Suits are religiously maintained over the years as venerated objects, and some are still worn millennia after their creation. Space Marines are the most notable users of power armour, along with Inquisitorial agents and the Adeptus Sororitas. The latter users lack the special Black Carapace implanted in Space Marines, allowing the armour to fully meld with the user. As such, many of the strength-augmenting and advanced support systems are not possible and are not installed in these lighter suits.</p><div class='bc-rule'><p>Locations Covered: All. AP 7.</p><p>Light power armour does not increase the wearer’s size and adds +10 to the wearer’s Strength Characteristic.</p><p>Power armour also requires a constant power supply, which must be carried by the wearer (usually as a backpack). A standard non-military power supply lasts for 1d5 hours before it needs to be replaced or recharged. You must be wearing the body, both arms, and both legs of power armour to benefit from the Strength bonus; the helmet is not required. For all types of power armour, the weight of the armour does not count for calculating the wearer’s normal carrying limit.</p><p>Any armour that provides 7 or more APs inflicts a –30% penalty on the wearer’s Concealment and Silent Move Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  },
+  {
+    "name": "Power Armour", "type": "armour", "folder": "Armour/Power",
+    "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
+    "system": {
+      "type": "power", "availability": "extremely-rare", "weight": 65,
+      "part": { "head": 8, "leftArm": 8, "rightArm": 8, "body": 8, "leftLeg": 8, "rightLeg": 8 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Power armour is essentially a sophisticated arrangement of thick and heavy protective plates, and uses an extensive system of muscle-like electrically motivated fibre bundles to replicate the movement of the user and augment his strength. As it is normally fully sealed with internal oxygen supplies and a rebreather, the wearer can survive even in hard vacuum for long periods. The helmet is detachable, as most users still wish at some point to see their surroundings with their own eyes. Most suits have a huge backpack containing power supplies and other auxiliary systems, such as vox-links, auto-senses, and targeters.</p><div class='bc-rule'><p>Locations Covered: All. AP 8.</p><p>Power armour adds +20 to the wearer’s Strength Characteristic and increases his size by one step (so for example a human who is Average size would become Hulking).</p><p>Power armour also requires a constant power supply, which must be carried by the wearer (usually as a backpack). A standard non-military power supply lasts for 1d5 hours before it needs to be replaced or recharged. You must be wearing the body, both arms, and both legs of power armour to benefit from the Strength bonus; the helmet is not required. For all types of power armour, the weight of the armour does not count for calculating the wearer’s normal carrying limit.</p><p>Any armour that provides 7 or more APs inflicts a –30% penalty on the wearer’s Concealment and Silent Move Tests.</p></div></div>",
+      "source": "Rogue Trader, p. 138 (Table 5-12), p. 139"
+    }
+  }
+]

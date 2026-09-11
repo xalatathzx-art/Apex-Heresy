@@ -1,0 +1,19 @@
+{
+  "name": "Starship Critical Hits",
+  "folder": "Starship Combat",
+  "formula": "1d5",
+  "sort": 100,
+  "description": "Rogue Trader, Table 8-12 (p. 222). Rolled when a shot's degrees of success meet the weapon's Crit Rating: roll 1d5. A Crippled ship instead takes a Critical Hit whenever damage gets past its Armour, and the result is looked up by the amount of damage that exceeded the Armour - which is why this table carries results above 5. Righteous Fury does not apply to shipboard weapons.",
+  "results": [
+    { "name": "Holed", "range": [1, 1], "text": "The attacker picks one Component he knows of, other than the bridge or the plasma/warp drives. That Component is depressurised." },
+    { "name": "Internal Damage", "range": [2, 2], "text": "The attacker picks one Component he knows of, other than the bridge or the plasma/warp drives. That Component is damaged." },
+    { "name": "Sensors Damaged", "range": [3, 3], "text": "Until repaired, all shooting tests suffer -30 and every sensory test beyond immediate engagement range automatically fails. The arrays sit outside the hull, so repairs must be made in the void." },
+    { "name": "Thrusters Damaged", "range": [4, 4], "text": "Roll [[1d10]]. On 1-7 Manoeuvrability drops by -20. On 8-10 the ship cannot turn at all. Repairable." },
+    { "name": "Fire!", "range": [5, 5], "text": "The attacker picks one Component he knows of, other than the bridge or the plasma/warp drives. That Component is on fire and follows the rules for shipboard fires." },
+    { "name": "Engines Crippled", "range": [6, 6], "text": "Roll [[1d10]]. On 1-7 Speed is halved. On 8-10 Speed drops to 1. Repairable." },
+    { "name": "Surly Techsprites", "range": [7, 7], "text": "Roll [[1d10]] for every Component: on 4 or higher it counts as unpowered and must be repaired individually. Morale takes [[1d5]] damage." },
+    { "name": "Decapitation", "range": [8, 8], "text": "Everyone on the bridge must Dodge or take [[2d10]] Explosive damage. On a damage result of 12 or higher the bridge is also depressurised; on 16 or higher it is damaged as well." },
+    { "name": "Hull Breach", "range": [9, 10], "text": "The attacker picks [[1d5]] Components he knows of, excluding the bridge. Roll [[1d10]] for each: on 1-7 it is damaged and depressurised, on 8-10 it is destroyed and everyone inside is killed. Crew Population and Morale are both halved instead of taking separate damage." },
+    { "name": "Catastrophic Damage", "range": [11, 11], "text": "Roll [[1d10]]. On 1-7 the ship is hulked. On 8-9 the plasma drive explodes. On 10 the warp drive explodes instead - a ship with no warp drive suffers a plasma drive explosion." }
+  ]
+}

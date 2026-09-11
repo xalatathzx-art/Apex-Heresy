@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Anti-Plant Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/special_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10", "damageType": "energy", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3)", "weight": 0.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These grenades release a wide range of toxic and viral agents that quickly reduce almost any type of flora to a foul-smelling muck that deprives the enemy of cover while not seriously harming other materials. Larger versions are also used to create improvised landing zones and clear foliage for quick camp sites or building locations.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Rounds will only effect flora and have no other effect.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125–126"
+    }
+  },
+  {
+    "name": "Blind Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/smoke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blind grenades explode with a burst of dense dark grey smoke including IR bafflers and broad-band EM spectrum chaff, all designed to block eyesight and even advanced visual detection. The effect is short-lived, but while it lasts it provides an excellent cover for advancing forces.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Filament Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/special_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+4", "damageType": "rending", "penetration": "6", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (1), Tearing", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The exotic filament grenade carries compressed segments of monomolecular wire that expand into a cloud of deadly razor-sharp filaments on detonation, slicing through flesh and bone.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  },
+  {
+    "name": "Frag Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (4)", "weight": 0.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Fragmentation or frag grenades and missiles are filled with shot, heavy wire, or metallic shards to create high velocity shrapnel fragments when they explode, making them deadly when used against infantry.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Frag Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0, "rateOfFire": { "single": 0, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "4", "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Blast (6)", "weight": 1, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Fragmentation or frag grenades and missiles are filled with shot, heavy wire, or metallic shards to create high velocity shrapnel fragments when they explode, making them deadly when used against infantry.</p><div class='bc-rule'><p>Fired from a missile launcher, which provides its range, rate of fire and clip.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Geode Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/special_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+3", "damageType": "rending", "penetration": "4", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3)", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Recovered from xenos crystalline maze-cities, these grenades are filled with compacted shards of diamantine glass. On detonation the area is showered with cutting projectiles, which can slide through most armour.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Hallucinogen Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/special_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These grenades induce a variety of short-lived psychological states.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Anyone within 10 metres of a detonating hallucinogen grenade must succeed on a Difficult (–10) Toughness Test or be overcome with delusions and hallucinations for 1d10 Rounds. Respirators and sealed armour provide a +20 bonus to this Test. When the character is first affected by a hallucination grenade, roll on Table 5–5: Hallucinogen Effects to see how the character behaves for the next 1d10 Rounds.</p><table><caption>Table 5–5: Hallucinogen Effects</caption><tr><th>Roll</th><th>Effect</th></tr><tr><td>01–10</td><td><strong>Bugsbugsbugsbugs!</strong> The character drops to the floor, flailing and screaming as he tries to claw off imaginary insects. The character counts as being Stunned.</td></tr><tr><td>11–20</td><td><strong>My hands…!</strong> The character believes his hands have turned into slimy tentacles, or perhaps the flesh has begun to strip off the bone in bloody lumps. Regardless of the particulars, the character drops everything he is carrying and spends the duration staring at his hands and screaming. The character counts as being Stunned.</td></tr><tr><td>21–30</td><td><strong>They’re coming through the walls!</strong> The character sees gruesome aliens bursting through the walls/ceiling/floor/bushes and opens fire. The character must spend each Turn firing at a random piece of terrain within his line of sight. Any creatures caught in the line of fire are subject to attacks as normal. Each round, choose a new target at random.</td></tr><tr><td>31–40</td><td><strong>Nobody can see me!</strong> The character believes he is invisible and wanders aimlessly, pulling faces at those around him. He waddles about in random directions each round, using a Full Action to move. The character retains his Reactions.</td></tr><tr><td>41–50</td><td><strong>I can fly!</strong> The sky looks so big and inviting, the character flaps his arms trying to imitate a ptera-squirrel. He may do nothing but jump up and down on the spot. If he is standing above ground level, he may throw himself off in a random direction, with the usual consequences for falling—appalling damage or death being the most usual outcomes.</td></tr><tr><td>51–60</td><td><strong>They’ve got it in for me…</strong> The character is overcome with paranoia, believing even his own comrades are out to get him. On the character’s Turn, he must move to a position of cover, getting out of line of sight from any other characters.</td></tr><tr><td>61–70</td><td><strong>They got me, mother…</strong> The character believes that the gas is toxic and collapses to the floor as if dead—he counts as being helpless. Others who see him “die” must pass an Intelligence Test or they think the character is dead too.</td></tr><tr><td>71–80</td><td><strong>I’ll take you all on!</strong> The character is filled with a burning rage and a desire for violence. The character enters a Frenzy (see page 98) and attacks the closest opponent.</td></tr><tr><td>81–90</td><td><strong>I’m only little!</strong> The character believes he has shrunk to half his normal size, and everything else is big and frightening now. All other characters count as having a Fear Rating of 3 to the character.</td></tr><tr><td>91–00</td><td><strong>The worms!</strong> The character desperately tries to remove a massive fanged worm he thinks is slowly winding its way up and around his leg. He attacks one of his own legs (choose randomly) with whatever weapon is available. That attack hits automatically and deals normal damage.</td></tr></table><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125–126 (Table 5-5)"
+    }
+  },
+  {
+    "name": "Krak Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+4", "damageType": "explosive", "penetration": "6", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak grenades and missiles use concentrated explosives to punch holes in armoured targets such as vehicles or bunkers. The powerful detonations do not produce a blast effect however, making them impractical for use against most infantry or other moving targets.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Krak Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0, "rateOfFire": { "single": 0, "burst": 0, "full": 0 },
+      "damage": "3d10+10", "damageType": "explosive", "penetration": "10", "clip": { "max": 0, "value": 0 }, "reload": "",
+      "special": "Blast (1)", "weight": 1, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak grenades and missiles use concentrated explosives to punch holes in armoured targets such as vehicles or bunkers. The powerful detonations do not produce a blast effect however, making them impractical for use against most infantry or other moving targets.</p><div class='bc-rule'><p>Fired from a missile launcher, which provides its range, rate of fire and clip.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 125"
+    }
+  },
+  {
+    "name": "Photon Flash Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Photon flash or simply flash grenades detonate like a small star, blinding anyone nearby and overloading most vision protection systems such as visors. Those caught without eye protection are usually left temporarily blinded and defenceless.</p><div class='bc-rule'><p>Range: SBx3. Damage: Special. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Anyone within 15 metres of a detonating photon flash grenade must make a Challenging (+0) Toughness Test or be Blinded for 1d5 Rounds.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  },
+  {
+    "name": "Plasma Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/special_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+6", "damageType": "energy", "penetration": "6", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (1)", "weight": 4, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These use a deliberate plasma containment failure, causing a blast of heat and light to burst forth like a miniature sun. They are highly lethal against almost all targets.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  },
+  {
+    "name": "Smoke Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/smoke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke", "weight": 0.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A primitive version of the blind grenade, these release a dense smoke which only obscures basic eyesight and optical based systems. They do not block detection systems that use heat or other spectral bands outside of normal human eyesight, but are much more widely available and easier to construct.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Unlike blind grenades, this only interferes with visual sight.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  },
+  {
+    "name": "Stun Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/armoury/grenades_and_explosives/frag_grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3)", "weight": 0.2, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stun grenades use a combination of a loud explosive and a flash of light to momentarily incapacitate targets before an assault is launched. They are designed for non-lethal uses and generally cause no lasting injury.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Anyone caught in a stun grenade’s blast must pass a Challenging (+0) Toughness Test or become Stunned for 1d5 Rounds. Photo-visors and sealed armour provide a +20 bonus to this Test.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  },
+  {
+    "name": "Virus Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/choke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10", "damageType": "impact", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Toxic", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Virus grenades house powerful biological toxins which can break down biological systems in moments before leaping to neighbouring creatures to infect them. They can quickly kill scores of people before mutating into a non-lethal strain or running out of victims near enough to be attacked. The toxins from virus grenades are often skin-transmitted and inhaled.</p><div class='bc-rule'><p>Range: SBx3. All of the grenades listed here can either be thrown by hand or used in a grenade launcher.</p><p>Virus Grenades ignore armour. However, at the GM’s discretion, fully sealed armour such as sealed storm-trooper carapace with rebreathers or sealed power armour (or void suits) can allow an individual to be immune to the effects of a virus grenade. Virus grenades have no effect on targets with the Machine (3) Trait (or higher).</p><p>If the grenade causes any Damage, then, each round after the first, check for another target at random (friend or foe) within d5 metres to see if any Damage is caused to them (rolling for a new Damage to represent the mutated virus). Continue until Damage is not taken or after d10 rounds have passed.</p><p><strong>Throwing Grenades.</strong> Throwing grenades requires no special training or Talents and is resolved using a Ballistic Skill Test including any modifiers (such as range). On a miss, the thrown grenade goes in a random direction—see the scatter diagram on page 248.</p><p><strong>When a Grenade “Jams”.</strong> Whenever a jam results from throwing a grenade or firing a grenade launcher or similar weapon (see Weapon Jams, page 249), something unfortunate has happened. Roll 1d10. On any result other than 10, the explosive is simply a dud and nothing happens. On a 10, the explosive detonates immediately with the effect centred on the attacker. If the explosive was fired from a launcher, it detonates in the barrel, having its normal effect as well as destroying the weapon.</p></div></div>",
+      "source": "Rogue Trader, p. 127 (Table 5-6), p. 126"
+    }
+  }
+]

@@ -1,0 +1,158 @@
+[
+  {
+    "name": "Ancient Life Sustainer (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Archeotech is technology long-lost from the Imperium as a whole. Extremely valuable and efficient, these Components should only be available if the ship has the Reliquary of Mars Complication, the players earn them through their Warrant of Trade, or if the GM makes them available through the course of the game.</p><p>This life sustainer uses extensive conduits and purifiers to do a thorough job of cleaning the air and water through methods lost to the Mechanicus.</p><div class='bc-rule'><p><strong>The Air is Sweet:</strong> Increase Morale permanently by 2, reduce all losses to Crew Population due to non-combat sources by 1. This can be used as a ship’s Life Sustainer.</p><p><strong>Appropriate Hull Types:</strong> Transports, raiders, frigates. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6)"
+    }
+  },
+  {
+    "name": "Ancient Life Sustainer (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 2, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This life sustainer uses extensive conduits and purifiers to do a thorough job of cleaning the air and water through methods lost to the Mechanicus.</p><div class='bc-rule'><p><strong>The Air is Sweet:</strong> Increase Morale permanently by 2, reduce all losses to Crew Population due to non-combat sources by 1. This can be used as a ship’s Life Sustainer.</p><p><strong>Appropriate Hull Types:</strong> Light cruisers, cruisers. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6)"
+    }
+  },
+  {
+    "name": "Modified Jovian Pattern Class 1 Drive", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 35, "space": 4, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for this vessel is much older than anything ever seen before. Mechanicus sources believe it is unknown archaeotech.</p><div class='bc-rule'><p><strong>Overcharged:</strong> The strange and exotic nature of the materials used in the drive’s containment domes allows for a hotter plasma ‘burn,’ while taking up less space. This adds +1 to the ship’s Speed, decreases the space the drive takes up by 4, and is of extreme interest to agents of the Mechanicus.</p><p>Rather than listing the different versions of each plasma drive with the Archeotech’s benefits, it is described once. If this Archeotech is installed on a ship, apply its benefits to a standard plasma drive.</p><p><strong>Appropriate Hull Types:</strong> Transports. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Modified Lathe Pattern Class 1 Drive", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 40, "space": 8, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for this vessel is much older than anything ever seen before. Mechanicus sources believe it is unknown archaeotech.</p><div class='bc-rule'><p><strong>Overcharged:</strong> The strange and exotic nature of the materials used in the drive’s containment domes allows for a hotter plasma ‘burn,’ while taking up less space. This adds +1 to the ship’s Speed, decreases the space the drive takes up by 4, and is of extreme interest to agents of the Mechanicus.</p><p><strong>Appropriate Hull Types:</strong> Transports. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Modified Jovian Pattern Class 2 Drive", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 45, "space": 6, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for this vessel is much older than anything ever seen before. Mechanicus sources believe it is unknown archaeotech.</p><div class='bc-rule'><p><strong>Overcharged:</strong> The strange and exotic nature of the materials used in the drive’s containment domes allows for a hotter plasma ‘burn,’ while taking up less space. This adds +1 to the ship’s Speed, decreases the space the drive takes up by 4, and is of extreme interest to agents of the Mechanicus.</p><p><strong>Appropriate Hull Types:</strong> Raiders, frigates. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Modified Jovian Pattern Class 3 Drive", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 60, "space": 8, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for this vessel is much older than anything ever seen before. Mechanicus sources believe it is unknown archaeotech.</p><div class='bc-rule'><p><strong>Overcharged:</strong> The strange and exotic nature of the materials used in the drive’s containment domes allows for a hotter plasma ‘burn,’ while taking up less space. This adds +1 to the ship’s Speed, decreases the space the drive takes up by 4, and is of extreme interest to agents of the Mechanicus.</p><p><strong>Appropriate Hull Types:</strong> Light cruisers. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Modified Jovian Pattern Class 4 Drive", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 0, "powerGenerated": 75, "space": 10, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The STC standard drive for this vessel is much older than anything ever seen before. Mechanicus sources believe it is unknown archaeotech.</p><div class='bc-rule'><p><strong>Overcharged:</strong> The strange and exotic nature of the materials used in the drive’s containment domes allows for a hotter plasma ‘burn,’ while taking up less space. This adds +1 to the ship’s Speed, decreases the space the drive takes up by 4, and is of extreme interest to agents of the Mechanicus.</p><p><strong>Appropriate Hull Types:</strong> Cruisers. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Bridge of Antiquity (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 1, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This bridge is interlaced with ancient cogitator circuitry and hololithic technology, granting the Captain and bridge crew unparalleled control over their vessel.</p><div class='bc-rule'><p><strong>Eyes Everywhere:</strong> Add +10 to all Command Tests or social Skill Tests any character makes while on the bridge.</p><p><strong>Hololithic Display Tank:</strong> Increase the ship’s Manoeuvrability by +5.</p><p>This can be used as a ship’s bridge.</p><p><strong>Appropriate Hull Types:</strong> Transports, raiders, frigates. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Bridge of Antiquity (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 2, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This bridge is interlaced with ancient cogitator circuitry and hololithic technology, granting the Captain and bridge crew unparalleled control over their vessel.</p><div class='bc-rule'><p><strong>Eyes Everywhere:</strong> Add +10 to all Command Tests or social Skill Tests any character makes while on the bridge.</p><p><strong>Hololithic Display Tank:</strong> Increase the ship’s Manoeuvrability by +5.</p><p>This can be used as a ship’s bridge.</p><p><strong>Appropriate Hull Types:</strong> Light cruisers, cruisers. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Auto-stabilised Logis-targeter", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "essential", "power": 5, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>More than simply an auger array, the Logis-Targeter uses near-heretical cogitator circuitry from the Dark Age of Technology to ensure extremely accurate weaponry.</p><div class='bc-rule'><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Image of the Void:</strong> Increase the ship’s Detection by +5.</p><p><strong>Targeting Matrix:</strong> All Ballistic Skill Tests to fire the ship’s weapons gain +5.</p><p>This can be used as a ship’s Auger Array.</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+  {
+    "name": "Teleportarium", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Archeotech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>These relics from the Dark Age of Technology are highly sought after, able to send individuals instantaneously through the immaterium to appear on a ship or planet many thousands of kilometres away.</p><div class='bc-rule'><p><strong>Surprise Strike:</strong> Characters may make Hit and Run Attacks without a piloting test, as they travel directly to the heart of the enemy vessel. When using the teleportarium to perform such an attack, the attacker receives +20 to his Command Test. (The teleportarium may be used in any number of other ways, such as guaranteeing escape from sticky situations on a nearby planet, at the GM’s discretion.)</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Extremely Rare (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-6), p. 207"
+    }
+  },
+
+  {
+    "name": "Ghost Field", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 8, "space": 4, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Alien technology is considered forbidden in the Imperium, but some Rogue Traders choose to flaunt their special status by acquiring and using xeno-tech. These Components should only be available if the ship has the Xenophilous Complication, or if the GM makes them available through the course of the game.</p><p>A wondrous and terrible mechanism used on the ships of the enigmatic Eldar. To possess it is to invite damnation, but even crudely and imperfectly installed aboard a ship, the ghost field’s powers create phantoms of its ship to confound enemy auger arrays.</p><div class='bc-rule'><p><strong>Ghostly Echoes:</strong> All ships firing at a ship with a functioning Ghost Field suffer –20 to their Ballistic Skill Tests. If the ship is firing a lance weapon, it suffers a –30 instead. Any piloting tests to perform Hit and Run attacks suffer a –30.</p><p><strong>Energetic Interference:</strong> A ship with a Ghost Field must choose whether it is using its Void Shields or Ghost Field at the beginning of combat.</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 207–208"
+    }
+  },
+  {
+    "name": "Shard Cannon Battery", "type": "shipWeapon", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "weaponType": "macrobattery", "location": "dorsal",
+      "strength": 4, "damage": "1d10+2", "critRating": 3, "range": 6,
+      "power": 0, "space": 3, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The xenos race that created these weapons has long since vanished from the galaxy. Many examples of their technology remain, however. Designated ‘shard’ weaponry by xeno-tech scholars, their shipboard cannons do not seem to require power or even ammunition. Theories abound as to how they operate but none has been proven, as every attempt to disassemble one has resulted in catastrophic failure.</p><div class='bc-rule'><p><strong>Unknown energy source:</strong> This Component may not become unpowered for any reason. If it is ever destroyed, its ship takes 2d5 additional Hull Integrity damage, with no reduction from Armour or Shields.</p><p><strong>Macrobattery:</strong> Strength 4. Damage 1d10+2. Crit Rating – 3. Range – 6.</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 208"
+    }
+  },
+  {
+    "name": "Runecaster", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Another example of Eldar technology, runecasters are often housed in large, vaulted chambers. In the centre of the chamber, clusters or rune-stones float suspended above a wide crystal lens. Xeno-tech researchers have re-appropriated the devices from their previous, unknown purposes. Through some incomprehensible means, the device is almost prescient—aiding Navigators in avoiding the worst storms of the Immaterium.</p><div class='bc-rule'><p><strong>Eye of the Warp:</strong> Navigators using this Component to pilot a ship through the empyrean gain a +20 bonus to all Navigation Tests. Additionally, any journeys made using this Component take half their normal time.</p><p><strong>Fuelled by Fate:</strong> This Component never becomes unpowered for any reason.</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 208"
+    }
+  },
+  {
+    "name": "Micro Laser Defence Grid", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A vastly larger version of the digital energy weapons used by nobles and worthies of the Imperium, the grid is an interlinked network of hundreds of miniature laser turrets scattered across a vessel’s hull. The lasers, while not powerful individually, act in concert to shoot down incoming ordinance and small craft.</p><div class='bc-rule'><p><strong>Wall of Light:</strong> Increase the ship’s turret rating by 2.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> All ships. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 208"
+    }
+  },
+  {
+    "name": "Gravity Sails (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 3, "space": 0, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Not ‘sails’ in the traditional sense, these devices are long, blade-like fins extending from the prow of a ship. Some xeno-archeologists believe they are relics of the Yu’vath or another long-dead race. Imperial vessels are too bulky to rely on them for propulsion, but they can aid in manoeuvring, somehow ‘tapping into’ gravitational fields and pulling starships along them.</p><div class='bc-rule'><p><strong>The Currents of Space:</strong> A starship with this Component gains +1 Speed and +5 Manoeuvrability.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> Transports, raiders, frigates. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 208"
+    }
+  },
+  {
+    "name": "Gravity Sails (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Archeotech & Xenotech Components/Xeno-tech",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 5, "space": 0, "shipPoints": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Not ‘sails’ in the traditional sense, these devices are long, blade-like fins extending from the prow of a ship. Some xeno-archeologists believe they are relics of the Yu’vath or another long-dead race. Imperial vessels are too bulky to rely on them for propulsion, but they can aid in manoeuvring, somehow ‘tapping into’ gravitational fields and pulling starships along them.</p><div class='bc-rule'><p><strong>The Currents of Space:</strong> A starship with this Component gains +1 Speed and +5 Manoeuvrability.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> Light cruisers, cruisers. <strong>Availability:</strong> Near Unique (Table 8-8).</p></div></div>",
+      "source": "Rogue Trader, p. 206 (Table 8-7), p. 208"
+    }
+  }
+]

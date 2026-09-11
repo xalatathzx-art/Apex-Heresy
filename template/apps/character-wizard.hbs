@@ -56,6 +56,7 @@
                 {{#if charLocked}}
                 {{!-- Уже сгенерировано. «Назад» снимает запись, и шаг можно пройти заново. --}}
                 <p class="wizard-locked">{{localize "WIZARD.CHAR_LOCKED"}}</p>
+                {{#if charBlessing}}<p class="wizard-note">{{charBlessing}}</p>{{/if}}
                 {{else}}
                 <div class="form-group">
                     <label>{{localize "WIZARD.METHOD_LABEL"}}</label>

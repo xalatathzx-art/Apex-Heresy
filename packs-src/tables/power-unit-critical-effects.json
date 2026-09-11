@@ -1,0 +1,12 @@
+{
+  "name": "Power Unit Critical Effects",
+  "folder": "Armoury",
+  "formula": "1d10",
+  "sort": 140,
+  "description": "Astartes power armour uses a fusion generator backpack. If the wearer takes Critical Damage to the Body from behind, consult this chart in addition to normal Critical Effects. The problems continue until the unit can be repaired with a Challenging (+0) Tech-Use Test. Deathwatch, Table 5-13 (p. 163).",
+  "results": [
+    { "name": "Unaffected", "range": [1, 3], "text": "The power unit continues functioning normally." },
+    { "name": "Damaged", "range": [4, 5], "text": "The power flow is diminished, causing system failures and difficulty moving. All benefits granted by the armour (except its inherent AP) are lost. All physical actions suffer a –10 penalty. Decrease Base Movement by 2." },
+    { "name": "Unpowered", "range": [6, 10], "text": "The suit completely shuts down. All benefits granted by the armour including History (but not its inherent AP) are lost. The wearer must make an Arduous (–40) Strength Test to simply move. If he passes the test, his Base Movement is still reduced to 1, and all physical actions suffer a –30 penalty." }
+  ]
+}

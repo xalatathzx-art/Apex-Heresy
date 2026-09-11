@@ -36,7 +36,7 @@ test('an origin that requires another stage names a stage of the same ruleset', 
     for (const file of sourceFiles())
         for (const entry of entriesOf(file)) {
             const requires = entry.system.requires;
-            if (!requires) continue;
+            if (!requires?.stage) continue;
             assert.ok(STAGES[entry.system.ruleset].includes(requires.stage),
                 `${file}: ${entry.name} requires unknown stage ${requires.stage}`);
         }

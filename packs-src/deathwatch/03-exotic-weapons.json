@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Astartes Conversion Beamer", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/ranged-weapon.webp",
+    "system": {
+      "class": "heavy", "type": "exotic", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "penetration": "0",
+      "clip": { "max": 4, "value": 4 }, "reload": "2 Full", "special": "",
+      "weight": 85, "requisition": 40, "renown": "hero",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A small number of these rare and deadly archeotech devices circulate through the hands of senior Techmarines.</p><div class='bc-rule'><p>By using the energy stored in atomic bonds, a conversion beamer can annihilate creatures, vehicles, or nearly anything its beam reaches, provided it is given time to build to critical mass. When fired, a conversion beamer expels a stream of neutron-bombarded particles, beginning an atomic chain reaction that converts matter to energy in a blazing beam that hurtles towards the target. As the escalating reaction travels, more and more air molecules are converted into a deadly blast that finally consumes the target in an explosive release of energy.</p><p>Conversion beamers are more powerful at long ranges as they can absorb more matter into the blast’s strength before it hits. At distances of up to 15 metres, it does 1d10+9 Damage and has a Penetration of 2. Over that distance and up to Short Range, it does 3d10+9 Damage with a Penetration of 8 and gains the Felling Quality. Against targets further than Short Range it does 6d10+12 Damage with a Penetration of 14 and possesses the Felling and Blast(2) Qualities.</p><p>† Only Techmarines are entrusted with this weapon.</p></div></div>",
+      "source": "Deathwatch, p. 153 (Table 5-7), p. 152–153"
+    }
+  },
+  {
+    "name": "Astartes Digital Flamer", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-flamer.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 4,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "energy", "penetration": "3",
+      "clip": { "max": 1, "value": 1 }, "reload": "Special", "special": "Flame",
+      "weight": 0.1, "requisition": 35, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns so advanced that most foes mistake them for mere ornamentation until the digi-weapon unleashes the firepower of a full-sized pistol.</p><div class='bc-rule'><p>The ranking Space Marines outfitted with such archeotech devices usually install them along the finger ridge of a glove for practical reasons. Rings are a more common design among Imperial nobles and military elite who are less likely to be wearing powered gloves. Digi-weapons exist that replicate the functions of a variety of deadly weapons. However, each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>†† Add +4 to Damage from fires started by this weapon.</p><p>Reloading a Digital Weapon requires 1d5 hours and a successful Challenging (+0) Tech-Use Test.</p></div></div>",
+      "source": "Deathwatch, p. 153 (Table 5-7), p. 153"
+    }
+  },
+  {
+    "name": "Astartes Digital Laser", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 4,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "7",
+      "clip": { "max": 1, "value": 1 }, "reload": "Special", "special": "Reliable",
+      "weight": 0.1, "requisition": 35, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns so advanced that most foes mistake them for mere ornamentation until the digi-weapon unleashes the firepower of a full-sized pistol.</p><div class='bc-rule'><p>The ranking Space Marines outfitted with such archeotech devices usually install them along the finger ridge of a glove for practical reasons. Rings are a more common design among Imperial nobles and military elite who are less likely to be wearing powered gloves. Digi-weapons exist that replicate the functions of a variety of deadly weapons. However, each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Reloading a Digital Weapon requires 1d5 hours and a successful Challenging (+0) Tech-Use Test.</p></div></div>",
+      "source": "Deathwatch, p. 153 (Table 5-7), p. 153"
+    }
+  },
+  {
+    "name": "Astartes Digital Melta", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/inferno-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 4,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+5", "damageType": "energy", "penetration": "12",
+      "clip": { "max": 1, "value": 1 }, "reload": "Special", "special": "",
+      "weight": 0.1, "requisition": 35, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns so advanced that most foes mistake them for mere ornamentation until the digi-weapon unleashes the firepower of a full-sized pistol.</p><div class='bc-rule'><p>The ranking Space Marines outfitted with such archeotech devices usually install them along the finger ridge of a glove for practical reasons. Rings are a more common design among Imperial nobles and military elite who are less likely to be wearing powered gloves. Digi-weapons exist that replicate the functions of a variety of deadly weapons. However, each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Reloading a Digital Weapon requires 1d5 hours and a successful Challenging (+0) Tech-Use Test.</p></div></div>",
+      "source": "Deathwatch, p. 153 (Table 5-7), p. 153"
+    }
+  },
+  {
+    "name": "Astartes Sniper Rifle", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-rifle.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 200,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full", "special": "Accurate, Felling (1), Toxic",
+      "weight": 4, "requisition": 20, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The needle rifle offers the perfect combination of range, stealth, and deadliness.</p><div class='bc-rule'><p>A low-power laser beam propels small slivers of crystallised toxin that, once lodged in flesh, dissolve into the bloodstream almost instantly. Many chemicals can be solidified into such rounds with the right equipment, and a variety are in use by the Deathwatch. The most common compound (and the standard ammunition for this weapon) is a viral toxin that leaves most enemies dead within moments of being wounded. As they have no muzzle flash, needle weapons are ideal for assassinations. The only argument against these exquisite weapons is that the brittle rounds have little penetrating power, making them next to useless against heavily armoured targets.</p></div></div>",
+      "source": "Deathwatch, p. 153 (Table 5-7), p. 153"
+    }
+  }
+]

@@ -10,13 +10,10 @@
 import {CHARACTERISTIC_KEYS} from "./origin-data.mjs";
 
 /**
- * Способы получить характеристику.
- *  roll         — ровный 2d10+20, модификатор происхождения прибавляется числом;
- *  rollModified — книжная альтернатива: при плюсе кидается три кости и берутся
- *                 две лучшие, при минусе — две худшие;
- *  pointBuy     — распределение очков вместо костей.
+ * Способы получить характеристику: костями или распределением очков.
+ * Третьего книга не предлагает.
  */
-export const CHARACTERISTIC_METHODS = ["roll", "rollModified", "pointBuy"];
+export const CHARACTERISTIC_METHODS = ["roll", "pointBuy"];
 
 /** База, бюджет и потолок распределения очков. */
 export const POINT_BUY = {base: 25, points: 60, cap: 40};
@@ -24,17 +21,18 @@ export const POINT_BUY = {base: 25, points: 60, cap: 40};
 /**
  * Формула одной характеристики.
  *
- * @param {string} method    из CHARACTERISTIC_METHODS
- * @param {number} modifier  сумма модификаторов происхождения для этой характеристики
- * @returns {string}         выражение для Roll
+ * Чем является модификатор, решает книга, а не игрок:
+ *   "generation" — Dark Heresy, стр. 31. «+» значит кинуть 3d10 и взять две лучшие,
+ *                  «−» — две худшие. Прибавки к результату книга не знает вовсе.
+ *   "flat"       — модификатор прибавляется к готовому броску.
+ *
+ * @param {"generation"|"flat"} modifierMode  из RULESET_DEFS[…].characteristicModifiers
+ * @param {number} modifier                   сумма модификаторов происхождения
+ * @returns {string}                          выражение для Roll
  */
-export function rollExpression(method, modifier = 0) {
-    if (method === "rollModified") {
-        if (modifier > 0) return "3d10kh2+20";
-        if (modifier < 0) return "3d10kl2+20";
-        return "2d10+20";
-    }
+export function rollExpression(modifierMode, modifier = 0) {
     if (!modifier) return "2d10+20";
+    if (modifierMode === "generation") return modifier > 0 ? "3d10kh2+20" : "3d10kl2+20";
     return `2d10+20${modifier > 0 ? "+" : "-"}${Math.abs(modifier)}`;
 }
 

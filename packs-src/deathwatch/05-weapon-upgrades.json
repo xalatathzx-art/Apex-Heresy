@@ -1,0 +1,113 @@
+[
+  {
+    "name": "Arm Weapon Mounting", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Las, Solid Projectile, Bolt, or Melta Pistol, or Auxiliary Grenade Launcher",
+      "weight": 1.5, "requisition": 10, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This heavy bracing allows a single ranged weapon to be mounted along the arm, with specific hand movements or MIU input triggering the weapon.</p><div class='bc-rule'><p>This allows the user to keep both hands free, and can have a strong visual impression as the Battle-Brother brings forth a storm of destruction with the sweep of his hand. This upgrade reduces the weapon’s Range by 30%. It is also possible to mount a weapon at the shoulder instead of on the forearm, with the same effects.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 156"
+    }
+  },
+  {
+    "name": "Astartes Melee Attachment (Mono)", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic ranged weapon",
+      "weight": 2, "requisition": 7, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The value of a bayonet or similar combat attachment on a ranged weapon is unquestioned, giving the wielder versatility to deal with enemies close-up without having to change weapons.</p><div class='bc-rule'><p>However, the common spear-like attachments made for normal human weapons would be an insult to both a Space Marine and his weapon. The Adeptus Astartes utilize fine, mono-edged blades and whirring chain attachments that are almost as effective in melee combat as a dedicated sword. Melee attachments are available that allow the weapon to count as either a Combat Knife or a Chainsword in close combat, although in the latter case it lacks the Balanced Quality.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 156"
+    }
+  },
+  {
+    "name": "Astartes Melee Attachment (Chain)", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic ranged weapon",
+      "weight": 8, "requisition": 9, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The value of a bayonet or similar combat attachment on a ranged weapon is unquestioned, giving the wielder versatility to deal with enemies close-up without having to change weapons.</p><div class='bc-rule'><p>However, the common spear-like attachments made for normal human weapons would be an insult to both a Space Marine and his weapon. The Adeptus Astartes utilize fine, mono-edged blades and whirring chain attachments that are almost as effective in melee combat as a dedicated sword. Melee attachments are available that allow the weapon to count as either a Combat Knife or a Chainsword in close combat, although in the latter case it lacks the Balanced Quality.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 156"
+    }
+  },
+  {
+    "name": "Deathwatch Suspensor", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Heavy ranged weapon",
+      "weight": 0, "requisition": 25, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Because a Deathwatch Kill-team is often deployed without support, the ultimate in battlefield flexibility is required.</p><div class='bc-rule'><p>The anti-grav plates and studs of suspensors attach to a weapon or equipment, making it easier to use by offsetting some of the weight. Suspensors reduce the weight of a weapon by half, allowing Heavy weapons to be deployed in a wider range of situations. When firing a weapon with suspensors, the operator counts as having the Auto-stabilised Trait—meaning he always counts as braced and may fire the weapon on semi- or full-automatic as a Half Action and never suffers penalties for moving and firing.</p><p>Wt x1/2.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 156"
+    }
+  },
+  {
+    "name": "Fire Selector", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Bolt or Solid Projectile Pistols, and Bolt or Solid Projectile Basic weapons",
+      "weight": 1, "requisition": 2, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A staple tool of the Deathwatch, a shot selector allows for speed and ease of switching between magazines of different ammunition, maximising tactical flexibility when deployed under uncertain parameters.</p><div class='bc-rule'><p>A weapon with a fire selector can have up to three different clips added. At the start of the shooter’s Turn, he can use his fire selector to choose which clip he wishes to draw ammo from.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Dipole Mag-lock", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol or Basic ranged weapon, or any melee weapon that may be wielded in one hand",
+      "weight": 0, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>For warriors in power armour, mag-locks are as common as holsters for securing weapons.</p><div class='bc-rule'><p>The typical mag-lock consists of strong electromagnets near a suit of power armour’s surface, and mirrored magnets on the weapon to be attached. A dipole mag-lock can reverse its magnetic field to literally propel the weapon into the wielder’s hand. This is typically accomplished by embedding small proximity triggers in the glove of the weapon hand that cause the magnet to reverse polarity when brought near it. However, versions using verbal and more sophisticated somatic cues also exist.</p><p>A dipole mag-lock grants the Quick Draw Talent for the upgraded weapon. If the character already has Quick Draw, he may draw his weapon as part of a Parry, allowing him to go from unarmed to deflecting an enemy blade with his own in the blink of an eye.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Motion Predictor", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any non-Primitive ranged weapon capable of semi-auto or full auto fire. The target acquisition component of a Motion Predictor must be installed as a sight, and a gun may only have one sight.",
+      "weight": 0.5, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A complex target-tracking cogitator in this device activates once the user has sighted the desired target.</p><div class='bc-rule'><p>The Predictor then tracks the target, and when the trigger is pulled chases the target with all the rounds in a clip in one long burst. A Motion Predictor adds a +10 bonus to Ballistic Skill Tests but only functions when the weapon is fired on semi-automatic or fully automatic mode.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Preysense Sight", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, Bolt, or Plasma weapon. A preysense sight counts as a sight, and a gun may only have one sight.",
+      "weight": 0.5, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a weapon sight that shows thermal images and reveals the hiding places of enemies who lurk in the darkness.</p><div class='bc-rule'><p>A character using a preysense sight suffers no penalties due to darkness and gains a +20 bonus to vision based Perception Tests at night.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Red-Dot Laser Sight", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Pistol or Basic ranged weapon of the following types: Las, Solid Projectile, Bolt, or Plasma. A red-dot laser sight counts as a sight, and a gun may only have one sight.",
+      "weight": 0.5, "requisition": 10, "renown": "none",
+      "effect": { "attackBonus": 10 },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a laser sight that grants a +10 bonus to Ballistic Skill Tests when the weapon is fired on single shot.</p></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Silencer", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Autogun, autopistol, needle sniper rifle.",
+      "weight": 0.5, "requisition": 3, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Silencers lower the noise from a weapon’s discharge, preventing detection of the shot.</p><div class='bc-rule'><p>Awareness Tests to hear shots made with a silenced weapon suffer an additional –20 penalty and can only be attempted at half the normal distance.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  },
+  {
+    "name": "Telescopic Sight", "type": "weaponModification", "folder": "Weapon Upgrades",
+    "img": "systems/dark-heresy/assets/icons/modification/modification.webp",
+    "system": {
+      "upgrades": "Any Basic Las, Solid Projectile, Bolt, or Plasma weapon. A telescopic sight counts as a sight, and a gun may only have one sight.",
+      "weight": 1, "requisition": 6, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Telescopic sights magnify the target’s image, making it easy to see.</p><div class='bc-rule'><p>This is especially useful for long-range shots that need to hit a very specific target location. A weapon with a telescopic sight ignores penalties for long and extreme range as long as the shooter takes a Full Action to Aim.</p></div></div>",
+      "source": "Deathwatch, p. 157 (Table 5-9), p. 157"
+    }
+  }
+]

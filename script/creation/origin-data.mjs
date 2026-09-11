@@ -79,7 +79,7 @@ export function normaliseOrigin(source = {}) {
     out.grants = {...structuredClone(EMPTY_GRANTS), ...(out.grants ?? {})};
     out.choices ??= [];
     out.bonuses ??= [];
-    out.requires ??= null;
+    out.requires ??= {};
     out.adjacency ??= [];
     out.recommended ??= [];
     out.description ??= "";
@@ -132,7 +132,9 @@ export function validateOrigin(source = {}) {
         }
     }
 
-    if (origin.requires && !STAGES[origin.ruleset]?.includes(origin.requires.stage))
+    // Пустой объект означает «без условий»: null в шаблоне типа невозможен — модель
+    // данных делает из него ObjectField, который null не принимает.
+    if (origin.requires?.stage && !STAGES[origin.ruleset]?.includes(origin.requires.stage))
         problems.push(`requires unknown stage "${origin.requires.stage}"`);
 
     return problems;

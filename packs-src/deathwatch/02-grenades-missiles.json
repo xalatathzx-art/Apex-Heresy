@@ -1,0 +1,197 @@
+[
+  {
+    "name": "Astartes Blind Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/smoke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Smoke",
+      "weight": 0.8, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blind grenades explode with a burst of dense dark grey smoke including IR bafflers and broad-band EM spectrum chaff, all designed to block eyesight and even advanced visual detection.</p><div class='bc-rule'><p>The effect is short-lived, but while it lasts provides excellent cover for advancing forces. The effects of this grenade last for 1d10 Rounds (shorter in conditions such as prevailing winds or industrial ventilation).</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Frag Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (5)",
+      "weight": 0.8, "requisition": 1, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Adeptus Astartes fill their large fragmentation (or frag) grenades and missiles with powerful explosives and aerodynamic metallic shards.</p><div class='bc-rule'><p>The high velocity shrapnel created when they detonate is deadly against common infantry.</p><p>†Frag and krak grenades are standard issue; frag and krak missile supplies are included with any missile launcher. Requisition value is only for evaluating requests deemed “excessive”.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Frag Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "4",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (8), Devastating (1)",
+      "weight": 2, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Adeptus Astartes fill their large fragmentation (or frag) grenades and missiles with powerful explosives and aerodynamic metallic shards.</p><div class='bc-rule'><p>The high velocity shrapnel created when they detonate is deadly against common infantry.</p><p>†Frag and krak grenades are standard issue; frag and krak missile supplies are included with any missile launcher. Requisition value is only for evaluating requests deemed “excessive”.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Incendiary Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/fire-bomb.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (3)",
+      "weight": 1, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Incendiary explosives are commonly employed to flush out enemies entrenched behind cover.</p><div class='bc-rule'><p>These projectiles contain slow-burning promethium distillate that ignites when the grenade explodes. Any target within the Blast radius must succeed on an Agility Test or catch fire. Furthermore, the area remains on fire for another 1d5 Rounds as the promethium continues to burn. Anyone remaining within that area must continue to take Agility Tests or catch fire until the flames die.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Incendiary Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (5)",
+      "weight": 2, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Incendiary explosives are commonly employed to flush out enemies entrenched behind cover.</p><div class='bc-rule'><p>These projectiles contain slow-burning promethium distillate that ignites when the grenade explodes. Any target within the Blast radius must succeed on an Agility Test or catch fire. Furthermore, the area remains on fire for another 1d5 Rounds as the promethium continues to burn. Anyone remaining within that area must continue to take Agility Tests or catch fire until the flames die.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Krak Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+4", "damageType": "explosive", "penetration": "6",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "",
+      "weight": 0.8, "requisition": 1, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak grenades and missiles use concentrated explosives to punch holes in armoured targets such as vehicles or bunkers.</p><div class='bc-rule'><p>The powerful detonations do not produce a blast effect however, making them impractical for use against most infantry or moving targets.</p><p>†Frag and krak grenades are standard issue; frag and krak missile supplies are included with any missile launcher. Requisition value is only for evaluating requests deemed “excessive”.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Krak Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+6", "damageType": "explosive", "penetration": "10",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (1)",
+      "weight": 2, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak grenades and missiles use concentrated explosives to punch holes in armoured targets such as vehicles or bunkers.</p><div class='bc-rule'><p>The powerful detonations do not produce a blast effect however, making them impractical for use against most infantry or moving targets.</p><p>†Frag and krak grenades are standard issue; frag and krak missile supplies are included with any missile launcher. Requisition value is only for evaluating requests deemed “excessive”.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Nova Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (3)",
+      "weight": 0.8, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Photo-visors and similar ocular protection are common among the Deathwatch’s foes.</p><div class='bc-rule'><p>This more powerful version of a flash grenade was designed to overpower standard input filtering. Each sphere contains a minute amount of plasma suspended in carbon gas. When ignited, the resulting fusion is similar to the effect of a collapsing star, and the emitted light achieves an extreme absolute magnitude. However, the ability to thwart auto-senses is a double-edged sword for Battle-Brothers, and nova grenades must be strategically utilised lest they blind their own forces.</p><p>In addition to taking damage from the shock wave, anyone within the Blast radius must make a Very Hard (–30) Toughness Test or be Blinded (see page 260) for 1d10 Rounds. Photo-visors, autosenses, and similar vision protection decreases this Test to Difficult (–10). Anyone within 20 metres of the detonation point must make a normal Toughness Test or be Blinded for 1d5 Rounds (identical to a flash grenade—vision protection works normally).</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Astartes Plasma Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+12", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (1), Volatile",
+      "weight": 2, "requisition": 20, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These highly lethal grenades use a deliberate plasma containment failure, erupting into blasts of white-hot energy.</p><div class='bc-rule'><p>The dense plasma core of an Astartes plasma grenade is not fully consumed in the initial explosion and leaves a glowing, energized orb that continues to sear the area like a miniature sun. This tiny stellar body continues to do the plasma grenade’s full damage to the Blast area for an additional 1d5 Rounds after the Round it detonated.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Astartes Plasma Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+12", "damageType": "energy", "penetration": "12",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (3), Volatile",
+      "weight": 3, "requisition": 25, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A larger incarnation of the plasma grenade, a salvo of plasma missiles can easily turn enemy troops into a smoking crater.</p><div class='bc-rule'><p>Indeed, a Battle-Brother must take care when firing one of these dangerous weapons that his own Kill-team is sufficiently out of harm’s way. Plasma missiles have the same continuing effect as a plasma grenade. In addition, they pose an additional threat to vehicles. The plasma core can become fused with the hull, leaving no escape. If a plasma missile attack on a vehicle scores 4 or more degrees of success, the Blast radius becomes centred on the vehicle rather than a stationary point.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Astartes Stasis Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "",
+      "weight": 1, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stasis fields are used throughout the Imperium to hold time at bay, essentially trapping whatever is inside them in a single moment.</p><div class='bc-rule'><p>Uses run from mundane food storage to the preservation of the Ultramarine’s Primarch. A stasis grenade is simply an impact-triggered version of the same technology, most commonly used to temporarily neutralize a threat.</p><p>The grenade generates a stasis field with a radius of two metres; it lasts for 1d5 rounds (which the GM should roll and reveal only when it expires). Everything inside this bubble is cut off from the normal flow of time. Anyone and anything inside the affected area does (and perceives) nothing until the field dissipates. Characters outside the stasis field can see the frozen moment but cannot interact with it in any way.</p><p>To call a stasis grenade rare and dangerous is a grave understatement. One may occasionally be distributed along with the general Requisition Points for a Mission if the Watch Captain deems necessary, but a stasis grenade may never be Requisitioned through the usual means.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Astartes Stun Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Blast (5)",
+      "weight": 0.8, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stun grenades use a combination of a loud explosive and a flash of light to momentarily incapacitate targets without causing lasting injury before an assault is launched, making them an excellent opener in non-lethal engagements.</p><div class='bc-rule'><p>Anyone caught in a stun grenade’s blast must pass a Challenging (+0) Toughness Test or become Stunned for 1d10 rounds. Photo-visors and sealed armour provide a +20 bonus to this Test, while input filtering renders one completely immune.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "EMP Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "Haywire (3)",
+      "weight": 0.5, "requisition": 30, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A rare example of xenos technology employed in limited capacity by the Deathwatch, the exact form of such a grenade varies with its origin.</p><div class='bc-rule'><p>The function of an EMP grenade is to generate a field of electro-magnetic static that interferes with most technology and generally causes machine spirits to malfunction. There are many appellations for this weapon: EMP, Haywire, Scrambler, and it takes many shapes including those found with the Tau and the Eldar.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Photon Flash Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "",
+      "weight": 0.5, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Photon flash or simply flash grenades detonate in a sudden and brilliant flare, blinding anyone nearby and overloading many common vision protection systems such as visors.</p><div class='bc-rule'><p>Those caught without high quality eye protection are usually left blinded and defenceless. Anyone within 15 metres of a photon flash grenade when it detonates must succeed on a Toughness Test or be blinded for 1d5 Rounds.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 151"
+    }
+  },
+  {
+    "name": "Vortex Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "", "special": "",
+      "weight": 1, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This dreaded example of lost technology tears open the very fabric of reality, creating a rift into the warp.</p><div class='bc-rule'><p>Needless to say, the results of such a desperate action are highly unpredictable and almost as likely to backfire on he who used it. For all the nightmarish stories of daemons crawling through the breach, and vortexes that still re-appear like phantoms on old battlefields, there is no better way to ensure a threat is utterly destroyed than to see it sucked into the immaterium.</p><p>The secrets of vortex grenades are jealously guarded by the Adeptus Mechanicus, and some question whether Forge Worlds capable of their manufacture still exist. Certainly, their supply in the Adeptus Astartes seems ever-dwindling, and it is a dire threat indeed that warrants their precious and perilous expenditure. Like stasis grenades, a single grenade may only be allotted at the Watch Captain’s option.</p><p>The vortex grenade has a radius of 3 metres. Anyone within this area can spend his Reaction to attempt to Dodge out of it before the rift fully forms (see Dodging Area Effects on page 238). Those who fail, along with everything else in the area, are dragged into the warp, never to be seen again. Each Round, the capricious vortex winks in and out of existence. It has a 50% chance of closing permanently when this happens. Otherwise, it reappears 2d10 metres in a random direction from its last manifestation—see the Scatter Diagram on page 248.</p></div></div>",
+      "source": "Deathwatch, p. 150 (Table 5-6), p. 152"
+    }
+  }
+]

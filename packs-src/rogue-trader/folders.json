@@ -1,0 +1,128 @@
+{
+  "Ranged Weapons": {
+    "color": "#8c3a2b",
+    "sort": 100
+  },
+  "Ranged Weapons/Las": {},
+  "Ranged Weapons/Solid Projectile": {},
+  "Ranged Weapons/Bolt": {},
+  "Ranged Weapons/Melta": {},
+  "Ranged Weapons/Plasma": {},
+  "Ranged Weapons/Flame": {},
+  "Ranged Weapons/Primitive": {},
+  "Ranged Weapons/Launchers": {},
+  "Ranged Weapons/Exotic": {},
+  "Grenades & Missiles": {
+    "color": "#7a6a2b",
+    "sort": 200
+  },
+  "Melee Weapons": {
+    "color": "#8c5a2b",
+    "sort": 300
+  },
+  "Melee Weapons/Chain": {},
+  "Melee Weapons/Power": {},
+  "Melee Weapons/Shock": {},
+  "Melee Weapons/Primitive": {},
+  "Melee Weapons/Exotic": {},
+  "Weapon Upgrades": {
+    "color": "#6a4a6a",
+    "sort": 400
+  },
+  "Ammunition": {
+    "color": "#7a6a2b",
+    "sort": 500
+  },
+  "Ammunition/Standard": {},
+  "Ammunition/Unusual": {},
+  "Armour": {
+    "color": "#3a5a7a",
+    "sort": 600
+  },
+  "Armour/Primitive": {},
+  "Armour/Flak": {},
+  "Armour/Mesh": {},
+  "Armour/Carapace": {},
+  "Armour/Power": {},
+  "Armour/Other": {},
+  "Gear": {
+    "color": "#4a6a4a",
+    "sort": 800
+  },
+  "Gear/Clothing": {},
+  "Gear/General": {},
+  "Drugs & Consumables": {
+    "color": "#6a3a55",
+    "sort": 900
+  },
+  "Tools": {
+    "color": "#3a6a55",
+    "sort": 1000
+  },
+  "Cybernetics": {
+    "color": "#5a5a6a",
+    "sort": 1100
+  },
+  "Cybernetics/Bionics": {},
+  "Cybernetics/Implants": {},
+  "Starship Weapons": {
+    "color": "#6a3a2b",
+    "sort": 1200
+  },
+  "Starship Weapons/Macrobatteries": {},
+  "Starship Weapons/Lances": {},
+  "Essential Components": {
+    "color": "#2b5a6a",
+    "sort": 1300
+  },
+  "Essential Components/Plasma Drives": {},
+  "Essential Components/Warp Engines": {},
+  "Essential Components/Geller Fields": {},
+  "Essential Components/Void Shields": {},
+  "Essential Components/Ship's Bridge": {},
+  "Essential Components/Life Sustainers": {},
+  "Essential Components/Crew Quarters": {},
+  "Essential Components/Augur Arrays": {},
+  "Supplemental Components": {
+    "color": "#3a6a6a",
+    "sort": 1400
+  },
+  "Supplemental Components/Cargo and Passenger Compartments": {},
+  "Supplemental Components/Augments and Enhancements": {},
+  "Supplemental Components/Additional Facilities": {},
+  "Archeotech & Xenotech Components": {
+    "color": "#6a5a2b",
+    "sort": 1500
+  },
+  "Archeotech & Xenotech Components/Archeotech": {},
+  "Archeotech & Xenotech Components/Xeno-tech": {},
+  "Talents": {
+    "color": "#7a5a2b",
+    "sort": 1600
+  },
+  "Psychic Techniques": {
+    "color": "#5a3a8c",
+    "sort": 1700
+  },
+  "Psychic Techniques/Telepathy": {},
+  "Psychic Techniques/Divination": {},
+  "Psychic Techniques/Telekinesis": {},
+  "Navigator Powers": {
+    "color": "#3a4a8c",
+    "sort": 1800
+  },
+  "Traits": {
+    "color": "#6a2b3a",
+    "sort": 1900
+  },
+  "Mutations": {
+    "color": "#6a2b4a",
+    "sort": 2000
+  },
+  "Mutations/Navigator": {},
+  "Mutations/General": {},
+  "Special Abilities": {
+    "color": "#7a3a6a",
+    "sort": 2100
+  }
+}

@@ -22,7 +22,7 @@ export const RULESET_DEFS = {
     dh2: {
         label: "RULESET.DH2", actorType: "acolyte",
         characteristicModifiers: "generation",
-        characteristicMethods: ["roll", "rollModified", "pointBuy"],
+        characteristicMethods: ["roll", "pointBuy"],
         steps: [
             {id: "homeWorld",       label: "ORIGIN.STAGE.HOME_WORLD",  kind: "origin", stage: "homeWorld"},
             {id: "background",      label: "ORIGIN.STAGE.BACKGROUND",  kind: "origin", stage: "background"},

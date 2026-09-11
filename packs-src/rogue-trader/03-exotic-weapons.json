@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Crux Beam Gun", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_basic.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 80, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "2d10+5", "damageType": "energy", "penetration": "6", "clip": { "max": 25, "value": 25 }, "reload": "4 Full",
+      "special": "Scatter", "weight": 4, "availability": "near-unique",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Long ago the Crux had a pocket stellar domain at the edge of what would later be known as the Calixis Sector. Their planets were one by one razed to the mantle in a brutal campaign by Admiral Jocardis the Penitent. Only the shipboard weapons captured by boarding parties during the war remain of the race now, with several such weapons now priceless relics in the armouries of the Rogue Trader houses of the Koronus Expanse. These glossy black rifles emit a ray of crackling purple light which tears open solid mass. Had the Crux been able to develop these devices into macro weapons for naval combat, the later history of the Angevin Crusade may have turned out quite differently. Beam guns still occasionally appear for sale and many were adapted in earlier centuries to use Imperial pattern lasgun clips (although they burn out the clips completely within a few shots). Without fail, they are traded for vast sums.</p><div class='bc-rule'><p>Some Imperial weapons are so rare that even a seasoned warrior might never have seen one, while other exotic weapons are of alien manufacture and may not even fit a human hand. Each is not only extraordinarily rare but also extraordinarily difficult to operate. Such weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Dartcaster", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Toxic", "weight": 2.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Dartcasters come in a variety of forms, most using pressurised gas or crossbow mechanisms to fire small metal slivers at high velocities. As they have only a small degree of damage on their own, most users dip the dart in powerful poisons or other chemicals. These can range from simple needler poison to exotics such as hallucinogens or tranquillisers. Dartcasters are a favourite for some bounty hunters as they are flexible enough that the user can select the exact pre-coated dart desired (or coat the dart by hand with the desired chemical) then load in the dart for the shot. In a pinch, skilled users can also simply throw the dart manually at the target. Many of the ammunition loads for dartcasters are coated with chemicals to mimic the effects of a hallucinogen grenade or are formed of holy silver and then blessed to have a greater effect upon a creature of the warp. Naturally, other poisons can also be delivered via a dartcaster as well.</p><div class='bc-rule'><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Digi-laser", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 3, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "7", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Reliable", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns which are so advanced that they can be worn on the finger like a ring, but pack the punch of a full-sized pistol. The most compact are those manufactured by the brightly-haired, ape-like aliens known as the Jokaero, whose creations are sought after across the Imperium. Digi-weapons exist that replicate the functions of hand flamers, inferno pistols, needle pistols and hellpistols.</p><div class='bc-rule'><p>Each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Digi-melta", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 3, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+4", "damageType": "energy", "penetration": "12", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns which are so advanced that they can be worn on the finger like a ring, but pack the punch of a full-sized pistol. The most compact are those manufactured by the brightly-haired, ape-like aliens known as the Jokaero, whose creations are sought after across the Imperium. Digi-weapons exist that replicate the functions of hand flamers, inferno pistols, needle pistols and hellpistols.</p><div class='bc-rule'><p>Each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Digi-needler", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 3, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Toxic", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns which are so advanced that they can be worn on the finger like a ring, but pack the punch of a full-sized pistol. The most compact are those manufactured by the brightly-haired, ape-like aliens known as the Jokaero, whose creations are sought after across the Imperium. Digi-weapons exist that replicate the functions of hand flamers, inferno pistols, needle pistols and hellpistols.</p><div class='bc-rule'><p>Each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Digi-flame", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 3, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+4", "damageType": "energy", "penetration": "2", "clip": { "max": 1, "value": 1 }, "reload": "Full",
+      "special": "Flame", "weight": 0.5, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Digital weapons, or digi-weapons as they are commonly known, are miniaturised guns which are so advanced that they can be worn on the finger like a ring, but pack the punch of a full-sized pistol. The most compact are those manufactured by the brightly-haired, ape-like aliens known as the Jokaero, whose creations are sought after across the Imperium. Digi-weapons exist that replicate the functions of hand flamers, inferno pistols, needle pistols and hellpistols.</p><div class='bc-rule'><p>Each weapon can only be fired once, and reloading a digi-weapon is exceptionally difficult. A character can wear up to one digi-weapon per finger—not thumbs—and a digi-weapon can be fired even if the character is holding something else in his hands. Digi-weapons may be used in melee like pistols.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 127"
+    }
+  },
+  {
+    "name": "Graviton Gun", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_basic.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "", "clip": { "max": 3, "value": 3 }, "reload": "2 Full",
+      "special": "Blast (5)", "weight": 5, "availability": "near-unique",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Graviton Gun fires a stream of particles that disrupt the localised gravimetric field around the target area, increasing the apparent mass of the enemy and slowing if not pinning them outright to the ground. While the enemy is normally not harmed greatly, they are incapacitated until the effects wear off. As it is not a lethal device, the Graviton Gun is useful for when someone must be captured alive rather than dead. They are exceedingly rare relics from the Dark Age of Technology, and each is a sacred device jealously guarded by the Adeptus Mechanicus—who very rarely allow one outside of their armouries.</p><div class='bc-rule'><p>Damage: Special. Penetration: —.</p><p>Everything caught in the gun’s blast area is violently pressed to the floor and must take a Very Hard (–30) Strength Test or be knocked down. Being thrown to a solid surface from a standing position and forced to the ground in this way is enough to inflict 1d5 I (Primitive) Damage—treat this as effecting the Body location—although what the character or object is thrown against and how far they fall may well make this effect far worse.</p><p>Additionally, anyone attempting to move or perform physical actions within the blast radius for 2d5 Rounds afterwards must first pass an Opposed Strength Test versus Strength 60 (Unnatural (×2)) each Round—see page 368 for more details on this kind of Test.</p><p>At the GM’s discretion, the flux may shatter brittle objects, collapse loose flooring, rupture containment vessels, damage vehicles and machinery, plus wreak any other chaos deemed appropriate.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 128"
+    }
+  },
+  {
+    "name": "Kroot Rifle", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_basic.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 110, "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+5", "damageType": "energy", "penetration": "1", "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "", "weight": 6, "availability": "extremely-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The basic Kroot Rifle is simple and reliable, firing a charged pulse round. Rumour says that these are an upgraded version of their primitive native weapon, but no one knows who may have accomplished this upgrade, as the technology is unfamiliar even to Calixian Ordo Xenos scholars.</p><div class='bc-rule'><p>Kroot Rifles are balanced to fit deadly combat blades, allowing them to function as a halberd in close combat, especially in the hands of a Kroot Warrior. See Kroot Rifle (Melee) for its close combat profile.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 128"
+    }
+  },
+  {
+    "name": "Needle Pistol", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 30, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 6, "value": 6 }, "reload": "Full",
+      "special": "Accurate, Toxic", "weight": 1.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Needle pistols use a low-power laser beam to propel small slivers of crystalline coated in viral toxins. Enemies wounded by them are almost instantly paralysed or dead within moments. As they are virtually silent and have no muzzle flash, needle weapons are ideal for assassins. Some needle weapons are modified to inject the target with a toxin that mimics the effects of a choke or hallucinogen grenade.</p><div class='bc-rule'><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 128"
+    }
+  },
+  {
+    "name": "Needle Rifle", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/weapons/needle-rifle.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 180, "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10", "damageType": "rending", "penetration": "0", "clip": { "max": 6, "value": 6 }, "reload": "2 Full",
+      "special": "Accurate, Toxic", "weight": 2, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Prized by snipers, the needle rifle offers the perfect combination of range, stealth, and deadliness. The only argument against these exquisite weapons is that they are next to useless against heavily armoured targets.</p><div class='bc-rule'><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 129"
+    }
+  },
+  {
+    "name": "Ork Shoota", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/autogun.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 60, "rateOfFire": { "single": 1, "burst": 3, "full": 10 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 30, "value": 30 }, "reload": "Full",
+      "special": "Inaccurate, Unreliable", "weight": 4, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These basic weapons also double as clubs due to their large and durable shape. They are smoothbore like all Ork weapons; it is unclear if the concept of rifling has never occurred to them or that they are incapable of creating weapons that well honed.</p><div class='bc-rule'><p>For some unknown reason, this weapon is not Unreliable when fired by an Ork.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 129"
+    }
+  },
+  {
+    "name": "Ork Slugga", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/autopistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 20, "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+4", "damageType": "impact", "penetration": "0", "clip": { "max": 18, "value": 18 }, "reload": "Full",
+      "special": "Inaccurate, Unreliable", "weight": 2, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is the standard Ork pistol weapon—a heavy calibre slug-thrower. It is often also used as a melee weapon or even thrown at the enemy after running out of ammunition.</p><div class='bc-rule'><p>For some unknown reason, this weapon is not Unreliable when fired by an Ork.</p><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 129"
+    }
+  },
+  {
+    "name": "Shuriken Catapult", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_basic.webp",
+    "system": {
+      "class": "basic", "type": "exotic", "range": 60, "rateOfFire": { "single": 1, "burst": 3, "full": 10 },
+      "damage": "1d10+4", "damageType": "rending", "penetration": "6", "clip": { "max": 100, "value": 100 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 2.5, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shuriken catapults are the mainstay weapon for the Eldar—this alien race’s basic citizen-warrior “Guardians” use these weapons. They are lightweight and can be easily fired on the move. These weapons fire razor-sharp disks at high velocity to shred a target into pieces.</p><div class='bc-rule'><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 129"
+    }
+  },
+  {
+    "name": "Shuriken Pistol", "type": "weapon", "folder": "Ranged Weapons/Exotic",
+    "img": "systems/dark-heresy/assets/icons/armoury/ranged_weapons/exotic_pistol.webp",
+    "system": {
+      "class": "pistol", "type": "exotic", "range": 30, "rateOfFire": { "single": 1, "burst": 3, "full": 5 },
+      "damage": "1d10+2", "damageType": "rending", "penetration": "4", "clip": { "max": 40, "value": 40 }, "reload": "2 Full",
+      "special": "Reliable", "weight": 1.2, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shuriken weapons are graceful dealers of death that use sophisticated gravity accelerators to hurl volleys of miniature razor disks to literally slice their victims apart in seconds. The enigmatic alien Eldar create these weapons, and many of their warriors carry a shuriken pistol as a sidearm.</p><div class='bc-rule'><p>Exotic weapons require specialised training, and each must be mastered separately with a different Talent.</p></div></div>",
+      "source": "Rogue Trader, p. 128 (Table 5-7), p. 129"
+    }
+  }
+]

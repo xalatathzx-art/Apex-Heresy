@@ -1,0 +1,328 @@
+[
+  {
+    "name": "A Cloud in the Warp",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "Yes",
+      "subtype": "Navigator Power",
+      "range": "Personal (Master: Willpower Bonus in metres)",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Hide the Navigator from psychic sight, divination, and warp entities.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By understanding and perceiving the currents of the warp, the Navigator can hide his presence from those that would use the Immaterium to detect him. Whilst it does not in any way mask his presence in the real universe, it can ably hide him from detection by Psykers and confuse creatures whose essence and existence are linked to the warp, such as Daemons and other warp entities. As the Navigator grows in power, he will become harder to detect, as well as being able to mask others if they stand nearby.</p><div class='bc-rule'><p><strong>Novice:</strong> By making a Willpower test, the Navigator becomes shrouded in an immaterial cloak, forcing those that use any kind of psychic sight, detection or divination to make a Challenging (+0) Perception Test to see him with such powers. This power also has the same effect on the perception of all Daemons and warp entities. This power will last as long as the Navigator maintains it, however whilst he does so, he cannot use any other powers (though he may take other actions normally).</p><p><strong>Adept:</strong> As above, except the test to detect the Navigator becomes Difficult (–10).</p><p><strong>Master:</strong> As above, except the power gains a radius equal to the Navigator’s Willpower Bonus in metres centred on his person. Any creature within the radius may be shrouded at the choice of the Navigator.</p><p>Mastery adds to the Test: +0 Novice, +10 Adept, +20 Master.</p></div></div>",
+      "source": "Rogue Trader, p. 179"
+    }
+  },
+  {
+    "name": "Foreshadowing",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "Personal",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": 0
+      },
+      "shortDescription": "Draw three secrets from the future and spend them for bonuses—at a price.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By using his warp eye to filter small secrets from the near future, the Navigator can choose to make slight adjustments to his actions to avoid harm and manipulate the course of events. Only if the Navigator tries to dig too deep into the near future for secrets does this power become unpredictable and he may become victim of the warp’s lies.</p><div class='bc-rule'><p><strong>Novice:</strong> With a successful Perception Test, the Navigator draws three secrets from the future. He may then “spend” a secret on his following turn to gain a +10% bonus on any Test. Using one secret in this way carries no danger. However, he may choose to spend either of his other two secrets to add an additional +10 bonus to the roll for each secret spent (for a total bonus of +20 for 2 secrets used, and +30 for three secrets used). For each additional secret used beyond the first, the Navigator must roll a d10; if this roll comes up 7, 8, 9, or 10, then the secret causes the Navigator to suffer a –10% penalty instead of granting a bonus. Secrets not used in the following round are lost as time marches on. Using this power more than once in the same hour is dangerous, as no one should know too much about his own future. For every use after the first in a single hour, the Navigator suffers 1d5 Insanity Points.</p><p><strong>Adept:</strong> As above, except secrets will only deduct rather than add on a roll of 9 or 10.</p><p><strong>Master:</strong> As above, except secrets can be used up to five rounds after the power is used.</p></div></div>",
+      "source": "Rogue Trader, p. 179"
+    }
+  },
+  {
+    "name": "Gaze into the Abyss",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "Line of sight (see mastery)",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": 0
+      },
+      "shortDescription": "See a creature’s or object’s reflection in the warp and unmask psykers and daemons.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This power allows a Navigator to see a creature’s or object’s reflection in the warp and learn things hidden from the real universe. This power is most useful in unmasking both psykers and daemons, but has other applications, such as reading residual psychic taint on objects and tracking powerful psychic entities.</p><div class='bc-rule'><p><strong>Novice:</strong> With a successful Perception Test, the Navigator can determine if a creature or object holds the taint of the warp. This will tell the Navigator if the person or object has a Psy Rating or is tainted (roughly speaking if they have more than 20 Corruption Points, warp mutations, are possessed, etc.). Psykers who have made dark pacts with the warp and daemons are more resistant to this power, however. These creatures may make a Willpower Test opposed by the Navigator’s Perception, which if successful will hide their true natures. This power can also be used to track powerful psychic or warp creatures using the rules for Tracking on page 88.</p><p><strong>Adept:</strong> As above, with the additional effect that the Navigator can detect major disturbances in the warp, such as warp portals and ships entering and exiting the Immaterium within a radius of 100 kilometres times his Perception Bonus. In Starship Combat (see page 212), this power functions within a number of VUs equal to the Navigator’s Perception Bonus.</p><p><strong>Master:</strong> As above but the Navigator can also use the power to detect the use of psychic powers within a radius of 10 metres per point of his Perception Bonus.</p></div></div>",
+      "source": "Rogue Trader, p. 179–180"
+    }
+  },
+  {
+    "name": "Held in my Gaze",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "Yes",
+      "subtype": "Navigator Power",
+      "range": "5m per point of Perception Bonus (Adept: 20m)",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "shortDescription": "Opposed Willpower. Lock a target so it must win an Opposed Test to use psychic powers.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The unflinching eye of a Navigator locks a creature in place with a gaze that pierces flesh and bone to see the immaterial essence of all things. Most commonly employed against psykers, this ability can be used to render them effectively powerless and prevent them from calling upon their abilities. It is also undeniably effective against creatures with a strong connection to the warp, such as daemons, for which it can have spectacular and devastating consequences.</p><div class='bc-rule'><p><strong>Novice:</strong> The Navigator chooses a target which he has line of sight to and is no further away than 5 metres per point of his Perception Bonus. He then makes an Opposed Willpower test with the target. If he is successful, then the target is locked and will remain so as long as the Navigator does not use any other powers. A locked target must beat the Navigator in an Opposed Willpower test each time it wishes to use a psychic power or invoke the Daemonic Presence Trait. If the target moves out of range or line of sight, the power ends. Daemons affected by this power suffer 1 point of additional Damage for Warp Instability.</p><p><strong>Adept:</strong> As above, however the range increases to the 20 metres per point of the Navigator’s Perception Bonus and daemons affected by this power suffer 2d10 points of damage instead of 1 point when suffering Warp Instability.</p><p><strong>Master:</strong> As above, with the addition that the Navigator no longer needs to have line of sight to the target and daemons suffering any damage from Warp Instability are immediately destroyed and cast back into the warp.</p></div></div>",
+      "source": "Rogue Trader, p. 180"
+    }
+  },
+  {
+    "name": "The Lidless Stare",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Full Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "15m (5m in fog or mist)",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": 0
+      },
+      "damage": {
+        "zone": "bolt",
+        "type": "energy",
+        "formula": "1d10",
+        "penetration": "0",
+        "special": "+Willpower Bonus; not reduced by Armour or Toughness Bonus; Stunned 1 round"
+      },
+      "shortDescription": "Opposed Willpower. 1d10 + Willpower Bonus Energy Damage that ignores Armour and Toughness.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>If a Navigator opens his warp eye fully, anyone gazing into its depths will witness the power and mind breaking unreality of the warp. In an instant, they witness the chaos boiling beneath the skin of existence and for many, it is the last thing they ever see.</p><div class='bc-rule'><p><strong>Novice:</strong> As a Full Action, the Navigator makes an Opposed Willpower Test with anyone looking into his Warp Eye. Make a single test for the Navigator and compare it to the results of each of his opponents. If the Navigator achieves more degrees of success, the opponent suffers 1d10 + the Navigator’s Willpower bonus in Energy damage. This damage is not reduced by armour or Toughness Bonus. Anyone taking damage from this power is also Stunned for 1 round as they are ripped with agony. Using this power is taxing and inflicts a level of Fatigue on the Navigator. If the Navigator fails this Test by one degree of failure or more, he suffers two levels of Fatigue.</p><p><strong>Adept:</strong> As above, however, the damage is increased to 2d10 + (the Navigator’s WP bonus) and the time the victims are Stunned increases to 1d5 rounds. Victims also suffer 1d5 Insanity Points.</p><p><strong>Master:</strong> As above, with the additional effect that any creature possessing an Intelligence of 20+ suffering damage from this power must make an immediate Difficult (–10) Toughness Test or be slain. If they pass, they suffer 1d10 Insanity points rather than 1d5.</p><p><strong>Avoiding a Navigator’s Gaze:</strong> The Lidless Stare will affect anyone, friend or foe, that looks into the Navigator’s third eye when this power is activated. This has an effective range of 15m (reduced to 5m in fog or mist) and has no effect on unliving targets, Untouchables, and daemons or other entities from the Warp. Those forewarned can look away, though even then being within line of sight of a Navigator is dangerous. The power of his eye is persuasive, and looking away only grants them +30 on their rolls to resist its power. Those who are unaware of the Navigator’s presence gain this bonus as well.</p></div></div>",
+      "source": "Rogue Trader, p. 180"
+    }
+  },
+  {
+    "name": "The Course Untravelled",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "Perception Characteristic in metres",
+      "focusPower": {
+        "test": "Willpower",
+        "difficulty": -10
+      },
+      "shortDescription": "Step from one moment to another and change position; failure Stuns the Navigator.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Time is not an arrow that flies straight and true, but rather a tangled web of moments and possibilities. The Course Un-travelled power allows a Navigator to negotiate this web, stepping fractionally from one moment to another, and in the process, altering his position in the physical world. The use of such power is extremely dangerous, however, as the Navigator is not actually physically travelling in place as such, but rather choosing an alternate future in which wish to inhabit. He risks both injury and madness in trying to step outside the flow of time in this way.</p><div class='bc-rule'><p><strong>Novice:</strong> If the Navigator succeeds at a Difficult (–10) Willpower Test, he may move to any point within a distance equal to his Perception Characteristic in metres, so long as he could have walked, climbed, or swam there normally without impediment. If he fails this test, he is Stunned for 1 round and fails to change position. If he fails this test by three degrees or more, he is Stunned for 1d10 rounds and gains an Insanity Point. Whether or not this power is successful, the Navigator suffers a level of Fatigue at the end of the Round thanks to the strain on his body.</p><p><strong>Adept:</strong> As above, except the test is only Challenging (+0) and the range is increased to double the Navigator’s Perception Characteristic in metres.</p><p><strong>Master:</strong> As above, except he may now perform this power as a Free Action or as a Reaction.</p></div></div>",
+      "source": "Rogue Trader, p. 180"
+    }
+  },
+  {
+    "name": "Tides of Time and Space",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Free Action",
+      "sustained": "Yes",
+      "subtype": "Navigator Power",
+      "range": "Personal",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": 0
+      },
+      "shortDescription": "Double Agility Bonus for Initiative and gain an extra Half Action—or lose your grip on reality.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>By examining the flow of the warp around him, the Navigator can anticipate near future actions and thus move outside the normal flow of events by choosing strands of reality and slipping between them. Whilst this power can be of great benefit to the Navigator, it is also very dangerous, and should he lose control, the results can be disastrous.</p><div class='bc-rule'><p><strong>Novice:</strong> Each round the Navigator wishes to use this power he must make a Perception test as a Free Action to read the strands of time. On a success, he doubles his Agility Bonus for the purposes of determining initiative and may take an additional Half Action that turn. The additional Action may not have the Concentration subtype. On a failure, he halves his Agility Bonus for initiative and may only take a Half Action that turn as he loses his grip on reality, becoming confounded and disorientated. Should he fail by three degrees or more, he winks out of existence for 1d5 rounds, reappearing where he was at the end of this duration. Should something else occupy that space when the Navigator returns, he shifts his position as much as necessary to a point of the player’s choice. Whether or not this power is successful, however, the Navigator suffers a level of Fatigue at the end of the Round each time it is used. This power does not give the Navigator an additional Reaction.</p><p><strong>Adept:</strong> As above, except he triples his Agility Bonus for the purposes of determining Initiative.</p><p><strong>Master:</strong> As above, however, he quadruples his Agility Bonus for Initiative. In addition, he may take two extra Half Actions or a Full Action in addition to his other actions this round (rather than a single Half Action as results from the Novice manifestation of this power).</p></div></div>",
+      "source": "Rogue Trader, p. 180–181"
+    }
+  },
+  {
+    "name": "Tracks in the Stars",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "Interstellar",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": 0
+      },
+      "shortDescription": "Follow the warp trail a ship leaves across the stars.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>When a ship travels though either real space or the warp it leaves a faint trail, the lingering shadow of its warp drive. Using his third eye, the Navigator can follow this trail across the stars.</p><div class='bc-rule'><p><strong>Novice:</strong> Using Perception, the Navigator can track the warp trail of a ship through real space in the same way as if he was using the Tracking skill (see page 88). To track a warp trail, it can be no older than the Navigator’s Perception Bonus in weeks, although the size and power of the vessel involved may mitigate this.</p><p><strong>Adept:</strong> As above, however, the warp trail may be up to a number of months old equal to the Navigator’s Perception Bonus. He may also track ships in the warp in the same manner.</p><p><strong>Master:</strong> As above, except he can follow a warp trail equal to the Navigator’s Perception bonus in years old, although this information may be erratic and fragmentary.</p></div></div>",
+      "source": "Rogue Trader, p. 181"
+    }
+  },
+  {
+    "name": "Void Watcher",
+    "type": "psychicPower",
+    "folder": "Navigator Powers",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "cost": 0,
+      "prerequisite": "Navigator",
+      "action": "Half Action",
+      "sustained": "No",
+      "subtype": "Navigator Power",
+      "range": "Perception Bonus in Void Units",
+      "focusPower": {
+        "test": "Perception",
+        "difficulty": 0
+      },
+      "shortDescription": "Gaze into the void to detect mines, void creatures, concealed ships, asteroids, and debris.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Using this power and gazing into the void whilst aboard ship, the Navigator can learn things about space in the immediate vicinity of his vessel. This can reveal hidden dangers such as mines, void creatures, and concealed ships, as well as more mundane perils like asteroids and debris. With skill and practice, a Navigator’s void sense can become amazingly precise and reach out across millions of kilometres of space.</p><div class='bc-rule'><p><strong>Novice:</strong> The Navigator can make a Perception test (modified by range and size of potential objects as the GM thinks appropriate) to detect objects in space up to a distance equal to the Navigator’s Perception Bonus in Void Units (see page 212 in Chapter VIII: Starships). If the power is not being used during space combat, the distance equals 1,000 kilometres times the Navigator’s Perception Bonus. Information gained about such objects is only what the Navigator could discover through normal observation.</p><p><strong>Adept:</strong> As above, however, range is increased to a distance equal to double the Navigator’s Perception Bonus in Void Units, or 10,000 km times the Navigator’s Perception Bonus if the power is not being used during space combat. He may make a Difficult (–10) Willpower Test to gain some information about the nature of the object (i.e., what minerals are in an asteroid, what kind of crew a starship has).</p><p><strong>Master:</strong> As above, except range becomes equal to five times the Navigator’s Perception Bonus in Void Units, or 100,000 km times the Navigator’s Perception Bonus if the power is not being used during space combat. The test to gain additional information becomes Ordinary (+10).</p></div></div>",
+      "source": "Rogue Trader, p. 181"
+    }
+  },
+  {
+    "name": "Strangely Jointed Limbs",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your limbs have extra joints that articulate differently to a normal human.</p><div class='bc-rule'><p>You gain the Contortionist Skill as a trained Basic Skill. If you already possess the Contortionist Skill, you gain the Talented (Contortionist) Talent instead.</p><p><strong>Table 7-1 roll:</strong> 01–15.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Elongated Form",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>You are extremely tall and painfully thin, and loose 1d5 Toughness permanently.</p><div class='bc-rule'><p>Re-roll this mutation if you already have the Bloated Form mutation.</p><p><strong>Table 7-1 roll:</strong> 16–30.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Pale and Hairless Flesh",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your skin is pale, marbled with veins and completely without hair.</p><div class='bc-rule'><p><strong>Table 7-1 roll:</strong> 31–45.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Eyes as Dark as the Void",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/body_parts/eye.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your eyes are completely black and without iris; you gain the Dark Sight Trait.</p><div class='bc-rule'><p><strong>Table 7-1 roll:</strong> 46–55.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Withered Form",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/deathless.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your body is withered, your flesh hanging loosely from your bones.</p><div class='bc-rule'><p>You reduce your Strength Characteristic by 10 permanently and halve your movement rates. Re-roll this mutation if you already have the Bloated Form mutation.</p><p><strong>Table 7-1 roll:</strong> 56–60.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Bloated Form",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your body is grossly bloated and your limbs thick with flesh.</p><div class='bc-rule'><p>You gain 5 wounds and the Sturdy trait but may no longer run. Re-roll this mutation if you already have the Elongated Form or Withered Form mutations.</p><p><strong>Table 7-1 roll:</strong> 61–65.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Membranous Growths",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/wings.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>You have membranes of skin between your limbs and digits and your skin sags in folds from your flesh; you suffer –5 Fellowship permanently.</p><div class='bc-rule'><p><strong>Table 7-1 roll:</strong> 66–70.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Inhuman Visage",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/demon.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your face is devoid of human features, your nose is nothing but a pair of slits, your ears are small holes, your eyes are unblinking.</p><div class='bc-rule'><p>You gain the Fear (1) Trait.</p><p><strong>Table 7-1 roll:</strong> 71–75.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Fingers like Talons",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/bone_blade.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bones of your fingers have grown and hardened into talons.</p><div class='bc-rule'><p>You gain the Natural Weapons Trait.</p><p><strong>Table 7-1 roll:</strong> 76–80.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Teeth as Sharp as Needles",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>Your mouth is filled with hundreds of fine, pointed teeth.</p><div class='bc-rule'><p>You gain the Natural Weapons Trait and suffer –1d5 Fellowship.</p><p><strong>Table 7-1 roll:</strong> 81–85.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Disturbing Grace",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/snake_tail.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>You move with a fluid, sinuous grace that is somewhat unpleasant and unnatural in its quality.</p><div class='bc-rule'><p>You gain the Unnatural Agility (x2) Trait.</p><p><strong>Table 7-1 roll:</strong> 86–90.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Strange Vitality",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/deathless.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>You possess a vitality and resilience that is at odds with your physical form; wounds bleed translucent fluid and close quickly, bones knit together after being horrifically broken.</p><div class='bc-rule'><p>You gain the Regeneration Trait.</p><p><strong>Table 7-1 roll:</strong> 91–95.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  },
+  {
+    "name": "Unnatural Presence",
+    "type": "mutation",
+    "folder": "Mutations/Navigator",
+    "img": "systems/dark-heresy/assets/icons/mutations/demon.webp",
+    "system": {
+      "description": "<div class='bc-entry'><p class='bc-lead'>In your presence living things feel strange unpleasant sensations, a cloying touch to their skin, a keening whine in their ears and a metallic tang in their mouth.</p><div class='bc-rule'><p>All your tests that involve positive social interaction are at –10, whilst all those that involve intimidation or inducing fear are at +10.</p><p><strong>Table 7-1 roll:</strong> 96–00.</p></div></div>",
+      "source": "Rogue Trader, p. 182 (Table 7-1)"
+    }
+  }
+]

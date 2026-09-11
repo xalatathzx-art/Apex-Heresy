@@ -1,0 +1,19 @@
+{
+  "name": "Mental Traumas",
+  "folder": "Fear and Insanity",
+  "formula": "1d100",
+  "sort": 150,
+  "description": "Rolled when a Trauma Test fails (each time Insanity Points pass another multiple of 10): roll 1d100 and add +10 for every Degree of Failure. Only War, Table 9-8 (p. 307); Dark Heresy 2e, Table 8-13 (p. 288). The Only War printing skips 121–130; that row is taken from Dark Heresy 2e.",
+  "results": [
+    { "name": "Withdrawn", "range": [1, 40], "text": "The character becomes withdrawn and quiet. The character is at a –10 to all Fellowship-based Tests for [[3d10]] hours." },
+    { "name": "Compulsive", "range": [41, 70], "text": "The character must compulsively perform an action (such as fevered praying, frantically cleaning a weapon, etc.) and pays little attention to anything else. All Tests that are based on Intelligence, Fellowship, or Perception suffer a –10 penalty. This effect lasts for [[3d10]] hours." },
+    { "name": "Jumpy", "range": [71, 100], "text": "The character is constantly fearful, seeing danger everywhere, and is extremely jumpy. The character gains a +10 bonus to all Perception-based Tests and is at a –10 penalty to his Willpower for the next [[1d5]] days." },
+    { "name": "Temporary phobia", "range": [101, 120], "text": "The character suffers from a temporary Severe phobia (see Disorders, page 306). This effect lasts for [[1d5]] days." },
+    { "name": "Agitated", "range": [121, 130], "text": "The character reacts to the slightest stress or pressure by becoming extremely agitated. When performing any task that involves a test, the character must first pass a Willpower test or suffer a –10 modifier to the test. During combat encounters, he suffers a –10 penalty on all tests. This effect lasts for [[1d5]] days. (Dark Heresy 2e, Table 8-13.)" },
+    { "name": "Nightmares", "range": [131, 140], "text": "The character suffers vivid and extreme nightmares whenever they try to sleep. The next day, and for a further [[1d10]] days, the character will be exhausted by a lack of sleep and gains a level of Fatigue." },
+    { "name": "Struck dumb", "range": [141, 150], "text": "The character is struck dumb and is unable to speak. This lasts for [[1d5]] days." },
+    { "name": "Distressed", "range": [151, 160], "text": "Extremely distressed and unfocused, the character refuses to eat or drink, and looks to be in a terrible state. The character takes a –10 penalty to all Characteristics (though no Characteristic will be reduced below 1 by this effect) for [[1d10]] days." },
+    { "name": "Hysterical blindness", "range": [161, 170], "text": "The character temporarily becomes hysterically blind or deaf. This effect lasts for [[1d10]] days." },
+    { "name": "Traumatised", "range": [171, 300], "text": "The character becomes completely traumatised and virtually unresponsive. He can’t initiate actions, but may be gently led. This effect lasts for [[1d10]] days." }
+  ]
+}

@@ -1,0 +1,220 @@
+[
+  {
+    "name": "Cargo Hold and Lighter Bay", "type": "shipComponent", "folder": "Supplemental Components/Cargo and Passenger Compartments",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 2, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Areas in the ship designed for cargo or passenger transport, presenting a captain with more ways to earn Thrones.</p><p>Warships can be converted to haul cargo, but this can often have an adverse effect on their combat performance.</p><div class='bc-rule'><p><strong>Hidden Spaces:</strong> When working toward a Trade or Criminal objective, the players earn an additional 50 Achievement Points toward completing that objective.</p><p><strong>Unbalanced:</strong> Starships are precisely balanced, something this modification effects, meaning they suffer –3 to Manoeuvrability.</p><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates, Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Compartmentalised Cargo Hold", "type": "shipComponent", "folder": "Supplemental Components/Cargo and Passenger Compartments",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 5, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cargo holds have been installed across the ship, spread out to minimise their effect on the vessel’s handling.</p><div class='bc-rule'><p><strong>Storage Area:</strong> When working toward a Trade objective, the players earn an additional 100 Achievement Points toward completing that objective.</p><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates, Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Main Cargo Hold", "type": "shipComponent", "folder": "Supplemental Components/Cargo and Passenger Compartments",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 4, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>This hold was designed for moving bulk cargo.</p><div class='bc-rule'><p><strong>Stowed and Secured:</strong> When working towards a Trade objective, the players earn an additional 125 Achievement Points towards completing that objective.</p><p><strong>Appropriate Hull Types:</strong> Transports.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Luxury Passenger Quarters", "type": "shipComponent", "folder": "Supplemental Components/Cargo and Passenger Compartments",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Comfortable quarters for passengers earn Thrones—and make for jealous crew.</p><div class='bc-rule'><p><strong>Paying Customers:</strong> When working toward a Trade, Criminal, or Creed objective, the players earn an additional 100 Achievement Points towards completing that objective.</p><p><strong>Class Division:</strong> Decrease Morale permanently by 3.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Barracks", "type": "shipComponent", "folder": "Supplemental Components/Cargo and Passenger Compartments",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>For a truly enterprising Rogue Trader, a war is just another business venture. These barracks allow him to attempt just that—by filling his ship with thousands of troops.</p><div class='bc-rule'><p><strong>Soldiers:</strong> When working toward a Military objective, the players earn an additional 100 Achievement Points towards completing that objective.</p><p><strong>Reinforcements:</strong> If the ship is transporting troops, it gains +20 to all Command Tests involving boarding actions and Hit and Run Actions.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+
+  {
+    "name": "Augmented Retro-thrusters (Raiders, Frigates)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 3, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Devices and systems that will boost a starship’s combat performance.</p><p>Multiple manoeuvring thrusters draw immense power, but offer impressive performance nonetheless.</p><div class='bc-rule'><p><strong>Agile:</strong> These thrusters add +5 to the ship’s Manoeuvrability.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Augmented Retro-thrusters (Transports, Light Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 4, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Multiple manoeuvring thrusters draw immense power, but offer impressive performance nonetheless.</p><div class='bc-rule'><p><strong>Agile:</strong> These thrusters add +5 to the ship’s Manoeuvrability.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> Transports, Light Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Augmented Retro-thrusters (Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 5, "space": 0, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Multiple manoeuvring thrusters draw immense power, but offer impressive performance nonetheless.</p><div class='bc-rule'><p><strong>Agile:</strong> These thrusters add +5 to the ship’s Manoeuvrability.</p><p><strong>External:</strong> This Component does not require hull space. Although it is external, it can only be destroyed or damaged by a Critical Hit.</p><p><strong>Appropriate Hull Types:</strong> Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Reinforced Interior Bulkheads (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 2, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Additional adamantine plates in key locations make this vessel hard to destroy.</p><div class='bc-rule'><p><strong>Hard to Breach:</strong> Add +3 to Hull Integrity.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Reinforced Interior Bulkheads (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 3, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Additional adamantine plates in key locations make this vessel hard to destroy.</p><div class='bc-rule'><p><strong>Hard to Breach:</strong> Add +3 to Hull Integrity.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 203"
+    }
+  },
+  {
+    "name": "Armour Plating (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Additional adamantine plates protect this vessel from harm.</p><div class='bc-rule'><p><strong>Armour:</strong> Increase this vessel’s Armour by 1.</p><p><strong>Dead Weight:</strong> Decrease this vessel’s Manoeuvrability by –2.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5)"
+    }
+  },
+  {
+    "name": "Armour Plating (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 2, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Additional adamantine plates protect this vessel from harm.</p><div class='bc-rule'><p><strong>Armour:</strong> Increase this vessel’s Armour by 1.</p><p><strong>Dead Weight:</strong> Decrease this vessel’s Manoeuvrability by –2.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5)"
+    }
+  },
+  {
+    "name": "Armoured Prow", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The trademark of cruisers and battleships of the Imperial Navy, heavy sheets of adamantine 20 metres thick cover the bow of this vessel.</p><div class='bc-rule'><p><strong>Imposing:</strong> A ship with this Component may not have Prow macrobatteries or lances. This ship gains +4 armour only in its fore arc. This ship also does 1d10 additional damage when ramming.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5)"
+    }
+  },
+  {
+    "name": "Tenebro-Maze (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 2, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The interior of the ship is a maze of passageways, blind compartments, and triple-sealed pressure-hatches. Enemy boarding parties become quickly lost and separated, while the defenders spring cunning ambushes from behind hololithic bulkheads.</p><div class='bc-rule'><p><strong>Hidden sally-ports:</strong> This ship gains +10 to all Command Tests when defending against boarding actions and Hit and Run Actions.</p><p><strong>Incomprehensible Layout:</strong> When a Component on this ship is selected to be affected from a critical hit, it is chosen by the ship’s controller, not the attacker.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Tenebro-Maze (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Augments and Enhancements",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 3, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The interior of the ship is a maze of passageways, blind compartments, and triple-sealed pressure-hatches. Enemy boarding parties become quickly lost and separated, while the defenders spring cunning ambushes from behind hololithic bulkheads.</p><div class='bc-rule'><p><strong>Hidden sally-ports:</strong> This ship gains +10 to all Command Tests when defending against boarding actions and Hit and Run Actions.</p><p><strong>Incomprehensible Layout:</strong> When a Component on this ship is selected to be affected from a critical hit, it is chosen by the ship’s controller, not the attacker.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+
+  {
+    "name": "Extended Supply Vaults", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A wide variety of Components that serve many different purposes. Any of the following components may only be added to a starship once.</p><p>Extensive supply stowage allows the vessel to make longer journeys and better repair damage.</p><div class='bc-rule'><p><strong>Extensive Stores:</strong> Double the time a ship may remain at void without suffering Crew Population or Morale loss. When making Extended Repairs, repair 1 additional Hull Integrity.</p><p><strong>Plenty for All:</strong> Increase Morale permanently by 1.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Crew Reclamation Facility", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Mechanicus has no qualms about converting the grievously wounded into servitors...but the rest of the crew may differ in opinion.</p><div class='bc-rule'><p><strong>Recycling:</strong> Reduce all losses of Crew Population by 3, to a minimum of 1. Increase all losses to Morale by 1.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Munitorium (Transports, Raiders, Frigates)", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 2, "space": 3, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Although all ships have a well-armoured room to store their munitions, this facility contains massive stockpiles of weapons, from small arms to macro-cannon warheads.</p><div class='bc-rule'><p><strong>Well Armed:</strong> When working toward a Military objective, the players earn an additional 25 Achievement Points toward completing that objective.</p><p><strong>Ordinatus Extremus:</strong> All macrobatteries on this ship gain +1 to their listed damage.</p><p><strong>Volatile:</strong> If this Component is damaged, it explodes. The ship takes 2d5 damage to Hull Integrity, and a Component of the GM’s choice is set on fire.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Transports, Raiders, Frigates.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Munitorium (Light Cruisers, Cruisers)", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 3, "space": 4, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Although all ships have a well-armoured room to store their munitions, this facility contains massive stockpiles of weapons, from small arms to macro-cannon warheads.</p><div class='bc-rule'><p><strong>Well Armed:</strong> When working toward a Military objective, the players earn an additional 25 Achievement Points toward completing that objective.</p><p><strong>Ordinatus Extremus:</strong> All macrobatteries on this ship gain +1 to their listed damage.</p><p><strong>Volatile:</strong> If this Component is damaged, it explodes. The ship takes 2d5 damage to Hull Integrity, and a Component of the GM’s choice is set on fire.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> Light Cruisers, Cruisers.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Temple-shrine to the God Emperor", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A section of this ship has been set aside to offer prayer and praises to the Master of Mankind.</p><div class='bc-rule'><p><strong>Inspiration:</strong> Increase Morale permanently by 3.</p><p><strong>Awe of the God Emperor:</strong> When working toward a Creed objective, the players earn an additional 100 Achievement Points toward completing that objective.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Librarium Vault", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>An ancient collection of writings and manuscripts has been collected aboard this vessel.</p><div class='bc-rule'><p><strong>Accumulated Data:</strong> Any Investigation Skill Tests made aboard this ship gains +10.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 205"
+    }
+  },
+  {
+    "name": "Trophy Room", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Few Rogue Traders can resist cataloguing their accomplishments. This is more than hubris–such trophies can awe competitors, or may hold secrets long lost.</p><div class='bc-rule'><p><strong>Past Experiences:</strong> When working toward an Exploration, Trade, or Criminal objective, the players earn an additional 50 Achievement Points toward completing that objective.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 206"
+    }
+  },
+  {
+    "name": "Observation Dome", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 0, "space": 1, "shipPoints": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A gigantic observation dome made of diamond panes and armoured glass adorns this vessel’s spine, allowing an unrestricted view of the surrounding void.</p><div class='bc-rule'><p><strong>Engraved Star-charts:</strong> When working towards an Exploration objective, the players earn an additional 50 Achievement Points towards completing that objective.</p><p><strong>Cure for Claustrophobia:</strong> Increase Morale permanently by 1.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 206"
+    }
+  },
+  {
+    "name": "Murder-servitors", "type": "shipComponent", "folder": "Supplemental Components/Additional Facilities",
+    "img": "systems/dark-heresy/assets/icons/ship.svg",
+    "system": {
+      "category": "supplemental", "power": 1, "space": 1, "shipPoints": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The ship possesses a stock of ancient, skull-faced killing machines. Sealed in cyro-stasis until absolutely required, a mere dozen can be successfully sent on hit and run raids to maim and kill on enemy vessels.</p><div class='bc-rule'><p><strong>Death-dealers:</strong> When used to conduct a Hit and Run Action, this enhancement provides a +20 bonus to the opposed Command Test.</p><p><strong>Precise:</strong> When determining the Critical Hit inflicted by a Hit and Run Action they participated in, the character conducting the raid may select any result between 1 and 6, rather than rolling.</p><p>This component may not be selected more than once per vessel.</p><p><strong>Appropriate Hull Types:</strong> All Ships.</p></div></div>",
+      "source": "Rogue Trader, p. 204 (Table 8-5), p. 206"
+    }
+  }
+]

@@ -245,6 +245,26 @@ class DarkHeresyCombat extends Combat {
 
 class DarkHeresyActor extends Actor {
 
+    /**
+     * Типы, которые предлагаются в окне создания Актёра.
+     *
+     * Лист игрока — один. Книгу персонаж называет полем system.ruleset уже на самом
+     * листе, и выбирать её ещё и типом при создании незачем: это один и тот же вопрос,
+     * заданный дважды, причём первый раз — необратимо.
+     *
+     * Тип heretic остаётся: у заведённых им персонажей свой лист (Бесчестье,
+     * покровитель, принадлежность), и ломать их нельзя. Просто новых им больше не заводят.
+     */
+    static HIDDEN_CREATE_TYPES = ["heretic"];
+
+    /** @override */
+    static async createDialog(data = {}, createOptions = {}, options = {}) {
+        const types = (options.types ?? game.documentTypes.Actor)
+            .filter(type => type !== CONST.BASE_DOCUMENT_TYPE
+                && !DarkHeresyActor.HIDDEN_CREATE_TYPES.includes(type));
+        return super.createDialog(data, createOptions, { ...options, types });
+    }
+
     async _preCreate(data, options, user) {
 
         let initData = {

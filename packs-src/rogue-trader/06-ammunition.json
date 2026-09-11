@@ -1,0 +1,271 @@
+[
+  {
+    "name": "Arrows/Quarrels", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Bows, crossbows and hand bows",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Arrows and quarrels come in a variety of shapes, sizes and materials ranging from crude wooden shafts with flint tips to steel darts with razor-sharp points.</p><div class='bc-rule'><p>Used With: Bows, crossbows and hand bows.</p><p>Ammo weight is not listed; however, should it be important to know how much ammunition weighs, consider a weapon’s full clip to weigh 10% of the weight of the weapon itself.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135"
+    }
+  },
+  {
+    "name": "Backpack Ammo Pack/Power Pack", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weight": 25, "weapon": "Most Pistol and Basic weapons; Heavy Stubbers, Heavy Bolters and Heavy Flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many weapons require larger ammunition sources to function during large battles or when the wearer is away from an extended supply line. A backpack power pack is worn like a normal backpack. For energy weapons, it is a portable source of power in the form of a massive battery or charge-unit. For flame weapons, it is composed of tanks of volatile promethium. Other ammunition packs are simply stacks of regular stubber or bolt rounds with a feeder line that links into the weapon itself.</p><div class='bc-rule'><p>These items hold 80 rounds of ammunition for Plasma and Melta weapons, Hellguns or Hellpistols, 300 shots for other Las weapons, 200 rounds of ammunition for SP or Bolt weapons, and 60 shots for Flame weapons. A weapon connected to a backpack power pack uses the power pack for its ammunition and ignores its normal clip size.</p><p>Backpack ammo packs or power packs weigh 25 kg. The Backpack Ammo Pack/Power Pack does not have the capacity to power or carry ammo for Heavy Weapons, with the exception of Heavy Stubbers, Heavy Bolters, and Heavy Flamers.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135"
+    }
+  },
+  {
+    "name": "Shot", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Flintlock pistol and musket",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shot is solid lead or stone balls and a powder charge used in primitive blackpowder weapons.</p><div class='bc-rule'><p>Used With: Flintlock pistol and musket.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135"
+    }
+  },
+  {
+    "name": "Bullets", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "plentiful", "quantity": 1, "weapon": "Autopistols, stub revolvers, stub automatics, hand cannons, autoguns, hunting rifles and heavy stubbers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Hard rounds are common for many weapons within the Imperium and vary greatly in calibre and design. Bullets from one kind of firearm cannot be used in another unless they are very similar in make. So for example you could use bullets bought for a stub revolver in a stub automatic, but not in an autogun.</p><div class='bc-rule'><p>Used With: Autopistols, stub revolvers, stub automatics, hand cannons, autoguns, hunting rifles and heavy stubbers.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135"
+    }
+  },
+  {
+    "name": "Shells", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Any shotgun",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Shells contain dozens of tiny balls and are designed to scatter over a wide area when fired, making them ideal for close-in work where accuracy is less important.</p><div class='bc-rule'><p>Used With: Any shotgun.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135"
+    }
+  },
+  {
+    "name": "Charge Pack (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Laspistols",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Laspistols, lascarbines, lasguns, long-las, MP lascannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135–136"
+    }
+  },
+  {
+    "name": "Charge Pack (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "common", "quantity": 1, "weapon": "Lascarbines, lasguns, long-las",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Laspistols, lascarbines, lasguns, long-las, MP lascannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135–136"
+    }
+  },
+  {
+    "name": "Charge Pack (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Man Portable Lascannon",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Charge packs are powerful batteries used almost exclusively by las weapons.</p><div class='bc-rule'><p>The cost of a charge pack varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Laspistols, lascarbines, lasguns, long-las, MP lascannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 135–136"
+    }
+  },
+  {
+    "name": "Fuel (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Hand flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Hand flamers, flamers, and heavy flamers.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Fuel (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Hand flamers, flamers, and heavy flamers.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Fuel (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1, "weapon": "Heavy flamers",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Flame weapons use liquid fuel, which can vary greatly in composition and quality from purest promethium to crude flammable alcohols.</p><div class='bc-rule'><p>The cost of fuel varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Hand flamers, flamers, and heavy flamers.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Bolt Shells", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Bolt pistols, bolters, and heavy bolters",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mass-reactive explosive bolt shell is among the deadliest kind of round in the Imperial arsenal. However the difficulty and cost of its manufacture restricts its use to all but the most wealthy or well connected.</p><div class='bc-rule'><p>Used With: Bolt pistols, bolters, and heavy bolters.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Melta Canister (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Inferno pistols",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Inferno pistols, meltaguns, and multi-meltas.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Melta Canister (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Meltaguns",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Inferno pistols, meltaguns, and multi-meltas.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Melta Canister (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Multi-meltas, thermal lances",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns use specially refined chemicals injected into highly pressurised canisters.</p><div class='bc-rule'><p>The cost of a melta canister varies depending on the class of the weapon. In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Inferno pistols, meltaguns, and multi-meltas.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Plasma Flask (Pistol)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Plasma pistols",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Plasma pistols, plasma guns, and plasma cannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Plasma Flask (Basic)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1, "weapon": "Plasma guns",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Plasma pistols, plasma guns, and plasma cannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Plasma Flask (Heavy)", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/standard_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Plasma cannons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Raw plasma weapon fuel consists of highly dangerous and volatile photonic hydrogen, compressed and contained within reinforced flasks.</p><div class='bc-rule'><p>In all cases, it provides shots equal to the weapon’s full clip value.</p><p>Used With: Plasma pistols, plasma guns, and plasma cannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+  {
+    "name": "Exotic Ammunition", "type": "ammunition", "folder": "Ammunition/Standard",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "very-rare", "quantity": 1, "weapon": "Needle pistols, needle rifles, and any other exotic ranged weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>There are many kinds of weapons in the Imperium that use unusual types of ammunition, from the viscous gel of a webber to the finely crafted darts of a needle pistol.</p><div class='bc-rule'><p>Used With: Needle pistols, needle rifles, and any other exotic ranged weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-10), p. 136"
+    }
+  },
+
+  {
+    "name": "Amputator Shells", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "extremely-rare", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, shotguns (all types), hand cannons, autopistols, and autoguns",
+      "effect": { "damage": { "modifier": 2 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Filled with explosive micro-shrapnel, these bullets are designed to shear flesh and shatter bone, causing limbs to be blown away.</p><div class='bc-rule'><p>Effects: Amputator Shells add 2 to the weapon’s Damage.</p><p>Used With: Stub revolvers, stub automatics, shotguns (all types), hand cannons, autopistols, and autoguns.</p><p>Only one kind of ammunition can be used at a time; their effects can’t be combined.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Bleeder Rounds", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, hand cannons, autopistols, and autoguns",
+      "effect": { "damage": { "modifier": 3 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This ammunition is treated with toxins to prevent coagulation and keep wounds bleeding freely. These shells are designed to burst on penetration and spread the anti-coagulants quickly.</p><div class='bc-rule'><p>Effect: Bleeder rounds add 3 to the weapon’s Damage against living ‘biological’ targets (targets with the Daemonic or Machine Traits do not suffer the additional Damage).</p><p>Used With: Stub revolvers, stub automatics, hand cannons, autopistols, and autoguns.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Dumdum Bullets", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, and hand cannons",
+      "effect": { "damage": { "modifier": 2 } },
+      "description": "<div class='bc-entry'><p class='bc-lead'>These heavy blunt bullets are designed to cause maximum tissue damage and can tear apart soft targets, though they are less effective against armour.</p><div class='bc-rule'><p>Effect: Dumdum bullets add 2 to the weapon’s Damage, however Armour Points count double against them.</p><p>Used With: Stub revolvers, stub automatics, and hand cannons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Expander Rounds", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, autopistols, and autoguns",
+      "effect": { "damage": { "modifier": 1 }, "penetration": "1" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vicious and outlawed on some worlds, these dense shells are designed to shred open after impact, creating huge exit wounds.</p><div class='bc-rule'><p>Effect: Shots fired with these rounds add 1 to both Damage and Penetration.</p><p>Used With: Stub revolvers, stub automatics, autopistols, and autoguns.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Explosive Arrows/Quarrels", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Bows, crossbows, and hand bows",
+      "effect": { "damage": { "type": "explosive" }, "attack": { "modifier": -10 }, "removeSpecial": "Primitive" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>Explosive arrows and quarrels might be crudely tipped with shells, or treated with one of a variety of unstable alchemical compounds.</p><div class='bc-rule'><p>Effects: Attacks are made with a –10 penalty, the weapon’s Damage type becomes Explosive, and the weapon loses the Primitive quality.</p><p>Used With: Bows, crossbows, and hand bows.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Hot-Shot Charge Pack", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Laspistols, lascarbines, lasguns, and long-las",
+      "effect": { "damage": { "modifier": 1 }, "penetration": "4", "removeSpecial": "Reliable" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>This is a powerful charge pack for a las weapon, favoured by snipers in some Imperial Guard regiments. Each hot-shot charge pack is good for only a single shot.</p><div class='bc-rule'><p>Effects: A weapon using a hot-shot charge adds 1 to its Damage, rolls two dice for its Damage and picks the highest, and gains a Penetration of 4. However the weapon loses its Reliable special quality, and its clip is reduced to 1.</p><p>Used With: Laspistols, lascarbines, lasguns, and long-las.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 136"
+    }
+  },
+  {
+    "name": "Inferno Shells", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "rare", "quantity": 1,
+      "weapon": "Shotguns, pump-action shotguns, combat shotguns, and all bolt weapons",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells contain a volatile, clinging gel that ignites on contact with the target.</p><div class='bc-rule'><p>Effects: A target hit by an inferno shell must make an Agility Test or catch on fire, in addition to suffering damage as normal.</p><p>Used With: Shotguns, pump-action shotguns, combat shotguns, and all bolt weapons.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 137"
+    }
+  },
+  {
+    "name": "Man-Stopper Bullets", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "scarce", "quantity": 1,
+      "weapon": "Stub revolvers, stub automatics, hand cannons, hunting rifles, autopistols, and autoguns",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These densely tipped bullets are designed to punch through armour.</p><div class='bc-rule'><p>Effects: A weapon using man-stopper rounds increases its Penetration to 3.</p><p>Used With: Stub revolvers, stub automatics, hand cannons, hunting rifles, autopistols, and autoguns.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 137"
+    }
+  },
+  {
+    "name": "Tempest Bolt Shells", "type": "ammunition", "folder": "Ammunition/Unusual",
+    "img": "systems/dark-heresy/assets/icons/armoury/ammunition/special_ammo.webp",
+    "system": {
+      "availability": "near-unique", "quantity": 1,
+      "weapon": "Bolt pistols, bolters, and heavy bolters",
+      "effect": { "damage": { "type": "energy" }, "special": "Shock" },
+      "description": "<div class='bc-entry'><p class='bc-lead'>The mass-reactive explosive bolt shell is among the deadliest kind of round in the Imperial arsenal. Tempest bolt shells are perhaps the rarest variety, manufactured only in the temples of Mars. They contain a powerful miniaturised plasma-shock generator that releases a pulse of electromagnetic and thermal energy as the shell detonates. They are particularly effective against machine targets, but obtaining them from the Machine Cult is a nigh-impossible task.</p><div class='bc-rule'><p>Effect: Change the weapon’s damage class to Energy and the weapon gains the Shock quality. The weapon adds 3 Damage when used against a target with the Machine Trait.</p><p>Used With: Bolt pistols, bolters, and heavy bolters.</p></div></div>",
+      "source": "Rogue Trader, p. 135 (Table 5-11), p. 137"
+    }
+  }
+]

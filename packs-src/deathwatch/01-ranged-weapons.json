@@ -1,0 +1,327 @@
+[
+  {
+    "name": "Astartes Bolt Pistol", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/bolt-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "bolt", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "2d10+5", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 14, "value": 14 }, "reload": "Full", "special": "Tearing",
+      "weight": 5.5, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>As destructive as its full-size counterpart, a bolt pistol’s primary drawbacks are its smaller clip and slower rate of fire.</p><div class='bc-rule'><p>However, they are ideal for Devastator units needing to take down an enemy at close quarters and for Assault specialists needing a vehicle for the Deathwatch’s many special bolt types.</p><p>Requisition 5† — † For additional weapons beyond standard issue.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 146"
+    }
+  },
+  {
+    "name": "Astartes Bolter (Godwyn)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "2d10+5", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 28, "value": 28 }, "reload": "Full", "special": "Tearing",
+      "weight": 18, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The bolter, or boltgun, is the backbone of every Space Marine arsenal.</p><div class='bc-rule'><p>Bolters vary in age and pattern across the Space Marine Chapters, though nearly all Astartes bolt weapons accept the same ammunition. The Deathwatch-pattern bolter incorporates a shot selector, while Battle-Brothers who bring weapons from their home Chapter add attachments for the same functionality.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 146"
+    }
+  },
+  {
+    "name": "Astartes Boltgun (Stalker)", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 200,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+5", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 24, "value": 24 }, "reload": "Full", "special": "Accurate, Tearing",
+      "weight": 17, "requisition": 15, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Stalker-pattern boltgun is most impressive when used in conjunction with Stalker Rounds, but it is still an effective sniping weapon with any ammunition type.</p><div class='bc-rule'><p>It significantly muffles the sound of any shell fired, and produces no muzzle flash.</p><p>Awareness Tests to hear shots made with a Stalker-pattern boltgun suffer an additional –30 penalty and can only be attempted at half the normal distance. See Stalker Rounds in the Ammunition section for more information on combining the two.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 146"
+    }
+  },
+  {
+    "name": "Astartes Combi-Weapon", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "2d10+5", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 28, "value": 28 }, "reload": "Full", "special": "Tearing",
+      "weight": 25, "requisition": 15, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Combi-weapons are actually two different weapons that have been combined into one firearm.</p><div class='bc-rule'><p>The idea is to provide the user with the versatility of two different types of guns, without requiring him to switch between them (not to mention carry them both) on the battlefield. Astartes combi-weapons typically use a boltgun as the primary weapon with a one-shot secondary weapon slung under the barrel.</p><p>The most popular variations found in the Deathwatch are the combi-flamer, combi-meltagun, and combi-plasma gun. The profile entry for each of these weapons details the primary boltgun. The secondary weapon on each firearm has a profile identical to a Flamer, Meltagun, and Plasma Gun respectively, except its Clip is reduced to 1. The wielder may fire either the primary or secondary weapon on his Turn; both weapons cannot fire at the same time.</p><p>†† Profile is for the primary bolter. Secondary weapon has RoF: S/–/– and Clip: 1, with all other statistics as per the weapon’s entry.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 146"
+    }
+  },
+  {
+    "name": "Astartes Heavy Bolter", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "class": "heavy", "type": "bolt", "range": 150,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 10 },
+      "damage": "2d10+10", "damageType": "explosive", "penetration": "6",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full", "special": "Tearing",
+      "weight": 68, "requisition": 20, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Heavy bolter variants have been widely adopted for Imperial forces beyond the Space Marines, although none can compare to the punishment doled out by the original design.</p><div class='bc-rule'><p>These weapons are potent in a wide variety of roles, capable of turning entire infantry platoons into a carpet of gore as well as assailing vehicles in a hail of large, armour-penetrating explosions. Heavy bolters fire rounds of a much larger calibre than the standard bolt, contain more propellant and are capable of achieving longer ranges.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 147"
+    }
+  },
+  {
+    "name": "Astartes Storm Bolter", "type": "weapon", "folder": "Ranged Weapons/Bolt",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "class": "basic", "type": "bolt", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 4 },
+      "damage": "2d10+5", "damageType": "explosive", "penetration": "5",
+      "clip": { "max": 60, "value": 60 }, "reload": "2 Full", "special": "Storm, Tearing",
+      "weight": 26, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Storm bolters originated and still reside almost exclusively in the Adeptus Astartes.</p><div class='bc-rule'><p>These weapons resemble two bolters with a single casing and a single trigger. They can lay down a barrage of fire rivalling heavy weapons, but with better portability. A storm bolter uses twin clips to feed its dual firing mechanisms.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 147"
+    }
+  },
+  {
+    "name": "Astartes Plasma Cannon", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "class": "heavy", "type": "plasma", "range": 150,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+11", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 16, "value": 16 }, "reload": "5 Full", "special": "Blast (1), Volatile, Maximal",
+      "weight": 70, "requisition": 30, "renown": "distinguished",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The largest portable plasma weapon is the plasma cannon or heavy plasma gun, which is also seen in service on some Adeptus Astartes transports.</p><div class='bc-rule'><p>Rather than using attached flasks, the wielder wears a large fuel canister that attaches to his backpack unit. This weapon has a much greater range and ammunition supply, and its violent discharges hurtle like miniature suns from its barrel, impacting a large area. It can also fire on Maximal mode which exhausts even more fuel but provides an even larger blast of heat on impact, creating a fireball capable of destroying heavily armoured targets.</p><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes: standard mode (the normal and safest method), or a higher-powered blast with a longer range and higher temperature. The latter requires a short time to replenish the plasma back to firing levels. When an Astartes plasma weapon fires in Maximal mode, it gains an extra 10 metres to range, 1d10 to Damage, and +2 Pen, but uses 3 rounds of ammunition. The Maximal setting also adds the Recharge and Overheats Qualities to the weapon, but increases any Blast Quality by +2 (so an Astartes Plasma Cannon would fire a Blast (3) on Maximal).</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 147"
+    }
+  },
+  {
+    "name": "Astartes Plasma Gun (Ragefire)", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-gun.webp",
+    "system": {
+      "class": "basic", "type": "plasma", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+9", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 40, "value": 40 }, "reload": "4 Full", "special": "Volatile, Maximal",
+      "weight": 27, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The most common model of this uncommon technology, plasma guns are often deployed in situations where raw takedown power is required against highly resilient or armoured enemies.</p><div class='bc-rule'><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes: standard mode (the normal and safest method), or a higher-powered blast with a longer range and higher temperature. The latter requires a short time to replenish the plasma back to firing levels. When an Astartes plasma weapon fires in Maximal mode, it gains an extra 10 metres to range, 1d10 to Damage, and +2 Pen, but uses 3 rounds of ammunition. The Maximal setting also adds the Recharge and Overheats Qualities to the weapon, but increases any Blast Quality by +2 (so an Astartes Plasma Cannon would fire a Blast (3) on Maximal).</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Plasma Pistol", "type": "weapon", "folder": "Ranged Weapons/Plasma",
+    "img": "systems/dark-heresy/assets/icons/weapons/plasma-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "plasma", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "1d10+8", "damageType": "energy", "penetration": "8",
+      "clip": { "max": 12, "value": 12 }, "reload": "3 Full", "special": "Volatile, Maximal",
+      "weight": 6, "requisition": 25, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Few pistols are deadlier than the plasma pistol, and many ranking Adeptus Astartes find them worth the trouble of acquiring and the risk of using for their sheer efficiency in eliminating foes at close range.</p><div class='bc-rule'><p><strong>Firing Plasma Weapons.</strong> Plasma weapons can be used in two firing modes: standard mode (the normal and safest method), or a higher-powered blast with a longer range and higher temperature. The latter requires a short time to replenish the plasma back to firing levels. When an Astartes plasma weapon fires in Maximal mode, it gains an extra 10 metres to range, 1d10 to Damage, and +2 Pen, but uses 3 rounds of ammunition. The Maximal setting also adds the Recharge and Overheats Qualities to the weapon, but increases any Blast Quality by +2 (so an Astartes Plasma Cannon would fire a Blast (3) on Maximal).</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Infernus Pistol", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/inferno-pistol.webp",
+    "system": {
+      "class": "pistol", "type": "melta", "range": 10,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+8", "damageType": "energy", "penetration": "13",
+      "clip": { "max": 4, "value": 4 }, "reload": "Full", "special": "",
+      "weight": 5, "requisition": 35, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Infernus pistol represents specialised and ancient technology, almost impossible for even the Adeptus Astartes to recreate.</p><div class='bc-rule'><p>Mere handfuls exist in any sector, and they are found only in the hands of Battle-Brothers who have proven themselves worthy of such a profoundly rare weapon. This is a favoured weapon of the Blood Angels Chapter.</p><p>Meltas are the premier anti-armour weapons, and few if any vehicles can withstand their power. Astartes melta weapons deal an extra 1d10 Damage to targets at Short Range or closer.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Meltagun (Vulkan)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "basic", "type": "melta", "range": 20,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+8", "damageType": "energy", "penetration": "13",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full", "special": "",
+      "weight": 14, "requisition": 20, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Meltaguns are the most common form of melta weapon and are found in many Imperial forces.</p><div class='bc-rule'><p>They are less prone to catastrophic failure than plasma guns and work best at shorter ranges. An ideal weapon for cutting through bulkheads or armour, the Deathwatch has no end of uses for it. The Vulkan-pattern uses a built-in fuel canister, but versions with a backpack attachment are also common.</p><p>Meltas are the premier anti-armour weapons, and few if any vehicles can withstand their power. Astartes melta weapons deal an extra 1d10 Damage to targets at Short Range or closer.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Multi-melta (Maxima)", "type": "weapon", "folder": "Ranged Weapons/Melta",
+    "img": "systems/dark-heresy/assets/icons/weapons/meltagun.webp",
+    "system": {
+      "class": "heavy", "type": "melta", "range": 60,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "4d10+6", "damageType": "energy", "penetration": "13",
+      "clip": { "max": 12, "value": 12 }, "reload": "2 Full", "special": "Blast (1)",
+      "weight": 72, "requisition": 35, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The largest type of melta weapon is the multi-melta, and models not built for the Adeptus Astartes and their vehicles are rare.</p><div class='bc-rule'><p>This huge weapon carries more fuel, fires at much longer ranges, and creates a larger blast area capable of vaporising several square metres at a time. It also generates much more heat than its smaller cousins, making proximity to the firer highly uncomfortable for those not insulated by power armour.</p><p>Meltas are the premier anti-armour weapons, and few if any vehicles can withstand their power. Astartes melta weapons deal an extra 1d10 Damage to targets at Short Range or closer.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "basic", "type": "flame", "range": 20,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "energy", "penetration": "3",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full", "special": "Flame",
+      "weight": 15, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The flamer is an ideal weapon for flushing out enemies in cover and cleansing areas with purifying flame.</p><div class='bc-rule'><p>The typical Adeptus Astartes model accepts fuel through a pressure seal that can attach to a backpack feed for longer uninterrupted usage or a smaller canister for quick refuelling in bursts.</p><p>Due to the exceptional grade of fuel, a victim caught on fire by an Astartes Flame Weapon takes an additional 4 points of damage per Round from being on fire. (For the full effects of fire, see page 260.)</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 148"
+    }
+  },
+  {
+    "name": "Astartes Hand Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/hand-flamer.webp",
+    "system": {
+      "class": "pistol", "type": "flame", "range": 10,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "energy", "penetration": "3",
+      "clip": { "max": 4, "value": 4 }, "reload": "2 Full", "special": "Flame",
+      "weight": 6, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>This hand-held flamer is still capable of unleashing large blasts of flame, but is good for only a few shots before the fuel canister must be switched out.</p><div class='bc-rule'><p>Due to the exceptional grade of fuel, a victim caught on fire by an Astartes Flame Weapon takes an additional 4 points of damage per Round from being on fire. (For the full effects of fire, see page 260.)</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Astartes Heavy Flamer", "type": "weapon", "folder": "Ranged Weapons/Flame",
+    "img": "systems/dark-heresy/assets/icons/weapons/flamer.webp",
+    "system": {
+      "class": "heavy", "type": "flame", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+6", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 10, "value": 10 }, "reload": "2 Full", "special": "Flame",
+      "weight": 65, "requisition": 15, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>While the size and weight of heavy flamers makes them an unpopular choice among many Imperial forces, these are hardly deterrents to a Space Marine in power armour.</p><div class='bc-rule'><p>Terminator squads and many vehicles make frequent use of the large saturation area of heavy flamers. The twin nozzles produce huge gouts of fire, enough to purge the densest terrain of xenos.</p><p>Due to the exceptional grade of fuel, a victim caught on fire by an Astartes Flame Weapon takes an additional 4 points of damage per Round from being on fire. (For the full effects of fire, see page 260.)</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Astartes Assault Cannon", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-stubber.webp",
+    "system": {
+      "class": "heavy", "type": "solidprojectile", "range": 150,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 10 },
+      "damage": "3d10+6", "damageType": "impact", "penetration": "6",
+      "clip": { "max": 200, "value": 200 }, "reload": "3 Full", "special": "Tearing",
+      "weight": 80, "requisition": 30, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>An assault cannon is a massive, brutal weapon with a ring of rotating barrels that spray explosive shells at terrifying speed and velocity.</p><div class='bc-rule'><p>This weapon’s incredible firepower can shred troops or vehicles even more efficiently than a heavy bolter, although its size and weight somewhat preclude man-portability. The Adeptus Astartes circumvent that limitation by commonly employing them on Terminators.</p><p><strong>Class: Mounted.</strong> Mounted weapons are heavy weapons too large and powerful to be man-portable. They are fired using the appropriate Heavy Weapon Training Talents, but must be mounted on a weapons platform (such as Terminator armour) or a vehicle.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Astartes Shotgun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/combat-shotgun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "2d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 18, "value": 18 }, "reload": "Full", "special": "Reliable, Scatter",
+      "weight": 10, "requisition": 5, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Most commonly encountered in Scout units, the shotgun is a solid and versatile weapon.</p><div class='bc-rule'><p>While its lack of armour penetration does not make it a widely deployed choice with more senior Battle-Brothers, that same aspect is useful in situations where breaching bulkheads or damaging equipment is a concern. The wide shot spray also makes it effective against creatures and enemies in large numbers.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Autogun", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autogun.webp",
+    "system": {
+      "class": "basic", "type": "solidprojectile", "range": 90,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 10 },
+      "damage": "1d10+3", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 30, "value": 30 }, "reload": "2 Full", "special": "",
+      "weight": 3.5, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cheap and easy to produce, autoguns are a common weapon across the galaxy; even alien races acquire and use them or sometimes make their own equivalents.</p><div class='bc-rule'><p>These rapid-firing automatic weapons use common solid low-calibre shells fed via standardized clips. Reliable, rugged, and easily stocked with ammunition, they are a mainstay on many a planet.</p><p>Requisition N/A — items listed as N/A are not typically stocked in Watch Station armouries.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Autopistol", "type": "weapon", "folder": "Ranged Weapons/Solid Projectile",
+    "img": "systems/dark-heresy/assets/icons/weapons/autopistol.webp",
+    "system": {
+      "class": "pistol", "type": "solidprojectile", "range": 30,
+      "rateOfFire": { "single": 0, "burst": 0, "full": 6 },
+      "damage": "1d10+2", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 18, "value": 18 }, "reload": "Full", "special": "",
+      "weight": 2.5, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Small but effective, autopistols are a favourite among many military veterans as a supplement for their standard lasgun.</p><div class='bc-rule'><p>They have a faster rate of fire than most pistols, and can put down un-armoured targets in a single burst of shells.</p><p>Requisition N/A — items listed as N/A are not typically stocked in Watch Station armouries.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Astartes Lascannon", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lascannon.webp",
+    "system": {
+      "class": "heavy", "type": "las", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "6d10+10", "damageType": "energy", "penetration": "10",
+      "clip": { "max": 6, "value": 6 }, "reload": "2 Full", "special": "",
+      "weight": 75, "requisition": 30, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Las technology is generally of little interest to the Adeptus Astartes, who have access to more powerful weapons and do not answer to the Departmento Munitorum for their ammunition costs.</p><div class='bc-rule'><p>The Lascannon is the exception. These guns use huge power packs that provide enough energy to punch holes in the thickest armour even at extreme ranges. Lascannons require separate power packs, which the Space Marines usually affix to their backpack generators.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 149"
+    }
+  },
+  {
+    "name": "Lasgun", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/lasgun.webp",
+    "system": {
+      "class": "basic", "type": "las", "range": 100,
+      "rateOfFire": { "single": 1, "burst": 3, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 60, "value": 60 }, "reload": "Full", "special": "Reliable",
+      "weight": 4, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Produced in a multitude of different styles and patterns, the lasgun can be found on almost every world of the Imperium, where its robust design and dependability make it a favoured weapon of both the Emperor’s faithful and many of their foes.</p><div class='bc-rule'><p>Requisition N/A — items listed as N/A are not typically stocked in Watch Station armouries.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 150"
+    }
+  },
+  {
+    "name": "Laspistol", "type": "weapon", "folder": "Ranged Weapons/Las",
+    "img": "systems/dark-heresy/assets/icons/weapons/laspistol.webp",
+    "system": {
+      "class": "pistol", "type": "las", "range": 30,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+2", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 30, "value": 30 }, "reload": "Full", "special": "Reliable",
+      "weight": 1.5, "requisition": 0, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>The laspistol is most commonly used by lower ranking Imperial officers and agents.</p><div class='bc-rule'><p>On many worlds it is common for almost every member of society to be armed with one as a matter of course. Almost every Forge World has their own pattern and style, as the basic weapon is so simple that it allows a multitude of variations.</p><p>Requisition N/A — items listed as N/A are not typically stocked in Watch Station armouries.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 150"
+    }
+  },
+  {
+    "name": "Astartes Cyclone Missile Launcher", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 300,
+      "rateOfFire": { "single": 1, "burst": 2, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 12, "value": 12 }, "reload": "3 Full", "special": "",
+      "weight": 95, "requisition": 25, "renown": "famed",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Cyclone missile launchers were specially designed for use with Tactical Dreadnought armour.</p><div class='bc-rule'><p>Valuable enough for their ability to launch missiles rapidly from the twin racks, this back-mounted missile system also makes up for some of Terminator armour’s inflexibility by providing more options in combat. Each of the missile racks may be loaded with a different missile type, allowing the user to decide which type to fire each round.</p><p><strong>Class: Mounted.</strong> Mounted weapons are heavy weapons too large and powerful to be man-portable. They are fired using the appropriate Heavy Weapon Training Talents, but must be mounted on a weapons platform (such as Terminator armour) or a vehicle.</p><p>Damage, Penetration and Special ††† — varies with ammunition.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 152"
+    }
+  },
+  {
+    "name": "Astartes Missile Launcher (Soundstrike)", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/portable-missile-launcher.webp",
+    "system": {
+      "class": "heavy", "type": "launcher", "range": 250,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 8, "value": 8 }, "reload": "Full", "special": "",
+      "weight": 50, "requisition": 10, "renown": "none",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A missile is fitted with stabilisation and guidance systems to aid in its accuracy, which is excellent at long ranges.</p><div class='bc-rule'><p>Access to the variety of long distance warfare options these explosive rounds provide requires a missile launcher. The standard Astartes missile launcher is a tube-like weapon that fires a single round at great accuracy. The Soundstrike pattern overcomes the single capacity of the launch tube by attaching a special missile rack and auto-loader to a backpack power unit. The auto-loader’s gripping claw rapidly refills the launcher from the back-mounted ammo source, allowing the Battle-Brother to fire the missiles of his choice without interruption until his missile rack is depleted.</p><p>Requisitioning a missile launcher includes the requisition of frag and/or krak missiles sufficient to keep the weapon loaded with whatever configuration of the two missile types is desired. Alternative missile types must be Requisitioned as normal.</p><p>Damage, Penetration and Special ††† — varies with ammunition.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 152"
+    }
+  },
+  {
+    "name": "Auxiliary Grenade Launcher", "type": "weapon", "folder": "Ranged Weapons/Launchers",
+    "img": "systems/dark-heresy/assets/icons/weapons/grenade-launcher.webp",
+    "system": {
+      "class": "basic", "type": "launcher", "range": 45,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 4, "value": 4 }, "reload": "2 Full", "special": "",
+      "weight": 3, "requisition": 15, "renown": "respected",
+      "description": "<div class='bc-entry'><p class='bc-lead'>When a Space Marine’s enhanced strength is not adequate to propel his choice of grenades far enough, an auxiliary grenade launcher can be employed.</p><div class='bc-rule'><p>These compact tubes hold a small row of pre-primed grenades. An auxiliary grenade launcher is most commonly mounted above or below the barrel of a basic weapon in a manner similar to a combi-weapon. However, models with standalone trigger mechanisms are also available. If attached to another weapon, the user must choose which one to fire; the launcher cannot be fired in the same Turn as the weapon it is attached to. This weapon may also be mounted on Terminator Armour. Doing so, however, doubles this weapon’s Requisition cost.</p><p>Class n/a, Wt +3 — the weight is added to the weapon it is mounted on. Damage, Penetration and Special ††† — varies with ammunition.</p></div></div>",
+      "source": "Deathwatch, p. 145 (Table 5-5), p. 152"
+    }
+  }
+]

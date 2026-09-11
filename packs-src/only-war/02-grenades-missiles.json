@@ -1,0 +1,277 @@
+[
+  {
+    "name": "Anti-Plant Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/choke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3)", "weight": 0.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives release a wide range of toxic and viral agents that quickly reduce almost any type of flora to a foul-smelling muck, depriving the enemy of cover while not seriously harming other materials.</p><div class='bc-rule'><p>Larger versions are also used to create improvised landing zones and clear foliage for quick camp sites or building locations.</p><p>Damage only effects flora and has no other effect.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Blind Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/smoke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke (3)", "weight": 0.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blind explosives detonate with a burst of dense smoke, IR bafflers, and broadband EM-spectrum chaff, all of which is designed to block detection through the cloud.</p><div class='bc-rule'><p>Sensors and vision that would pierce normal smoke cannot see through haze created by a blind explosives.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Fire Bomb Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/fire-bomb.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "energy", "penetration": "6",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3), Flame", "weight": 0.5, "availability": "plentiful",
+      "description": "<div class='bc-entry'><p class='bc-lead'>A relatively primitive explosive, the fire bomb is normally a breakable canister of flammable liquid with a fuse made from cloth or other material that the liquid can soak into.</p><div class='bc-rule'><p>Once the fuse is set aflame, the bomb is hurled at the enemy; the canister breaks open on impact to release the now burning liquid.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Frag Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3), Ogryn-Proof", "weight": 0.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives use a combustible charge and special fillers of shrapnel fragments.</p><div class='bc-rule'><p>Imperial frag grenades are roughly the size of a clenched fist and covered with a heavily notched shell, both to increase the shrapnel produced and provide a more secure grip for throwing.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Hallucinogen Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/choke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Hallucinogenic (2), Blast (6)", "weight": 0.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These kinds of explosives induce a variety of short-lived psychological states and delusions.</p><div class='bc-rule'><p>Anyone within 10 metres of a detonating hallucinogen explosive must succeed on a Difficult (–10) Toughness Test or be overcome with delusions and hallucinations for 1d10 Rounds. When the character is first affected by a hallucination, roll on Table 6–7: Hallucinogen Effects, page 170 to see how the character behaves for the next 1d10 Rounds.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182–183"
+    }
+  },
+  {
+    "name": "Krak Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+4", "damageType": "explosive", "penetration": "6",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Concussive (0)", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak explosives have powerful concentrated explosives designed to punch holes in armoured targets such as vehicles or bunkers.</p><div class='bc-rule'><p>While stronger than frag explosives, krak detonations do not produce a Blast effect and their more focused explosion makes them less practical for use against people. Krak explosives trigger Righteous Fury against vehicles on a roll of a 9 or a 10.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Photon Flash Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (10)", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Photon flash explosives detonate like a small star, blinding anyone nearby and bright enough to overload primitive vision protection systems.</p><div class='bc-rule'><p>Anyone within 15 metres of a photon flash grenade when it detonates must succeed on a Ordinary (+10) Agility Test or be blinded for a number of Rounds equal to his Degrees of Failure.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Smoke Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/smoke-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke (6)", "weight": 0.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives release a dense smoke which only obscures basic eyesight and optical based systems.</p><div class='bc-rule'><p>They do not block detection systems that use heat or other spectral bands outside of normal human eyesight, but are much more widely available and easier to construct.</p><p>Unlike blind, this only interferes with visual sight.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Stun Grenade", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/photon-flash-grenade.webp",
+    "system": {
+      "class": "thrown", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (3), Concussive (2)", "weight": 0.5, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Stun explosives use a combination of a loud detonation and a flash of light to momentarily incapacitate targets before an assault is launched.</p><div class='bc-rule'><p>They are designed for non-lethal uses and generally cause no lasting injury.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 184"
+    }
+  },
+
+  {
+    "name": "Frag Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10+2", "damageType": "explosive", "penetration": "2",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (5)", "weight": 0.5, "availability": "average",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives use a combustible charge and special fillers of shrapnel fragments, loaded into a missile launcher rather than thrown by hand.</p><div class='bc-rule'><p>Table 6-10 prints the Special column for this missile as “Blast (5),” with a trailing comma and nothing after it.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Krak Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/krak-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10+8", "damageType": "explosive", "penetration": "8",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Concussive (3), Proven (2)", "weight": 0.5, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Krak explosives have powerful concentrated explosives designed to punch holes in armoured targets such as vehicles or bunkers.</p><div class='bc-rule'><p>Krak explosives trigger Righteous Fury against vehicles on a roll of a 9 or a 10.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Minefield Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "1",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (1)", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells are designed to splinter open at the highest arc of their trajectory, releasing a plethora of sub-munitions with two impact triggers. Once the first is sprung upon contact with the ground, the second trigger deploys—awaiting only a single, unlucky step to unleash its powerful explosives.</p><div class='bc-rule'><p>Easy to use and safe from a distance, minefield rounds are an effective way to lay down a protective cordon around a bunker or other defensive location. These rounds can only be used in either mortars or missile launchers (not grenade launchers) and cannot be thrown.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Scatter Missile", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/frag-missile.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (10)", "weight": 0.5, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Scatter Rounds combine much smaller and less-powerful frag grenades into a single missile launcher round.</p><div class='bc-rule'><p>These are generally fired in a high arc and disperse into separate micro-explosives, spreading the explosive effect over a huge radius. These rounds can only be used in either mortars or missile launchers (not grenade launchers) and cannot be thrown.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+
+  {
+    "name": "Anti-Plant Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "3d10", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (5)", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives release a wide range of toxic and viral agents that quickly reduce almost any type of flora to a foul-smelling muck, depriving the enemy of cover while not seriously harming other materials.</p><div class='bc-rule'><p>Damage only effects flora and has no other effect.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Blind Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke (6)", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Blind explosives detonate with a burst of dense smoke, IR bafflers, and broadband EM-spectrum chaff, all of which is designed to block detection through the cloud.</p><div class='bc-rule'><p>Sensors and vision that would pierce normal smoke cannot see through haze created by a blind explosives.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Frag Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "3",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (5)", "weight": 1, "availability": "common",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives use a combustible charge and special fillers of shrapnel fragments, fired from a mortar as a round.</p></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 182"
+    }
+  },
+  {
+    "name": "Minefield Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "2d10", "damageType": "explosive", "penetration": "1",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (1)", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These shells are designed to splinter open at the highest arc of their trajectory, releasing a plethora of sub-munitions with two impact triggers.</p><div class='bc-rule'><p>Easy to use and safe from a distance, minefield rounds are an effective way to lay down a protective cordon around a bunker or other defensive location. These rounds can only be used in either mortars or missile launchers (not grenade launchers) and cannot be thrown.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Photon Flash Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (12)", "weight": 1, "availability": "rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Photon flash explosives detonate like a small star, blinding anyone nearby and bright enough to overload primitive vision protection systems.</p><div class='bc-rule'><p>Anyone within 15 metres of a photon flash grenade when it detonates must succeed on a Ordinary (+10) Agility Test or be blinded for a number of Rounds equal to his Degrees of Failure.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Scatter Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "1d10+3", "damageType": "explosive", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Blast (7)", "weight": 1, "availability": "very-rare",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Scatter Rounds combine much smaller and less-powerful frag grenades into a single missile launcher round.</p><div class='bc-rule'><p>These are generally fired in a high arc and disperse into separate micro-explosives, spreading the explosive effect over a huge radius. These rounds can only be used in either mortars or missile launchers (not grenade launchers) and cannot be thrown.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Smoke Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "impact", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "Smoke (9)", "weight": 1, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These explosives release a dense smoke which only obscures basic eyesight and optical based systems.</p><div class='bc-rule'><p>They do not block detection systems that use heat or other spectral bands outside of normal human eyesight, but are much more widely available and easier to construct. Unlike blind, this only interferes with visual sight.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 183"
+    }
+  },
+  {
+    "name": "Starflare Round", "type": "weapon", "folder": "Grenades & Missiles",
+    "img": "systems/dark-heresy/assets/icons/weapons/explosive.webp",
+    "system": {
+      "class": "launched", "type": "explosive", "range": 0,
+      "rateOfFire": { "single": 1, "burst": 0, "full": 0 },
+      "damage": "", "damageType": "energy", "penetration": "0",
+      "clip": { "max": 1, "value": 1 }, "reload": "",
+      "special": "", "weight": 1, "availability": "scarce",
+      "description": "<div class='bc-entry'><p class='bc-lead'>These are fired high into the air via mortar, where they burst into a multitude of small flares.</p><div class='bc-rule'><p>As the flares burn out and drift to the ground, they fully illuminate the underlying area for almost a minute. They can also dazzle the vision of anyone not wearing protective lenses. These rounds can only be used in mortars (not grenade or missile launchers) and cannot be thrown.</p></div></div>",
+      "source": "Only War, p. 183 (Table 6-10), p. 184"
+    }
+  }
+]
