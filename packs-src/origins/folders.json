@@ -14,5 +14,10 @@
   "Only War/Regiment Creation/Training Doctrines": {},
   "Only War/Regiment Creation/Special Equipment Doctrines": {},
   "Black Crusade": {"color": "#5c2b52", "sort": 400},
+ "Black Crusade/Races": {},
+ "Black Crusade/Archetypes": {},
+ "Black Crusade/Prides": {},
+ "Black Crusade/Disgraces": {},
+ "Black Crusade/Motivations": {},
   "Deathwatch": {"color": "#2b2b5c", "sort": 500}
 }

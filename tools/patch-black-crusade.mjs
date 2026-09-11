@@ -10,11 +10,20 @@
  */
 import {createRequire} from "node:module";
 import {talentPatron} from "../script/creation/bc-talents.mjs";
+import {MISSING_ITEMS} from "./lib/black-crusade-items.mjs";
 
 const require = createRequire(import.meta.url);
 const {ClassicLevel} = require("d:/Foundry/Foundry14/Foundry Virtual Tabletop/resources/app/node_modules/classic-level");
 
 const DEST = "packs/black-crusade";
+
+/** Идентификатор в том же виде, в каком их пишет сам Foundry. */
+const randomId = () => {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let out = "";
+    for (let i = 0; i < 16; i++) out += alphabet[Math.floor(Math.random() * alphabet.length)];
+    return out;
+};
 const check = process.argv.includes("--check");
 
 const db = new ClassicLevel(DEST, {valueEncoding: "json"});
@@ -37,17 +46,31 @@ for await (const [key, value] of db.iterator({gte: "!items!", lt: "!items!\uffff
     changes.push(`${value.name}: ${value.system?.patron ?? "—"} -> ${book.patron}`);
 }
 
+// Записи книги, которых в паке не оказалось вовсе.
+const present = new Set();
+for await (const [, value] of db.iterator({gte: "!items!", lt: "!items!￿"}))
+    present.add(`${value.type}:${value.name.toLowerCase()}`);
+const added = [];
+for (const item of MISSING_ITEMS) {
+    if (present.has(`${item.type}:${item.name.toLowerCase()}`)) continue;
+    const id = randomId();
+    batch.put(`!items!${id}`, {...item, _id: id});
+    added.push(`${item.type}: ${item.name}`);
+}
+
 if (check) {
     await batch.close();
     await db.close();
-    console.log(changes.length ? `${changes.length} talents would change:` : "nothing to change");
+    console.log(changes.length ? `${changes.length} talents would change:` : "no talent would change");
     for (const line of changes) console.log("  " + line);
+    console.log(added.length ? `${added.length} items would be added:` : "nothing to add");
+    for (const line of added) console.log("  " + line);
     if (unknown.length) console.log(`not in the book's tables (left alone): ${unknown.join(", ")}`);
     process.exit(0);
 }
 
 await batch.write();
 await db.close();
-console.log(`${changes.length} talents given their god`);
-for (const line of changes) console.log("  " + line);
+console.log(`${changes.length} talents given their god, ${added.length} items added`);
+for (const line of [...changes, ...added]) console.log("  " + line);
 if (unknown.length) console.log(`not in the book's tables (left alone): ${unknown.join(", ")}`);

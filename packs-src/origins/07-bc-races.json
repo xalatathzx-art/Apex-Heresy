@@ -1,0 +1,224 @@
+[
+  {
+    "name": "Human",
+    "type": "origin",
+    "folder": "Black Crusade/Races",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "race",
+      "order": 1,
+      "key": "human",
+      "cost": 0,
+      "description": "<p>Untold millions of humans live out their lives under the eternal vigilance of the Imperium's deathless tyrant. Those mortals who embrace Chaos instead are sometimes called Disciples of Chaos. A human Heretic is far less durable than a Traitor Legionnaire, but he begins with far more opportunities to choose his own path.</p>",
+      "source": "Black Crusade, p. 51",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "characteristicBase": 25,
+        "startingExperience": 1000
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [],
+        "specialities": [
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "talents": [],
+        "traits": [
+          {
+            "name": "The Quick and the Dead"
+          }
+        ],
+        "equipment": []
+      },
+      "choices": [
+        {
+          "key": "commonLore",
+          "type": "many",
+          "label": "Common Lore (any two)",
+          "count": 2,
+          "groups": ["commonLore"],
+          "advance": 0
+        },
+        {
+          "key": "trade",
+          "type": "many",
+          "label": "Trade (any one)",
+          "count": 1,
+          "groups": ["trade"],
+          "advance": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Chaos Space Marine",
+    "type": "origin",
+    "folder": "Black Crusade/Races",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "race",
+      "order": 2,
+      "key": "chaosSpaceMarine",
+      "cost": 0,
+      "description": "<p>Ten thousand years ago nine Primarchs and their Legions turned against the Emperor, and the Dark Gods rewarded those who followed Horus. A Chaos Space Marine still bears the superhuman strength and resilience of the geneseed, and the implants that made him: a second heart, the Larraman's organ, the multi-lung, the Black Carapace. He is mighty, and he can never again pass for a man.</p>",
+      "source": "Black Crusade, p. 49",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "characteristicBase": 30,
+        "startingExperience": 500
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "athletics",
+            "advance": 0
+          },
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "dodge",
+            "advance": 0
+          },
+          {
+            "key": "parry",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Adeptus Astartes",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "The Horus Heresy and the Long War",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          },
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Ambidextrous"
+          },
+          {
+            "name": "Bulging Biceps"
+          },
+          {
+            "name": "Legion Weapon Training"
+          },
+          {
+            "name": "Heightened Senses (Hearing)"
+          },
+          {
+            "name": "Heightened Senses (Sight)"
+          },
+          {
+            "name": "Nerves of Steel"
+          },
+          {
+            "name": "Quick Draw"
+          },
+          {
+            "name": "Resistance (Cold)"
+          },
+          {
+            "name": "Resistance (Heat)"
+          },
+          {
+            "name": "Resistance (Poisons)"
+          },
+          {
+            "name": "Unarmed Warrior"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Amphibious"
+          },
+          {
+            "name": "Unnatural Characteristic (Strength +4)"
+          },
+          {
+            "name": "Unnatural Characteristic (Toughness +4)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Legion Power Armour"
+          },
+          {
+            "name": "Legion Combat Knife"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingWeapon",
+          "type": "one",
+          "label": "Legion Bolter or Legion Bolt Pistol, with four magazines",
+          "options": [
+            {
+              "label": "Legion Bolter and four magazines",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Legion Bolter"
+                  },
+                  {
+                    "name": "Standard Bolt Gun Clip",
+                    "quantity": 4
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Legion Bolt Pistol and four magazines",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Legion Bolt Pistol"
+                  },
+                  {
+                    "name": "Standard Bolt Pistol Clip",
+                    "quantity": 4
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
