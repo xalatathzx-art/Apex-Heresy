@@ -137,9 +137,11 @@
                     <dd>{{localize "CONDITION.STUNNED"}} ({{signed targetConditionModifier}})</dd>
                 {{/if}}
 
-                {{#if targetSizeModifier}}
+                {{!-- Показываем и нулевую поправку: за нулём стоит Чёрный Панцирь, и
+                      промолчать о нём значит выдать сработавшее правило за его отсутствие. --}}
+                {{#if targetSizeLabel}}
                     <dt>{{localize "CHAT.TARGET_SIZE"}}</dt>
-                    <dd>{{localize "SIZE"}} ({{signed targetSizeModifier}})</dd>
+                    <dd>{{targetSizeLabel}} ({{signed targetSizeModifier}})</dd>
                 {{/if}}
 
                 {{#if actorConditionModifier}}

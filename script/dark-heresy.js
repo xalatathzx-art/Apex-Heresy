@@ -7,6 +7,7 @@ import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
 import { patronOf } from "./creation/bc-talents.mjs";
 import { PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader } from "./creation/patron-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
+import {targetSizeModifier, sizeToHitModifier, wearsTerminatorArmour, describeTargetSize} from "./data/size-rules.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
 import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
@@ -3746,6 +3747,8 @@ async function _computeCombatTarget(rollData) {
     rollData.targetConditionModifier = targetConditionMod;
     rollData.actorConditionModifier = actorConditionMod;
     rollData.targetSizeModifier = targetSizeMod;
+    // Одного числа мало: ноль за Чёрным Панцирем выглядит как «правила не было».
+    rollData.targetSizeLabel = _targetSizeLabel(rollData);
     
     // Разброс даёт бонус к попаданию только вблизи; ступень берётся из уже
     // посчитанного модификатора дальности (BC, стр. 152).
@@ -17074,12 +17077,39 @@ function _getTargetSizeModifier(rollData) {
     const token = canvas.tokens.get(target.tokenId);
     if (!token || !token.actor) return 0;
     
-    // Check if target has Space Marine flag - if so, ignore size modifier
-    if (token.actor.getFlag("dark-heresy", "spaceMarine")) {
-        return 0;
-    }
-    
-    return _sizeModifier(token.actor.system?.size);
+    // Чёрный Панцирь, терминаторская броня и сама величина — одно правило, и живёт
+    // оно в size-rules.mjs, где его видно целиком.
+    return targetSizeModifier({
+        size: token.actor.system?.size,
+        spaceMarine: !!token.actor.getFlag("dark-heresy", "spaceMarine"),
+        terminator: wearsTerminatorArmour(token.actor.items ?? [])
+    });
+}
+
+/**
+ * Подпись к поправке за величину: «Hulking», «Hulking, Black Carapace»,
+ * «Hulking, Terminator armour». Число стоит рядом в самой карточке.
+ *
+ * @param {object} rollData
+ * @returns {string} пустая строка, если цели нет или правило неприменимо
+ */
+function _targetSizeLabel(rollData) {
+    if (!rollData?.flags?.isAttack || !rollData?.weapon?.isRange) return "";
+    const target = rollData?.targets?.[0];
+    if (!target || !canvas?.ready) return "";
+    if (target.sceneId && canvas.scene?.id !== target.sceneId) return "";
+    const actor = canvas.tokens.get(target.tokenId)?.actor;
+    if (!actor) return "";
+
+    const parts = describeTargetSize({
+        size: actor.system?.size,
+        spaceMarine: !!actor.getFlag("dark-heresy", "spaceMarine"),
+        terminator: wearsTerminatorArmour(actor.items ?? [])
+    });
+    const words = [game.i18n.localize(`SIZE_STEP.${parts.sizeName.toUpperCase()}`)];
+    if (parts.carapace) words.push(game.i18n.localize("BLACK_CARAPACE"));
+    if (parts.terminator) words.push(game.i18n.localize("TERMINATOR_ARMOUR"));
+    return words.join(", ");
 }
 
 /**
@@ -17120,19 +17150,7 @@ function _burningCrewModifier(actor) {
  * @returns {number}     Поправка к попаданию: −30 у крошечной, +60 у титанической
  */
 function _sizeModifier(size) {
-    const sizeModifiers = {
-        1: -30,
-        2: -20,
-        3: -10,
-        4: 0,
-        5: 10,
-        6: 20,
-        7: 30,
-        8: 40,
-        9: 50,
-        10: 60
-    };
-    return sizeModifiers[Number(size) || 4] || 0;
+    return sizeToHitModifier(size);
 }
 
 /**
