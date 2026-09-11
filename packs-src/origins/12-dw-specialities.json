@@ -1,0 +1,925 @@
+[
+  {
+    "name": "Deathwatch Apothecary",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 1,
+      "key": "apothecary",
+      "cost": 0,
+      "description": "<p>The gene-seed of a fallen Battle-Brother must go home. In the Deathwatch that duty is heavier still: no Chapter would send its sons across the galaxy if it doubted their return.</p>",
+      "source": "Deathwatch, p. 69",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "ballisticSkill": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "strength": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "toughness": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "agility": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "intelligence": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "perception": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "willpower": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "fellowship": [
+            500,
+            1000,
+            1500,
+            2000
+          ]
+        },
+        "advances": [
+          {
+            "name": "Chem-Use",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Interrogation",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Medicae",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Autosanguine",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Hardy",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "T 40"
+          },
+          {
+            "name": "Resistance (Cold)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Resistance (Heat)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Resistance (Poisons)",
+            "cost": 500,
+            "type": "talent"
+          }
+        ],
+        "specialAbility": "Choose one: Guardian of Purity, Create Toxins or Enhance Healing"
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "medicae",
+            "advance": 0
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Bolter (Godwyn)"
+          },
+          {
+            "name": "Reductor"
+          },
+          {
+            "name": "Narthecium"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "specialAbility",
+          "type": "one",
+          "label": "Special Ability",
+          "options": [
+            {
+              "label": "Guardian of Purity",
+              "grants": {}
+            },
+            {
+              "label": "Create Toxins",
+              "grants": {}
+            },
+            {
+              "label": "Enhance Healing",
+              "grants": {}
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Deathwatch Assault Marine",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 2,
+      "key": "assaultMarine",
+      "cost": 0,
+      "description": "<p>He descends on the screaming jets of his jump pack, scattering grenades among the enemy formation and landing in the gap they leave.</p>",
+      "source": "Deathwatch, p. 73",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "ballisticSkill": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "strength": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "toughness": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "agility": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "intelligence": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "perception": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "willpower": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "fellowship": [
+            500,
+            1000,
+            1500,
+            2000
+          ]
+        },
+        "advances": [
+          {
+            "name": "Catfall",
+            "cost": 200,
+            "type": "talent",
+            "prerequisites": "Ag 30"
+          },
+          {
+            "name": "Double Team",
+            "cost": 200,
+            "type": "talent"
+          },
+          {
+            "name": "Takedown",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Two-weapon Wielder (Ballistic)",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "BS 35, Ag 35"
+          },
+          {
+            "name": "Two-weapon Wielder (Melee)",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "WS 35, Ag 35"
+          }
+        ],
+        "specialAbility": "Angel of Death (Swift Attack), plus one of: Wings of Angels or Wrathful Descent"
+      },
+      "grants": {
+        "aptitudes": [],
+        "specialities": [
+          {
+            "key": "operate",
+            "advance": 0,
+            "name": "Personal"
+          }
+        ],
+        "talents": [
+          {
+            "name": "Swift Attack"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Chainsword"
+          },
+          {
+            "name": "Astartes Jump Pack"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "specialAbility",
+          "type": "one",
+          "label": "Special Ability (Angel of Death is his already)",
+          "options": [
+            {
+              "label": "Wings of Angels",
+              "grants": {}
+            },
+            {
+              "label": "Wrathful Descent",
+              "grants": {}
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Deathwatch Devastator Marine",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 3,
+      "key": "devastatorMarine",
+      "cost": 0,
+      "description": "<p>The single most important qualification is not skill at arms but raw courage: he must stand before a gargantuan horror and remain cold as steel while he draws a bead on its weak point.</p>",
+      "source": "Deathwatch, p. 77",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "ballisticSkill": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "strength": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "toughness": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "agility": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "intelligence": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "perception": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "willpower": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "fellowship": [
+            500,
+            1000,
+            1500,
+            2000
+          ]
+        },
+        "advances": [
+          {
+            "name": "Cleanse and Purify",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Exotic Weapon Training (any)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Mighty Shot",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "BS 40"
+          },
+          {
+            "name": "Stalwart Defence",
+            "cost": 500,
+            "type": "talent"
+          }
+        ],
+        "specialAbility": "Choose one: Immovable Warrior or Unrelenting Devastation"
+      },
+      "grants": {
+        "aptitudes": [],
+        "equipment": [
+          {
+            "name": "Astartes Heavy Bolter"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "specialAbility",
+          "type": "one",
+          "label": "Special Ability",
+          "options": [
+            {
+              "label": "Immovable Warrior",
+              "grants": {}
+            },
+            {
+              "label": "Unrelenting Devastation",
+              "grants": {}
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Deathwatch Librarian",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 4,
+      "key": "librarian",
+      "cost": 0,
+      "description": "<p>A weapon of the mind in a Chapter of weapons. Many have foreseen their own death at the claws of some alien monstrosity, and gone to it stoically.</p>",
+      "source": "Deathwatch, p. 81",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "ballisticSkill": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "strength": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "toughness": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "agility": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "intelligence": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "perception": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "willpower": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "fellowship": [
+            750,
+            1500,
+            2000,
+            5000
+          ]
+        },
+        "advances": [
+          {
+            "name": "Invocation",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Common (any)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Adeptus Astartes)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Psykers)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Warp)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Scholastic (any)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Psyniscience",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Foresight",
+            "cost": 600,
+            "type": "talent",
+            "prerequisites": "Int 30"
+          },
+          {
+            "name": "Psychic Power (x2)",
+            "cost": 0,
+            "type": "talent",
+            "prerequisites": "See Chapter 6: Psychic Powers"
+          },
+          {
+            "name": "Rite of Sanctioning",
+            "cost": 400,
+            "type": "talent",
+            "prerequisites": "Psy Rating"
+          },
+          {
+            "name": "Warp Sense",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Psy Rating, Psyniscience, Per 30"
+          }
+        ],
+        "specialAbility": "Battle-Psyker: Psy Rating 3 and three Psychic Techniques",
+        "psyker": {
+          "psyRating": 3,
+          "techniques": 3,
+          "techniqueList": [
+            "Inspire",
+            "Augury",
+            "Reading",
+            "Avenger",
+            "Iron Arm",
+            "Short Range Telepathy",
+            "Smite"
+          ]
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "psyniscience",
+            "advance": 0
+          }
+        ],
+        "traits": [
+          {
+            "name": "Psyker"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Bolter (Godwyn)"
+          },
+          {
+            "name": "Astartes Force Sword"
+          }
+        ]
+      },
+      "choices": []
+    }
+  },
+  {
+    "name": "Deathwatch Tactical Marine",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 5,
+      "key": "tacticalMarine",
+      "cost": 0,
+      "description": "<p>The well-rounded warrior of the Codex, and the one who holds a Kill-team of strangers together.</p>",
+      "source": "Deathwatch, p. 85",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "ballisticSkill": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "strength": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "toughness": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "agility": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "intelligence": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "perception": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "willpower": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "fellowship": [
+            200,
+            500,
+            1000,
+            1500
+          ]
+        },
+        "advances": [
+          {
+            "name": "Air of Authority",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Fel 30"
+          },
+          {
+            "name": "Astartes Weapon Specialisation",
+            "cost": 1000,
+            "type": "talent",
+            "prerequisites": "Astartes Weapon Training"
+          },
+          {
+            "name": "Double Team",
+            "cost": 200,
+            "type": "talent"
+          },
+          {
+            "name": "Rapid Reload",
+            "cost": 200,
+            "type": "talent"
+          }
+        ],
+        "specialAbility": "Choose one: Bolter Mastery or Tactical Expertise",
+        "note": "One clip of Special Issue ammunition per mission, up to 25 Requisition, if he meets its Renown requirement (p. 28)."
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "command",
+            "advance": 0
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Bolter (Godwyn)"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "specialAbility",
+          "type": "one",
+          "label": "Special Ability",
+          "options": [
+            {
+              "label": "Bolter Mastery",
+              "grants": {}
+            },
+            {
+              "label": "Tactical Expertise",
+              "grants": {}
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Deathwatch Techmarine",
+    "type": "origin",
+    "folder": "Deathwatch/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "speciality",
+      "order": 6,
+      "key": "techmarine",
+      "cost": 0,
+      "description": "<p>Sent to Mars and returned changed, he speaks to the machine and it answers. In the field he decides whether alien technology is a threat to be neutralised or a prize to be carried home.</p>",
+      "source": "Deathwatch, p. 89",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "requires": {
+        "originKey": "spaceMarine"
+      },
+      "rules": {
+        "characteristicCosts": {
+          "weaponSkill": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "ballisticSkill": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "strength": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "toughness": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "agility": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "intelligence": [
+            200,
+            500,
+            1000,
+            1500
+          ],
+          "perception": [
+            500,
+            1000,
+            1500,
+            2000
+          ],
+          "willpower": [
+            750,
+            1500,
+            2000,
+            5000
+          ],
+          "fellowship": [
+            750,
+            1500,
+            2000,
+            5000
+          ]
+        },
+        "advances": [
+          {
+            "name": "Lore: Forbidden (Adeptus Mechanicus)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Security",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Speak Language (Techna-Lingua)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Tech-Use",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Autosanguine",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Electro-Graft Use",
+            "cost": 600,
+            "type": "talent"
+          },
+          {
+            "name": "Feedback Screech",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Techmarine"
+          },
+          {
+            "name": "Mechadendrite Use (any)",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Techmarine"
+          },
+          {
+            "name": "Technical Knock",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Int 30"
+          },
+          {
+            "name": "The Flesh is Weak 1",
+            "cost": 800,
+            "type": "talent"
+          }
+        ],
+        "specialAbility": "Blessed by the Omnissiah, plus Improve Cover",
+        "note": "And one other Common craftsmanship cybernetic, chosen at creation (p. 28)."
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "linguistics",
+            "name": "Techna-Lingua",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Electro Graft Use"
+          },
+          {
+            "name": "Mechadendrite Use (Servo-Arm)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Mechanicus Implants"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Bolter (Godwyn)"
+          },
+          {
+            "name": "Astartes Servo-Arm"
+          }
+        ]
+      },
+      "choices": []
+    }
+  }
+]
