@@ -4,6 +4,7 @@ import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
 import { stepsFor } from "./creation/ruleset-data.mjs";
 import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
+import { PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader } from "./creation/patron-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -1361,10 +1362,7 @@ class DarkHeresyActor extends Actor {
         // из остальных на пять улучшений. Пока такого нет — Хаос Неделимый.
         // Улучшения самого Неделимого принадлежности не дают, поэтому и счётчика
         // у него нет: непристроившимся становятся не по очкам, а по их отсутствию.
-        const ranked = Object.entries(totals).sort((a, b) => b[1] - a[1]);
-        const [leader, leadCount] = ranked[0];
-        const runnerUp = ranked[1]?.[1] ?? 0;
-        this.system.alignmentLeader = (leadCount - runnerUp) >= 5 ? leader : "undivided";
+        this.system.alignmentLeader = alignmentLeader(totals);
     }
 
     /**
@@ -15328,13 +15326,7 @@ Dh.infamyPatronRules = {
  * Непристроившемуся всё обходится по цене союзника, включая улучшения самого
  * Хаоса Неделимого: своей цены у него нет ни для кого.
  */
-Dh.patronRelations = {
-    khorne:    { khorne: "own", nurgle: "ally", slaanesh: "enemy", tzeentch: "enemy", undivided: "ally" },
-    nurgle:    { khorne: "ally", nurgle: "own", slaanesh: "enemy", tzeentch: "enemy", undivided: "ally" },
-    slaanesh:  { khorne: "enemy", nurgle: "enemy", slaanesh: "own", tzeentch: "ally", undivided: "ally" },
-    tzeentch:  { khorne: "enemy", nurgle: "enemy", slaanesh: "ally", tzeentch: "own", undivided: "ally" },
-    undivided: { khorne: "ally", nurgle: "ally", slaanesh: "ally", tzeentch: "ally", undivided: "ally" }
-};
+Dh.patronRelations = PATRON_RELATIONS;
 
 /**
  * Таблицы 2-6, 2-7 и 2-9: цены улучшений (Black Crusade, стр. 77–78).
@@ -15344,31 +15336,19 @@ Dh.patronRelations = {
  * Уровни идут подряд и оплачиваются накопительно — перескочить через ступень
  * нельзя, поэтому цена улучшения складывается из всех предыдущих.
  */
-Dh.bcCharacteristicCosts = {
-    own:   [100, 250, 500, 750],
-    ally:  [250, 500, 750, 1000],
-    enemy: [500, 750, 1000, 2500]
-};
+Dh.bcCharacteristicCosts = BC_CHARACTERISTIC_COSTS;
 
-Dh.bcSkillCosts = {
-    own:   [100, 200, 400, 600],
-    ally:  [200, 350, 500, 750],
-    enemy: [250, 500, 750, 1000]
-};
+Dh.bcSkillCosts = BC_SKILL_COSTS;
 
-Dh.bcTalentCosts = {
-    own:   [200, 300, 400],
-    ally:  [250, 500, 750],
-    enemy: [500, 750, 1000]
-};
+Dh.bcTalentCosts = BC_TALENT_COSTS;
 
 /**
  * Тёмная слава живёт вне таблицы: каждое улучшение на +5 стоит 500 ОО при любом
  * покровителе, покупать его можно сколько угодно раз, но только пока показатель
  * ниже 40 — дальше славу зарабатывают деяниями (стр. 77).
  */
-Dh.bcInfamyAdvanceCost = 500;
-Dh.bcInfamyAdvanceCap = 40;
+Dh.bcInfamyAdvanceCost = BC_INFAMY_ADVANCE.cost;
+Dh.bcInfamyAdvanceCap = BC_INFAMY_ADVANCE.cap;
 
 /**
  * Таблица 2-5: к какому богу относится характеристика (Black Crusade, стр. 76).
@@ -15376,12 +15356,7 @@ Dh.bcInfamyAdvanceCap = 40;
  * Покровители есть только у Силы, Выносливости, Силы воли и Общительности;
  * всё остальное, включая Тёмную славу, принадлежит Хаосу Неделимому.
  */
-Dh.bcCharacteristicPatrons = {
-    strength: "khorne",
-    toughness: "nurgle",
-    willpower: "tzeentch",
-    fellowship: "slaanesh"
-};
+Dh.bcCharacteristicPatrons = BC_CHARACTERISTIC_PATRONS;
 
 /**
  * Таблица 2-8: умения и боги (Black Crusade, стр. 78).
@@ -15389,22 +15364,7 @@ Dh.bcCharacteristicPatrons = {
  * Здесь только те, у кого покровитель не Хаос Неделимый — остальные добираются
  * по умолчанию, и список не приходится держать в двух местах.
  */
-Dh.bcSkillPatrons = {
-    acrobatics: "slaanesh",
-    charm: "slaanesh",
-    deceive: "slaanesh",
-    dodge: "slaanesh",
-    athletics: "khorne",
-    command: "khorne",
-    parry: "khorne",
-    survival: "nurgle",
-    intimidate: "nurgle",
-    medicae: "nurgle",
-    forbiddenLore: "tzeentch",
-    logic: "tzeentch",
-    scrutiny: "tzeentch",
-    psyniscience: "tzeentch"
-};
+Dh.bcSkillPatrons = BC_SKILL_PATRONS;
 
 /**
  * Таблица 9-11: модификаторы проверки Приобретения (Black Crusade, стр. 310).

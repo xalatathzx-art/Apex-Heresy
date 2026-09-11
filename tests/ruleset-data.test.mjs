@@ -72,7 +72,7 @@ test('only books whose characteristic rule has been checked against the book cou
     // Dark Heresy modifiers are a generation rule, not a number: "+" rolls 3d10 and keeps the
     // best two, point buy starts at 30 instead of 25. Adding the modifier to the result as
     // well would count it twice. Every other book still has to be read before it is trusted.
-    assert.deepEqual(auditedRulesets(), ['dh2', 'ow']);
+    assert.deepEqual(auditedRulesets(), ['dh2', 'ow', 'bc']);
     assert.equal(RULESET_DEFS.dh2.characteristicModifiers, 'generation');
     for (const ruleset of RULESETS) {
         const mode = RULESET_DEFS[ruleset].characteristicModifiers;

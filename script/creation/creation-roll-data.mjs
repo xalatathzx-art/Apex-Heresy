@@ -21,10 +21,29 @@ export const POINT_BUY = {base: 25, points: 60, cap: 40};
 /**
  * Распределение очков по книгам. Only War (стр. 75): 20 в каждой, 100 очков, не больше
  * +20 на одну характеристику — то есть потолок 40.
+ *
+ * У Black Crusade (стр. 53) база зависит не от книги, а от расы: 25 у человека и 30 у
+ * десантника Хаоса. Поэтому там записан не потолок, а `capOverBase` — насколько выше
+ * базы можно поднять одну характеристику; потолок считается под выбранную расу.
  */
-export const POINT_BUY_RULES = {dh2: POINT_BUY, ow: {base: 20, points: 100, cap: 40}};
+export const POINT_BUY_RULES = {
+    dh2: POINT_BUY,
+    ow: {base: 20, points: 100, cap: 40},
+    bc: {base: 25, points: 100, capOverBase: 20}
+};
 
-export function pointBuyRules(ruleset) { return POINT_BUY_RULES[ruleset] ?? POINT_BUY; }
+/**
+ * Правила распределения очков для книги.
+ *
+ * @param {string} ruleset
+ * @param {number} [base]  база выбранной расы, если книга берёт её оттуда
+ */
+export function pointBuyRules(ruleset, base) {
+    const rules = POINT_BUY_RULES[ruleset] ?? POINT_BUY;
+    const start = Number.isFinite(base) ? base : rules.base;
+    const cap = rules.capOverBase != null ? start + rules.capOverBase : rules.cap;
+    return {base: start, points: rules.points, cap};
+}
 
 /**
  * Формула одной характеристики.
@@ -36,12 +55,14 @@ export function pointBuyRules(ruleset) { return POINT_BUY_RULES[ruleset] ?? POIN
  *
  * @param {"generation"|"flat"} modifierMode  из RULESET_DEFS[…].characteristicModifiers
  * @param {number} modifier                   сумма модификаторов происхождения
+ * @param {number} [base]                     прибавка книги: 20 у Dark Heresy, 25 или 30
+ *                                            у Black Crusade — по расе (стр. 53)
  * @returns {string}                          выражение для Roll
  */
-export function rollExpression(modifierMode, modifier = 0) {
-    if (!modifier) return "2d10+20";
-    if (modifierMode === "generation") return modifier > 0 ? "3d10kh2+20" : "3d10kl2+20";
-    return `2d10+20${modifier > 0 ? "+" : "-"}${Math.abs(modifier)}`;
+export function rollExpression(modifierMode, modifier = 0, base = 20) {
+    if (!modifier) return `2d10+${base}`;
+    if (modifierMode === "generation") return modifier > 0 ? `3d10kh2+${base}` : `3d10kl2+${base}`;
+    return `2d10+${base}${modifier > 0 ? "+" : "-"}${Math.abs(modifier)}`;
 }
 
 /**

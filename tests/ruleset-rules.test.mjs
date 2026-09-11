@@ -43,7 +43,7 @@ test('the shop stops an Only War characteristic after its fourth step', () => {
 
 test('Only War point buy starts at 20 with 100 points and at most +20 per characteristic (p. 75)', () => {
     assert.deepEqual(pointBuyRules('ow'), {base: 20, points: 100, cap: 40});
-    assert.equal(pointBuyRules('dh2'), POINT_BUY);
+    assert.deepEqual(pointBuyRules('dh2'), POINT_BUY);
     const keys = characteristicKeysFor('ow');
     const even = Object.fromEntries(keys.map(key => [key, 31]));   // 9 x 11 = 99 points
     assert.deepEqual(pointBuyProblems(even, pointBuyRules('ow'), keys), []);
@@ -84,7 +84,7 @@ test('Only War runs regiment, characteristics, speciality, experience, comrade (
 });
 
 test('the wizard offers the books it can actually run', () => {
-    assert.deepEqual(auditedRulesets(), ['dh2', 'ow']);
+    assert.deepEqual(auditedRulesets(), ['dh2', 'ow', 'bc']);
 });
 
 test('the sheet charges Only War characteristics along its own ladder', () => {

@@ -38,7 +38,10 @@ const packsFirst = pack => [pack, ...CONTENT_PACKS.filter(entry => entry !== pac
 //    duplicates            — skill: "best" (лучшее из двух) | "advance" (лишний ранг),
 //                            talentExperience: опыт взамен повторного таланта;
 //    contentPacks          — порядок паков при поиске выданного по имени;
-//    characteristicKeys    — характеристики книги.
+//    characteristicKeys    — характеристики книги;
+//    characteristicBase    — прибавка к броску 2d10 (20 у Dark Heresy, 25/30 у Black Crusade);
+//    infamy                — {key, formula}: характеристика, которая бросается своей формулой;
+//    aptitudes             — false, если книга склонностей не знает вовсе.
 export const RULESET_DEFS = {
     dh2: {
         label: "RULESET.DH2", actorType: "acolyte",
@@ -105,15 +108,35 @@ export const RULESET_DEFS = {
     },
     bc: {
         label: "RULESET.BC", actorType: "heretic",
-        characteristicModifiers: null,
+        ready: true,
+        // Модификаторы Гордыни, Позора и архетипа прибавляются к готовому броску (стр. 72-74).
+        characteristicModifiers: "flat",
         characteristicMethods: ["roll", "pointBuy"],
+        // «Благословлённые Тёмными богами» перебрасывают один результат, оставляя новый (стр. 53).
+        characteristicRerolls: 1,
+        // 1000 у человека, 500 у десантника Хаоса — цифру задаёт раса (стр. 75). Здесь
+        // человеческая: раса её переопределяет, как специальность Only War.
+        startingExperience: 1000,
+        // База броска и распределения очков тоже от расы: 25 у человека, 30 у десантника.
+        characteristicBase: 25,
+        // Тёмная слава живёт на месте Влияния и бросается отдельной формулой даже при
+        // распределении очков (стр. 53).
+        infamy: {key: "influence", formula: "1d5+19"},
+        // Порча стартует с нуля, а набирается Позором и Стремлением (стр. 84).
+        vitalsStage: "archetype",
+        // Склонностей в книге нет: цену задаёт бог улучшения и покровитель персонажа.
+        aptitudes: false,
+        contentPacks: packsFirst("dark-heresy.black-crusade"),
         steps: [
+            // Книжный порядок (стр. 48): раса, характеристики, архетип, страсти,
+            // траты опыта, снаряжение с Порчей и, наконец, выбор Тёмного бога.
             {id: "race",            label: "ORIGIN.STAGE.RACE",        kind: "origin", stage: "race", bioField: "system.race"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
             {id: "archetype",       label: "ORIGIN.STAGE.ARCHETYPE",   kind: "origin", stage: "archetype", bioField: "system.archetype"},
-            {id: "pride",           label: "ORIGIN.STAGE.PRIDE",       kind: "origin", stage: "pride"},
-            {id: "disgrace",        label: "ORIGIN.STAGE.DISGRACE",    kind: "origin", stage: "disgrace"},
-            {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"}
+            {id: "passions",        label: "WIZARD.PASSIONS",          kind: "passions"},
+            {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"},
+            {id: "equipment",       label: "WIZARD.EQUIPMENT",         kind: "equipment"},
+            {id: "darkGods",        label: "WIZARD.DARK_GODS",         kind: "darkGods"}
         ]
     },
     dw: {

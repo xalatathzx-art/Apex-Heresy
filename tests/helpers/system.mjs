@@ -1,6 +1,9 @@
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from '../../script/data/weapon-traits.mjs';
+import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
+        BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
+    from '../../script/creation/patron-data.mjs';
 
 // Run the actual legacy entry module without booting a world or opening sheets.
 // Foundry's document persistence/UI are the external boundary, not copied rules.
@@ -10,6 +13,8 @@ export function loadSystem(overrides = {}) {
     const context = vm.createContext({
         console, Set, Map, Math, Number, Promise, structuredClone, setTimeout, clearTimeout,
         applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch,
+        PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
+        BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,
         Actor: Document, Item: Document, Combat: Document, ActiveEffect: Document,
         CONFIG: {statusEffects: [], ActiveEffect: {}, Actor: {}, Item: {}},
         CONST: {ACTIVE_EFFECT_MODES: {CUSTOM:0, MULTIPLY:1, ADD:2, DOWNGRADE:3, UPGRADE:4, OVERRIDE:5}},

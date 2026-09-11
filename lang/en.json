@@ -1153,6 +1153,8 @@
   "ORIGIN.STAGE.ARCHETYPE": "Archetype",
   "ORIGIN.STAGE.PRIDE": "Pride",
   "ORIGIN.STAGE.DISGRACE": "Disgrace",
+  "WIZARD.PASSIONS": "Passions",
+  "WIZARD.DARK_GODS": "Dark Gods",
   "ORIGIN.STAGE.CHAPTER": "Chapter",
   "WIZARD.TITLE": "Character Creation \u2014 {name}",
   "WIZARD.RULESET": "Rulebook",
