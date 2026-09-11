@@ -13830,3 +13830,65 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   letter-spacing: var(--dh-track-caption);
   text-transform: uppercase;
 }
+
+/* Склонности — плитки: по ним считается цена каждой покупки, и в строке через
+   запятую это главное терялось. */
+.dark-heresy.character-wizard .wizard-aptitudes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .wizard-aptitude {
+  padding: var(--dh-space-1) var(--dh-space-2h);
+  background: var(--dh-surface-raised);
+  border: 1px solid var(--dh-line);
+  border-left: 2px solid var(--dh-brass-dim);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+
+/* Таблица цен книги в колонке ЭТОГО персонажа. Числа — данные. */
+.dark-heresy.character-wizard .wizard-prices {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .wizard-prices th {
+  text-align: left;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .wizard-prices td {
+  padding: var(--dh-space-2) var(--dh-space-3);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-data);
+  /* Пять чисел в ячейке не помещаются в строку на ширине окна: пусть
+     переносятся, иначе таблица уезжает за край. */
+  word-spacing: 0.15em;
+}
+.dark-heresy.character-wizard .wizard-prices th:first-child {
+  width: 9em;
+}
+.dark-heresy.character-wizard .wizard-prices tr + tr {
+  border-top: 1px solid var(--dh-line);
+}
+
+/* Пророчество — цитата, а не данные: серифом и с латунным ребром. */
+.dark-heresy.character-wizard blockquote.wizard-divination {
+  font-size: var(--dh-text-lg);
+  line-height: 1.4;
+}

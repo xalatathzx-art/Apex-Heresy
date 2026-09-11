@@ -16,6 +16,8 @@ import {planToActorUpdate, planToItemData, revertUpdate,
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
 import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
 import {findContent} from "./content-lookup.mjs";
+import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
+    from "./advancement-data.mjs";
 import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
 
@@ -180,6 +182,14 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         });
 
         this._wireCharacteristics(root);
+        root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
+            if (this._busy) return;
+            this._busy = true;
+            this.render(false);
+            try { await this._commitDivinationStep(); }
+            finally { this._busy = false; if (this.rendered) this.render(false); }
+        });
+
         root.querySelector(".wizard-reroll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -559,7 +569,24 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             if (item.type !== "origin") continue;
             owed.push(...(item.getFlag(GRANT_FLAG_SCOPE, "applied")?.duplicateAptitudes ?? []));
         }
+        // Цены зависят от склонностей персонажа, а не от книги вообще: одна и та же
+        // покупка стоит ему втрое дешевле соседа. Показываем ЕГО колонку, иначе
+        // игроку придётся листать книгу с карандашом.
+        const owned = this.actor.system.aptitudes ?? {};
+        const priceRow = (table, label) => ({
+            label,
+            two: Object.values(table[2]).join(" / "),
+            one: Object.values(table[1]).join(" / "),
+            none: Object.values(table[0]).join(" / ")
+        });
+
         return {
+            aptitudeChips: Object.keys(owned).sort(),
+            priceRows: [
+                priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),
+                priceRow(SKILL_COSTS, game.i18n.localize("WIZARD.PRICE_SKILLS")),
+                priceRow(TALENT_COSTS, game.i18n.localize("WIZARD.PRICE_TALENTS"))
+            ],
             experiencePool: CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0,
             experienceApplied: !!this.actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied"),
             aptitudeList: Object.keys(this.actor.system.aptitudes ?? {}).sort().join(", "),
@@ -602,7 +629,20 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     _divinationStepContext() {
         const record = this.actor.getFlag(GRANT_FLAG_SCOPE, "divination");
-        return {divinationText: this.actor.system.bio?.divination ?? "", divinationDrawn: !!record};
+        const applied = record?.applied ?? {};
+        const signed = value => `${value > 0 ? "+" : ""}${value}`;
+        const effect = [
+            ...Object.entries(applied.characteristics ?? {}).map(([key, value]) => `${key} ${signed(value)}`),
+            ...(record?.fate ? [`Fate ${signed(record.fate)}`] : []),
+            ...["wounds", "corruption", "insanity"]
+                .filter(key => applied[key]).map(key => `${key} ${signed(applied[key])}`)
+        ];
+        return {
+            divinationDrawn: !!record,
+            divinationName: record?.name ?? "",
+            divinationText: this.actor.system.bio?.divination ?? "",
+            divinationEffect: effect
+        };
     }
 
     /**
@@ -632,7 +672,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             update["system.fate.value"] = (actor.system.fate?.value ?? 0) + effect.fate;
         }
         await actor.update(update);
-        await actor.setFlag(GRANT_FLAG_SCOPE, "divination", {applied, fate: effect.fate ?? 0});
+        await actor.setFlag(GRANT_FLAG_SCOPE, "divination",
+                            {applied, fate: effect.fate ?? 0, name: result?.name ?? ""});
         return true;
     }
 

@@ -122,7 +122,14 @@
 
             {{#if (eq step.kind "experience")}}
                 <p>{{localize "WIZARD.STARTING_XP"}} <b>{{experiencePool}}</b></p>
-                <p class="wizard-note">{{localize "WIZARD.APTITUDES"}} {{aptitudeList}}</p>
+                {{!-- Склонности плитками: по ним считается цена КАЖДОЙ покупки, и держать
+                      их в строке через запятую значит прятать главное. --}}
+                <div class="wizard-aptitudes">
+                    <span class="wizard-choice-label">{{localize "WIZARD.APTITUDES"}}</span>
+                    {{#each aptitudeChips as |aptitude|}}
+                    <span class="wizard-aptitude">{{aptitude}}</span>
+                    {{/each}}
+                </div>
                 {{#if owedAptitudes}}
                 {{!-- Книга, стр. 79: повторная склонность не пропадает, а меняется
                       на другую характеристическую. Выбирает игрок. --}}
@@ -132,14 +139,48 @@
                 {{#if experienceApplied}}
                 <p class="wizard-locked">{{localize "WIZARD.XP_APPLIED"}}</p>
                 {{/if}}
+
+                {{!-- Цены из книги в колонке ЭТОГО персонажа: две склонности совпало,
+                      одна или ни одной. Тратится опыт на листе, но знать, что почём,
+                      нужно здесь. --}}
+                <table class="wizard-prices">
+                    <tr>
+                        <th></th>
+                        <th>{{localize "WIZARD.PRICE_TWO"}}</th>
+                        <th>{{localize "WIZARD.PRICE_ONE"}}</th>
+                        <th>{{localize "WIZARD.PRICE_NONE"}}</th>
+                    </tr>
+                    {{#each priceRows as |row|}}
+                    <tr>
+                        <th>{{row.label}}</th>
+                        <td>{{row.two}}</td>
+                        <td>{{row.one}}</td>
+                        <td>{{row.none}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+                <p class="wizard-note">{{localize "WIZARD.SPEND_HINT"}}</p>
             {{/if}}
 
             {{#if (eq step.kind "divination")}}
                 {{#if divinationDrawn}}
-                <p class="wizard-divination">{{divinationText}}</p>
-                <button type="button" class="wizard-reroll-divination">{{localize "WIZARD.REROLL"}}</button>
+                {{!-- Пророчество — цитата, эффект под ним отдельной строкой:
+                      первое читают, второе применяется. --}}
+                <blockquote class="wizard-divination">{{divinationName}}</blockquote>
+                <p class="wizard-book-text">{{divinationText}}</p>
+                {{#if divinationEffect}}
+                <ul class="wizard-book-grants">
+                    {{#each divinationEffect as |line|}}<li>{{line}}</li>{{/each}}
+                </ul>
+                {{/if}}
+                <div class="wizard-char-actions">
+                    <button type="button" class="wizard-reroll-divination">{{localize "WIZARD.REROLL"}}</button>
+                </div>
                 {{else}}
                 <p class="wizard-note">{{localize "WIZARD.DIVINATION_HINT"}}</p>
+                <div class="wizard-char-actions">
+                    <button type="button" class="wizard-roll-divination">{{localize "WIZARD.ROLL_DIVINATION"}}</button>
+                </div>
                 {{/if}}
             {{/if}}
         </div>
