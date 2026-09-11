@@ -1,0 +1,13 @@
+{{!-- Полоса показателя: сначала видно состояние, потом цифры. --}}
+                <div class="vital vital-fatigue">
+                    <span class="vital-label">{{localize "FATIGUE"}}</span>
+                    <div class="vital-bar" role="img"
+                         aria-label="{{system.fatigue.value}} / {{system.fatigue.max}}">
+                        <div class="vital-fill" style="width: {{system.fatigue.percent}}%"></div>
+                        <span class="vital-read">
+                            <input name="system.fatigue.value" type="number" value="{{system.fatigue.value}}" data-dtype="Number" />
+                            <span class="vital-sep">/</span>
+                            <input name="system.fatigue.max" type="number" value="{{system.fatigue.max}}" data-dtype="Number" />
+                        </span>
+                    </div>
+                </div>

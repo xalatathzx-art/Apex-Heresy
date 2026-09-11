@@ -1,0 +1,42 @@
+{{!-- Comrade (Only War, стр. 110).
+
+      Гвардеец воюет не один: рядом с ним боец, у которого есть имя и характер, и
+      приказы, которым он подчиняется. Это не снаряжение и не спутник-питомец,
+      поэтому ему отведена своя вкладка, а не строка в заметках. --}}
+<div class="squad-tab">
+    <div class="comrade border">
+        <h1>{{localize "WIZARD.COMRADE"}}</h1>
+        <div class="bio-grid">
+            <label class="bio-field">
+                <span>{{localize "WIZARD.COMRADE_NAME"}}</span>
+                <input name="system.bio.comrade" type="text" value="{{system.bio.comrade}}" />
+            </label>
+            <label class="bio-field">
+                <span>{{localize "WIZARD.COMRADE_DEMEANOUR"}}</span>
+                <input name="system.bio.comradeDemeanour" type="text" value="{{system.bio.comradeDemeanour}}" />
+            </label>
+        </div>
+    </div>
+
+    {{!-- Приказы и прочее, что специальность покупает за опыт: они лежат особыми
+          способностями, и место им рядом с тем, кому их отдают. --}}
+    <div class="orders border">
+        <div class="flex header">
+            <h1>{{localize "TITLE.SPECIAL_ABILITIES"}}</h1>
+            <a class="button item-create" title="{{localize "TITLE.SPECIAL_ABILITIES"}}" data-type="specialAbility"><i class="fas fa-plus"></i></a>
+        </div>
+        <div class="item-list">
+            {{#each items.specialAbilities as |item|}}
+            <div class="item flex row" data-item-id="{{item.id}}">
+                <div class="flex item-edit">
+                    <div class="image-container">
+                        <div class="image" style="background-image: url('{{item.img}}')"></div>
+                    </div>
+                    <span class="name">{{item.name}}</span>
+                </div>
+                <a class="button item-delete"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

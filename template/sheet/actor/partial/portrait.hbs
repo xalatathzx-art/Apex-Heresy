@@ -1,0 +1,17 @@
+{{!-- Портрет, полоса ран под ним и выбор книги. Общее у всех пяти листов:
+      книгу называют здесь, и по ней же лист подбирается (Dh.sheetFor). --}}
+                <div class="avatar-column">
+                    <div class="avatar-wrapper">
+                        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" alt="" />
+                    </div>
+                    {{!-- Какой книге принадлежит анкета. Тип листа различает только
+                          Dark Heresy и Black Crusade, а книг пять: персонаж Rogue Trader,
+                          Only War или Deathwatch — тоже аколит, и правила должен брать
+                          свои. Пусто — как решит тип листа. --}}
+                    <label class="sheet-origin" title="{{localize "RULESET.CHARACTER_HINT"}}">
+                        <select name="system.ruleset">
+                            <option value="">{{localize "RULESET.BY_TYPE"}}</option>
+                            {{selectOptions (config "originRulesets") selected=system.ruleset localize=true}}
+                        </select>
+                    </label>
+                </div>

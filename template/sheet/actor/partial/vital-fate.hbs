@@ -1,0 +1,13 @@
+{{!-- Полоса показателя: сначала видно состояние, потом цифры. --}}
+                <div class="vital vital-fate">
+                    <span class="vital-label">{{localize "FATE"}}</span>
+                    <div class="vital-bar" role="img"
+                         aria-label="{{system.fate.value}} / {{system.fate.max}}">
+                        <div class="vital-fill" style="width: {{system.fate.percent}}%"></div>
+                        <span class="vital-read">
+                            <input name="system.fate.value" type="number" value="{{system.fate.value}}" data-dtype="Number" />
+                            <span class="vital-sep">/</span>
+                            <input name="system.fate.max" type="number" value="{{system.fate.max}}" data-dtype="Number" />
+                        </span>
+                    </div>
+                </div>

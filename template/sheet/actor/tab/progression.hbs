@@ -28,36 +28,6 @@
         </div>
     </div>
     {{/if}}
-    {{!-- На месте аптитьюдов у еретика стоит счёт принадлежности: он занимает ту
-          же четверть строки, поэтому талантам и опыту двигаться не приходится.
-          Отмечен вожак — тот, кто оторвался на пять улучшений, и текущий
-          покровитель: до проверки на очередных десяти очках Порчи это разные боги. --}}
-    {{#if alignmentRows}}
-    <div class="allegiance border">
-        <h1>{{localize "ALLEGIANCE.HEADER"}}</h1>
-        <div class="item-list">
-            {{!-- Три числа в строке: посчитанное с листа, ручная поправка и итог.
-                  Поправка нужна там, где счёт не может быть полным: у таланта или
-                  психосилы из чужого компендиума покровитель может не стоять,
-                  и улучшение молча уходит мимо счёта. --}}
-            <div class="allegiance-head">
-                <span class="name"></span>
-                <span class="count" title="{{localize "ALLEGIANCE.COUNTED"}}">{{localize "ALLEGIANCE.COUNTED_SHORT"}}</span>
-                <span class="manual" title="{{localize "ALLEGIANCE.MANUAL"}}">{{localize "ALLEGIANCE.MANUAL_SHORT"}}</span>
-                <span class="total" title="{{localize "ALLEGIANCE.TOTAL"}}">{{localize "ALLEGIANCE.TOTAL_SHORT"}}</span>
-            </div>
-            {{#each alignmentRows}}
-            <div class="allegiance-row{{#if isLeader}} is-leader{{/if}}{{#if isPatron}} is-patron{{/if}}">
-                <span class="name">{{localize label}}</span>
-                <span class="count">{{count}}</span>
-                <input class="manual" type="number" name="system.alignment.{{key}}" value="{{manual}}" data-dtype="Number" />
-                <span class="total">{{total}}</span>
-            </div>
-            {{/each}}
-        </div>
-        <p class="allegiance-note">{{localize "ALLEGIANCE.NOTE"}}</p>
-    </div>
-    {{/if}}
     <div class="talents border">
         <h1>{{localize "TITLE.TALENTS"}}</h1>
         <div class="item-list">

@@ -1,0 +1,49 @@
+{{!-- Каркас листа игрового персонажа.
+
+      Общее у всех пяти книг — портрет, имя, полосы показателей и лента вкладок.
+      Расходящееся лист называет сам: свою анкету (bioPartial), свой набор полос
+      (vitalPartials) и свой список вкладок (sheetTabs). Поэтому книга добавляется
+      классом листа, а не ещё одной копией этой разметки. --}}
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="acolyte {{bookClass}}">
+        <div class="header border">
+            {{!-- Анкета: портрет, имя и поля, которыми книга описывает происхождение. --}}
+            <div class="identity">
+                {{> systems/dark-heresy/template/sheet/actor/partial/portrait.hbs}}
+                <div class="identity-fields">
+                    <input class="actor-name" name="name" type="text" value="{{actor.name}}"
+                           aria-label="{{localize "BIO.NAME"}}" />
+                    <div class="bio-grid">
+                        {{> (lookup . "bioPartial")}}
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Показатели, которые смотрят чаще всего. У каждой книги свои: у гвардейца
+                  нет Влияния, у еретика вместо Судьбы очки Тёмной славы. --}}
+            <div class="vital-strip">
+                {{!-- Партиалу передаётся контекст ЛИСТА, а не строки цикла: внутри
+                      each текущим контекстом становится сам элемент, и шаблон остался
+                      бы без system, items и всего прочего. --}}
+                {{#each vitalPartials as |vital|}}
+                {{> (lookup vital "partial") ../this}}
+                {{/each}}
+            </div>
+            {{#if extraHeaderPartial}}{{> (lookup . "extraHeaderPartial")}}{{/if}}
+        </div>
+
+        <div class="sheet-tabs tabs flex row" data-group="primary">
+            {{#each sheetTabs as |tab|}}
+            <b class="item" data-tab="{{tab.id}}">{{localize tab.label}}</b>
+            {{/each}}
+        </div>
+
+        <div class="sheet-body">
+            {{#each sheetTabs as |tab|}}
+            <div class="tab" data-group="primary" data-tab="{{tab.id}}">
+                {{> (lookup tab "partial") ../this}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</form>

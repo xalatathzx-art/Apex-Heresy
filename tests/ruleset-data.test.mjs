@@ -5,13 +5,15 @@ import {RULESETS, STAGES} from '../script/creation/origin-data.mjs';
 import {RULESET_DEFS, stepsFor, originStepsFor, auditedRulesets} from '../script/creation/ruleset-data.mjs';
 import {CHARACTERISTIC_METHODS} from '../script/creation/creation-roll-data.mjs';
 
-test('every ruleset has a definition with an actor type and at least one step', () => {
+test('every ruleset has a definition with a label and at least one step', () => {
     assert.deepEqual(Object.keys(RULESET_DEFS), RULESETS);
     for (const ruleset of RULESETS) {
         const def = RULESET_DEFS[ruleset];
-        assert.ok(['acolyte', 'heretic'].includes(def.actorType), `${ruleset}: ${def.actorType}`);
         assert.ok(def.steps.length > 0, ruleset);
         assert.ok(def.label, ruleset);
+        // The book no longer demands an actor type: both character types carry the same
+        // fields, and the sheet is chosen by the book instead.
+        assert.equal(def.actorType, undefined, ruleset);
     }
 });
 
@@ -45,12 +47,10 @@ test('Dark Heresy runs home world, background, role, characteristics, experience
     // Stage 4 of the book is "Spend Experience Points, Equip Acolyte" (pp. 78-82).
     assert.deepEqual(stepsFor('dh2').map(s => s.id),
         ['homeWorld', 'background', 'role', 'characteristics', 'experience', 'equipment', 'divination']);
-    assert.equal(RULESET_DEFS.dh2.actorType, 'acolyte');
 });
 
-test('Black Crusade builds a heretic and asks for the race before the archetype', () => {
+test('Black Crusade asks for the race before the archetype', () => {
     const ids = stepsFor('bc').map(s => s.id);
-    assert.equal(RULESET_DEFS.bc.actorType, 'heretic');
     assert.ok(ids.indexOf('race') < ids.indexOf('archetype'));
 });
 
@@ -80,16 +80,22 @@ test('only books whose characteristic rule has been checked against the book cou
     }
 });
 
-test('a step that names a sheet field names one the actor model actually has', () => {
+test('a step that names a sheet field names one BOTH character types actually have', () => {
     const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    // Fields live either on the type or on a template it pulls in, so resolve both.
+    const model = type => (data.Actor[type].templates ?? [])
+        .reduce((out, name) => ({...out, ...data.Actor.templates[name]}), {...data.Actor[type]});
     const has = (type, path) => path.split('.').slice(1)
-        .reduce((node, key) => node?.[key], data.Actor[type]) !== undefined;
+        .reduce((node, key) => node?.[key], model(type)) !== undefined;
     for (const ruleset of RULESETS)
         for (const step of stepsFor(ruleset)) {
             if (!step.bioField) continue;
             assert.match(step.bioField, /^system\./, `${ruleset}/${step.id}`);
-            assert.ok(has(RULESET_DEFS[ruleset].actorType, step.bioField),
-                `${ruleset}/${step.id}: ${RULESET_DEFS[ruleset].actorType} has no ${step.bioField}`);
+            // Any character can be played by any book, so every book's fields must exist
+            // on every character type — nobody is asked to re-create a character.
+            for (const type of ['acolyte', 'heretic'])
+                assert.ok(has(type, step.bioField),
+                    `${ruleset}/${step.id}: ${type} has no ${step.bioField}`);
         }
 });
 

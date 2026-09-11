@@ -1,0 +1,19 @@
+{{!-- Анкета Чёрного Крестового Похода (стр. 48): раса, архетип, пакт и стремление.
+      Раса и архетип — обычные строки: их вписывают руками или заполняет Мастер.
+      Покровитель стоит не здесь, а на вкладке присяги: от него зависят цены. --}}
+                        <label class="bio-field{{#if fromOrigin.[system.race]}} from-origin{{/if}}">
+                            <span>{{localize "BIO.RACE"}}</span>
+                            <input name="system.race" type="text" value="{{system.race}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.archetype]}} from-origin{{/if}}">
+                            <span>{{localize "BIO.ARCHETYPE"}}</span>
+                            <input name="system.archetype" type="text" value="{{system.archetype}}" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "BIO.PACT"}}</span>
+                            <input name="system.bio.background" type="text" value="{{system.bio.background}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.aspiration]}} from-origin{{/if}}">
+                            <span>{{localize "BIO.ASPIRATION"}}</span>
+                            <input name="system.aspiration" type="text" value="{{system.aspiration}}" />
+                        </label>

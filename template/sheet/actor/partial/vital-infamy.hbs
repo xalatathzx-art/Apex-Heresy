@@ -1,0 +1,14 @@
+{{!-- Тот же ресурс, что Судьба у аколита, и то же поле system.fate: токенбар системы
+      завязан на него, разводить хранилище нельзя. Но потолок здесь не вводят руками:
+      очков ровно столько, каков бонус Тёмной славы, поэтому справа число, а не поле. --}}
+                <div class="vital vital-fate">
+                    <span class="vital-label">{{localize "INFAMY_POINTS"}}<a class="infamy-spend" title="{{localize "INFAMY.SPEND_TITLE"}}"><i class="fa-solid fa-bolt"></i></a><a class="infamy-refresh" title="{{localize "INFAMY_REFRESH"}}"><i class="fa-solid fa-rotate-left"></i></a></span>
+                    <div class="vital-bar">
+                        <div class="vital-fill" style="width: {{system.fate.percent}}%"></div>
+                        <span class="vital-read">
+                            <input name="system.fate.value" type="number" value="{{system.fate.value}}" data-dtype="Number" />
+                            <span class="vital-sep">/</span>
+                            <span class="vital-derived">{{system.fate.max}}</span>
+                        </span>
+                    </div>
+                </div>

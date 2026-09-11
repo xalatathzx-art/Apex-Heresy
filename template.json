@@ -1175,6 +1175,20 @@
             "power7": ""
           }
         }
+      },
+      "allegiance": {
+        "race": "",
+        "archetype": "",
+        "patron": "undivided",
+        "alignment": {
+          "khorne": 0,
+          "nurgle": 0,
+          "slaanesh": 0,
+          "tzeentch": 0
+        },
+        "pride": "",
+        "vice": "",
+        "aspiration": ""
       }
     },
     "acolyte": {
@@ -1186,7 +1200,8 @@
         "wounds",
         "fatigue",
         "fate",
-        "psy"
+        "psy",
+        "allegiance"
       ],
       "bio": {
         "homeWorld": "",
@@ -1223,18 +1238,6 @@
     },
     "heretic": {
       "ruleset": "",
-      "race": "",
-      "archetype": "",
-      "patron": "undivided",
-      "alignment": {
-        "khorne": 0,
-        "nurgle": 0,
-        "slaanesh": 0,
-        "tzeentch": 0
-      },
-      "pride": "",
-      "vice": "",
-      "aspiration": "",
       "templates": [
         "characteristics",
         "skills",
@@ -1242,7 +1245,8 @@
         "wounds",
         "fatigue",
         "fate",
-        "psy"
+        "psy",
+        "allegiance"
       ],
       "bio": {
         "homeWorld": "",

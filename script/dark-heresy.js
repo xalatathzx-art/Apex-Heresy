@@ -846,7 +846,9 @@ class DarkHeresyActor extends Actor {
         // Влиятельность Империума, у еретика — Дурная слава. Переименовываем здесь,
         // а не в шаблоне, чтобы подпись совпадала везде, где читается label:
         // на листе, в карточке броска и в выпадающем списке характеристик навыка.
-        if (this.type === "heretic" && this.characteristics?.influence) {
+        // Решает книга, а не тип листа: аколит, ушедший в Чёрный Крестовый Поход,
+        // должен видеть Тёмную славу, а не Влияние.
+        if (Dh.rulesetFor(this).id === "bc" && this.characteristics?.influence) {
             this.characteristics.influence.label = "CHARACTERISTIC.INFAMY";
         }
         this.system.insanityBonus = Math.floor(this.insanity / 10);
@@ -1281,7 +1283,7 @@ class DarkHeresyActor extends Actor {
         if (!game.settings.get("dark-heresy", "autoCalcXPCosts")) return this._computeExperience_normal();
         // У еретика цену задаёт не аптитьюд, а бог: считать его по таблицам
         // Dark Heresy бессмысленно, там нет ни одного совпадающего числа.
-        if (this.type === "heretic") return this._computeExperienceBlackCrusade();
+        if (Dh.rulesetFor(this).id === "bc") return this._computeExperienceBlackCrusade();
         return this._computeExperience_auto();
     }
 
@@ -8206,7 +8208,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         // Кровавый бог не выносит колдовства: пока еретик принадлежит Кхорну, он
         // считается не имеющим особенности «Псайкер» и не творит психосил вовсе
         // (Black Crusade, стр. 78). Уйдёт принадлежность — вернётся и сила.
-        if (this.actor.type === "heretic" && this.actor.system.patron === "khorne") {
+        if (Dh.rulesetFor(this.actor).id === "bc" && this.actor.system.patron === "khorne") {
             ui.notifications.warn(game.i18n.localize("PSY.KHORNE_FORBIDS"));
             return;
         }
@@ -8316,12 +8318,47 @@ function originFilledFields(actor) {
     return out;
 }
 
-class AcolyteSheet extends DarkHeresySheet {
+/**
+ * Общая часть листа игрового персонажа.
+ *
+ * Книг пять, и у каждой свой лист: свои поля анкеты, свои показатели и свой набор
+ * вкладок. Общее — портрет, характеристики, кнопка Мастера и работа со склонностями,
+ * поэтому оно живёт здесь, а расходящееся — в наследниках.
+ *
+ * Тип актора листа не выбирает: у обоих типов персонажа поля одни и те же, а лист
+ * подбирается по книге (см. Dh.sheetFor). Так персонаж, перешедший из Инквизиции в
+ * Чёрный Крестовый Поход, меняет книгу, а не документ.
+ */
+class BookSheet extends DarkHeresySheet {
+
+    /** Книга этого листа. Наследник называет её, и по ней же лист находится. */
+    static ruleset = "dh2";
+
+    /** Путь к партиалу анкеты: чем книга описывает происхождение персонажа. */
+    static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-dark-heresy.hbs";
+
+    /** Полосы показателей в шапке, слева направо. */
+    static vitals = ["wounds", "fate", "fatigue"];
+
+    /**
+     * Вкладки листа, по порядку. Первая открывается при входе.
+     * `id` — ключ вкладки, `label` — строка интерфейса, `partial` — её содержимое.
+     */
+    static tabList = [
+        {id: "stats", label: "TAB.STATS", partial: "tab/stats.hbs"},
+        {id: "combat", label: "TAB.COMBAT", partial: "tab/combat.hbs"},
+        {id: "abilities", label: "TAB.ABILITIES", partial: "tab/abilities.hbs"},
+        {id: "psychic-powers", label: "TAB.PSYCHIC_POWERS", partial: "tab/psychic-powers.hbs"},
+        {id: "gear", label: "TAB.GEAR", partial: "tab/gear.hbs"},
+        {id: "progression", label: "TAB.ADVANCES", partial: "tab/progression.hbs"},
+        {id: "effects", label: "TAB.EFFECTS", partial: "tab/effects.hbs"},
+        {id: "notes", label: "TAB.NOTES", partial: "tab/notes.hbs"}
+    ];
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "actor"],
-            template: "systems/dark-heresy/template/sheet/actor/acolyte.hbs",
+            template: "systems/dark-heresy/template/sheet/actor/character.hbs",
             // Opens at exactly its design size, so the scale is 1.0. Drag it from here
             // and everything scales with it; nothing rearranges. See _applySheetScale.
             width: DarkHeresySheet.DESIGN_WIDTH + DarkHeresySheet.CONTENT_PADDING
@@ -8366,6 +8403,16 @@ class AcolyteSheet extends DarkHeresySheet {
         // Каждая книга зовёт эти поля по-своему: у Only War это полк и специальность,
         // а не предыстория и роль. Подписи берёт профиль книги, а не тип листа.
         data.bioLabels = Dh.rulesetFor(this.actor).bioLabels ?? Dh.bioLabels.dh2;
+        // Из чего собран лист этой книги. Каркас один, начинка называется классом.
+        const parts = this.constructor;
+        data.bioPartial = parts.bioPartial;
+        data.bookClass = `book-${parts.ruleset}`;
+        data.vitalPartials = parts.vitals.map(key => ({
+            partial: `systems/dark-heresy/template/sheet/actor/partial/vital-${key}.hbs`
+        }));
+        data.sheetTabs = parts.tabList.map(tab => ({
+            ...tab, partial: `systems/dark-heresy/template/sheet/actor/${tab.partial}`
+        }));
         return data;
     }
 
@@ -8403,16 +8450,19 @@ class AcolyteSheet extends DarkHeresySheet {
 
 
 /**
- * Лист персонажа Чёрного Крестового Похода. Механика та же, что у аколита,
- * поэтому наследуемся целиком — расходится пока только шаблон.
+ * Лист Чёрного Крестового Похода: Тёмная слава вместо Влияния, Порча со счётчиком
+ * принадлежности и покровитель, от которого зависит цена каждого улучшения.
  */
-class HereticSheet extends AcolyteSheet {
+class BlackCrusadeSheet extends BookSheet {
 
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            template: "systems/dark-heresy/template/sheet/actor/heretic.hbs"
-        });
-    }
+    static ruleset = "bc";
+    static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-black-crusade.hbs";
+    // Судьбы у еретика нет: на её месте очки Тёмной славы, и потолок им не вводят.
+    static vitals = ["wounds", "infamy", "fatigue"];
+    // Присяга — своя вкладка: покровитель решает цену каждого улучшения, а счёт
+    // принадлежности растёт с каждой покупкой. В Dark Heresy такой вкладки нет.
+    static tabList = BookSheet.tabList.toSpliced(6, 0,
+        {id: "allegiance", label: "TAB.ALLEGIANCE", partial: "tab/allegiance.hbs"});
 
     async getData() {
         // Базовый getData асинхронный: без await сюда приходит промис, и поле,
@@ -8509,6 +8559,48 @@ class HereticSheet extends AcolyteSheet {
         dialog.render(true);
     }
 }
+
+/**
+ * Лист Dark Heresy 2: родной мир, предыстория и роль, Влияние, Судьба и дивинация.
+ * Это же лист по умолчанию для персонажа, который свою книгу ещё не назвал.
+ */
+class DarkHeresy2Sheet extends BookSheet {
+    static ruleset = "dh2";
+}
+
+/**
+ * Лист Only War: полк и специальность вместо предыстории и роли, и вкладка отряда,
+ * где живёт Comrade. Влияния у гвардейца нет вовсе (стр. 74).
+ */
+class OnlyWarSheet extends BookSheet {
+
+    static ruleset = "ow";
+    static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-only-war.hbs";
+    // Отряд — своя вкладка: у гвардейца рядом Comrade, и это не снаряжение.
+    static tabList = BookSheet.tabList.toSpliced(5, 0,
+        {id: "squad", label: "TAB.SQUAD", partial: "tab/squad.hbs"});
+}
+
+/**
+ * Лист Rogue Trader. Книга правило за правилом ещё не сверена, поэтому здесь пока
+ * набор вкладок Dark Heresy под своими подписями: Путь Происхождения и карьера.
+ */
+class RogueTraderSheet extends BookSheet {
+
+    static ruleset = "rt";
+    static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-rogue-trader.hbs";
+}
+
+/**
+ * Лист Deathwatch. Как и Rogue Trader, ждёт сверки с книгой: вкладки пока общие,
+ * подписи — свои, орден и специальность.
+ */
+class DeathwatchSheet extends BookSheet {
+
+    static ruleset = "dw";
+    static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-deathwatch.hbs";
+}
+
 
 /**
  * Сколько рангов у умения куплено.
@@ -12875,8 +12967,22 @@ const initializeHandlebars = () => {
  */
 function preloadHandlebarsTemplates() {
     const templatePaths = [
-        "systems/dark-heresy/template/sheet/actor/acolyte.hbs",
-        "systems/dark-heresy/template/sheet/actor/heretic.hbs",
+        // Каркас листа персонажа и его сменные части: анкета книги, полосы показателей
+        // и вкладки. Партиал, который подставляется по имени из контекста, обязан быть
+        // загружен заранее — иначе Handlebars его не найдёт.
+        "systems/dark-heresy/template/sheet/actor/character.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/portrait.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/bio-dark-heresy.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/bio-only-war.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/bio-black-crusade.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/bio-rogue-trader.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/bio-deathwatch.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/vital-wounds.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/vital-fatigue.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/vital-fate.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/vital-infamy.hbs",
+        "systems/dark-heresy/template/sheet/actor/tab/allegiance.hbs",
+        "systems/dark-heresy/template/sheet/actor/tab/squad.hbs",
         "systems/dark-heresy/template/sheet/actor/npc.hbs",
         "systems/dark-heresy/template/sheet/actor/vehicle.hbs",
         "systems/dark-heresy/template/sheet/vehicle-weapon.hbs",
@@ -15177,6 +15283,31 @@ Dh.rulesets.ow.characteristicCosts = [[0, 0, 0], [100, 250, 500], [250, 500, 750
  * @param {Actor|object|null} actor
  * @returns {object} профиль из Dh.rulesets
  */
+/** Листы персонажа по книгам. Ключ — то же id, что у профиля правил. */
+Dh.bookSheets = {
+    dh2: DarkHeresy2Sheet,
+    ow: OnlyWarSheet,
+    bc: BlackCrusadeSheet,
+    rt: RogueTraderSheet,
+    dw: DeathwatchSheet
+};
+
+/**
+ * Каким листом открывать этого персонажа.
+ *
+ * Решает книга, а не тип документа: тип в Foundry не меняется, и требовать «заведите
+ * еретика» значило бы пересоздавать персонажа из-за строчки в анкете. Персонаж без
+ * книги идёт за своим типом — так лист не меняется у тех, кто заведён раньше.
+ *
+ * @param {Actor|object|null} actor
+ * @returns {string} имя класса листа, как его знает Foundry
+ */
+Dh.sheetFor = function(actor) {
+    const own = actor?.system?.ruleset;
+    if (own && Dh.bookSheets[own]) return Dh.bookSheets[own].name;
+    return actor?.type === "heretic" ? BlackCrusadeSheet.name : DarkHeresy2Sheet.name;
+};
+
 Dh.rulesetFor = function(actor) {
     // Лист называет игру сам — и у персонажа, и у НИП. В смешанной кампании один и тот
     // же тип листа держит и еретика Black Crusade, и тварь из Dark Heresy.
@@ -16450,8 +16581,14 @@ Hooks.once("init", async function() {
     };
     game.macro = DhMacroUtil;
     foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
-    foundry.documents.collections.Actors.registerSheet("dark-heresy", AcolyteSheet, { types: ["acolyte"], makeDefault: true });
-    foundry.documents.collections.Actors.registerSheet("dark-heresy", HereticSheet, { types: ["heretic"], makeDefault: true });
+    // Все пять листов доступны обоим типам персонажа: книгу выбирают в анкете, а не
+    // при заведении актора. По умолчанию тип открывается своим привычным листом.
+    for (const [id, sheet] of Object.entries(Dh.bookSheets))
+        foundry.documents.collections.Actors.registerSheet("dark-heresy", sheet, {
+            types: ["acolyte", "heretic"],
+            makeDefault: id === "dh2",
+            label: game.i18n?.localize(Dh.rulesets[id]?.label ?? id) ?? id
+        });
     foundry.documents.collections.Actors.registerSheet("dark-heresy", NpcSheet, { types: ["npc"], makeDefault: true });
     foundry.documents.collections.Actors.registerSheet("dark-heresy", VehicleSheet, { types: ["vehicle"], makeDefault: true });
     foundry.documents.collections.Actors.registerSheet("dark-heresy", VoidshipSheet, { types: ["voidship"], makeDefault: true });
@@ -16668,6 +16805,27 @@ Hooks.on("refreshToken", (token) => {
     updateTokenHordeLabel(token);
 });
 
+/**
+ * Назвал книгу — получил её лист.
+ *
+ * Лист выбирается флагом core.sheetClass, который Foundry читает при открытии окна.
+ * Ставим его тут, а не при рендере: окно уже открытого листа иначе осталось бы
+ * прежним до перезахода, и игрок решил бы, что выбор книги ничего не сделал.
+ */
+Hooks.on("updateActor", async (actor, changes) => {
+    if (foundry.utils.getProperty(changes, "system.ruleset") === undefined) return;
+    if (!["acolyte", "heretic"].includes(actor?.type)) return;
+    const wanted = `dark-heresy.${Dh.sheetFor(actor)}`;
+    if (actor.getFlag("core", "sheetClass") === wanted) return;
+    // Меняет владелец: флаг живёт на документе, и чужой клиент его записать не может.
+    if (!actor.isOwner) return;
+    const open = actor.sheet?.rendered;
+    await actor.setFlag("core", "sheetClass", wanted);
+    // Класс листа меняется только при пересоздании окна, поэтому открытое закрываем
+    // и открываем снова — уже нужным.
+    if (open) { await actor.sheet.close(); actor.sheet.render(true); }
+});
+
 Hooks.on("updateActor", async (actor, changes) => {
     if (actor?.type === "npc") {
     const tokens = actor.getActiveTokens(true);
@@ -16691,7 +16849,7 @@ Hooks.on("updateActor", async (actor, changes) => {
     // Проверка принадлежности делается на каждых очередных 10 очках Порчи
     // (Black Crusade, стр. 75). Считает её тот же назначенный GM: иначе за столом
     // с двумя ведущими бог сменится дважды и объявит об этом двумя карточками.
-    if (actor?.type === "heretic"
+    if (Dh.rulesetFor(actor).id === "bc"
         && foundry.utils.getProperty(changes, "system.corruption") !== undefined
         && game.users.activeGM === game.user) {
         await checkHereticAllegiance(actor);

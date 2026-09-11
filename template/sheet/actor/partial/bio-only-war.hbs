@@ -1,0 +1,21 @@
+{{!-- Анкета Only War (стр. 73): родной мир полка, сам полк, специальность и
+      характер. Comrade живёт на своей вкладке — он не строка анкеты, а спутник. --}}
+                        <label class="bio-field{{#if fromOrigin.[system.bio.homeWorld]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.homeWorld]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "BIO.HOME_WORLD"}}</span>
+                            <input name="system.bio.homeWorld" type="text" value="{{system.bio.homeWorld}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.background]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.background]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "ORIGIN.STAGE.REGIMENT"}}</span>
+                            <input name="system.bio.background" type="text" value="{{system.bio.background}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.role]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.role]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "ORIGIN.STAGE.SPECIALITY"}}</span>
+                            <input name="system.bio.role" type="text" value="{{system.bio.role}}" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "BIO.DEMEANOUR"}}</span>
+                            <input name="system.bio.demeanour" type="text" value="{{system.bio.demeanour}}" />
+                        </label>

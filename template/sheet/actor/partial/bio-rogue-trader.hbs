@@ -1,0 +1,21 @@
+{{!-- Анкета Rogue Trader: Путь Происхождения и карьера. Книга правило за правилом
+      ещё не сверена, поэтому здесь только подписи — выдумывать поля не за что. --}}
+                        <label class="bio-field{{#if fromOrigin.[system.bio.homeWorld]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.homeWorld]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "ORIGIN.STAGE.HOME_WORLD"}}</span>
+                            <input name="system.bio.homeWorld" type="text" value="{{system.bio.homeWorld}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.background]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.background]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "WIZARD.ORIGIN_PATH"}}</span>
+                            <input name="system.bio.background" type="text" value="{{system.bio.background}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.role]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.role]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "ORIGIN.STAGE.CAREER"}}</span>
+                            <input name="system.bio.role" type="text" value="{{system.bio.role}}" />
+                        </label>
+                        <label class="bio-field">
+                            <span>{{localize "BIO.ELITE"}}</span>
+                            <input name="system.bio.elite" type="text" value="{{system.bio.elite}}" />
+                        </label>

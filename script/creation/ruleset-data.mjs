@@ -8,6 +8,10 @@
 //  Порядок шагов книжный. Black Crusade единственная просит характеристики
 //  посреди происхождения: архетип там выбирается уже зная их (стр. 47).
 //
+//  Тип актора книгу больше не решает: поля у обоих типов персонажа одни и те же,
+//  а внешний вид листа выбирается по книге (см. Dh.sheetFor). Поэтому персонажа
+//  любого типа можно вести по любой книге, ничего не пересоздавая.
+//
 //  `bioField` у шага — куда на листе попадает НАЗВАНИЕ выбранного. Заполняется
 //  в момент выбора, а не в конце: игрок видит, как анкета собирается под его
 //  руками. Поле остаётся редактируемым — переименовать «Мир-улей» в «Десолеум»
@@ -44,7 +48,7 @@ const packsFirst = pack => [pack, ...CONTENT_PACKS.filter(entry => entry !== pac
 //    aptitudes             — false, если книга склонностей не знает вовсе.
 export const RULESET_DEFS = {
     dh2: {
-        label: "RULESET.DH2", actorType: "acolyte",
+        label: "RULESET.DH2",
         ready: true,
         characteristicModifiers: "generation",
         characteristicMethods: ["roll", "pointBuy"],
@@ -69,7 +73,7 @@ export const RULESET_DEFS = {
         ]
     },
     rt: {
-        label: "RULESET.RT", actorType: "acolyte",
+        label: "RULESET.RT",
         characteristicModifiers: null,
         characteristicMethods: ["roll", "pointBuy"],
         steps: [
@@ -82,7 +86,7 @@ export const RULESET_DEFS = {
         ]
     },
     ow: {
-        label: "RULESET.OW", actorType: "acolyte",
+        label: "RULESET.OW",
         ready: true,
         // Модификаторы полка и специальности прибавляются к готовому броску (стр. 41).
         characteristicModifiers: "flat",
@@ -107,7 +111,7 @@ export const RULESET_DEFS = {
         ]
     },
     bc: {
-        label: "RULESET.BC", actorType: "heretic",
+        label: "RULESET.BC",
         ready: true,
         // Модификаторы Гордыни, Позора и архетипа прибавляются к готовому броску (стр. 72-74).
         characteristicModifiers: "flat",
@@ -145,7 +149,7 @@ export const RULESET_DEFS = {
         ]
     },
     dw: {
-        label: "RULESET.DW", actorType: "acolyte",
+        label: "RULESET.DW",
         characteristicModifiers: null,
         characteristicMethods: ["roll", "pointBuy"],
         steps: [
