@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {sizeToHitModifier, targetSizeModifier, carapaceAdjustedSize, wearsTerminatorArmour,
-    isTerminatorArmour, describeTargetSize, SIZE_NAMES, AVERAGE_SIZE, SPACE_MARINE_SIZE}
+import {sizeToHitModifier, targetSizeModifier, carapaceAdjustedSize, armourSizeModifier,
+    describeTargetSize, SIZE_NAMES, AVERAGE_SIZE, SPACE_MARINE_SIZE}
     from '../script/data/size-rules.mjs';
 
 test('the size table is the book\'s, step for step (p. 143)', () => {
@@ -43,29 +43,31 @@ test('grow past a Legionnaire and the difference shows again', () => {
     assert.equal(targetSizeModifier({size: 7}), 30);
 });
 
-test('Terminator armour is too big for the Carapace to help (p. 177)', () => {
-    // "Terminator armour is just too big!" — in it he is shot at as what he looks like.
-    assert.equal(targetSizeModifier({size: 5, spaceMarine: true, terminator: true}), 10);
-    assert.equal(targetSizeModifier({size: 6, spaceMarine: true, terminator: true}), 20);
-    // A human in the same suit was Average and is now Hulking, with no Carapace at all.
-    assert.equal(targetSizeModifier({size: 5, terminator: true}), 10);
+test('armour adds its own modifier on top, and that is where Terminator plate lives (p. 177)', () => {
+    // The suit's +10 is a number on its card, not a name the code recognises.
+    assert.equal(targetSizeModifier({size: 5, spaceMarine: true, armour: 10}), 10,
+        'the Carapace still hides his own bulk; the suit on top of it does not hide');
+    assert.equal(targetSizeModifier({size: 4, armour: 10}), 10, 'a human in the same suit');
+    assert.equal(targetSizeModifier({size: 6, spaceMarine: true, armour: 10}), 20);
+    // A suit can just as well make its wearer harder to see.
+    assert.equal(targetSizeModifier({size: 4, armour: -10}), -10);
 });
 
-test('the suit is recognised by name, and only while it is worn', () => {
-    assert.equal(isTerminatorArmour({name: 'Legion Terminator Armour'}), true);
-    assert.equal(isTerminatorArmour({name: 'Terminator Armour'}), true);
-    assert.equal(isTerminatorArmour({name: 'Legion Power Armour'}), false);
-    const worn = {type: 'armour', name: 'Legion Terminator Armour', system: {equipped: true}};
-    const carried = {type: 'armour', name: 'Legion Terminator Armour', system: {equipped: false}};
-    assert.equal(wearsTerminatorArmour([worn]), true);
-    assert.equal(wearsTerminatorArmour([carried]), false, 'carrying it is not wearing it');
-    assert.equal(wearsTerminatorArmour([{type: 'weapon', name: 'Terminator Sword', system: {equipped: true}}]), false);
-    assert.equal(wearsTerminatorArmour([]), false);
+test('only worn armour counts, and its number is read from the card', () => {
+    const worn = {type: 'armour', name: 'Legion Terminator Armour', system: {equipped: true, sizeModifier: 10}};
+    const carried = {type: 'armour', name: 'Legion Terminator Armour', system: {equipped: false, sizeModifier: 10}};
+    const plain = {type: 'armour', name: 'Legion Power Armour', system: {equipped: true, sizeModifier: 0}};
+    assert.equal(armourSizeModifier([worn]), 10);
+    assert.equal(armourSizeModifier([carried]), 0, 'carrying it is not wearing it');
+    assert.equal(armourSizeModifier([plain]), 0);
+    assert.equal(armourSizeModifier([worn, plain]), 10, 'worn pieces add up');
+    assert.equal(armourSizeModifier([{type: 'weapon', system: {equipped: true, sizeModifier: 10}}]), 0);
+    assert.equal(armourSizeModifier([]), 0);
 });
 
 test('the system asks the module rather than keeping a second table', () => {
     const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
-    assert.match(source, /import \{targetSizeModifier, sizeToHitModifier, wearsTerminatorArmour, describeTargetSize\}/);
+    assert.match(source, /import \{targetSizeModifier, sizeToHitModifier, armourSizeModifier, describeTargetSize\}/);
     assert.match(source, /return targetSizeModifier\(\{/);
     assert.equal(source.includes('const sizeModifiers = {'), false, 'the old copy of the table is gone');
 });
@@ -73,16 +75,16 @@ test('the system asks the module rather than keeping a second table', () => {
 test('the card can say where the number came from', () => {
     // A plain target: just how big it is.
     assert.deepEqual(describeTargetSize({size: 5}),
-        {modifier: 10, size: 5, sizeName: 'hulking', carapace: false, terminator: false});
+        {modifier: 10, size: 5, sizeName: 'hulking', carapace: false, armour: 0});
     // A Legionnaire: zero, and the card must be able to say why it is zero.
     assert.deepEqual(describeTargetSize({size: 5, spaceMarine: true}),
-        {modifier: 0, size: 5, sizeName: 'hulking', carapace: true, terminator: false});
+        {modifier: 0, size: 5, sizeName: 'hulking', carapace: true, armour: 0});
     // Grown past his armour: the Carapace still helps, but no longer hides him.
     assert.deepEqual(describeTargetSize({size: 6, spaceMarine: true}),
-        {modifier: 10, size: 6, sizeName: 'enormous', carapace: true, terminator: false});
-    // In Terminator plate the Carapace does nothing at all.
-    assert.deepEqual(describeTargetSize({size: 5, spaceMarine: true, terminator: true}),
-        {modifier: 10, size: 5, sizeName: 'hulking', carapace: false, terminator: true});
+        {modifier: 10, size: 6, sizeName: 'enormous', carapace: true, armour: 0});
+    // In Terminator plate the Carapace still covers his own bulk, and the suit shows above it.
+    assert.deepEqual(describeTargetSize({size: 5, spaceMarine: true, armour: 10}),
+        {modifier: 10, size: 5, sizeName: 'hulking', carapace: true, armour: 10});
 });
 
 test('the chat card shows the line even when the modifier is zero', () => {

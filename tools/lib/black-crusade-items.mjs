@@ -41,3 +41,15 @@ export const MISSING_ITEMS = [
         }
     }
 ];
+
+/**
+ * Правки готовых карточек пака: поле, число, ничего больше.
+ *
+ * Терминаторская броня поднимает носителя на ступень величины, и Чёрный Панцирь
+ * с ней не справляется (стр. 177). В системе это просто +10 к попаданию по нему,
+ * записанное в самой броне — так его видно и так его можно поменять.
+ */
+export const FIELD_FIXES = [
+    {type: "armour", name: "Terminator Armour", path: "sizeModifier", value: 10},
+    {type: "armour", name: "Legion Terminator Armour", path: "sizeModifier", value: 10}
+];

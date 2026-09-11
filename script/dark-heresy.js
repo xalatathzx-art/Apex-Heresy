@@ -7,7 +7,7 @@ import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
 import { patronOf } from "./creation/bc-talents.mjs";
 import { PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader } from "./creation/patron-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
-import {targetSizeModifier, sizeToHitModifier, wearsTerminatorArmour, describeTargetSize} from "./data/size-rules.mjs";
+import {targetSizeModifier, sizeToHitModifier, armourSizeModifier, describeTargetSize} from "./data/size-rules.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
 import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
@@ -17082,13 +17082,13 @@ function _getTargetSizeModifier(rollData) {
     return targetSizeModifier({
         size: token.actor.system?.size,
         spaceMarine: !!token.actor.getFlag("dark-heresy", "spaceMarine"),
-        terminator: wearsTerminatorArmour(token.actor.items ?? [])
+        armour: armourSizeModifier(token.actor.items ?? [])
     });
 }
 
 /**
  * Подпись к поправке за величину: «Hulking», «Hulking, Black Carapace»,
- * «Hulking, Terminator armour». Число стоит рядом в самой карточке.
+ * «Hulking, Black Carapace, armour +10». Число стоит рядом в самой карточке.
  *
  * @param {object} rollData
  * @returns {string} пустая строка, если цели нет или правило неприменимо
@@ -17104,11 +17104,11 @@ function _targetSizeLabel(rollData) {
     const parts = describeTargetSize({
         size: actor.system?.size,
         spaceMarine: !!actor.getFlag("dark-heresy", "spaceMarine"),
-        terminator: wearsTerminatorArmour(actor.items ?? [])
+        armour: armourSizeModifier(actor.items ?? [])
     });
     const words = [game.i18n.localize(`SIZE_STEP.${parts.sizeName.toUpperCase()}`)];
     if (parts.carapace) words.push(game.i18n.localize("BLACK_CARAPACE"));
-    if (parts.terminator) words.push(game.i18n.localize("TERMINATOR_ARMOUR"));
+    if (parts.armour) words.push(game.i18n.format("SIZE_FROM_ARMOUR", {value: parts.armour > 0 ? `+${parts.armour}` : parts.armour}));
     return words.join(", ");
 }
 

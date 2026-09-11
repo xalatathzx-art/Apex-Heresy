@@ -44,6 +44,16 @@
                         <input name="system.maxAgility" type="number" value="{{system.maxAgility}}" data-dtype="Number" />
                     </div>
                 </div>
+                {{!-- Насколько броня делает носителя заметнее для стрелка. Терминаторская
+                      броня прибавляет +10: она поднимает носителя на ступень величины, и
+                      Чёрный Панцирь с ней уже не справляется (Black Crusade, стр. 177). --}}
+                <div class="form-group">
+                    <label>{{localize "ARMOUR.SIZE_MODIFIER"}}</label>
+                    <div class="form-fields">
+                        <input name="system.sizeModifier" type="number" value="{{system.sizeModifier}}"
+                               data-dtype="Number" data-tooltip="{{localize "ARMOUR.SIZE_MODIFIER_HINT"}}" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>{{localize "ARMOUR.LEFT_ARM"}}</label>
                     <div class="form-fields">

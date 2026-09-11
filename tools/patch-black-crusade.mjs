@@ -10,7 +10,7 @@
  */
 import {createRequire} from "node:module";
 import {talentPatron} from "../script/creation/bc-talents.mjs";
-import {MISSING_ITEMS} from "./lib/black-crusade-items.mjs";
+import {MISSING_ITEMS, FIELD_FIXES} from "./lib/black-crusade-items.mjs";
 
 const require = createRequire(import.meta.url);
 const {ClassicLevel} = require("d:/Foundry/Foundry14/Foundry Virtual Tabletop/resources/app/node_modules/classic-level");
@@ -46,6 +46,15 @@ for await (const [key, value] of db.iterator({gte: "!items!", lt: "!items!\uffff
     changes.push(`${value.name}: ${value.system?.patron ?? "—"} -> ${book.patron}`);
 }
 
+// Поля готовых карточек, сверенные с книгой.
+const fields = [];
+for await (const [key, value] of db.iterator({gte: "!items!", lt: "!items!￿"})) {
+    const fix = FIELD_FIXES.find(entry => entry.type === value.type && entry.name === value.name);
+    if (!fix || value.system?.[fix.path] === fix.value) continue;
+    batch.put(key, {...value, system: {...value.system, [fix.path]: fix.value}});
+    fields.push(`${value.name}: ${fix.path} ${value.system?.[fix.path] ?? "—"} -> ${fix.value}`);
+}
+
 // Записи книги, которых в паке не оказалось вовсе.
 const present = new Set();
 for await (const [, value] of db.iterator({gte: "!items!", lt: "!items!￿"}))
@@ -65,12 +74,14 @@ if (check) {
     for (const line of changes) console.log("  " + line);
     console.log(added.length ? `${added.length} items would be added:` : "nothing to add");
     for (const line of added) console.log("  " + line);
+    console.log(fields.length ? `${fields.length} fields would change:` : "no field would change");
+    for (const line of fields) console.log("  " + line);
     if (unknown.length) console.log(`not in the book's tables (left alone): ${unknown.join(", ")}`);
     process.exit(0);
 }
 
 await batch.write();
 await db.close();
-console.log(`${changes.length} talents given their god, ${added.length} items added`);
-for (const line of [...changes, ...added]) console.log("  " + line);
+console.log(`${changes.length} talents given their god, ${added.length} items added, ${fields.length} fields set`);
+for (const line of [...changes, ...added, ...fields]) console.log("  " + line);
 if (unknown.length) console.log(`not in the book's tables (left alone): ${unknown.join(", ")}`);

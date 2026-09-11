@@ -1505,7 +1505,8 @@
         "leftLeg": 0,
         "rightLeg": 0
       },
-      "maxAgility": 0
+      "maxAgility": 0,
+      "sizeModifier": 0
     },
     "criticalInjury": {
       "templates": [

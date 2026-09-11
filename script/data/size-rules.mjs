@@ -6,10 +6,10 @@
 //  Чёрный Панцирь срастил его с бронёй так, что стрелок этого не чувствует —
 //  пока броня ему по размеру.
 //
-//  Терминаторская броня ему не по размеру (стр. 177): «Terminator armour is
-//  just too big», и Панцирь перестаёт помогать. Отсюда и общее правило: Панцирь
-//  гасит ровно габариты силовой брони, то есть ступень Hulking. Стал крупнее —
-//  дарами богов, мутацией, терминаторской бронёй — и разница снова видна.
+//  Броня может сделать носителя заметнее — у терминаторской это +10 (стр. 177):
+//  «Terminator armour is just too big», Панцирь с ней не справляется. Система
+//  такую броню не угадывает: цифра стоит в самой карточке брони, полем, и меняет
+//  её тот, кто правит снаряжение, а не тот, кто правит код.
 //
 //  Модуль чистый: ни одной глобали Foundry.
 // ════════════════════════════════════════════════════════════════════════
@@ -55,43 +55,39 @@ export function carapaceAdjustedSize(size) {
 }
 
 /**
- * Поправка к попаданию по этой цели — с учётом того, кто она.
+ * Поправка к попаданию по этой цели.
+ *
+ * Складывается из двух вещей: какова цель сама (с поправкой на Чёрный Панцирь) и
+ * что к ней добавляет надетая броня.
  *
  * @param {object} target
  * @param {number} target.size            ступень величины
  * @param {boolean} [target.spaceMarine]  включён ли режим десантника (Чёрный Панцирь)
- * @param {boolean} [target.terminator]   надета ли терминаторская броня
+ * @param {number} [target.armour]        сумма поправок надетой брони
  * @returns {number}
  */
-export function targetSizeModifier({size, spaceMarine = false, terminator = false} = {}) {
+export function targetSizeModifier({size, spaceMarine = false, armour = 0} = {}) {
     const step = Number(size) || AVERAGE_SIZE;
-    // Терминаторская броня слишком велика, чтобы Панцирь с ней справился (стр. 177):
-    // в ней десантник стреляется как то, чем он выглядит.
-    if (!spaceMarine || terminator) return sizeToHitModifier(step);
-    return sizeToHitModifier(carapaceAdjustedSize(step));
+    const own = spaceMarine ? sizeToHitModifier(carapaceAdjustedSize(step)) : sizeToHitModifier(step);
+    return own + (Number(armour) || 0);
 }
 
 /**
- * Терминаторская ли это броня.
+ * Что к заметности носителя добавляет надетая броня.
  *
- * Отдельного поля у брони в системе нет, а заводить его ради одного правила
- * не стоит: и в книге, и в паке такая броня зовётся своим именем.
+ * Читается из поля карточки, а не угадывается по имени: брони с такой особенностью
+ * в книгах не одна, и правит их тот, кто ведёт игру.
  *
- * @param {{name?: string, system?: {equipped?: boolean}}} item
- * @returns {boolean}
+ * @param {{type?: string, system?: {equipped?: boolean, sizeModifier?: number}}[]} items
+ * @returns {number}
  */
-export function isTerminatorArmour(item) {
-    return /terminator/i.test(String(item?.name ?? ""));
-}
-
-/**
- * Носит ли боец терминаторскую броню прямо сейчас.
- * @param {{type?: string, name?: string, system?: {equipped?: boolean}}[]} items
- * @returns {boolean}
- */
-export function wearsTerminatorArmour(items = []) {
-    return (items ?? []).some(item =>
-        item?.type === "armour" && item?.system?.equipped === true && isTerminatorArmour(item));
+export function armourSizeModifier(items = []) {
+    let total = 0;
+    for (const item of items ?? []) {
+        if (item?.type !== "armour" || item?.system?.equipped !== true) continue;
+        total += Number(item.system.sizeModifier) || 0;
+    }
+    return total;
 }
 
 /**
@@ -104,16 +100,15 @@ export function wearsTerminatorArmour(items = []) {
  * @param {{size?: number, spaceMarine?: boolean, terminator?: boolean}} target
  * @returns {{modifier: number, size: number, sizeName: string, carapace: boolean, terminator: boolean}}
  */
-export function describeTargetSize({size, spaceMarine = false, terminator = false} = {}) {
+export function describeTargetSize({size, spaceMarine = false, armour = 0} = {}) {
     const step = Math.min(10, Math.max(1, Math.round(Number(size) || AVERAGE_SIZE)));
-    const carapace = !!spaceMarine && !terminator;
+    const fromArmour = Number(armour) || 0;
     return {
-        modifier: targetSizeModifier({size: step, spaceMarine, terminator}),
+        modifier: targetSizeModifier({size: step, spaceMarine, armour: fromArmour}),
         size: step,
         sizeName: SIZE_NAMES[step],
-        // Панцирь отмечаем только когда он что-то изменил: у обычного по размеру
-        // десантника он и так ничего не гасит.
-        carapace: carapace && sizeToHitModifier(step) !== targetSizeModifier({size: step, spaceMarine, terminator}),
-        terminator: !!terminator && !!spaceMarine
+        // Панцирь отмечаем только когда он что-то изменил.
+        carapace: !!spaceMarine && sizeToHitModifier(step) !== sizeToHitModifier(carapaceAdjustedSize(step)),
+        armour: fromArmour
     };
 }
