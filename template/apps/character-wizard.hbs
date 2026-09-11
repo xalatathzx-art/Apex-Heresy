@@ -472,7 +472,7 @@
                                 <span class="shop-name">{{offer.name}}</span>
                                 {{/if}}
                                 <span class="shop-step">{{#if offer.owned}}{{localize "WIZARD.SHOP_OWNED"}}{{/if}}</span>
-                                <span class="shop-match"></span>
+                                <span class="shop-match">{{#if offer.gifted}}{{localize "WIZARD.SHOP_GIFTED"}}{{/if}}</span>
                                 <span class="shop-cost">{{offer.cost}}</span>
                                 <button type="button" class="shop-buy" data-buy-power="{{offer.uuid}}"
                                         {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>

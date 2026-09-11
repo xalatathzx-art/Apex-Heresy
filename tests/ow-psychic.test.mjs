@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {catalogueOffers, psychicOffersFor, psyBase, psyRatingCost} from '../script/creation/psychic-data.mjs';
+import {readFileSync} from 'node:fs';
+import {catalogueOffers, psychicOffersFor, psyBase, psyRatingCost, powerPrice} from '../script/creation/psychic-data.mjs';
 import {checkPrerequisites} from '../script/creation/shop-data.mjs';
 
 const NAMES = {toughness: 'toughness', strength: 'strength'};
@@ -45,4 +46,17 @@ test('a sanctioned psyker of Only War starts at psy rating 2 for free', () => {
     assert.equal(psyBase([{name: 'Psyker'}], 'dh2'), 1);
     assert.equal(psyBase([{name: 'Psyker'}, {name: 'Sanctioned'}], 'dh2'), 2);
     assert.equal(psyRatingCost(3, psyBase([{name: 'Psyker'}], 'ow')), 600, '200 x the new rating (p. 95)');
+});
+
+test('the gift pays for a power first, so the button and the purchase agree (p. 95)', () => {
+    assert.deepEqual(powerPrice(300, 400), {free: 300, due: 0}, 'wholly paid by the gift');
+    assert.deepEqual(powerPrice(300, 100), {free: 100, due: 200}, 'the rest comes out of experience');
+    assert.deepEqual(powerPrice(300, 0), {free: 0, due: 300}, 'no gift left');
+    assert.deepEqual(powerPrice(200, -5), {free: 0, due: 200});
+
+    // Кнопка в Мастере считает по той же функции: сила за 300 доступна при нулевом
+    // опыте, пока цел подарок.
+    const wizard = readFileSync(new URL('../script/creation/wizard.mjs', import.meta.url), 'utf8');
+    assert.match(wizard, /powerPrice\(offer\.cost, freePowers\)\.due <= remaining/);
+    assert.match(wizard, /const \{free, due\} = powerPrice\(offer\.cost, this\._freePowerExperience\(\)\);/);
 });

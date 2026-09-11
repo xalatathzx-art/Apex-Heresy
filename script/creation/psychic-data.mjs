@@ -186,3 +186,14 @@ export function purchasePsyRating(snapshot) {
                  cost: offer.cost, label: `Psy Rating ${offer.next}`}
     };
 }
+
+/**
+ * Что игрок на самом деле платит за силу. Санкционированный псайкер Only War
+ * получает сил на 400 опыта даром (стр. 95): сначала тратится подарок, остаток —
+ * из общего опыта. Считается одинаково и для кнопки, и для самой покупки.
+ * @returns {{free: number, due: number}}
+ */
+export function powerPrice(cost, freeExperience = 0) {
+    const free = Math.min(Math.max(0, Number(cost) || 0), Math.max(0, Number(freeExperience) || 0));
+    return {free, due: (Number(cost) || 0) - free};
+}

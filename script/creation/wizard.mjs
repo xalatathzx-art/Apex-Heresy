@@ -25,7 +25,7 @@ import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
 import {pointBuyRules, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
 import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "./elite-data.mjs";
-import {psychicOffersFor, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
+import {psychicOffersFor, psyRatingOffer, purchasePsyRating, powerPrice} from "./psychic-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
 import {demeanourFor} from "./life-data.mjs";
@@ -945,13 +945,13 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (!offer || offer.owned) return;
         if (offer.blocked) { ui.notifications?.warn(game.i18n.localize("WIZARD.SHOP_PREREQUISITES")); return; }
         // Санкционированный псайкер Only War получает силы на 400 опыта даром (стр. 95).
-        const free = Math.min(offer.cost, this._freePowerExperience());
+        const {free, due} = powerPrice(offer.cost, this._freePowerExperience());
         const data = (await fromUuid(uuid)).toObject();
         delete data._id;
         // Цена силы — из её статьи; в паке она не записана, а лист считает по полю.
         data.system = {...data.system, cost: offer.cost};
         data.flags = foundry.utils.mergeObject(data.flags ?? {}, {[GRANT_FLAG_SCOPE]: {creationPurchase: true}});
-        await this._commitPurchase({update: {}, record: {kind: "power", name: offer.name, cost: offer.cost - free,
+        await this._commitPurchase({update: {}, record: {kind: "power", name: offer.name, cost: due,
                                                         free, label: offer.name}},
                                    {itemData: data});
     }
@@ -1469,6 +1469,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const label = key => game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`);
         const levelLabel = level => level ? game.i18n.localize(`WIZARD.LEVEL.${level.toUpperCase()}`) : "";
         const remaining = this._remaining();
+        const freePowers = this._freePowerExperience();
         const filter = String(this._talentFilter ?? "").toLowerCase().trim();
         const tierFilter = Number(this._talentTier ?? 0);
         const names = CharacterWizard.CHARACTERISTIC_NAMES;
@@ -1513,7 +1514,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                     powers: discipline.powers.map(offer => ({...offer,
                         parentsText: offer.parents.join(" / "),
                         showChecks: offer.prerequisites.length > 0 || !offer.accessible,
-                        affordable: !locked && !offer.blocked && !offer.owned && offer.cost <= remaining,
+                        affordable: !locked && !offer.blocked && !offer.owned
+                            && powerPrice(offer.cost, freePowers).due <= remaining,
+                        gifted: !offer.owned && offer.cost > 0 && powerPrice(offer.cost, freePowers).due === 0,
                         open: !!offer.uuid && offer.uuid === this._openTalent, book: book(offer.uuid)}))}))
                 : [],
             shopTab: tab,
