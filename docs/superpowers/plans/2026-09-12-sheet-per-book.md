@@ -49,7 +49,7 @@ existing character, which breaks the tokens, scene references and journal links 
 
 ## Tasks
 
-### Task 1: One field set for every character
+### Task 1: One field set for every character — DONE
 
 **Files:** `template.json`, `script/creation/ruleset-data.mjs`, `script/creation/wizard.mjs`,
 `lang/en.json`, `tests/sheet-per-book.test.mjs`
@@ -58,7 +58,7 @@ Move `race`, `archetype`, `patron`, `alignment`, `pride`, `vice`, `aspiration` i
 template used by both character types. Drop `actorType` from the ruleset definitions and the
 wizard's wrong-type warning with it. A test proves both types carry every field a book writes.
 
-### Task 2: The sheet follows the book
+### Task 2: The sheet follows the book — DONE
 
 **Files:** `script/dark-heresy.js`, `tests/sheet-per-book.test.mjs`
 
@@ -67,7 +67,7 @@ scale logic), five subclasses, and registration of all five for both character t
 picks by ruleset; changing the book on the sheet sets `core.sheetClass` so the window re-opens as
 the right sheet.
 
-### Task 3: Shared frame, Dark Heresy sheet
+### Task 3: Shared frame, Dark Heresy sheet — DONE
 
 **Files:** `template/sheet/actor/part/*.hbs`, `template/sheet/actor/dark-heresy.hbs`,
 `css/dark-heresy.css`
@@ -75,7 +75,7 @@ the right sheet.
 Split the common header into partials and rebuild today's acolyte sheet on them: home world,
 background, role, Influence, Fate, divination, and the eight tabs it has now.
 
-### Task 4: Black Crusade sheet
+### Task 4: Black Crusade sheet — DONE
 
 **Files:** `template/sheet/actor/black-crusade.hbs`, `template/sheet/actor/tab/gifts.hbs`
 
@@ -83,21 +83,21 @@ Race, archetype, pact, patron and aspiration; Infamy where Influence sits and In
 Fate sits; Corruption with its alignment tally; and a Gifts of the Gods tab for the mutations and
 rewards the pack already carries.
 
-### Task 5: Only War sheet
+### Task 5: Only War sheet — DONE
 
 **Files:** `template/sheet/actor/only-war.hbs`, `template/sheet/actor/tab/squad.hbs`
 
 Regiment, speciality and demeanour; no Influence; a Squad tab for the Comrade — his name, his
 demeanour and the orders the speciality bought.
 
-### Task 6: Rogue Trader and Deathwatch sheets
+### Task 6: Rogue Trader and Deathwatch sheets — DONE
 
 **Files:** `template/sheet/actor/rogue-trader.hbs`, `template/sheet/actor/deathwatch.hbs`
 
 The Dark Heresy tab set under each book's own labels, with a note in the file saying which parts
 still wait on an audit of that rulebook.
 
-### Task 7: Live run
+### Task 7: Live run — DONE
 
 Open every book's sheet in Foundry on a character built by the wizard, check that switching the
 book switches the sheet and loses nothing, and re-run creation for Dark Heresy, Only War and
@@ -105,6 +105,15 @@ Black Crusade.
 
 ## Journal
 
+- 2026-09-12: Done. The frame turned out to be one template, not five: `character.hbs` holds what
+  every book shares, and each sheet class names its own biography partial, its own vitals and its
+  own tab list. That is why five books cost five short classes instead of five copies of 130 lines.
+- 2026-09-12: One bug worth remembering — a partial called from inside `{{#each}}` gets the row as
+  its context, not the sheet, so every tab rendered without `system` and `items` and fell over on
+  the first `selectOptions`. Fixed by passing `../this`, and pinned by a test.
+- 2026-09-12: Live run: an ordinary acolyte was pointed at Black Crusade in the wizard. No warning,
+  the sheet became BlackCrusadeSheet on the spot, and the wizard opened at Race. All five sheets
+  render with their own fields and tabs.
 - 2026-09-12: Plan written. The decision that shapes it: `Actor#type` is immutable in Foundry, so
   five actor types would mean re-creating every existing character. Five sheets over two types
   gives the same thing to the player and costs nobody their tokens.
