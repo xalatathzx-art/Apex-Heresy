@@ -27,7 +27,74 @@
           "devastatorMarine",
           "librarian"
         ],
-        "note": "His zygotes are deficient: a Black Templar gains nothing from the Betcher's gland or the sus-an membrane (p. 40)."
+        "note": "His zygotes are deficient: a Black Templar gains nothing from the Betcher's gland or the sus-an membrane (p. 40).",
+        "advances": [
+          {
+            "name": "Interrogation",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Interrogation +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Interrogation"
+          },
+          {
+            "name": "Interrogation +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Interrogation +10"
+          },
+          {
+            "name": "Abhor the Witch",
+            "cost": 800,
+            "type": "talent",
+            "prerequisites": "Adeptus Astartes"
+          },
+          {
+            "name": "Fearless",
+            "cost": 800,
+            "type": "talent"
+          },
+          {
+            "name": "Hatred (Heretics)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Hatred (Mutants)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Hatred (Psykers)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Inspire Wrath",
+            "cost": 1000,
+            "type": "talent",
+            "prerequisites": "Fel 30"
+          },
+          {
+            "name": "Litany of Hate",
+            "cost": 1000,
+            "type": "talent",
+            "prerequisites": "Hatred (any)"
+          },
+          {
+            "name": "Orthoproxy",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Scourge of Heretics",
+            "cost": 500,
+            "type": "talent"
+          }
+        ]
       },
       "grants": {
         "aptitudes": []
@@ -69,7 +136,85 @@
       "rules": {
         "soloMode": "Blood Frenzy",
         "demeanour": "The Red Thirst",
-        "forbidsSpecialities": []
+        "forbidsSpecialities": [],
+        "advances": [
+          {
+            "name": "Acrobatics",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Acrobatics +10",
+            "cost": 600,
+            "type": "skill",
+            "prerequisites": "Acrobatics"
+          },
+          {
+            "name": "Acrobatics +20",
+            "cost": 600,
+            "type": "skill",
+            "prerequisites": "Acrobatics +10"
+          },
+          {
+            "name": "Assassin Strike",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Ag 40, Acrobatics"
+          },
+          {
+            "name": "Battle Rage",
+            "cost": 400,
+            "type": "talent",
+            "prerequisites": "Frenzy"
+          },
+          {
+            "name": "Berserk Charge",
+            "cost": 600,
+            "type": "talent"
+          },
+          {
+            "name": "Flesh Render",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Furious Assault",
+            "cost": 600,
+            "type": "talent",
+            "prerequisites": "WS 35"
+          },
+          {
+            "name": "Frenzy",
+            "cost": 400,
+            "type": "talent"
+          },
+          {
+            "name": "Hatred (Orks)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Mental Rage",
+            "cost": 800,
+            "type": "talent",
+            "prerequisites": "Frenzy"
+          },
+          {
+            "name": "Slayer of Daemons",
+            "cost": 1000,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Trade [Artisan])",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Pilot [Personal])",
+            "cost": 500,
+            "type": "talent"
+          }
+        ]
       },
       "grants": {
         "aptitudes": []
@@ -111,7 +256,102 @@
       "rules": {
         "soloMode": "Stoic Defence",
         "demeanour": "Sons of The Lion",
-        "forbidsSpecialities": []
+        "forbidsSpecialities": [],
+        "advances": [
+          {
+            "name": "Interrogation",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Interrogation +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Interrogation"
+          },
+          {
+            "name": "Interrogation +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Interrogation +10"
+          },
+          {
+            "name": "Lore: Forbidden (Adeptus Astartes)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Adeptus Astartes) +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Adeptus Astartes)"
+          },
+          {
+            "name": "Lore: Forbidden (Adeptus Astartes) +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Adeptus Astartes) +10"
+          },
+          {
+            "name": "Lore: Forbidden (Inquisition)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Inquisition) +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Inquisition)"
+          },
+          {
+            "name": "Lore: Forbidden (Inquisition) +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Inquisition) +10"
+          },
+          {
+            "name": "Lore: Forbidden (Traitor Legions)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Forbidden (Traitor Legions) +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Traitor Legions)"
+          },
+          {
+            "name": "Lore: Forbidden (Traitor Legions) +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Lore: Forbidden (Traitor Legions) +10"
+          },
+          {
+            "name": "Hatred (Chaos Space Marines)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Hatred (Mutants)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Paranoia",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Pilot)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Drive [Ground Vehicles])",
+            "cost": 500,
+            "type": "talent"
+          }
+        ]
       },
       "grants": {
         "aptitudes": []
@@ -155,6 +395,108 @@
         "demeanour": "The Sons of Russ",
         "forbidsSpecialities": [
           "apothecary"
+        ],
+        "advances": [
+          {
+            "name": "Carouse",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Carouse +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Carouse"
+          },
+          {
+            "name": "Carouse +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Carouse +10"
+          },
+          {
+            "name": "Performer (any)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Performer (any) +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Performer (same skill group)"
+          },
+          {
+            "name": "Performer (any) +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Performer (same skill group) +10"
+          },
+          {
+            "name": "Tracking",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Tracking +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Tracking"
+          },
+          {
+            "name": "Tracking +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Tracking +10"
+          },
+          {
+            "name": "Wrangling",
+            "cost": 100,
+            "type": "skill"
+          },
+          {
+            "name": "Wrangling +10",
+            "cost": 100,
+            "type": "skill",
+            "prerequisites": "Wrangling"
+          },
+          {
+            "name": "Wrangling +20",
+            "cost": 100,
+            "type": "skill",
+            "prerequisites": "Wrangling +10"
+          },
+          {
+            "name": "Hardy",
+            "cost": 400,
+            "type": "talent",
+            "prerequisites": "Toughness 40"
+          },
+          {
+            "name": "Hatred (Chaos Space Marines)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Heightened Senses (Taste)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Carouse)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Tracking)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Wisdom of the Ancients",
+            "cost": 1500,
+            "type": "talent",
+            "prerequisites": "Int 40"
+          }
         ]
       },
       "grants": {
@@ -201,7 +543,69 @@
       "rules": {
         "soloMode": "Thunder's Call",
         "demeanour": "Aspire to Glory",
-        "forbidsSpecialities": []
+        "forbidsSpecialities": [],
+        "advances": [
+          {
+            "name": "Gamble",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Gamble +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Gamble"
+          },
+          {
+            "name": "Gamble +20",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Gamble +10"
+          },
+          {
+            "name": "Tracking",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Tracking +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Tracking"
+          },
+          {
+            "name": "Tracking +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Tracking +10"
+          },
+          {
+            "name": "Duty Unto Death",
+            "cost": 800,
+            "type": "talent",
+            "prerequisites": "WP 45"
+          },
+          {
+            "name": "Hammer Blow",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Stalwart Defence",
+            "cost": 800,
+            "type": "talent"
+          },
+          {
+            "name": "Talented (Drive [Ground Vehicle])",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Thunder Charge",
+            "cost": 1000,
+            "type": "talent"
+          }
+        ]
       },
       "grants": {
         "aptitudes": [],
@@ -280,7 +684,104 @@
       "rules": {
         "soloMode": "Favoured Son",
         "demeanour": "Honour the Codex",
-        "forbidsSpecialities": []
+        "forbidsSpecialities": [],
+        "advances": [
+          {
+            "name": "Charm",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Charm +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Charm"
+          },
+          {
+            "name": "Charm +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Charm +10"
+          },
+          {
+            "name": "Command",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Command +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Command"
+          },
+          {
+            "name": "Command +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Command +10"
+          },
+          {
+            "name": "Performer (any)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Performer (any) +10",
+            "cost": 200,
+            "type": "skill",
+            "prerequisites": "Performer (same skill group)"
+          },
+          {
+            "name": "Tactics (any)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Tactics (any) +10",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Tactics (same Skill group)"
+          },
+          {
+            "name": "Tactics (any) +20",
+            "cost": 400,
+            "type": "skill",
+            "prerequisites": "Tactics (same Skill group) +10"
+          },
+          {
+            "name": "Duty Unto Death",
+            "cost": 800,
+            "type": "talent",
+            "prerequisites": "WP 45"
+          },
+          {
+            "name": "Exemplar of Honour",
+            "cost": 800,
+            "type": "talent"
+          },
+          {
+            "name": "Good Reputation (any)",
+            "cost": 800,
+            "type": "talent",
+            "prerequisites": "Fellowship 50, Peer (same Skill group)"
+          },
+          {
+            "name": "Hatred (Tyranids)",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Peer (any)",
+            "cost": 500,
+            "type": "talent",
+            "prerequisites": "Fel 30"
+          },
+          {
+            "name": "Talented (Command)",
+            "cost": 500,
+            "type": "talent"
+          }
+        ]
       },
       "grants": {
         "aptitudes": []

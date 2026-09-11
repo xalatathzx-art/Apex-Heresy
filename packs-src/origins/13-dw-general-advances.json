@@ -1,0 +1,145 @@
+[
+  {
+    "name": "General Space Marine Advances",
+    "type": "origin",
+    "folder": "Deathwatch/Advances",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "advanceList",
+      "order": 1,
+      "key": "generalRank1",
+      "cost": 0,
+      "description": "<p>What any Battle-Brother may learn, whatever his Chapter or his Speciality. At creation he buys from the first rank of this list (p. 27).</p>",
+      "source": "Deathwatch, p. 60",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "rules": {
+        "advanceList": "general",
+        "rank": 1,
+        "advances": [
+          {
+            "name": "Awareness",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Carouse",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Ciphers (Chapter Runes)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Climb",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Concealment",
+            "cost": 800,
+            "type": "skill"
+          },
+          {
+            "name": "Dodge",
+            "cost": 300,
+            "type": "skill"
+          },
+          {
+            "name": "Drive (any)",
+            "cost": 600,
+            "type": "skill"
+          },
+          {
+            "name": "Intimidate",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Literacy",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Common (Adeptus Astartes)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Common (Imperium)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Lore: Common (War)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Navigation (Surface)",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Search",
+            "cost": 400,
+            "type": "skill"
+          },
+          {
+            "name": "Silent Move",
+            "cost": 300,
+            "type": "skill"
+          },
+          {
+            "name": "Speak Language (any)",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Survival",
+            "cost": 300,
+            "type": "skill"
+          },
+          {
+            "name": "Swim",
+            "cost": 200,
+            "type": "skill"
+          },
+          {
+            "name": "Tech-Use",
+            "cost": 800,
+            "type": "skill"
+          },
+          {
+            "name": "Trade (any)",
+            "cost": 600,
+            "type": "skill"
+          },
+          {
+            "name": "Astartes Weapon Specialisation",
+            "cost": 1500,
+            "type": "talent",
+            "prerequisites": "Astartes Weapon Training"
+          },
+          {
+            "name": "Signature Wargear",
+            "cost": 500,
+            "type": "talent"
+          },
+          {
+            "name": "Sound Constitution (x2)",
+            "cost": 500,
+            "type": "talent"
+          }
+        ]
+      },
+      "grants": {
+        "aptitudes": []
+      },
+      "choices": []
+    }
+  }
+]

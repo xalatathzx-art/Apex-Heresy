@@ -23,7 +23,9 @@ export const STAGES = {
     bc:  ["race", "archetype", "pride", "disgrace", "motivation"],
     // spaceMarine — то общее, что есть у каждого брата (стр. 37): навыки, таланты,
     // импланты и стандартная выкладка. Отдельной стадией, потому что это не выбор.
-    dw:  ["spaceMarine", "chapter", "speciality"]
+    // advanceList — не выбор, а меню: общий десантский список, из которого покупают
+    // наравне со списками ордена и специальности (стр. 58).
+    dw:  ["spaceMarine", "chapter", "speciality", "advanceList"]
 };
 
 /** Ключи характеристик актора — те же и в том же порядке, что в template.json. */
