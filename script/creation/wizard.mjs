@@ -16,7 +16,7 @@ import {planToActorUpdate, planToItemData, revertUpdate, ownedAptitudes,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
 import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
-import {findContent} from "./content-lookup.mjs";
+import {findContent, GRANT_ITEM_TYPES} from "./content-lookup.mjs";
 import {characteristicOffers, skillOffers, talentOffers, spentOn, purchaseCharacteristic,
         purchaseSkill, purchaseNewSpeciality, refundUpdate, CHARACTERISTIC_ABBREVIATIONS} from "./shop-data.mjs";
 import {specialityKeyFor} from "./origin-apply.mjs";
@@ -31,14 +31,6 @@ import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-
 import {demeanourFor} from "./life-data.mjs";
 import {REGIMENT_BUDGET, regimentCost, regimentProblems, composeRegiment} from "./regiment-data.mjs";
 import {ADDITIONAL_KIT} from "./kit-data.mjs";
-
-/** Какие типы предметов считаются тем или иным видом выдачи. */
-const GRANT_ITEM_TYPES = {
-    talent: ["talent"],
-    trait: ["trait"],
-    equipment: ["weapon", "armour", "gear", "tool", "ammunition", "drug", "cybernetic", "forceField",
-               "weaponModification"]
-};
 
 const {HandlebarsApplicationMixin, ApplicationV2} = foundry.applications.api;
 

@@ -2,15 +2,12 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {readdirSync, readFileSync} from 'node:fs';
-import {findContent} from '../script/creation/content-lookup.mjs';
+import {findContent, GRANT_ITEM_TYPES} from '../script/creation/content-lookup.mjs';
 
 const require = createRequire(import.meta.url);
 const CLASSIC_LEVEL = 'd:/Foundry/Foundry14/Foundry Virtual Tabletop/resources/app/node_modules/classic-level';
 const PACKS = ['dark-heresy', 'black-crusade', 'rogue-trader', 'only-war', 'deathwatch'];
-const TYPES = {
-    talent: ['talent'], trait: ['trait'],
-    equipment: ['weapon', 'armour', 'gear', 'tool', 'ammunition', 'drug', 'cybernetic', 'forceField']
-};
+const TYPES = GRANT_ITEM_TYPES;
 
 /** Names an origin hands out, with where each came from. */
 function grantedNames() {

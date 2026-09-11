@@ -61,3 +61,16 @@ export function findContent(index, types, name) {
     }
     return null;
 }
+
+/**
+ * Какие типы предметов считаются тем или иным видом выдачи.
+ *
+ * Держится здесь, а не в окне Мастера: тот же список нужен тесту, который проверяет,
+ * что каждое выданное имя находится в паках, а окно тест импортировать не может.
+ */
+export const GRANT_ITEM_TYPES = {
+    talent: ["talent"],
+    trait: ["trait"],
+    equipment: ["weapon", "armour", "gear", "tool", "ammunition", "drug", "cybernetic", "forceField",
+                "weaponModification"]
+};
