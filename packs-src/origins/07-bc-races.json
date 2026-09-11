@@ -77,7 +77,8 @@
       "characteristicChoices": [],
       "rules": {
         "characteristicBase": 30,
-        "startingExperience": 500
+        "startingExperience": 500,
+        "spaceMarine": true
       },
       "grants": {
         "aptitudes": [],

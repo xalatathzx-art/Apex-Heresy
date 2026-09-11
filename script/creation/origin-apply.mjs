@@ -124,6 +124,32 @@ export function unnaturalFromTrait(name, keys = CHARACTERISTIC_KEYS) {
     return key ? {key, value} : null;
 }
 
+/**
+ * Ступень величины по имени трейта (Black Crusade, стр. 143; та же шкала у всех книг).
+ *
+ * Число значит много: по нему считаются поправка к попаданию (−30 у крошечной,
+ * +10 у громадной), Скрытность и базовое движение (AB плюс ступень минус четыре).
+ * Поэтому «Size (Hulking)» обязан стать пятёркой в поле, а не остаться подписью.
+ */
+export const SIZE_STEPS = {
+    miniscule: 1, puny: 2, weedy: 3, scrawny: 3, average: 4, hulking: 5,
+    enormous: 6, massive: 7, immense: 8, monumental: 9, titanic: 10
+};
+
+/**
+ * @param {string} name  имя трейта, например «Size (Hulking)»
+ * @returns {number|null} ступень 1..10, либо null, если это не величина
+ */
+export function sizeFromTrait(name) {
+    const text = String(name ?? "");
+    if (!/^size/i.test(text)) return null;
+    const inside = text.match(/\(([^)]*)\)/)?.[1] ?? "";
+    const digits = Number(inside.match(/\d+/)?.[0]);
+    if (Number.isFinite(digits) && digits >= 1 && digits <= 10) return digits;
+    const word = inside.toLowerCase().replace(/[^a-z]/g, "");
+    return SIZE_STEPS[word] ?? null;
+}
+
 export function planToActorUpdate(actor, plan, {characteristicMode = "flat", duplicates = {}} = {}) {
     const rule = {skill: "best", talentExperience: 0, ...duplicates};
     const update = {};
@@ -195,6 +221,11 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat", dup
     // Трейт с числом поднимает бонус характеристики; без этого он остаётся текстом,
     // а десантник Хаоса ходит с бонусом Силы 4 вместо 8.
     for (const trait of plan.traits ?? []) {
+        const size = sizeFromTrait(trait.name);
+        if (size !== null && size !== (Number(actor.system.size) || 4)) {
+            update["system.size"] = size;
+            applied.size = {from: Number(actor.system.size) || 4, to: size};
+        }
         const boost = unnaturalFromTrait(trait.name);
         if (!boost) continue;
         const current = actor.system.characteristics?.[boost.key];
@@ -314,6 +345,9 @@ export function revertUpdate(actor, applied = {}) {
         const current = actor.system.characteristics?.[key];
         if (current) update[`system.characteristics.${key}.base`] = (current.base ?? 0) - modifier;
     }
+    // Величина возвращается к прежней ступени, если её ставил этот шаг.
+    if (applied.size && (Number(actor.system.size) || 4) === applied.size.to)
+        update["system.size"] = applied.size.from;
     // Прибавку к бонусу забираем тем же порядком, что и выдали.
     for (const [key, value] of Object.entries(applied.unnatural ?? {})) {
         const current = actor.system.characteristics?.[key];

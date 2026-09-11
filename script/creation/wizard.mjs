@@ -625,6 +625,11 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         }
         if (elite.length) await carrier.setFlag(GRANT_FLAG_SCOPE, "elite", elite);
 
+        // Десантник Хаоса помечается флагом системы: от него зависят и Чёрный Панцирь
+        // (стрелку не достаётся бонус за громадную цель), и пороги Даров богов —
+        // легионер получает их реже ученика (Black Crusade, стр. 291).
+        if (source.system.rules?.spaceMarine) await actor.setFlag(GRANT_FLAG_SCOPE, "spaceMarine", true);
+
         // Особая способность происхождения: санкционированный псайкер Only War начинает
         // с рейтингом пси и Порчей (стр. 95).
         const psyker = source.system.rules?.psyker;

@@ -2,7 +2,8 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {validateOrigin, normaliseOrigin} from '../script/creation/origin-data.mjs';
-import {planToActorUpdate, revertUpdate, unnaturalFromTrait} from '../script/creation/origin-apply.mjs';
+import {planToActorUpdate, revertUpdate, unnaturalFromTrait, sizeFromTrait, SIZE_STEPS}
+    from '../script/creation/origin-apply.mjs';
 import {emptyPlan} from '../script/creation/grant-data.mjs';
 import {RULESET_DEFS} from '../script/creation/ruleset-data.mjs';
 import {rollExpression} from '../script/creation/creation-roll-data.mjs';
@@ -111,4 +112,30 @@ test('only a rated unnatural trait counts, and both spellings are read', () => {
     assert.equal(unnaturalFromTrait('Unnatural Characteristic'), null, 'no number, no bonus');
     assert.equal(unnaturalFromTrait('Size (Hulking)'), null);
     assert.equal(unnaturalFromTrait('Amphibious'), null);
+});
+
+test('Size is a step, not a caption: it decides to-hit, Stealth and movement (p. 143)', () => {
+    // The book's own table, and the same scale the system already prices attacks by.
+    assert.deepEqual(SIZE_STEPS.hulking, 5);
+    assert.equal(sizeFromTrait('Size (Hulking)'), 5);
+    assert.equal(sizeFromTrait('Size (Scrawny)'), 3);
+    assert.equal(sizeFromTrait('Size (7)'), 7, 'some cards carry the number instead');
+    assert.equal(sizeFromTrait('Amphibious'), null);
+
+    const actor = () => ({items: [], system: {size: 4, characteristics: {}, skills: {},
+        wounds: {max: 0, value: 0}, corruption: 0, insanity: 0, aptitudes: {}}});
+    const {update, applied} = planToActorUpdate(actor(), {...emptyPlan(), traits: [{name: 'Size (Hulking)'}]});
+    assert.equal(update['system.size'], 5);
+    assert.deepEqual(applied.size, {from: 4, to: 5});
+    const back = revertUpdate({items: [], system: {size: 5}}, {size: {from: 4, to: 5}});
+    assert.equal(back['system.size'], 4);
+});
+
+test('the Legionnaire is flagged as a Space Marine, which the system already reads', () => {
+    // The flag turns off the size bonus an attacker would get (the Black Carapace) and
+    // switches him to the legionnaire thresholds for Gifts of the Gods (p. 291).
+    assert.equal(find('chaosSpaceMarine').rules.spaceMarine, true);
+    assert.equal(find('human').rules.spaceMarine, undefined);
+    const wizard = readFileSync(new URL('../script/creation/wizard.mjs', import.meta.url), 'utf8');
+    assert.match(wizard, /rules\?\.spaceMarine\) await actor\.setFlag\(GRANT_FLAG_SCOPE, "spaceMarine", true\)/);
 });
