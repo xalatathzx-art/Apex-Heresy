@@ -3,6 +3,7 @@ import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
 import { stepsFor } from "./creation/ruleset-data.mjs";
+import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -1157,9 +1158,10 @@ class DarkHeresyActor extends Actor {
         this.experience.spentTalents = 0;
         if (this.experience.spentOther == null) this.experience.spentOther = 0;
         this.experience.spentPsychicPowers = 0;
-        let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) /2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
-
-        this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
+        // Free starting rating is 1, or 2 for a Sanctioned psyker (DH2 p. 138); only the
+        // steps above it are paid for, at 200 x the new rating.
+        const traits = this.items.filter(item => item.type === "trait");
+        this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost(this.psy.rating, psyBase(traits));
         for (let characteristic of Object.values(this.characteristics)) {
             let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
             let cost = 0;

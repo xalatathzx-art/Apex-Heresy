@@ -145,6 +145,10 @@ export function checkPrerequisites(text, snapshot, characteristicNames) {
         const key = threshold && characteristicNames[threshold[1].trim().toLowerCase()];
         if (key) return Number(snapshot.characteristicValues?.[key] ?? 0) >= Number(threshold[2]) ? "met" : "unmet";
 
+        // Рейтинг пси — не характеристика, но пишется так же: «Psy rating 3».
+        const psy = /^psy\s*rating\s+(\d+)$/i.exec(part);
+        if (psy) return (Number(snapshot.psyRating) || 0) >= Number(psy[1]) ? "met" : "unmet";
+
         // Ранг N — это advance (N-1)·10: Known 0, Trained 10, Experienced 20, Veteran 30.
         const rank = /^rank\s+(\d)\s*(?:\([^)]*\))?\s+in\s+(?:the\s+)?(?:any\s+)?(.+?)(?:\s+skills?)?$/i.exec(part);
         if (rank) return meets(skillAdvance(snapshot.skills, rank[2]), (Number(rank[1]) - 1) * 10);
@@ -297,6 +301,10 @@ export function refundUpdate(snapshot, record) {
         const expected = (skillLevelIndex(record.fromAdvance) + 1) * 10;
         if (Number(entry.advance) !== expected) return null;
         return {[`${path}.advance`]: record.fromAdvance, [`${path}.cost`]: record.fromCost};
+    }
+    if (record.kind === "psyRating") {
+        if ((Number(snapshot.psyRating) || 0) !== record.from + 1) return null;
+        return {"system.psy.rating": record.from, "system.psy.cost": record.fromCost};
     }
     return null;
 }
