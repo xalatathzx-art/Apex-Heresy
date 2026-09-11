@@ -543,7 +543,7 @@
                       Влияния, каждый доступности Scarce или лучше. Выбор, а не бросок. --}}
                 <div class="shop-ledger shop-ledger-two">
                     <div class="shop-ledger-cell">
-                        <span class="shop-ledger-label">{{localize "WIZARD.EQUIPMENT_ALLOWANCE"}}</span>
+                        <span class="shop-ledger-label">{{equipmentAllowanceLabel}}</span>
                         <span class="shop-ledger-value">{{equipmentAllowance}}</span>
                     </div>
                     <div class="shop-ledger-cell shop-ledger-remaining">
@@ -551,7 +551,7 @@
                         <span class="shop-ledger-value">{{equipmentLeft}}</span>
                     </div>
                 </div>
-                <p class="wizard-note">{{localize "WIZARD.EQUIPMENT_RULE"}}</p>
+                <p class="wizard-note">{{equipmentRule}}</p>
 
                 {{#if equipmentPicks.length}}
                 <div class="shop-purchases">
@@ -673,6 +673,27 @@
                     <input type="text" data-bio-field="comradeDemeanour" value="{{comradeDemeanour}}"/>
                     <button type="button" class="shop-buy" data-roll-demeanour="comradeDemeanour">{{localize "WIZARD.ROLL"}}</button>
                 </div>
+                {{/if}}
+            {{/if}}
+
+            {{!-- Стадия 7 (стр. 84): чей ты. Ни костей, ни трат — но с этой минуты
+                  меняется цена каждого следующего улучшения. --}}
+            {{#if (eq step.kind "darkGods")}}
+                <p class="wizard-note">{{localize "WIZARD.DARK_GODS_HINT"}} <b>{{godChosen}}</b></p>
+                <div class="shop-list">
+                    {{#each godOptions as |god|}}
+                    <div class="shop-row{{#if god.selected}} maxed{{/if}}">
+                        <span class="shop-name">{{god.label}}</span>
+                        <span class="shop-step">{{god.relation}}</span>
+                        <span class="shop-match">{{#if god.count}}{{god.count}}{{/if}}</span>
+                        <span class="shop-cost"></span>
+                        <button type="button" class="shop-buy" data-choose-god="{{god.key}}"
+                                {{#if god.selected}}disabled{{/if}}>{{localize "WIZARD.DARK_GODS_TAKE"}}</button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{#if godLeaningDiffers}}
+                <p class="wizard-warn">{{localize "WIZARD.DARK_GODS_LEANING"}} <b>{{godLeaning}}</b></p>
                 {{/if}}
             {{/if}}
 

@@ -16,16 +16,30 @@ export const AVAILABILITY_ORDER = ["ubiquitous", "abundant", "plentiful", "commo
 /** Худшая доступность, которую можно взять при создании. */
 export const CREATION_AVAILABILITY_LIMIT = "scarce";
 
+/**
+ * Порог по книгам.
+ *
+ * Обе книги пишут одно и то же — «модификатор приобретения не хуже –10», — но
+ * шкала у них разная: у Dark Heresy –10 приходится на Scarce, у Black Crusade
+ * на Rare (стр. 83, таблица 9-11 на стр. 310). Поэтому порог назван доступностью,
+ * а не числом.
+ */
+export const CREATION_AVAILABILITY_LIMITS = {dh2: "scarce", bc: "rare"};
+
+export function creationAvailabilityLimit(ruleset) {
+    return CREATION_AVAILABILITY_LIMITS[ruleset] ?? CREATION_AVAILABILITY_LIMIT;
+}
+
 /** Типы предметов главы V «Арсенал». */
 export const ARMOURY_TYPES = ["weapon", "armour", "forceField", "gear", "tool", "drug", "cybernetic",
     "ammunition", "weaponModification"];
 
-export function availableAtCreation(availability) {
+export function availableAtCreation(availability, ruleset = "dh2") {
     const index = AVAILABILITY_ORDER.indexOf(availability);
-    return index >= 0 && index <= AVAILABILITY_ORDER.indexOf(CREATION_AVAILABILITY_LIMIT);
+    return index >= 0 && index <= AVAILABILITY_ORDER.indexOf(creationAvailabilityLimit(ruleset));
 }
 
-/** Сколько предметов можно взять: бонус Влияния. */
+/** Сколько предметов можно взять: бонус Влияния, а у еретика — Тёмной славы. */
 export function acquisitionAllowance(influence) {
     return Math.max(0, Math.floor((Number(influence) || 0) / 10));
 }
@@ -37,11 +51,11 @@ export function acquisitionAllowance(influence) {
  * @param {{uuid: string}[]} picks  уже взятые
  * @param {{allowance: number}} options
  */
-export function equipmentOffers(catalogue, picks, {allowance = 0} = {}) {
+export function equipmentOffers(catalogue, picks, {allowance = 0, ruleset = "dh2"} = {}) {
     const picked = new Set((picks ?? []).map(entry => entry.uuid));
     const full = picked.size >= allowance;
     return (catalogue ?? [])
-        .filter(entry => ARMOURY_TYPES.includes(entry.type) && availableAtCreation(entry.availability))
+        .filter(entry => ARMOURY_TYPES.includes(entry.type) && availableAtCreation(entry.availability, ruleset))
         .map(entry => ({...entry, picked: picked.has(entry.uuid), allowed: !full && !picked.has(entry.uuid)}))
         // Кавычки в начале имени («"Emperor's Wrath" Shard Bolts») сортировку не решают.
         .sort((a, b) => sortName(a.name).localeCompare(sortName(b.name)));

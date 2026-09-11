@@ -26,6 +26,7 @@ import {pointBuyRules, pointBuyProblems, rollExpression, woundsExpression, fateE
     from "./creation-roll-data.mjs";
 import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "./elite-data.mjs";
 import {psychicOffersFor, psyRatingOffer, purchasePsyRating, powerPrice} from "./psychic-data.mjs";
+import {PATRONS, UNDIVIDED, patronRelation, alignmentLeader} from "./patron-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
 import {demeanourFor} from "./life-data.mjs";
@@ -110,6 +111,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ...(this.step?.kind === "equipment" ? await this._equipmentStepContext() : {}),
             ...(this.step?.kind === "comrade" ? this._comradeStepContext() : {}),
             ...(this.step?.kind === "passions" ? await this._passionsStepContext(this.step) : {}),
+            ...(this.step?.kind === "darkGods" ? this._darkGodsStepContext() : {}),
             ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
@@ -192,6 +194,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         this._wireRegiment(root);
         this._wireComrade(root);
         this._wirePassions(root);
+        this._wireDarkGods(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -1698,7 +1701,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const type = this._equipmentType ?? "";
         const availability = key => game.i18n.localize(`AVAILABILITY.${String(key).replace(/-/g, "_").toUpperCase()}`);
         const book = uuid => uuid && uuid === this._openTalent ? (this._talentBooks?.get(uuid) ?? null) : null;
+        // Обе книги считают одинаково, но зовут это по-разному: Влияние у Dark Heresy,
+        // Тёмная слава у Black Crusade — и порог доступности у них тоже свой.
+        const suffix = this.ruleset === "bc" ? "_BC" : "";
         return {
+            equipmentAllowanceLabel: game.i18n.localize(`WIZARD.EQUIPMENT_ALLOWANCE${suffix}`),
+            equipmentRule: game.i18n.localize(`WIZARD.EQUIPMENT_RULE${suffix}`),
             equipmentAllowance: allowance,
             equipmentUsed: picks.length,
             equipmentLeft: Math.max(0, allowance - picks.length),
@@ -1706,7 +1714,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             equipmentTypes: ARMOURY_TYPES.map(key => ({key, selected: key === type,
                                                        label: game.i18n.localize(`TYPES.Item.${key}`)})),
             equipmentFilter: this._equipmentFilter ?? "",
-            equipmentOffers: equipmentOffers(await this._equipmentCatalogue(), picks, {allowance})
+            equipmentOffers: equipmentOffers(await this._equipmentCatalogue(), picks,
+                                             {allowance, ruleset: this.ruleset})
                 .filter(offer => (!filter || offer.name.toLowerCase().includes(filter)) && (!type || offer.type === type))
                 .map(offer => ({...offer, typeLabel: game.i18n.localize(`TYPES.Item.${offer.type}`),
                                 availabilityLabel: availability(offer.availability),
@@ -1720,7 +1729,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ui.notifications?.warn(game.i18n.format("WIZARD.EQUIPMENT_FULL", {allowance: this._equipmentAllowance}));
             return;
         }
-        const offer = equipmentOffers(await this._equipmentCatalogue(), picks, {allowance: this._equipmentAllowance})
+        const offer = equipmentOffers(await this._equipmentCatalogue(), picks,
+                                      {allowance: this._equipmentAllowance, ruleset: this.ruleset})
             .find(entry => entry.uuid === uuid);
         if (!offer?.allowed) return;
         const data = (await fromUuid(uuid)).toObject();
@@ -1743,6 +1753,52 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const ids = this._equipmentPicks.map(pick => pick.itemId).filter(id => this.actor.items.get(id));
         if (ids.length) await this.actor.deleteEmbeddedDocuments("Item", ids);
         if (this.actor.getFlag(GRANT_FLAG_SCOPE, "creationEquipment")) await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationEquipment");
+    }
+
+    // ── Шаг Тёмных богов ─────────────────────────────────────────────────
+
+    /**
+     * Стадия 7 книги: выбрать путь (стр. 84).
+     *
+     * Ни костей, ни трат: игрок объявляет, кому служит, и это меняет цены всего
+     * дальнейшего. Пятый путь — остаться неприкаянным: он не хуже прочих, просто
+     * никому не свой.
+     *
+     * Рядом показывается счёт улучшений: книга сверяет принадлежность на порогах
+     * Порчи, и первый такой раз приходится на конец создания (стр. 76).
+     */
+    _darkGodsStepContext() {
+        const chosen = this.actor.system.patron || UNDIVIDED;
+        const counts = this.actor.system.alignmentTotals ?? this.actor.system.alignmentCounts ?? {};
+        const leader = alignmentLeader(counts);
+        return {
+            godOptions: [...PATRONS, UNDIVIDED].map(key => ({
+                key,
+                label: game.i18n.localize(`PATRON.${key.toUpperCase()}`),
+                selected: key === chosen,
+                count: Number(counts[key]) || 0,
+                relation: key === chosen ? "" : game.i18n.localize(`RELATION.${patronRelation(chosen, key).toUpperCase()}`)
+            })),
+            godChosen: game.i18n.localize(`PATRON.${chosen.toUpperCase()}`),
+            // Куда клонит сам счёт улучшений: пять сверху любого другого — и бог заявляет права.
+            godLeaning: leader === UNDIVIDED ? "" : game.i18n.localize(`PATRON.${leader.toUpperCase()}`),
+            godLeaningDiffers: leader !== UNDIVIDED && leader !== chosen
+        };
+    }
+
+    async _chooseGod(key) {
+        await this.actor.update({"system.patron": key});
+    }
+
+    _wireDarkGods(root) {
+        for (const button of root.querySelectorAll("[data-choose-god]"))
+            button.addEventListener("click", async event => {
+                event.preventDefault();
+                if (this._busy) return;
+                this._busy = true;
+                try { await this._chooseGod(event.currentTarget.dataset.chooseGod); }
+                finally { this._busy = false; if (this.rendered) this.render(false); }
+            });
     }
 
     // ── Шаг страстей ─────────────────────────────────────────────────────
