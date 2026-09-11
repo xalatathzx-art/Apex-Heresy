@@ -1589,7 +1589,6 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             replacementSlots: this._replacementSlots,
             shopElite: eliteOffers(snapshot, names).map(offer => ({...offer,
                 rules: game.i18n.localize(`WIZARD.ELITE_${offer.key.toUpperCase()}_RULES`),
-                relationLabel: relationLabel(offer.relation),
                 affordable: !locked && !offer.blocked && offer.cost <= remaining})),
             shopFreePowerExperience: this._freePowerExperience(),
             shopAdvances: advances.map(entry => ({...entry,
@@ -1639,6 +1638,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 .filter(offer => (!filter || offer.name.toLowerCase().includes(filter))
                               && (!tierFilter || offer.tier === tierFilter))
                 .map(offer => ({...offer, aptitudeText: offer.aptitudes.join(", "),
+                                relationLabel: relationLabel(offer.relation),
                                 affordable: !locked && !offer.blocked && offer.cost <= remaining,
                                 open: offer.uuid === this._openTalent,
                                 book: offer.uuid === this._openTalent

@@ -156,7 +156,7 @@ Aligned to Khorne.
 Offer the armoury filtered to a total Acquisition modifier no worse than −10, with as many picks as
 the Infamy bonus, using the existing `Dh.acquisitionAvailability` table.
 
-### Task 10: Dark God step, alignment check and live run — IN PROGRESS
+### Task 10: Dark God step, alignment check and live run — DONE
 
 **Files:** `script/creation/wizard.mjs`, `template/apps/character-wizard.hbs`, `lang/en.json`,
 `tests/bc-alignment.test.mjs`
@@ -180,6 +180,14 @@ plus a DH2 and an Only War regression pass.
   picks off an Infamy bonus of 3, and the five paths of Stage 7. A Chaos Space Marine Sorcerer
   came out at 2d10+30, psy rating 2, Bound, 1 Corruption, Psy Rating twice, and 500 xp of free
   powers with the Nurgle ones locked behind devotion.
+- 2026-09-12: Packs built with Foundry closed: 40 origins into `origins`, 83 talent gods and the
+  Quick and the Dead into `black-crusade`. Both tools report nothing to do on a second run, and a
+  test now reads the pack and fails if a talent's god or tier drifts from the book.
+- 2026-09-12: Final live run on the real compendiums. A human Apostate walked all seven steps with
+  no stub items; buying Frenzy charged 250 (allied) and scored Khorne; taking the path of Khorne
+  repriced the shop on the spot — Crushing Blow 750 to 400 (True), Rapid Reload 250 to 500
+  (Opposed), Jaded unchanged at 250 (Allied). Dark Heresy and Only War re-run unchanged: aptitude
+  pricing, elite tab, wounds and fate all as before.
 - 2026-09-12: Two bugs the live run caught and fixed — wounds were read from a hardcoded pair of
   stages (so the archetype never rolled them), and a talent granted twice collapsed into one card
   (so the Sorcerer had one Psy Rating instead of two).
