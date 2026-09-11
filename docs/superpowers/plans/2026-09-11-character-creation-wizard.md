@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-10. 136 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-11. 148 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -97,6 +97,18 @@ The first heading without `— DONE` is the next task.
   when that option is picked. This covers "Resistance (Pick One) or Takedown" (p. 64) and
   "Hatred (Pick One)" (p. 68) without modelling a choice inside a choice. The wizard must
   render the extra input when such an option is selected - Task 13.
+- Task 11: the divination table is 25 ranges covering 1-100, not 100 rows. **The PDF text
+  layer emits the effect column out of reading order wherever a row is tall**, so seven
+  prophecies were paired with the wrong effect on a plain read. They were resolved by
+  comparing the bounding box of the row label against that of the effect block, using
+  `pdf_search` (its matches carry bboxes) - no rendering needed. A test pins each pairing.
+  Expect the same hazard in every wide table in these books.
+- Only nine rows carry a mechanical effect. The rest depend on what the character already
+  has, or offer a choice of characteristic, and are left to the player rather than guessed.
+- `tools/build-tables.mjs` has no `--check` mode and writes straight to the pack; it probes
+  for the lock first and refuses cleanly while Foundry is open, which is what happened. The
+  flag mapping was extracted to `tools/lib/table-effects.mjs` so it is covered by tests
+  rather than waiting on Task 17.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -1847,7 +1859,7 @@ git commit -m "Add the eight Dark Heresy roles"
 
 ---
 
-### Task 11: The divination table
+### Task 11: The divination table — DONE
 
 **Files:**
 - Create: `packs-src/tables/divinations-dh2.json`
