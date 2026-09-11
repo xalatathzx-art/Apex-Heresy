@@ -13521,3 +13521,14 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   color: var(--dh-danger, #b33);
   font-weight: 700;
 }
+
+/* Шаги опыта и дивинации: текст и предупреждения, полей ввода тут нет. */
+.dark-heresy.character-wizard .wizard-warn {
+  color: var(--dh-danger, #b33);
+  font-size: var(--dh-text-xs);
+}
+.dark-heresy.character-wizard .wizard-divination {
+  font-style: italic;
+  padding: var(--dh-space-2, 8px);
+  border-left: 2px solid var(--dh-brass, #b9975b);
+}

@@ -10,7 +10,7 @@
 // ════════════════════════════════════════════════════════════════════════
 
 import {RULESET_DEFS, stepsFor, auditedRulesets} from "./ruleset-data.mjs";
-import {resolveGrantPlan} from "./grant-data.mjs";
+import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
@@ -100,6 +100,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             step: this.step ? {...this.step, label: game.i18n.localize(this.step.label)} : null,
             ...(this.step?.kind === "origin" ? await this._originStepContext(this.step) : {}),
             ...(this.step?.kind === "characteristics" ? this._characteristicsStepContext() : {}),
+            ...(this.step?.kind === "experience" ? this._experienceStepContext() : {}),
+            ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
             nextDisabled: !this.ruleset || this._busy,
@@ -163,6 +165,19 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         });
 
         this._wireCharacteristics(root);
+        root.querySelector(".wizard-reroll-divination")?.addEventListener("click", async () => {
+            if (this._busy) return;
+            this._busy = true;
+            this.render(false);
+            try {
+                await this._revertDivination();
+                await this._commitDivinationStep();
+            } finally {
+                this._busy = false;
+                if (this.rendered) this.render(false);
+            }
+        });
+
 
         root.querySelector("[data-action='wizard-back']")?.addEventListener("click", () => this._onBack());
         root.querySelector("[data-action='wizard-next']")?.addEventListener("click", () => this._onNext());
@@ -266,6 +281,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (!step) return false;
         if (step.kind === "origin") return this._commitOriginStep(step);
         if (step.kind === "characteristics") return this._commitCharacteristicsStep();
+        if (step.kind === "experience") return this._commitExperienceStep();
+        if (step.kind === "divination") return this._commitDivinationStep();
         return true;
     }
 
@@ -276,6 +293,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // или другими значениями. Само закрепление ставит значения, а не прибавляет,
         // так что повторное не наслаивается.
         if (step?.kind === "characteristics") await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationRolls");
+        if (step?.kind === "divination") await this._revertDivination();
     }
 
     // ── Шаг происхождения ────────────────────────────────────────────────
@@ -474,10 +492,123 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return true;
     }
 
-    /** Хвост последнего шага. Заглушка каркаса. */
+    // ── Шаг опыта ────────────────────────────────────────────────────────
+
+    /** Стартовый опыт по книге. Dark Heresy, стр. 78. */
+    static STARTING_EXPERIENCE = {dh2: 1000};
+
+    /** Контекст шага опыта: пул, склонности и долг по повторным склонностям. */
+    _experienceStepContext() {
+        const owed = [];
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            owed.push(...(item.getFlag(GRANT_FLAG_SCOPE, "applied")?.duplicateAptitudes ?? []));
+        }
+        return {
+            experiencePool: CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0,
+            experienceApplied: !!this.actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied"),
+            aptitudeList: Object.keys(this.actor.system.aptitudes ?? {}).sort().join(", "),
+            // Книга (стр. 79): повторная склонность меняется на другую характеристическую,
+            // которой ещё нет. Выбирает игрок, поэтому Мастер только напоминает.
+            owedAptitudes: [...new Set(owed)].join(", "),
+            // Закупка снаряжения за бонус Влияния (стр. 78) в Мастер не входит.
+            influenceBonus: Math.floor((this.actor.system.characteristics?.influence?.total ?? 0) / 10)
+        };
+    }
+
+    /**
+     * Выдать стартовый опыт.
+     *
+     * Признак — отдельный флаг, а не «опыт не ноль»: возврат за совпавшую выдачу
+     * законно делает его ненулевым ДО этого шага, и проверка «> 0» пропустила бы
+     * настоящую выдачу.
+     */
+    async _commitExperienceStep() {
+        const actor = this.actor;
+        if (actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied")) return true;
+        const pool = CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0;
+        await actor.update({"system.experience.value": (actor.system.experience?.value ?? 0) + pool});
+        await actor.setFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied", pool);
+        return true;
+    }
+
+    // ── Шаг дивинации ────────────────────────────────────────────────────
+
+    /** Таблица дивинаций: из мира, иначе из пака таблиц. */
+    async _divinationTable() {
+        const inWorld = game.tables?.find(table => table.name === "Divinations");
+        if (inWorld) return inWorld;
+        const pack = game.packs.get("dark-heresy.bc-tables");
+        if (!pack) return null;
+        const index = await pack.getIndex();
+        const hit = index.contents.find(entry => entry.name === "Divinations");
+        return hit ? pack.getDocument(hit._id) : null;
+    }
+
+    _divinationStepContext() {
+        const record = this.actor.getFlag(GRANT_FLAG_SCOPE, "divination");
+        return {divinationText: this.actor.system.bio?.divination ?? "", divinationDrawn: !!record};
+    }
+
+    /**
+     * Бросить дивинацию. Механическая часть строки идёт через тот же учёт отката,
+     * что и выдачи происхождения, — иначе переброс наслаивался бы.
+     */
+    async _commitDivinationStep() {
+        const actor = this.actor;
+        if (actor.getFlag(GRANT_FLAG_SCOPE, "divination")) return true;
+
+        const table = await this._divinationTable();
+        if (!table) { ui.notifications?.warn(game.i18n.localize("WIZARD.NO_DIVINATION_TABLE")); return false; }
+
+        const draw = await table.draw({displayChat: false});
+        const result = draw.results?.[0];
+        const effect = result?.flags?.[GRANT_FLAG_SCOPE]?.divinationEffect ?? {};
+
+        const plan = {...emptyPlan(), characteristics: effect.characteristics ?? {},
+                      wounds: effect.wounds ?? 0, corruption: effect.corruption ?? 0,
+                      insanity: effect.insanity ?? 0};
+        // Дивинация меняет готовое значение, а не способ генерации: она приходит
+        // ПОСЛЕ броска характеристик.
+        const {update, applied} = planToActorUpdate(actor, plan, {characteristicMode: "flat"});
+        update["system.bio.divination"] = result?.description ?? result?.name ?? "";
+        if (effect.fate) {
+            update["system.fate.max"] = (actor.system.fate?.max ?? 0) + effect.fate;
+            update["system.fate.value"] = (actor.system.fate?.value ?? 0) + effect.fate;
+        }
+        await actor.update(update);
+        await actor.setFlag(GRANT_FLAG_SCOPE, "divination", {applied, fate: effect.fate ?? 0});
+        return true;
+    }
+
+    /** Снять брошенную дивинацию — для переброса или для «Назад». */
+    async _revertDivination() {
+        const actor = this.actor;
+        const record = actor.getFlag(GRANT_FLAG_SCOPE, "divination");
+        if (!record) return;
+
+        const update = revertUpdate(actor, record.applied ?? {});
+        if (record.fate) {
+            update["system.fate.max"] = Math.max(0, (actor.system.fate?.max ?? 0) - record.fate);
+            update["system.fate.value"] = Math.max(0, (actor.system.fate?.value ?? 0) - record.fate);
+        }
+        update["system.bio.divination"] = "";
+        await actor.update(update);
+        await actor.unsetFlag(GRANT_FLAG_SCOPE, "divination");
+    }
+
+    /** Хвост: имена выбранного в анкету, окно закрыть, лист наверх. */
     async _finish() {
+        const actor = this.actor;
+        const named = stage =>
+            actor.items.find(item => item.type === "origin" && item.system.stage === stage)?.name ?? "";
+        await actor.update({
+            "system.bio.homeWorld": named("homeWorld"),
+            "system.bio.background": named("background"),
+            "system.bio.role": named("role")
+        });
         await this.close();
-        this.actor?.sheet?.render(true, {focus: true});
+        actor.sheet?.render(true, {focus: true});
     }
 }
 

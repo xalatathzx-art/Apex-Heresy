@@ -106,6 +106,23 @@ test('an aptitude the actor already has is not recorded, so the undo cannot take
     assert.deepEqual(applied.aptitudes, []);
 });
 
+test('an aptitude that arrives twice is recorded as owed, not dropped', () => {
+    // "if during creation a character gains the same aptitude from different sources, he does
+    // not gain it twice. He instead chooses and gains a Characteristic-based aptitude that he
+    // does not already have" (p. 79). Swallowing the duplicate silently would cost the player
+    // an aptitude the book says they keep.
+    const veteran = actor();
+    veteran.system.aptitudes = {Toughness: true};
+    const {applied} = planToActorUpdate(veteran, {...emptyPlan(), aptitudes: ['Toughness', 'Knowledge']});
+    assert.deepEqual(applied.aptitudes, ['Knowledge']);
+    assert.deepEqual(applied.duplicateAptitudes, ['Toughness']);
+});
+
+test('no duplicate aptitude means nothing is owed', () => {
+    const {applied} = planToActorUpdate(actor(), {...emptyPlan(), aptitudes: ['Toughness']});
+    assert.deepEqual(applied.duplicateAptitudes, []);
+});
+
 test('an empty plan writes nothing at all', () => {
     const {update} = planToActorUpdate(actor(), emptyPlan());
     assert.deepEqual(update, {});

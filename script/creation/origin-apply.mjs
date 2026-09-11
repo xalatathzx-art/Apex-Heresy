@@ -39,7 +39,8 @@ const STUB = {
 export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {}) {
     const update = {};
     const applied = {characteristics: {}, generationModifiers: {}, skills: {}, specialities: [],
-                     aptitudes: [], wounds: 0, corruption: 0, insanity: 0, influence: 0};
+                     aptitudes: [], duplicateAptitudes: [],
+                     wounds: 0, corruption: 0, insanity: 0, influence: 0};
 
     for (const [key, modifier] of Object.entries(plan.characteristics ?? {})) {
         const current = actor.system.characteristics?.[key];
@@ -86,7 +87,12 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
 
     // Склонность, которая у актора уже есть, в откат не пишется: отменяя этот шаг,
     // нельзя отнять то, что дал другой.
+    //
+    // Но и пропасть она не должна: по книге (стр. 79) повторная склонность меняется
+    // на другую, характеристическую, которой у персонажа ещё нет. Выбор за игроком,
+    // поэтому здесь только отмечаем долг.
     const granted = (plan.aptitudes ?? []).filter(aptitude => !actor.system.aptitudes?.[aptitude]);
+    applied.duplicateAptitudes = (plan.aptitudes ?? []).filter(aptitude => actor.system.aptitudes?.[aptitude]);
     if (granted.length) {
         update["system.aptitudes"] = {...(actor.system.aptitudes ?? {}),
                                       ...Object.fromEntries(granted.map(aptitude => [aptitude, true]))};

@@ -94,6 +94,29 @@
                 {{/unless}}
                 {{/if}}
             {{/if}}
+
+            {{#if (eq step.kind "experience")}}
+                <p>{{localize "WIZARD.STARTING_XP"}} <b>{{experiencePool}}</b></p>
+                <p class="wizard-note">{{localize "WIZARD.APTITUDES"}} {{aptitudeList}}</p>
+                {{#if owedAptitudes}}
+                {{!-- Книга, стр. 79: повторная склонность не пропадает, а меняется
+                      на другую характеристическую. Выбирает игрок. --}}
+                <p class="wizard-warn">{{localize "WIZARD.OWED_APTITUDES"}} {{owedAptitudes}}</p>
+                {{/if}}
+                <p class="wizard-note">{{localize "WIZARD.ACQUISITIONS"}} <b>{{influenceBonus}}</b></p>
+                {{#if experienceApplied}}
+                <p class="wizard-locked">{{localize "WIZARD.XP_APPLIED"}}</p>
+                {{/if}}
+            {{/if}}
+
+            {{#if (eq step.kind "divination")}}
+                {{#if divinationDrawn}}
+                <p class="wizard-divination">{{divinationText}}</p>
+                <button type="button" class="wizard-reroll-divination">{{localize "WIZARD.REROLL"}}</button>
+                {{else}}
+                <p class="wizard-note">{{localize "WIZARD.DIVINATION_HINT"}}</p>
+                {{/if}}
+            {{/if}}
         </div>
         {{/unless}}
     </div>
