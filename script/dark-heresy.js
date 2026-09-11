@@ -4,6 +4,7 @@ import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
 import { stepsFor } from "./creation/ruleset-data.mjs";
 import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
+import { patronOf } from "./creation/bc-talents.mjs";
 import { PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader } from "./creation/patron-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
@@ -1342,7 +1343,7 @@ class DarkHeresyActor extends Actor {
             // принадлежность своему богу (стр. 78).
             if (!item.isTalent && !item.isPsychicPower) continue;
             if (item.system.starter) continue;
-            add(item.system.patron, 1);
+            add(patronOf(item), 1);
         }
 
         this.system.alignmentCounts = counts;
@@ -1426,7 +1427,7 @@ class DarkHeresyActor extends Actor {
                 const tier = parseInt(item.tier, 10);
                 let cost = 0;
                 if (!item.system.starter && tier >= 1 && tier <= 3) {
-                    const ladder = Dh.bcTalentCosts[relationTo(item.system.patron || "undivided")];
+                    const ladder = Dh.bcTalentCosts[relationTo(patronOf(item))];
                     cost = ladder[tier - 1];
                 }
                 item.system.cost = cost.toString();

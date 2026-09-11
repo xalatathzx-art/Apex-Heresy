@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from '../../script/data/weapon-traits.mjs';
+import {patronOf} from '../../script/creation/bc-talents.mjs';
 import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
     from '../../script/creation/patron-data.mjs';
@@ -13,6 +14,7 @@ export function loadSystem(overrides = {}) {
     const context = vm.createContext({
         console, Set, Map, Math, Number, Promise, structuredClone, setTimeout, clearTimeout,
         applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch,
+        patronOf,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,
         Actor: Document, Item: Document, Combat: Document, ActiveEffect: Document,
