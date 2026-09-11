@@ -2843,7 +2843,11 @@ li.folder.collapsed > .folder-header {
 /* Buttons sit on a brass hairline over the plate. Green is reserved for controls
    that actually roll something, so a row of utility buttons no longer reads as a
    row of primary actions. Padding and sizing are unchanged. */
-.dark-heresy button {
+/* .header-control — не наша кнопка, а контрол шапки окна ApplicationV2: он рисуется
+   шрифтом иконок, и переопределение font-family с font-weight оставляет на месте
+   крестика пустой квадрат. Исключение, а не переопределение: так правило Font
+   Awesome отрабатывает само. Задевало ЛЮБОЕ окно системы на ApplicationV2. */
+.dark-heresy button:not(.header-control) {
   background: transparent;
   border: 1px solid var(--dh-brass-dim);
   color: var(--dh-ink-muted);
@@ -2857,7 +2861,7 @@ li.folder.collapsed > .folder-header {
   width: auto;
   transition: background-color var(--dh-transition), color var(--dh-transition), border-color var(--dh-transition);
 }
-.dark-heresy button:hover {
+.dark-heresy button:not(.header-control):hover {
   background: var(--dh-surface-raised);
   border-color: var(--dh-brass);
   color: var(--dh-ink);
@@ -13457,6 +13461,9 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 .dark-heresy.character-wizard .wizard-step-body {
   flex: 1 1 auto;
   overflow-y: auto;
+  /* Потолок нужен, иначе длинный шаг (десять характеристик) вытянет окно за экран;
+     минимума нет — короткий шаг занимает ровно столько, сколько занимает. */
+  max-height: 70vh;
 }
 .dark-heresy.character-wizard .wizard-step-title {
   margin: 0 0 var(--dh-space-2, 8px);

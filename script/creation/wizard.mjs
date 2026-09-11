@@ -36,7 +36,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
         id: "dh-character-wizard-{id}",
         classes: ["dark-heresy", "character-wizard"],
-        position: {width: 640, height: 780},
+        // Высота по содержимому: шаги очень разной длины, и при фиксированной под
+        // коротким шагом остаётся пустое поле в пол-экрана.
+        position: {width: 640, height: "auto"},
         window: {resizable: true}
     };
 
