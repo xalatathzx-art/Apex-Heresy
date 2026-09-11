@@ -30,7 +30,28 @@
         {{/if}}
         {{else}}
         <h2 class="wizard-step-title">{{step.label}}</h2>
-        <div class="wizard-step-content" data-step="{{step.id}}" data-kind="{{step.kind}}"></div>
+        <div class="wizard-step-content" data-step="{{step.id}}" data-kind="{{step.kind}}">
+            {{#if (eq step.kind "origin")}}
+                {{#if originLocked}}
+                {{!-- Шаг уже закреплён. Переспросить можно только через «Назад»,
+                      который снимет выданное — иначе выдачи наложились бы. --}}
+                <p class="wizard-locked">{{localize "WIZARD.LOCKED"}} <b>{{originName}}</b></p>
+                {{else}}
+                <div class="form-group">
+                    <label>{{step.label}}</label>
+                    <div class="form-fields">
+                        <select data-origin-step="{{step.id}}">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each originOptions as |o|}}
+                            <option value="{{o.uuid}}" {{#if o.selected}}selected{{/if}}>{{o.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="wizard-choice-rows">{{{choiceRows}}}</div>
+                {{/if}}
+            {{/if}}
+        </div>
         {{/unless}}
     </div>
 

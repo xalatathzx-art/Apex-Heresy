@@ -1144,6 +1144,8 @@
   "WIZARD.TITLE": "Character Creation \u2014 {name}",
   "WIZARD.RULESET": "Rulebook",
   "WIZARD.CHOOSE": "\u2014 choose \u2014",
+  "WIZARD.PICK_ORIGIN": "Choose an option before continuing.",
+  "WIZARD.LOCKED": "Chosen and applied:",
   "WIZARD.BACK": "Back",
   "WIZARD.NEXT": "Next",
   "WIZARD.FINISH": "Finish",

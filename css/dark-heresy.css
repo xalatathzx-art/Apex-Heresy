@@ -13470,3 +13470,33 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   justify-content: space-between;
   gap: var(--dh-space-2, 8px);
 }
+
+/* Строки выбора происхождения: вопрос и варианты в самой форме шага. */
+.dark-heresy.character-wizard .wizard-choice {
+  margin-bottom: var(--dh-space-2, 8px);
+  padding: var(--dh-space-2, 8px);
+  border: 1px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .wizard-choice-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.dark-heresy.character-wizard .wizard-choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dh-space-2, 8px);
+}
+.dark-heresy.character-wizard .wizard-choice-count,
+.dark-heresy.character-wizard .wizard-locked {
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.character-wizard .wizard-choice-target {
+  margin-top: 4px;
+  width: 100%;
+}
+.dark-heresy.character-wizard .wizard-many-group {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2, 8px);
+}
