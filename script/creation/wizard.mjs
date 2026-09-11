@@ -36,7 +36,8 @@ import {ADDITIONAL_KIT} from "./kit-data.mjs";
 const GRANT_ITEM_TYPES = {
     talent: ["talent"],
     trait: ["trait"],
-    equipment: ["weapon", "armour", "gear", "tool", "ammunition", "drug", "cybernetic", "forceField"]
+    equipment: ["weapon", "armour", "gear", "tool", "ammunition", "drug", "cybernetic", "forceField",
+               "weaponModification"]
 };
 
 const {HandlebarsApplicationMixin, ApplicationV2} = foundry.applications.api;

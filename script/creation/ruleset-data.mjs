@@ -77,8 +77,7 @@ export const RULESET_DEFS = {
     },
     ow: {
         label: "RULESET.OW", actorType: "acolyte",
-        // Мастер по Only War ещё не доведён до конца — игрокам не предлагается.
-        ready: false,
+        ready: true,
         // Модификаторы полка и специальности прибавляются к готовому броску (стр. 41).
         characteristicModifiers: "flat",
         characteristicMethods: ["roll", "pointBuy"],

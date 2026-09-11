@@ -83,8 +83,8 @@ test('Only War runs regiment, characteristics, speciality, experience, comrade (
     assert.equal(STAGES.ow.includes('standardKit'), false, 'the kit is bought from Table 2-6, not picked as an origin');
 });
 
-test('Only War is not offered until its wizard is finished', () => {
-    assert.deepEqual(auditedRulesets(), ['dh2']);
+test('the wizard offers the books it can actually run', () => {
+    assert.deepEqual(auditedRulesets(), ['dh2', 'ow']);
 });
 
 test('the sheet charges Only War characteristics along its own ladder', () => {

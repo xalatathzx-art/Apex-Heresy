@@ -38,7 +38,7 @@ test('wounds are the speciality figure plus 1d5 (pp. 76-99)', () => {
 test('the abhumans carry their characteristic modifiers and traits (pp. 90, 92)', () => {
     assert.deepEqual(find('ogryn').characteristics, {strength: 10, toughness: 10, intelligence: -15, agility: -10});
     assert.deepEqual(find('ogryn').grants.traits.map(trait => trait.name),
-        ['Auto-Stabilised', 'But It Dark in Dere!', 'Clumsy', 'Size (Hulking)', 'Sturdy', 'Unnatural Strength (+2)', 'Unnatural Toughness (+2)']);
+        ['Auto-Stabilised', 'But It Dark in Dere!', 'Clumsy', 'Size (Hulking)', 'Sturdy', 'Unnatural Characteristic (Strength +2)', 'Unnatural Characteristic (Toughness +2)']);
     assert.deepEqual(find('ratling').characteristics, {perception: 10, fellowship: 10, toughness: -10});
 });
 

@@ -77,6 +77,28 @@
     }
   },
   {
+    "name": "But It Dark in Dere!",
+    "type": "trait",
+    "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "benefit": "Will not willingly enter confined spaces.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Despite their fearsome and fearless nature, Ogryns are extremely claustrophobic.</p><div class='bc-rule'><p>They will not enter caves, basements, ruins, infantry fighting vehicles like the Chimera, or even smaller than average buildings, of their own free will. Officers and Commissars can order them into such places, but suffer a –10 penalty to any Command Skill Tests to do so, and Ogryns suffer a –10 to all Skill Tests when so confined.</p></div></div>",
+      "source": "Only War, p. 91"
+    }
+  },
+  {
+    "name": "Clumsy",
+    "type": "trait",
+    "folder": "Traits",
+    "img": "systems/dark-heresy/assets/icons/mutations/scales.webp",
+    "system": {
+      "benefit": "Cannot use weapons without the Ogryn-Proof trait.",
+      "description": "<div class='bc-entry'><p class='bc-lead'>Ogryn hands are not only much larger than those of a normal human, but also far stronger.</p><div class='bc-rule'><p>Most Ogryn have a hard time using them to perform delicate, or even normal, tasks. Because of this, Ogryn cannot use most weapons made for humans, as they tend to break them when they try. Any weapon which does not have the Ogryn-Proof Trait cannot be used by a character with the Clumsy Trait.</p></div></div>",
+      "source": "Only War, p. 91"
+    }
+  },
+  {
     "name": "Crawler",
     "type": "trait",
     "folder": "Traits",
