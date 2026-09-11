@@ -1161,7 +1161,7 @@ class DarkHeresyActor extends Actor {
         // Free starting rating is 1, or 2 for a Sanctioned psyker (DH2 p. 138); only the
         // steps above it are paid for, at 200 x the new rating.
         const traits = this.items.filter(item => item.type === "trait");
-        this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost(this.psy.rating, psyBase(traits));
+        this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost(this.psy.rating, psyBase(traits, Dh.rulesetFor(this).id));
         // The ladder is the book's: Only War has four steps where Dark Heresy has five.
         const characteristicCosts = Dh.rulesetFor(this).characteristicCosts ?? config.characteristicCosts;
         for (let characteristic of Object.values(this.characteristics)) {

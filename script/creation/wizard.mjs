@@ -25,7 +25,7 @@ import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
 import {pointBuyRules, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
 import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "./elite-data.mjs";
-import {psychicOffers, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
+import {psychicOffersFor, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
 import {REGIMENT_BUDGET, regimentCost, regimentProblems, composeRegiment} from "./regiment-data.mjs";
@@ -255,6 +255,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         root.querySelector("[data-buy-psy-rating]")?.addEventListener("click", guarded(() => this._buyPsyRating()));
         for (const button of root.querySelectorAll("[data-buy-power]"))
             button.addEventListener("click", guarded(el => this._buyPower(el.dataset.buyPower)));
+        for (const button of root.querySelectorAll("[data-buy-advance]"))
+            button.addEventListener("click", guarded(el => this._buyAdvance(el.dataset.buyAdvance)));
         for (const button of root.querySelectorAll("[data-replace-aptitude]"))
             button.addEventListener("click", guarded(el => {
                 const slot = this._owedSlots?.[Number(el.dataset.replaceAptitude)];
@@ -815,31 +817,74 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     // ── Психосилы ────────────────────────────────────────────────────────
 
-    /** Силы из пака — имя и предпосылка; цену и дерево знает psychic-data.mjs. */
+    /**
+     * Силы из пака книги: имя, предпосылка, цена и дисциплина.
+     *
+     * У Dark Heresy цена и дерево лежат в psychic-data.mjs (в паке их нет), у Only War —
+     * в самой записи пака, поэтому берём и то и другое.
+     */
     async _powerCatalogue() {
         if (this._powers) return this._powers;
-        const pack = game.packs.get("dark-heresy.dark-heresy");
+        const pack = game.packs.get(contentPacksFor(this.ruleset)[0]);
         if (!pack) return (this._powers = []);
-        const index = await pack.getIndex({fields: ["system.prerequisite"]});
+        const index = await pack.getIndex({fields: ["system.prerequisite", "system.cost"]});
         this._powers = index.contents.filter(entry => entry.type === "psychicPower").map(entry => ({
-            name: entry.name, uuid: entry.uuid, prerequisite: entry.system?.prerequisite ?? ""
+            name: entry.name, uuid: entry.uuid, prerequisite: entry.system?.prerequisite ?? "",
+            cost: entry.system?.cost ?? 0,
+            // Дисциплина — папка пака: «Psychic Powers/Biomancy».
+            discipline: (pack.folders?.get(entry.folder)?.name ?? "").split("/").pop()
         }));
         return this._powers;
     }
 
     async _buyPsyRating() { await this._commitPurchase(purchasePsyRating(this._shopSnapshot())); }
 
+    /** Сколько ещё осталось от дарёного опыта на силы (Only War, стр. 95). */
+    _freePowerExperience() {
+        let budget = 0;
+        for (const item of this.actor.items)
+            if (item.type === "origin") budget += item.system.rules?.psyker?.freePowerExperience ?? 0;
+        const used = this._purchases.reduce((total, record) => total + (record.free ?? 0), 0);
+        return Math.max(0, budget - used);
+    }
+
+    /** Продвижения специальности: Comrade-приказы и прочее, что она даёт за опыт. */
+    _specialityAdvances() {
+        const out = [];
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            for (const advance of item.system.rules?.advances ?? [])
+                out.push({...advance, source: item.name});
+        }
+        return out;
+    }
+
+    async _buyAdvance(name) {
+        const advance = this._specialityAdvances().find(entry => entry.name === name);
+        if (!advance) return;
+        if (this.actor.items.some(item => item.type === "specialAbility" && item.name === advance.name)) return;
+        const data = {name: advance.name, type: "specialAbility", img: "icons/svg/aura.svg",
+                      system: {cost: advance.cost, benefit: advance.effect},
+                      flags: {[GRANT_FLAG_SCOPE]: {creationPurchase: true}}};
+        await this._commitPurchase({update: {}, record: {kind: "advance", name: advance.name, cost: advance.cost,
+                                                        label: advance.name}}, {itemData: data});
+    }
+
     async _buyPower(uuid) {
-        const offer = psychicOffers(await this._powerCatalogue(), this._shopSnapshot(), CharacterWizard.CHARACTERISTIC_NAMES)
+        const offer = psychicOffersFor(this.ruleset, await this._powerCatalogue(), this._shopSnapshot(),
+                                       CharacterWizard.CHARACTERISTIC_NAMES)
             .flatMap(discipline => discipline.powers).find(entry => entry.uuid === uuid);
         if (!offer || offer.owned) return;
         if (offer.blocked) { ui.notifications?.warn(game.i18n.localize("WIZARD.SHOP_PREREQUISITES")); return; }
+        // Санкционированный псайкер Only War получает силы на 400 опыта даром (стр. 95).
+        const free = Math.min(offer.cost, this._freePowerExperience());
         const data = (await fromUuid(uuid)).toObject();
         delete data._id;
         // Цена силы — из её статьи; в паке она не записана, а лист считает по полю.
         data.system = {...data.system, cost: offer.cost};
         data.flags = foundry.utils.mergeObject(data.flags ?? {}, {[GRANT_FLAG_SCOPE]: {creationPurchase: true}});
-        await this._commitPurchase({update: {}, record: {kind: "power", name: offer.name, cost: offer.cost, label: offer.name}},
+        await this._commitPurchase({update: {}, record: {kind: "power", name: offer.name, cost: offer.cost - free,
+                                                        free, label: offer.name}},
                                    {itemData: data});
     }
 
@@ -1178,6 +1223,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             characteristicValues[key] = Number(entry.total ?? entry.base ?? 0);
         }
         return {
+            ruleset: this.ruleset,
             aptitudes: ownedAptitudes(this.actor),
             characteristics, characteristicValues,
             skills: foundry.utils.deepClone(system.skills ?? {}),
@@ -1194,7 +1240,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     /** Таланты книги — индекс пака с уровнем, склонностями и предпосылками. */
     async _talentCatalogue() {
         if (this._catalogue) return this._catalogue;
-        const pack = game.packs.get("dark-heresy.dark-heresy");
+        const pack = game.packs.get(contentPacksFor(this.ruleset)[0]);
         if (!pack) return (this._catalogue = []);
         const index = await pack.getIndex({fields: ["system.tier", "system.aptitudes", "system.prerequisites", "system.benefit"]});
         this._catalogue = index.contents.filter(entry => entry.type === "talent").map(entry => ({
@@ -1284,7 +1330,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const purchases = [...this._purchases];
         const record = purchases[index];
         if (!record) return;
-        if (record.kind === "talent" || record.kind === "power") {
+        if (["talent", "power", "advance"].includes(record.kind)) {
             if (record.itemId && this.actor.items.get(record.itemId))
                 await this.actor.deleteEmbeddedDocuments("Item", [record.itemId]);
         } else if (record.kind === "elite") {
@@ -1361,7 +1407,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         // Вкладка психосил есть только у псайкера: остальным там нечего купить.
         const psyker = snapshot.psyRating >= 1;
-        const tabs = ["characteristics", "skills", "talents", "elite", ...(psyker ? ["psychic"] : [])];
+        const advances = this._specialityAdvances();
+        const tabs = ["characteristics", "skills", "talents", "elite", ...(psyker ? ["psychic"] : []),
+                      ...(advances.length ? ["advances"] : [])];
         const tab = tabs.includes(this._shopTab) ? this._shopTab : "characteristics";
 
         // Повторы склонностей и сделанные замены — адреса держим на окне: обработчик
@@ -1385,9 +1433,14 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             shopElite: eliteOffers(snapshot, names).map(offer => ({...offer,
                 rules: game.i18n.localize(`WIZARD.ELITE_${offer.key.toUpperCase()}_RULES`),
                 affordable: !locked && !offer.blocked && offer.cost <= remaining})),
+            shopFreePowerExperience: this._freePowerExperience(),
+            shopAdvances: advances.map(entry => ({...entry,
+                owned: this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name),
+                affordable: !locked && entry.cost <= remaining
+                    && !this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name)})),
             shopPsy: psyker ? (offer => ({...offer, affordable: !locked && !offer.maxed && offer.cost <= remaining}))(psyRatingOffer(snapshot)) : null,
             shopDisciplines: psyker && this._catalogueReady
-                ? psychicOffers(this._powers, snapshot, names).map(discipline => ({...discipline,
+                ? psychicOffersFor(this.ruleset, this._powers, snapshot, names).map(discipline => ({...discipline,
                     powers: discipline.powers.map(offer => ({...offer,
                         parentsText: offer.parents.join(" / "),
                         showChecks: offer.prerequisites.length > 0 || !offer.accessible,
@@ -1426,7 +1479,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             talentTier: tierFilter,
             shopPurchases: this._purchases.map((record, index) => ({...record, index,
                 // Купленный талант уже лежит на листе — его карточку и открываем.
-                readable: ["talent", "power"].includes(record.kind) && !!this.actor.items.get(record.itemId)})),
+                readable: ["talent", "power", "advance"].includes(record.kind) && !!this.actor.items.get(record.itemId)})),
             aptitudeChips: [...owned].sort(),
             priceRows: [
                 priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),

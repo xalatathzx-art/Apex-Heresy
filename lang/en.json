@@ -1174,6 +1174,8 @@
   "WIZARD.EQUIPMENT_FULL": "Your Influence bonus allows {allowance} picks, and they are all taken.",
   "WIZARD.SHOP_TAB_ELITE": "Elite advances",
   "WIZARD.SHOP_TAB_PSYCHIC": "Psychic powers",
+  "WIZARD.SHOP_TAB_ADVANCES": "Advances",
+  "WIZARD.SHOP_FREE_POWERS": "Psychic powers free of charge, experience left:",
   "WIZARD.SHOP_OWNED": "Owned",
   "WIZARD.SHOP_EXCLUDED": "Excluded",
   "WIZARD.SHOP_PSY_RATING": "Psy rating",

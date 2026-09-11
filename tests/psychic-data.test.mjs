@@ -97,6 +97,6 @@ test('buying psy rating raises it by one and rewrites the cumulative cost; refun
 test('the sheet charges psy rating by the same rule the wizard does', async () => {
     const {readFileSync} = await import('node:fs');
     const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
-    assert.match(source, /psyRatingCost\(this\.psy\.rating, psyBase\(traits\)\)/,
+    assert.match(source, /psyRatingCost\(this\.psy\.rating, psyBase\(traits, Dh\.rulesetFor\(this\)\.id\)\)/,
         '_computeExperience_auto must count psy rating from the free starting rating');
 });

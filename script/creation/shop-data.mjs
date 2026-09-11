@@ -136,7 +136,8 @@ export function checkPrerequisites(text, snapshot, characteristicNames) {
     const raw = String(text ?? "").trim();
     if (!raw || /^none$/i.test(raw) || raw === "—" || raw === "-") return [];
 
-    const owned = new Set([...(snapshot.talents ?? []), ...(snapshot.traits ?? [])]
+    // Предпосылкой бывает и другая сила («Endurance» у Iron Arm, Only War стр. 230).
+    const owned = new Set([...(snapshot.talents ?? []), ...(snapshot.traits ?? []), ...(snapshot.powers ?? [])]
         .map(entry => String(entry.name ?? entry).toLowerCase().replace(/\*$/, "").trim()));
     const talentNames = snapshot.talentNames ?? new Set();
     const meets = (advance, required) => advance === null ? "unknown" : advance >= required ? "met" : "unmet";

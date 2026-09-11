@@ -46,7 +46,7 @@ test('the keys the wizard builds at runtime exist for every value they are built
                          'SIMPLE', 'INTERMEDIATE', 'PROFICIENT', 'EXPERT'])
         assert.ok(`WIZARD.LEVEL.${level}` in lang, level);
     // `WIZARD.SHOP_TAB_${tab}` - one tab per shop, psychic powers included.
-    for (const tab of ['characteristics', 'skills', 'talents', 'elite', 'psychic'])
+    for (const tab of ['characteristics', 'skills', 'talents', 'elite', 'psychic', 'advances'])
         assert.ok(`WIZARD.SHOP_TAB_${tab.toUpperCase()}` in lang, tab);
     // `WIZARD.ELITE_${key}_RULES` - the rules line under each elite advance.
     for (const {key} of ELITE_ADVANCES) assert.ok(`WIZARD.ELITE_${key.toUpperCase()}_RULES` in lang, key);

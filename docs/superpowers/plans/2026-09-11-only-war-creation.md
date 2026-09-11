@@ -96,7 +96,7 @@ characteristic picks, kit points) and save it as a world Item.
 Roll with one re-roll, OW point buy, flat modifiers from regiment and speciality, wounds from the
 speciality plus regiment, fate by table, duplicate rules between regiment and speciality.
 
-### Task 8: Experience shop for Only War
+### Task 8: Experience shop for Only War — DONE
 Pool from the speciality plus duplicate-talent credit, 4-step characteristic ladder, the Only War
 talent and power catalogues, psy rating, the Sanctioned Psyker's free 400 xp of powers, speciality
 advances.
@@ -116,3 +116,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 5: `regiment-data.mjs` validates a selection (12 points, one home world, commander and type, at most three doctrines counting the type, group picks answered) and composes it into one origin: characteristics summed, skills merged at the better rank, group choices turned into plain grants, per-character "or" choices carried over, kit built slot by slot from the universal kit and then the Table 2-6 purchases. The test recomposes all eight printed regiments from their components.
 - Task 6: the regiment step reuses the origin step (same carrier, same commit and rollback) and adds a builder: component selects with their costs, the budget counter, the group picks, the Table 2-6 kit list, and a save that writes the composed regiment as a world Item so the whole squad can pick it. Regiments are offered from the pack and from the world.
 - Task 7: characteristics use the book own keys, point buy and the one re-roll; flat modifiers are added after generation instead of being rolled into the formula. Wounds and fate moved into `_rollVitals`, fired at the stage the ruleset names (Dark Heresy: characteristics from the home world; Only War: the speciality, with fate from Table 3-13) and rolled back with that step. Duplicate skills between regiment and speciality now give the extra advance, duplicate talents 100 xp, and the starting pool comes from the speciality (600 or 300) plus that credit.
+- Task 8: the shop reads the book from the snapshot: four-step characteristic ladder, talents and powers from the book own pack. Only War powers are priced from their own pack entry and checked by prerequisite (a power can require another power) instead of a tree; Dark Heresy keeps its trees. A new Advances tab buys the speciality advances as special abilities, and the Sanctioned Psyker spends his 400 free experience on powers before his own pool.

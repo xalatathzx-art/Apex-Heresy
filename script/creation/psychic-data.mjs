@@ -91,8 +91,14 @@ export function psyRatingCost(rating, base = 1) {
     return total;
 }
 
-/** Бесплатный стартовый рейтинг: 2 у санкционированного, иначе 1. */
-export function psyBase(traits) {
+/**
+ * Бесплатный стартовый рейтинг.
+ *
+ * Dark Heresy: 1, а у санкционированного псайкера 2 (черта Sanctioned, стр. 138).
+ * Only War: санкционированный псайкер там один и начинает с 2 (стр. 95).
+ */
+export function psyBase(traits, ruleset = "dh2") {
+    if (ruleset === "ow") return 2;
     return (traits ?? []).some(entry => lower(entry.name ?? entry) === "sanctioned") ? 2 : 1;
 }
 
@@ -126,10 +132,41 @@ export function psychicOffers(catalogue, snapshot, characteristicNames) {
     }));
 }
 
+/**
+ * Силы книги без деревьев: цена и предпосылки берутся из самой записи пака.
+ *
+ * Only War (стр. 229) деревьев не знает: сила требует других сил или характеристик,
+ * и это записано в её предпосылке.
+ *
+ * @param {{name, uuid, cost, prerequisite, discipline}[]} catalogue
+ */
+export function catalogueOffers(catalogue, snapshot, characteristicNames) {
+    const owned = new Set((snapshot.powers ?? []).map(lower));
+    const groups = new Map();
+    for (const entry of catalogue ?? []) {
+        const key = entry.discipline || "Psychic Powers";
+        if (!groups.has(key)) groups.set(key, {key: lower(key).replace(/[^a-z0-9]/g, ""), label: key, page: null, powers: []});
+        const prerequisites = checkPrerequisites(entry.prerequisite ?? "", snapshot, characteristicNames);
+        groups.get(key).powers.push({
+            name: entry.name, uuid: entry.uuid ?? null, cost: Number(entry.cost) || 0, parents: [],
+            owned: owned.has(lower(entry.name)), accessible: true, prerequisites,
+            blocked: prerequisites.some(check => check.status === "unmet")
+        });
+    }
+    return [...groups.values()];
+}
+
+/** Силы книги: Dark Heresy идёт по деревьям, остальные — по записям пака. */
+export function psychicOffersFor(ruleset, catalogue, snapshot, characteristicNames) {
+    return ruleset === "dh2"
+        ? psychicOffers(catalogue, snapshot, characteristicNames)
+        : catalogueOffers(catalogue, snapshot, characteristicNames);
+}
+
 /** Следующая ступень рейтинга пси. */
 export function psyRatingOffer(snapshot) {
     const rating = Number(snapshot.psyRating) || 0;
-    const base = psyBase(snapshot.traits);
+    const base = psyBase(snapshot.traits, snapshot.ruleset);
     const maxed = rating >= PSY_RATING_MAX;
     return {rating, next: maxed ? null : rating + 1, cost: maxed ? null : PSY_RATING_STEP_COST * (rating + 1),
             maxed, base};
