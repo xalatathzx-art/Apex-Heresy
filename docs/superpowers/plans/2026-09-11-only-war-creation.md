@@ -83,7 +83,7 @@ rules, wounds, standard kit and favoured weapons, plus the components they were 
 `packs-src/origins/06-ow-specialities.json`: 12 specialities with bonus, aptitudes, skills, talents,
 traits, equipment, wounds, starting XP, special ability, advances, Comrade flag.
 
-### Task 5: Regiment builder rules (pure)
+### Task 5: Regiment builder rules (pure) — DONE
 Budget, one of each required component, at most three doctrines, composition into one origin,
 kit points, validation. Tests against the eight pre-made regiments: each composes from its listed
 components at its listed cost.
@@ -113,3 +113,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 2: 39 components with book text, costs and grants; `rules` free-form map added to the origin schema (the data model would otherwise move unknown keys into legacyData); kit as slots in `rules.kit` (mainWeapon, armour, items, squad, text) and Table 2-6 in `kit-data.mjs`. Only items the Only War pack really has are granted by name (lascarbine is "Las Carbine" there); uniforms, rucksacks, advanced medikit and the like stay book text. Choices a whole regiment makes (Hated Enemy, Favoured Foe) carry `regimentLevel: true`; "one of" talent choices stay per character.
 - Task 3: the eight pre-made regiments, each carrying the components it was built from and the picks that were made for it, so the tests recompose every one from Task 2 data: costs (11-12 of 12), characteristic modifiers and aptitudes all match the printed entry. Where a regiment departs from its components (Krieg replaces Untempered Zeal, Tallarn replaces Hardened) the note is kept. The printed Starting Skills are followed literally, even where the home world would have given a higher rank (Catachan: Survival Known, not Trained).
 - Task 4: the twelve specialities, each with its characteristic bonus (or pick), aptitudes, skills, talents, traits, specialist equipment, wounds formula, starting experience (600 Guardsman / 300 Support), Comrade flag and its advances. "Weapon Training (Las or Solid Projectile, Low-Tech)" splits into one choice plus fixed talents; the Weapon Specialist gets three named picks. Ecclesiarchy robes and the book of scripture stay text, everything else is a pack item.
+- Task 5: `regiment-data.mjs` validates a selection (12 points, one home world, commander and type, at most three doctrines counting the type, group picks answered) and composes it into one origin: characteristics summed, skills merged at the better rank, group choices turned into plain grants, per-character "or" choices carried over, kit built slot by slot from the universal kit and then the Table 2-6 purchases. The test recomposes all eight printed regiments from their components.
