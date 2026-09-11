@@ -86,13 +86,21 @@
                         <input name="system.fate.blessing" type="number" value="{{system.fate.blessing}}" data-dtype="Number" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>{{localize "ORIGIN.BONUS_NAME"}}</label>
-                    <div class="form-fields">
-                        <input name="system.bonus.name" type="text" value="{{system.bonus.name}}" />
-                    </div>
-                </div>
             </div>
+
+            {{!-- Именованные способности книги. Их может быть больше одной:
+                  Adeptus Astra Telepathica несёт две, стр. 50. --}}
+            {{#if system.bonuses.length}}
+            <div class="stats border">
+                <h1>{{localize "ORIGIN.BONUSES"}}</h1>
+                {{#each system.bonuses as |bonus|}}
+                <div class="origin-bonus">
+                    <h2>{{bonus.name}}</h2>
+                    {{{bonus.description}}}
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
 
             {{!-- Сводка только читается. Правят выдачи в исходниках книги
                   (packs-src/origins), а не здесь: руками тут легко разойтись

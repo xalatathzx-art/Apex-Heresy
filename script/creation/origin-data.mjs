@@ -34,6 +34,11 @@ export const SKILL_KEYS = ["acrobatics", "athletics", "awareness", "charm", "com
     "scholasticLore", "scrutiny", "security", "sleightOfHand", "stealth", "survival",
     "techUse", "trade"];
 
+/** Склонности — те же, что раздают навыки и характеристики в template.json. */
+export const APTITUDES = ["Agility", "Ballistic Skill", "Defence", "Fellowship", "Fieldcraft",
+    "Finesse", "General", "Intelligence", "Knowledge", "Leadership", "Offence", "Perception",
+    "Psyker", "Social", "Strength", "Tech", "Toughness", "Weapon Skill", "Willpower"];
+
 /** Ступени обученности навыка, которые понимает модель актора. */
 export const ADVANCES = [-20, 0, 10, 20];
 
@@ -46,7 +51,7 @@ export const ADVANCES = [-20, 0, 10, 20];
 export const CHOICE_TYPES = ["one", "many", "target"];
 
 const EMPTY_GRANTS = {
-    skills: [], specialities: [], talents: [], traits: [], equipment: [],
+    skills: [], specialities: [], talents: [], traits: [], equipment: [], aptitudes: [],
     wounds: 0, corruption: 0, insanity: 0, influence: 0
 };
 
@@ -73,7 +78,7 @@ export function normaliseOrigin(source = {}) {
     out.fate = {value: 0, blessing: 0, formula: "", ...(out.fate ?? {})};
     out.grants = {...structuredClone(EMPTY_GRANTS), ...(out.grants ?? {})};
     out.choices ??= [];
-    out.bonus = {name: "", description: "", ...(out.bonus ?? {})};
+    out.bonuses ??= [];
     out.requires ??= null;
     out.adjacency ??= [];
     out.recommended ??= [];
@@ -105,6 +110,11 @@ export function validateOrigin(source = {}) {
             if (!CHARACTERISTIC_KEYS.includes(key)) problems.push(`unknown characteristic "${key}"`);
         if (!(choice.pick > 0)) problems.push(`characteristic choice "${choice.label ?? ""}" picks nothing`);
     }
+
+    for (const aptitude of origin.aptitudes)
+        if (!APTITUDES.includes(aptitude)) problems.push(`unknown aptitude "${aptitude}"`);
+
+    for (const bonus of origin.bonuses) if (!bonus.name) problems.push("a bonus has no name");
 
     problems.push(...grantProblems(origin.grants, ""));
 
@@ -153,6 +163,7 @@ export function grantSummaryLines(source = {}) {
         lines.push(`Traits: ${grants.traits.map(t => t.rating != null ? `${t.name} (${t.rating})` : t.name).join(", ")}`);
     if (grants.equipment.length)
         lines.push(`Equipment: ${grants.equipment.map(e => e.quantity > 1 ? `${e.name} ×${e.quantity}` : e.name).join(", ")}`);
+    if (grants.aptitudes.length) lines.push(`Aptitudes: ${grants.aptitudes.join(", ")}`);
     for (const key of ["wounds", "corruption", "insanity", "influence"])
         if (grants[key]) lines.push(`${key[0].toUpperCase()}${key.slice(1)}: ${signed(grants[key])}`);
 
@@ -178,6 +189,8 @@ function grantProblems(grants, prefix) {
     for (const talent of grants.talents ?? []) if (!talent.name) problems.push(`${prefix}a talent has no name`);
     for (const trait of grants.traits ?? []) if (!trait.name) problems.push(`${prefix}a trait has no name`);
     for (const gear of grants.equipment ?? []) if (!gear.name) problems.push(`${prefix}an equipment entry has no name`);
+    for (const aptitude of grants.aptitudes ?? [])
+        if (!APTITUDES.includes(aptitude)) problems.push(`${prefix}unknown aptitude "${aptitude}"`);
 
     return problems;
 }

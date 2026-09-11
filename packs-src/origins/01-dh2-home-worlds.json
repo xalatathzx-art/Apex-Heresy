@@ -9,17 +9,35 @@
       "stage": "homeWorld",
       "order": 1,
       "key": "feralWorld",
-      "characteristics": {"strength": 5, "toughness": 5, "influence": -5},
-      "aptitudes": ["Toughness"],
-      "wounds": {"formula": "9+1d5"},
-      "fate": {"value": 2, "blessing": 3},
-      "bonus": {
-        "name": "The Old Ways",
-        "description": "<p>In the hands of a feral world character, any Low-Tech weapon loses the Primitive quality (if it had it) and gains the Proven (3) quality.</p>"
+      "characteristics": {
+        "strength": 5,
+        "toughness": 5,
+        "influence": -5
       },
-      "recommended": ["Adeptus Arbites", "Adeptus Astra Telepathica", "Imperial Guard", "Outcast"],
+      "aptitudes": [
+        "Toughness"
+      ],
+      "wounds": {
+        "formula": "9+1d5"
+      },
+      "fate": {
+        "value": 2,
+        "blessing": 3
+      },
+      "recommended": [
+        "Adeptus Arbites",
+        "Adeptus Astra Telepathica",
+        "Imperial Guard",
+        "Outcast"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>Savage primitives from backward cultures or untamed worlds; what they lack in knowledge of the stars and the secrets of technology, they more than make up for in strength and survivability.</p><div class='bc-rule'><p>Feral worlds are planets where the dominant culture is trapped in a primitive state, often much lower technologically than that of other Imperial worlds. This can range from nomadic human tribes, with little more than spears and a mastery over fire, to once-advanced planets now reduced to barbarism from environmental catastrophes, xenos predations, or other world-shattering events. Natives are likely to have grown up without technology, and had to survive by hunting or farming with primitive tools and their own two hands. This makes feral worlders hardy, strong, tough, and able to survive in the worst of conditions.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 32"
+      "source": "Dark Heresy Second Edition, p. 32",
+      "bonuses": [
+        {
+          "name": "The Old Ways",
+          "description": "<p>In the hands of a feral world character, any Low-Tech weapon loses the Primitive quality (if it had it) and gains the Proven (3) quality.</p>"
+        }
+      ]
     }
   },
   {
@@ -32,28 +50,64 @@
       "stage": "homeWorld",
       "order": 2,
       "key": "forgeWorld",
-      "characteristics": {"intelligence": 5, "toughness": 5, "fellowship": -5},
-      "aptitudes": ["Intelligence"],
-      "wounds": {"formula": "8+1d5"},
-      "fate": {"value": 3, "blessing": 8},
+      "characteristics": {
+        "intelligence": 5,
+        "toughness": 5,
+        "fellowship": -5
+      },
+      "aptitudes": [
+        "Intelligence"
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "fate": {
+        "value": 3,
+        "blessing": 8
+      },
       "choices": [
         {
           "key": "omnissiahsChosen",
           "type": "one",
           "label": "Omnissiah's Chosen",
           "options": [
-            {"label": "Technical Knock", "grants": {"talents": [{"name": "Technical Knock"}]}},
-            {"label": "Weapon-Tech", "grants": {"talents": [{"name": "Weapon-Tech"}]}}
+            {
+              "label": "Technical Knock",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Technical Knock"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon-Tech",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon-Tech"
+                  }
+                ]
+              }
+            }
           ]
         }
       ],
-      "bonus": {
-        "name": "Omnissiah's Chosen",
-        "description": "<p>A forge world character starts with either the Technical Knock or Weapon-Tech talent.</p>"
-      },
-      "recommended": ["Adeptus Administratum", "Adeptus Arbites", "Adeptus Mechanicus", "Imperial Guard"],
+      "recommended": [
+        "Adeptus Administratum",
+        "Adeptus Arbites",
+        "Adeptus Mechanicus",
+        "Imperial Guard"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>Skilled with machinery and commonly using the most advanced forms of technology known to the Imperium; surrounded with sanctified technology and often granted cybernetically augmented bodies, they manifest the Omnissiah's blessings.</p><div class='bc-rule'><p>Forge worlds are the main armouries and assembly lines of the Imperium. On these densely-populated worlds, citizens toil endlessly to craft weaponry for the armies of the Emperor, their bodies often enhanced with technology so that they might better fulfil their tasks or survive the toxic conditions of the factories. The denizens are likely to have been born to do a specific task, like their parents before them and their children that will come after, focusing their entire lives on a single job. It is a rigid society from which few escape, where the great Machine Cult and Tech-Priest overlords enforce the construction and toil of the teeming billions working below.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 34"
+      "source": "Dark Heresy Second Edition, p. 34",
+      "bonuses": [
+        {
+          "name": "Omnissiah's Chosen",
+          "description": "<p>A forge world character starts with either the Technical Knock or Weapon-Tech talent.</p>"
+        }
+      ]
     }
   },
   {
@@ -66,17 +120,35 @@
       "stage": "homeWorld",
       "order": 3,
       "key": "highborn",
-      "characteristics": {"fellowship": 5, "influence": 5, "toughness": -5},
-      "aptitudes": ["Fellowship"],
-      "wounds": {"formula": "9+1d5"},
-      "fate": {"value": 4, "blessing": 10},
-      "bonus": {
-        "name": "Breeding Counts",
-        "description": "<p>Any time a highborn character would reduce his Influence, he reduces it by 1 less (to a minimum reduction of 1).</p>"
+      "characteristics": {
+        "fellowship": 5,
+        "influence": 5,
+        "toughness": -5
       },
-      "recommended": ["Adeptus Administratum", "Adeptus Arbites", "Adeptus Astra Telepathica", "Adeptus Ministorum"],
+      "aptitudes": [
+        "Fellowship"
+      ],
+      "wounds": {
+        "formula": "9+1d5"
+      },
+      "fate": {
+        "value": 4,
+        "blessing": 10
+      },
+      "recommended": [
+        "Adeptus Administratum",
+        "Adeptus Arbites",
+        "Adeptus Astra Telepathica",
+        "Adeptus Ministorum"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>The elite who rule over the worlds of the Imperium, obsessed with power and the politics to maintain that power; they may rule from piles of fur on a barren plain, or from the crystalline windows at the top of a hive spire, but all know the precarious nature of power and the ever-present enemies ready to snatch it from them.</p><div class='bc-rule'><p>Highborn are the elite of Imperial worlds, the nobles, princes, and lords of cities, systems, and worlds who rule over boundless populations alongside other equally-privileged scions. To be born into such a setting is to have been given the best the planet has to offer, raised apart from the struggling ranks of Mankind, and destined to take on positions of great import and power. To be a highborn is also to enter into a world of deadly politics and ancient feuds, where children grow up with terrible enemies and sleep knowing there are those that would cut their throats for a taste of their hereditary position.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 36"
+      "source": "Dark Heresy Second Edition, p. 36",
+      "bonuses": [
+        {
+          "name": "Breeding Counts",
+          "description": "<p>Any time a highborn character would reduce his Influence, he reduces it by 1 less (to a minimum reduction of 1).</p>"
+        }
+      ]
     }
   },
   {
@@ -89,17 +161,35 @@
       "stage": "homeWorld",
       "order": 4,
       "key": "hiveWorld",
-      "characteristics": {"agility": 5, "perception": 5, "willpower": -5},
-      "aptitudes": ["Perception"],
-      "wounds": {"formula": "8+1d5"},
-      "fate": {"value": 2, "blessing": 6},
-      "bonus": {
-        "name": "Teeming Masses in Metal Mountains",
-        "description": "<p>A hive world character ignores crowds for purposes of movement, treating them as open terrain. When in enclosed spaces, he also gains a +20 bonus to Navigate (Surface) tests.</p>"
+      "characteristics": {
+        "agility": 5,
+        "perception": 5,
+        "willpower": -5
       },
-      "recommended": ["Adeptus Arbites", "Adeptus Mechanicus", "Imperial Guard", "Outcast"],
+      "aptitudes": [
+        "Perception"
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "fate": {
+        "value": 2,
+        "blessing": 6
+      },
+      "recommended": [
+        "Adeptus Arbites",
+        "Adeptus Mechanicus",
+        "Imperial Guard",
+        "Outcast"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>The struggling masses of humanity, one among uncounted billions living out their lives in vast towering cities; hardened by living among such dense populations, they are savvy talkers and adept criminals.</p><div class='bc-rule'><p>Hive worlders exist in cities that reach kilometres into the sky from the wasted surface of toxic, hostile environments, ruined through many centuries of industry. Sealed off from the planet outside, they live stacked on hundreds of levels, each one packed with millions of souls working, eating, and dying without ever venturing beyond the steel caverns of their birth. To be a hive worlder is to have grown up among overpopulation and artifice, where the sun is only a myth.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 38"
+      "source": "Dark Heresy Second Edition, p. 38",
+      "bonuses": [
+        {
+          "name": "Teeming Masses in Metal Mountains",
+          "description": "<p>A hive world character ignores crowds for purposes of movement, treating them as open terrain. When in enclosed spaces, he also gains a +20 bonus to Navigate (Surface) tests.</p>"
+        }
+      ]
     }
   },
   {
@@ -112,17 +202,35 @@
       "stage": "homeWorld",
       "order": 5,
       "key": "shrineWorld",
-      "characteristics": {"fellowship": 5, "willpower": 5, "perception": -5},
-      "aptitudes": ["Willpower"],
-      "wounds": {"formula": "7+1d5"},
-      "fate": {"value": 3, "blessing": 6},
-      "bonus": {
-        "name": "Faith in the Creed",
-        "description": "<p>Whenever a shrine world character spends a Fate point, he rolls 1d10. On a result of 1, the character's total number of Fate points is not reduced.</p>"
+      "characteristics": {
+        "fellowship": 5,
+        "willpower": 5,
+        "perception": -5
       },
-      "recommended": ["Adeptus Administratum", "Adeptus Arbites", "Adeptus Ministorum", "Imperial Guard"],
+      "aptitudes": [
+        "Willpower"
+      ],
+      "wounds": {
+        "formula": "7+1d5"
+      },
+      "fate": {
+        "value": 3,
+        "blessing": 6
+      },
+      "recommended": [
+        "Adeptus Administratum",
+        "Adeptus Arbites",
+        "Adeptus Ministorum",
+        "Imperial Guard"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>Born in the shadow of great saints, the light of the Emperor blinding and embracing since birth; pious and devout, they see the world through eyes of fanatical faith and righteous hatred.</p><div class='bc-rule'><p>Shrine worlders grow up on worlds that the Imperium has deemed holy places, where the Cult of the Emperor's power is omnipresent. While their birthplace might range from cluttered, decaying cities to scattered farmlands, or their planet from a green paradise to a forbidding rock, the power of the Emperor saturates it. While all citizens of the Imperium are taught to venerate the glory of the Emperor in one form or another, it is the shrine worlders who perhaps have the greatest understanding and reverence of the teachings of the Imperial Cult.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 40"
+      "source": "Dark Heresy Second Edition, p. 40",
+      "bonuses": [
+        {
+          "name": "Faith in the Creed",
+          "description": "<p>Whenever a shrine world character spends a Fate point, he rolls 1d10. On a result of 1, the character's total number of Fate points is not reduced.</p>"
+        }
+      ]
     }
   },
   {
@@ -135,18 +243,42 @@
       "stage": "homeWorld",
       "order": 6,
       "key": "voidborn",
-      "characteristics": {"intelligence": 5, "willpower": 5, "strength": -5},
-      "aptitudes": ["Intelligence"],
-      "wounds": {"formula": "7+1d5"},
-      "fate": {"value": 3, "blessing": 5},
-      "grants": {"talents": [{"name": "Strong Minded"}]},
-      "bonus": {
-        "name": "Child of the Dark",
-        "description": "<p>A voidborn character starts with the Strong Minded talent, and gains a +30 bonus to tests for moving in a zero gravity environment.</p>"
+      "characteristics": {
+        "intelligence": 5,
+        "willpower": 5,
+        "strength": -5
       },
-      "recommended": ["Adeptus Astra Telepathica", "Adeptus Mechanicus", "Adeptus Ministorum", "Outcast"],
+      "aptitudes": [
+        "Intelligence"
+      ],
+      "wounds": {
+        "formula": "7+1d5"
+      },
+      "fate": {
+        "value": 3,
+        "blessing": 5
+      },
+      "grants": {
+        "talents": [
+          {
+            "name": "Strong Minded"
+          }
+        ]
+      },
+      "recommended": [
+        "Adeptus Astra Telepathica",
+        "Adeptus Mechanicus",
+        "Adeptus Ministorum",
+        "Outcast"
+      ],
       "description": "<div class='bc-entry'><p class='bc-lead'>Solar nomads and planetary outcasts living out lives in the inky blackness between worlds; touched by celestial winds and their closeness to the Warp, they are often shunned by all but their own kind.</p><div class='bc-rule'><p>Voidborn spend their lives in the expanses of space, growing up on ancient orbital stations, generation vessels, merchant freighters, or remote asteroid outposts. They spend much of their lives without the stability of a real world beneath their feet, knowing the cold, deadly grasp of empty space is only a few metres of bulkhead away. This makes them exceptionally skilled when it comes to living on voidships and space stations, more so than any who have spent their lives crawling around in the dirt of a world.</p></div></div>",
-      "source": "Dark Heresy Second Edition, p. 42"
+      "source": "Dark Heresy Second Edition, p. 42",
+      "bonuses": [
+        {
+          "name": "Child of the Dark",
+          "description": "<p>A voidborn character starts with the Strong Minded talent, and gains a +30 bonus to tests for moving in a zero gravity environment.</p>"
+        }
+      ]
     }
   }
 ]

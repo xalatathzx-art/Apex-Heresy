@@ -1,0 +1,493 @@
+[
+  {
+    "name": "Adeptus Administratum",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 1,
+      "key": "adeptusAdministratum",
+      "grants": {
+        "skills": [{"key": "logic", "advance": 0}],
+        "specialities": [
+          {"key": "commonLore", "name": "Adeptus Administratum", "advance": 0},
+          {"key": "linguistics", "name": "High Gothic", "advance": 0}
+        ],
+        "equipment": [
+          {"name": "Imperial Robes"}, {"name": "Autoquill"}, {"name": "Chrono"},
+          {"name": "Dataslate"}, {"name": "Medi-Kit"}
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Commerce or Medicae",
+          "options": [
+            {"label": "Commerce", "grants": {"skills": [{"key": "commerce", "advance": 0}]}},
+            {"label": "Medicae", "grants": {"skills": [{"key": "medicae", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "scholasticLore", "type": "many", "label": "Scholastic Lore (Pick One)",
+          "count": 1, "groups": ["scholasticLore"], "advance": 0
+        },
+        {
+          "key": "weaponTraining", "type": "one", "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {"label": "Weapon Training (Las)", "grants": {"talents": [{"name": "Weapon Training (Las)"}]}},
+            {"label": "Weapon Training (Solid Projectile)", "grants": {"talents": [{"name": "Weapon Training (Solid Projectile)"}]}}
+          ]
+        },
+        {
+          "key": "sidearm", "type": "one", "label": "Laspistol or stub automatic",
+          "options": [
+            {"label": "Laspistol", "grants": {"equipment": [{"name": "Laspistol"}]}},
+            {"label": "Stub Automatic", "grants": {"equipment": [{"name": "Stub Automatic"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Knowledge", "grants": {"aptitudes": ["Knowledge"]}},
+            {"label": "Social", "grants": {"aptitudes": ["Social"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Master of Paperwork",
+          "description": "<p>An Adeptus Administratum character counts the Availability of all items as one level more available (Very Rare items count as Rare, Average items count as Common, etc.).</p>"
+        }
+      ],
+      "recommended": ["Chirurgeon", "Hierophant", "Sage", "Seeker"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>The great bureaucracy of tithes and tallies that holds the Imperium together and keeps it running; they keep the lore, histories, and secrets of a million worlds so that the Imperium might prosper.</p><div class='bc-rule'><p>Such is the size and scope of the Imperium that it takes an innumerable legion of scribes, officials, and bureaucrats to maintain it. Connected across the stars on a web of scribbled notes and secret data caches, the Administratum is a lumbering behemoth, churning at a speed only slightly higher than deathly rest as it ensures that every planet has paid its due and contributed to the Imperium's continuation. Without the Administratum, the Imperium would dissolve into madness and mayhem.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 46"
+    }
+  },
+  {
+    "name": "Adeptus Arbites",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 2,
+      "key": "adeptusArbites",
+      "grants": {
+        "skills": [
+          {"key": "awareness", "advance": 0},
+          {"key": "intimidate", "advance": 0},
+          {"key": "scrutiny", "advance": 0}
+        ],
+        "specialities": [
+          {"key": "commonLore", "name": "Adeptus Arbites", "advance": 0},
+          {"key": "commonLore", "name": "Underworld", "advance": 0}
+        ],
+        "equipment": [
+          {"name": "Stimm", "quantity": 3}, {"name": "Manacles"}, {"name": "Lho Sticks", "quantity": 12}
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Inquiry or Interrogation",
+          "options": [
+            {"label": "Inquiry", "grants": {"skills": [{"key": "inquiry", "advance": 0}]}},
+            {"label": "Interrogation", "grants": {"skills": [{"key": "interrogation", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "weaponTraining", "type": "one", "label": "Weapon Training (Shock or Solid Projectile)",
+          "options": [
+            {"label": "Weapon Training (Shock)", "grants": {"talents": [{"name": "Weapon Training (Shock)"}]}},
+            {"label": "Weapon Training (Solid Projectile)", "grants": {"talents": [{"name": "Weapon Training (Solid Projectile)"}]}}
+          ]
+        },
+        {
+          "key": "weapon", "type": "one", "label": "Shotgun or shock maul",
+          "options": [
+            {"label": "Shotgun", "grants": {"equipment": [{"name": "Shotgun"}]}},
+            {"label": "Shock Maul", "grants": {"equipment": [{"name": "Shock Maul"}]}}
+          ]
+        },
+        {
+          "key": "armour", "type": "one", "label": "Enforcer light carapace armour or carapace chestplate",
+          "options": [
+            {"label": "Enforcer Light Carapace Armour", "grants": {"equipment": [{"name": "Enforcer Light Carapace Armour"}]}},
+            {"label": "Carapace Chestplate", "grants": {"equipment": [{"name": "Carapace Chestplate"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Offence", "grants": {"aptitudes": ["Offence"]}},
+            {"label": "Defence", "grants": {"aptitudes": ["Defence"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "The Face of the Law",
+          "description": "<p>An Arbitrator can re-roll any Intimidation and Interrogation test, and can substitute his Willpower bonus for his degrees of success on these tests.</p>"
+        }
+      ],
+      "recommended": ["Assassin", "Desperado", "Seeker", "Warrior"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Keepers of the Imperium's laws, who see that the rule of the Emperor is brought to His worlds; they are judge, jury, and executioner against any—high or low—that would break the Imperial rule of law.</p><div class='bc-rule'><p>Only through constant vigilance and the execution of brutal law can the Imperium survive, and the Adeptus Arbites carries out this function. While the armies of the Imperial Guard struggle to hold back the aggression of alien empires and protect worlds from without, the Adeptus Arbites roots out rebels, recidivists, and threats to the stability of the Imperium from within. Remorseless and single-minded, they do not forgive or forget any crime, and pursue their quarry relentlessly until the Emperor's Justice has been served.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 48"
+    }
+  },
+  {
+    "name": "Adeptus Astra Telepathica",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 3,
+      "key": "adeptusAstraTelepathica",
+      "grants": {
+        "skills": [{"key": "awareness", "advance": 0}],
+        "specialities": [
+          {"key": "commonLore", "name": "Adeptus Astra Telepathica", "advance": 0},
+          {"key": "forbiddenLore", "name": "The Warp", "advance": 0}
+        ],
+        "talents": [{"name": "Weapon Training (Las)"}, {"name": "Weapon Training (Low-Tech)"}],
+        "equipment": [{"name": "Laspistol"}]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Deceive or Interrogation",
+          "options": [
+            {"label": "Deceive", "grants": {"skills": [{"key": "deceive", "advance": 0}]}},
+            {"label": "Interrogation", "grants": {"skills": [{"key": "interrogation", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "secondSkill", "type": "one", "label": "Psyniscience or Scrutiny",
+          "options": [
+            {"label": "Psyniscience", "grants": {"skills": [{"key": "psyniscience", "advance": 0}]}},
+            {"label": "Scrutiny", "grants": {"skills": [{"key": "scrutiny", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "meleeWeapon", "type": "one", "label": "Staff or whip",
+          "options": [
+            {"label": "Staff", "grants": {"equipment": [{"name": "Staff"}]}},
+            {"label": "Whip", "grants": {"equipment": [{"name": "Whip"}]}}
+          ]
+        },
+        {
+          "key": "armour", "type": "one", "label": "Light flak cloak or flak vest",
+          "options": [
+            {"label": "Light Flak Cloak", "grants": {"equipment": [{"name": "Light Flak Cloak"}]}},
+            {"label": "Flak Vest", "grants": {"equipment": [{"name": "Flak Vest"}]}}
+          ]
+        },
+        {
+          "key": "gear", "type": "one", "label": "Micro-bead or psy focus",
+          "options": [
+            {"label": "Micro-bead", "grants": {"equipment": [{"name": "Micro-Bead"}]}},
+            {"label": "Psy Focus", "grants": {"equipment": [{"name": "Psy Focus"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Defence", "grants": {"aptitudes": ["Defence"]}},
+            {"label": "Psyker", "grants": {"aptitudes": ["Psyker"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "The Constant Threat",
+          "description": "<p>When the character or an ally within 10 metres triggers a roll on Table 6–2: Psychic Phenomenon (see page 196), the Adeptus Astra Telepathica character can increase or decrease the result by amount equal to his Willpower bonus.</p>"
+        },
+        {
+          "name": "Tested on Terra",
+          "description": "<p>If the character takes the Psyker elite advance during character creation, he also gains the Sanctioned trait (see page 138).</p>"
+        }
+      ],
+      "recommended": ["Chirurgeon", "Mystic", "Sage", "Seeker"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>The ancient and sacred organisation vital to the survival of the Imperium and Mankind; guiding ships and transmitting information across millions of scattered worlds, they bind the Imperium with their web of minds.</p><div class='bc-rule'><p>Psykers are a vital part of the Imperium, linking its worlds together, aiding its soldiers in battle, and guiding its ships across the stars. They are also dangerous, for the very gift that allows them to draw power from the Warp can also make them conduits for its unholy power and gateways for Daemons. The Adeptus Astra Telepathica oversees psykers within the Imperium, scouring the galaxy for new psykers and then examining and training their catches.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 50"
+    }
+  },
+  {
+    "name": "Adeptus Mechanicus",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 4,
+      "key": "adeptusMechanicus",
+      "grants": {
+        "skills": [
+          {"key": "logic", "advance": 0},
+          {"key": "security", "advance": 0},
+          {"key": "techUse", "advance": 0}
+        ],
+        "specialities": [{"key": "commonLore", "name": "Adeptus Mechanicus", "advance": 0}],
+        "talents": [
+          {"name": "Mechadendrite Use (Utility)"},
+          {"name": "Weapon Training (Solid Projectile)"}
+        ],
+        "traits": [{"name": "Mechanicus Implants"}],
+        "equipment": [{"name": "Imperial Robes"}, {"name": "Sacred Unguents", "quantity": 2}]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Awareness or Operate (Pick One)",
+          "options": [
+            {"label": "Awareness", "grants": {"skills": [{"key": "awareness", "advance": 0}]}},
+            {"label": "Operate (Surface)", "grants": {"specialities": [{"key": "operate", "name": "Surface", "advance": 0}]}},
+            {"label": "Operate (Aeronautica)", "grants": {"specialities": [{"key": "operate", "name": "Aeronautica", "advance": 0}]}},
+            {"label": "Operate (Voidship)", "grants": {"specialities": [{"key": "operate", "name": "Voidship", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "weapon", "type": "one", "label": "Autogun or hand cannon",
+          "options": [
+            {"label": "Autogun", "grants": {"equipment": [{"name": "Autogun"}]}},
+            {"label": "Hand Cannon", "grants": {"equipment": [{"name": "Hand Cannon"}]}}
+          ]
+        },
+        {
+          "key": "augmetic", "type": "one", "label": "Monotask servo-skull (utility) or optical mechadendrite",
+          "options": [
+            {"label": "Monotask Servo-Skull (Utility)", "grants": {"equipment": [{"name": "Monotask Servo-Skull (Utility)"}]}},
+            {"label": "Optical Mechadendrite", "grants": {"equipment": [{"name": "Optical Mechadendrite"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Knowledge", "grants": {"aptitudes": ["Knowledge"]}},
+            {"label": "Tech", "grants": {"aptitudes": ["Tech"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Replace the Weak Flesh",
+          "description": "<p>An Adeptus Mechanicus character counts the Availability of all cybernetics as two levels more available (Rare items count as Average, Very Rare items count as Scarce, etc.).</p>"
+        }
+      ],
+      "recommended": ["Chirurgeon", "Hierophant", "Sage", "Seeker"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Keepers of the ancient secrets of technology and the Imperium's most venerable and treasured artefacts; they serve the Machine God in the quest for lost knowledge.</p><div class='bc-rule'><p>Much of Mankind's mastery over technology has been forgotten, and what remains are closely guarded secrets, held in jealous hands of the Adeptus Mechanicus. Wrapped up in superstitious beliefs and rites, the knowledge of how to operate the Imperium's most advanced devices falls to these followers of the Machine God. They embrace technology to such a degree that they try to transcend the flesh of their bodies with the purity of metal.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 52"
+    }
+  },
+  {
+    "name": "Adeptus Ministorum",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 5,
+      "key": "adeptusMinistorum",
+      "grants": {
+        "skills": [
+          {"key": "charm", "advance": 0},
+          {"key": "command", "advance": 0}
+        ],
+        "specialities": [
+          {"key": "commonLore", "name": "Adeptus Ministorum", "advance": 0},
+          {"key": "linguistics", "name": "High Gothic", "advance": 0}
+        ],
+        "equipment": [
+          {"name": "Backpack"}, {"name": "Glow-Globe"},
+          {"name": "Monotask Servo-Skull (Laud Hailer)"}
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Inquiry or Scrutiny",
+          "options": [
+            {"label": "Inquiry", "grants": {"skills": [{"key": "inquiry", "advance": 0}]}},
+            {"label": "Scrutiny", "grants": {"skills": [{"key": "scrutiny", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "weaponTraining", "type": "one", "label": "Weapon Training (Flame) or Weapon Training (Low-Tech, Solid Projectile)",
+          "options": [
+            {"label": "Weapon Training (Flame)", "grants": {"talents": [{"name": "Weapon Training (Flame)"}]}},
+            {"label": "Weapon Training (Low-Tech, Solid Projectile)", "grants": {"talents": [{"name": "Weapon Training (Low-Tech)"}, {"name": "Weapon Training (Solid Projectile)"}]}}
+          ]
+        },
+        {
+          "key": "weapon", "type": "one", "label": "Hand flamer, or warhammer and stub revolver",
+          "options": [
+            {"label": "Hand Flamer", "grants": {"equipment": [{"name": "Hand Flamer"}]}},
+            {"label": "Warhammer and Stub Revolver", "grants": {"equipment": [{"name": "Warhammer"}, {"name": "Stub Revolver"}]}}
+          ]
+        },
+        {
+          "key": "armour", "type": "one", "label": "Imperial robes or flak vest",
+          "options": [
+            {"label": "Imperial Robes", "grants": {"equipment": [{"name": "Imperial Robes"}]}},
+            {"label": "Flak Vest", "grants": {"equipment": [{"name": "Flak Vest"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Leadership", "grants": {"aptitudes": ["Leadership"]}},
+            {"label": "Social", "grants": {"aptitudes": ["Social"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Faith is All",
+          "description": "<p>When spending a Fate point to gain a +10 bonus to any one test, an Adeptus Ministorum character gains a +20 bonus instead.</p>"
+        }
+      ],
+      "recommended": ["Chirurgeon", "Hierophant", "Seeker", "Warrior"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>The great religious agency of the Emperor of Mankind; with shrines and cathedrals on a million worlds, they are dedicated to spreading and teaching the word of the Emperor so all might bask within His light and fear His wrath.</p><div class='bc-rule'><p>The Adeptus Ministorum, also known as the Ecclesiarchy, is the religion that venerates the Emperor of Mankind. Powerful and ancient, it embodies the Imperial Creed, the myriad systems of belief that bind humanity together, gives it purpose, and keeps it safe from soul-imperilling threats both within and without. Whether with words or deeds, a member of the Adeptus Ministorum never forgets his earlier service.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 54"
+    }
+  },
+  {
+    "name": "Imperial Guard",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 6,
+      "key": "imperialGuard",
+      "grants": {
+        "skills": [
+          {"key": "athletics", "advance": 0},
+          {"key": "command", "advance": 0}
+        ],
+        "specialities": [
+          {"key": "commonLore", "name": "Imperial Guard", "advance": 0},
+          {"key": "navigate", "name": "Surface", "advance": 0}
+        ],
+        "talents": [{"name": "Weapon Training (Las)"}, {"name": "Weapon Training (Low-Tech)"}],
+        "equipment": [
+          {"name": "Combat Vest"}, {"name": "Imperial Guard Flak Armour"},
+          {"name": "Grapnel and Line"}, {"name": "Lho Sticks", "quantity": 12}, {"name": "Magnoculars"}
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Medicae or Operate (Surface)",
+          "options": [
+            {"label": "Medicae", "grants": {"skills": [{"key": "medicae", "advance": 0}]}},
+            {"label": "Operate (Surface)", "grants": {"specialities": [{"key": "operate", "name": "Surface", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "weapon", "type": "one", "label": "Lasgun, or laspistol and sword",
+          "options": [
+            {"label": "Lasgun", "grants": {"equipment": [{"name": "Lasgun"}]}},
+            {"label": "Laspistol and Sword", "grants": {"equipment": [{"name": "Laspistol"}, {"name": "Sword"}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Fieldcraft", "grants": {"aptitudes": ["Fieldcraft"]}},
+            {"label": "Leadership", "grants": {"aptitudes": ["Leadership"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Hammer of the Emperor",
+          "description": "<p>When attacking a target that an ally attacked since the end of the Guardsman's last turn, the Guardsman can re-roll any results of 1 or 2 on damage rolls.</p>"
+        }
+      ],
+      "recommended": ["Assassin", "Desperado", "Hierophant", "Warrior"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Vast armies drawn from countless worlds; skilled warriors and hardened veterans of mankind's many brutal and bloody wars, they are all that stands between the Imperium and its innumerable foes.</p><div class='bc-rule'><p>To protect the Imperium from its many enemies, the Imperium maintains a massive fighting force known as the Imperial Guard. Tithed from the worlds across the galaxy, the Imperial Guard is an immense force of countless billions, always at constant war, and always recruiting more soldiers to replace the fallen. Many Guardsmen do not live even a full day after entering battle, but those who survive become hardened combat veterans skilled in the bringing of death and facing the worst foes the galaxy has to offer.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 56"
+    }
+  },
+  {
+    "name": "Outcast",
+    "type": "origin",
+    "folder": "Dark Heresy/Backgrounds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dh2",
+      "stage": "background",
+      "order": 7,
+      "key": "outcast",
+      "grants": {
+        "skills": [
+          {"key": "deceive", "advance": 0},
+          {"key": "dodge", "advance": 0},
+          {"key": "stealth", "advance": 0}
+        ],
+        "specialities": [{"key": "commonLore", "name": "Underworld", "advance": 0}],
+        "talents": [{"name": "Weapon Training (Chain)"}],
+        "equipment": [
+          {"name": "Chainsword"}, {"name": "Injector"}
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill", "type": "one", "label": "Acrobatics or Sleight of Hand",
+          "options": [
+            {"label": "Acrobatics", "grants": {"skills": [{"key": "acrobatics", "advance": 0}]}},
+            {"label": "Sleight of Hand", "grants": {"skills": [{"key": "sleightOfHand", "advance": 0}]}}
+          ]
+        },
+        {
+          "key": "weaponTraining", "type": "one", "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {"label": "Weapon Training (Las)", "grants": {"talents": [{"name": "Weapon Training (Las)"}]}},
+            {"label": "Weapon Training (Solid Projectile)", "grants": {"talents": [{"name": "Weapon Training (Solid Projectile)"}]}}
+          ]
+        },
+        {
+          "key": "sidearm", "type": "one", "label": "Autopistol or laspistol",
+          "options": [
+            {"label": "Autopistol", "grants": {"equipment": [{"name": "Autopistol"}]}},
+            {"label": "Laspistol", "grants": {"equipment": [{"name": "Laspistol"}]}}
+          ]
+        },
+        {
+          "key": "armour", "type": "one", "label": "Armoured bodyglove or flak vest",
+          "options": [
+            {"label": "Armoured Bodyglove", "grants": {"equipment": [{"name": "Armoured Bodyglove"}]}},
+            {"label": "Flak Vest", "grants": {"equipment": [{"name": "Flak Vest"}]}}
+          ]
+        },
+        {
+          "key": "drug", "type": "one", "label": "2 doses of obscura or slaught",
+          "options": [
+            {"label": "Obscura", "grants": {"equipment": [{"name": "Obscura", "quantity": 2}]}},
+            {"label": "Slaught", "grants": {"equipment": [{"name": "Slaught", "quantity": 2}]}}
+          ]
+        },
+        {
+          "key": "backgroundAptitude", "type": "one", "label": "Background Aptitude",
+          "options": [
+            {"label": "Fieldcraft", "grants": {"aptitudes": ["Fieldcraft"]}},
+            {"label": "Social", "grants": {"aptitudes": ["Social"]}}
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Never Quit",
+          "description": "<p>An Outcast character counts his Toughness bonus as two higher for purposes of determining Fatigue.</p>"
+        }
+      ],
+      "recommended": ["Assassin", "Desperado", "Seeker"],
+      "description": "<div class='bc-entry'><p class='bc-lead'>Living in the shadow of the might of the Imperium, gangers, criminals, and dregs prosper and thrive; cunning survivors and experienced outlaws, they exist only for themselves and those who have bought their loyalties.</p><div class='bc-rule'><p>Even within the Imperium, where most are born into the same position for life, there are those that work their way free to make a life on their own terms. They exist as criminals, vagabonds, and renegades on the fringes of Imperial life. These Outcasts live in the shadows of society, living by their wits and charm. They are able thieves, assassins, and bounty hunters; suspicion and fear often dogs their steps, as others know that where they tread, crime follows.</p></div></div>",
+      "source": "Dark Heresy Second Edition, p. 58"
+    }
+  }
+]

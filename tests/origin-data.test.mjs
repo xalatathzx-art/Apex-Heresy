@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {RULESETS, STAGES, CHARACTERISTIC_KEYS, SKILL_KEYS,
+import {RULESETS, STAGES, CHARACTERISTIC_KEYS, SKILL_KEYS, APTITUDES,
         normaliseOrigin, validateOrigin, grantSummaryLines} from '../script/creation/origin-data.mjs';
 
 const base = {ruleset: 'dh2', stage: 'homeWorld', key: 'feralWorld', order: 1};
@@ -82,6 +82,43 @@ test('the summary spells out a choice rather than hiding it', () => {
          options: [{label: 'Technical Knock'}, {label: 'Weapon-Tech'}]}
     ]});
     assert.deepEqual(lines, ['Choice "omnissiah" (one): Technical Knock / Weapon-Tech']);
+});
+
+test('the aptitude vocabulary matches what the actor model uses', () => {
+    const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const used = new Set();
+    for (const skill of Object.values(data.Actor.templates.skills.skills)) for (const a of skill.aptitudes) used.add(a);
+    for (const char of Object.values(data.Actor.templates.characteristics.characteristics)) for (const a of char.aptitudes) used.add(a);
+    assert.deepEqual(APTITUDES, [...used].sort());
+});
+
+test('an unknown aptitude is reported wherever it is named', () => {
+    assert.match(validateOrigin({...base, aptitudes: ['Cooking']})[0], /Cooking/);
+    assert.match(validateOrigin({...base, grants: {aptitudes: ['Cooking']}})[0], /Cooking/);
+    assert.deepEqual(validateOrigin({...base, aptitudes: ['Knowledge'], grants: {aptitudes: ['Social']}}), []);
+});
+
+test('a choice option can grant an aptitude, because backgrounds offer a pick of two', () => {
+    const problems = validateOrigin({...base, choices: [{key: 'apt', type: 'one', label: 'Background Aptitude',
+        options: [{label: 'Knowledge', grants: {aptitudes: ['Knowledge']}},
+                  {label: 'Social', grants: {aptitudes: ['Cooking']}}]}]});
+    assert.equal(problems.length, 1);
+    assert.match(problems[0], /Cooking/);
+});
+
+test('an origin carries a list of named bonuses, because a background can have two', () => {
+    const filled = normaliseOrigin(base);
+    assert.deepEqual(filled.bonuses, []);
+    const two = normaliseOrigin({...base, bonuses: [
+        {name: 'The Constant Threat', description: '<p>a</p>'},
+        {name: 'Tested on Terra', description: '<p>b</p>'}
+    ]});
+    assert.equal(two.bonuses.length, 2);
+    assert.equal(two.bonuses[1].name, 'Tested on Terra');
+});
+
+test('a bonus without a name is reported', () => {
+    assert.match(validateOrigin({...base, bonuses: [{description: '<p>a</p>'}]})[0], /bonus/i);
 });
 
 test('the shipped origin type carries every field the schema fills in', () => {

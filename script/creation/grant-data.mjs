@@ -117,6 +117,8 @@ function addGrants(plan, grants) {
     for (const talent of grants.talents ?? []) addNamed(plan, "talents", "talent", talent);
     for (const trait of grants.traits ?? []) addNamed(plan, "traits", "trait", trait);
     for (const gear of grants.equipment ?? []) plan.equipment.push({...gear});
+    for (const aptitude of grants.aptitudes ?? [])
+        if (!plan.aptitudes.includes(aptitude)) plan.aptitudes.push(aptitude);
     for (const key of ["wounds", "corruption", "insanity", "influence"]) plan[key] += grants[key] ?? 0;
 }
 

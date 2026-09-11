@@ -1687,16 +1687,14 @@
         "talents": [],
         "traits": [],
         "equipment": [],
+        "aptitudes": [],
         "wounds": 0,
         "corruption": 0,
         "insanity": 0,
         "influence": 0
       },
       "choices": [],
-      "bonus": {
-        "name": "",
-        "description": ""
-      },
+      "bonuses": [],
       "requires": null,
       "adjacency": [],
       "recommended": []
