@@ -142,15 +142,24 @@ export function psychicOffers(catalogue, snapshot, characteristicNames) {
  */
 export function catalogueOffers(catalogue, snapshot, characteristicNames) {
     const owned = new Set((snapshot.powers ?? []).map(lower));
+    const patron = snapshot.patron || "undivided";
+    // Кровавый бог витчей не терпит: выровненный на Кхорна не пользуется силами вовсе
+    // и даже не считается псайкером, пока держится его пути (Black Crusade, стр. 79).
+    const khorne = patron === "khorne";
     const groups = new Map();
     for (const entry of catalogue ?? []) {
         const key = entry.discipline || "Psychic Powers";
         if (!groups.has(key)) groups.set(key, {key: lower(key).replace(/[^a-z0-9]/g, ""), label: key, page: null, powers: []});
         const prerequisites = checkPrerequisites(entry.prerequisite ?? "", snapshot, characteristicNames);
+        // Сила своего бога доступна только его преданным (стр. 79).
+        const god = entry.patron && entry.patron !== "undivided" ? entry.patron : null;
+        const wrongGod = !!god && god !== patron;
+        if (khorne) prerequisites.push({text: "Not Aligned to Khorne", status: "unmet"});
+        else if (wrongGod) prerequisites.push({text: `Devoted to ${god[0].toUpperCase()}${god.slice(1)}`, status: "unmet"});
         groups.get(key).powers.push({
             name: entry.name, uuid: entry.uuid ?? null, cost: Number(entry.cost) || 0, parents: [],
-            owned: owned.has(lower(entry.name)), accessible: true, prerequisites,
-            blocked: prerequisites.some(check => check.status === "unmet")
+            patron: god, owned: owned.has(lower(entry.name)), accessible: true, prerequisites,
+            blocked: khorne || wrongGod || prerequisites.some(check => check.status === "unmet")
         });
     }
     return [...groups.values()];

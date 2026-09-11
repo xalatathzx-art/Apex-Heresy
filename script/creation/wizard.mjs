@@ -917,10 +917,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (this._powers) return this._powers;
         const pack = game.packs.get(contentPacksFor(this.ruleset)[0]);
         if (!pack) return (this._powers = []);
-        const index = await pack.getIndex({fields: ["system.prerequisite", "system.cost"]});
+        const index = await pack.getIndex({fields: ["system.prerequisite", "system.cost", "system.patron"]});
         this._powers = index.contents.filter(entry => entry.type === "psychicPower").map(entry => ({
             name: entry.name, uuid: entry.uuid, prerequisite: entry.system?.prerequisite ?? "",
             cost: entry.system?.cost ?? 0,
+            // Бог силы: у Black Crusade он решает, кому она вообще продаётся (стр. 79).
+            patron: entry.system?.patron ?? "undivided",
             // Дисциплина — папка пака: «Psychic Powers/Biomancy».
             discipline: (pack.folders?.get(entry.folder)?.name ?? "").split("/").pop()
         }));
@@ -1588,7 +1590,11 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 owned: this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name),
                 affordable: !locked && entry.cost <= remaining
                     && !this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name)})),
-            shopPsy: psyker ? (offer => ({...offer, affordable: !locked && !offer.maxed && offer.cost <= remaining}))(psyRatingOffer(snapshot)) : null,
+            // Пси-рейтинг Black Crusade покупается талантом Psy Rating, а не лестницей,
+            // поэтому отдельной строки у него там нет (стр. 79).
+            shopPsy: psyker && this.ruleset !== "bc"
+                ? (offer => ({...offer, affordable: !locked && !offer.maxed && offer.cost <= remaining}))(psyRatingOffer(snapshot))
+                : null,
             shopDisciplines: psyker && this._catalogueReady
                 ? psychicOffersFor(this.ruleset, this._powers, snapshot, names).map(discipline => ({...discipline,
                     powers: discipline.powers.map(offer => ({...offer,
