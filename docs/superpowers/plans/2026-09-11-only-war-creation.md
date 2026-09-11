@@ -92,7 +92,7 @@ components at its listed cost.
 Pick a pre-made or saved regiment, or build one (component selects, budget counter, home world
 characteristic picks, kit points) and save it as a world Item.
 
-### Task 7: Characteristics, speciality, wounds and fate
+### Task 7: Characteristics, speciality, wounds and fate — DONE
 Roll with one re-roll, OW point buy, flat modifiers from regiment and speciality, wounds from the
 speciality plus regiment, fate by table, duplicate rules between regiment and speciality.
 
@@ -115,3 +115,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 4: the twelve specialities, each with its characteristic bonus (or pick), aptitudes, skills, talents, traits, specialist equipment, wounds formula, starting experience (600 Guardsman / 300 Support), Comrade flag and its advances. "Weapon Training (Las or Solid Projectile, Low-Tech)" splits into one choice plus fixed talents; the Weapon Specialist gets three named picks. Ecclesiarchy robes and the book of scripture stay text, everything else is a pack item.
 - Task 5: `regiment-data.mjs` validates a selection (12 points, one home world, commander and type, at most three doctrines counting the type, group picks answered) and composes it into one origin: characteristics summed, skills merged at the better rank, group choices turned into plain grants, per-character "or" choices carried over, kit built slot by slot from the universal kit and then the Table 2-6 purchases. The test recomposes all eight printed regiments from their components.
 - Task 6: the regiment step reuses the origin step (same carrier, same commit and rollback) and adds a builder: component selects with their costs, the budget counter, the group picks, the Table 2-6 kit list, and a save that writes the composed regiment as a world Item so the whole squad can pick it. Regiments are offered from the pack and from the world.
+- Task 7: characteristics use the book own keys, point buy and the one re-roll; flat modifiers are added after generation instead of being rolled into the formula. Wounds and fate moved into `_rollVitals`, fired at the stage the ruleset names (Dark Heresy: characteristics from the home world; Only War: the speciality, with fate from Table 3-13) and rolled back with that step. Duplicate skills between regiment and speciality now give the extra advance, duplicate talents 100 xp, and the starting pool comes from the speciality (600 or 300) plus that credit.

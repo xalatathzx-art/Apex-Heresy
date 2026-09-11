@@ -215,6 +215,13 @@
                         <span class="wizard-char-formula">{{#unless ../charPointBuy}}{{row.formula}}{{/unless}}</span>
                         <input type="number" class="wizard-char-value" data-characteristic="{{row.key}}"
                                value="{{row.value}}" data-start="{{row.start}}"/>
+                        {{!-- Only War (стр. 74): один результат можно перебросить, но новый
+                              придётся оставить, даже если он хуже. --}}
+                        {{#if ../charRerolls}}{{#unless ../charPointBuy}}
+                        <button type="button" class="wizard-reroll" data-reroll="{{row.key}}" data-formula="{{row.formula}}"
+                                title="{{localize "WIZARD.REROLL_HINT"}}"
+                                {{#unless ../charRerollsLeft}}disabled{{/unless}}><i class="fas fa-dice-d10"></i></button>
+                        {{/unless}}{{/if}}
                     </div>
                     {{/each}}
                 </div>

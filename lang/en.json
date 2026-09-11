@@ -1225,6 +1225,8 @@
   "WIZARD.XP_APPLIED": "Starting experience has been granted.",
   "WIZARD.DIVINATION_HINT": "Every character rolls once on the Divinations table for the fate that shaped them.",
   "WIZARD.REROLL": "Roll again",
+  "WIZARD.REROLL_HINT": "Re-roll this characteristic. The book allows one, and the new result stands.",
+  "WIZARD.REROLL_FIRST": "Roll the characteristic before re-rolling it.",
   "WIZARD.NO_DIVINATION_TABLE": "The Divinations table is missing. Build the tables pack first.",
   "WIZARD.METHOD_LABEL": "Method",
   "WIZARD.METHOD.ROLL": "Roll dice",

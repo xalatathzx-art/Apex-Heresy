@@ -48,6 +48,8 @@ export const RULESET_DEFS = {
         characteristicRerolls: 0,
         startingExperience: 1000,
         duplicates: {skill: "best", talentExperience: 0},
+        // Раны и Судьба Dark Heresy идут от родного мира и бросаются вместе с характеристиками.
+        vitalsStage: "characteristics",
         contentPacks: packsFirst("dark-heresy.dark-heresy"),
         steps: [
             {id: "homeWorld",       label: "ORIGIN.STAGE.HOME_WORLD",  kind: "origin", stage: "homeWorld", bioField: "system.bio.homeWorld"},
@@ -85,6 +87,8 @@ export const RULESET_DEFS = {
         startingExperience: 600,
         fate: {formula: "1d10", table: [{min: 1, max: 7, value: 1}, {min: 8, max: 9, value: 2}, {min: 10, max: 10, value: 3}]},
         duplicates: {skill: "advance", talentExperience: 100},
+        // Раны задаёт специальность, а она выбирается после характеристик (стр. 100).
+        vitalsStage: "speciality",
         contentPacks: packsFirst("dark-heresy.only-war"),
         characteristicKeys: CHARACTERISTIC_KEYS.filter(key => key !== "influence"),
         steps: [

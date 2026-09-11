@@ -22,6 +22,10 @@ export const GRANT_FLAG_KEY = "originGrant";
 /** Склонность, которая по книге есть у всех (стр. 79). */
 export const UNIVERSAL_APTITUDE = "General";
 
+/** Ступень обученности навыка и её потолок на листе. */
+const SKILL_STEP = 10;
+const SKILL_MAX = 30;
+
 /** Заглушки для имён, которых нет ни в одном компендиуме: потерять выдачу молча нельзя. */
 const STUB = {
     talent: {type: "talent", img: "icons/svg/upgrade.svg"},
@@ -80,13 +84,20 @@ export function specialityKeyFor(skill, name) {
  *
  * @param {object} actor  объект формы актора (нужны system и items)
  * @param {object} plan   из grant-data.mjs
- * @param {{characteristicMode?: "flat"|"generation"}} [options]
+ * @param {{characteristicMode?: "flat"|"generation", duplicates?: object}} [options]
+ *
+ * `duplicates` — что делать, когда выдача повторяется (Only War, стр. 41):
+ *   skill: "best"    — остаётся лучшее из двух (Dark Heresy);
+ *   skill: "advance" — повтор даёт лишний ранг;
+ *   talentExperience — опыт взамен повторного таланта.
  * @returns {{update: object, applied: object}}
  */
-export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {}) {
+export function planToActorUpdate(actor, plan, {characteristicMode = "flat", duplicates = {}} = {}) {
+    const rule = {skill: "best", talentExperience: 0, ...duplicates};
     const update = {};
     const applied = {characteristics: {}, generationModifiers: {}, skills: {}, specialities: [],
-                     aptitudes: [], duplicateAptitudes: [],
+                     aptitudes: [], duplicateAptitudes: [], duplicateSkills: [], duplicateTalents: [],
+                     duplicateExperience: 0,
                      wounds: 0, corruption: 0, insanity: 0, influence: 0};
 
     for (const [key, modifier] of Object.entries(plan.characteristics ?? {})) {
@@ -102,10 +113,19 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
     // Выданный ранг — стартовый: движок опыта не должен брать за него очков.
     for (const skill of plan.skills ?? []) {
         const current = actor.system.skills?.[skill.key];
-        if (!current || (current.advance ?? -20) >= skill.advance) continue;
-        update[`system.skills.${skill.key}.advance`] = skill.advance;
+        if (!current) continue;
+        const have = current.advance ?? -20;
+        let target = skill.advance;
+        if (have >= skill.advance) {
+            // Only War (стр. 41): тот же навык из второго источника — лишний ранг, а не ничего.
+            if (rule.skill !== "advance") continue;
+            target = Math.min(have + SKILL_STEP, SKILL_MAX);
+            if (target === have) continue;
+            applied.duplicateSkills.push(skill.key);
+        }
+        update[`system.skills.${skill.key}.advance`] = target;
         update[`system.skills.${skill.key}.starter`] = true;
-        applied.skills[skill.key] = {from: current.advance ?? -20, to: skill.advance, starterWas: !!current.starter};
+        applied.skills[skill.key] = {from: have, to: target, starterWas: !!current.starter};
     }
 
     for (const spec of plan.specialities ?? []) {
@@ -113,8 +133,14 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
         if (!skill) continue;
         const {specKey, created} = specialityKeyFor(skill, spec.name);
         const existing = skill.specialities?.[specKey];
-        const advance = spec.advance ?? 0;
-        if (existing && (existing.advance ?? -20) >= advance) continue;
+        let advance = spec.advance ?? 0;
+        const have = existing?.advance ?? -20;
+        if (existing && have >= advance) {
+            if (rule.skill !== "advance") continue;
+            advance = Math.min(have + SKILL_STEP, SKILL_MAX);
+            if (advance === have) continue;
+            applied.duplicateSkills.push(`${spec.key}:${spec.name}`);
+        }
         const path = `system.skills.${spec.key}.specialities.${specKey}`;
         if (created) {
             update[path] = {label: String(spec.name).trim(), advance, starter: true, cost: 0};
@@ -125,6 +151,14 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
         applied.specialities.push({key: spec.key, specKey, created,
                                    from: existing?.advance ?? -20, starterWas: !!existing?.starter});
     }
+
+    // Повторный талант не выдаётся второй раз; книга может дать за него опыт (стр. 41).
+    const ownedTalents = new Set((actor.items ?? [])
+        .filter(item => item?.type === "talent" && item.name)
+        .map(item => item.name.toLowerCase().trim()));
+    for (const talent of plan.talents ?? [])
+        if (ownedTalents.has(String(talent.name).toLowerCase().trim())) applied.duplicateTalents.push(talent.name);
+    applied.duplicateExperience = applied.duplicateTalents.length * rule.talentExperience;
 
     if (plan.wounds) {
         update["system.wounds.max"] = (actor.system.wounds?.max ?? 0) + plan.wounds;
@@ -165,14 +199,18 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
  * @param {string} tag        "<книга>:<шаг>" — им помечается выданное
  * @param {string} carrierId  идентификатор предмета-носителя
  * @param {(kind: string, name: string) => object|null} lookup  копия из компендиума по виду и имени
- * @param {{aptitudes?: string[]}} [options]  какие склонности создать; по умолчанию все из плана
+ * @param {{aptitudes?: string[], skipTalents?: string[]}} [options]
+ *   aptitudes   — какие склонности создать; по умолчанию все из плана;
+ *   skipTalents — таланты, которые у актора уже есть: второй копии не бывает.
  * @returns {object[]}
  */
-export function planToItemData(plan, tag, carrierId, lookup, {aptitudes} = {}) {
+export function planToItemData(plan, tag, carrierId, lookup, {aptitudes, skipTalents = []} = {}) {
+    const skip = new Set(skipTalents.map(name => String(name).toLowerCase().trim()));
     const flags = {[GRANT_FLAG_SCOPE]: {[GRANT_FLAG_KEY]: tag, grantedBy: carrierId}};
     const out = [];
 
     for (const talent of plan.talents ?? []) {
+        if (skip.has(String(talent.name).toLowerCase().trim())) continue;
         const data = copy("talent", talent.name, lookup);
         if (talent.targets) data.system.targets = talent.targets;
         // Талант от происхождения — стартовый: движок опыта за него не списывает.

@@ -9,7 +9,8 @@
 //  ruleset-data.mjs, а `kind` шага решает, какая панель рисуется.
 // ════════════════════════════════════════════════════════════════════════
 
-import {RULESET_DEFS, stepsFor, auditedRulesets, contentPacksFor} from "./ruleset-data.mjs";
+import {RULESET_DEFS, stepsFor, auditedRulesets, contentPacksFor, characteristicKeysFor, fateFromTable}
+    from "./ruleset-data.mjs";
 import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate, ownedAptitudes,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
@@ -21,7 +22,7 @@ import {characteristicOffers, skillOffers, talentOffers, spentOn, purchaseCharac
 import {specialityKeyFor} from "./origin-apply.mjs";
 import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
     from "./advancement-data.mjs";
-import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
+import {pointBuyRules, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
 import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "./elite-data.mjs";
 import {psychicOffers, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
@@ -374,6 +375,19 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         };
         for (const button of root.querySelectorAll(".wizard-roll"))
             button.addEventListener("click", () => rollOne(button));
+        // Переброс тратится: книга даёт ровно один и велит оставить новый результат.
+        for (const button of root.querySelectorAll("[data-reroll]"))
+            button.addEventListener("click", async () => {
+                const allowed = RULESET_DEFS[this.ruleset]?.characteristicRerolls ?? 0;
+                if ((this._charRerollsUsed ?? 0) >= allowed) return;
+                const input = root.querySelector(`input[data-characteristic="${button.dataset.reroll}"]`);
+                if (!input?.value) { ui.notifications?.warn(game.i18n.localize("WIZARD.REROLL_FIRST")); return; }
+                const roll = await new Roll(button.dataset.formula).evaluate();
+                input.value = String(roll.total);
+                this._charRerollsUsed = (this._charRerollsUsed ?? 0) + 1;
+                remember();
+                this.render(false);
+            });
         root.querySelector(".wizard-roll-all")?.addEventListener("click", async () => {
             for (const button of root.querySelectorAll(".wizard-roll")) await rollOne(button);
         });
@@ -453,7 +467,11 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // Вернувшись к характеристикам, шаг снова можно закрепить — другим способом
         // или другими значениями. Само закрепление ставит значения, а не прибавляет,
         // так что повторное не наслаивается.
-        if (step?.kind === "characteristics") await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationRolls");
+        if (step?.kind === "characteristics") {
+            await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationRolls");
+            if (RULESET_DEFS[this.ruleset].vitalsStage === "characteristics")
+                await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationVitals");
+        }
         if (step?.kind === "divination") await this._revertDivination();
     }
 
@@ -557,9 +575,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // Сначала поля: план решает, какие склонности у актора ещё нет. Уже имеющуюся
         // повторно не выдаём — она записывается долгом (стр. 79).
         const {update, applied} = planToActorUpdate(actor, plan,
-            {characteristicMode: RULESET_DEFS[this.ruleset].characteristicModifiers});
+            {characteristicMode: RULESET_DEFS[this.ruleset].characteristicModifiers,
+             duplicates: RULESET_DEFS[this.ruleset].duplicates});
         const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`),
-                                       {aptitudes: applied.aptitudes});
+                                       {aptitudes: applied.aptitudes, skipTalents: applied.duplicateTalents});
         if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
         // Название выбранного попадает в анкету ЗДЕСЬ, а не в конце: игрок видит, как
         // лист собирается под его руками. Поле остаётся обычным, редактируемым —
@@ -580,6 +599,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             if (record) elite.push(record);
         }
         if (elite.length) await carrier.setFlag(GRANT_FLAG_SCOPE, "elite", elite);
+
+        // Книга может задавать Раны и Судьбу шагом, который только что закрепили.
+        if (RULESET_DEFS[this.ruleset].vitalsStage === step.stage) await this._rollVitals();
         return true;
     }
 
@@ -604,6 +626,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // логикой, по которой откат не опускает навык, поднятый другим источником.
         if (step.bioField && foundry.utils.getProperty(actor, step.bioField) === carrier.name)
             await actor.update({[step.bioField]: ""});
+
+        // Раны и Судьба, брошенные на этом шаге, снимаются вместе с ним.
+        if (RULESET_DEFS[this.ruleset].vitalsStage === step.stage)
+            await actor.unsetFlag(GRANT_FLAG_SCOPE, "creationVitals");
 
         const granted = actor.items
             .filter(item => item.getFlag(GRANT_FLAG_SCOPE, "grantedBy") === carrier.id)
@@ -987,32 +1013,43 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     /** Контекст шага характеристик: способ, формулы и уже брошенные значения. */
     _characteristicsStepContext() {
         const rolled = this.actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls");
-        const method = this._charMethod ?? rolled?.method ?? RULESET_DEFS[this.ruleset].characteristicMethods[0];
+        const profile = RULESET_DEFS[this.ruleset];
+        const method = this._charMethod ?? rolled?.method ?? profile.characteristicMethods[0];
+        const rules = pointBuyRules(this.ruleset);
+        // Книга с плоскими модификаторами прибавляет их ПОСЛЕ генерации (Only War, стр. 41),
+        // поэтому в формулу они не входят и показываются отдельной колонкой.
+        const inFormula = profile.characteristicModifiers === "generation";
+        const rerolls = profile.characteristicRerolls ?? 0;
+        // Благословение Императора бросается вместе с Судьбой, а её книга может отложить
+        // до другого шага — поэтому оно лежит в своём флаге.
+        const blessing = this.actor.getFlag(GRANT_FLAG_SCOPE, "creationVitals")?.blessing ?? null;
         return {
-            charMethods: RULESET_DEFS[this.ruleset].characteristicMethods.map(key => ({
+            charRerolls: rerolls,
+            charRerollsLeft: rolled ? 0 : rerolls - (this._charRerollsUsed ?? 0),
+            charMethods: profile.characteristicMethods.map(key => ({
                 key, label: game.i18n.localize(`WIZARD.METHOD.${key.toUpperCase()}`), selected: key === method
             })),
             charMethod: method,
             charPointBuy: method === "pointBuy",
-            charBase: POINT_BUY.base,
-            charBudget: POINT_BUY.points,
-            charRows: CHARACTERISTIC_KEYS.map(key => {
+            charBase: rules.base,
+            charBudget: rules.points,
+            charRows: characteristicKeysFor(this.ruleset).map(key => {
                 const modifier = this._originModifier(key);
                 return {
                     key,
                     label: game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`),
                     modifier,
-                    formula: rollExpression(RULESET_DEFS[this.ruleset].characteristicModifiers, modifier),
+                    formula: rollExpression(profile.characteristicModifiers, inFormula ? modifier : 0),
                     // При закупке модификатор сдвигает СТАРТ, а не результат: «+» начинает
-                    // с 30, «−» с 20 вместо 25.
-                    start: POINT_BUY.base + modifier,
+                    // с 30, «−» с 20 вместо 25. Плоский же прибавляется в конце, к готовому.
+                    start: rules.base + (inFormula ? modifier : 0),
                     value: rolled?.values?.[key] ?? this._charValues?.[key] ?? ""
                 };
             }),
             charLocked: !!rolled,
-            charBlessing: rolled?.blessing
-                ? game.i18n.format(rolled.blessing.granted ? "WIZARD.BLESSING_GRANTED" : "WIZARD.BLESSING_MISSED",
-                                   {rolled: rolled.blessing.rolled, threshold: rolled.blessing.threshold})
+            charBlessing: blessing
+                ? game.i18n.format(blessing.granted ? "WIZARD.BLESSING_GRANTED" : "WIZARD.BLESSING_MISSED",
+                                   {rolled: blessing.rolled, threshold: blessing.threshold})
                 : ""
         };
     }
@@ -1030,36 +1067,63 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const method = root?.querySelector(".wizard-char-method")?.value
             ?? RULESET_DEFS[this.ruleset].characteristicMethods[0];
 
+        const keys = characteristicKeysFor(this.ruleset);
         const values = {};
-        for (const key of CHARACTERISTIC_KEYS)
+        for (const key of keys)
             values[key] = Number(root?.querySelector(`input[data-characteristic="${key}"]`)?.value ?? 0);
 
         if (method === "pointBuy") {
-            const problems = pointBuyProblems(values);
+            const problems = pointBuyProblems(values, pointBuyRules(this.ruleset), keys);
             if (problems.length) { ui.notifications?.warn(problems.join("; ")); return false; }
-        } else if (CHARACTERISTIC_KEYS.some(key => !values[key])) {
+        } else if (keys.some(key => !values[key])) {
             ui.notifications?.warn(game.i18n.localize("WIZARD.ROLL_ALL"));
             return false;
         }
 
         const update = {};
-        // Значение ставится, а не прибавляется: модификатор уже внутри него.
-        for (const key of CHARACTERISTIC_KEYS) update[`system.characteristics.${key}.base`] = values[key];
+        // При «generation» модификатор уже внутри значения; при «flat» он прибавляется здесь,
+        // после генерации, как и велит книга.
+        const flat = RULESET_DEFS[this.ruleset].characteristicModifiers === "flat";
+        for (const key of keys)
+            update[`system.characteristics.${key}.base`] = values[key] + (flat ? this._originModifier(key) : 0);
 
-        const homeWorld = actor.items.find(item => item.type === "origin" && item.system.stage === "homeWorld");
-        const toughnessBonus = Math.floor((values.toughness ?? 0) / 10);
-        const wounds = await new Roll(woundsExpression(homeWorld?.system.wounds ?? {}, toughnessBonus)).evaluate();
-        const fate = await new Roll(fateExpression(homeWorld?.system.fate ?? {})).evaluate();
+        await actor.update(update);
+        await actor.setFlag(GRANT_FLAG_SCOPE, "creationRolls", {method, values});
+        // Раны и Судьба этой книги могут идти от происхождения, которое ещё не выбрано:
+        // в Only War их задаёт специальность, а она после характеристик (стр. 100).
+        if (RULESET_DEFS[this.ruleset].vitalsStage === "characteristics") await this._rollVitals();
+        return true;
+    }
+
+    /**
+     * Стартовые Раны и Судьба.
+     *
+     * Раны: формула происхождения, которое их задаёт, плюс всё, что выдали другие шаги.
+     * Судьба: значение происхождения либо бросок по таблице книги (Only War, стр. 100).
+     */
+    async _rollVitals() {
+        const actor = this.actor;
+        if (actor.getFlag(GRANT_FLAG_SCOPE, "creationVitals")) return;
+        const profile = RULESET_DEFS[this.ruleset];
+        const stage = profile.vitalsStage === "speciality" ? "speciality" : "homeWorld";
+        const source = actor.items.find(item => item.type === "origin" && item.system.stage === stage);
+        const values = actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls")?.values ?? {};
+        const toughnessBonus = Math.floor((values.toughness ?? actor.system.characteristics?.toughness?.total ?? 0) / 10);
+        const update = {};
+        const wounds = await new Roll(woundsExpression(source?.system.wounds ?? {}, toughnessBonus)).evaluate();
+        const fate = await new Roll(fateExpression(profile.fate ?? source?.system.fate ?? {})).evaluate();
         // Благословение Императора (стр. 30): кидается 1d10, и при результате не ниже
         // порога родного мира порог Судьбы поднимается на 1. Без этого броска персонаж
         // просто недополучает очко, о котором нигде не сказано.
-        const blessingThreshold = homeWorld?.system.fate?.blessing ?? 0;
+        const blessingThreshold = source?.system.fate?.blessing ?? 0;
         let blessing = null;
         if (blessingThreshold > 0) {
             const roll = await new Roll("1d10").evaluate();
             blessing = {threshold: blessingThreshold, rolled: roll.total, granted: roll.total >= blessingThreshold};
         }
-        const fateTotal = fate.total + (blessing?.granted ? 1 : 0);
+        // У книги с таблицей Судьбы бросок — это строка таблицы, а не само число (стр. 100).
+        const fateValue = profile.fate?.table ? fateFromTable(fate.total, profile.fate.table) : fate.total;
+        const fateTotal = fateValue + (blessing?.granted ? 1 : 0);
         // Раны, выданные другими шагами, добавляются поверх книжного броска: он
         // ставится, а не прибавляется, и без этого их бы стёрло.
         let granted = 0;
@@ -1069,15 +1133,28 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         update["system.fate.max"] = update["system.fate.value"] = fateTotal;
 
         await actor.update(update);
-        await actor.setFlag(GRANT_FLAG_SCOPE, "creationRolls",
-                            {method, values, wounds: wounds.total, fate: fateTotal, blessing});
-        return true;
+        await actor.setFlag(GRANT_FLAG_SCOPE, "creationVitals",
+                            {wounds: wounds.total + granted, fate: fateTotal, blessing});
     }
 
     // ── Шаг опыта ────────────────────────────────────────────────────────
 
-    /** Стартовый опыт по книге (Dark Heresy, стр. 78; Only War, стр. 100). */
-    get _startingExperience() { return RULESET_DEFS[this.ruleset]?.startingExperience ?? 0; }
+    /**
+     * Стартовый опыт: книга задаёт основу, происхождение может её переопределить
+     * (у Support-специалиста Only War 300 вместо 600, стр. 100), а повторные таланты
+     * добавляют по 100 (стр. 41).
+     */
+    get _startingExperience() {
+        let pool = RULESET_DEFS[this.ruleset]?.startingExperience ?? 0;
+        let credit = 0;
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            const own = item.system.rules?.startingExperience;
+            if (Number.isFinite(own)) pool = own;
+            credit += item.getFlag(GRANT_FLAG_SCOPE, "applied")?.duplicateExperience ?? 0;
+        }
+        return pool + credit;
+    }
 
     /** Контекст шага опыта: пул, склонности и долг по повторным склонностям. */
     // ── Магазин опыта ────────────────────────────────────────────────────
