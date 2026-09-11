@@ -88,7 +88,7 @@ Budget, one of each required component, at most three doctrines, composition int
 kit points, validation. Tests against the eight pre-made regiments: each composes from its listed
 components at its listed cost.
 
-### Task 6: Wizard regiment step
+### Task 6: Wizard regiment step — DONE
 Pick a pre-made or saved regiment, or build one (component selects, budget counter, home world
 characteristic picks, kit points) and save it as a world Item.
 
@@ -114,3 +114,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 3: the eight pre-made regiments, each carrying the components it was built from and the picks that were made for it, so the tests recompose every one from Task 2 data: costs (11-12 of 12), characteristic modifiers and aptitudes all match the printed entry. Where a regiment departs from its components (Krieg replaces Untempered Zeal, Tallarn replaces Hardened) the note is kept. The printed Starting Skills are followed literally, even where the home world would have given a higher rank (Catachan: Survival Known, not Trained).
 - Task 4: the twelve specialities, each with its characteristic bonus (or pick), aptitudes, skills, talents, traits, specialist equipment, wounds formula, starting experience (600 Guardsman / 300 Support), Comrade flag and its advances. "Weapon Training (Las or Solid Projectile, Low-Tech)" splits into one choice plus fixed talents; the Weapon Specialist gets three named picks. Ecclesiarchy robes and the book of scripture stay text, everything else is a pack item.
 - Task 5: `regiment-data.mjs` validates a selection (12 points, one home world, commander and type, at most three doctrines counting the type, group picks answered) and composes it into one origin: characteristics summed, skills merged at the better rank, group choices turned into plain grants, per-character "or" choices carried over, kit built slot by slot from the universal kit and then the Table 2-6 purchases. The test recomposes all eight printed regiments from their components.
+- Task 6: the regiment step reuses the origin step (same carrier, same commit and rollback) and adds a builder: component selects with their costs, the budget counter, the group picks, the Table 2-6 kit list, and a save that writes the composed regiment as a world Item so the whole squad can pick it. Regiments are offered from the pack and from the world.

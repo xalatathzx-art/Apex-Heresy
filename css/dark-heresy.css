@@ -14345,3 +14345,41 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 .dark-heresy.character-wizard .shop-ledger.shop-ledger-two {
   grid-template-columns: repeat(2, 1fr);
 }
+
+/* ── Конструктор полка Only War ──────────────────────────────────────── */
+
+.dark-heresy.character-wizard .regiment-builder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-3);
+  padding: var(--dh-space-4);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .regiment-builder .wizard-choice {
+  margin: 0;
+}
+/* Компоненты берут галочками: их много, и видно сразу все взятые. */
+.dark-heresy.character-wizard .regiment-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dh-space-2) var(--dh-space-4);
+}
+.dark-heresy.character-wizard .regiment-pick {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  white-space: nowrap;
+}
+/* Таблица комплекта длинная — ей своя полоса прокрутки. */
+.dark-heresy.character-wizard .regiment-kit {
+  max-height: 18em;
+  overflow-y: auto;
+}
+.dark-heresy.character-wizard .regiment-kit .shop-name {
+  white-space: normal;
+}

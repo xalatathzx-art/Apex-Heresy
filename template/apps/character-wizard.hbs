@@ -31,7 +31,7 @@
         {{else}}
         <h1 class="wizard-step-title">{{step.label}}</h1>
         <div class="wizard-step-content" data-step="{{step.id}}" data-kind="{{step.kind}}">
-            {{#if (eq step.kind "origin")}}
+            {{#if originStep}}
                 {{#if originLocked}}
                 {{!-- Шаг уже закреплён. Переспросить можно только через «Назад»,
                       который снимет выданное — иначе выдачи наложились бы. --}}
@@ -49,6 +49,112 @@
                     </div>
                 </div>
                 <div class="wizard-choice-rows">{{{choiceRows}}}</div>
+                {{/if}}
+
+                {{!-- Полк собирается один на весь отряд (стр. 58): или берётся готовый,
+                      или строится за 12 очков и сохраняется предметом мира. --}}
+                {{#if (eq step.kind "regiment")}}
+                <div class="regiment-builder">
+                    <button type="button" class="shop-buy" data-action="regiment-build">
+                        {{#if regimentBuilding}}{{localize "WIZARD.REGIMENT_BUILD_CLOSE"}}{{else}}{{localize "WIZARD.REGIMENT_BUILD"}}{{/if}}</button>
+                    {{#if regimentBuilding}}
+                    <div class="shop-ledger shop-ledger-two">
+                        <div class="shop-ledger-cell">
+                            <span class="shop-ledger-label">{{localize "WIZARD.REGIMENT_BUDGET"}}</span>
+                            <span class="shop-ledger-value">{{regimentBudget}}</span>
+                        </div>
+                        <div class="shop-ledger-cell shop-ledger-remaining">
+                            <span class="shop-ledger-label">{{localize "WIZARD.SHOP_REMAINING"}}</span>
+                            <span class="shop-ledger-value">{{regimentLeft}}</span>
+                        </div>
+                    </div>
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{localize "WIZARD.REGIMENT_NAME"}}</span>
+                        <input type="text" class="regiment-name" value="{{regimentName}}"/>
+                    </div>
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{localize "ORIGIN.STAGE.REGIMENT_ORIGIN"}}</span>
+                        <select data-regiment-part="homeWorld">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each regimentHomeWorlds as |part|}}
+                            <option value="{{part.key}}" {{#if part.selected}}selected{{/if}}>{{part.name}} ({{part.cost}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{#if regimentCharacteristicChoice}}
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{regimentCharacteristicChoice.label}}</span>
+                        <div class="regiment-picks">
+                            {{#each regimentCharacteristicChoice.options as |option|}}
+                            <label class="regiment-pick"><input type="checkbox" data-regiment-characteristic="{{option.key}}"
+                                {{#if option.taken}}checked{{/if}}/> {{option.label}}</label>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{localize "ORIGIN.STAGE.REGIMENT_COMMANDER"}}</span>
+                        <select data-regiment-part="commander">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each regimentCommanders as |part|}}
+                            <option value="{{part.key}}" {{#if part.selected}}selected{{/if}}>{{part.name}} ({{part.cost}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{localize "ORIGIN.STAGE.REGIMENT_TYPE"}}</span>
+                        <select data-regiment-part="regimentType">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each regimentTypes as |part|}}
+                            <option value="{{part.key}}" {{#if part.selected}}selected{{/if}}>{{part.name}} ({{part.cost}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{localize "ORIGIN.STAGE.DOCTRINE"}}</span>
+                        <div class="regiment-picks">
+                            {{#each regimentDoctrines as |part|}}
+                            <label class="regiment-pick"><input type="checkbox" data-regiment-doctrine="{{part.key}}"
+                                {{#if part.taken}}checked{{/if}}/> {{part.name}} ({{part.cost}})</label>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{#each regimentTargets as |target|}}
+                    <div class="wizard-choice">
+                        <span class="wizard-choice-label">{{target.label}}</span>
+                        <input type="text" data-regiment-target="{{target.key}}" value="{{target.value}}"/>
+                    </div>
+                    {{/each}}
+
+                    <div class="shop-ledger shop-ledger-two">
+                        <div class="shop-ledger-cell">
+                            <span class="shop-ledger-label">{{localize "WIZARD.REGIMENT_KIT_POINTS"}}</span>
+                            <span class="shop-ledger-value">{{regimentKitPoints}}</span>
+                        </div>
+                        <div class="shop-ledger-cell shop-ledger-remaining">
+                            <span class="shop-ledger-label">{{localize "WIZARD.SHOP_SPENT"}}</span>
+                            <span class="shop-ledger-value">{{regimentKitSpent}}</span>
+                        </div>
+                    </div>
+                    <div class="shop-list regiment-kit">
+                        {{#each regimentKit as |row|}}
+                        <div class="shop-row{{#if row.taken}} maxed{{/if}}">
+                            <span class="shop-name">{{row.label}}</span>
+                            <span class="shop-step">{{#if row.taken}}x{{row.taken}}{{/if}}</span>
+                            <span class="shop-match"></span>
+                            <span class="shop-cost">{{row.cost}}</span>
+                            <button type="button" class="shop-buy" data-regiment-kit="{{row.key}}">{{localize "WIZARD.OWED_TAKE"}}</button>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                    {{#each regimentProblems as |problem|}}
+                    <p class="wizard-warn">{{problem}}</p>
+                    {{/each}}
+                    <button type="button" class="shop-buy" data-action="regiment-save"
+                            {{#unless regimentReady}}disabled{{/unless}}>{{localize "WIZARD.REGIMENT_SAVE"}}</button>
+                    {{/if}}
+                </div>
                 {{/if}}
 
                 {{!-- Текст книги под выбранным. Ради него всё и затевалось: игрок

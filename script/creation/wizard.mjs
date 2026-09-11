@@ -27,6 +27,8 @@ import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "
 import {psychicOffers, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
+import {REGIMENT_BUDGET, regimentCost, regimentProblems, composeRegiment} from "./regiment-data.mjs";
+import {ADDITIONAL_KIT} from "./kit-data.mjs";
 
 /** Какие типы предметов считаются тем или иным видом выдачи. */
 const GRANT_ITEM_TYPES = {
@@ -107,6 +109,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             })),
             step: this.step ? {...this.step, label: game.i18n.localize(this.step.label)} : null,
             ...(this.step?.kind === "origin" ? await this._originStepContext(this.step) : {}),
+            ...(this.step?.kind === "regiment" ? await this._regimentStepContext(this.step) : {}),
             ...(this.step?.kind === "characteristics" ? this._characteristicsStepContext() : {}),
             ...(this.step?.kind === "experience" ? await this._experienceContextLoaded() : {}),
             ...(this.step?.kind === "equipment" ? await this._equipmentStepContext() : {}),
@@ -128,6 +131,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const source = carrier?.toObject()?.system ?? this._selectedSource?.[step.id] ?? null;
 
         return {
+            originStep: true,
             originOptions: (await this._originsFor(step.stage)).map(entry => ({
                 uuid: entry.uuid, name: entry.name, selected: entry.uuid === chosen
             })),
@@ -188,6 +192,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         this._wireCharacteristics(root);
         this._wireShop(root);
         this._wireEquipment(root);
+        this._wireRegiment(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -434,7 +439,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     async _commitStep(step) {
         if (!step) return false;
-        if (step.kind === "origin") return this._commitOriginStep(step);
+        // Полк закрепляется тем же путём, что происхождение: это такой же носитель.
+        if (step.kind === "origin" || step.kind === "regiment") return this._commitOriginStep(step);
         if (step.kind === "characteristics") return this._commitCharacteristicsStep();
         if (step.kind === "experience") return this._commitExperienceStep();
         if (step.kind === "divination") return this._commitDivinationStep();
@@ -443,7 +449,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     /** Откатить ранее закреплённый шаг. */
     async _revertStep(step) {
-        if (step?.kind === "origin") await this._revertOriginStep(step);
+        if (step?.kind === "origin" || step?.kind === "regiment") await this._revertOriginStep(step);
         // Вернувшись к характеристикам, шаг снова можно закрепить — другим способом
         // или другими значениями. Само закрепление ставит значения, а не прибавляет,
         // так что повторное не наслаивается.
@@ -471,10 +477,14 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     /** Происхождения пака для одной стадии текущей книги, в книжном порядке. */
     async _originsFor(stage) {
         const pack = game.packs.get("dark-heresy.origins");
-        if (!pack) return [];
-        const index = await pack.getIndex({fields: ["system.ruleset", "system.stage", "system.order"]});
-        return index.contents
-            .filter(entry => entry.system?.ruleset === this.ruleset && entry.system?.stage === stage)
+        const index = pack ? await pack.getIndex({fields: ["system.ruleset", "system.stage", "system.order"]}) : {contents: []};
+        const fromPack = index.contents
+            .filter(entry => entry.system?.ruleset === this.ruleset && entry.system?.stage === stage);
+        // Полк собирается один на отряд и живёт предметом мира — его тоже предлагаем.
+        const fromWorld = game.items.filter(item => item.type === "origin"
+            && item.system.ruleset === this.ruleset && item.system.stage === stage)
+            .map(item => ({uuid: item.uuid, name: item.name, system: item.system}));
+        return [...fromPack, ...fromWorld]
             .sort((a, b) => (a.system.order ?? 0) - (b.system.order ?? 0) || a.name.localeCompare(b.name));
     }
 
@@ -805,6 +815,154 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         data.flags = foundry.utils.mergeObject(data.flags ?? {}, {[GRANT_FLAG_SCOPE]: {creationPurchase: true}});
         await this._commitPurchase({update: {}, record: {kind: "power", name: offer.name, cost: offer.cost, label: offer.name}},
                                    {itemData: data});
+    }
+
+    // ── Шаг полка ────────────────────────────────────────────────────────
+
+    /** Компоненты сборки из пака происхождений. */
+    async _regimentComponents() {
+        if (this._components) return this._components;
+        const pack = game.packs.get("dark-heresy.origins");
+        if (!pack) return (this._components = []);
+        const stages = ["regimentOrigin", "regimentCommander", "regimentType", "doctrine", "equipmentDoctrine"];
+        const documents = await pack.getDocuments();
+        this._components = documents
+            .filter(doc => doc.type === "origin" && doc.system.ruleset === this.ruleset && stages.includes(doc.system.stage))
+            .map(doc => doc.toObject().system)
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        return this._components;
+    }
+
+    get _builder() {
+        return (this._builderState ??= {homeWorld: "", commander: "", regimentType: "", doctrines: [],
+                                        picks: {homeWorldCharacteristics: [], targets: {}}, kit: [], name: ""});
+    }
+
+    /** Собранный по текущему выбору полк — он же предпросмотр. */
+    async _composedRegiment() {
+        const catalogue = await this._regimentComponents();
+        const kit = this._builder.kit.map(key => ADDITIONAL_KIT.find(row => row.key === key)).filter(Boolean);
+        return composeRegiment(this._builder, catalogue, {name: this._builder.name || "New Regiment", kit});
+    }
+
+    async _regimentStepContext(step) {
+        const base = await this._originStepContext(step);
+        if (!this._building) return {...base, regimentBuilding: false};
+
+        const catalogue = await this._regimentComponents();
+        const of = stage => catalogue.filter(part => part.stage === stage)
+            .map(part => ({key: part.key, name: part.name ?? part.key, cost: part.cost,
+                           selected: part.key === this._builder[stage === "regimentOrigin" ? "homeWorld"
+                               : stage === "regimentCommander" ? "commander" : "regimentType"]}));
+        const home = catalogue.find(part => part.key === this._builder.homeWorld);
+        const choice = home?.characteristicChoices?.[0] ?? null;
+        const {system, problems} = await this._composedRegiment();
+        const spent = regimentCost(this._builder, catalogue);
+        const label = key => game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`);
+
+        return {
+            ...base,
+            regimentBuilding: true,
+            regimentBudget: REGIMENT_BUDGET,
+            regimentSpent: spent,
+            regimentLeft: REGIMENT_BUDGET - spent,
+            regimentName: this._builder.name,
+            regimentHomeWorlds: of("regimentOrigin"),
+            regimentCommanders: of("regimentCommander"),
+            regimentTypes: of("regimentType"),
+            regimentDoctrines: catalogue.filter(part => ["doctrine", "equipmentDoctrine"].includes(part.stage))
+                .map(part => ({key: part.key, name: part.name ?? part.key, cost: part.cost,
+                               taken: this._builder.doctrines.includes(part.key)})),
+            regimentCharacteristicChoice: choice
+                ? {label: choice.label, pick: choice.pick,
+                   options: choice.from.map(key => ({key, label: label(key),
+                       taken: this._builder.picks.homeWorldCharacteristics.includes(key)}))}
+                : null,
+            regimentTargets: catalogue.filter(part => this._builderKeys().includes(part.key))
+                .flatMap(part => (part.choices ?? []).filter(entry => entry.regimentLevel)
+                    .map(entry => ({key: entry.key, label: entry.label, value: this._builder.picks.targets[entry.key] ?? ""}))),
+            regimentKit: ADDITIONAL_KIT.map(row => ({...row, taken: this._builder.kit.filter(key => key === row.key).length})),
+            regimentKitPoints: system.rules.kitPoints,
+            regimentKitSpent: system.rules.kitSpent,
+            regimentProblems: problems,
+            regimentReady: problems.length === 0 && !!this._builder.name.trim()
+        };
+    }
+
+    _builderKeys() {
+        return [this._builder.homeWorld, this._builder.commander, this._builder.regimentType, ...this._builder.doctrines];
+    }
+
+    /** Сохранить собранный полк предметом мира: полк один на весь отряд. */
+    async _saveRegiment() {
+        const {system, problems} = await this._composedRegiment();
+        if (problems.length) { ui.notifications?.warn(problems.join("; ")); return; }
+        const name = this._builder.name.trim();
+        if (!name) { ui.notifications?.warn(game.i18n.localize("WIZARD.REGIMENT_NAME_NEEDED")); return; }
+        try {
+            const item = await Item.create({name, type: "origin", img: "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+                                            system: {...system, key: name.toLowerCase().replace(/[^a-z0-9]+/g, "")}});
+            (this._selectedOrigin ??= {})[this.step.id] = item.uuid;
+            (this._selectedSource ??= {})[this.step.id] = item.toObject().system;
+            this._building = false;
+            ui.notifications?.info(game.i18n.format("WIZARD.REGIMENT_SAVED", {name}));
+        } catch (err) {
+            ui.notifications?.error(game.i18n.localize("WIZARD.REGIMENT_NOT_SAVED"));
+            console.error(err);
+        }
+    }
+
+    _wireRegiment(root) {
+        const rerender = () => this.render(false);
+        root.querySelector("[data-action=\"regiment-build\"]")?.addEventListener("click", () => {
+            this._building = !this._building;
+            rerender();
+        });
+        for (const select of root.querySelectorAll("[data-regiment-part]"))
+            select.addEventListener("change", event => {
+                this._builder[event.currentTarget.dataset.regimentPart] = event.currentTarget.value;
+                if (event.currentTarget.dataset.regimentPart === "homeWorld") this._builder.picks.homeWorldCharacteristics = [];
+                rerender();
+            });
+        for (const box of root.querySelectorAll("[data-regiment-doctrine]"))
+            box.addEventListener("change", event => {
+                const key = event.currentTarget.dataset.regimentDoctrine;
+                const taken = this._builder.doctrines.includes(key);
+                this._builder.doctrines = taken ? this._builder.doctrines.filter(entry => entry !== key)
+                                                : [...this._builder.doctrines, key];
+                rerender();
+            });
+        for (const box of root.querySelectorAll("[data-regiment-characteristic]"))
+            box.addEventListener("change", event => {
+                const key = event.currentTarget.dataset.regimentCharacteristic;
+                const picked = this._builder.picks.homeWorldCharacteristics;
+                this._builder.picks.homeWorldCharacteristics = picked.includes(key)
+                    ? picked.filter(entry => entry !== key) : [...picked, key];
+                rerender();
+            });
+        for (const input of root.querySelectorAll("[data-regiment-target]"))
+            input.addEventListener("change", event => {
+                this._builder.picks.targets[event.currentTarget.dataset.regimentTarget] = event.currentTarget.value;
+                rerender();
+            });
+        for (const button of root.querySelectorAll("[data-regiment-kit]"))
+            button.addEventListener("click", event => {
+                const key = event.currentTarget.dataset.regimentKit;
+                const row = ADDITIONAL_KIT.find(entry => entry.key === key);
+                const taken = this._builder.kit.filter(entry => entry === key).length;
+                if (row?.limit && taken >= row.limit) {
+                    this._builder.kit = this._builder.kit.filter(entry => entry !== key);
+                } else this._builder.kit = [...this._builder.kit, key];
+                rerender();
+            });
+        const nameInput = root.querySelector(".regiment-name");
+        if (nameInput) nameInput.addEventListener("change", event => { this._builder.name = event.currentTarget.value; rerender(); });
+        root.querySelector("[data-action=\"regiment-save\"]")?.addEventListener("click", async () => {
+            if (this._busy) return;
+            this._busy = true;
+            try { await this._saveRegiment(); }
+            finally { this._busy = false; if (this.rendered) this.render(false); }
+        });
     }
 
     // ── Шаг характеристик ────────────────────────────────────────────────
