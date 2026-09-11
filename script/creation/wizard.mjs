@@ -243,6 +243,29 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         for (const button of root.querySelectorAll("[data-refund]"))
             button.addEventListener("click", guarded(el => this._refund(Number(el.dataset.refund))));
 
+        // Имя таланта раскрывает под строкой текст книги: игрок читает, что покупает,
+        // а не угадывает по названию. Открыт один — иначе список расползается.
+        for (const button of root.querySelectorAll("[data-read-talent]"))
+            button.addEventListener("click", async event => {
+                event.preventDefault();
+                const uuid = event.currentTarget.dataset.readTalent;
+                this._openTalent = this._openTalent === uuid ? null : uuid;
+                if (this._openTalent) await this._talentBook(uuid);
+                await this.render(false);
+                this.element?.querySelector(`[data-read-talent="${uuid}"]`)
+                    ?.closest(".shop-talent")?.scrollIntoView({block: "nearest"});
+            });
+        for (const button of root.querySelectorAll("[data-open-talent]"))
+            button.addEventListener("click", async event => {
+                event.preventDefault();
+                (await fromUuid(event.currentTarget.dataset.openTalent))?.sheet?.render(true);
+            });
+        for (const button of root.querySelectorAll("[data-open-item]"))
+            button.addEventListener("click", event => {
+                event.preventDefault();
+                this.actor.items.get(event.currentTarget.dataset.openItem)?.sheet?.render(true);
+            });
+
         root.querySelector("[data-buy-speciality]")?.addEventListener("click", guarded(() => {
             const key = root.querySelector(".shop-new-spec-skill")?.value;
             const name = root.querySelector(".shop-new-spec-name")?.value;
@@ -765,6 +788,22 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         for (let index = this._purchases.length - 1; index >= 0; index--) await this._refund(index);
     }
 
+    /** Текст книги для таланта: читается один раз и держится, пока открыт мастер. */
+    async _talentBook(uuid) {
+        this._talentBooks ??= new Map();
+        if (this._talentBooks.has(uuid)) return this._talentBooks.get(uuid);
+        const doc = await fromUuid(uuid);
+        const system = doc?.system ?? {};
+        const book = {
+            benefit: system.benefit ?? "",
+            description: await foundry.applications.ux.TextEditor.implementation
+                .enrichHTML(system.description ?? "", {relativeTo: doc}),
+            source: system.source ?? ""
+        };
+        this._talentBooks.set(uuid, book);
+        return book;
+    }
+
     /** Контекст шага опыта, когда каталог талантов уже прочитан. */
     async _experienceContextLoaded() {
         await this._talentCatalogue();
@@ -821,10 +860,15 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 .filter(offer => (!filter || offer.name.toLowerCase().includes(filter))
                               && (!tierFilter || offer.tier === tierFilter))
                 .map(offer => ({...offer, aptitudeText: offer.aptitudes.join(", "),
-                                affordable: !offer.blocked && offer.cost <= remaining})),
+                                affordable: !offer.blocked && offer.cost <= remaining,
+                                open: offer.uuid === this._openTalent,
+                                book: offer.uuid === this._openTalent
+                                    ? (this._talentBooks?.get(offer.uuid) ?? null) : null})),
             talentFilter: this._talentFilter ?? "",
             talentTier: tierFilter,
-            shopPurchases: this._purchases.map((record, index) => ({...record, index})),
+            shopPurchases: this._purchases.map((record, index) => ({...record, index,
+                // Купленный талант уже лежит на листе — его карточку и открываем.
+                readable: record.kind === "talent" && !!this.actor.items.get(record.itemId)})),
             aptitudeChips: [...owned].sort(),
             priceRows: [
                 priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),

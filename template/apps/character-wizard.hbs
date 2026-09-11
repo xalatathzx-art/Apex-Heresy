@@ -218,7 +218,9 @@
                     {{#each shopTalents as |offer|}}
                     <div class="shop-row shop-talent{{#if offer.blocked}} blocked{{/if}}">
                         <div class="shop-talent-head">
-                            <span class="shop-name">{{offer.name}}</span>
+                            <button type="button" class="shop-name shop-read" data-read-talent="{{offer.uuid}}"
+                                    aria-expanded="{{#if offer.open}}true{{else}}false{{/if}}"
+                                    title="{{localize "WIZARD.SHOP_READ"}}"><i class="fas fa-book-open"></i>{{offer.name}}</button>
                             <span class="shop-step">{{localize "WIZARD.SHOP_TIER"}} {{offer.tier}}</span>
                             <span class="shop-match" title="{{offer.aptitudeText}}">{{offer.matched}}/2</span>
                             <span class="shop-cost">{{offer.cost}}</span>
@@ -236,6 +238,21 @@
                         <input type="text" class="shop-talent-spec" data-talent-spec="{{offer.uuid}}"
                                placeholder="{{localize "WIZARD.SHOP_SPECIALISATION"}}"/>
                         {{/if}}
+                        {{!-- Текст книги — тем же листом, что у происхождений: игрок уже знает,
+                              как он читается. Полная карточка — кнопкой, для ссылок и эффектов. --}}
+                        {{#if offer.book}}
+                        <section class="wizard-book shop-book">
+                            {{#if offer.book.benefit}}
+                            <p class="shop-book-benefit"><b>{{localize "WIZARD.SHOP_BENEFIT"}}</b> {{offer.book.benefit}}</p>
+                            {{/if}}
+                            <div class="wizard-book-text">{{{offer.book.description}}}</div>
+                            <div class="shop-book-footer">
+                                <span class="wizard-book-source">{{offer.book.source}}</span>
+                                <button type="button" class="shop-buy" data-open-talent="{{offer.uuid}}">
+                                    <i class="fas fa-up-right-from-square"></i> {{localize "WIZARD.SHOP_OPEN_SHEET"}}</button>
+                            </div>
+                        </section>
+                        {{/if}}
                     </div>
                     {{else}}
                     <p class="wizard-note">{{localize "WIZARD.SHOP_NO_TALENTS"}}</p>
@@ -250,7 +267,12 @@
                     <span class="wizard-choice-label">{{localize "WIZARD.SHOP_PURCHASES"}}</span>
                     {{#each shopPurchases as |record|}}
                     <div class="shop-purchase">
+                        {{#if record.readable}}
+                        <button type="button" class="shop-name shop-read" data-open-item="{{record.itemId}}"
+                                title="{{localize "WIZARD.SHOP_OPEN_SHEET"}}"><i class="fas fa-book-open"></i>{{record.label}}</button>
+                        {{else}}
                         <span class="shop-name">{{record.label}}</span>
+                        {{/if}}
                         <span class="shop-cost">{{record.cost}}</span>
                         <button type="button" class="shop-refund" data-refund="{{record.index}}"
                                 title="{{localize "WIZARD.SHOP_REFUND"}}"><i class="fas fa-rotate-left"></i></button>
