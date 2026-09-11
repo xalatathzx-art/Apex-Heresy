@@ -16,7 +16,7 @@
           {"key": "linguistics", "name": "High Gothic", "advance": 0}
         ],
         "equipment": [
-          {"name": "Imperial Robes"}, {"name": "Autoquill"}, {"name": "Chrono"},
+          {"name": "Imperial Robes"}, {"name": "Auto Quill"}, {"name": "Chrono"},
           {"name": "Dataslate"}, {"name": "Medi-Kit"}
         ]
       },
@@ -86,7 +86,7 @@
           {"key": "commonLore", "name": "Underworld", "advance": 0}
         ],
         "equipment": [
-          {"name": "Stimm", "quantity": 3}, {"name": "Manacles"}, {"name": "Lho Sticks", "quantity": 12}
+          {"name": "Stimm", "quantity": 3}, {"name": "Manacles"}, {"name": "Lho-Sticks", "quantity": 12}
         ]
       },
       "choices": [
@@ -114,7 +114,7 @@
         {
           "key": "armour", "type": "one", "label": "Enforcer light carapace armour or carapace chestplate",
           "options": [
-            {"label": "Enforcer Light Carapace Armour", "grants": {"equipment": [{"name": "Enforcer Light Carapace Armour"}]}},
+            {"label": "Enforcer Light Carapace Armour", "grants": {"equipment": [{"name": "Enforcer Light Carapace"}]}},
             {"label": "Carapace Chestplate", "grants": {"equipment": [{"name": "Carapace Chestplate"}]}}
           ]
         },
@@ -376,7 +376,7 @@
         "talents": [{"name": "Weapon Training (Las)"}, {"name": "Weapon Training (Low-Tech)"}],
         "equipment": [
           {"name": "Combat Vest"}, {"name": "Imperial Guard Flak Armour"},
-          {"name": "Grapnel and Line"}, {"name": "Lho Sticks", "quantity": 12}, {"name": "Magnoculars"}
+          {"name": "Grapnel & Line"}, {"name": "Lho-Sticks", "quantity": 12}, {"name": "Magnoculars"}
         ]
       },
       "choices": [

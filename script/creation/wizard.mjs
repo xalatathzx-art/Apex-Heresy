@@ -15,6 +15,7 @@ import {planToActorUpdate, planToItemData, revertUpdate,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
 import {CHARACTERISTIC_KEYS} from "./origin-data.mjs";
+import {findContent} from "./content-lookup.mjs";
 import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
 
@@ -336,10 +337,13 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             const pack = game.packs.get(packId);
             if (!pack) continue;
             const index = await pack.getIndex();
-            const hit = index.contents.find(entry =>
-                entry.name === name && GRANT_ITEM_TYPES[kind].includes(entry.type));
+            const hit = findContent(index.contents, GRANT_ITEM_TYPES[kind], name);
             if (!hit) continue;
-            return (await pack.getDocument(hit._id)).toObject();
+            const data = (await pack.getDocument(hit._id)).toObject();
+            // Имя с уточнением остаётся за копией: специалистский талант лежит в паке
+            // одной записью «Weapon Training*», а на листе он «Weapon Training (Las)».
+            data.name = name;
+            return data;
         }
         return null;
     }

@@ -1144,6 +1144,7 @@
   "WIZARD.TITLE": "Character Creation \u2014 {name}",
   "WIZARD.RULESET": "Rulebook",
   "WIZARD.CHOOSE": "\u2014 choose \u2014",
+  "WIZARD.HEADER_BUTTON": "Creation Wizard",
   "WIZARD.START": "Create Character",
   "WIZARD.START_HINT": "Create a character sheet and open the creation wizard on it.",
   "WIZARD.NO_GM": "No Gamemaster is online to create the character.",

@@ -8284,8 +8284,18 @@ class AcolyteSheet extends DarkHeresySheet {
 
     _getHeaderButtons() {
         let buttons = super._getHeaderButtons();
+        // Вход в Мастер создания прямо с листа. Второй путь, кроме кнопки в панели
+        // «Актёры»: Мастера чаще открывают на уже заведённом персонаже — доделать
+        // начатого или пройти шаги заново. HereticSheet наследует эту кнопку.
         if (this.actor.isOwner) {
-            buttons = [].concat(buttons);
+            buttons = [
+                {
+                    label: game.i18n.localize("WIZARD.HEADER_BUTTON"),
+                    class: "creation-wizard",
+                    icon: "fas fa-user-plus",
+                    onclick: () => openCharacterWizard(this.actor)
+                }
+            ].concat(buttons);
         }
         return buttons;
     }

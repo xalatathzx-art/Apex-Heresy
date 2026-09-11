@@ -1,0 +1,66 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {readdirSync, readFileSync} from 'node:fs';
+import {findContent} from '../script/creation/content-lookup.mjs';
+
+const require = createRequire(import.meta.url);
+const CLASSIC_LEVEL = 'd:/Foundry/Foundry14/Foundry Virtual Tabletop/resources/app/node_modules/classic-level';
+const PACKS = ['dark-heresy', 'black-crusade', 'rogue-trader', 'only-war', 'deathwatch'];
+const TYPES = {
+    talent: ['talent'], trait: ['trait'],
+    equipment: ['weapon', 'armour', 'gear', 'tool', 'ammunition', 'drug', 'cybernetic', 'forceField']
+};
+
+/** Names an origin hands out, with where each came from. */
+function grantedNames() {
+    const dir = new URL('../packs-src/origins/', import.meta.url);
+    const out = new Map();
+    const add = (kind, name, where) => {
+        if (!name) return;
+        const key = `${kind}\u0000${name}`;
+        if (!out.has(key)) out.set(key, {kind, name, where: []});
+        out.get(key).where.push(where);
+    };
+    const scan = (grants, where) => {
+        for (const t of grants?.talents ?? []) add('talent', t.name, where);
+        for (const t of grants?.traits ?? []) add('trait', t.name, where);
+        for (const e of grants?.equipment ?? []) add('equipment', e.name, where);
+    };
+    for (const file of readdirSync(dir).filter(f => f.endsWith('.json') && f !== 'folders.json'))
+        for (const entry of JSON.parse(readFileSync(new URL(file, dir), 'utf8'))) {
+            scan(entry.system.grants, entry.name);
+            for (const choice of entry.system.choices ?? [])
+                for (const option of choice.options ?? []) scan(option.grants, `${entry.name} / ${option.label}`);
+        }
+    return [...out.values()];
+}
+
+test('every name an origin grants resolves to a real compendium entry', async t => {
+    let ClassicLevel;
+    try { ({ClassicLevel} = require(CLASSIC_LEVEL)); }
+    catch { return t.skip('classic-level is not available at the expected Foundry path'); }
+
+    const index = {};
+    for (const pack of PACKS) {
+        const db = new ClassicLevel(`packs/${pack}`, {valueEncoding: 'json'});
+        try { await db.open(); }
+        catch {
+            // Foundry holds a LevelDB lock while it runs. Skipping loudly beats a red suite
+            // that says nothing about the code: run this again with Foundry closed.
+            for (const open of Object.keys(index)) { /* nothing to close, open failed first */ }
+            return t.skip(`packs/${pack} is locked - close Foundry and run again`);
+        }
+        index[pack] = [];
+        for await (const [key, value] of db.iterator())
+            if (key.startsWith('!items!')) index[pack].push({name: value.name, type: value.type});
+        await db.close();
+    }
+
+    const missing = [];
+    for (const {kind, name, where} of grantedNames()) {
+        const hit = PACKS.map(p => findContent(index[p], TYPES[kind], name)).find(Boolean);
+        if (!hit) missing.push(`${kind} "${name}" — granted by ${[...new Set(where)].join('; ')}`);
+    }
+    assert.deepEqual(missing, [], 'these grants would become stub items on the actor');
+});
