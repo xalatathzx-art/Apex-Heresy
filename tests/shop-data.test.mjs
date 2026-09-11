@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {skillLevelIndex, characteristicOffers, skillOffers, checkPrerequisites, talentOffers, spentOn,
-        purchaseCharacteristic, purchaseSkill, purchaseNewSpeciality, refundUpdate}
+        purchaseCharacteristic, purchaseSkill, purchaseNewSpeciality, refundUpdate, CHARACTERISTIC_ABBREVIATIONS}
     from '../script/creation/shop-data.mjs';
 
 const NAMES = {'weapon skill': 'weaponSkill', 'willpower': 'willpower', 'intelligence': 'intelligence',
@@ -179,4 +179,52 @@ test('a refund puts the step back exactly, and only while it is still the top st
 test('refunding a created speciality removes it', () => {
     const {record} = purchaseNewSpeciality(snapshot(), 'commonLore', 'Tactica Imperialis', 'tacticaImperialis');
     assert.deepEqual(refundUpdate(snapshot(), record), {'system.skills.commonLore.specialities.-=tacticaImperialis': null});
+});
+
+test('prerequisite thresholds written as abbreviations are checked, not left for the player', () => {
+    const names = {...NAMES, ...CHARACTERISTIC_ABBREVIATIONS};
+    const checks = checkPrerequisites('WS 35, WP 40, Int 30', snapshot(), names);
+    assert.deepEqual(checks.map(check => check.status), ['met', 'unmet', 'met']);
+});
+
+test('every abbreviation points at a real characteristic', async () => {
+    const {CHARACTERISTIC_KEYS} = await import('../script/creation/origin-data.mjs');
+    for (const [abbr, key] of Object.entries(CHARACTERISTIC_ABBREVIATIONS))
+        assert.ok(CHARACTERISTIC_KEYS.includes(key), `${abbr} -> ${key}`);
+});
+
+test('a prerequisite with alternatives is met by any one of them', () => {
+    const checks = checkPrerequisites('Willpower 50 or Weapon Skill 35, Willpower 50 or Fellowship 40', snapshot(), NAMES);
+    assert.deepEqual(checks.map(check => check.status), ['met', 'unmet']);
+    assert.equal(checkPrerequisites('Willpower 50 or Psy rating', snapshot(), NAMES)[0].status, 'unknown');
+});
+
+test('skill prerequisites are read from the rank the character holds', () => {
+    const checks = checkPrerequisites('Athletics, Logic, Athletics +10, Common Lore (Imperial Guard), '
+        + 'Rank 2 in the Athletics skill, Rank 1 in any Common Lore skill, Common Lore (War)', snapshot(), NAMES);
+    assert.deepEqual(checks.map(check => check.status), ['met', 'unmet', 'unmet', 'met', 'unmet', 'met', 'unmet']);
+    // "Rank 2 (Trained)" carries the rank name in brackets, and hyphens do not matter in names.
+    const trained = {...snapshot(), skills: {...snapshot().skills,
+        techUse: {label: 'Tech-Use', advance: 10, isSpecialist: false, aptitudes: []}}};
+    assert.deepEqual(checkPrerequisites('Rank 2 (Trained) in Tech-Use skill, Tech Use +10', trained, NAMES)
+        .map(check => check.status), ['met', 'met']);
+    // "(Xenos-Any)" is any speciality under that heading; "(Any)" is any at all.
+    const lore = {...snapshot(), skills: {forbiddenLore: {isSpecialist: true, aptitudes: [], specialities: {
+        xenosEldar: {label: 'Xenos (Eldar)', advance: 0}}}}};
+    assert.deepEqual(checkPrerequisites('Forbidden Lore (Xenos–Any), Forbidden Lore (Any), Forbidden Lore (Daemonology)', lore, NAMES)
+        .map(check => check.status), ['met', 'met', 'unmet']);
+});
+
+test('a talent from the book the character lacks is unmet, not left for the player', () => {
+    const subject = {...snapshot(), talentNames: new Set(['frenzy', 'resistance', 'iron jaw'])};
+    assert.deepEqual(checkPrerequisites('Frenzy, Resistance (Fear), Iron Jaw', subject, NAMES)
+        .map(check => check.status), ['unmet', 'unmet', 'met']);
+});
+
+test('talent offers know which prerequisite names are talents from the catalogue itself', () => {
+    const catalogue = [
+        {name: 'Frenzy', tier: 1, aptitudes: 'Strength, Offence', prerequisites: 'None'},
+        {name: 'Crushing Blow', tier: 2, aptitudes: 'Weapon Skill, Offence', prerequisites: 'Frenzy'}
+    ];
+    assert.equal(talentOffers(catalogue, snapshot(), NAMES).find(o => o.name === 'Crushing Blow').blocked, true);
 });

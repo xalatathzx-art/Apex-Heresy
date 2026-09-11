@@ -13892,3 +13892,289 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   font-size: var(--dh-text-lg);
   line-height: 1.4;
 }
+
+/* ── Воздух между выборами ─────────────────────────────────────────────────
+   Шаг читался слитно: список, строки выбора и текст книги стояли впритык, и глаз
+   не отделял один вопрос от другого. Отступы — из шкалы, не на глаз. */
+.dark-heresy.character-wizard .wizard-step-content {
+  gap: var(--dh-space-5);
+}
+.dark-heresy.character-wizard .wizard-step-content > .form-group {
+  margin: 0;
+}
+.dark-heresy.character-wizard .wizard-choice-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-4);
+}
+.dark-heresy.character-wizard .wizard-choice + .wizard-choice {
+  margin-top: 0;
+}
+.dark-heresy.character-wizard .wizard-choice {
+  padding: var(--dh-space-4);
+}
+.dark-heresy.character-wizard .wizard-choice-label {
+  margin-bottom: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .wizard-step-title {
+  margin-bottom: var(--dh-space-4);
+}
+
+/* Строки характеристик разнесены: раньше они лежали стопкой вплотную, и
+   десять одинаковых плит сливались в одну. */
+.dark-heresy.character-wizard .wizard-chars {
+  gap: var(--dh-space-2h);
+}
+.dark-heresy.character-wizard .wizard-char {
+  padding: var(--dh-space-3) var(--dh-space-4);
+  border-bottom: 1px solid var(--dh-line);
+}
+.dark-heresy.character-wizard .wizard-char-actions {
+  margin-top: var(--dh-space-3);
+}
+
+/* ── Магазин опыта ─────────────────────────────────────────────────────── */
+
+/* Счёт — три показания в ряд, остаток крупнее прочих: его и считают. */
+.dark-heresy.character-wizard .shop-ledger {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-ledger-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-1);
+  padding: var(--dh-space-3) var(--dh-space-4);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 2px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .shop-ledger-label {
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .shop-ledger-value {
+  color: var(--dh-ink);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-lg);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.dark-heresy.character-wizard .shop-ledger-remaining {
+  border-left-color: var(--dh-accent);
+}
+.dark-heresy.character-wizard .shop-ledger-remaining .shop-ledger-value {
+  color: var(--dh-accent-bright);
+  font-size: var(--dh-text-xl);
+}
+
+/* Вкладки лавок — те же плитки, что шаги мастера и вкладки листа. */
+.dark-heresy.character-wizard .shop-tabs {
+  display: flex;
+  gap: var(--dh-space-1);
+  background: var(--dh-line);
+  border: 1px solid var(--dh-line);
+}
+.dark-heresy.character-wizard .shop-tabs button {
+  flex: 1 1 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  padding: var(--dh-space-3) var(--dh-space-2);
+  background: var(--dh-surface);
+  border: 0;
+  border-top: 2px solid transparent;
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .shop-tabs button:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+/* Клавиатура всё равно видит, где фокус — ребром снизу, а не рамкой ядра. */
+.dark-heresy.character-wizard .shop-tabs button:focus-visible {
+  border-bottom: 1px solid var(--dh-accent);
+}
+.dark-heresy.character-wizard .shop-tabs button:hover {
+  background: var(--dh-surface-raised);
+  color: var(--dh-ink);
+}
+.dark-heresy.character-wizard .shop-tabs button.active {
+  background: var(--dh-surface-raised);
+  border-top-color: var(--dh-accent);
+  color: var(--dh-ink);
+}
+
+.dark-heresy.character-wizard .shop-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+}
+/* Строка покупки: что — где сейчас и куда — совпадение склонностей — цена — кнопка. */
+.dark-heresy.character-wizard .shop-row,
+.dark-heresy.character-wizard .shop-talent-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 9.5em 3em 4em auto;
+  align-items: center;
+  gap: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .shop-row {
+  padding: var(--dh-space-2h) var(--dh-space-3);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 2px solid var(--dh-brass-dim);
+  transition: border-left-color var(--dh-transition);
+}
+.dark-heresy.character-wizard .shop-row:hover {
+  border-left-color: var(--dh-accent);
+}
+.dark-heresy.character-wizard .shop-row.maxed,
+.dark-heresy.character-wizard .shop-row.blocked {
+  opacity: 0.55;
+}
+.dark-heresy.character-wizard .shop-talent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-talent-head {
+  width: 100%;
+}
+.dark-heresy.character-wizard .shop-name {
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-md);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dark-heresy.character-wizard .shop-step {
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dark-heresy.character-wizard .shop-match {
+  text-align: center;
+  color: var(--dh-brass);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-sm);
+}
+.dark-heresy.character-wizard .shop-cost {
+  text-align: right;
+  color: var(--dh-ink);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-md);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.dark-heresy.character-wizard .shop-buy,
+.dark-heresy.character-wizard .shop-refund {
+  margin: 0;
+  border-radius: 0;
+  padding: var(--dh-space-2) var(--dh-space-3);
+  color: var(--dh-accent);
+  border-color: var(--dh-brass-dim);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .shop-buy:hover:not(:disabled),
+.dark-heresy.character-wizard .shop-refund:hover {
+  background: rgba(192, 88, 31, 0.14);
+  border-color: var(--dh-accent);
+}
+.dark-heresy.character-wizard .shop-buy:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Предпосылки: выполнено — приглушённо, не выполнено — опасность, непрочитанное —
+   тревогой, чтобы игрок проверил сам. */
+.dark-heresy.character-wizard .shop-prerequisites {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-self: stretch;
+  text-align: left;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-prereq {
+  padding: var(--dh-space-1) var(--dh-space-2h);
+  border: 1px solid var(--dh-line);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-xs);
+}
+.dark-heresy.character-wizard .shop-prereq.met { color: var(--dh-ink-faint); }
+.dark-heresy.character-wizard .shop-prereq.unmet { color: var(--dh-danger); border-color: var(--dh-danger); }
+.dark-heresy.character-wizard .shop-prereq.unknown { color: var(--dh-alert); border-style: dashed; }
+
+.dark-heresy.character-wizard .shop-filters,
+.dark-heresy.character-wizard .shop-new-spec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .shop-filters .shop-talent-search { flex: 1 1 12em; }
+.dark-heresy.character-wizard .shop-filters .shop-talent-tier { flex: 0 0 9em; }
+.dark-heresy.character-wizard .shop-new-spec {
+  padding: var(--dh-space-3) var(--dh-space-4);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 2px solid var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .shop-new-spec .wizard-choice-label {
+  flex: 1 0 100%;
+  margin: 0;
+}
+.dark-heresy.character-wizard .shop-new-spec select { flex: 0 0 11em; }
+.dark-heresy.character-wizard .shop-new-spec input { flex: 1 1 8em; }
+
+/* Журнал покупок — квитанция: имя, цена, возврат. */
+.dark-heresy.character-wizard .shop-purchases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+  padding: var(--dh-space-3) var(--dh-space-4);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-accent-dim);
+}
+.dark-heresy.character-wizard .shop-purchase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4em auto;
+  align-items: center;
+  gap: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .shop-purchase + .shop-purchase {
+  padding-top: var(--dh-space-2);
+  border-top: 1px solid var(--dh-line);
+}
+
+/* У происхождения без выборов контейнер пуст, но gap ставит отступ и за него —
+   выходил двойной провал между списком и текстом книги. */
+.dark-heresy.character-wizard .wizard-choice-rows:not(:has(*)) {
+  display: none;
+}
+/* Текст книги не должен упираться в кнопки навигации. */
+.dark-heresy.character-wizard .wizard-footer {
+  margin-top: var(--dh-space-4);
+  padding-top: var(--dh-space-4);
+}
+/* Вводная строка книги в листе выровнена по ширине; в узком окне мастера это
+   растягивает пробелы между словами. */
+.dark-heresy.character-wizard .wizard-book .bc-entry {
+  text-align: left;
+}

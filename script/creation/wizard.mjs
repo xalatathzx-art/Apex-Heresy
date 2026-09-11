@@ -16,6 +16,9 @@ import {planToActorUpdate, planToItemData, revertUpdate, ownedAptitudes,
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
 import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
 import {findContent} from "./content-lookup.mjs";
+import {characteristicOffers, skillOffers, talentOffers, spentOn, purchaseCharacteristic,
+        purchaseSkill, purchaseNewSpeciality, refundUpdate, CHARACTERISTIC_ABBREVIATIONS} from "./shop-data.mjs";
+import {specialityKeyFor} from "./origin-apply.mjs";
 import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
     from "./advancement-data.mjs";
 import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
@@ -105,7 +108,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             step: this.step ? {...this.step, label: game.i18n.localize(this.step.label)} : null,
             ...(this.step?.kind === "origin" ? await this._originStepContext(this.step) : {}),
             ...(this.step?.kind === "characteristics" ? this._characteristicsStepContext() : {}),
-            ...(this.step?.kind === "experience" ? this._experienceStepContext() : {}),
+            ...(this.step?.kind === "experience" ? await this._experienceContextLoaded() : {}),
             ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
@@ -182,6 +185,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         });
 
         this._wireCharacteristics(root);
+        this._wireShop(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -206,6 +210,61 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         root.querySelector("[data-action='wizard-back']")?.addEventListener("click", () => this._onBack());
         root.querySelector("[data-action='wizard-next']")?.addEventListener("click", () => this._onNext());
+    }
+
+    /**
+     * Магазин опыта. Каждое действие идёт через _busy: покупка — это несколько записей
+     * подряд, и второй клик посреди них купил бы то же дважды по устаревшему остатку.
+     */
+    _wireShop(root) {
+        const guarded = action => async event => {
+            event.preventDefault();
+            if (this._busy) return;
+            this._busy = true;
+            try { await action(event.currentTarget); }
+            finally { this._busy = false; if (this.rendered) this.render(false); }
+        };
+
+        for (const tab of root.querySelectorAll("[data-shop-tab]"))
+            tab.addEventListener("click", event => {
+                this._shopTab = event.currentTarget.dataset.shopTab;
+                this.render(false);
+            });
+
+        for (const button of root.querySelectorAll("[data-buy-characteristic]"))
+            button.addEventListener("click", guarded(el => this._buyCharacteristic(el.dataset.buyCharacteristic)));
+        for (const button of root.querySelectorAll("[data-buy-skill]"))
+            button.addEventListener("click", guarded(el => this._buySkill(el.dataset.buySkill, el.dataset.spec)));
+        for (const button of root.querySelectorAll("[data-buy-talent]"))
+            button.addEventListener("click", guarded(el => {
+                const spec = root.querySelector(`input[data-talent-spec="${el.dataset.buyTalent}"]`)?.value;
+                return this._buyTalent(el.dataset.buyTalent, spec);
+            }));
+        for (const button of root.querySelectorAll("[data-refund]"))
+            button.addEventListener("click", guarded(el => this._refund(Number(el.dataset.refund))));
+
+        root.querySelector("[data-buy-speciality]")?.addEventListener("click", guarded(() => {
+            const key = root.querySelector(".shop-new-spec-skill")?.value;
+            const name = root.querySelector(".shop-new-spec-name")?.value;
+            if (!key || !String(name ?? "").trim()) return;
+            return this._buyNewSpeciality(key, name);
+        }));
+
+        // Поиск и уровень талантов перерисовывают список, но фокус остаётся в поле.
+        const search = root.querySelector(".shop-talent-search");
+        if (search) search.addEventListener("input", event => {
+            this._talentFilter = event.currentTarget.value;
+            clearTimeout(this._searchTimer);
+            this._searchTimer = setTimeout(async () => {
+                await this.render(false);
+                const again = this.element?.querySelector(".shop-talent-search");
+                if (again) { again.focus(); again.setSelectionRange(again.value.length, again.value.length); }
+            }, 180);
+        });
+        root.querySelector(".shop-talent-tier")?.addEventListener("change", event => {
+            this._talentTier = Number(event.currentTarget.value) || 0;
+            this.render(false);
+        });
     }
 
     /** Кости и счётчик очков на шаге характеристик. */
@@ -434,6 +493,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const actor = this.actor;
         const carrier = this._carrierFor(step);
         if (!carrier) return;
+        // Покупки опыта оплачены по склонностям, а откат происхождения их меняет.
+        await this._refundAll();
 
         const update = revertUpdate(actor, carrier.getFlag(GRANT_FLAG_SCOPE, "applied") ?? {});
         if (Object.keys(update).length) await actor.update(update);
@@ -565,6 +626,152 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     static STARTING_EXPERIENCE = {dh2: 1000};
 
     /** Контекст шага опыта: пул, склонности и долг по повторным склонностям. */
+    // ── Магазин опыта ────────────────────────────────────────────────────
+
+    /** Запись покупок этого прохода Мастера. */
+    get _purchases() { return this.actor.getFlag(GRANT_FLAG_SCOPE, "creationPurchases") ?? []; }
+
+    /** «Weapon Skill» → weaponSkill: предпосылки в книге пишутся английскими именами. */
+    static CHARACTERISTIC_NAMES = {
+        ...Object.fromEntries(CHARACTERISTIC_KEYS.map(key =>
+            [key.replace(/([A-Z])/g, " $1").toLowerCase().trim(), key])),
+        ...CHARACTERISTIC_ABBREVIATIONS
+    };
+
+    /** Снимок актора в том виде, какого ждёт shop-data.mjs. */
+    _shopSnapshot() {
+        const system = this.actor.system;
+        const characteristics = {}, characteristicValues = {};
+        for (const [key, entry] of Object.entries(system.characteristics ?? {})) {
+            characteristics[key] = {advance: entry.advance, cost: entry.cost, aptitudes: entry.aptitudes ?? []};
+            characteristicValues[key] = Number(entry.total ?? entry.base ?? 0);
+        }
+        return {
+            aptitudes: ownedAptitudes(this.actor),
+            characteristics, characteristicValues,
+            skills: foundry.utils.deepClone(system.skills ?? {}),
+            talents: this.actor.items.filter(item => item.type === "talent")
+                .map(item => ({name: item.name, starter: !!item.system.starter})),
+            traits: this.actor.items.filter(item => item.type === "trait").map(item => ({name: item.name}))
+        };
+    }
+
+    /** Таланты книги — индекс пака с уровнем, склонностями и предпосылками. */
+    async _talentCatalogue() {
+        if (this._catalogue) return this._catalogue;
+        const pack = game.packs.get("dark-heresy.dark-heresy");
+        if (!pack) return (this._catalogue = []);
+        const index = await pack.getIndex({fields: ["system.tier", "system.aptitudes", "system.prerequisites", "system.benefit"]});
+        this._catalogue = index.contents.filter(entry => entry.type === "talent").map(entry => ({
+            name: entry.name, uuid: entry.uuid, tier: entry.system?.tier,
+            aptitudes: entry.system?.aptitudes ?? "", prerequisites: entry.system?.prerequisites ?? "",
+            benefit: entry.system?.benefit ?? ""
+        }));
+        return this._catalogue;
+    }
+
+    /** Остаток пула: книжный пул минус записанные покупки. */
+    _remaining() {
+        return (CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0) - spentOn(this._purchases);
+    }
+
+    /**
+     * Стартовый опыт на лист — при первой покупке или по «Далее», что раньше.
+     * Признак — свой флаг, а не «опыт не ноль»: возврат за совпавшую выдачу
+     * законно делает его ненулевым заранее.
+     */
+    async _ensureStartingExperience() {
+        const actor = this.actor;
+        if (actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied")) return;
+        const pool = CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0;
+        await actor.update({"system.experience.value": (actor.system.experience?.value ?? 0) + pool});
+        await actor.setFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied", pool);
+    }
+
+    /** Провести покупку: проверить остаток, записать на лист и в журнал покупок. */
+    async _commitPurchase(result, {itemData = null} = {}) {
+        if (!result) return;
+        if (result.record.cost > this._remaining()) {
+            ui.notifications?.warn(game.i18n.format("WIZARD.SHOP_NOT_ENOUGH",
+                {cost: result.record.cost, remaining: this._remaining()}));
+            return;
+        }
+        await this._ensureStartingExperience();
+        if (Object.keys(result.update ?? {}).length) await this.actor.update(result.update);
+        const record = {...result.record};
+        if (itemData) {
+            const [item] = await this.actor.createEmbeddedDocuments("Item", [itemData]);
+            record.itemId = item.id;
+        }
+        await this.actor.setFlag(GRANT_FLAG_SCOPE, "creationPurchases", [...this._purchases, record]);
+    }
+
+    async _buyCharacteristic(key) { await this._commitPurchase(purchaseCharacteristic(this._shopSnapshot(), key)); }
+
+    async _buySkill(key, specKey) { await this._commitPurchase(purchaseSkill(this._shopSnapshot(), key, specKey || null)); }
+
+    async _buyNewSpeciality(key, name) {
+        const snapshot = this._shopSnapshot();
+        const {specKey, created} = specialityKeyFor(snapshot.skills[key], name);
+        // Такая специализация уже есть на листе — поднимаем её, а не заводим вторую.
+        if (!created) return this._buySkill(key, specKey);
+        await this._commitPurchase(purchaseNewSpeciality(snapshot, key, name, specKey));
+    }
+
+    async _buyTalent(uuid, specialisation) {
+        const snapshot = this._shopSnapshot();
+        const offer = talentOffers(await this._talentCatalogue(), snapshot, CharacterWizard.CHARACTERISTIC_NAMES)
+            .find(entry => entry.uuid === uuid);
+        if (!offer) return;
+        if (offer.blocked) { ui.notifications?.warn(game.i18n.localize("WIZARD.SHOP_PREREQUISITES")); return; }
+        // Специалистский талант берут по имени специализации: «Weapon Training (Las)».
+        const spec = String(specialisation ?? "").trim();
+        if (offer.specialist && !spec) { ui.notifications?.warn(game.i18n.localize("WIZARD.SHOP_NAME_SPECIALISATION")); return; }
+        const name = offer.specialist ? `${offer.name.replace(/\*$/, "")} (${spec})` : offer.name;
+        if (this.actor.items.some(item => item.type === "talent" && item.name === name)) return;
+
+        const data = (await fromUuid(uuid)).toObject();
+        delete data._id;
+        data.name = name;
+        data.system = {...data.system, starter: false, cost: offer.cost};
+        data.flags = foundry.utils.mergeObject(data.flags ?? {}, {[GRANT_FLAG_SCOPE]: {creationPurchase: true}});
+        await this._commitPurchase({update: {}, record: {kind: "talent", name, cost: offer.cost, label: name}},
+                                   {itemData: data});
+    }
+
+    /** Вернуть покупку. Ступень возвращается только верхняя — иначе в лестнице дыра. */
+    async _refund(index) {
+        const purchases = [...this._purchases];
+        const record = purchases[index];
+        if (!record) return;
+        if (record.kind === "talent") {
+            if (record.itemId && this.actor.items.get(record.itemId))
+                await this.actor.deleteEmbeddedDocuments("Item", [record.itemId]);
+        } else {
+            const update = refundUpdate(this._shopSnapshot(), record);
+            if (!update) { ui.notifications?.warn(game.i18n.localize("WIZARD.SHOP_REFUND_TOP_FIRST")); return; }
+            await this.actor.update(update);
+        }
+        purchases.splice(index, 1);
+        await this.actor.setFlag(GRANT_FLAG_SCOPE, "creationPurchases", purchases);
+    }
+
+    /**
+     * Вернуть все покупки — перед откатом происхождения. Цены считались по склонностям,
+     * а откат их меняет: оставить покупки значит оставить их по чужой цене.
+     * Возврат идёт с конца, чтобы каждая ступень снималась, пока она верхняя.
+     */
+    async _refundAll() {
+        for (let index = this._purchases.length - 1; index >= 0; index--) await this._refund(index);
+    }
+
+    /** Контекст шага опыта, когда каталог талантов уже прочитан. */
+    async _experienceContextLoaded() {
+        await this._talentCatalogue();
+        this._catalogueReady = true;
+        return this._experienceStepContext();
+    }
+
     _experienceStepContext() {
         const owed = [];
         for (const item of this.actor.items) {
@@ -582,7 +789,42 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             none: Object.values(table[0]).join(" / ")
         });
 
+        const snapshot = this._shopSnapshot();
+        const label = key => game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`);
+        const levelLabel = level => level ? game.i18n.localize(`WIZARD.LEVEL.${level.toUpperCase()}`) : "";
+        const remaining = this._remaining();
+        const filter = String(this._talentFilter ?? "").toLowerCase().trim();
+        const tierFilter = Number(this._talentTier ?? 0);
+
         return {
+            shopTab: this._shopTab ?? "characteristics",
+            shopSpent: spentOn(this._purchases),
+            shopRemaining: remaining,
+            shopCharacteristics: characteristicOffers(snapshot).map(offer => ({
+                ...offer, label: label(offer.key), nextLabel: levelLabel(offer.nextLevel),
+                affordable: !offer.maxed && offer.cost <= remaining
+            })),
+            shopSkills: skillOffers(snapshot).map(offer => ({
+                ...offer,
+                label: offer.specKey
+                    ? `${game.i18n.localize(snapshot.skills[offer.key]?.label ?? offer.key)} (${offer.label})`
+                    : game.i18n.localize(offer.label),
+                currentLabel: levelLabel(offer.level) || game.i18n.localize("WIZARD.LEVEL.UNTRAINED"),
+                nextLabel: levelLabel(offer.nextLevel),
+                affordable: !offer.maxed && offer.cost <= remaining
+            })),
+            shopSpecialistSkills: Object.entries(snapshot.skills)
+                .filter(([, skill]) => skill.isSpecialist)
+                .map(([key, skill]) => ({key, label: game.i18n.localize(skill.label ?? key)})),
+            shopTalents: (this._catalogueReady
+                ? talentOffers(this._catalogue, snapshot, CharacterWizard.CHARACTERISTIC_NAMES) : [])
+                .filter(offer => (!filter || offer.name.toLowerCase().includes(filter))
+                              && (!tierFilter || offer.tier === tierFilter))
+                .map(offer => ({...offer, aptitudeText: offer.aptitudes.join(", "),
+                                affordable: !offer.blocked && offer.cost <= remaining})),
+            talentFilter: this._talentFilter ?? "",
+            talentTier: tierFilter,
+            shopPurchases: this._purchases.map((record, index) => ({...record, index})),
             aptitudeChips: [...owned].sort(),
             priceRows: [
                 priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),
@@ -608,11 +850,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
      * настоящую выдачу.
      */
     async _commitExperienceStep() {
-        const actor = this.actor;
-        if (actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied")) return true;
-        const pool = CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0;
-        await actor.update({"system.experience.value": (actor.system.experience?.value ?? 0) + pool});
-        await actor.setFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied", pool);
+        await this._ensureStartingExperience();
         return true;
     }
 

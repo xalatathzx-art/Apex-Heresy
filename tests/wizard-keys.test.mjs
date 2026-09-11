@@ -40,6 +40,10 @@ test('the keys the wizard builds at runtime exist for every value they are built
     }
     // `WIZARD.METHOD.${method}` — one option per generation method.
     for (const method of CHARACTERISTIC_METHODS) assert.ok(`WIZARD.METHOD.${method.toUpperCase()}` in lang, method);
+    // `WIZARD.LEVEL.${level}` - the rank a shop row is at and the one it buys.
+    for (const level of ['UNTRAINED', 'KNOWN', 'TRAINED', 'EXPERIENCED', 'VETERAN',
+                         'SIMPLE', 'INTERMEDIATE', 'PROFICIENT', 'EXPERT'])
+        assert.ok(`WIZARD.LEVEL.${level}` in lang, level);
 });
 
 test('every ruleset and step label the wizard renders exists', () => {

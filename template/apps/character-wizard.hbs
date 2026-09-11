@@ -121,9 +121,24 @@
             {{/if}}
 
             {{#if (eq step.kind "experience")}}
-                <p>{{localize "WIZARD.STARTING_XP"}} <b>{{experiencePool}}</b></p>
-                {{!-- Склонности плитками: по ним считается цена КАЖДОЙ покупки, и держать
-                      их в строке через запятую значит прятать главное. --}}
+                {{!-- Пул и остаток — первое, что читает игрок: без них каждая цена ниже
+                      висит в воздухе. --}}
+                <div class="shop-ledger">
+                    <div class="shop-ledger-cell">
+                        <span class="shop-ledger-label">{{localize "WIZARD.SHOP_POOL"}}</span>
+                        <span class="shop-ledger-value">{{experiencePool}}</span>
+                    </div>
+                    <div class="shop-ledger-cell">
+                        <span class="shop-ledger-label">{{localize "WIZARD.SHOP_SPENT"}}</span>
+                        <span class="shop-ledger-value">{{shopSpent}}</span>
+                    </div>
+                    <div class="shop-ledger-cell shop-ledger-remaining">
+                        <span class="shop-ledger-label">{{localize "WIZARD.SHOP_REMAINING"}}</span>
+                        <span class="shop-ledger-value">{{shopRemaining}}</span>
+                    </div>
+                </div>
+
+                {{!-- Склонности плитками: по ним считается цена КАЖДОЙ покупки. --}}
                 <div class="wizard-aptitudes">
                     <span class="wizard-choice-label">{{localize "WIZARD.APTITUDES"}}</span>
                     {{#each aptitudeChips as |aptitude|}}
@@ -135,34 +150,119 @@
                       на другую характеристическую. Выбирает игрок. --}}
                 <p class="wizard-warn">{{localize "WIZARD.OWED_APTITUDES"}} {{owedAptitudes}}</p>
                 {{/if}}
-                <p class="wizard-note">{{localize "WIZARD.ACQUISITIONS"}} <b>{{influenceBonus}}</b></p>
-                {{#if experienceApplied}}
-                <p class="wizard-locked">{{localize "WIZARD.XP_APPLIED"}}</p>
+
+                {{!-- Три лавки на вкладках: вместе они дали бы ленту из полутора сотен строк. --}}
+                <nav class="shop-tabs">
+                    <button type="button" data-shop-tab="characteristics"
+                            class="{{#if (eq shopTab "characteristics")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_CHARACTERISTICS"}}</button>
+                    <button type="button" data-shop-tab="skills"
+                            class="{{#if (eq shopTab "skills")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_SKILLS"}}</button>
+                    <button type="button" data-shop-tab="talents"
+                            class="{{#if (eq shopTab "talents")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_TALENTS"}}</button>
+                </nav>
+
+                {{#if (eq shopTab "characteristics")}}
+                <div class="shop-list">
+                    {{#each shopCharacteristics as |offer|}}
+                    <div class="shop-row{{#if offer.maxed}} maxed{{/if}}">
+                        <span class="shop-name">{{offer.label}}</span>
+                        <span class="shop-step">{{#if offer.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{offer.nextLabel}} +5{{/if}}</span>
+                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{offer.matched}}/2</span>
+                        <span class="shop-cost">{{#unless offer.maxed}}{{offer.cost}}{{/unless}}</span>
+                        <button type="button" class="shop-buy" data-buy-characteristic="{{offer.key}}"
+                                {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                    </div>
+                    {{/each}}
+                </div>
                 {{/if}}
 
-                {{!-- Цены из книги в колонке ЭТОГО персонажа: две склонности совпало,
-                      одна или ни одной. Тратится опыт на листе, но знать, что почём,
-                      нужно здесь. --}}
-                <table class="wizard-prices">
-                    <tr>
-                        <th></th>
-                        <th>{{localize "WIZARD.PRICE_TWO"}}</th>
-                        <th>{{localize "WIZARD.PRICE_ONE"}}</th>
-                        <th>{{localize "WIZARD.PRICE_NONE"}}</th>
-                    </tr>
-                    {{#each priceRows as |row|}}
-                    <tr>
-                        <th>{{row.label}}</th>
-                        <td>{{row.two}}</td>
-                        <td>{{row.one}}</td>
-                        <td>{{row.none}}</td>
-                    </tr>
+                {{#if (eq shopTab "skills")}}
+                <div class="shop-list">
+                    {{#each shopSkills as |offer|}}
+                    <div class="shop-row{{#if offer.maxed}} maxed{{/if}}">
+                        <span class="shop-name">{{offer.label}}</span>
+                        <span class="shop-step">{{#if offer.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{offer.currentLabel}} → {{offer.nextLabel}}{{/if}}</span>
+                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{offer.matched}}/2</span>
+                        <span class="shop-cost">{{#unless offer.maxed}}{{offer.cost}}{{/unless}}</span>
+                        <button type="button" class="shop-buy" data-buy-skill="{{offer.key}}" data-spec="{{offer.specKey}}"
+                                {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                    </div>
                     {{/each}}
-                </table>
-                <p class="wizard-note">{{localize "WIZARD.SPEND_HINT"}}</p>
+                </div>
+                {{!-- Новая специализация — по имени: их по двадцать на навык, и строка
+                      «купить Known» в каждой была бы стеной. --}}
+                <div class="shop-new-spec">
+                    <span class="wizard-choice-label">{{localize "WIZARD.SHOP_NEW_SPECIALITY"}}</span>
+                    <select class="shop-new-spec-skill">
+                        {{#each shopSpecialistSkills as |skill|}}
+                        <option value="{{skill.key}}">{{skill.label}}</option>
+                        {{/each}}
+                    </select>
+                    <input type="text" class="shop-new-spec-name" placeholder="{{localize "WIZARD.SHOP_SPECIALITY_NAME"}}"/>
+                    <button type="button" class="shop-buy" data-buy-speciality>{{localize "WIZARD.SHOP_BUY"}}</button>
+                </div>
+                {{/if}}
+
+                {{#if (eq shopTab "talents")}}
+                <div class="shop-filters">
+                    <input type="text" class="shop-talent-search" value="{{talentFilter}}"
+                           placeholder="{{localize "WIZARD.SHOP_SEARCH"}}"/>
+                    <select class="shop-talent-tier">
+                        <option value="0" {{#if (eq talentTier 0)}}selected{{/if}}>{{localize "WIZARD.SHOP_ALL_TIERS"}}</option>
+                        <option value="1" {{#if (eq talentTier 1)}}selected{{/if}}>{{localize "WIZARD.SHOP_TIER"}} 1</option>
+                        <option value="2" {{#if (eq talentTier 2)}}selected{{/if}}>{{localize "WIZARD.SHOP_TIER"}} 2</option>
+                        <option value="3" {{#if (eq talentTier 3)}}selected{{/if}}>{{localize "WIZARD.SHOP_TIER"}} 3</option>
+                    </select>
+                </div>
+                <div class="shop-list">
+                    {{#each shopTalents as |offer|}}
+                    <div class="shop-row shop-talent{{#if offer.blocked}} blocked{{/if}}">
+                        <div class="shop-talent-head">
+                            <span class="shop-name">{{offer.name}}</span>
+                            <span class="shop-step">{{localize "WIZARD.SHOP_TIER"}} {{offer.tier}}</span>
+                            <span class="shop-match" title="{{offer.aptitudeText}}">{{offer.matched}}/2</span>
+                            <span class="shop-cost">{{offer.cost}}</span>
+                            <button type="button" class="shop-buy" data-buy-talent="{{offer.uuid}}"
+                                    {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                        </div>
+                        {{#if offer.prerequisites.length}}
+                        <div class="shop-prerequisites">
+                            {{#each offer.prerequisites as |check|}}
+                            <span class="shop-prereq {{check.status}}">{{check.text}}</span>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                        {{#if offer.specialist}}
+                        <input type="text" class="shop-talent-spec" data-talent-spec="{{offer.uuid}}"
+                               placeholder="{{localize "WIZARD.SHOP_SPECIALISATION"}}"/>
+                        {{/if}}
+                    </div>
+                    {{else}}
+                    <p class="wizard-note">{{localize "WIZARD.SHOP_NO_TALENTS"}}</p>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{!-- Журнал покупок этого прохода. Возвращается любая, но ступень лестницы —
+                      только верхняя: так устроена книга. --}}
+                {{#if shopPurchases.length}}
+                <div class="shop-purchases">
+                    <span class="wizard-choice-label">{{localize "WIZARD.SHOP_PURCHASES"}}</span>
+                    {{#each shopPurchases as |record|}}
+                    <div class="shop-purchase">
+                        <span class="shop-name">{{record.label}}</span>
+                        <span class="shop-cost">{{record.cost}}</span>
+                        <button type="button" class="shop-refund" data-refund="{{record.index}}"
+                                title="{{localize "WIZARD.SHOP_REFUND"}}"><i class="fas fa-rotate-left"></i></button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                <p class="wizard-note">{{localize "WIZARD.ACQUISITIONS"}} <b>{{influenceBonus}}</b></p>
             {{/if}}
 
-            {{#if (eq step.kind "divination")}}
+{{#if (eq step.kind "divination")}}
                 {{#if divinationDrawn}}
                 {{!-- Пророчество — цитата, эффект под ним отдельной строкой:
                       первое читают, второе применяется. --}}

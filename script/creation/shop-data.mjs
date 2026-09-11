@@ -20,6 +20,12 @@ import {CHARACTERISTIC_LEVELS, SKILL_LEVELS, CHARACTERISTIC_STEP, advanceCost, m
 /** Влияние не покупается за опыт (стр. 79). */
 export const UNPURCHASABLE_CHARACTERISTICS = ["influence"];
 
+/** Сокращения, которыми книга пишет пороги в предпосылках: «Ag 30», «WP 40». */
+export const CHARACTERISTIC_ABBREVIATIONS = {
+    ws: "weaponSkill", bs: "ballisticSkill", s: "strength", t: "toughness", ag: "agility",
+    int: "intelligence", per: "perception", wp: "willpower", fel: "fellowship", inf: "influence"
+};
+
 /** Ступень навыка по advance: -20 — не обучен, 0/10/20/30 — Known..Veteran. */
 export function skillLevelIndex(advance) {
     const value = Number(advance ?? -20);
@@ -80,17 +86,49 @@ export function skillOffers(snapshot) {
     return offers;
 }
 
+/** Имя навыка без регистра, пробелов и дефисов: книга пишет и «Tech-Use», и «Tech Use». */
+const skillName = text => String(text ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+/**
+ * Лучший ранг (advance) навыка по имени из текста книги, или null, если такого навыка нет.
+ * «Common Lore (War)» — конкретная специализация; «Common Lore» или «any Common Lore» —
+ * лучшая из имеющихся.
+ */
+function skillAdvance(skills, text) {
+    const bracket = /^(.+?)\s*\((.+)\)$/.exec(String(text).trim());
+    const wanted = skillName(bracket ? bracket[1] : text);
+    for (const [key, skill] of Object.entries(skills ?? {})) {
+        if (skillName(skill.label ?? key) !== wanted && skillName(key) !== wanted) continue;
+        if (!skill.isSpecialist) return Number(skill.advance ?? -20);
+        const specialities = Object.entries(skill.specialities ?? {});
+        // «(Xenos–Any)» — любая специализация, начинающаяся с «Xenos»; «(Any)» — любая.
+        const anyOf = bracket && /\bany\b/i.test(bracket[2]) ? skillName(bracket[2].replace(/\bany\b/i, "")) : null;
+        if (bracket && anyOf === null) {
+            const spec = specialities.find(([specKey, entry]) =>
+                [entry.label, specKey].some(name => skillName(name) === skillName(bracket[2])));
+            return spec ? Number(spec[1].advance ?? -20) : -20;
+        }
+        if (anyOf) return Math.max(-20, ...specialities
+            .filter(([specKey, entry]) => [entry.label, specKey].some(name => skillName(name).startsWith(anyOf)))
+            .map(([, entry]) => Number(entry.advance ?? -20)));
+        return Math.max(-20, ...specialities.map(([, entry]) => Number(entry.advance ?? -20)));
+    }
+    return null;
+}
+
 /**
  * Проверка предпосылок таланта по тексту книги.
  *
- * Разбираются два надёжных вида: порог характеристики («Willpower 50») и имя таланта
- * или черты («Strong Minded»). Остальное («Psy rating», «Mechanicus Implants» как
- * часть тела) помечается «проверить вручную» и покупку не блокирует: запретить по
- * тому, что не удалось прочитать, хуже, чем разрешить.
+ * Читаются: порог характеристики полным именем или сокращением («Willpower 50», «Ag 30»),
+ * навык («Awareness», «Awareness +10», «Rank 2 (Trained) in any Operate skill»), имеющийся
+ * талант или черта, талант книги, которого у персонажа нет (snapshot.talentNames), и
+ * альтернативы через «or». Остальное («Psy rating», импланты) помечается «проверить
+ * вручную» и покупку не блокирует: запретить по тому, что не удалось прочитать, хуже,
+ * чем разрешить.
  *
  * @param {string} text
- * @param {object} snapshot  {characteristicValues, talents, traits}
- * @param {Record<string, string>} characteristicNames  «Willpower» → willpower
+ * @param {object} snapshot  {characteristicValues, skills, talents, traits, talentNames?}
+ * @param {Record<string, string>} characteristicNames  «willpower» → willpower, «wp» → willpower
  * @returns {{text: string, status: "met"|"unmet"|"unknown"}[]}
  */
 export function checkPrerequisites(text, snapshot, characteristicNames) {
@@ -99,19 +137,34 @@ export function checkPrerequisites(text, snapshot, characteristicNames) {
 
     const owned = new Set([...(snapshot.talents ?? []), ...(snapshot.traits ?? [])]
         .map(entry => String(entry.name ?? entry).toLowerCase().replace(/\*$/, "").trim()));
+    const talentNames = snapshot.talentNames ?? new Set();
+    const meets = (advance, required) => advance === null ? "unknown" : advance >= required ? "met" : "unmet";
+
+    const single = part => {
+        const threshold = /^(.+?)\s+(\d+)\+?$/.exec(part);
+        const key = threshold && characteristicNames[threshold[1].trim().toLowerCase()];
+        if (key) return Number(snapshot.characteristicValues?.[key] ?? 0) >= Number(threshold[2]) ? "met" : "unmet";
+
+        // Ранг N — это advance (N-1)·10: Known 0, Trained 10, Experienced 20, Veteran 30.
+        const rank = /^rank\s+(\d)\s*(?:\([^)]*\))?\s+in\s+(?:the\s+)?(?:any\s+)?(.+?)(?:\s+skills?)?$/i.exec(part);
+        if (rank) return meets(skillAdvance(snapshot.skills, rank[2]), (Number(rank[1]) - 1) * 10);
+        const bonus = /^(.+?)\s*\+(\d+)$/.exec(part);
+        if (bonus) return meets(skillAdvance(snapshot.skills, bonus[1]), Number(bonus[2]));
+
+        const name = part.toLowerCase().replace(/\s*\([^)]*\)\s*$/, "").trim();
+        if (owned.has(part.toLowerCase()) || (owned.has(name) && !/\(/.test(part))) return "met";
+        const skill = skillAdvance(snapshot.skills, part);
+        if (skill !== null) return meets(skill, 0);
+        if (owned.has(name) && !talentNames.has(name)) return "met";
+        if (talentNames.has(name)) return "unmet";
+        return "unknown";
+    };
 
     return raw.split(/,(?![^(]*\))/).map(part => part.trim()).filter(Boolean).map(part => {
-        const threshold = /^(.+?)\s+(\d+)\+?$/.exec(part);
-        if (threshold) {
-            const key = characteristicNames[threshold[1].trim().toLowerCase()];
-            if (key) {
-                const value = Number(snapshot.characteristicValues?.[key] ?? 0);
-                return {text: part, status: value >= Number(threshold[2]) ? "met" : "unmet"};
-            }
-        }
-        const name = part.toLowerCase().replace(/\s*\([^)]*\)\s*$/, "").trim();
-        if (owned.has(name) || owned.has(part.toLowerCase())) return {text: part, status: "met"};
-        return {text: part, status: "unknown"};
+        const statuses = part.split(/\s+or\s+(?![^(]*\))/i).map(option => single(option.trim()));
+        const status = statuses.includes("met") ? "met"
+            : statuses.every(entry => entry === "unmet") ? "unmet" : "unknown";
+        return {text: part, status};
     });
 }
 
@@ -124,6 +177,9 @@ export function checkPrerequisites(text, snapshot, characteristicNames) {
  */
 export function talentOffers(catalogue, snapshot, characteristicNames) {
     const owned = new Set((snapshot.talents ?? []).map(entry => String(entry.name ?? entry).toLowerCase()));
+    // Имена талантов из самого каталога: предпосылка «Frenzy» — талант, которого может не быть.
+    const withNames = {...snapshot, talentNames: new Set((catalogue ?? [])
+        .map(entry => String(entry.name).toLowerCase().replace(/\*$/, "").trim()))};
     const offers = [];
     for (const entry of catalogue ?? []) {
         const tier = Number(entry.tier);
@@ -134,7 +190,7 @@ export function talentOffers(catalogue, snapshot, characteristicNames) {
         if (!specialist && owned.has(String(entry.name).toLowerCase())) continue;
         const aptitudes = String(entry.aptitudes ?? "").split(",").map(part => part.trim()).filter(Boolean);
         const matched = matchingAptitudes(snapshot.aptitudes, aptitudes);
-        const prerequisites = checkPrerequisites(entry.prerequisites, snapshot, characteristicNames);
+        const prerequisites = checkPrerequisites(entry.prerequisites, withNames, characteristicNames);
         offers.push({
             name: entry.name, uuid: entry.uuid, tier, aptitudes, matched, specialist,
             cost: advanceCost("talent", tier, matched),
