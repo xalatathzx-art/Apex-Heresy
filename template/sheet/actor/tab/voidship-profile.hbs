@@ -3,8 +3,10 @@
       колонке одним блоком, и читается оно тоже вместе. --}}
 <div class="flex wrap voidship-profile">
 
-    {{!-- Место и Мощность. Остаток система считает сама — это вычитание того,
-          что записал игрок, а не знание правил. --}}
+    {{!-- Место и Мощность. Пока на корабле нет ни компонентов, ни стволов, обе
+          строки заполняются руками — так лист вёл себя всегда. Как только
+          появился первый предмет, расход считается по нему, и ручное поле
+          гаснет: две правды об одной цифре рано или поздно разойдутся. --}}
     <div class="ship-budget border">
         <h1 class="section-head"><span>{{localize "SHIP.SPACE"}}</span></h1>
         <div class="stat-grid">
@@ -12,12 +14,16 @@
                 <span>{{localize "SHIP.AVAILABLE"}}</span>
                 <input name="system.space.available" type="number" value="{{source.space.available}}" data-dtype="Number" />
             </label>
-            <label class="stat-field">
+            <label class="stat-field{{#if system.space.auto}} is-derived{{/if}}">
                 <span>{{localize "SHIP.USED"}}</span>
-                <input name="system.space.used" type="number" value="{{source.space.used}}" data-dtype="Number" />
+                {{#if system.space.auto}}
+                    <output title="{{localize "SHIP.USED_AUTO"}}">{{system.space.used}}</output>
+                {{else}}
+                    <input name="system.space.used" type="number" value="{{source.space.used}}" data-dtype="Number" />
+                {{/if}}
             </label>
         </div>
-        <div class="budget-bar" role="img" aria-label="{{system.space.used}} / {{system.space.available}}">
+        <div class="budget-bar" role="img" aria-label="{{system.space.used}} / {{system.space.total}}">
             <div class="budget-fill{{#if system.space.over}} is-over{{/if}}"
                  style="width: {{system.space.percent}}%"></div>
         </div>
@@ -33,12 +39,24 @@
                 <span>{{localize "SHIP.AVAILABLE"}}</span>
                 <input name="system.power.available" type="number" value="{{source.power.available}}" data-dtype="Number" />
             </label>
-            <label class="stat-field">
+            <label class="stat-field{{#if system.power.auto}} is-derived{{/if}}">
                 <span>{{localize "SHIP.USED"}}</span>
-                <input name="system.power.used" type="number" value="{{source.power.used}}" data-dtype="Number" />
+                {{#if system.power.auto}}
+                    <output title="{{localize "SHIP.USED_AUTO"}}">{{system.power.used}}</output>
+                {{else}}
+                    <input name="system.power.used" type="number" value="{{source.power.used}}" data-dtype="Number" />
+                {{/if}}
             </label>
         </div>
-        <div class="budget-bar" role="img" aria-label="{{system.power.used}} / {{system.power.available}}">
+        {{!-- Мощность вдобавок вырабатывается: её даёт плазменный привод, и
+              записанное выше — это то, что есть до компонентов. --}}
+        {{#if system.power.generated}}
+            <p class="budget-note">
+                {{localize "SHIP.POWER_GENERATED"}}: <b>+{{system.power.generated}}</b>
+                &middot; {{localize "SHIP.POWER_TOTAL"}}: <b>{{system.power.total}}</b>
+            </p>
+        {{/if}}
+        <div class="budget-bar" role="img" aria-label="{{system.power.used}} / {{system.power.total}}">
             <div class="budget-fill{{#if system.power.over}} is-over{{/if}}"
                  style="width: {{system.power.percent}}%"></div>
         </div>
@@ -50,7 +68,15 @@
     {{!-- Ёмкость позиций. Рядом с введённым числом стоит счёт установленных
           орудий: перебор виден сразу, но ничем не запрещается. --}}
     <div class="ship-capacity border">
-        <h1 class="section-head"><span>{{localize "SHIP.WEAPON_CAPACITY"}}</span></h1>
+        <h1 class="section-head">
+            <span>{{localize "SHIP.WEAPON_CAPACITY"}}</span>
+            {{!-- Очки корабля — третья смета постройки, соседка Места и
+                  Мощности; на механику боя не влияет, но живёт рядом. --}}
+            <label class="ship-sp">
+                <span>{{localize "SHIP.SHIP_POINTS"}}</span>
+                <input name="system.sp" type="number" value="{{source.sp}}" data-dtype="Number" />
+            </label>
+        </h1>
         <div class="capacity-grid">
             {{#each system.weaponSlots as |slot|}}
                 <label class="stat-field capacity-slot{{#if slot.over}} is-over{{/if}}">

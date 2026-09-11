@@ -109,6 +109,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ...(this.step?.kind === "experience" ? await this._experienceContextLoaded() : {}),
             ...(this.step?.kind === "equipment" ? await this._equipmentStepContext() : {}),
             ...(this.step?.kind === "comrade" ? this._comradeStepContext() : {}),
+            ...(this.step?.kind === "passions" ? await this._passionsStepContext(this.step) : {}),
             ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
@@ -154,8 +155,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const root = this.element;
         if (!root) return;
 
-        const originSelect = root.querySelector("select[data-origin-step]");
-        if (originSelect) {
+        // Панель страстей держит три списка сразу, поэтому слушаем каждый.
+        for (const originSelect of root.querySelectorAll("select[data-origin-step]")) {
             originSelect.addEventListener("change", async ev => {
                 const stepId = ev.currentTarget.dataset.originStep;
                 const uuid = ev.currentTarget.value;
@@ -190,6 +191,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         this._wireEquipment(root);
         this._wireRegiment(root);
         this._wireComrade(root);
+        this._wirePassions(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -453,6 +455,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (!step) return false;
         // Полк закрепляется тем же путём, что происхождение: это такой же носитель.
         if (step.kind === "origin" || step.kind === "regiment") return this._commitOriginStep(step);
+        if (step.kind === "passions") return this._commitPassionsStep(step);
         if (step.kind === "characteristics") return this._commitCharacteristicsStep();
         if (step.kind === "experience") return this._commitExperienceStep();
         if (step.kind === "divination") return this._commitDivinationStep();
@@ -490,17 +493,36 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return Math.floor((this.actor?.system?.characteristics?.intelligence?.total ?? 0) / 10);
     }
 
+    /**
+     * Что персонаж уже взял на прошлых шагах — по ключам происхождений.
+     *
+     * Архетипы Black Crusade делятся на человеческие и легионерские (стр. 54), и
+     * список должен спрашивать только то, что этому персонажу доступно.
+     */
+    _originKeys() {
+        return new Set(this.actor.items
+            .filter(item => item.type === "origin" && item.system.key)
+            .map(item => item.system.key));
+    }
+
     /** Происхождения пака для одной стадии текущей книги, в книжном порядке. */
     async _originsFor(stage) {
         const pack = game.packs.get("dark-heresy.origins");
-        const index = pack ? await pack.getIndex({fields: ["system.ruleset", "system.stage", "system.order"]}) : {contents: []};
+        const index = pack ? await pack.getIndex({fields: ["system.ruleset", "system.stage", "system.order",
+                                                          "system.requires"]}) : {contents: []};
         const fromPack = index.contents
             .filter(entry => entry.system?.ruleset === this.ruleset && entry.system?.stage === stage);
         // Полк собирается один на отряд и живёт предметом мира — его тоже предлагаем.
         const fromWorld = game.items.filter(item => item.type === "origin"
             && item.system.ruleset === this.ruleset && item.system.stage === stage)
             .map(item => ({uuid: item.uuid, name: item.name, system: item.system}));
+        const taken = this._originKeys();
         return [...fromPack, ...fromWorld]
+            // Требование к прошлому шагу: архетип десантника Хаоса человеку не предлагается.
+            .filter(entry => {
+                const needs = entry.system?.requires?.originKey;
+                return !needs || taken.has(needs);
+            })
             .sort((a, b) => (a.system.order ?? 0) - (b.system.order ?? 0) || a.name.localeCompare(b.name));
     }
 
@@ -531,17 +553,17 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
      * На актора не уходит НИЧЕГО, пока план не сойдётся: неотвеченный выбор
      * оставляет персонажа ровно таким, каким он был.
      */
-    async _commitOriginStep(step) {
+    async _commitOriginStep(step, scope = this.element) {
         const actor = this.actor;
         if (this._carrierFor(step)) return true;   // уже закреплено в прошлый заход
 
-        const uuid = this.element?.querySelector(`select[data-origin-step="${step.id}"]`)?.value;
+        const uuid = scope?.querySelector(`select[data-origin-step="${step.id}"]`)?.value;
         if (!uuid) { ui.notifications?.warn(game.i18n.localize("WIZARD.PICK_ORIGIN")); return false; }
 
         const source = (await fromUuid(uuid))?.toObject();
         if (!source) { ui.notifications?.warn(game.i18n.localize("WIZARD.PICK_ORIGIN")); return false; }
 
-        const picks = readChoicePicks(this.element.querySelector(".wizard-choice-rows"), source.system);
+        const picks = readChoicePicks(scope.querySelector(".wizard-choice-rows"), source.system);
         this.answers[step.id] = picks;
 
         const {plan, problems} = resolveGrantPlan(source.system, picks,
@@ -1123,12 +1145,46 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return total;
     }
 
+    /**
+     * С какого числа начинается характеристика.
+     *
+     * У Black Crusade это не свойство книги, а свойство расы: человек прибавляет к
+     * 2d10 двадцать пять, десантник Хаоса — тридцать (стр. 53). Раса выбирается до
+     * характеристик, поэтому к этому шагу ответ уже есть.
+     */
+    _characteristicBase() {
+        for (const item of this.actor.items) {
+            if (item.type !== "origin") continue;
+            const own = item.system.rules?.characteristicBase;
+            if (Number.isFinite(own)) return own;
+        }
+        return RULESET_DEFS[this.ruleset]?.characteristicBase ?? 20;
+    }
+
+    /**
+     * Характеристика, которая бросается по своей формуле.
+     *
+     * Тёмная слава идёт не с остальными: 1d5+19, и катается даже при закупке очков
+     * (стр. 53). Поэтому в бюджет закупки она не входит вовсе.
+     */
+    _infamyRule() {
+        return RULESET_DEFS[this.ruleset]?.infamy ?? null;
+    }
+
+    /** Характеристики, которые игрок распределяет очками. */
+    _pointBuyKeys() {
+        const infamy = this._infamyRule();
+        return characteristicKeysFor(this.ruleset).filter(key => key !== infamy?.key);
+    }
+
     /** Контекст шага характеристик: способ, формулы и уже брошенные значения. */
     _characteristicsStepContext() {
         const rolled = this.actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls");
         const profile = RULESET_DEFS[this.ruleset];
         const method = this._charMethod ?? rolled?.method ?? profile.characteristicMethods[0];
-        const rules = pointBuyRules(this.ruleset);
+        const base = this._characteristicBase();
+        const rules = pointBuyRules(this.ruleset, base);
+        const infamy = this._infamyRule();
         // Книга с плоскими модификаторами прибавляет их ПОСЛЕ генерации (Only War, стр. 41),
         // поэтому в формулу они не входят и показываются отдельной колонкой.
         const inFormula = profile.characteristicModifiers === "generation";
@@ -1148,14 +1204,25 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             charBudget: rules.points,
             charRows: characteristicKeysFor(this.ruleset).map(key => {
                 const modifier = this._originModifier(key);
+                // Тёмная слава катается всегда и по своей формуле, даже когда остальное
+                // покупается за очки.
+                const ownFormula = key === infamy?.key ? infamy.formula : null;
                 return {
                     key,
-                    label: game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`),
+                    // Black Crusade зовёт Влияние Тёмной славой, как и лист еретика.
+                    label: game.i18n.localize(ownFormula
+                        ? "CHARACTERISTIC.INFAMY"
+                        : `CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`),
                     modifier,
-                    formula: rollExpression(profile.characteristicModifiers, inFormula ? modifier : 0),
+                    rolledOnly: !!ownFormula,
+                    // Кости у строки есть, когда книга их требует: при закупке очков
+                    // они остаются только у Тёмной славы.
+                    rollable: !!ownFormula || method !== "pointBuy",
+                    formula: ownFormula
+                        ?? rollExpression(profile.characteristicModifiers, inFormula ? modifier : 0, base),
                     // При закупке модификатор сдвигает СТАРТ, а не результат: «+» начинает
                     // с 30, «−» с 20 вместо 25. Плоский же прибавляется в конце, к готовому.
-                    start: rules.base + (inFormula ? modifier : 0),
+                    start: ownFormula ? "" : rules.base + (inFormula ? modifier : 0),
                     value: rolled?.values?.[key] ?? this._charValues?.[key] ?? ""
                 };
             }),
@@ -1186,7 +1253,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             values[key] = Number(root?.querySelector(`input[data-characteristic="${key}"]`)?.value ?? 0);
 
         if (method === "pointBuy") {
-            const problems = pointBuyProblems(values, pointBuyRules(this.ruleset), keys);
+            const bought = this._pointBuyKeys();
+            const problems = pointBuyProblems(values, pointBuyRules(this.ruleset, this._characteristicBase()),
+                                              bought);
+            // Слава не покупается, но и пустой остаться не может: её бросают в любом случае.
+            if (!problems.length && keys.some(key => !bought.includes(key) && !values[key]))
+                problems.push(game.i18n.localize("WIZARD.ROLL_ALL"));
             if (problems.length) { ui.notifications?.warn(problems.join("; ")); return false; }
         } else if (keys.some(key => !values[key])) {
             ui.notifications?.warn(game.i18n.localize("WIZARD.ROLL_ALL"));
@@ -1218,7 +1290,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const actor = this.actor;
         if (actor.getFlag(GRANT_FLAG_SCOPE, "creationVitals")) return;
         const profile = RULESET_DEFS[this.ruleset];
-        const stage = profile.vitalsStage === "speciality" ? "speciality" : "homeWorld";
+        // Откуда книга берёт Раны: родной мир Dark Heresy, специальность Only War,
+        // архетип Black Crusade. Несверенная книга идёт за Dark Heresy.
+        const stage = profile.vitalsStage ?? "homeWorld";
         const source = actor.items.find(item => item.type === "origin" && item.system.stage === stage);
         const values = actor.getFlag(GRANT_FLAG_SCOPE, "creationRolls")?.values ?? {};
         const toughnessBonus = Math.floor((values.toughness ?? actor.system.characteristics?.toughness?.total ?? 0) / 10);
@@ -1293,6 +1367,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return {
             ruleset: this.ruleset,
             aptitudes: ownedAptitudes(this.actor),
+            // Покровитель решает цену КАЖДОЙ покупки Black Crusade (стр. 76).
+            patron: system.patron || "undivided",
             characteristics, characteristicValues,
             skills: foundry.utils.deepClone(system.skills ?? {}),
             talents: this.actor.items.filter(item => item.type === "talent")
@@ -1468,6 +1544,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const snapshot = this._shopSnapshot();
         const label = key => game.i18n.localize(`CHARACTERISTIC.${key.replace(/([A-Z])/g, "_$1").toUpperCase()}`);
         const levelLabel = level => level ? game.i18n.localize(`WIZARD.LEVEL.${level.toUpperCase()}`) : "";
+        // «Свой», «союзный», «враждебный» — то, чем Black Crusade заменяет склонности.
+        const relationLabel = relation => relation
+            ? game.i18n.localize(`RELATION.${relation.toUpperCase()}`) : "";
         const remaining = this._remaining();
         const freePowers = this._freePowerExperience();
         const filter = String(this._talentFilter ?? "").toLowerCase().trim();
@@ -1502,6 +1581,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             replacementSlots: this._replacementSlots,
             shopElite: eliteOffers(snapshot, names).map(offer => ({...offer,
                 rules: game.i18n.localize(`WIZARD.ELITE_${offer.key.toUpperCase()}_RULES`),
+                relationLabel: relationLabel(offer.relation),
                 affordable: !locked && !offer.blocked && offer.cost <= remaining})),
             shopFreePowerExperience: this._freePowerExperience(),
             shopAdvances: advances.map(entry => ({...entry,
@@ -1523,7 +1603,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             shopSpent: spentOn(this._purchases),
             shopRemaining: remaining,
             shopCharacteristics: characteristicOffers(snapshot).map(offer => ({
-                ...offer, label: label(offer.key), nextLabel: levelLabel(offer.nextLevel),
+                ...offer,
+                label: offer.infamy ? game.i18n.localize("CHARACTERISTIC.INFAMY") : label(offer.key),
+                nextLabel: offer.infamy ? game.i18n.localize("WIZARD.LEVEL.INFAMY") : levelLabel(offer.nextLevel),
+                relationLabel: relationLabel(offer.relation),
                 affordable: !locked && !offer.maxed && offer.cost <= remaining
             })),
             shopSkills: skillOffers(snapshot).map(offer => ({
@@ -1533,6 +1616,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                     : game.i18n.localize(offer.label),
                 currentLabel: levelLabel(offer.level) || game.i18n.localize("WIZARD.LEVEL.UNTRAINED"),
                 nextLabel: levelLabel(offer.nextLevel),
+                relationLabel: relationLabel(offer.relation),
                 affordable: !locked && !offer.maxed && offer.cost <= remaining
             })),
             shopSpecialistSkills: Object.entries(snapshot.skills)
@@ -1553,6 +1637,11 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 // Купленный талант уже лежит на листе — его карточку и открываем.
                 readable: ["talent", "power", "advance"].includes(record.kind) && !!this.actor.items.get(record.itemId)})),
             aptitudeChips: [...owned].sort(),
+            // У Black Crusade склонностей нет вовсе, а цену объясняет покровитель.
+            showAptitudes: RULESET_DEFS[this.ruleset]?.aptitudes !== false,
+            shopPatron: RULESET_DEFS[this.ruleset]?.aptitudes === false
+                ? game.i18n.localize(`PATRON.${(this.actor.system.patron || "undivided").toUpperCase()}`)
+                : "",
             priceRows: [
                 priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),
                 priceRow(SKILL_COSTS, game.i18n.localize("WIZARD.PRICE_SKILLS")),
@@ -1648,6 +1737,61 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const ids = this._equipmentPicks.map(pick => pick.itemId).filter(id => this.actor.items.get(id));
         if (ids.length) await this.actor.deleteEmbeddedDocuments("Item", ids);
         if (this.actor.getFlag(GRANT_FLAG_SCOPE, "creationEquipment")) await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationEquipment");
+    }
+
+    // ── Шаг страстей ─────────────────────────────────────────────────────
+
+    /**
+     * Стадия 4 книги: Гордыня, Позор и Стремление (стр. 71-75).
+     *
+     * Три таблицы стоят на одной панели, потому что это один разговор о том, кто
+     * этот еретик: выбирать их по одной, разнося по шагам, значило бы трижды
+     * спросить одно и то же другими словами. Внутри каждая — обычное происхождение,
+     * со своими модификаторами и своим носителем.
+     */
+    async _passionsStepContext(step) {
+        const groups = [];
+        for (const sub of step.stages ?? []) {
+            const context = await this._originStepContext(sub);
+            groups.push({...context, id: sub.id, label: game.i18n.localize(sub.label)});
+        }
+        return {passionGroups: groups};
+    }
+
+    async _commitPassionsStep(step) {
+        for (const sub of step.stages ?? []) {
+            const scope = this.element?.querySelector(`[data-passion="${sub.id}"]`) ?? this.element;
+            if (!await this._commitOriginStep(sub, scope)) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Бросок по таблице страсти (стр. 75). Книга разрешает и выбрать, и бросить —
+     * кость здесь просто ставит выбор в списке, а закрепляет его общий «Далее».
+     */
+    async _rollPassion(stepId, stage) {
+        const roll = await new Roll("1d10").evaluate();
+        const options = await this._originsFor(stage);
+        const hit = options.find(entry => (entry.system?.order ?? 0) === roll.total) ?? options[roll.total - 1];
+        if (!hit) return;
+        (this._selectedOrigin ??= {})[stepId] = hit.uuid;
+        (this._selectedSource ??= {})[stepId] = (await fromUuid(hit.uuid))?.toObject()?.system ?? null;
+        delete this.answers[stepId];
+        ui.notifications?.info(game.i18n.format("WIZARD.PASSION_ROLLED", {roll: roll.total, name: hit.name}));
+    }
+
+    _wirePassions(root) {
+        for (const button of root.querySelectorAll("[data-roll-passion]"))
+            button.addEventListener("click", async event => {
+                event.preventDefault();
+                if (this._busy) return;
+                this._busy = true;
+                try {
+                    const {rollPassion, passionStage} = event.currentTarget.dataset;
+                    await this._rollPassion(rollPassion, passionStage);
+                } finally { this._busy = false; if (this.rendered) this.render(false); }
+            });
     }
 
     // ── Шаг Comrade и характера ──────────────────────────────────────────

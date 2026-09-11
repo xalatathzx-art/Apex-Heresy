@@ -1,0 +1,74 @@
+{{!-- Выстрел корабельного орудия. Поправки — ровно те, что называет книга:
+      дальность (стр. 220), внезапность (стр. 213), уклонение цели (стр. 216)
+      и наводка (стр. 218). Штраф за просевший Дух приходит сам и здесь не
+      спрашивается — он уже посчитан по таблице 8-14. --}}
+<div class="dh-dialog dh-ship-attack">
+
+    {{!-- Залп: какие макробатареи свести. Отмечены все — обычно так и стреляют,
+          а снять лишний ствол быстрее, чем набрать нужные. --}}
+    {{#if salvoWeapons}}
+        <div class="dh-salvo-list">
+            {{#each salvoWeapons as |w|}}
+                <label class="dh-salvo-row">
+                    <input type="checkbox" class="dh-salvo-weapon" data-weapon-id="{{w.id}}" checked />
+                    <span class="name">{{w.name}}</span>
+                    <span class="meta">{{w.strength}} &times; {{w.damage}}</span>
+                </label>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    <div class="dh-dialog-row">
+        <label for="shipTarget">{{localize "CHAT.TARGET"}}</label>
+        <select id="shipTarget">
+            <option value="">{{localize "SHIP.DIALOG.NO_TARGET"}}</option>
+            {{#each targets as |t|}}
+                <option value="{{t.id}}" {{#if t.selected}}selected{{/if}}>{{t.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    {{!-- Кто наводит. Пусто — бросают орудийные расчёты по выучке команды
+          (табл. 8-9); правила прямо разрешают поручать действие экипажу. --}}
+    <div class="dh-dialog-row">
+        <label for="shipGunner">{{localize "SHIP.CHAT.GUNNER"}}</label>
+        <select id="shipGunner">
+            <option value="">{{localize "SHIP.CHAT.CREW_GUNNERY"}} ({{crewRating}})</option>
+            {{#each gunners as |g|}}
+                <option value="{{g.id}}">{{g.name}} ({{g.bs}})</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="dh-dialog-row">
+        <label for="shipRange">{{localize "WEAPON.RANGE"}}</label>
+        <select id="shipRange">
+            <option value="close">{{localize "SHIP.RANGE.CLOSE"}} (+10)</option>
+            <option value="normal" selected>{{localize "SHIP.RANGE.NORMAL"}} (+0)</option>
+            <option value="long">{{localize "SHIP.RANGE.LONG"}} (&minus;10)</option>
+        </select>
+    </div>
+
+    <div class="dh-dialog-row">
+        <label for="shipSurprised">{{localize "SHIP.MOD.SURPRISED"}} (+20)</label>
+        <input id="shipSurprised" type="checkbox" />
+    </div>
+
+    {{!-- Уклонение цели и своя наводка здесь не спрашиваются: их кладут на
+          корабли манёвр и расширенное действие, и выстрел берёт их сам. --}}
+
+    <div class="dh-dialog-row">
+        <label for="shipModifier">{{localize "DIALOG.MODIFIER"}}</label>
+        <input id="shipModifier" type="number" value="0" data-dtype="Number" />
+    </div>
+
+    {{!-- Напоминание, а не поле: Сила уже урезана обездвиженностью, и стол
+          должен видеть, чем стреляет, прежде чем нажать. --}}
+    {{#unless salvoWeapons}}
+        <p class="dh-dialog-hint">
+            {{localize "SHIP.STRENGTH"}}: <b>{{strength}}</b> &middot;
+            {{localize "SHIP.CRIT_RATING"}}: <b>{{critRating}}</b> &middot;
+            {{localize "WEAPON.DAMAGE"}}: <b>{{damage}}</b>
+        </p>
+    {{/unless}}
+</div>

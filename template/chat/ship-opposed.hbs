@@ -1,0 +1,133 @@
+{{!-- Противопоставленный тест пустотного боя: абордаж, налёт, мятеж. Две
+      стороны рядом, итог строкой, ниже — то, что зависит от вида теста.
+
+      Карточка абордажа живая: победитель тратит на ней ступени перевеса. Всё,
+      что касается этой траты, собрано в одну панель — сколько осталось, чем
+      потратить, что уже вышло и чем кончился бросок Духа, — чтобы счётчик не
+      висел отдельно от кнопок, на которые он тратится. --}}
+<div class="dark-heresy chat roll ship-opposed-card" data-mode="{{mode}}"
+     data-ship-id="{{shipId}}" data-target-id="{{targetId}}" data-hull-damage="{{hullDamage}}">
+    <div class="roll-card-background dh-card {{verdictClass}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{localize title}}</span>
+            <span class="verdict">{{localize "SHIP.OPPOSED.LABEL"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+            <div class="ship-opposed-sides">
+                {{#each sides as |side|}}
+                    <div class="ship-side{{#if side.isWinner}} is-winner{{/if}}{{#unless side.success}} is-failed{{/unless}}">
+                        <p class="ship-side-h">{{side.label}}</p>
+                        <p class="ship-side-who">
+                            {{#if side.performerName}}{{side.performerName}}{{else}}{{localize "SHIP.CHAT.CREW"}}{{/if}}
+                            &middot; {{localize side.skillLabel}} ({{side.base}})
+                        </p>
+                        <p class="ship-side-roll"><span class="n">{{side.result}}</span> <span class="of">/ {{side.target}}</span></p>
+                        <p class="ship-side-deg">
+                            {{#if side.success}}{{side.degrees}} {{localize "SHIP.CHAT.DEGREES_SUCCESS"}}{{else}}{{side.failDegrees}} {{localize "SHIP.CHAT.DEGREES_FAILURE"}}{{/if}}
+                        </p>
+                        {{#if side.parts.length}}
+                            <details class="dh-fold">
+                                <summary>{{localize "SHIP.CHAT.MODIFIERS"}} ({{#if (gte side.totalMod 0)}}+{{/if}}{{side.totalMod}})</summary>
+                                <div>
+                                    {{#each side.parts as |part|}}
+                                        <div class="dh-line">
+                                            <span>{{localize part.label}}</span>
+                                            <span class="amount">{{#if (gte part.value 0)}}+{{/if}}{{part.value}}</span>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </details>
+                        {{/if}}
+                    </div>
+                {{/each}}
+            </div>
+
+            <p class="ship-effect">{{outcomeText}}</p>
+
+            {{#if (eq mode "boarding")}}
+                {{#if winnerId}}
+                    <div class="ship-spend">
+                        {{#if canSpend}}
+                            <div class="ship-spend-h">
+                                <span class="k">{{localize "SHIP.BOARDING.LEFT"}}</span>
+                                <span class="v">{{remaining}}</span>
+                            </div>
+                            <div class="dh-actions ship-btn-row">
+                                <button type="button" class="ship-btn ship-board-raid">
+                                    <span class="lbl">{{localize "SHIP.BOARDING.RAID"}}</span>
+                                    <span class="cost">{{localize "SHIP.BOARDING.RAID_COST"}}</span>
+                                </button>
+                                <button type="button" class="ship-btn ship-board-sabotage">
+                                    <span class="lbl">{{localize "SHIP.BOARDING.SABOTAGE"}}</span>
+                                    <span class="cost">{{localize "SHIP.BOARDING.SABOTAGE_COST"}}</span>
+                                </button>
+                            </div>
+                        {{/if}}
+
+                        {{#if logGroups.length}}
+                            <ul class="ship-log">
+                                {{#each logGroups as |g|}}
+                                    <li><span class="t">{{g.text}}</span>{{#if g.many}}<span class="x">&times;{{g.count}}</span>{{/if}}</li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}
+
+                        {{#if canMorale}}
+                            <div class="dh-actions ship-btn-row">
+                                <button type="button" class="ship-btn ship-board-morale">
+                                    <span class="lbl">{{localize "SHIP.BOARDING.MORALE_CHECK"}}</span>
+                                </button>
+                            </div>
+                        {{/if}}
+
+                        {{#if moraleText}}
+                            <p class="ship-verdict {{#if surrendered}}is-bad{{else}}is-good{{/if}}">{{moraleText}}</p>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            {{else}}
+                {{#if logGroups.length}}
+                    <ul class="ship-log">
+                        {{#each logGroups as |g|}}
+                            <li><span class="t">{{g.text}}</span>{{#if g.many}}<span class="x">&times;{{g.count}}</span>{{/if}}</li>
+                        {{/each}}
+                    </ul>
+                {{/if}}
+            {{/if}}
+
+            {{!-- Налёт: два крита на выбор ведущего. --}}
+            {{#each crits as |crit|}}
+                <div class="ship-crit">
+                    <p class="ship-crit-h">
+                        {{localize "SHIP.HIT_AND_RUN.OPTION"}}
+                        <span class="ship-crit-src">1d5 = {{crit.roll}}</span>
+                    </p>
+                    <p class="ship-crit-name">{{crit.name}}</p>
+                    <div class="ship-crit-text">{{#if crit.html}}{{{crit.html}}}{{else}}{{crit.text}}{{/if}}</div>
+                </div>
+            {{/each}}
+
+            {{#if canApply}}
+                <div class="dh-actions ship-btn-row">
+                    <button type="button" class="ship-damage-apply" data-apply-key="hull">
+                        {{localize "SHIP.CHAT.APPLY"}} ({{hullDamage}})
+                    </button>
+                </div>
+            {{/if}}
+
+            {{#if buttons.length}}
+                <div class="dh-actions ship-btn-row">
+                    {{#each buttons as |b|}}
+                        <button type="button" class="ship-btn {{b.cls}}" data-ship-id="{{../shipId}}">{{localize b.label}}</button>
+                    {{/each}}
+                </div>
+            {{/if}}
+
+            {{#each notes as |note|}}
+                <p class="ship-note">{{localize note}}</p>
+            {{/each}}
+        </div>
+    </div>
+</div>

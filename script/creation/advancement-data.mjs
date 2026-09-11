@@ -8,6 +8,8 @@
 //  Модуль чистый: ни одной глобали Foundry.
 // ════════════════════════════════════════════════════════════════════════
 
+import {stepCost, BC_CHARACTERISTIC_LEVELS} from "./patron-data.mjs";
+
 /** Ступени характеристики, по порядку. Пройти можно только подряд. */
 export const CHARACTERISTIC_LEVELS = ["simple", "intermediate", "trained", "proficient", "expert"];
 
@@ -49,6 +51,10 @@ export const CHARACTERISTIC_LADDERS = {
         }
     }
 };
+
+// Black Crusade считает не по склонностям, а по богам: ступени те же четыре, но
+// цена приходит из patron-data и зависит от покровителя (стр. 78).
+CHARACTERISTIC_LADDERS.bc = {levels: BC_CHARACTERISTIC_LEVELS, costs: null};
 
 /** Лестница для книги; несверенная идёт по Dark Heresy. */
 export function characteristicLadder(ruleset) {
@@ -98,12 +104,23 @@ export function matchingAptitudes(owned, required = []) {
  * @param {string} [ruleset]     книга — от неё зависит лестница характеристик
  * @returns {number|null}        null — такой ступени в таблице нет
  */
-export function advanceCost(kind, level, matches, ruleset = "dh2") {
+export function advanceCost(kind, level, matches, ruleset = "dh2", relation = null) {
+    // В Black Crusade склонностей нет вовсе: цену задаёт бог покупки и его отношение
+    // к покровителю персонажа — свой, союзный или враждебный (стр. 78).
+    if (ruleset === "bc") return bcAdvanceCost(kind, level, relation ?? "ally");
     const table = kind === "characteristic" ? characteristicLadder(ruleset).costs
         : kind === "skill" ? SKILL_COSTS
         : kind === "talent" ? TALENT_COSTS
         : null;
     return table?.[matches]?.[level] ?? null;
+}
+
+/** Цена одной ступени по таблицам 2-6, 2-7 и 2-9. Уровень таланта — это его тир. */
+function bcAdvanceCost(kind, level, relation) {
+    if (kind === "talent") return stepCost("talent", relation, Number(level) - 1);
+    const levels = kind === "characteristic" ? BC_CHARACTERISTIC_LEVELS : SKILL_LEVELS;
+    const step = levels.indexOf(level);
+    return step < 0 ? null : stepCost(kind, relation, step);
 }
 
 /**

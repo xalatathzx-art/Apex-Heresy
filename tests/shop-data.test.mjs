@@ -48,7 +48,7 @@ test('influence is never offered, because the book does not let it be bought', (
 test('a characteristic offers the next step at the price its aptitudes earn', () => {
     const offers = characteristicOffers(snapshot());
     assert.deepEqual(offers.find(o => o.key === 'weaponSkill'),
-        {key: 'weaponSkill', steps: 0, matched: 2, nextLevel: 'simple', cost: 100, maxed: false});
+        {key: 'weaponSkill', steps: 0, matched: 2, nextLevel: 'simple', relation: null, cost: 100, maxed: false});
     assert.equal(offers.find(o => o.key === 'intelligence').cost, 500, 'no matching aptitude');
 });
 
@@ -63,8 +63,8 @@ test('a characteristic already at Expert is maxed, not offered a sixth step', ()
 test('skills offer their next rank; a specialist skill offers only specialities already known', () => {
     const offers = skillOffers(snapshot());
     assert.deepEqual(offers.find(o => o.key === 'athletics'),
-        {key: 'athletics', specKey: null, label: 'Athletics', matched: 2, level: 'known', nextLevel: 'trained',
-         cost: 200, maxed: false});
+        {key: 'athletics', specKey: null, label: 'Athletics', matched: 2, relation: null, level: 'known',
+         nextLevel: 'trained', cost: 200, maxed: false});
     assert.equal(offers.find(o => o.key === 'logic').nextLevel, 'known');
     assert.ok(offers.some(o => o.specKey === 'imperialGuard'));
     assert.equal(offers.some(o => o.specKey === 'war'), false, 'an untrained speciality is bought by name instead');

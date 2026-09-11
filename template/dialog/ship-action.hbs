@@ -1,0 +1,91 @@
+{{!-- Корабельное действие: кто выполняет и с какой поправкой. Сложность и
+      характеристика корабля в комбинированном тесте берутся из книги сами и
+      названы строкой внизу — вводить их не нужно. --}}
+<div class="dh-dialog dh-ship-action">
+
+    <p class="dh-dialog-hint">{{localize hint}}</p>
+
+    <div class="dh-dialog-row">
+        <label for="shipPerformer">{{localize "SHIP.CHAT.PERFORMER"}}</label>
+        <select id="shipPerformer">
+            <option value="">{{localize "SHIP.CHAT.CREW"}} ({{crewRating}})</option>
+            {{#each performers as |p|}}
+                <option value="{{p.id}}">{{p.name}} ({{p.values}})</option>
+            {{/each}}
+        </select>
+    </div>
+
+    {{#if needsTarget}}
+        <div class="dh-dialog-row">
+            <label for="shipActionTarget">{{localize "SHIP.DIALOG.TARGET_SHIP"}}</label>
+            {{#if targets.length}}
+                <select id="shipActionTarget">
+                    {{#each targets as |t|}}
+                        <option value="{{t.id}}" {{#if t.selected}}selected{{/if}}>{{t.name}}</option>
+                    {{/each}}
+                </select>
+            {{else}}
+                <span class="dh-dialog-hint">{{localize "SHIP.DIALOG.NO_TARGETS"}}</span>
+            {{/if}}
+        </div>
+    {{/if}}
+
+    {{!-- Противник в противопоставленном тесте. Пусто — бросает команда по
+          выучке: своего корабля для мятежа, чужого для абордажа и налёта. --}}
+    {{#if hasDefender}}
+        <div class="dh-dialog-row">
+            <label for="shipDefender">{{localize "SHIP.DIALOG.DEFENDER"}}</label>
+            <select id="shipDefender">
+                <option value="">{{localize defenderDefault}}</option>
+                {{#each defenders as |d|}}
+                    <option value="{{d.id}}">{{d.name}} ({{d.value}})</option>
+                {{/each}}
+            </select>
+        </div>
+    {{/if}}
+
+    {{#if skillChoice}}
+        <div class="dh-dialog-row">
+            <label for="shipActionSkill">{{localize "SHIP.CHAT.SKILL"}}</label>
+            <select id="shipActionSkill">
+                {{#each skillChoice as |sk|}}
+                    <option value="{{sk.key}}">{{localize sk.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+    {{/if}}
+
+    {{#if statChoice}}
+        <div class="dh-dialog-row">
+            <label for="shipActionStat">{{localize "SHIP.DIALOG.SYSTEM"}}</label>
+            <select id="shipActionStat">
+                <option value="manoeuvrability">{{localize "SHIP.MANOEUVRABILITY"}}</option>
+                <option value="detection">{{localize "SHIP.DETECTION"}}</option>
+            </select>
+        </div>
+    {{/if}}
+
+    {{#if hasComponentChoice}}
+        <div class="dh-dialog-row">
+            <label for="shipActionComponent">{{localize "SHIP.DIALOG.COMPONENT"}}</label>
+            {{#if componentChoices.length}}
+                <select id="shipActionComponent">
+                    {{#each componentChoices as |c|}}
+                        <option value="{{c.id}}">{{c.name}}</option>
+                    {{/each}}
+                </select>
+            {{else}}
+                <span class="dh-dialog-hint">{{localize componentEmpty}}</span>
+            {{/if}}
+        </div>
+    {{/if}}
+
+    <div class="dh-dialog-row">
+        <label for="shipActionModifier">{{localize "DIALOG.MODIFIER"}}</label>
+        <input id="shipActionModifier" type="number" value="0" data-dtype="Number" />
+    </div>
+
+    <p class="dh-dialog-hint ship-action-test">
+        {{localize "SHIP.DIALOG.TEST"}}: {{localize skillLabel}}{{#if stat}} + {{localize stat}}{{/if}}, {{diffText}}
+    </p>
+</div>

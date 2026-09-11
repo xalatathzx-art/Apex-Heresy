@@ -18,6 +18,8 @@
             <a class="button vehicle-manoeuvre" data-action="hitAndRun"
                title="{{localize "VEHICLE.ACTION.HIT_AND_RUN"}}"
                aria-label="{{localize "VEHICLE.ACTION.HIT_AND_RUN"}}"><i class="fas fa-person-running"></i></a>
+            <a class="button vehicle-jink" title="{{localize "VEHICLE.ACTION.JINK"}}"
+               aria-label="{{localize "VEHICLE.ACTION.JINK"}}"><i class="fas fa-arrows-turn-to-dots"></i></a>
             <a class="button vehicle-ram" title="{{localize "VEHICLE.RAM"}}"
                aria-label="{{localize "VEHICLE.RAM"}}"><i class="fas fa-truck-monster"></i></a>
         </h1>
@@ -169,7 +171,15 @@
     {{!-- Особые состояния: то, что чинится отдельно от целостности и меняет
           поведение машины прямо сейчас. --}}
     <div class="vehicle-conditions border">
-        <h1 class="section-head"><span>{{localize "VEHICLE.CONDITIONS"}}</span></h1>
+        <h1 class="section-head">
+            <span>{{localize "VEHICLE.CONDITIONS"}}</span>
+            {{!-- Тушить может любой, кто внутри: полное действие на Ловкость.
+                  Штраф −20 за пожар экипаж уже несёт, и в проверку он входит сам. --}}
+            {{#if system.conditions.onFire}}
+                <a class="button vehicle-extinguish" title="{{localize "VEHICLE.EXTINGUISH"}}"
+                   aria-label="{{localize "VEHICLE.EXTINGUISH"}}"><i class="fas fa-fire-extinguisher"></i></a>
+            {{/if}}
+        </h1>
         {{!-- Черты, прочитанные из списка на вкладке черт. Они ничего не
               включают: выцеливать седоков и нарушать герметичность — решения
               стола, система лишь называет, с какой машиной он имеет дело. --}}
@@ -221,5 +231,10 @@
                 <span>{{localize "VEHICLE.CONDITION.WRECKED"}}</span>
             </label>
         </div>
+        {{!-- Пока машина горит, всем внутри −20 ко всему; система ставит этот
+              штраф в броски экипажа сама, здесь он только назван вслух. --}}
+        {{#if system.conditions.onFire}}
+            <p class="crew-hint is-penalty">{{localize "VEHICLE.CREW_BURNING"}}</p>
+        {{/if}}
     </div>
 </div>

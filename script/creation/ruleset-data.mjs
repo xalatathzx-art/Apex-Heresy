@@ -133,7 +133,12 @@ export const RULESET_DEFS = {
             {id: "race",            label: "ORIGIN.STAGE.RACE",        kind: "origin", stage: "race", bioField: "system.race"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
             {id: "archetype",       label: "ORIGIN.STAGE.ARCHETYPE",   kind: "origin", stage: "archetype", bioField: "system.archetype"},
-            {id: "passions",        label: "WIZARD.PASSIONS",          kind: "passions"},
+            // Три таблицы одной панелью: у каждой свой носитель, свой список и своя кость.
+            {id: "passions",        label: "WIZARD.PASSIONS",          kind: "passions", stages: [
+                {id: "pride",      label: "ORIGIN.STAGE.PRIDE",      stage: "pride",      bioField: "system.pride"},
+                {id: "disgrace",   label: "ORIGIN.STAGE.DISGRACE",   stage: "disgrace",   bioField: "system.vice"},
+                {id: "motivation", label: "ORIGIN.STAGE.MOTIVATION", stage: "motivation", bioField: "system.aspiration"}
+            ]},
             {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"},
             {id: "equipment",       label: "WIZARD.EQUIPMENT",         kind: "equipment"},
             {id: "darkGods",        label: "WIZARD.DARK_GODS",         kind: "darkGods"}

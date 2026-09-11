@@ -1,0 +1,24 @@
+<div class="dh-trait-overrides">
+    <p>{{localize "WEAPON.TRAIT_EDITOR_HINT"}}</p>
+    <label class="dh-override-search">{{localize "WEAPON.QUALITY_FILTER"}}
+        <input class="dh-override-filter" type="search" autocomplete="off" />
+    </label>
+    <div class="dh-override-list">
+        {{#each rows}}
+        <div class="dh-override-row" data-key="{{key}}">
+            <label data-tooltip="{{hint}}">{{label}}
+                <small>{{localize "WEAPON.TRAIT_FROM_TEXT"}}: {{inherited}}</small>
+                <select name="mode.{{key}}" aria-label="{{label}}">
+                    {{selectOptions ../modes selected=mode localize=true}}
+                </select>
+            </label>
+            {{#if hasValue}}
+            <input name="value.{{key}}" type="{{#if numeric}}number{{else}}text{{/if}}"
+                {{#if numeric}}min="0" step="1"{{/if}} value="{{value}}" aria-label="{{label}}"
+                {{#if editable}}required{{else}}disabled{{/if}} />
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{#if special}}<p class="hint">{{localize "WEAPON.TRAIT_SOURCE"}}: {{special}}</p>{{/if}}
+</div>

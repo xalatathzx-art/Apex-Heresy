@@ -1,0 +1,100 @@
+{{!-- Мостик: стратегический ход корабля. Сверху — что уже сделано за ход и что
+      сейчас висит на корабле; ниже — манёвры (табл. 8-10) и расширенные
+      действия (табл. 8-11). Кнопки — ссылки, а не <button>: ядро Foundry
+      навязывает кнопкам свои размеры, и сетка из них расползается. --}}
+<div class="voidship-bridge">
+
+    <div class="ship-turn border">
+        <h1 class="section-head">
+            <span>{{localize "SHIP.BRIDGE.TURN"}}</span>
+            <a class="button ship-turn-reset" title="{{localize "SHIP.BRIDGE.RESET"}}"
+               aria-label="{{localize "SHIP.BRIDGE.RESET"}}"><i class="fas fa-rotate-left"></i></a>
+        </h1>
+
+        <div class="ship-turn-grid">
+            <div class="turn-cell">
+                <span class="k">{{localize "SHIP.BRIDGE.INITIATIVE"}}</span>
+                <span class="v">1d10 + {{bridge.initiativeBonus}}</span>
+            </div>
+            <div class="turn-cell{{#if bridge.manoeuvre}} is-done{{/if}}">
+                <span class="k">{{localize "SHIP.BRIDGE.MANOEUVRE"}}</span>
+                <span class="v">{{#if bridge.manoeuvre}}{{localize bridge.manoeuvre}}{{else}}{{localize "SHIP.BRIDGE.PENDING"}}{{/if}}</span>
+            </div>
+            <div class="turn-cell{{#if bridge.shot}} is-done{{/if}}">
+                <span class="k">{{localize "SHIP.BRIDGE.SHOOTING"}}</span>
+                <span class="v">{{#if bridge.shot}}{{localize "SHIP.BRIDGE.FIRED"}}{{else}}{{localize "SHIP.BRIDGE.PENDING"}}{{/if}}</span>
+            </div>
+            <a class="turn-cell ship-silent-running{{#if bridge.silentRunning}} is-on{{/if}}" role="button"
+               title="{{localize "SHIP.ACTION_HINT.SILENT_RUNNING"}}">
+                <span class="k">{{localize "SHIP.BRIDGE.SILENT_RUNNING"}}</span>
+                <span class="v">{{#if bridge.silentRunning}}{{localize "SHIP.BRIDGE.ON"}}{{else}}{{localize "SHIP.BRIDGE.OFF"}}{{/if}}</span>
+            </a>
+        </div>
+
+        {{#if bridge.chips.length}}
+            <div class="ship-state">
+                {{#each bridge.chips as |chip|}}
+                    <span class="ship-state-tag is-{{chip.kind}}">{{chip.text}}</span>
+                {{/each}}
+                {{#if bridge.repel}}
+                    <a class="ship-clear-repel" title="{{localize "SHIP.BRIDGE.CLEAR_REPEL"}}"><i class="fas fa-xmark"></i></a>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="ship-actions border">
+        <h1 class="section-head"><span>{{localize "SHIP.BRIDGE.MANOEUVRES"}}</span></h1>
+        <div class="ship-action-grid">
+            {{#each bridge.manoeuvres as |a|}}
+                <a class="ship-action{{#if a.done}} is-done{{/if}}" role="button"
+                   data-action="{{a.key}}" data-tooltip="{{localize a.hint}}">
+                    <span class="name">{{localize a.label}}</span>
+                    <span class="diff">{{a.diffText}}</span>
+                </a>
+            {{/each}}
+        </div>
+    </div>
+
+    {{!-- Абордаж, таран, налёт. Пока корабли сцеплены, вместо тарана и
+          абордажа здесь ход абордажного боя и попытка вырваться. --}}
+    <div class="ship-actions border">
+        <h1 class="section-head"><span>{{localize "SHIP.BRIDGE.ASSAULT"}}</span></h1>
+        <div class="ship-action-grid">
+            {{#each bridge.assault as |a|}}
+                <a class="ship-action" role="button"
+                   data-action="{{a.key}}" data-tooltip="{{localize a.hint}}">
+                    <span class="name">{{localize a.label}}</span>
+                    <span class="diff">{{a.diffText}}</span>
+                </a>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="ship-actions border">
+        <h1 class="section-head"><span>{{localize "SHIP.BRIDGE.EXTENDED"}}</span></h1>
+        <div class="ship-action-grid">
+            {{#each bridge.extended as |a|}}
+                <a class="ship-action" role="button"
+                   data-action="{{a.key}}" data-tooltip="{{localize a.hint}}">
+                    <span class="name">{{localize a.label}}</span>
+                    <span class="diff">{{a.diffText}}</span>
+                </a>
+            {{/each}}
+        </div>
+    </div>
+
+    {{!-- Команда: проверка на мятеж и, пока мятеж идёт, его подавление. --}}
+    <div class="ship-actions border">
+        <h1 class="section-head"><span>{{localize "SHIP.BRIDGE.CREW"}}</span></h1>
+        <div class="ship-action-grid">
+            {{#each bridge.crew as |a|}}
+                <a class="ship-action" role="button"
+                   data-action="{{a.key}}" data-tooltip="{{localize a.hint}}">
+                    <span class="name">{{localize a.label}}</span>
+                    <span class="diff">{{a.diffText}}</span>
+                </a>
+            {{/each}}
+        </div>
+    </div>
+</div>

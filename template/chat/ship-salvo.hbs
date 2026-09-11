@@ -1,0 +1,118 @@
+{{!-- Единый залп макробатарей. Сверху — каждый ствол своим броском, ниже —
+      общий вал: попадания всех стволов, что сняли щиты, суммарный урон и броня,
+      вычтенная один раз. Крит на весь залп не больше одного. --}}
+<div class="dark-heresy chat roll ship-salvo-card"
+     data-ship-id="{{shipId}}" data-target-id="{{targetId}}" data-hull-damage="{{hullDamage}}">
+    <div class="roll-card-background dh-card {{#if landed}}is-success{{else}}is-failure{{/if}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{shipName}}</span>
+            <span class="verdict">{{localize "SHIP.CHAT.SALVO"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+
+            <dl class="dh-kv">
+                {{#if targetName}}
+                    <dt>{{localize "CHAT.TARGET"}}</dt>
+                    <dd>{{targetName}}</dd>
+                {{/if}}
+                <dt>{{localize "SHIP.CHAT.GUNNER"}}</dt>
+                <dd>{{#if gunnerName}}{{gunnerName}}{{else}}{{localize "SHIP.CHAT.CREW_GUNNERY"}}{{/if}}</dd>
+            </dl>
+
+            {{!-- Стволы построчно: бросок против цели и сколько каждый положил. --}}
+            <div class="ship-salvo-shots">
+                {{#each shots as |shot|}}
+                    <div class="ship-salvo-shot{{#unless shot.success}} is-miss{{/unless}}">
+                        <span class="name">{{shot.weaponName}}</span>
+                        <span class="roll">{{shot.result}} / {{shot.target}}</span>
+                        <span class="hits">
+                            {{#if shot.success}}{{shot.hits}} &rarr; {{shot.landed}}{{else}}{{localize "SHIP.CHAT.MISS"}}{{/if}}
+                        </span>
+                    </div>
+                {{/each}}
+            </div>
+
+            <div class="dh-figures{{#if cancelled}}{{else}} two{{/if}}">
+                <div class="dh-fig">
+                    <span class="n">{{hits}}</span>
+                    <span class="dh-cap">{{localize "SHIP.CHAT.HITS"}}</span>
+                </div>
+                {{#if cancelled}}
+                    <div class="dh-fig">
+                        <span class="n">&minus;{{cancelled}}</span>
+                        <span class="dh-cap">{{localize "SHIP.CHAT.SHIELDS"}}</span>
+                    </div>
+                {{/if}}
+                <div class="dh-fig lead">
+                    <span class="n">{{landed}}</span>
+                    <span class="dh-cap">{{localize "SHIP.CHAT.LANDED"}}</span>
+                </div>
+            </div>
+
+            {{#if shieldsCollapsed}}
+                <p class="ship-note is-warn">{{localize "SHIP.CHAT.SHIELDS_COLLAPSED"}}</p>
+            {{/if}}
+            {{#if cancelled}}
+                <p class="ship-note">{{localize "SHIP.CHAT.SALVO_LIGHT_FIRST"}}</p>
+            {{/if}}
+
+            {{#if landed}}
+                <div class="dh-figures">
+                    <div class="dh-fig">
+                        <span class="n">{{damageTotal}}</span>
+                        <span class="dh-cap">{{localize "CHAT.DAMAGE"}}</span>
+                    </div>
+                    <div class="dh-fig">
+                        <span class="n">&minus;{{armour}}</span>
+                        <span class="dh-cap">{{localize "SHIP.ARMOUR"}}</span>
+                    </div>
+                    <div class="dh-fig lead">
+                        <span class="n">{{hullDamage}}</span>
+                        <span class="dh-cap">{{localize "SHIP.HULL_INTEGRITY"}}</span>
+                    </div>
+                </div>
+
+                {{#if damageRolls.length}}
+                    <details class="dh-fold">
+                        <summary>{{localize "SHIP.CHAT.DAMAGE_PER_HIT"}}</summary>
+                        <div class="ship-damage-rolls">
+                            {{#each damageRolls as |d|}}<span class="ship-die">{{d}}</span>{{/each}}
+                        </div>
+                    </details>
+                {{/if}}
+            {{/if}}
+
+            {{#if critical}}
+                <div class="ship-crit">
+                    <p class="ship-crit-h">
+                        {{localize "SHIP.CHAT.CRITICAL"}}
+                        <span class="ship-crit-src">
+                            {{#if (eq criticalSource "crippled")}}
+                                {{localize "SHIP.CHAT.CRIT_BY_DAMAGE"}} ({{critical.value}})
+                            {{else}}
+                                {{localize "SHIP.CHAT.CRIT_BY_RATING"}} (1d5 = {{criticalRoll}})
+                            {{/if}}
+                        </span>
+                    </p>
+                    <p class="ship-crit-name">{{critical.name}}</p>
+                    <div class="ship-crit-text">{{#if critical.html}}{{{critical.html}}}{{else}}{{critical.text}}{{/if}}</div>
+                </div>
+            {{/if}}
+
+            {{#each notes as |note|}}
+                <p class="ship-note">{{localize note}}</p>
+            {{/each}}
+
+            {{#if canApply}}
+                <div class="dh-actions">
+                    <button type="button" class="ship-damage-apply">
+                        {{localize "SHIP.CHAT.APPLY"}} ({{hullDamage}})
+                    </button>
+                </div>
+            {{/if}}
+
+        </div>
+    </div>
+</div>

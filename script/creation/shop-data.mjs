@@ -16,9 +16,33 @@
 
 import {characteristicLadder, SKILL_LEVELS, CHARACTERISTIC_STEP, advanceCost, matchingAptitudes}
     from "./advancement-data.mjs";
+import {patronRelation, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, infamyAdvanceCost}
+    from "./patron-data.mjs";
+import {patronOf} from "./bc-talents.mjs";
 
 /** Влияние не покупается за опыт (стр. 79). */
 export const UNPURCHASABLE_CHARACTERISTICS = ["influence"];
+
+/**
+ * Что нельзя купить в этой книге.
+ *
+ * У Black Crusade на месте Влияния стоит Тёмная слава, и она как раз покупается —
+ * только по своей цене и до сорока (стр. 78). Поэтому список зависит от книги.
+ */
+export function unpurchasableIn(ruleset) {
+    return ruleset === "bc" ? [] : UNPURCHASABLE_CHARACTERISTICS;
+}
+
+/**
+ * Кем приходится бог покупки покровителю персонажа.
+ *
+ * Вне Black Crusade понятие бессмысленно, и отношение не считается вовсе: цену
+ * там решают склонности.
+ */
+function relationIn(snapshot, god) {
+    if (snapshot.ruleset !== "bc") return null;
+    return patronRelation(snapshot.patron, god);
+}
 
 /** Сокращения, которыми книга пишет пороги в предпосылках: «Ag 30», «WP 40». */
 export const CHARACTERISTIC_ABBREVIATIONS = {
@@ -41,14 +65,24 @@ const signed = value => `${value > 0 ? "+" : ""}${value}`;
 export function characteristicOffers(snapshot) {
     const offers = [];
     const ladder = characteristicLadder(snapshot.ruleset);
+    const infamyKey = snapshot.ruleset === "bc" ? "influence" : null;
     for (const [key, entry] of Object.entries(snapshot.characteristics ?? {})) {
-        if (UNPURCHASABLE_CHARACTERISTICS.includes(key)) continue;
+        if (unpurchasableIn(snapshot.ruleset).includes(key)) continue;
         const steps = Math.floor((Number(entry.advance) || 0) / CHARACTERISTIC_STEP);
         const matched = matchingAptitudes(snapshot.aptitudes, entry.aptitudes);
+        // Тёмная слава вне лестницы: ровно 500 за каждые +5, пока она ниже сорока.
+        if (key === infamyKey) {
+            const value = Number(entry.total ?? entry.base ?? 0) || 0;
+            const cost = infamyAdvanceCost(value);
+            offers.push({key, steps, matched: 0, relation: "own", nextLevel: cost ? "infamy" : null,
+                         cost, maxed: !cost, infamy: true});
+            continue;
+        }
+        const relation = relationIn(snapshot, BC_CHARACTERISTIC_PATRONS[key]);
         const nextLevel = ladder.levels[steps] ?? null;
         offers.push({
-            key, steps, matched, nextLevel,
-            cost: nextLevel ? advanceCost("characteristic", nextLevel, matched, snapshot.ruleset) : null,
+            key, steps, matched, nextLevel, relation,
+            cost: nextLevel ? advanceCost("characteristic", nextLevel, matched, snapshot.ruleset, relation) : null,
             maxed: !nextLevel
         });
     }
@@ -70,11 +104,12 @@ export function skillOffers(snapshot) {
         const index = skillLevelIndex(entry.advance);
         const nextLevel = SKILL_LEVELS[index + 1] ?? null;
         const matched = matchingAptitudes(snapshot.aptitudes, skill.aptitudes);
+        const relation = relationIn(snapshot, BC_SKILL_PATRONS[key]);
         offers.push({
-            key, specKey, label, matched,
+            key, specKey, label, matched, relation,
             level: SKILL_LEVELS[index] ?? null,
             nextLevel,
-            cost: nextLevel ? advanceCost("skill", nextLevel, matched) : null,
+            cost: nextLevel ? advanceCost("skill", nextLevel, matched, snapshot.ruleset, relation) : null,
             maxed: !nextLevel
         });
     };
@@ -197,9 +232,10 @@ export function talentOffers(catalogue, snapshot, characteristicNames) {
         const aptitudes = String(entry.aptitudes ?? "").split(",").map(part => part.trim()).filter(Boolean);
         const matched = matchingAptitudes(snapshot.aptitudes, aptitudes);
         const prerequisites = checkPrerequisites(entry.prerequisites, withNames, characteristicNames);
+        const relation = relationIn(snapshot, patronOf({name: entry.name, system: {patron: entry.patron}}));
         offers.push({
-            name: entry.name, uuid: entry.uuid, tier, aptitudes, matched, specialist,
-            cost: advanceCost("talent", tier, matched),
+            name: entry.name, uuid: entry.uuid, tier, aptitudes, matched, specialist, relation,
+            cost: advanceCost("talent", tier, matched, snapshot.ruleset, relation),
             prerequisites,
             blocked: prerequisites.some(check => check.status === "unmet")
         });
@@ -222,10 +258,12 @@ export function purchaseCharacteristic(snapshot, key) {
     const entry = snapshot.characteristics[key];
     const advance = (Number(entry.advance) || 0) + CHARACTERISTIC_STEP;
     // Поле cost — накопительная цена всех купленных ступеней: так его читает движок.
+    // У Тёмной славы лестницы нет, каждая ступень стоит одинаково (стр. 78).
     let total = 0;
-    for (let index = 0; index <= offer.steps; index++)
+    if (offer.infamy) total = (offer.steps + 1) * offer.cost;
+    else for (let index = 0; index <= offer.steps; index++)
         total += advanceCost("characteristic", characteristicLadder(snapshot.ruleset).levels[index],
-                             offer.matched, snapshot.ruleset);
+                             offer.matched, snapshot.ruleset, offer.relation);
     return {
         update: {
             [`system.characteristics.${key}.advance`]: advance,
@@ -251,7 +289,7 @@ export function purchaseSkill(snapshot, key, specKey = null) {
     // Стартовый ранг бесплатен, и в cost он не входит — ровно так считает движок.
     let total = 0;
     for (let index = entry.starter ? 1 : 0; index <= nextIndex; index++)
-        total += advanceCost("skill", SKILL_LEVELS[index], offer.matched);
+        total += advanceCost("skill", SKILL_LEVELS[index], offer.matched, snapshot.ruleset, offer.relation);
     return {
         update: {[`${path}.advance`]: nextIndex * 10, [`${path}.cost`]: total},
         record: {kind: "skill", key, specKey, level: offer.nextLevel, cost: offer.cost,

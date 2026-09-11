@@ -4,6 +4,11 @@
 <div class="all-ship-weapons border">
     <h1 class="section-head">
         <span>{{localize "SHIP.TAB.WEAPONS"}}</span>
+        {{!-- Залп доступен, когда есть что сводить: две макробатареи и больше. --}}
+        {{#if canSalvo}}
+            <a class="button ship-salvo-fire" title="{{localize "SHIP.DIALOG.SALVO"}}"
+               aria-label="{{localize "SHIP.DIALOG.SALVO"}}"><i class="fas fa-burst"></i></a>
+        {{/if}}
         <a class="button ship-weapon-create" title="{{localize "ITEM.ADD"}}"
            aria-label="{{localize "ITEM.ADD"}}"><i class="fas fa-plus"></i></a>
     </h1>
@@ -27,11 +32,22 @@
                     </div>
                     <div class="type">{{localize (lookup ../config.weaponTypes item.system.weaponType)}}</div>
                     <div class="location">{{localize (lookup ../config.locations item.system.location)}}</div>
-                    <div class="strength">{{item.system.strength}}</div>
+                    {{!-- Обездвиженный корабль стреляет вполсилы (стр. 221),
+                          поэтому рядом с записанной Силой стоит та, что
+                          действует сейчас. --}}
+                    <div class="strength">
+                        {{#if (eq item.system.strengthEffective item.system.strength)}}
+                            {{item.system.strength}}
+                        {{else}}
+                            <b class="eff-now">{{item.system.strengthEffective}}</b>
+                            <s>{{item.system.strength}}</s>
+                        {{/if}}
+                    </div>
                     <div class="crit">{{item.system.critRating}}</div>
                     <div class="damage">{{item.system.damage}}</div>
                     <div class="range">{{item.system.range}}</div>
                     <div class="controls">
+                        <a class="item-control ship-weapon-fire" title="{{localize "SHIP.DIALOG.FIRE"}}"><i class="fas fa-crosshairs"></i></a>
                         <a class="item-control item-edit" title="{{localize "VEHICLE.EDIT"}}"><i class="fas fa-pen"></i></a>
                         <a class="item-control item-delete" title="{{localize "VEHICLE.REMOVE"}}"><i class="fas fa-trash"></i></a>
                     </div>

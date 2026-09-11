@@ -205,23 +205,25 @@
                 <div class="wizard-chars">
                     {{#each charRows as |row|}}
                     <div class="wizard-char">
-                        {{#if ../charPointBuy}}
-                        <span class="wizard-char-name">{{row.label}}</span>
-                        {{else}}
+                        {{!-- Кнопка-кость там, где книга велит катать: при закупке очков
+                              она остаётся у одной Тёмной славы (Black Crusade, стр. 53). --}}
+                        {{#if row.rollable}}
                         <button type="button" class="wizard-roll" data-roll="{{row.key}}"
                                 data-formula="{{row.formula}}" title="{{row.formula}}">{{row.label}}</button>
+                        {{else}}
+                        <span class="wizard-char-name">{{row.label}}</span>
                         {{/if}}
                         <span class="wizard-char-mod">{{#if row.modifier}}{{#if (gt row.modifier 0)}}+{{/if}}{{row.modifier}}{{/if}}</span>
-                        <span class="wizard-char-formula">{{#unless ../charPointBuy}}{{row.formula}}{{/unless}}</span>
+                        <span class="wizard-char-formula">{{#if row.rollable}}{{row.formula}}{{/if}}</span>
                         <input type="number" class="wizard-char-value" data-characteristic="{{row.key}}"
                                value="{{row.value}}" data-start="{{row.start}}"/>
                         {{!-- Only War (стр. 74): один результат можно перебросить, но новый
                               придётся оставить, даже если он хуже. --}}
-                        {{#if ../charRerolls}}{{#unless ../charPointBuy}}
+                        {{#if ../charRerolls}}{{#if row.rollable}}
                         <button type="button" class="wizard-reroll" data-reroll="{{row.key}}" data-formula="{{row.formula}}"
                                 title="{{localize "WIZARD.REROLL_HINT"}}"
                                 {{#unless ../charRerollsLeft}}disabled{{/unless}}><i class="fas fa-dice-d10"></i></button>
-                        {{/unless}}{{/if}}
+                        {{/if}}{{/if}}
                     </div>
                     {{/each}}
                 </div>
@@ -251,13 +253,21 @@
                     </div>
                 </div>
 
-                {{!-- Склонности плитками: по ним считается цена КАЖДОЙ покупки. --}}
+                {{!-- Склонности плитками: по ним считается цена КАЖДОЙ покупки. В Black
+                      Crusade их нет — там цену задаёт покровитель, его и показываем. --}}
+                {{#if showAptitudes}}
                 <div class="wizard-aptitudes">
                     <span class="wizard-choice-label">{{localize "WIZARD.APTITUDES"}}</span>
                     {{#each aptitudeChips as |aptitude|}}
                     <span class="wizard-aptitude">{{aptitude}}</span>
                     {{/each}}
                 </div>
+                {{else}}
+                <div class="wizard-aptitudes">
+                    <span class="wizard-choice-label">{{localize "WIZARD.PATRON"}}</span>
+                    <span class="wizard-aptitude">{{shopPatron}}</span>
+                </div>
+                {{/if}}
                 {{!-- Книга, стр. 79: повторная склонность не даётся второй раз, а меняется
                       на склонность характеристики, которой ещё нет. Выбирает игрок, и пока
                       он не выбрал, цены не окончательны — поэтому покупки ждут. --}}
@@ -301,7 +311,7 @@
                     <div class="shop-row{{#if offer.maxed}} maxed{{/if}}">
                         <span class="shop-name">{{offer.label}}</span>
                         <span class="shop-step">{{#if offer.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{offer.nextLabel}} +5{{/if}}</span>
-                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{offer.matched}}/2</span>
+                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{#if offer.relationLabel}}{{offer.relationLabel}}{{else}}{{offer.matched}}/2{{/if}}</span>
                         <span class="shop-cost">{{#unless offer.maxed}}{{offer.cost}}{{/unless}}</span>
                         <button type="button" class="shop-buy" data-buy-characteristic="{{offer.key}}"
                                 {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
@@ -316,7 +326,7 @@
                     <div class="shop-row{{#if offer.maxed}} maxed{{/if}}">
                         <span class="shop-name">{{offer.label}}</span>
                         <span class="shop-step">{{#if offer.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{offer.currentLabel}} → {{offer.nextLabel}}{{/if}}</span>
-                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{offer.matched}}/2</span>
+                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{#if offer.relationLabel}}{{offer.relationLabel}}{{else}}{{offer.matched}}/2{{/if}}</span>
                         <span class="shop-cost">{{#unless offer.maxed}}{{offer.cost}}{{/unless}}</span>
                         <button type="button" class="shop-buy" data-buy-skill="{{offer.key}}" data-spec="{{offer.specKey}}"
                                 {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
@@ -356,7 +366,7 @@
                                     aria-expanded="{{#if offer.open}}true{{else}}false{{/if}}"
                                     title="{{localize "WIZARD.SHOP_READ"}}"><i class="fas fa-book-open"></i>{{offer.name}}</button>
                             <span class="shop-step">{{localize "WIZARD.SHOP_TIER"}} {{offer.tier}}</span>
-                            <span class="shop-match" title="{{offer.aptitudeText}}">{{offer.matched}}/2</span>
+                            <span class="shop-match" title="{{offer.aptitudeText}}">{{#if offer.relationLabel}}{{offer.relationLabel}}{{else}}{{offer.matched}}/2{{/if}}</span>
                             <span class="shop-cost">{{offer.cost}}</span>
                             <button type="button" class="shop-buy" data-buy-talent="{{offer.uuid}}"
                                     {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
@@ -599,6 +609,47 @@
                     <p class="wizard-note">{{localize "WIZARD.SHOP_NO_TALENTS"}}</p>
                     {{/each}}
                 </div>
+            {{/if}}
+
+            {{!-- Стадия 4 (стр. 71-75): Гордыня, Позор и Стремление. Три таблицы одной
+                  панелью — это один разговор о том, кто этот еретик. Книга разрешает и
+                  выбрать, и бросить d10, поэтому кость стоит рядом со списком. --}}
+            {{#if (eq step.kind "passions")}}
+                {{#each passionGroups as |group|}}
+                <div class="wizard-passion" data-passion="{{group.id}}">
+                    {{#if group.originLocked}}
+                    <p class="wizard-locked">{{group.label}}: <b>{{group.originName}}</b></p>
+                    {{else}}
+                    <div class="form-group">
+                        <label>{{group.label}}</label>
+                        <div class="form-fields">
+                            <select data-origin-step="{{group.id}}">
+                                <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                                {{#each group.originOptions as |o|}}
+                                <option value="{{o.uuid}}" {{#if o.selected}}selected{{/if}}>{{o.name}}</option>
+                                {{/each}}
+                            </select>
+                            <button type="button" class="shop-buy" data-roll-passion="{{group.id}}"
+                                    data-passion-stage="{{group.id}}">{{localize "WIZARD.ROLL"}}</button>
+                        </div>
+                    </div>
+                    <div class="wizard-choice-rows">{{{group.choiceRows}}}</div>
+                    {{/if}}
+                    {{#if group.originBook}}
+                    <div class="wizard-book">
+                        <div class="wizard-book-text">{{{group.originBook.description}}}</div>
+                        {{#if group.originBook.summary.length}}
+                        <ul class="wizard-book-summary">
+                            {{#each group.originBook.summary as |line|}}<li>{{line}}</li>{{/each}}
+                        </ul>
+                        {{/if}}
+                        {{#if group.originBook.source}}
+                        <p class="wizard-book-source">{{group.originBook.source}}</p>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+                {{/each}}
             {{/if}}
 
             {{#if (eq step.kind "comrade")}}

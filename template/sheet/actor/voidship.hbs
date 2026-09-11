@@ -16,21 +16,57 @@
                             <span>{{localize "SHIP.CLASS"}}</span>
                             <input name="system.hullClass" type="text" value="{{system.hullClass}}" />
                         </label>
+                        {{!-- Печатное название корпуса выше стол пишет как хочет
+                              («Sword-class Frigate»), а считаем мы по этому
+                              списку: от класса зависят кубик тарана и предел
+                              поворота, и больше ничего. --}}
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.HULL_TYPE_LABEL"}}</span>
+                            <select name="system.hullType">
+                                <option value="" {{#unless system.hullType}}selected{{/unless}}>—</option>
+                                {{#each config.hullTypes as |hull key|}}
+                                    <option value="{{key}}" {{#if (eq ../system.hullType key)}}selected{{/if}}>{{localize hull.label}}</option>
+                                {{/each}}
+                            </select>
+                        </label>
                         <label class="bio-field">
                             <span>{{localize "SHIP.HULL"}}</span>
                             <input name="system.hull" type="text" value="{{system.hull}}" />
                         </label>
+                        {{!-- Выучка команды — та цифра, которой бросает экипаж,
+                              когда действие поручено не игроку (табл. 8-9). --}}
+                        <label class="bio-field">
+                            <span>{{localize "SHIP.CREW_RATING_LABEL"}}</span>
+                            <select name="system.crewRating" data-dtype="Number">
+                                {{#each config.crewRatings as |rating|}}
+                                    <option value="{{rating.value}}" {{#if (eq ../source.crewRating rating.value)}}selected{{/if}}>{{localize rating.label}} ({{rating.value}})</option>
+                                {{/each}}
+                            </select>
+                        </label>
+                        {{!-- Ниже стоят базовые значения. Когда корабль побит
+                              или команда поредела, рядом появляется то, чем он
+                              на самом деле действует: держать в голове сумму
+                              семи порогов стол не обязан. --}}
                         <label class="bio-field">
                             <span>{{localize "SHIP.SPEED"}}</span>
                             <input name="system.speed" type="number" value="{{source.speed}}" data-dtype="Number" />
+                            {{#unless (eq system.speedEffective source.speed)}}
+                                <small class="eff-now">{{localize "SHIP.NOW"}} {{system.speedEffective}}</small>
+                            {{/unless}}
                         </label>
                         <label class="bio-field">
                             <span>{{localize "SHIP.MANOEUVRABILITY"}}</span>
                             <input name="system.manoeuvrability" type="number" value="{{source.manoeuvrability}}" data-dtype="Number" />
+                            {{#unless (eq system.manoeuvrabilityEffective source.manoeuvrability)}}
+                                <small class="eff-now">{{localize "SHIP.NOW"}} {{system.manoeuvrabilityEffective}}</small>
+                            {{/unless}}
                         </label>
                         <label class="bio-field">
                             <span>{{localize "SHIP.DETECTION"}}</span>
                             <input name="system.detection" type="number" value="{{source.detection}}" data-dtype="Number" />
+                            {{#unless (eq system.detectionEffective source.detection)}}
+                                <small class="eff-now">{{localize "SHIP.NOW"}} {{system.detectionEffective}}</small>
+                            {{/unless}}
                         </label>
                     </div>
                 </div>
@@ -65,10 +101,30 @@
                     <input name="system.turretRating" type="number" value="{{source.turretRating}}" data-dtype="Number" />
                 </div>
             </div>
+
+            {{!-- Что сейчас мешает кораблю. Пороги Команды и Боевого духа
+                  складываются друг с другом и с обездвиженностью (стр. 224), и
+                  собрать их в уме посреди боя нельзя — поэтому они собраны
+                  здесь одной строкой. --}}
+            {{#if system.conditionSummary.any}}
+                <div class="ship-state">
+                    {{#each system.conditionSummary.tags as |tag|}}
+                        <span class="ship-state-tag is-{{tag.kind}}">{{localize tag.label}}</span>
+                    {{/each}}
+                    {{#if system.conditionSummary.mods.length}}
+                        <span class="ship-state-mods">
+                            {{#each system.conditionSummary.mods as |m|}}
+                                <b>{{localize m.label}} {{m.text}}</b>
+                            {{/each}}
+                        </span>
+                    {{/if}}
+                </div>
+            {{/if}}
         </div>
 
         <div class="sheet-tabs tabs flex row" data-group="primary">
             <b class="item" data-tab="profile">{{localize "SHIP.TAB.PROFILE"}}</b>
+            <b class="item" data-tab="bridge">{{localize "SHIP.TAB.BRIDGE"}}</b>
             <b class="item" data-tab="components">{{localize "SHIP.TAB.COMPONENTS"}}</b>
             <b class="item" data-tab="weapons">{{localize "SHIP.TAB.WEAPONS"}}</b>
             <b class="item" data-tab="effects">{{localize "TAB.EFFECTS"}}</b>
@@ -78,6 +134,9 @@
         <div class="sheet-body">
             <div class="tab" data-group="primary" data-tab="profile">
                 {{> systems/dark-heresy/template/sheet/actor/tab/voidship-profile.hbs}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="bridge">
+                {{> systems/dark-heresy/template/sheet/actor/tab/voidship-bridge.hbs}}
             </div>
             <div class="tab" data-group="primary" data-tab="components">
                 {{> systems/dark-heresy/template/sheet/actor/tab/voidship-components.hbs}}

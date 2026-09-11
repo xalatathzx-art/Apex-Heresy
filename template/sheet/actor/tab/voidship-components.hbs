@@ -1,16 +1,111 @@
-{{!-- Компоненты на бумажном бланке — два списка от руки, и здесь так же:
-      система про них ничего не знает и знать не берётся. Редакторы, а не
-      предметы, потому что стоимость в Месте и Мощности игрок сводит сам в
-      сметах на вкладке профиля. --}}
+{{!-- Компоненты корабля. Раньше это были два поля прозы; теперь предметы,
+      потому что вся таблица критов (8-12) целится именно в них: «атакующий
+      выбирает компонент — он повреждён, горит, разгерметизирован». В абзац
+      текста попасть нечем.
+
+      Прежние поля никуда не делись и стоят внизу: то, что уже вписано руками,
+      выбрасывать нельзя, а переносить его в предметы стол волен не спеша. --}}
 <div class="voidship-components">
+
+    {{#if system.componentAlarms.total}}
+        {{!-- Беда с компонентом должна быть видна сразу, а не находиться
+              перелистыванием списка. --}}
+        <div class="ship-alarms border">
+            {{#if system.componentAlarms.onFire}}
+                <span class="ship-alarm is-fire">
+                    <i class="fas fa-fire"></i>
+                    {{localize "SHIP.ALARM.ON_FIRE"}}: {{system.componentAlarms.onFire}}
+                </span>
+            {{/if}}
+            {{#if system.componentAlarms.depressurised}}
+                <span class="ship-alarm is-vacuum">
+                    <i class="fas fa-wind"></i>
+                    {{localize "SHIP.ALARM.DEPRESSURISED"}}: {{system.componentAlarms.depressurised}}
+                </span>
+            {{/if}}
+            {{#if system.componentAlarms.damaged}}
+                <span class="ship-alarm is-damaged">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    {{localize "SHIP.ALARM.DAMAGED"}}: {{system.componentAlarms.damaged}}
+                </span>
+            {{/if}}
+        </div>
+    {{/if}}
+
+    {{#each system.componentGroups as |group|}}
+        <div class="all-ship-components border">
+            <h1 class="section-head">
+                <span>{{localize group.label}}</span>
+                <a class="button ship-component-create" data-category="{{group.key}}"
+                   title="{{localize "ITEM.ADD"}}" aria-label="{{localize "ITEM.ADD"}}">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </h1>
+
+            <div class="item-list ship-component-list">
+                <div class="flex header">
+                    <b class="name">{{localize "SHIP.COMPONENT.NAME"}}</b>
+                    <b class="status">{{localize "SHIP.COMPONENT.STATUS_LABEL"}}</b>
+                    <b class="space">{{localize "SHIP.SPACE"}}</b>
+                    <b class="power">{{localize "SHIP.POWER"}}</b>
+                    <b class="sp">{{localize "SHIP.SP_SHORT"}}</b>
+                    <b class="controls"></b>
+                </div>
+                <div class="items">
+                    {{#each group.items as |item|}}
+                        <div class="ship-component item flex row" data-item-id="{{item.id}}">
+                            <div class="name item-edit">
+                                <b class="component-name">{{item.name}}</b>
+                                {{#if item.system.onFire}}<i class="fas fa-fire flag-fire"
+                                    title="{{localize "SHIP.COMPONENT.ON_FIRE"}}"></i>{{/if}}
+                                {{#if item.system.depressurised}}<i class="fas fa-wind flag-vacuum"
+                                    title="{{localize "SHIP.COMPONENT.DEPRESSURISED"}}"></i>{{/if}}
+                            </div>
+                            <div class="status">
+                                <span class="status-pill is-{{item.system.status}}">
+                                    {{localize (lookup ../../config.componentStatus item.system.status)}}
+                                </span>
+                            </div>
+                            <div class="space">{{item.system.space}}</div>
+                            {{!-- Выработка показывается со знаком плюс: плазменный
+                                  привод Мощность даёт, и путать её с расходом
+                                  в одной колонке нельзя. --}}
+                            <div class="power">
+                                {{#if item.system.powerGenerated}}+{{item.system.powerGenerated}}{{else}}{{item.system.power}}{{/if}}
+                            </div>
+                            <div class="sp">{{item.system.shipPoints}}</div>
+                            <div class="controls">
+                                {{!-- Бедствия с последствиями: огонь и пустота бьют
+                                      по людям, и это считается при нажатии. --}}
+                                {{#if item.system.onFire}}
+                                    <a class="item-control ship-comp-vent" title="{{localize "SHIP.FIRE.VENT"}}"><i class="fas fa-wind"></i></a>
+                                {{else}}
+                                    <a class="item-control ship-comp-ignite" title="{{localize "SHIP.FIRE.IGNITE"}}"><i class="fas fa-fire"></i></a>
+                                {{/if}}
+                                {{#unless item.system.depressurised}}
+                                    <a class="item-control ship-comp-depressurise" title="{{localize "SHIP.FIRE.DEPRESSURISE"}}"><i class="fas fa-circle-down"></i></a>
+                                {{/unless}}
+                                <a class="item-control item-edit" title="{{localize "VEHICLE.EDIT"}}"><i class="fas fa-pen"></i></a>
+                                <a class="item-control item-delete" title="{{localize "VEHICLE.REMOVE"}}"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{else}}
+                        <p class="empty-note">{{localize "SHIP.NO_COMPONENTS"}}</p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+
+    {{!-- Записи от руки: то, что было вписано в лист до появления предметов. --}}
     <div class="ship-notes border">
-        <h1 class="section-head"><span>{{localize "SHIP.ESSENTIAL_COMPONENTS"}}</span></h1>
+        <h1 class="section-head"><span>{{localize "SHIP.COMPONENT.NOTES_ESSENTIAL"}}</span></h1>
         {{editor enrichment.essentialComponents target="system.essentialComponents"
                  button=true editable=editable engine="prosemirror"}}
     </div>
 
     <div class="ship-notes border">
-        <h1 class="section-head"><span>{{localize "SHIP.SUPPLEMENTAL_COMPONENTS"}}</span></h1>
+        <h1 class="section-head"><span>{{localize "SHIP.COMPONENT.NOTES_SUPPLEMENTAL"}}</span></h1>
         {{editor enrichment.supplementalComponents target="system.supplementalComponents"
                  button=true editable=editable engine="prosemirror"}}
     </div>

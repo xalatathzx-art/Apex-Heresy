@@ -1,0 +1,87 @@
+{{!-- Корабельное действие. Бросок, из чего сложилась цель, ступени — и главное,
+      что из этого вышло для корабля. Эффекты, которые система держит сама,
+      уже легли на корабль отметками; остальное названо числом для стола. --}}
+<div class="dark-heresy chat roll ship-action-card" data-ship-id="{{shipId}}">
+    <div class="roll-card-background dh-card {{#if success}}is-success{{else}}is-failure{{/if}}">
+
+        <div class="dh-card-h">
+            <span class="who">{{shipName}} &middot; {{localize label}}</span>
+            <span class="verdict">{{#if success}}{{localize "SHIP.CHAT.SUCCESS"}}{{else}}{{localize "SHIP.CHAT.FAILURE"}}{{/if}}</span>
+        </div>
+
+        <div class="dh-card-b">
+            <dl class="dh-kv">
+                <dt>{{localize "SHIP.CHAT.PERFORMER"}}</dt>
+                <dd>{{#if performerName}}{{performerName}}{{else}}{{localize "SHIP.CHAT.CREW"}}{{/if}}</dd>
+                <dt>{{localize "SHIP.CHAT.SKILL"}}</dt>
+                <dd>{{localize skillLabel}} ({{base}})</dd>
+            </dl>
+
+            <div class="dh-figures">
+                <div class="dh-fig lead">
+                    <span class="n">{{result}}</span>
+                    <span class="dh-cap">{{localize "CHAT.ROLL"}}</span>
+                </div>
+                <div class="dh-fig">
+                    <span class="n">{{target}}</span>
+                    <span class="dh-cap">{{localize "SHIP.CHAT.GUNNERY_TARGET"}}</span>
+                </div>
+                <div class="dh-fig">
+                    {{#if success}}
+                        <span class="n">{{degrees}}</span>
+                        <span class="dh-cap">{{localize "SHIP.CHAT.DEGREES_SUCCESS"}}</span>
+                    {{else}}
+                        <span class="n">{{failDegrees}}</span>
+                        <span class="dh-cap">{{localize "SHIP.CHAT.DEGREES_FAILURE"}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            {{#if parts.length}}
+                <details class="dh-fold">
+                    <summary>{{localize "SHIP.CHAT.MODIFIERS"}} ({{#if (gte totalMod 0)}}+{{/if}}{{totalMod}})</summary>
+                    <div>
+                        {{#each parts as |part|}}
+                            <div class="dh-line">
+                                <span>{{localize part.label}}</span>
+                                <span class="amount">{{#if (gte part.value 0)}}+{{/if}}{{part.value}}</span>
+                            </div>
+                        {{/each}}
+                    </div>
+                </details>
+            {{/if}}
+
+            {{#if effect}}
+                <p class="ship-effect">{{effect}}</p>
+            {{/if}}
+
+            {{#if critical}}
+                <div class="ship-crit">
+                    <p class="ship-crit-h">
+                        {{localize "SHIP.CHAT.CRITICAL"}}
+                        <span class="ship-crit-src">1d10 = {{criticalRoll}}</span>
+                    </p>
+                    <p class="ship-crit-name">{{critical.name}}</p>
+                    <div class="ship-crit-text">{{#if critical.html}}{{{critical.html}}}{{else}}{{critical.text}}{{/if}}</div>
+                </div>
+            {{/if}}
+
+            {{#each notes as |note|}}
+                <p class="ship-note">{{localize note}}</p>
+            {{/each}}
+
+            {{#if buttons.length}}
+                <div class="dh-actions ship-btn-row">
+                    {{#each buttons as |b|}}
+                        <button type="button" class="ship-btn {{b.cls}}" data-ship-id="{{../shipId}}">{{localize b.label}}</button>
+                    {{/each}}
+                </div>
+            {{/if}}
+
+            <div class="dice-rolls" style="display:none">
+                <h1>{{localize "CHAT.ROLL_TITLE"}}</h1>
+                <div class="dice-roll-render">{{{attackRender}}}</div>
+            </div>
+        </div>
+    </div>
+</div>

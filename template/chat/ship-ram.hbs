@@ -1,0 +1,86 @@
+{{!-- Таран. Две половины: удар по цели и отдача по тарану. Щиты не держат ни
+      то, ни другое; броня держит обоих. Урон не списан — у каждой половины
+      своя кнопка. --}}
+<div class="dark-heresy chat roll ship-ram-card" data-ship-id="{{shipId}}">
+    <div class="roll-card-background dh-card is-neutral">
+
+        <div class="dh-card-h">
+            <span class="who">{{shipName}} &rarr; {{targetName}}</span>
+            <span class="verdict">{{localize "SHIP.RAM.TITLE"}}</span>
+        </div>
+
+        <div class="dh-card-b">
+            {{#unless noHull}}
+                <div class="dh-part first">
+                    <p class="dh-part-h"><span>{{localize "SHIP.RAM.TO_TARGET"}} {{targetName}}</span></p>
+                    <div class="dh-figures">
+                        <div class="dh-fig">
+                            <span class="n">{{impact.die}}+{{impact.armour}}</span>
+                            <span class="dh-cap">{{impact.formula}} + {{localize "SHIP.ARMOUR"}}</span>
+                        </div>
+                        <div class="dh-fig">
+                            <span class="n">&minus;{{impact.against}}</span>
+                            <span class="dh-cap">{{localize "SHIP.ARMOUR"}}</span>
+                        </div>
+                        <div class="dh-fig lead">
+                            <span class="n">{{impact.hull}}</span>
+                            <span class="dh-cap">{{localize "SHIP.HULL_INTEGRITY"}}</span>
+                        </div>
+                    </div>
+                    {{#if impact.critical}}
+                        <div class="ship-crit">
+                            <p class="ship-crit-h">{{localize "SHIP.CHAT.CRITICAL"}} <span class="ship-crit-src">{{localize "SHIP.CHAT.CRIT_BY_DAMAGE"}}</span></p>
+                            <p class="ship-crit-name">{{impact.critical.name}}</p>
+                            <div class="ship-crit-text">{{#if impact.critical.html}}{{{impact.critical.html}}}{{else}}{{impact.critical.text}}{{/if}}</div>
+                        </div>
+                    {{/if}}
+                    {{#if impact.hull}}
+                        <div class="dh-actions ship-btn-row">
+                            <button type="button" class="ship-damage-apply" data-apply-key="impact"
+                                    data-target-id="{{targetId}}" data-hull-damage="{{impact.hull}}">
+                                {{localize "SHIP.CHAT.APPLY"}} ({{impact.hull}})
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+
+                <div class="dh-part">
+                    <p class="dh-part-h"><span>{{localize "SHIP.RAM.TO_RAMMER"}} {{shipName}}</span></p>
+                    <div class="dh-figures">
+                        <div class="dh-fig">
+                            <span class="n">{{recoil.armour}}+{{recoil.die}}</span>
+                            <span class="dh-cap">{{localize "SHIP.ARMOUR"}} + 1d5</span>
+                        </div>
+                        <div class="dh-fig">
+                            <span class="n">&minus;{{recoil.against}}</span>
+                            <span class="dh-cap">{{localize "SHIP.ARMOUR"}}</span>
+                        </div>
+                        <div class="dh-fig lead">
+                            <span class="n">{{recoil.hull}}</span>
+                            <span class="dh-cap">{{localize "SHIP.HULL_INTEGRITY"}}</span>
+                        </div>
+                    </div>
+                    {{#if recoil.critical}}
+                        <div class="ship-crit">
+                            <p class="ship-crit-h">{{localize "SHIP.CHAT.CRITICAL"}} <span class="ship-crit-src">{{localize "SHIP.CHAT.CRIT_BY_DAMAGE"}}</span></p>
+                            <p class="ship-crit-name">{{recoil.critical.name}}</p>
+                            <div class="ship-crit-text">{{#if recoil.critical.html}}{{{recoil.critical.html}}}{{else}}{{recoil.critical.text}}{{/if}}</div>
+                        </div>
+                    {{/if}}
+                    {{#if recoil.hull}}
+                        <div class="dh-actions ship-btn-row">
+                            <button type="button" class="ship-damage-apply" data-apply-key="recoil"
+                                    data-target-id="{{shipId}}" data-hull-damage="{{recoil.hull}}">
+                                {{localize "SHIP.CHAT.APPLY"}} ({{recoil.hull}})
+                            </button>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/unless}}
+
+            {{#each notes as |note|}}
+                <p class="ship-note">{{localize note}}</p>
+            {{/each}}
+        </div>
+    </div>
+</div>

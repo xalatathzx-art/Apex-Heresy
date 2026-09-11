@@ -1,0 +1,32 @@
+<section class="item-list border">
+    <h1>{{localize title}}</h1>
+    {{#if category}}
+    <button type="button" class="list-create" data-type="effect" data-category="{{category}}">
+        <i class="fas fa-plus"></i> {{localize "EFFECTS.ADD"}}
+    </button>
+    {{/if}}
+    <div class="items">
+    {{#each entries}}
+        <div class="effect item flex row {{#if inactive}}inactive{{/if}}" data-id="{{id}}" data-uuid="{{uuid}}" data-collection="effects">
+            <a class="flex name list-edit">{{name}}</a>
+            <div class="source">
+                {{#if item}}<a class="list-edit" data-uuid="{{item.uuid}}">{{source}}</a>{{else}}{{source}}{{/if}}
+                <small>{{localize stateLabel}}{{#if durationLabel}} · {{durationLabel}}{{/if}}</small>
+            </div>
+            <div class="button">
+                {{#if expired}}
+                <a class="list-restart" title="{{localize 'EFFECTS.RESTART'}}"><i class="fas fa-clock-rotate-left"></i></a>
+                {{/if}}
+                <a class="list-toggle" title="{{#if disabled}}{{localize 'EFFECTS.ENABLE'}}{{else}}{{localize 'EFFECTS.DISABLE'}}{{/if}}">
+                    <i class="fa-regular {{#if disabled}}fa-circle{{else}}fa-circle-check{{/if}}"></i>
+                </a>
+                {{#if ../allowDelete}}
+                    <a class="list-delete" title="{{localize 'EFFECTS.DELETE'}}"><i class="fas fa-trash"></i></a>
+                {{else}}
+                    {{#unless item}}<a class="list-delete" title="{{localize 'EFFECTS.DELETE'}}"><i class="fas fa-trash"></i></a>{{/unless}}
+                {{/if}}
+            </div>
+        </div>
+    {{/each}}
+    </div>
+</section>
