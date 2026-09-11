@@ -84,7 +84,7 @@ test('Only War runs regiment, characteristics, speciality, experience, comrade (
 });
 
 test('the wizard offers the books it can actually run', () => {
-    assert.deepEqual(auditedRulesets(), ['dh2', 'ow', 'bc']);
+    assert.deepEqual(auditedRulesets(), ['dh2', 'ow', 'bc', 'dw']);
 });
 
 test('the sheet charges Only War characteristics along its own ladder', () => {

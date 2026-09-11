@@ -102,26 +102,32 @@ export function specialityKeyFor(skill, name) {
  * степенями успеха и съедается Felling при попадании. Лист читает её из поля
  * `unnatural`, и заполнить его должен тот, кто трейт выдал.
  *
- * Книги пишут это имя двумя способами — «Unnatural Characteristic (Strength +4)»
- * и «Unnatural Strength (+4)», — поэтому разбираем оба.
+ * Книги пишут это имя тремя способами: «Unnatural Characteristic (Strength +4)»,
+ * «Unnatural Strength (+4)» и — у Deathwatch — «Unnatural Strength (x2)». Первые два
+ * прибавляют число, третий УДВАИВАЕТ бонус, и это разные вещи: удвоение растёт
+ * вместе с характеристикой, прибавка нет.
  *
  * @param {string} name  имя трейта
  * @param {string[]} keys  ключи характеристик книги
- * @returns {{key: string, value: number}|null}
+ * @returns {{key: string, value: number, multiplier: number}|null}
  */
 export function unnaturalFromTrait(name, keys = CHARACTERISTIC_KEYS) {
     const text = String(name ?? "");
     if (!/^unnatural/i.test(text)) return null;
     const inside = text.match(/\(([^)]*)\)/)?.[1] ?? text.replace(/^unnatural\s*/i, "");
-    const value = Number(inside.match(/([+-]?\d+)/)?.[1]);
-    if (!Number.isFinite(value) || value === 0) return null;
+    // «x2» — множитель, всё остальное — прибавка.
+    const times = Number(inside.match(/[x*](\d+)/i)?.[1]);
+    const value = Number.isFinite(times) ? 0 : Number(inside.match(/([+-]?\d+)/)?.[1]);
+    const multiplier = Number.isFinite(times) && times > 1 ? times : 1;
+    if (multiplier === 1 && (!Number.isFinite(value) || value === 0)) return null;
     // Имя характеристики — всё до числа: «Characteristic (Strength +4)» → strength.
     const words = `${text.replace(/\(.*$/, "")} ${inside}`.replace(/unnatural|characteristic/gi, "");
     const normalise = word => word.toLowerCase().replace(/[^a-z]/g, "");
-    const wanted = normalise(words.replace(/[+-]?\d+/g, ""));
+    // Из имени вычищаем и «x2», и «+4»: остаётся одна характеристика.
+    const wanted = normalise(words.replace(/[x*]\s*\d+/gi, "").replace(/[+-]?\d+/g, ""));
     if (!wanted) return null;
     const key = keys.find(entry => normalise(entry) === wanted);
-    return key ? {key, value} : null;
+    return key ? {key, value: Number.isFinite(value) ? value : 0, multiplier} : null;
 }
 
 /**
@@ -230,6 +236,12 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat", dup
         if (!boost) continue;
         const current = actor.system.characteristics?.[boost.key];
         if (!current) continue;
+        if (boost.multiplier > 1) {
+            update[`system.characteristics.${boost.key}.unnaturalMultiplier`] = boost.multiplier;
+            (applied.unnaturalMultiplier ??= {})[boost.key] =
+                Number(current.unnaturalMultiplier) || 1;
+            continue;
+        }
         const had = Number(current.unnatural) || 0;
         update[`system.characteristics.${boost.key}.unnatural`] = had + boost.value;
         (applied.unnatural ??= {})[boost.key] = (applied.unnatural?.[boost.key] ?? 0) + boost.value;
@@ -348,6 +360,10 @@ export function revertUpdate(actor, applied = {}) {
     // Величина возвращается к прежней ступени, если её ставил этот шаг.
     if (applied.size && (Number(actor.system.size) || 4) === applied.size.to)
         update["system.size"] = applied.size.from;
+    // Удвоение снимается возвратом прежнего множителя.
+    for (const [key, was] of Object.entries(applied.unnaturalMultiplier ?? {}))
+        if (actor.system.characteristics?.[key])
+            update[`system.characteristics.${key}.unnaturalMultiplier`] = was;
     // Прибавку к бонусу забираем тем же порядком, что и выдали.
     for (const [key, value] of Object.entries(applied.unnatural ?? {})) {
         const current = actor.system.characteristics?.[key];

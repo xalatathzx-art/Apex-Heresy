@@ -29,7 +29,9 @@ export const POINT_BUY = {base: 25, points: 60, cap: 40};
 export const POINT_BUY_RULES = {
     dh2: POINT_BUY,
     ow: {base: 20, points: 100, cap: 40},
-    bc: {base: 25, points: 100, capOverBase: 20}
+    bc: {base: 25, points: 100, capOverBase: 20},
+    // Deathwatch (стр. 27): тридцать в каждой, сто очков, не больше +20 на одну.
+    dw: {base: 30, points: 100, capOverBase: 20}
 };
 
 /**

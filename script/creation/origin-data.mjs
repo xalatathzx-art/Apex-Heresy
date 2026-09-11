@@ -21,7 +21,9 @@ export const STAGES = {
     ow:  ["regiment", "regimentOrigin", "regimentCommander", "regimentType", "doctrine",
           "equipmentDoctrine", "speciality"],
     bc:  ["race", "archetype", "pride", "disgrace", "motivation"],
-    dw:  ["chapter", "speciality"]
+    // spaceMarine — то общее, что есть у каждого брата (стр. 37): навыки, таланты,
+    // импланты и стандартная выкладка. Отдельной стадией, потому что это не выбор.
+    dw:  ["spaceMarine", "chapter", "speciality"]
 };
 
 /** Ключи характеристик актора — те же и в том же порядке, что в template.json. */

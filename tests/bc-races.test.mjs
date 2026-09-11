@@ -106,9 +106,12 @@ test('an unnatural trait raises the characteristic bonus it names', () => {
     assert.equal(back['system.characteristics.strength.unnatural'], 0);
 });
 
-test('only a rated unnatural trait counts, and both spellings are read', () => {
-    assert.deepEqual(unnaturalFromTrait('Unnatural Strength (+4)'), {key: 'strength', value: 4});
-    assert.deepEqual(unnaturalFromTrait('Unnatural Characteristic (Willpower +1)'), {key: 'willpower', value: 1});
+test('only a rated unnatural trait counts, and every spelling is read', () => {
+    assert.deepEqual(unnaturalFromTrait('Unnatural Strength (+4)'), {key: 'strength', value: 4, multiplier: 1});
+    assert.deepEqual(unnaturalFromTrait('Unnatural Characteristic (Willpower +1)'),
+        {key: 'willpower', value: 1, multiplier: 1});
+    // Deathwatch удваивает бонус, а не прибавляет к нему (стр. 136).
+    assert.deepEqual(unnaturalFromTrait('Unnatural Strength (x2)'), {key: 'strength', value: 0, multiplier: 2});
     assert.equal(unnaturalFromTrait('Unnatural Characteristic'), null, 'no number, no bonus');
     assert.equal(unnaturalFromTrait('Size (Hulking)'), null);
     assert.equal(unnaturalFromTrait('Amphibious'), null);

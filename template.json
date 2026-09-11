@@ -17,6 +17,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Weapon Skill",
               "Offence"
@@ -31,6 +32,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Ballistic Skill",
               "Finesse"
@@ -45,6 +47,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Strength",
               "Offence"
@@ -59,6 +62,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Toughness",
               "Defence"
@@ -73,6 +77,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Agility",
               "Finesse"
@@ -87,6 +92,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Intelligence",
               "Knowledge"
@@ -101,6 +107,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Perception",
               "Fieldcraft"
@@ -115,6 +122,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Willpower",
               "Psyker"
@@ -129,6 +137,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [
               "Fellowship",
               "Social"
@@ -143,6 +152,7 @@
             "advance": 0,
             "tempModifier": 0,
             "unnatural": 0,
+            "unnaturalMultiplier": 1,
             "aptitudes": [],
             "cost": 0,
             "damage": 0

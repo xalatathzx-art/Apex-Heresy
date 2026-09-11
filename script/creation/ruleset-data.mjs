@@ -150,13 +150,38 @@ export const RULESET_DEFS = {
     },
     dw: {
         label: "RULESET.DW",
-        characteristicModifiers: null,
+        ready: true,
+        // Модификаторы ордена прибавляются к готовому броску (стр. 24).
+        characteristicModifiers: "flat",
         characteristicMethods: ["roll", "pointBuy"],
+        // «Один из сильнейших защитников Империума» перебрасывает один результат (стр. 26).
+        characteristicRerolls: 1,
+        // 2d10+30 — десантник начинает там, где смертный заканчивает.
+        characteristicBase: 30,
+        // Тысяча на продвижения; ещё 12 000 — это то, чем он УЖЕ стал, их не тратят (стр. 28).
+        startingExperience: 1000,
+        backgroundExperience: 12000,
+        // Раны и Судьба бросаются вместе с характеристиками, но раны у всех одинаковы,
+        // а Судьба идёт по таблице 1-2 (стр. 28).
+        vitalsStage: "spaceMarine",
+        wounds: {formula: "18+1d5"},
+        fate: {formula: "1d10", table: [{min: 1, max: 7, value: 3}, {min: 8, max: 9, value: 4},
+                                        {min: 10, max: 10, value: 5}]},
+        // Склонностей книга не знает: у каждого продвижения своя цена в своём списке.
+        aptitudes: false,
+        // Цена — не лестница, а строка списка: Chapter, General Space Marine и Speciality.
+        advanceLists: true,
+        contentPacks: packsFirst("dark-heresy.deathwatch"),
+        // Влияния у десантника нет: снаряжение он получает Реквизицией (стр. 29).
+        characteristicKeys: CHARACTERISTIC_KEYS.filter(key => key !== "influence"),
         steps: [
-            {id: "chapter",         label: "ORIGIN.STAGE.CHAPTER",     kind: "origin", stage: "chapter"},
-            {id: "speciality",      label: "ORIGIN.STAGE.SPECIALITY",  kind: "origin", stage: "speciality"},
+            // Книжный порядок (стр. 24): сначала характеристики, потом орден и специальность.
+            {id: "spaceMarine",     label: "ORIGIN.STAGE.SPACE_MARINE", kind: "origin", stage: "spaceMarine"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
-            {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"}
+            {id: "chapter",         label: "ORIGIN.STAGE.CHAPTER",     kind: "origin", stage: "chapter", bioField: "system.bio.homeWorld"},
+            {id: "speciality",      label: "ORIGIN.STAGE.SPECIALITY",  kind: "origin", stage: "speciality", bioField: "system.bio.role"},
+            {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"},
+            {id: "life",            label: "WIZARD.LIFE",              kind: "life"}
         ]
     }
 };

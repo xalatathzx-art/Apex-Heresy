@@ -835,9 +835,15 @@ class DarkHeresyActor extends Actor {
             // −10 за усталость навешивается в _getActorConditionModifier, поэтому
             // стойкость, бонусы и всё производное остаются нетронутыми.
             characteristic.total = Math.max(characteristic.base + characteristic.advance, 0);
-            characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
+            // Книги считают «неестественность» по-разному. Dark Heresy и Black Crusade
+            // прибавляют число, Deathwatch УДВАИВАЕТ бонус — «Unnatural Strength (x2)»
+            // (стр. 136). Множитель поэтому живёт отдельным полем: прибавку он не
+            // отменяет, и при росте характеристики удвоение не отстаёт.
+            const multiplier = Number(characteristic.unnaturalMultiplier) || 1;
+            const unnatural = Number(characteristic.unnatural) || 0;
+            characteristic.bonus = Math.floor(characteristic.total / 10) * multiplier + unnatural;
             characteristic.displayTotal = characteristic.total + tempModifier;
-            characteristic.displayBonus = Math.floor(characteristic.displayTotal / 10) + characteristic.unnatural;
+            characteristic.displayBonus = Math.floor(characteristic.displayTotal / 10) * multiplier + unnatural;
             characteristic.isLeft = i < middle;
             characteristic.isRight = i >= middle;
             characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance);
@@ -2281,7 +2287,12 @@ class DarkHeresyActor extends Actor {
 
         const felling = Number(traits.felling) || 0;
         if (felling > 0) {
-            const unnatural = Number(this.system?.characteristics?.toughness?.unnatural) || 0;
+            // Валящее оружие снимает НЕЕСТЕСТВЕННУЮ часть стойкости — ту, что бонус
+            // получил сверх обычного. У Deathwatch она приходит удвоением, а не
+            // прибавкой, поэтому считаем разницу, а не читаем одно поле.
+            const toughness = this.system?.characteristics?.toughness ?? {};
+            const natural = Math.floor((Number(toughness.total) || 0) / 10);
+            const unnatural = Math.max((Number(toughness.bonus) || 0) - natural, 0);
             armour = Math.max(armour - Math.min(felling, unnatural), 0);
         }
         return armour;
