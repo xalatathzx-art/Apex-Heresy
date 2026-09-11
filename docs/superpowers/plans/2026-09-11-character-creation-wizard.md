@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-15. 169 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-16. 171 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -144,6 +144,15 @@ The first heading without `— DONE` is the next task.
   replacement to take is the player's choice and is not automated.
 - Still not automated from Stage 4: buying equipment for Influence-bonus acquisitions
   (p. 78). The step says how many are available and leaves the shopping to the sheet.
+- Task 16: the socket handler in `script/dark-heresy.js` keys on `data.type`, not
+  `data.action` as the plan wrote. Two branches were added beside the existing ones.
+- **The entry module's imports must each fit on ONE line.** `tests/helpers/system.mjs`
+  strips them with `/^import .*?;?
+/gm`; a two-line import survives, and all 169 tests
+  then fail with "Cannot use import statement outside a module" pointing at line 1.
+  `tests/entry-imports.test.mjs` now guards it.
+- The sheet type is picked before the book is. Black Crusade wants `heretic`; the wizard
+  warns rather than swapping the type under the player.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -2664,7 +2673,7 @@ git commit -m "Add the experience and divination steps and finish the wizard"
 
 ---
 
-### Task 16: The sidebar entry point
+### Task 16: The sidebar entry point — DONE
 
 **Files:**
 - Create: `script/creation/start.mjs`
