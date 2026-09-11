@@ -1,0 +1,1481 @@
+[
+  {
+    "name": "Cadian 99th Mechanised Infantry",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 1,
+      "key": "cadian99th",
+      "cost": 12,
+      "characteristics": {
+        "agility": 3,
+        "ballisticSkill": 3,
+        "perception": -3,
+        "willpower": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "command",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Hatred (Servants of Chaos)"
+          },
+          {
+            "name": "Rapid Reload"
+          }
+        ],
+        "wounds": 0,
+        "aptitudes": [
+          "Willpower"
+        ]
+      },
+      "choices": [
+        {
+          "key": "closeOrderDrill",
+          "type": "one",
+          "label": "Combat Formation or Double Team",
+          "options": [
+            {
+              "label": "Combat Formation",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Combat Formation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Double Team",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "combatDoctrine",
+          "type": "one",
+          "label": "Nerves of Steel or Sprint",
+          "options": [
+            {
+              "label": "Nerves of Steel",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Nerves of Steel"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Sprint",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Sprint"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Bred For War",
+          "description": "<p>Cadians possess an entirely justified siege mentality. This is a natural result of daily lives shaped by the need for perpetual vigilance against an enemy that could strike at any time, and the discipline required to respond to that threat swiftly and effectively. Cadians are loyal almost to a fault, and reluctant to disobey orders even with good reason, lacking personal initiative, and becoming inflexible as a result. A Cadian must pass a Challenging (+0) Willpower Test in order to go against the rules and regulations of the Imperial Guard.</p>"
+        },
+        {
+          "name": "Hated Enemy",
+          "description": "<p>Cadia stands on the edge of the Eye of Terror, within the only stable passage out of the massive Warp Storm, and the Cadians are taught to loathe the forces of the Lost and the Damned that frequently venture forth from the hellish daemon worlds within the Eye. All Cadians have Hatred (Servants of Chaos). However, this hatred is often so strong as to overwhelm reason and sound judgement, and Cadian characters may be required, at the GM’s discretion, to take an Ordinary (+10) Willpower Test in order to restrain themselves from attacking without mercy when confronted with Chaos forces.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment generate starting Wounds normally.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Good Craftsmanship M36 lasgun and 4 charge packs, autopistol and 2 clips, knife, flak armour, 2 frag grenades, 2 krak grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, gas mask, micro-bead, and a single Chimera Armoured Transport per squad.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Autocannon, Grenade launcher.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun",
+              "craftsmanship": "good"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Autopistol"
+            },
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Krak Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Micro-bead"
+            }
+          ],
+          "squad": [
+            "A single Chimera Armoured Transport per squad"
+          ],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 2 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Autocannon",
+          "Grenade launcher"
+        ],
+        "components": {
+          "homeWorld": "fortressWorld",
+          "commander": "fixed",
+          "regimentType": "mechanisedInfantry",
+          "doctrines": [
+            "closeOrderDrill",
+            "ironDiscipline"
+          ],
+          "cost": 12
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "ballisticSkill",
+            "willpower"
+          ],
+          "hatedEnemy": "Servants of Chaos"
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>None are entirely certain how many different incarnations of the Cadian 99th Shock Troops have existed across the millennia. The most recent incarnation was raised only a year ago, and were initially intended to join the Margin Crusade, but received orders to reinforce the Spinward Front instead. For all the Guardsmen’s inexperience, they are nonetheless Cadians, and they have trained since they were children to fight for the Imperium.</p><p>Colonel Dero Arkat, a thirty-year veteran of the Interior Guard assigned to lead the newly-raised regiment, has worked tirelessly to prepare his men for warfare, and appears to have succeeded thus far, operating as part of a series of rapid assaults against Chaos forces infesting the Periphery and worlds beyond.</p></div></div>",
+      "source": "Only War, p. 43"
+    }
+  },
+  {
+    "name": "Catachan 18th “Drakebats”",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 2,
+      "key": "catachan18th",
+      "cost": 11,
+      "characteristics": {
+        "agility": 3,
+        "strength": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "survival",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Resistance (Fear)"
+          },
+          {
+            "name": "Sprint"
+          }
+        ],
+        "wounds": 2,
+        "aptitudes": [
+          "Agility"
+        ]
+      },
+      "choices": [
+        {
+          "key": "hardened",
+          "type": "one",
+          "label": "Lightning Reflexes or Light Sleeper or Resistance (Poison)",
+          "options": [
+            {
+              "label": "Lightning Reflexes",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Lightning Reflexes"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Light Sleeper",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Light Sleeper"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Resistance (Poison)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Resistance (Poison)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Fluency",
+          "description": "<p>While Catachans have learned to speak Low Gothic, they do not have time in their violent lives to learn how to read or write the universal language of the Imperium. Because of this, Catachans do not start with the Linguistics (Low Gothic) Skill at creation, although they are still capable of engaging in any verbal communication in Low Gothic that does not require a Skill Test.</p>"
+        },
+        {
+          "name": "Survivalists (Jungle)",
+          "description": "<p>Catachans have grown up fighting in the lethal jungle of their homeworld, and feel at home on any planet with a similar environment. When operating in jungle terrain, they can re-roll failed Survival and Navigate (Surface) Skill Tests.</p>"
+        },
+        {
+          "name": "Wary of Outsiders",
+          "description": "<p>Catachans tend to be slow to put their faith in anyone other than themselves and their comrades, and they chafe at the expectations and strictures of more civilised society. They suffer a –10 penalty on all Interaction Skill Tests made in formal surroundings, and similarly impose a –10 penalty on any Interaction Skill Tests made on them by any non-Catachans. These penalties can be waived at the GM’s discretion, if the death worlders are dealing with those who have earned their trust.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment begin play with +2 starting Wounds.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Lascarbine and 4 charge packs, 1 Best Craftsmanship sword, 1 knife, flak vest and flak helmet, 3 frag grenades, 2 smoke grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, stummer, grapnel.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Flamer, Heavy bolter.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "Las Carbine"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Flak Vest"
+            },
+            {
+              "name": "Flak Helmet"
+            }
+          ],
+          "items": [
+            {
+              "name": "Sword",
+              "craftsmanship": "best"
+            },
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 3
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Stummer"
+            },
+            {
+              "name": "Grapnel & Line"
+            }
+          ],
+          "squad": [],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, dog tags, 2 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Flamer",
+          "Heavy bolter"
+        ],
+        "components": {
+          "homeWorld": "deathWorld",
+          "commander": "maverick",
+          "regimentType": "lightInfantry",
+          "doctrines": [
+            "survivalists"
+          ],
+          "cost": 11
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "strength",
+            "toughness"
+          ],
+          "terrain": "Jungle"
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The drakebat is an Ogryn-sized, winged, pseudo-reptile that lurks amongst the upper canopy of the equatorial jungles of Catachan, descending from the treetops to ambush and devour unsuspecting prey. The Catachan 18th Light Infantry, famed for their swift ambushes and surprise assaults, took on the name of these beasts, as is a common tradition amongst Catachan regiments. The speed at which the drakebat performs its swooping attacks is echoed by the Catachan 18th’s ability to deploy and execute an ambush with minimal time to prepare.</p><p>An uncommonly large regiment, the Drakebats have been divided up into a number of company-strength groups and spread across the Spinward Front warzone, lending their skills to the hostile wilderness of several worlds.</p></div></div>",
+      "source": "Only War, p. 45"
+    }
+  },
+  {
+    "name": "Krieg 616th Siege Regiment",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 3,
+      "key": "krieg616th",
+      "cost": 12,
+      "characteristics": {
+        "intelligence": -3,
+        "toughness": 6,
+        "willpower": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "intimidate",
+            "advance": 0
+          },
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Ecclesiarchy",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Nerves of Steel"
+          }
+        ],
+        "wounds": 2,
+        "aptitudes": [
+          "Toughness",
+          "Willpower"
+        ]
+      },
+      "choices": [
+        {
+          "key": "bloodOfMartyrs",
+          "type": "one",
+          "label": "Orthoproxy or Unshakeable Faith",
+          "options": [
+            {
+              "label": "Orthoproxy",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Orthoproxy"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unshakeable Faith",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unshakeable Faith"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Only One Life to Give",
+          "description": "<p>So driven to martyrdom are the Krieg, that it can cause them to take unnecessary risks, lamenting that they can only sacrifice themselves once. Krieg characters must pass an Ordinary (+10) Willpower Test in order to retreat from combat or otherwise act in the interests of self-preservation.</p>"
+        },
+        {
+          "name": "Faceless, Nameless, and Selfless",
+          "description": "<p>Krieg Korpsmen are taught to regard themselves without identity, hidden behind gas masks and stripped of even their names. This lack of self helps them fight on against impossible odds, and neither fear nor doubt will hinder them. When required to make a Fear or Pinning Test, ignore all penalties applied to the Test, and simply treat it as a Challenging (+0) Willpower Test.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment begin play with +2 starting Wounds.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 M36 lasgun and 6 charge packs, 1 mono-knife, flak armour, 1 respirator, 4 empty sandbags, 1 entrenching tool, 4 frag grenades, 2 photon flash grenades, 2 smoke grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, 1 box of 6 screamers per squad.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Heavy bolter, Meltagun.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 6
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Mono"
+            },
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 4
+            },
+            {
+              "name": "Photon Flash Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            }
+          ],
+          "squad": [
+            "1 box of 6 screamers per squad"
+          ],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 4 empty sandbags, 1 entrenching tool, 2 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Heavy bolter",
+          "Meltagun"
+        ],
+        "components": {
+          "homeWorld": "penitent",
+          "commander": "phlegmatic",
+          "regimentType": "siegeInfantry",
+          "doctrines": [
+            "dieHards",
+            "ironDiscipline"
+          ],
+          "cost": 12,
+          "note": "Penitent, but the Untempered Zeal Trait has been replaced with the unique Faceless, Nameless, and Selfless Trait listed in the Regiment Rules."
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "toughness",
+            "willpower"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Originally consisting of over thirty thousand warriors, the 616th Siege Regiment is newly-raised from their self-inflicted hell of a home world, as part of the first wave of Krieg forces redirected from Vraks. Since their arrival in the Spinward Front, these regiments have found themselves embroiled in some of the heaviest fighting, such as besieging Mek-Boss Dregrukk’s Stompa manufactories on Asterion, or battles amongst the defenders on Kulth.</p><p>Like many Krieg regiments, individual troopers tend to have little in the way of personal identity, often stripped of their sense of self during training, even removing their names in favour of a simple designation.</p></div></div>",
+      "source": "Only War, p. 47"
+    }
+  },
+  {
+    "name": "Elysian 13th “Helldivers” Drop Troops",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 4,
+      "key": "elysian13th",
+      "cost": 12,
+      "characteristics": {
+        "agility": 3,
+        "ballisticSkill": 3,
+        "fellowship": -3,
+        "willpower": 3
+      },
+      "grants": {
+        "skills": [],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "operate",
+            "name": "Aeronautica",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Catfall"
+          },
+          {
+            "name": "Die Hard"
+          },
+          {
+            "name": "Hatred (Mutants)"
+          }
+        ],
+        "wounds": 0,
+        "aptitudes": [
+          "Willpower"
+        ]
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Blessed Ignorance",
+          "description": "<p>Elysians know that the proper ways of living are those tried and tested by the generations that have gone before. Horror, pain and death are the just rewards of curiosity, for those who look too deeply into the mysteries of the universe are all too likely to find malefic beings looking back at them. Their wise blindness imposes a –5 penalty on all Forbidden Lore (Int) Tests.</p>"
+        },
+        {
+          "name": "Demolitions Doctrine",
+          "description": "<p>Elysians gain a +10 bonus on all Logistics Tests made to obtain grenades, missiles, explosives and special tank ammunition.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment generate starting Wounds normally.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Combat shotgun and 4 clips, 1 knife, flak armour, 1 respirator, 1 grav-chute, 3 frag grenades, 3 smoke grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 4 weeks’ rations, survival suit, micro-bead, photo-visor.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Heavy bolter, Plasma gun.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "Combat Shotgun"
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Grav Chute"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 3
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 3
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Survival Suit"
+            },
+            {
+              "name": "Micro-bead"
+            },
+            {
+              "name": "Photo-Visors/Contacts"
+            }
+          ],
+          "squad": [],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 4 clips for the combat shotgun, 4 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Heavy bolter",
+          "Plasma gun"
+        ],
+        "components": {
+          "homeWorld": "imperialWorld",
+          "commander": "sanguine",
+          "regimentType": "dropTroops",
+          "doctrines": [
+            "ironDiscipline",
+            "demolitions"
+          ],
+          "cost": 12
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "ballisticSkill"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The Elysian 13th Drop Troops has gained something of a heroic reputation amongst the regiments of the Spinward Front, having emerged from seemingly impossible odds on multiple occasions. Dubbed the Helldivers for their tendency to descend upon the enemy from above and leave destruction in their wake, the Elysian 13th are the subject of overblown tales and flights of fancy amongst the masses.</p><p>Colonel Johanna van Meer, the regiment’s commander, is daring, optimistic, courageous, and more than a little vainglorious. Her fervour for the glory of battle has seen the Elysian 13th deployed to the deadliest of conflicts and the most challenging of missions, succeeding at any cost, and to great acclaim.</p></div></div>",
+      "source": "Only War, p. 49"
+    }
+  },
+  {
+    "name": "Maccabian Janissaries 1322nd",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 5,
+      "key": "maccabian1322nd",
+      "cost": 11,
+      "characteristics": {
+        "fellowship": 3,
+        "intelligence": -3,
+        "strength": 3,
+        "weaponSkill": 2,
+        "willpower": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "athletics",
+            "advance": 0
+          },
+          {
+            "key": "intimidate",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Ecclesiarchy",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Paranoia"
+          },
+          {
+            "name": "Rapid Reload"
+          },
+          {
+            "name": "Street Fighting"
+          }
+        ],
+        "wounds": 2
+      },
+      "choices": [
+        {
+          "key": "closeOrderDrill",
+          "type": "one",
+          "label": "Combat Formation or Double Team",
+          "options": [
+            {
+              "label": "Combat Formation",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Combat Formation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Double Team",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "bloodOfMartyrs",
+          "type": "one",
+          "label": "Nerves of Steel or Orthoproxy or Unshakeable Faith",
+          "options": [
+            {
+              "label": "Nerves of Steel",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Nerves of Steel"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Orthoproxy",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Orthoproxy"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unshakeable Faith",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unshakeable Faith"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Only One Life to Give",
+          "description": "<p>So driven to martyrdom are the Janissaries, that it can cause them to take unnecessary risks, lamenting that they can only sacrifice themselves once. Janissary characters must pass an Ordinary (+10) Willpower Test in order to retreat from combat or otherwise act in the interests of self-preservation.</p>"
+        },
+        {
+          "name": "Untempered Zeal",
+          "description": "<p>The pious spirit of the Janissaries is almost unmatched in its ferocity, and while their faith is closer to the violent ardour of the fanatic than the divine clarity of the Adepta Sororitas, it is nonetheless inspiring to behold. Janissary characters can re-roll any failed Charm Test to inspire religious fervour or righteous hatred in others.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment begin play with +2 starting Wounds.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Good Craftsmanship M36 lasgun and 4 charge packs, 1 knife, flak armour, 2 frag grenades, 2 krak grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, photo-visor, respirator, purity seals.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Lascannon, Plasma gun.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun",
+              "craftsmanship": "good"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Krak Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Photo-Visors/Contacts"
+            },
+            {
+              "name": "Respirator/Gas Mask"
+            }
+          ],
+          "squad": [],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 2 weeks’ rations, purity seals."
+        },
+        "favouredWeapons": [
+          "Lascannon",
+          "Plasma gun"
+        ],
+        "components": {
+          "homeWorld": "penitent",
+          "commander": "bilious",
+          "regimentType": "lineInfantry",
+          "doctrines": [
+            "closeOrderDrill",
+            "hardenedFighters"
+          ],
+          "cost": 11
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "fellowship",
+            "willpower"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The Maccabian 1322nd is on its last legs, having fought on the front lines now for over a decade. Like those who came before them, and those who shall come after, the 1322nd hold no illusions about returning to Maccabeus Quintus, and unfettered by thoughts of home, they have endeavoured to be at the forefront of battle whenever the opportunity has arisen. Particularly driven to oppose traitors and heretics, the 1322nd have come to relish battle against Dominate and Chaos forces, and are currently embroiled in the multi-front battles that have engulfed the resource-rich Karacallia system.</p></div></div>",
+      "source": "Only War, p. 51"
+    }
+  },
+  {
+    "name": "Mordian 12th Armoured Regiment",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 6,
+      "key": "mordian12th",
+      "cost": 12,
+      "characteristics": {
+        "agility": 3,
+        "intelligence": 3,
+        "perception": 3,
+        "weaponSkill": -3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "deceive",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Technical Knock"
+          }
+        ],
+        "wounds": -1
+      },
+      "choices": [
+        {
+          "key": "closeOrderDrill",
+          "type": "one",
+          "label": "Combat Formation or Double Team",
+          "options": [
+            {
+              "label": "Combat Formation",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Combat Formation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Double Team",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "urbanViolence",
+          "type": "one",
+          "label": "Heightened Senses (Hearing) or Paranoia or Unremarkable",
+          "options": [
+            {
+              "label": "Heightened Senses (Hearing)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Heightened Senses (Hearing)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Paranoia",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Paranoia"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unremarkable",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unremarkable"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Accustomed to Crowds",
+          "description": "<p>Mordians grow up surrounded by crowds, and they are used to weaving through even the densest mobs with ease. Crowds do not count as Difficult Terrain for Mordians, and when Running or Charging through a dense crowd, these hive worlders take no penalty to the Agility Test to keep their feet.</p>"
+        },
+        {
+          "name": "Hivebound",
+          "description": "<p>Mordians seldom endure the horrors of the open sky or suffer the indignities of the great outdoors. Whilst outside of an enclosed or artificial environment (such as a hive city, starship or similar), they suffer a –10 penalty to all Survival Tests due to their continued unfamiliarity with such places.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment begin play with –1 starting Wounds.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Laspistol and 2 charge packs, 1 knife, 1 flak vest, 1 injector, 5 doses of stimm, 1 anointed maintenance toolkit, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, and a single Leman Russ battle tank per squad.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Grenade Launcher, Lascannon.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "Laspistol"
+            },
+            {
+              "name": "Charge Pack (Pistol)",
+              "quantity": 2
+            }
+          ],
+          "armour": [
+            {
+              "name": "Flak Vest"
+            }
+          ],
+          "items": [
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Injector"
+            },
+            {
+              "name": "Stimm",
+              "quantity": 5
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            }
+          ],
+          "squad": [
+            "A single Leman Russ battle tank per squad"
+          ],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 1 anointed maintenance toolkit, 2 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Grenade Launcher",
+          "Lascannon"
+        ],
+        "components": {
+          "homeWorld": "hiveWorld",
+          "commander": "phlegmatic",
+          "regimentType": "armoured",
+          "doctrines": [
+            "closeOrderDrill",
+            "combatDrugs"
+          ],
+          "cost": 12
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "agility",
+            "perception"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The customary discipline and rigourous drills of the Mordian Iron Guard serve the vehicle crews of the Mordian 12th Armour Regiment as well as they serve ranks of infantry fighting shoulder to shoulder. The close-knit Leman Russ crews have been transformed from a group of individuals into a single lethal entity, with many eyes and many arms, but only one will.</p><p>Their commanding officer, Colonel Halon Tanz, is a veteran of decades of riot suppression and defensive actions against Chaos raiders—a calm and confident leader, well-versed in the doctrines of the Tactica Imperialis.</p></div></div>",
+      "source": "Only War, p. 53"
+    }
+  },
+  {
+    "name": "Tallarn 11th Desert Raiders",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 7,
+      "key": "tallarn11th",
+      "cost": 11,
+      "characteristics": {
+        "agility": 3,
+        "perception": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "survival",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Deadeye Shot"
+          },
+          {
+            "name": "Foresight"
+          },
+          {
+            "name": "Sprint"
+          }
+        ],
+        "wounds": 2,
+        "aptitudes": [
+          "Ballistic Skill"
+        ]
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Fluency",
+          "description": "<p>While Tallarns have learned to speak Low Gothic, they do not have time in their violent lives to learn how to read or write the universal language of the Imperium. Because of this, Tallarns do not start with the Linguistics (Low Gothic) Skill at creation, although they are still capable of engaging in any verbal communication in Low Gothic that does not require a Skill Test.</p>"
+        },
+        {
+          "name": "Guerrilla Warfare",
+          "description": "<p>The people of Tallarn long ago became masters of hit-and-run strategies. After successfully attacking and hitting an enemy who is Surprised, or was otherwise Unaware of the Tallarn character prior to the attack, a Tallarn character gains an immediate bonus Half Action, which can only be used on an Action with the Movement subtype.</p>"
+        },
+        {
+          "name": "Wary of Outsiders",
+          "description": "<p>Tallarns tend to be slow to put their faith in anyone other than themselves and their comrades, and they chafe at the expectations and strictures of more civilised society. They suffer a –10 penalty on all Interaction Skill Tests made in formal surroundings, and similarly impose a –10 penalty on any Interaction Skill Tests made on them by any non-Tallarns. These penalties can be waived at the GM’s discretion, if the death worlders are dealing with those who have earned their trust.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment begin play with +2 starting Wounds.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 M36 lasgun and 4 charge packs, 1 mono-knife, flak vest and flak helmet, 2 frag grenades, 3 smoke grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 4 weeks’ rations, magnoculars, micro-bead.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Missile launcher, Plasma gun.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Flak Vest"
+            },
+            {
+              "name": "Flak Helmet"
+            }
+          ],
+          "items": [
+            {
+              "name": "Knife"
+            },
+            {
+              "name": "Mono"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 3
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Magnoculars"
+            },
+            {
+              "name": "Micro-bead"
+            }
+          ],
+          "squad": [],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 4 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Missile launcher",
+          "Plasma gun"
+        ],
+        "components": {
+          "homeWorld": "deathWorld",
+          "commander": "circumspect",
+          "regimentType": "lightInfantry",
+          "doctrines": [
+            "sharpshooters"
+          ],
+          "cost": 11,
+          "note": "Death World, but with the Hardened Trait replaced with the unique Guerrilla Warfare Trait described in the Regiment Rules."
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "perception",
+            "toughness"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The Tallarn 11th, together with the Tallarn 220th Armoured and the Tallarn 31st Rough Riders, were despatched to the Calixis Sector alongside many other Tallarn regiments, only months after the first call for reinforcements. However, due to the vagaries of Warp travel, these three regiments have only arrived in the last few months, their transit delayed by disruptive Warp activity that saw them separated from their transport group and delayed by several years.</p><p>Their commander, Colonel Fiora Javed, is a calm and careful woman, unwilling to act rashly or strike without considering the terrain, the enemy, and a variety of other factors.</p></div></div>",
+      "source": "Only War, p. 55"
+    }
+  },
+  {
+    "name": "Vostroyan Firstborn 55th",
+    "type": "origin",
+    "folder": "Only War/Regiments",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regiment",
+      "order": 8,
+      "key": "vostroyan55th",
+      "cost": 11,
+      "characteristics": {
+        "intelligence": -3,
+        "strength": 3,
+        "toughness": 3,
+        "weaponSkill": 2,
+        "willpower": 3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "athletics",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Deadeye Shot"
+          },
+          {
+            "name": "Hatred (Mutants)"
+          },
+          {
+            "name": "Rapid Reaction"
+          },
+          {
+            "name": "Rapid Reload"
+          },
+          {
+            "name": "Street Fighting"
+          }
+        ],
+        "wounds": 0,
+        "aptitudes": [
+          "Ballistic Skill"
+        ]
+      },
+      "choices": [],
+      "bonuses": [
+        {
+          "name": "Blessed Ignorance",
+          "description": "<p>Vostroyans know that the proper ways of living are those tried and tested by the generations that have gone before. Horror, pain and death are the just rewards of curiosity, for those that look too deeply into the mysteries of the universe are all too likely to find malefic beings looking back at them. Their wise blindness imposes a –5 penalty on all Forbidden Lore (Int) Tests.</p>"
+        },
+        {
+          "name": "Wounds",
+          "description": "<p>Characters from this regiment generate starting Wounds normally.</p>"
+        },
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>1 Good Craftsmanship M36 lasgun and 4 charge packs, 1 sword, flak armour, Good Craftsmanship carapace breastplate, 2 frag grenades, 2 krak grenades, uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, rechargeable lamp-pack, grooming kit, dog tags, Imperial Infantryman’s Uplifting Primer, 2 weeks’ rations, micro-bead, respirator, survival suit.</p>"
+        },
+        {
+          "name": "Favoured Weapons",
+          "description": "<p>Long-las, Heavy bolter.</p>"
+        }
+      ],
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun",
+              "craftsmanship": "good"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            },
+            {
+              "name": "Carapace Chestplate",
+              "craftsmanship": "good"
+            }
+          ],
+          "items": [
+            {
+              "name": "Sword"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Krak Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Glow-globe/Lamp Pack"
+            },
+            {
+              "name": "Uplifting Primer"
+            },
+            {
+              "name": "Micro-bead"
+            },
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Survival Suit"
+            }
+          ],
+          "squad": [],
+          "text": "Uniform, poor weather gear, rucksack, basic toolkit, mess kit and water canteen, blanket and sleep bag, grooming kit, dog tags, 2 weeks’ rations."
+        },
+        "favouredWeapons": [
+          "Long-las",
+          "Heavy bolter"
+        ],
+        "components": {
+          "homeWorld": "imperialWorld",
+          "commander": "choleric",
+          "regimentType": "lineInfantry",
+          "doctrines": [
+            "hardenedFighters",
+            "sharpshooters"
+          ],
+          "cost": 11
+        },
+        "regimentPicks": {
+          "homeWorldCharacteristics": [
+            "toughness"
+          ]
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Like all Vostroyan Firstborn regiments, the 55th can trace its history back to the reconstruction of the Imperium after the Horus Heresy. Generations of Vostroyan men have fought, bled, and died on countless worlds across the galaxy. It is an old saying amongst their number that Vostroyan blood has been shed on every world in the Imperium, and given the illustrious history of even one Firstborn regiment, this may not be too far from the truth.</p><p>The regiment’s commander, Nikolai Aleksandrov, is well-regarded by the other officers in his regiment, not purely because of his rank, but because he is a distant cousin of one of the ruling Techtriarchs of Vostroya, and thus an extremely important member of the nobility.</p></div></div>",
+      "source": "Only War, p. 57"
+    }
+  }
+]
