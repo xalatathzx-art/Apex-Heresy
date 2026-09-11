@@ -19,5 +19,9 @@
  "Black Crusade/Prides": {},
  "Black Crusade/Disgraces": {},
  "Black Crusade/Motivations": {},
-  "Deathwatch": {"color": "#2b2b5c", "sort": 500}
+  "Deathwatch": {"color": "#2b2b5c", "sort": 500},
+ "Deathwatch/Space Marine": {},
+ "Deathwatch/Chapters": {},
+ "Deathwatch/Specialities": {},
+ "Deathwatch/Advances": {}
 }

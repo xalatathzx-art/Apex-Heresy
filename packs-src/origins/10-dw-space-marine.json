@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Space Marine",
+    "type": "origin",
+    "folder": "Deathwatch/Space Marine",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "dw",
+      "stage": "spaceMarine",
+      "order": 1,
+      "key": "spaceMarine",
+      "cost": 0,
+      "description": "<p>Every Battle-Brother comes to the Deathwatch already made: decades of hypno-indoctrination, the nineteen implants that turned a boy into a weapon, and the training of a Chapter that has fought for ten thousand years. This is what he brings before anyone asks which Chapter or which Speciality.</p>",
+      "source": "Deathwatch, p. 36",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "18+1d5"
+      },
+      "rules": {
+        "spaceMarine": true,
+        "movementBonus": 1
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "athletics",
+            "advance": 0
+          },
+          {
+            "key": "dodge",
+            "advance": 0
+          },
+          {
+            "key": "intimidate",
+            "advance": 0
+          },
+          {
+            "key": "stealth",
+            "advance": 0
+          },
+          {
+            "key": "survival",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "linguistics",
+            "name": "Chapter Runes",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "High Gothic",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Adeptus Astartes",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Deathwatch",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Xenos",
+            "advance": 0
+          },
+          {
+            "key": "scholasticLore",
+            "name": "Codex Astartes",
+            "advance": 0
+          },
+          {
+            "key": "scholasticLore",
+            "name": "Tactica Imperialis",
+            "advance": 0
+          },
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          },
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Ambidextrous"
+          },
+          {
+            "name": "Astartes Weapon Training"
+          },
+          {
+            "name": "Bulging Biceps"
+          },
+          {
+            "name": "Heightened Senses (Hearing)"
+          },
+          {
+            "name": "Heightened Senses (Sight)"
+          },
+          {
+            "name": "Killing Strike"
+          },
+          {
+            "name": "Nerves of Steel"
+          },
+          {
+            "name": "Quick Draw"
+          },
+          {
+            "name": "Resistance (Psychic Powers)"
+          },
+          {
+            "name": "True Grit"
+          },
+          {
+            "name": "Unarmed Master"
+          },
+          {
+            "name": "Deathwatch Training"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Unnatural Characteristic (Strength x2)"
+          },
+          {
+            "name": "Unnatural Characteristic (Toughness x2)"
+          },
+          {
+            "name": "Size (Hulking)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Astartes Power Armour"
+          },
+          {
+            "name": "Astartes Bolt Pistol"
+          },
+          {
+            "name": "Astartes Frag Grenade",
+            "quantity": 3
+          },
+          {
+            "name": "Astartes Krak Grenade",
+            "quantity": 3
+          },
+          {
+            "name": "Astartes Combat Knife"
+          },
+          {
+            "name": "Repair Cement"
+          }
+        ]
+      },
+      "bonuses": [
+        {
+          "name": "Space Marine Abilities",
+          "effect": "The starting skills, talents and traits of every Space Marine, his Deathwatch hypno-conditioning and his Deathwatch Training (p. 36)."
+        },
+        {
+          "name": "Chapter Trapping",
+          "effect": "Every Battle-Brother carries one trapping of his Chapter, chosen with the GM (p. 29)."
+        }
+      ],
+      "choices": [
+        {
+          "key": "tactics",
+          "type": "target",
+          "label": "Tactics (choose one)",
+          "talentTemplate": "Tactics ({v})",
+          "specialityTemplate": {
+            "key": "scholasticLore",
+            "name": "Tactica Imperialis ({v})"
+          }
+        }
+      ]
+    }
+  }
+]
