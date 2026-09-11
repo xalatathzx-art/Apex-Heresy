@@ -179,7 +179,8 @@ test('granted items are tagged with the stage and the carrier that produced them
 
     assert.equal(data.find(d => d.name === 'Nonexistent').type, 'talent');
     assert.equal(data.find(d => d.name === 'Sturdy').system.rating, 3);
-    assert.equal(data.find(d => d.name === 'Sword').system.quantity, 2);
+    // Only ammunition holds a quantity in this system, so two swords are two items.
+    assert.equal(data.filter(d => d.name === 'Sword').length, 2);
 });
 
 test('a talent handed out at creation is a free starting talent', () => {

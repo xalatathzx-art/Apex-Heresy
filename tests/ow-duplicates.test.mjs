@@ -63,3 +63,16 @@ test('the ruleset says when wounds and fate are rolled', () => {
     assert.equal(RULESET_DEFS.dh2.vitalsStage, 'characteristics');
     assert.equal(RULESET_DEFS.ow.vitalsStage, 'speciality', 'wounds come from the speciality (p. 100)');
 });
+
+test('a count becomes copies for items that cannot hold one (grenades), and a number for ammunition', () => {
+    const plan = {...emptyPlan(), equipment: [{name: 'Frag Grenade', quantity: 2}, {name: 'Charge Pack (Basic)', quantity: 4}]};
+    // Only ammunition carries a quantity in this system; a weapon does not.
+    const lookup = (kind, name) => name === 'Charge Pack (Basic)'
+        ? {name, type: 'ammunition', system: {quantity: 1}}
+        : {name, type: 'weapon', system: {}};
+    const items = planToItemData(plan, 'ow:regiment', 'carrier', lookup);
+    assert.deepEqual(items.filter(item => item.name === 'Frag Grenade').length, 2, 'two grenades are two items');
+    const packs = items.filter(item => item.name === 'Charge Pack (Basic)');
+    assert.equal(packs.length, 1);
+    assert.equal(packs[0].system.quantity, 4);
+});

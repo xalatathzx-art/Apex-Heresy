@@ -48,6 +48,9 @@ export const RULESET_DEFS = {
         characteristicRerolls: 0,
         startingExperience: 1000,
         duplicates: {skill: "best", talentExperience: 0},
+        // Элитные продвижения — понятие Dark Heresy (стр. 86); в Only War их нет:
+        // санкционированный псайкер там не продвижение, а специальность.
+        eliteAdvances: true,
         // Раны и Судьба Dark Heresy идут от родного мира и бросаются вместе с характеристиками.
         vitalsStage: "characteristics",
         contentPacks: packsFirst("dark-heresy.dark-heresy"),

@@ -224,8 +224,12 @@ export function planToItemData(plan, tag, carrierId, lookup, {aptitudes, skipTal
     }
     for (const gear of plan.equipment ?? []) {
         const data = copy("equipment", gear.name, lookup);
-        if (gear.quantity > 1) data.system.quantity = gear.quantity;
-        out.push({...data, flags});
+        const count = Math.max(1, Number(gear.quantity) || 1);
+        // Счётчик есть только у боеприпасов. Две гранаты — это два предмета, а не
+        // одна с числом: числа ей просто негде хранить.
+        if (count > 1 && data.system.quantity !== undefined) data.system.quantity = count;
+        for (let copyIndex = 0; copyIndex < (data.system.quantity !== undefined ? 1 : count); copyIndex++)
+            out.push({...data, system: {...data.system}, flags});
     }
     for (const name of aptitudes ?? plan.aptitudes ?? []) {
         if (name === UNIVERSAL_APTITUDE) continue;

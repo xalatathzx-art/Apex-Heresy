@@ -459,7 +459,7 @@
                 </div>
                 {{#each shopDisciplines as |discipline|}}
                 <section class="shop-discipline">
-                    <h3 class="shop-discipline-title">{{discipline.label}} <span class="shop-step">p. {{discipline.page}}</span></h3>
+                    <h3 class="shop-discipline-title">{{discipline.label}}{{#if discipline.page}} <span class="shop-step">p. {{discipline.page}}</span>{{/if}}</h3>
                     <div class="shop-list">
                         {{#each discipline.powers as |offer|}}
                         <div class="shop-row shop-talent{{#if offer.blocked}} blocked{{/if}}{{#if offer.owned}} maxed{{/if}}">

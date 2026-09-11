@@ -98,3 +98,8 @@ test('the sheet charges Only War characteristics along its own ladder', () => {
     const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
     assert.match(source, /Dh\.rulesetFor\(this\)\.characteristicCosts \?\? config\.characteristicCosts/);
 });
+
+test('elite advances belong to Dark Heresy; Only War has none (p. 86)', () => {
+    assert.equal(RULESET_DEFS.dh2.eliteAdvances, true);
+    assert.ok(!RULESET_DEFS.ow.eliteAdvances, 'the Sanctioned Psyker is a speciality there, not an advance');
+});

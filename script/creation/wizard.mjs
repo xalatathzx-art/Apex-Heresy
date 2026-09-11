@@ -578,6 +578,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`),
                                        {aptitudes: applied.aptitudes, skipTalents: applied.duplicateTalents});
         if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
+
+        // Стандартный комплект полка — тоже выдача, только лежит слотами (Only War, стр. 68).
+        const kit = await this._kitItemData(source.system.rules?.kit, tag, carrier.id);
+        if (kit.length) await actor.createEmbeddedDocuments("Item", kit);
         // Название выбранного попадает в анкету ЗДЕСЬ, а не в конце: игрок видит, как
         // лист собирается под его руками. Поле остаётся обычным, редактируемым —
         // переименовать «Мир-улей» в «Десолеум» это игра, а не поломка.
@@ -598,9 +602,68 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         }
         if (elite.length) await carrier.setFlag(GRANT_FLAG_SCOPE, "elite", elite);
 
+        // Особая способность происхождения: санкционированный псайкер Only War начинает
+        // с рейтингом пси и Порчей (стр. 95).
+        const psyker = source.system.rules?.psyker;
+        if (psyker) await this._applyPsykerRules(psyker, carrier);
+
         // Книга может задавать Раны и Судьбу шагом, который только что закрепили.
         if (RULESET_DEFS[this.ruleset].vitalsStage === step.stage) await this._rollVitals();
         return true;
+    }
+
+    /**
+     * Предметы стандартного комплекта: основное оружие, броня и прочее.
+     *
+     * Мастерство пишется на копию: в паке лежит обычная вещь, а книга выдаёт
+     * «Good Craftsmanship M36 lasgun». Строки «на отряд» предметами не становятся —
+     * танк выдаётся отряду, а не листу.
+     */
+    async _kitItemData(kit, tag, carrierId) {
+        if (!kit) return [];
+        const flags = {[GRANT_FLAG_SCOPE]: {[GRANT_FLAG_KEY]: tag, grantedBy: carrierId}};
+        const out = [];
+        const unresolved = [];
+        for (const entry of [...(kit.mainWeapon ?? []), ...(kit.armour ?? []), ...(kit.items ?? [])]) {
+            const found = await this._lookupContent("equipment", entry.name);
+            if (!found) { unresolved.push(entry.name); continue; }
+            delete found._id;
+            found.system = {...found.system};
+            const count = Math.max(1, Number(entry.quantity) || 1);
+            if (count > 1 && found.system.quantity !== undefined) found.system.quantity = count;
+            if (entry.craftsmanship) found.system.craftsmanship = entry.craftsmanship;
+            // Комплект носят, а не несут в мешке: броня надета сразу.
+            if (found.type === "armour") found.system.equipped = true;
+            // Счётчик есть только у боеприпасов; остальное множится предметами.
+            for (let copy = 0; copy < (found.system.quantity !== undefined ? 1 : count); copy++)
+                out.push({...found, system: {...found.system}, flags});
+        }
+        if (unresolved.length)
+            ui.notifications?.warn(game.i18n.format("WIZARD.UNRESOLVED_GRANTS", {names: unresolved.join(", ")}));
+        return out;
+    }
+
+    /**
+     * Рейтинг пси и Порча от происхождения-псайкера.
+     *
+     * Записывается на носитель, чтобы «Назад» вернул и рейтинг, и Порчу: бросок
+     * повторять не станем, но и оставлять его после отката нельзя.
+     */
+    async _applyPsykerRules(psyker, carrier) {
+        const actor = this.actor;
+        if (carrier.getFlag(GRANT_FLAG_SCOPE, "psyker")) return;
+        const record = {rating: Number(actor.system.psy?.rating) || 0, corruption: 0};
+        const update = {};
+        if (psyker.psyRating) update["system.psy.rating"] = Math.max(record.rating, psyker.psyRating);
+        if (psyker.corruption) {
+            const roll = await new Roll(psyker.corruption).evaluate();
+            record.corruption = roll.total;
+            update["system.corruption"] = (Number(actor.system.corruption) || 0) + roll.total;
+            ui.notifications?.info(game.i18n.format("WIZARD.ELITE_CORRUPTION",
+                {name: carrier.name, total: roll.total}));
+        }
+        if (Object.keys(update).length) await actor.update(update);
+        await carrier.setFlag(GRANT_FLAG_SCOPE, "psyker", record);
     }
 
     /** Снять закреплённый шаг, чтобы игрок мог выбрать иначе. */
@@ -624,6 +687,15 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // логикой, по которой откат не опускает навык, поднятый другим источником.
         if (step.bioField && foundry.utils.getProperty(actor, step.bioField) === carrier.name)
             await actor.update({[step.bioField]: ""});
+
+        // Рейтинг пси и Порча, выданные этим шагом, тоже снимаются.
+        const psyker = carrier.getFlag(GRANT_FLAG_SCOPE, "psyker");
+        if (psyker) {
+            const back = {"system.psy.rating": psyker.rating};
+            if (psyker.corruption)
+                back["system.corruption"] = Math.max(0, (Number(actor.system.corruption) || 0) - psyker.corruption);
+            await actor.update(back);
+        }
 
         // Раны и Судьба, брошенные на этом шаге, снимаются вместе с ним.
         if (RULESET_DEFS[this.ruleset].vitalsStage === step.stage)
@@ -1404,7 +1476,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // Вкладка психосил есть только у псайкера: остальным там нечего купить.
         const psyker = snapshot.psyRating >= 1;
         const advances = this._specialityAdvances();
-        const tabs = ["characteristics", "skills", "talents", "elite", ...(psyker ? ["psychic"] : []),
+        const elite = RULESET_DEFS[this.ruleset]?.eliteAdvances ? ["elite"] : [];
+        const tabs = ["characteristics", "skills", "talents", ...elite, ...(psyker ? ["psychic"] : []),
                       ...(advances.length ? ["advances"] : [])];
         const tab = tabs.includes(this._shopTab) ? this._shopTab : "characteristics";
 

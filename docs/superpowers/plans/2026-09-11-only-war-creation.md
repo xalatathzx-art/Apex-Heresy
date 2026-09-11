@@ -104,7 +104,7 @@ advances.
 ### Task 9: Life and Comrade — DONE
 Demeanour, and the Comrade's name and demeanour rolled from the book tables and kept on the sheet.
 
-### Task 10: Sheet and packs
+### Task 10: Sheet and packs — DONE
 Ruleset-aware labels on the sheet (Regiment, Speciality), Comrade on the sheet, pack rebuild with
 Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sanctioned Psyker.
 
@@ -118,3 +118,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 7: characteristics use the book own keys, point buy and the one re-roll; flat modifiers are added after generation instead of being rolled into the formula. Wounds and fate moved into `_rollVitals`, fired at the stage the ruleset names (Dark Heresy: characteristics from the home world; Only War: the speciality, with fate from Table 3-13) and rolled back with that step. Duplicate skills between regiment and speciality now give the extra advance, duplicate talents 100 xp, and the starting pool comes from the speciality (600 or 300) plus that credit.
 - Task 8: the shop reads the book from the snapshot: four-step characteristic ladder, talents and powers from the book own pack. Only War powers are priced from their own pack entry and checked by prerequisite (a power can require another power) instead of a tree; Dark Heresy keeps its trees. A new Advances tab buys the speciality advances as special abilities, and the Sanctioned Psyker spends his 400 free experience on powers before his own pool.
 - Task 9: Table 3-21 (50 demeanours) is data, rolled with d100 for the character and for the Comrade. The sheet keeps `bio.demeanour`, `bio.comrade` and `bio.comradeDemeanour`. The step knows whom the speciality goes to war with: a Comrade, a Servitor (Enginseer) or nobody (Commissar, Storm Trooper). Names are typed rather than rolled: the book name tables are lists for inspiration, and their columns do not survive extraction cleanly.
+- Task 10: packs rebuilt and the whole book run live. A Guardsman (Cadian 99th, Weapon Specialist), a Sanctioned Psyker on a regiment built from components, an Ogryn and a Dark Heresy acolyte for regression. What the live run found and fixed: the regiment standard kit was never granted as items; counts became items rather than a quantity, because only ammunition has one in this system; kit armour is worn; the elite advances tab is Dark Heresy only; the speciality's psyker rules (psy rating 2, 1d5 Corruption) were data with nothing applying them, and are rolled back with the step.
