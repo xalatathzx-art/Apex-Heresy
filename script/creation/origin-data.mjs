@@ -91,6 +91,9 @@ export function normaliseOrigin(source = {}) {
     out.choices ??= [];
     out.bonuses ??= [];
     out.requires ??= {};
+    // Числа правил, которых нет в общей схеме (очки комплекта полка, Logistics, опыт
+    // специальности): свободная карта, иначе модель данных унесёт их в legacyData.
+    out.rules ??= {};
     out.adjacency ??= [];
     out.recommended ??= [];
     out.description ??= "";

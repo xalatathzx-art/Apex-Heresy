@@ -1,0 +1,1821 @@
+[
+  {
+    "name": "Death World",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 1,
+      "key": "deathWorld",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Few born upon such inhospitable worlds will readily trust those who have not endured what they have. Instilling appropriate discipline is a difficulty faced by many Commissars, but the difficulties are regarded as acceptable, given the matchless survival instincts and natural resilience of such peoples.</p><div class='bc-rule'><p>Characters from death world regiments have left behind the danger and ferocity of their home world. They are rugged, uncomplicated individuals for the most part, at ease with the hazards of the battlefield and the dangers posed by alien monstrosities. However, death worlders are slow to trust off-worlders, who cannot understand the hardships they have faced, and they often lack discipline, which gives them a reputation for unreliability in the eyes of more strictly-trained regiments. Death worlders are renowned for their ability to endure the worst the galaxy can throw at them, and exemplify the concept of survival of the fittest.</p></div></div>",
+      "source": "Only War, p. 59",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Perception, Strength, Toughness",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "perception",
+            "strength",
+            "toughness"
+          ]
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "survival",
+            "advance": 10
+          }
+        ],
+        "wounds": 2
+      },
+      "choices": [
+        {
+          "key": "hardened",
+          "type": "one",
+          "label": "Hardened",
+          "options": [
+            {
+              "label": "Light Sleeper",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Light Sleeper"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Lightning Reflexes",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Lightning Reflexes"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Resistance (Poisons)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Resistance (Poisons)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Fluency",
+          "description": "<p>While death worlders have learned to speak Low Gothic, they do not have time in their violent lives to learn how to read or write the universal language of the Imperium. Because of this, death worlders do not start with the Linguistics (Low Gothic) Skill at creation, however they are still capable of engaging in any verbal communication in Low Gothic that does not require a Skill Test.</p>"
+        },
+        {
+          "name": "Hardened",
+          "description": "<p>Death worlders are accustomed to violence, and many death worlds contain a variety of deadly, venomous creatures. They must be continually prepared and wary of danger from a young age if they are to survive, and those instincts do not easily fade. Death worlders start with one of the following Talents: Light Sleeper, Lightning Reflexes, or Resistance (Poisons).</p>"
+        },
+        {
+          "name": "Wary of Outsiders",
+          "description": "<p>Death worlders tend to be slow to put their faith in anyone other than themselves and their comrades, and they chafe at the expectations and strictures of more civilised society. They suffer a –10 penalty on all Interaction Skill Tests made in formal surroundings, and similarly impose a –10 penalty on any Interaction Skill Tests made on them by any non-death worlders. These penalties can be waived at the GM’s discretion if the death worlders are dealing with those who have earned their trust.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Death world characters begin play with +2 starting Wounds.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Fortress World",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 2,
+      "key": "fortressWorld",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Fortress worlds are a fine source of soldiers, owing to necessarily large defence forces, which are typically trained and equipped to the high standards of the Imperial Guard. Fortress Worlds are a valuable asset not only because of their significance as strategic bastions, but also because they can serve as a readily available source of skilled, disciplined fighting men, and it is a rare fortress world that does not raise its armies with the expectation that they may be called upon to serve the Imperial Guard.</p><div class='bc-rule'><p>Characters from fortress worlds have been raised to serve in war, and by the time they reach maturity, they are well-versed in the arts of war and the doctrines of the Tactica Imperialis. Each has been long trained to destroy the enemies of the Imperium, particularly those whose threat forced their world to be fortified in the first place. Fortress worlders are disciplined, honourable, loyal, and with the highest regard for integrity, and each is already a proficient combatant long before they are taken to serve in the Imperial Guard.</p></div></div>",
+      "source": "Only War, p. 59",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Ballistic Skill, Willpower, Toughness",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "ballisticSkill",
+            "willpower",
+            "toughness"
+          ]
+        }
+      ],
+      "grants": {
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "hatedEnemy",
+          "type": "target",
+          "label": "Hated Enemy",
+          "talentTemplate": "Hatred ({v})",
+          "regimentLevel": true
+        },
+        {
+          "key": "combatDoctrine",
+          "type": "one",
+          "label": "Combat Doctrine",
+          "options": [
+            {
+              "label": "Nerves of Steel",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Nerves of Steel"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Sprint",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Sprint"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Hated Enemy",
+          "description": "<p>A fortress world often stands opposed to a single threat, and they are taught to hate that particular foe and eliminate it on sight. All fortress world characters gain a single Hatred Talent, where the group chosen is the enemy the fortress world has been established to defend against. However, this hatred is often so strong as to overwhelm reason and sound judgement, and all fortress world characters may be required, at the GM’s discretion, to attempt an Ordinary (+10) Willpower Test in order to restrain themselves from attacking without mercy when that enemy is sighted.</p>"
+        },
+        {
+          "name": "Combat Doctrine",
+          "description": "<p>Because of the intensive training that each fortress worlder goes through from childhood, including extensive live-fire drills and gruelling mock battles, all fortress worlders start with one of the following Talents: Nerves of Steel or Sprint.</p>"
+        },
+        {
+          "name": "Bred for War",
+          "description": "<p>Fortress worlders possess an entirely justified siege mentality, a natural result of daily lives shaped by the need for perpetual vigilance against an enemy that could strike at any time, and the discipline required to respond to that threat swiftly and effectively. Fortress worlders are loyal almost to a fault, and reluctant to disobey orders even with good reason, lacking personal initiative, and becoming inflexible as a result. A fortress worlder must attempt a Challenging (+0) Willpower Test in order to go against the rules and regulations of the Imperial Guard.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Fortress world characters generate starting Wounds normally.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Highborn",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 3,
+      "key": "highborn",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Those born to wealth and power are born to lead, and it is not unusual for the command staff of a regiment to be drawn from the noble classes of a world, where their natural authority can be put to best use. On other worlds, the military arts are the preserve of the ruling classes only; this produces highborn regiments, whose wealth and prestige find them well-equipped, and placed on the front lines of many a battlefield.</p><div class='bc-rule'><p>Highborn characters were born into wealth and privilege, shaped by tutors and the heavy burdens of dutiful tradition and dynastic obligation. Many highborn bloodlines have long and proud traditions of military service, viewing the arts of warfare as the obligation and honour of the wealthy, the powerful, and the influential. They are born to rule, and most highborn who serve in the Imperial Guard aspire to command and high office, seeing such authority as their right.</p></div></div>",
+      "source": "Only War, p. 60",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Fellowship, Intelligence, Weapon Skill",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "fellowship",
+            "intelligence",
+            "weaponSkill"
+          ]
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "inquiry",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Administratum",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "High Gothic",
+            "advance": 0
+          }
+        ],
+        "wounds": -1
+      },
+      "choices": [
+        {
+          "key": "finestTutors",
+          "type": "one",
+          "label": "The Finest Tutors",
+          "options": [
+            {
+              "label": "Air of Authority",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Air of Authority"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Peer (Nobility)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Peer (Nobility)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "logistics": 10
+      },
+      "bonuses": [
+        {
+          "name": "Fluency",
+          "description": "<p>While Highborn characters have learned to speak Low Gothic, they have no reason to learn to read and write the language of the lowly masses. Because of this, Highborn characters do not start with the Linguistics (Low Gothic) Skill at creation, although they are still capable of engaging in any verbal communication in Low Gothic that does not require a Skill Test.</p>"
+        },
+        {
+          "name": "Duty and Honour",
+          "description": "<p>The highborn hold themselves to standards of behaviour and etiquette, their upbringing distinguishing them from the low-born troopers that make up the common bulk of the Imperial Guard. Highborn characters suffer a –10 penalty on all Charm, Inquiry, and Deceive Tests made to interact with characters who are not highborn. However, they gain a +10 bonus on all those same Skill Tests when dealing with the nobility and other high authority in formal situations.</p>"
+        },
+        {
+          "name": "Abundant Resources",
+          "description": "<p>Highborn are almost universally wealthy and well-connected, able to draw upon considerable resources when seeking new equipment. A squad from a highborn regiment starts with 10 extra Logistics Rating.</p>"
+        },
+        {
+          "name": "The Finest Tutors",
+          "description": "<p>Years of study under a wide range of military instructors, and traditional connections to other military dynasties, have prepared each and every highborn for a life in the Imperial Guard. Highborn characters start with one of the following Talents: Air of Authority or Peer (Nobility).</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Highborn characters begin play with –1 starting Wound.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Hive World",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 4,
+      "key": "hiveWorld",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The immense populations of hive worlds, and the often harsh conditions found upon them, make them valuable recruiting grounds for new regiments, and many hive worlds serve to manufacture vast quantities of commonly-used materiel, making it far simpler to equip regiments. As a result, a single muster from a hive world can produce potentially millions of Guardsmen, forming thousands or even tens of thousands of regiments within a relatively short span of time.</p><div class='bc-rule'><p>Characters from hive world regiments are one amongst many. Due to the colossal populations of hive worlds, musters from them tend to be large, sometimes numbering over a thousand regiments at a time, each of which may number as many as ten thousand men. In many areas of a hive world—not just the twisted depths of the underhive—murder, rioting, and gang warfare are rife. Constantly having to avoid (or take part in) such dangers turns the people into capable warriors and survivors, made nimble by the tangle of urban decay, wary by the dangers in the darkness, and gregarious by the mass of humanity that has always surrounded them. Due to the suitability of hive worlders as Imperial Guardsmen, and the sheer quantity of people on each hive world, there are a vast number of hive world regiments in the Imperial Guard at any one time.</p></div></div>",
+      "source": "Only War, p. 60",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Agility, Fellowship, Perception",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "agility",
+            "fellowship",
+            "perception"
+          ]
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "deceive",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "wounds": -1
+      },
+      "choices": [
+        {
+          "key": "urbanViolence",
+          "type": "one",
+          "label": "Urban Violence",
+          "options": [
+            {
+              "label": "Heightened Senses (Hearing)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Heightened Senses (Hearing)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Paranoia",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Paranoia"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unremarkable",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unremarkable"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Accustomed to Crowds",
+          "description": "<p>Hive worlders grow up surrounded by crowds, and they are used to weaving through even the densest mobs with ease. Crowds do not count as Difficult Terrain for hive worlders, and when Running or Charging through a dense crowd, hive worlders take no penalty to Agility Tests to keep their feet.</p>"
+        },
+        {
+          "name": "Hivebound",
+          "description": "<p>Hive worlders seldom endure the horrors of the open sky or suffer the indignities of the great outdoors. Whilst outside of an enclosed or artificial environment (such as a hive city, starship or similar), they suffer a –10 penalty to all Survival Tests, due to their continued unfamiliarity with such places.</p>"
+        },
+        {
+          "name": "Urban Violence",
+          "description": "<p>Hive worlders are constantly alert for the first hint of trouble, be it a hivequake, a gang shoot-out, or a hab riot, allowing them to quickly detect danger and elude it, if need be. Hive worlders start with one of the following Talents: Heightened Senses (Hearing), Paranoia, or Unremarkable.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Hive world characters begin play with –1 starting Wound.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Imperial World",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 5,
+      "key": "imperialWorld",
+      "cost": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>While many worlds may be required to provide resources, materials, and other such goods as part of their tithe, their primary obligation to the Imperium is in the form of manpower. It is only with rare exception that a planet not be required to provide men to the Imperial Guard, and if a world is found to be neglecting this portion of their tithe, they will be subject to extreme punishment.</p><div class='bc-rule'><p>Characters from Imperial world regiments represent best the greatest mass of humanity. Their minds are shaped by faith and humble duty, their bodies honed by toil. While lacking the tenacity of death worlders, the unyielding discipline of a fortress worlder, or the unthinking zeal of the penitent, Imperial worlders are faithful, loyal, and adaptable, unconstrained by the focus of specialisation.</p></div></div>",
+      "source": "Only War, p. 61",
+      "characteristics": {
+        "willpower": 3
+      },
+      "characteristicChoices": [
+        {
+          "label": "+3 to any one other Characteristic",
+          "pick": 1,
+          "value": 3,
+          "from": [
+            "weaponSkill",
+            "ballisticSkill",
+            "strength",
+            "toughness",
+            "agility",
+            "intelligence",
+            "perception",
+            "fellowship"
+          ]
+        }
+      ],
+      "grants": {
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Hatred (Mutants)"
+          }
+        ]
+      },
+      "bonuses": [
+        {
+          "name": "Blessed Ignorance",
+          "description": "<p>Imperial citizens know that the proper ways of living are those tried and tested by the generations that have gone before. Horror, pain, and death are the just rewards of curiosity, for those that look too deeply into the mysteries of the universe are all too likely to find malefic beings looking back at them. Their wise blindness imposes a –5 penalty on all Forbidden Lore (Int) Tests.</p>"
+        },
+        {
+          "name": "Kill the Mutant",
+          "description": "<p>The general citizens of the Imperium are trained from birth to fear mutation, for it heralds the taint of Chaos. All Imperial world characters start with Hatred (Mutants).</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Imperial world characters generate their starting wounds normally.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Penal Colony",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 6,
+      "key": "penalColony",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>While swift and merciless retribution is the just and proper fate of all sinners and criminals, it can be effective to determine other punishments for them. Transit to distant worlds for the purpose of menial labour, or volunteering for military absolution are two such alternatives. Isolated penal colonies populated by these convicts produce vicious, hardy individuals, albeit ones who require nothing less than the harshest discipline to function in battle. However, these benighted souls can be regarded as more readily expendable than most units, for as sinners, their lives are already forfeit.</p><div class='bc-rule'><p>Characters from penal colonies tend to be ruthless, opportunistic individuals, the desperate conditions of their origin making them eager for any opportunity to survive for just a little longer, or profit just a little more from a situation. While ill-disciplined and commonly impious, the expendable, vicious nature of convicts makes them quite useful in the Emperor’s wars. The resultant Penal Legions can be found in the harshest warzones, undertaking the most dangerous missions, with the promise of salvation in death, after which the survivors are imprisoned once more until the next battle. In time, the few hardened veterans, survivors of a dozen or more would-be suicide missions, become amongst the most dangerous and unorthodox units in the Imperial Guard, deployed to achieve the impossible or die trying.</p></div></div>",
+      "source": "Only War, p. 61",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Agility, Strength, Toughness",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "agility",
+            "strength",
+            "toughness"
+          ]
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "intimidate",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "wounds": 1
+      },
+      "choices": [
+        {
+          "key": "honourAmongstThieves",
+          "type": "one",
+          "label": "Honour Amongst Thieves",
+          "options": [
+            {
+              "label": "Peer (Underworld)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Peer (Underworld)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Street Fighting",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Street Fighting"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "kitPoints": 15
+      },
+      "bonuses": [
+        {
+          "name": "Honour Amongst Thieves",
+          "description": "<p>Penal colonists, whether criminals themselves, or the descendants of the previous generation’s scum, know well the way criminal societies operate, understanding the nuances of deception, loyalty, intimidation, and violence that characterise the criminal classes. Penal colonist characters start with one of the following Talents: Peer (Underworld) or Street Fighting.</p>"
+        },
+        {
+          "name": "Larcenous",
+          "description": "<p>Hailing from worlds where the black market is the only market, penal colonists are skilled at obtaining illicit items, whether to sell, on or for their own purposes. Penal colony characters add a +10 to all Logistics Tests made to acquire illegal or contraband items.</p>"
+        },
+        {
+          "name": "Scum and Villainy",
+          "description": "<p>Penal colonists are ill-regarded by just about everyone else in the Imperial Guard, and tend to be viewed more as expendable fodder than as worthwhile soldiers. As a result, they are seldom afforded more than the most basic of equipment. Penal colony regiments have only 15 points when determining Standard Regimental Kit.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Penal colony characters begin play with +1 starting Wound.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Penitent",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 7,
+      "key": "penitent",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Many worlds are dominated by particular zeal and piety, beyond even the devotions expected by the Adeptus Ministorum. Such worlds can produce exceptional soldiers, who are willing to sacrifice all they have for the Emperor, particularly where the recruits are those who aspire towards martyrdom, in order to prove their faith or absolve their world of some ancestral sin. As valuable as devotion can be in a soldier, rigorous discipline is required to ensure that their zeal does not become an uncontrolled frenzy.</p><div class='bc-rule'><p>The penitent are not those born of a single type of world, but rather those of a particular mind-set. While all the Imperium lives in the Emperor’s service, the penitent are those who eagerly give their deaths as well. Willing martyrs all, the penitent fight to demonstrate their zeal or to show their contrition for the sins of the past. The penitent may be from Shrine Worlds, or the masses of pilgrims who cross the Imperium, while others hail from worlds where some ancient crime demands countless generations of absolution. In all cases, the penitent are savagely pious, seeking to bring death in the Emperor’s name, or die trying.</p></div></div>",
+      "source": "Only War, p. 62",
+      "characteristicChoices": [
+        {
+          "label": "+3 to any two of Fellowship, Toughness, Willpower",
+          "pick": 2,
+          "value": 3,
+          "from": [
+            "fellowship",
+            "toughness",
+            "willpower"
+          ]
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "intimidate",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Ecclesiarchy",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 0
+          }
+        ],
+        "wounds": 2
+      },
+      "choices": [
+        {
+          "key": "bloodOfMartyrs",
+          "type": "one",
+          "label": "The Blood of Martyrs",
+          "options": [
+            {
+              "label": "Nerves of Steel",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Nerves of Steel"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Orthoproxy",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Orthoproxy"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unshakeable Faith",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unshakeable Faith"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "The Blood of Martyrs",
+          "description": "<p>The penitent do not regard death in the Emperor’s service as anything to fear, and face the prospect of righteous sacrifice gladly. Penitent characters start with one of the following Talents: Nerves of Steel, Orthoproxy, or Unshakeable Faith.</p>"
+        },
+        {
+          "name": "Only One Life to Give",
+          "description": "<p>So driven to martyrdom are the penitent, that it can drive them to take unnecessary risks, lamenting that they can only sacrifice themselves once. Penitent characters must pass an Ordinary (+10) Willpower Test in order to retreat from combat or otherwise act in the interests of self-preservation.</p>"
+        },
+        {
+          "name": "Untempered Zeal",
+          "description": "<p>The pious spirit of the penitent is almost unmatched in its ferocity, and while their faith is closer to the violent ardour of the fanatic than the divine clarity of the Adepta Sororitas, it is nonetheless inspiring to behold. Penitent characters may re-roll any failed Charm Test to inspire religious fervour or righteous hatred in others.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Penitent characters increase their starting Wounds by +2.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Schola Progenium",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Home Worlds",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentOrigin",
+      "order": 8,
+      "key": "scholaProgenium",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The Storm Trooper regiments and the Commissariat are all raised under the care of drill abbots of the Schola Progenium. Progena are amongst the truest servants of the Imperium you are ever likely to encounter, and Progena of a militant inclination are soldiers of unwavering loyalty and discipline, raised to defend the Emperor’s realm from a young age. While their numbers are few and in high demand, the orphans of the Schola Progenium make for outstanding Guardsmen.</p><div class='bc-rule'><p>The creations of the Schola Progenium are trained to be of unyielding will, of decisive action, and of swift mind. Service to the Imperium is an expectation, one their lives have been directed towards for the years of their tutelage. The harsh mental and physical discipline of the Schola Progenium produces fine officers and soldiers, none finer than the Storm Trooper regiment, which recruit only from the finest Schola Progenium graduates.</p></div></div>",
+      "source": "Only War, p. 62",
+      "characteristics": {
+        "willpower": 3
+      },
+      "characteristicChoices": [
+        {
+          "label": "+3 to either Weapon Skill or Ballistic Skill",
+          "pick": 1,
+          "value": 3,
+          "from": [
+            "weaponSkill",
+            "ballisticSkill"
+          ]
+        }
+      ],
+      "grants": {
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 10
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperium",
+            "advance": 10
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 10
+          },
+          {
+            "key": "linguistics",
+            "name": "High Gothic",
+            "advance": 10
+          },
+          {
+            "key": "linguistics",
+            "name": "Low Gothic",
+            "advance": 10
+          }
+        ],
+        "wounds": 1
+      },
+      "choices": [
+        {
+          "key": "onlyInDeath",
+          "type": "one",
+          "label": "Only In Death Does Duty End",
+          "options": [
+            {
+              "label": "Air of Authority",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Air of Authority"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unshakeable Faith",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unshakeable Faith"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "bonuses": [
+        {
+          "name": "Only In Death Does Duty End",
+          "description": "<p>Those that pass through the Schola Progenium are drilled each and every day by hardened drill abbots, and all are expected to defend the Emperor’s domain with their lives if necessary. All Progena characters start with one of the following Talents: Air of Authority or Unshakeable Faith.</p>"
+        },
+        {
+          "name": "Starting Wounds",
+          "description": "<p>Progena characters begin play with +1 starting Wound.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Bilious",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 1,
+      "key": "bilious",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is ill-tempered and paranoid, eternally suspicious of betrayal, and watchful of enemies and allies alike. He regards vigilance as the greatest of virtues, and encourages suspicion and watchfulness amongst his men.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Paranoia"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Circumspect",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 2,
+      "key": "circumspect",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is balanced in his attitudes and careful in his decision-making, yet often overly cautious. His demeanour encourages his men to similarly consider situations before they strike, observing the battlefield before acting.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Foresight"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Choleric",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 3,
+      "key": "choleric",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is decisive and leads from the front, taking charge of situations personally, and never afraid to do what he orders his men to do. However, he is quick to anger, and can often be drawn into foolish actions. His men are ever ready for action, and familiar with the rigours of battle.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Rapid Reaction"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Fixed",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 4,
+      "key": "fixed",
+      "cost": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is decisive and unyielding, and once set on a course of action he seldom changes his mind. While this is invaluable during many actions his regiment undertakes, it leaves his forces inflexible in the face of changing battlefields.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "skills": [
+          {
+            "key": "command",
+            "advance": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Maverick",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 5,
+      "key": "maverick",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is something of a rebel, regarded as ill-disciplined and unpredictable by his peers, but his attitude and his daring make him beloved by his men, who see their leader as one of them, rather than one of “the officers.” So long as he leads, they will follow him anywhere.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Resistance (Fear)"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Melancholic",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 6,
+      "key": "melancholic",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is careful and introspective, but his will is not what it once was, having suffered greatly in the crucible of war. While loyal, his leadership is hampered by hesitation and pessimism, and his warriors are often forced to rely more on their own initiative in battle, taking charge themselves when their superiors falter.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Air of Authority"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Phlegmatic",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 7,
+      "key": "phlegmatic",
+      "cost": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is quiet and contemplative, a man of few words. When he does speak, it is with great and solemn purpose, to give commands that have been considered in exacting detail. He does not command loyalty through rhetoric or heroics, but through quiet competence, and his men have learnt to trust in his skill and rely on the chain of command.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Sanguine",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 8,
+      "key": "sanguine",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is confident and optimistic, though sometimes too caught up in dreams of glory and triumph. While inspirational to his men with grandiose speeches and heroism, his ambition has often seen them faced with impossible odds, caught up in their commander’s quest for glory, and they must battle hard to survive.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "talents": [
+          {
+            "name": "Die Hard"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Supine",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Commanding Officers",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentCommander",
+      "order": 9,
+      "key": "supine",
+      "cost": 1,
+      "description": "<div class='bc-entry'><p class='bc-lead'>A warrior’s faith in his commander is his best armour and his strongest weapon.</p><div class='bc-rule'><p>The regiment’s commander is a devout man, absolutely loyal to the Imperium, but lacking in his own initiative. Incapable of the imagination and daring that gets an officer noticed by his superiors, he serves as little more than their mouthpiece, accepting their commands and passing them on flawlessly to his own men. Bereft of any true command, the men must have faith if they are to survive in the fury of war.</p></div></div>",
+      "source": "Only War, p. 63",
+      "grants": {
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Ecclesiarchy",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Armoured Regiment",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 1,
+      "key": "armoured",
+      "cost": 4,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>Alongside the serried ranks of infantry and the humble lasgun, little is as emblematic of the wars of the Imperial Guard as the armoured might of its tanks. Rugged, resilient, and capable of unleashing staggering amounts of firepower, there is little that can stand before the fury of companies of Leman Russ battle tanks, let alone the terrible and wondrous power of the Baneblade. The crews of these mighty behemoths are justifiably proud of their status, and the accomplishments of their steel charges.</p></div></div>",
+      "source": "Only War, p. 64",
+      "characteristics": {
+        "weaponSkill": -3,
+        "intelligence": 3
+      },
+      "grants": {
+        "specialities": [
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Technical Knock"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "squad": [
+            "One Leman Russ battle tank (or variant, at GM’s discretion) per Squad"
+          ],
+          "text": "One anointed maintenance toolkit per Player Character."
+        }
+      }
+    }
+  },
+  {
+    "name": "Reconnaissance Regiment",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 2,
+      "key": "reconnaissance",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>A key part of any war effort, reconnaissance units allow an army to scout out enemy movements and positions, and their keen senses and training allow them to swiftly ambush enemy patrols attempting to do the same. Due to their role, reconnaissance units invariably operate far ahead of army commanders, requiring considerable autonomy and personal initiative, traits that often breed a strong sense of daring and recklessness. For all their typical ill-discipline, reconnaissance units are invaluable assets to any army commander.</p></div></div>",
+      "source": "Only War, p. 64",
+      "characteristics": {
+        "perception": 3,
+        "willpower": -3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "awareness",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Combat Sense"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "items": [
+            {
+              "name": "Magnoculars"
+            }
+          ],
+          "squad": [
+            "One Sentinel Scout Walker or one Chimera Armoured Transport per Squad"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Drop Troops",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 3,
+      "key": "dropTroops",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>A rare type of regiment, drop troops are extremely specialised infantry, trained for rapid strikes from airborne transports. Employing grav-chutes and attached Imperial Navy Valkyrie assault carriers to perform raids deep behind enemy lines, drop troops provide an uncommon, but potent resource to generals. Largely regarded by other Imperial Guardsmen as insane for choosing to leap out of a perfectly good aircraft in mid-flight, they are nonetheless required to be daring and courageous to dive into enemy territory, and away from the comfort of supply lines and heavy support. However, their habit of operating alone without support tends to make them somewhat distant and cold to those outside their ranks.</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "agility": 3,
+        "fellowship": -3
+      },
+      "grants": {
+        "specialities": [
+          {
+            "key": "operate",
+            "name": "Aeronautica",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Catfall"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "Las Carbine"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Grav Chute"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 2
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Hunter-Killer",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 4,
+      "key": "hunterKiller",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>Being used as the linchpin units in many grand strategies, hunter-killer units use light vehicles with deceptively heavy firepower to linger behind the front lines until called upon, then pushing forward quickly to strike down priority targets in support of the rank-and-file. Many hunter-killer units develop a hero mentality from their exploits, dealing the killing blow to enemy after enemy, and so outsiders tend to regard them as glory-seeking mavericks.</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "ballisticSkill": 3,
+        "strength": -3
+      },
+      "grants": {
+        "specialities": [
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Resistance (Fear)"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "squad": [
+            "One Sentinel Scout Walker or one Hellhound Support Tank (or variant) per Squad"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Light Infantry",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 5,
+      "key": "lightInfantry",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>Lightly-equipped infantry units are key to the complex tactical manoeuvres required on the battlefields of the 41st Millennium. Lacking the firepower to effectively fight on the front lines, their talents are better employed in dense terrain, where they can lay ambushes and engage in short-lived skirmishes.</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "agility": 3,
+        "toughness": -3
+      },
+      "grants": {
+        "specialities": [
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Sprint"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "Las Carbine"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Flak Vest"
+            },
+            {
+              "name": "Flak Helmet"
+            }
+          ],
+          "items": [
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Smoke Grenade",
+              "quantity": 2
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Line Infantry",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 6,
+      "key": "lineInfantry",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>The backbone of the Imperial Guard, line infantry form the bulk of every battle line, the core of every assault, and the heart of every defence. The humble, doughty, and loyal infantryman is the subject of countless propaganda picts and inspirational murals across the Imperium. They form the iconic image of the Imperial Guard for most Imperial citizens, and for good reason. It is a rare battlefield that is not graced by the presence of line infantry.</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "strength": 3,
+        "intelligence": -3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "athletics",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Rapid Reload"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Krak Grenade",
+              "quantity": 2
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Mechanised Infantry",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 7,
+      "key": "mechanisedInfantry",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>Less common than line infantry, mechanised infantry serve as a fast-moving, hard-hitting force, pairing the utility of infantry with the speed and firepower of armoured vehicles. The availability of Chimera transports is the main limiting factor to the number of mechanised infantry units in any given warzone, and this rarity means that many mechanised infantry regiments are divided into a number of smaller Armoured Fist groups—single squads or platoons—attached to armoured regiments (to provide infantry support) and line infantry regiments (to provide a fast reserve or armoured vanguard).</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "agility": 3,
+        "perception": -3
+      },
+      "grants": {
+        "specialities": [
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Rapid Reload"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 4
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Krak Grenade",
+              "quantity": 2
+            }
+          ],
+          "squad": [
+            "One Chimera Armoured Transport per Squad"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Siege Infantry",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Regiment Types",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "regimentType",
+      "order": 8,
+      "key": "siegeInfantry",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>It is the diversity of the Imperial Guard that is perhaps, its greatest strength, for with that diversity, there are few threats that cannot be met and overcome. No one element of the Imperial Guard can triumph alone, be it deadly artillery, mighty tanks, or brave infantry, but in proper combination, there is nought that cannot be crushed by the Hammer of the Emperor.</p><div class='bc-rule'><p>Similar to line infantry, siege infantry form a solid mass of troops, specifically trained to serve in protracted sieges. A siege regiment may be deployed in a single location for years at a time, moving only infrequently to a new front line, often only a few hundred metres from the last one. Each line usually consists of newly-dug trenches and earthworks, swiftly and precisely excavated by thousands of troopers. It is said that the finest siege regiments can establish a solid defence line with nothing but shovels, flakboard, and sandbags, within half an hour of deployment.</p></div></div>",
+      "source": "Only War, p. 65",
+      "characteristics": {
+        "toughness": 3,
+        "intelligence": -3
+      },
+      "grants": {
+        "skills": [
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Nerves of Steel"
+          }
+        ]
+      },
+      "rules": {
+        "kit": {
+          "mainWeapon": [
+            {
+              "name": "M36 Lasgun"
+            },
+            {
+              "name": "Charge Pack (Basic)",
+              "quantity": 6
+            }
+          ],
+          "armour": [
+            {
+              "name": "Imperial Guard Flak Armour"
+            }
+          ],
+          "items": [
+            {
+              "name": "Respirator/Gas Mask"
+            },
+            {
+              "name": "Frag Grenade",
+              "quantity": 2
+            },
+            {
+              "name": "Photon Flash Grenade",
+              "quantity": 2
+            }
+          ],
+          "text": "Four empty sandbags and one entrenching tool per Player Character."
+        }
+      }
+    }
+  },
+  {
+    "name": "Close Order Drill",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 1,
+      "key": "closeOrderDrill",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment has trained long and hard to operate in close formations, fighting shoulder-to-shoulder with their comrades. These close formations can respond quickly with overwhelming force, moving as a single entity, rather than a group of individuals.</p></div></div>",
+      "source": "Only War, p. 66",
+      "choices": [
+        {
+          "key": "closeOrderDrill",
+          "type": "one",
+          "label": "Close Order Drill",
+          "options": [
+            {
+              "label": "Combat Formation",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Combat Formation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Double Team",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Die-Hards",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 2,
+      "key": "dieHards",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment is unyielding in the face of adversity, and will not falter amidst the fury of battle, no matter the horrors arrayed against them.</p></div></div>",
+      "source": "Only War, p. 66",
+      "grants": {
+        "aptitudes": [
+          "Toughness"
+        ]
+      }
+    }
+  },
+  {
+    "name": "Favoured Foe",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 3,
+      "key": "favouredFoe",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment’s home world has long been assailed by one of the myriad enemies of Mankind, and its troops have learned the hard way the most effective ways to slay that enemy. Without mercy and without fear, they relish opportunities to bring death to their traditional foe. When selecting this doctrine, a single enemy of the Imperium must be selected. The choice of Forbidden Lore speciality and Hatred must both reflect this choice of enemy.</p></div></div>",
+      "source": "Only War, p. 66",
+      "choices": [
+        {
+          "key": "favouredFoe",
+          "type": "target",
+          "label": "Favoured Foe",
+          "talentTemplate": "Hatred ({v})",
+          "specialityTemplate": {
+            "key": "forbiddenLore",
+            "name": "{v}"
+          },
+          "regimentLevel": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "Hardened Fighters",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 4,
+      "key": "hardenedFighters",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment’s warriors are vicious up close, deadly in melee as well as at range. Armed with the tools of their grim trade, they are not afraid to face their enemies in single combat, and feel the hot blood of the freshly-slain on their skin.</p></div></div>",
+      "source": "Only War, p. 66",
+      "grants": {
+        "talents": [
+          {
+            "name": "Street Fighting"
+          }
+        ]
+      },
+      "characteristics": {
+        "weaponSkill": 2
+      },
+      "rules": {
+        "kit": {
+          "text": "The regiment can either replace its standard melee weapon with a Common (or more available) Low-Tech Weapon, or apply the mono upgrade to its standard melee weapon."
+        }
+      }
+    }
+  },
+  {
+    "name": "Iron Discipline",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 5,
+      "key": "ironDiscipline",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment is well-known for its unyielding devotion to duty and absolute loyalty to superiors. No man will hesitate to act when ordered, nor will they falter when carrying out those orders. The expectations of the common infantryman, however, are such that shouldering the burden of command is to take on a great and solemn responsibility, and only the humblest and most serious-minded of officers can be entrusted with warriors so devoted.</p></div></div>",
+      "source": "Only War, p. 66",
+      "grants": {
+        "aptitudes": [
+          "Willpower"
+        ]
+      }
+    }
+  },
+  {
+    "name": "Sharpshooters",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 6,
+      "key": "sharpshooters",
+      "cost": 4,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment has a well-earned reputation for producing deadly marksmen, and every soldier is expected to be able to demonstrate great proficiency with a lasgun, at the very least. Such regiments commonly produce some of the finest snipers in the Imperial Guard, and even the common soldier can be relied upon to fell foe after foe with a storm of precise shots.</p></div></div>",
+      "source": "Only War, p. 66",
+      "grants": {
+        "aptitudes": [
+          "Ballistic Skill"
+        ],
+        "talents": [
+          {
+            "name": "Deadeye Shot"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Survivalists",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Training Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "doctrine",
+      "order": 7,
+      "key": "survivalists",
+      "cost": 4,
+      "description": "<div class='bc-entry'><p class='bc-lead'>Every regiment is essentially unique, and while all are of a carefully measured fighting strength and all are given a degree of uniformity by the Departmento Munitorum, there can be no argument against evaluating the strength of each regiment under one’s command, identifying their particular proficiencies to better employ them in battle. With diligent training, this strength can be heightened and focussed, turning it into a true asset.</p><div class='bc-rule'><p>The regiment is skilled at surviving in the wilderness, and its soldiers are masters of operating in a particular kind of terrain, normally the one in which they’ve grown up and trained extensively. Hunters and trackers almost without peer, there are few who can escape their pursuit.</p></div></div>",
+      "source": "Only War, p. 66",
+      "grants": {
+        "aptitudes": [
+          "Agility"
+        ]
+      },
+      "bonuses": [
+        {
+          "name": "Survivalists",
+          "description": "<p>When selecting this doctrine, nominate a single type of terrain—Desert, Jungle, Tundra, Ash Wastes, Urban Ruins, etc. When operating in that kind of terrain, characters from a regiment with this Doctrine can re-roll failed Survival and Navigate (Surface) Skill Tests.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Augmetics",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 1,
+      "key": "augmetics",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>The regiment has had long ties with the Adeptus Mechanicus, and though not privy to the many secrets of that organisation, they willingly accept the wisdom of the Priests of Mars. As a testament to this unity, the regiment’s warriors sport many more bionics and augmetics than is typically the case, with veterans often sporting bionics to replace organs and limbs lost to the horrors of war.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment gains an additional +10 on all Logistics Tests made to obtain bionic replacements and implants."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment gains an additional +10 on all Logistics Tests made to obtain bionic replacements and implants.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Chameleoline",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 2,
+      "key": "chameleoline",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>The regiment’s duties require them to move unseen across the battlefield, and for this reason, they have been equipped with colour-shifting chameleoline, which helps them blend in with their surroundings.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment is equipped with either chameleoline cloaks or chameleoline-coated armour."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment is equipped with either chameleoline cloaks or chameleoline-coated armour.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Combat Drugs",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 3,
+      "key": "combatDrugs",
+      "cost": 2,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>Commonly given to Penal Legions and other units who may require additional encouragement to fight their hardest, combat drugs can provide the additional psychological or physical kick needed to spur a unit to action.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment adds an injector or inhaler and three doses of frenzon or five doses of stimm. Additional doses must be obtained through requisition or additional standard kit items."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment adds an injector or inhaler and three doses of frenzon or five doses of stimm. Additional doses must be obtained through requisition or additional standard kit items.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Demolitions",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 4,
+      "key": "demolitions",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>Destruction is the unit’s calling, and they are equipped and trained to follow that calling, with access to a variety of explosive munitions.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment gains a +10 bonus on all Logistics Tests made to obtain grenades, missiles, explosives, and special tank ammunition."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment gains a +10 bonus on all Logistics Tests made to obtain grenades, missiles, explosives, and special tank ammunition.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Scavengers",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 5,
+      "key": "scavengers",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>Some regard the strict rationing, draconian regulations, and complex bureaucracy of the Departmento Munitorum as needless restrictions upon the capabilities of the Imperial Guard. Others seek personal gain, or simply steal out of habit or necessity. Whatever the reason, the regiment is populated with those who steal and scavenge additional equipment from the battlefield.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment may choose to gain a +10 bonus on any Logistics Test. However, on any test where this bonus is used, if any doubles are rolled (22, 33, 44, etc.) whether the Test was a success or a failure, then the scavenging and stealing attracts unwanted attention from higher authorities within the Imperial Guard or the Departmento Munitorum."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment may choose to gain a +10 bonus on any Logistics Test. However, on any test where this bonus is used, if any doubles are rolled (22, 33, 44, etc.) whether the Test was a success or a failure, then the scavenging and stealing attracts unwanted attention from higher authorities within the Imperial Guard or the Departmento Munitorum.</p>"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Warrior Weapons",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 6,
+      "key": "warriorWeapons",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>Warriors from primitive worlds are often ill-suited to serve on firing lines, their savage demeanour making them a poor choice to wield a lasgun. Such warriors often serve the Imperial Guard in other ways, armed with swords, axes, and mauls, to cut the enemy apart in close quarters.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment exchanges their Main Weapon for a Common (or more available) Low-Tech weapon and a laspistol with two charge packs."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment exchanges their Main Weapon for a Common (or more available) Low-Tech weapon and a laspistol with two charge packs.</p>"
+        }
+      ],
+      "grants": {
+        "skills": [
+          {
+            "key": "parry",
+            "advance": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Well-Provisioned",
+    "type": "origin",
+    "folder": "Only War/Regiment Creation/Special Equipment Doctrines",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "equipmentDoctrine",
+      "order": 7,
+      "key": "wellProvisioned",
+      "cost": 3,
+      "description": "<div class='bc-entry'><p class='bc-lead'>The arming of a regiment is a matter of considerable complexity. Each and every regiment will be equipped in a manner according to their purpose, the world of their origin, and the availability of resources.</p><div class='bc-rule'><p>The regiment has been marked as a supply priority by the Munitorum, keeping them well-supplied with ammunition, food, medical equipment, and other consumables. Well-provisioned regiments tend to be those expected to face the worst of the fighting, with regular resupply to allow them to remain at fighting strength for far longer.</p></div></div>",
+      "source": "Only War, p. 67",
+      "rules": {
+        "kit": {
+          "text": "The regiment increases the number of clips for their main ranged weapon and the number of weeks’ rations they carry as standard by +2, and gain an additional grenade of each type in their standard kit (if applicable). If the regiment contains vehicles, this also grants a +10 bonus on all Logistics tests to obtain fuel and parts for repairing and maintaining those vehicles."
+        }
+      },
+      "bonuses": [
+        {
+          "name": "Standard Regimental Kit",
+          "description": "<p>The regiment increases the number of clips for their main ranged weapon and the number of weeks’ rations they carry as standard by +2, and gain an additional grenade of each type in their standard kit (if applicable). If the regiment contains vehicles, this also grants a +10 bonus on all Logistics tests to obtain fuel and parts for repairing and maintaining those vehicles.</p>"
+        }
+      ]
+    }
+  }
+]

@@ -1698,6 +1698,7 @@
       "choices": [],
       "bonuses": [],
       "requires": {},
+      "rules": {},
       "adjacency": [],
       "recommended": []
     },

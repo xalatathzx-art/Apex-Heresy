@@ -5,6 +5,14 @@
   "Dark Heresy/Roles": {},
   "Rogue Trader": {"color": "#2b4a5c", "sort": 200},
   "Only War": {"color": "#3d5c2b", "sort": 300},
+  "Only War/Regiments": {},
+  "Only War/Specialities": {},
+  "Only War/Regiment Creation": {},
+  "Only War/Regiment Creation/Home Worlds": {},
+  "Only War/Regiment Creation/Commanding Officers": {},
+  "Only War/Regiment Creation/Regiment Types": {},
+  "Only War/Regiment Creation/Training Doctrines": {},
+  "Only War/Regiment Creation/Special Equipment Doctrines": {},
   "Black Crusade": {"color": "#5c2b52", "sort": 400},
   "Deathwatch": {"color": "#2b2b5c", "sort": 500}
 }
