@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-13. 158 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-14. 167 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -126,6 +126,16 @@ The first heading without `— DONE` is the next task.
   otherwise a second commit would stack grants on top of the first.
 - `lang/en.json` mixes CRLF and LF line endings. Do not assume one: find the anchor line
   with a regex and reuse the newline and indent it actually captured.
+- Task 14 resolved the Task 8 warning properly. `planToActorUpdate` takes
+  `characteristicMode`: under `"generation"` a modifier is RECORDED
+  (`applied.generationModifiers`) and not written, and the generation step SETS the value
+  rather than adding. Under `"flat"`, the old behaviour, which is still the default. This
+  is what stops the modifier being counted twice.
+- Wounds from other steps are added on top of the home world roll, which is set rather than
+  added. No Dark Heresy background or role grants wounds today, so nothing exercises it yet.
+- `tests/wizard-keys.test.mjs` is the only automated guard Tasks 12-16 have: every
+  localisation key the wizard names, including the runtime-built
+  `CHARACTERISTIC.*` and `WIZARD.METHOD.*` families, must exist in `lang/en.json`.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -2436,7 +2446,7 @@ git commit -m "Pick and apply origins inside the wizard, with rollback on Back"
 
 ---
 
-### Task 14: The characteristics step
+### Task 14: The characteristics step — DONE
 
 **Files:**
 - Modify: `script/creation/wizard.mjs`
