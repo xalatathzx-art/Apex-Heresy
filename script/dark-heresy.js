@@ -1,7 +1,7 @@
 import { createDataModels } from "./data/models.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
-import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
+import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
 import { stepsFor } from "./creation/ruleset-data.mjs";
 import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
 import { patronOf } from "./creation/bc-talents.mjs";
@@ -16531,7 +16531,7 @@ Hooks.once("init", async function() {
             getFacing: _getVehicleFacing,
             getZone: _getVehicleZone
         },
-        // Мастер создания — макросом, из панели «Актёры» и из шапки листа.
+        // Мастер создания — макросом и из шапки листа.
         openCharacterWizard: openCharacterWizard,
         startCharacterCreation: startCharacterCreation,
         CharacterWizard: CharacterWizard,
@@ -16618,7 +16618,6 @@ Hooks.once("init", async function() {
     foundry.documents.collections.Items.registerSheet("dark-heresy", RaceSheet, { types: ["race"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", OriginSheet, { types: ["origin"], makeDefault: true });
 
-    registerCharacterStartButton();
 
     initializeHandlebars();
 

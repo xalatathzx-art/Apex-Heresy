@@ -67,26 +67,3 @@ export function handleCharacterStarted(data) {
     if (data?.userId !== game.user?.id) return;
     openStartedCharacter(game.actors.get(data.actorId));
 }
-
-/**
- * Кнопка в панели «Актёры». Своей разметки у панели нет, поэтому узел вставляем
- * сами — под «Create Actor», это первая кнопка в её шапке.
- */
-export function registerCharacterStartButton() {
-    Hooks.on("renderActorDirectory", (app, html) => {
-        if (!game.user) return;   // право не спрашиваем: без него кнопка просит Ведущего
-        const root = html?.[0] ?? html;
-        if (!root?.querySelector || root.querySelector(".dh-start-character")) return;
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "dh-start-character";
-        button.title = game.i18n.localize("WIZARD.START_HINT");
-        button.innerHTML = `<i class="fas fa-user-plus"></i> ${game.i18n.localize("WIZARD.START")}`;
-        button.addEventListener("click", event => { event.preventDefault(); startCharacterCreation(); });
-
-        const header = root.querySelector(".directory-header .header-actions, .directory-header, .header-actions");
-        if (header) header.appendChild(button);
-        else root.prepend(button);
-    });
-}
