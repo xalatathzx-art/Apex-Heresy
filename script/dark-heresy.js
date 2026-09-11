@@ -1,6 +1,7 @@
 import { createDataModels } from "./data/models.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
+import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -16351,6 +16352,7 @@ Hooks.once("init", async function() {
         },
         // Мастер создания — макросом, из панели «Актёры» и из шапки листа.
         openCharacterWizard: openCharacterWizard,
+        startCharacterCreation: startCharacterCreation,
         CharacterWizard: CharacterWizard,
         // Окно окружения — макросом и из панели сцены.
         openEnvironment: openEnvironment,
@@ -16428,6 +16430,8 @@ Hooks.once("init", async function() {
     foundry.documents.collections.Items.registerSheet("dark-heresy", AptitudeSheet, { types: ["aptitude"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", RaceSheet, { types: ["race"], makeDefault: true });
     foundry.documents.collections.Items.registerSheet("dark-heresy", OriginSheet, { types: ["origin"], makeDefault: true });
+
+    registerCharacterStartButton();
 
     initializeHandlebars();
 
@@ -16513,6 +16517,9 @@ Hooks.once("ready", async function() {
                 ui.notifications.error("Damage operation needs review; see its chat message flags. It has not been retried.");
             });
         }
+        // Игрок без права создавать Акторов просит Ведущего завести ему лист.
+        if (data?.type === "startCharacter") handleStartCharacterRequest(data.userId);
+        if (data?.type === "characterStarted") handleCharacterStarted(data);
         // Игрок бросил сам — кнопку с карточки снимает ведущий: обновить чужое
         // сообщение может только он.
         if (data?.type === "resolvePendingRoll" && game.users.activeGM === game.user) {

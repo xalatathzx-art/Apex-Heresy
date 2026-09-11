@@ -13532,3 +13532,10 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   padding: var(--dh-space-2, 8px);
   border-left: 2px solid var(--dh-brass, #b9975b);
 }
+
+/* Кнопка «Создать персонажа» в панели «Актёры»: своей разметки у панели нет,
+   узел вставляет код, поэтому ширину задаём здесь. */
+.dh-start-character {
+  width: 100%;
+  margin-top: 4px;
+}

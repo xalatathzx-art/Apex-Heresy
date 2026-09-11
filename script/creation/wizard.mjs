@@ -158,6 +158,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         root.querySelector(".wizard-ruleset")?.addEventListener("change", async ev => {
             const chosen = ev.currentTarget.value;
             if (!chosen) return;
+            // Тип листа выбран до Мастера, а книга может просить другой (Black Crusade —
+            // еретика). Молча подменить тип нельзя, поэтому говорим вслух.
+            if (RULESET_DEFS[chosen].actorType !== this.actor.type)
+                ui.notifications?.warn(game.i18n.localize("WIZARD.WRONG_TYPE"));
             await this.actor.update({"system.ruleset": chosen});
             this.stepIndex = 0;
             this.answers = {};
