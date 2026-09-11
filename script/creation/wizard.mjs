@@ -28,6 +28,7 @@ import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "
 import {psychicOffersFor, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
+import {demeanourFor} from "./life-data.mjs";
 import {REGIMENT_BUDGET, regimentCost, regimentProblems, composeRegiment} from "./regiment-data.mjs";
 import {ADDITIONAL_KIT} from "./kit-data.mjs";
 
@@ -114,6 +115,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ...(this.step?.kind === "characteristics" ? this._characteristicsStepContext() : {}),
             ...(this.step?.kind === "experience" ? await this._experienceContextLoaded() : {}),
             ...(this.step?.kind === "equipment" ? await this._equipmentStepContext() : {}),
+            ...(this.step?.kind === "comrade" ? this._comradeStepContext() : {}),
             ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
@@ -194,6 +196,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         this._wireShop(root);
         this._wireEquipment(root);
         this._wireRegiment(root);
+        this._wireComrade(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -1576,6 +1579,53 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const ids = this._equipmentPicks.map(pick => pick.itemId).filter(id => this.actor.items.get(id));
         if (ids.length) await this.actor.deleteEmbeddedDocuments("Item", ids);
         if (this.actor.getFlag(GRANT_FLAG_SCOPE, "creationEquipment")) await this.actor.unsetFlag(GRANT_FLAG_SCOPE, "creationEquipment");
+    }
+
+    // ── Шаг Comrade и характера ──────────────────────────────────────────
+
+    /**
+     * Стадии 4 и 5 книги: характер персонажа и его Comrade (стр. 104-110).
+     *
+     * Имя Comrade игрок пишет сам: книжные таблицы имён — списки для вдохновения,
+     * и своё имя всегда лучше случайного.
+     */
+    _comradeStepContext() {
+        const bio = this.actor.system.bio ?? {};
+        const speciality = this.actor.items.find(item => item.type === "origin" && item.system.stage === "speciality");
+        const comrade = speciality?.system.rules?.comrade ?? true;
+        return {
+            comradeAllowed: comrade !== false,
+            comradeIsServitor: comrade === "servitor",
+            comradeNone: comrade === false,
+            comradeSpeciality: speciality?.name ?? "",
+            comradeName: bio.comrade ?? "",
+            comradeDemeanour: bio.comradeDemeanour ?? "",
+            characterDemeanour: bio.demeanour ?? ""
+        };
+    }
+
+    /** Бросок по таблице 3-21 в поле анкеты. */
+    async _rollDemeanour(field) {
+        const roll = await new Roll("1d100").evaluate();
+        const demeanour = demeanourFor(roll.total);
+        if (!demeanour) return;
+        await this.actor.update({[`system.bio.${field}`]: demeanour});
+        ui.notifications?.info(game.i18n.format("WIZARD.DEMEANOUR_ROLLED", {roll: roll.total, demeanour}));
+    }
+
+    _wireComrade(root) {
+        for (const button of root.querySelectorAll("[data-roll-demeanour]"))
+            button.addEventListener("click", async event => {
+                event.preventDefault();
+                if (this._busy) return;
+                this._busy = true;
+                try { await this._rollDemeanour(event.currentTarget.dataset.rollDemeanour); }
+                finally { this._busy = false; if (this.rendered) this.render(false); }
+            });
+        for (const input of root.querySelectorAll("[data-bio-field]"))
+            input.addEventListener("change", async event => {
+                await this.actor.update({[`system.bio.${event.currentTarget.dataset.bioField}`]: event.currentTarget.value});
+            });
     }
 
     // ── Шаг дивинации ────────────────────────────────────────────────────

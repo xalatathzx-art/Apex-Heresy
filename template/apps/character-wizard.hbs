@@ -601,6 +601,30 @@
                 </div>
             {{/if}}
 
+            {{#if (eq step.kind "comrade")}}
+                {{!-- Стадии 4 и 5 (стр. 104-110): характер персонажа и его Comrade.
+                      Имя пишется от руки — книжные таблицы имён это списки для вдохновения. --}}
+                <div class="wizard-choice">
+                    <span class="wizard-choice-label">{{localize "WIZARD.DEMEANOUR"}}</span>
+                    <input type="text" data-bio-field="demeanour" value="{{characterDemeanour}}"/>
+                    <button type="button" class="shop-buy" data-roll-demeanour="demeanour">{{localize "WIZARD.ROLL"}}</button>
+                </div>
+
+                {{#if comradeNone}}
+                <p class="wizard-note">{{localize "WIZARD.COMRADE_NONE"}} <b>{{comradeSpeciality}}</b></p>
+                {{else}}
+                <div class="wizard-choice">
+                    <span class="wizard-choice-label">{{#if comradeIsServitor}}{{localize "WIZARD.SERVITOR_NAME"}}{{else}}{{localize "WIZARD.COMRADE_NAME"}}{{/if}}</span>
+                    <input type="text" data-bio-field="comrade" value="{{comradeName}}"/>
+                </div>
+                <div class="wizard-choice">
+                    <span class="wizard-choice-label">{{localize "WIZARD.COMRADE_DEMEANOUR"}}</span>
+                    <input type="text" data-bio-field="comradeDemeanour" value="{{comradeDemeanour}}"/>
+                    <button type="button" class="shop-buy" data-roll-demeanour="comradeDemeanour">{{localize "WIZARD.ROLL"}}</button>
+                </div>
+                {{/if}}
+            {{/if}}
+
             {{#if (eq step.kind "divination")}}
                 {{#if divinationDrawn}}
                 {{!-- Пророчество — цитата, эффект под ним отдельной строкой:

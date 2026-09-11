@@ -101,7 +101,7 @@ Pool from the speciality plus duplicate-talent credit, 4-step characteristic lad
 talent and power catalogues, psy rating, the Sanctioned Psyker's free 400 xp of powers, speciality
 advances.
 
-### Task 9: Life and Comrade
+### Task 9: Life and Comrade — DONE
 Demeanour, and the Comrade's name and demeanour rolled from the book tables and kept on the sheet.
 
 ### Task 10: Sheet and packs
@@ -117,3 +117,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 6: the regiment step reuses the origin step (same carrier, same commit and rollback) and adds a builder: component selects with their costs, the budget counter, the group picks, the Table 2-6 kit list, and a save that writes the composed regiment as a world Item so the whole squad can pick it. Regiments are offered from the pack and from the world.
 - Task 7: characteristics use the book own keys, point buy and the one re-roll; flat modifiers are added after generation instead of being rolled into the formula. Wounds and fate moved into `_rollVitals`, fired at the stage the ruleset names (Dark Heresy: characteristics from the home world; Only War: the speciality, with fate from Table 3-13) and rolled back with that step. Duplicate skills between regiment and speciality now give the extra advance, duplicate talents 100 xp, and the starting pool comes from the speciality (600 or 300) plus that credit.
 - Task 8: the shop reads the book from the snapshot: four-step characteristic ladder, talents and powers from the book own pack. Only War powers are priced from their own pack entry and checked by prerequisite (a power can require another power) instead of a tree; Dark Heresy keeps its trees. A new Advances tab buys the speciality advances as special abilities, and the Sanctioned Psyker spends his 400 free experience on powers before his own pool.
+- Task 9: Table 3-21 (50 demeanours) is data, rolled with d100 for the character and for the Comrade. The sheet keeps `bio.demeanour`, `bio.comrade` and `bio.comradeDemeanour`. The step knows whom the speciality goes to war with: a Comrade, a Servitor (Enginseer) or nobody (Commissar, Storm Trooper). Names are typed rather than rolled: the book name tables are lists for inspiration, and their columns do not survive extraction cleanly.
