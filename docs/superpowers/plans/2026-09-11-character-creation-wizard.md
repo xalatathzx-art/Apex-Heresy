@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-14. 167 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-15. 169 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -136,6 +136,14 @@ The first heading without `— DONE` is the next task.
 - `tests/wizard-keys.test.mjs` is the only automated guard Tasks 12-16 have: every
   localisation key the wizard names, including the runtime-built
   `CHARACTERISTIC.*` and `WIZARD.METHOD.*` families, must exist in `lang/en.json`.
+- Task 15: starting experience is 1,000, confirmed on p. 78 rather than taken from the
+  plan on trust.
+- Reading p. 79 found a rule the code was quietly breaking: an aptitude gained from two
+  sources is not gained twice - the character takes another characteristic aptitude
+  instead. Duplicates are now recorded as owed and named at the experience step. **Which**
+  replacement to take is the player's choice and is not automated.
+- Still not automated from Stage 4: buying equipment for Influence-bonus acquisitions
+  (p. 78). The step says how many are available and leaves the shopping to the sheet.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -2542,7 +2550,7 @@ git commit -m "Generate characteristics, wounds and fate in the wizard"
 
 ---
 
-### Task 15: The experience and divination steps, and finishing
+### Task 15: The experience and divination steps, and finishing — DONE
 
 **Files:**
 - Modify: `script/creation/wizard.mjs`
