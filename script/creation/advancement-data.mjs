@@ -52,12 +52,16 @@ export const TALENT_COSTS = {
  * У покупки их обычно две, у редкой — одна; больше двух не бывает, поэтому
  * результат всегда 0, 1 или 2.
  *
- * @param {Record<string, boolean>|string[]} owned  склонности персонажа
+ * @param {Set<string>|string[]|Record<string, boolean>} owned  склонности персонажа
  * @param {string[]} required                       склонности покупки
  * @returns {0|1|2}
  */
 export function matchingAptitudes(owned, required = []) {
-    const has = Array.isArray(owned) ? new Set(owned) : new Set(Object.keys(owned ?? {}));
+    // Склонности приходят и списком, и множеством (ownedAptitudes), и старым объектом
+    // {Name: true}. Объект.keys у Set пуст — поэтому сначала проверяем итерируемость.
+    const has = owned instanceof Set ? owned
+        : Array.isArray(owned) ? new Set(owned)
+        : new Set(Object.keys(owned ?? {}));
     const unique = [...new Set(required)];
     return Math.min(2, unique.filter(aptitude => has.has(aptitude)).length);
 }

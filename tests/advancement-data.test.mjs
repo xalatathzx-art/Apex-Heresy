@@ -42,6 +42,8 @@ test('matching counts the aptitudes the character actually has, and never exceed
     assert.equal(matchingAptitudes(owned, ['Toughness', 'Toughness']), 1);
     assert.equal(matchingAptitudes(owned, ['Toughness', 'Knowledge', 'General']), 2);
     assert.equal(matchingAptitudes({}, ['Toughness']), 0);
+    // ownedAptitudes() hands over a Set, whose Object.keys is empty.
+    assert.equal(matchingAptitudes(new Set(['Toughness', 'Knowledge']), ['Toughness', 'Knowledge']), 2);
 });
 
 test('a single advance costs what its row says', () => {
