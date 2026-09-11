@@ -1,0 +1,2533 @@
+[
+  {
+    "name": "Champion",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 1,
+      "key": "champion",
+      "cost": 0,
+      "description": "<p>Bands of Chaos Space Marines form around the strongest and most dangerous of their fellows. These Aspiring Champions adorn their armour with trophies from the slain and burn with ambition, aspiring to become Chaos Lords — or to be torn apart trying.</p>",
+      "source": "Black Crusade, p. 55",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "15+1d5"
+      },
+      "requires": {
+        "originKey": "chaosSpaceMarine"
+      },
+      "rules": {
+        "race": "chaosSpaceMarine",
+        "specialAbility": {
+          "name": "Inspiring Presence",
+          "effect": "When an ally within sight of the Aspiring Champion uses an Infamy Point, as a Free Action the Aspiring Champion may choose to allow the ally to use his Infamy Point as if he possessed the Aspiring Champion's Corruption Point level and Alignment."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "command",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Iron Discipline"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Power Sword (Legion)"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "scholasticLore",
+          "type": "many",
+          "label": "Scholastic Lore (any one)",
+          "count": 1,
+          "groups": [
+            "scholasticLore"
+          ],
+          "advance": 0
+        },
+        {
+          "key": "socialSkill",
+          "type": "one",
+          "label": "Charm or Deceive",
+          "options": [
+            {
+              "label": "Charm",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "charm",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Deceive",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "deceive",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "pressureSkill",
+          "type": "one",
+          "label": "Intimidate or Scrutiny",
+          "options": [
+            {
+              "label": "Intimidate",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Scrutiny",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "scrutiny",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "presenceTalent",
+          "type": "one",
+          "label": "Air of Authority or Disturbing Voice",
+          "options": [
+            {
+              "label": "Air of Authority",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Air of Authority"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Disturbing Voice",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Disturbing Voice"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "warTalent",
+          "type": "one",
+          "label": "Lesser Minion of Chaos or Sure Strike",
+          "options": [
+            {
+              "label": "Lesser Minion of Chaos",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Lesser Minion of Chaos"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Sure Strike",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Sure Strike"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Chosen",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 2,
+      "key": "chosen",
+      "cost": 0,
+      "description": "<p>The most experienced and dedicated Chaos Space Marines become the Chosen, favoured by the Ruinous Powers and harder-bitten than their brothers. They fight in the vanguard, where the glory and the spoils are greatest, and think nothing of spending their comrades' lives.</p>",
+      "source": "Black Crusade, p. 57",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "16+1d5"
+      },
+      "requires": {
+        "originKey": "chaosSpaceMarine"
+      },
+      "rules": {
+        "race": "chaosSpaceMarine",
+        "specialAbility": {
+          "name": "Cold Killer",
+          "effect": "When a Chosen inflicts Zealous Hatred on a target, he may choose to reroll the Crit Result. The second result stands."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "intimidate",
+            "advance": 0
+          },
+          {
+            "key": "stealth",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Lightning Reflexes"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Legion Bolt Pistol"
+          },
+          {
+            "name": "Chainsword (Legion)"
+          },
+          {
+            "name": "Standard Bolt Pistol Clip",
+            "quantity": 2
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "defenceSkill",
+          "type": "one",
+          "label": "Dodge +10 or Parry +10",
+          "options": [
+            {
+              "label": "Dodge +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 10
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "readyTalent",
+          "type": "one",
+          "label": "Quick Draw or Rapid Reload",
+          "options": [
+            {
+              "label": "Quick Draw",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Quick Draw"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Rapid Reload",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Rapid Reload"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "meleeTalent",
+          "type": "one",
+          "label": "Disarm or Double Team",
+          "options": [
+            {
+              "label": "Disarm",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Disarm"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Double Team",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "aimTalent",
+          "type": "one",
+          "label": "Sure Strike or Deadeye Shot",
+          "options": [
+            {
+              "label": "Sure Strike",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Sure Strike"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Deadeye Shot",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Deadeye Shot"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Forsaken",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 3,
+      "key": "forsaken",
+      "cost": 0,
+      "description": "<p>An outcast from his former allegiance, the Forsaken wanders alone and joins other warbands only out of necessity. He is well acquainted with the challenges of operating alone, chief among them the need for supplies.</p>",
+      "source": "Black Crusade, p. 59",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "15+1d5"
+      },
+      "requires": {
+        "originKey": "chaosSpaceMarine"
+      },
+      "rules": {
+        "race": "chaosSpaceMarine",
+        "specialAbility": {
+          "name": "Resourceful",
+          "effect": "The Forsaken gains a +10 to his Infamy Test when obtaining an item or items with an Availability of Rare or lower."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "acrobatics",
+            "advance": 0
+          },
+          {
+            "key": "survival",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Jaded"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Chainsword (Legion)"
+          },
+          {
+            "name": "Legion Frag Grenade",
+            "quantity": 4
+          },
+          {
+            "name": "Legion Shotgun"
+          },
+          {
+            "name": "Standard Shotgun Clip",
+            "quantity": 2
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "hatred",
+          "type": "target",
+          "label": "Hatred (pick one)",
+          "talentTemplate": "Hatred ({v})"
+        },
+        {
+          "key": "tradeSkill",
+          "type": "one",
+          "label": "Commerce or Security",
+          "options": [
+            {
+              "label": "Commerce",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "commerce",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Security",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "security",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "loreOrSurvival",
+          "type": "one",
+          "label": "Common Lore (any one) or Survival +10",
+          "options": [
+            {
+              "label": "Survival +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "survival",
+                    "advance": 10
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Lore (any one)",
+              "grants": {
+                "aptitudes": []
+              }
+            }
+          ]
+        },
+        {
+          "key": "watchTalent",
+          "type": "one",
+          "label": "Light Sleeper or Blind Fighting",
+          "options": [
+            {
+              "label": "Light Sleeper",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Light Sleeper"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Blind Fighting",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Blind Fighting"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "grimTalent",
+          "type": "one",
+          "label": "Cold Hearted or Sound Constitution",
+          "options": [
+            {
+              "label": "Cold Hearted",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Cold Hearted"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Sound Constitution",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Sound Constitution"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Sorcerer",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 4,
+      "key": "sorcerer",
+      "cost": 0,
+      "description": "<p>A Chaos Space Marine who has mastered the art of the psyker. Where his brothers trust to bolter and blade, the Sorcerer bargains with the entities of the Immaterium — and pays their price.</p>",
+      "source": "Black Crusade, p. 61",
+      "characteristics": {},
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "15+1d5"
+      },
+      "requires": {
+        "originKey": "chaosSpaceMarine"
+      },
+      "rules": {
+        "race": "chaosSpaceMarine",
+        "specialAbility": {
+          "name": "Sorcerer",
+          "effect": "The Heretic gains the Psyker Trait, a Psy Rating of 2, and 1 Corruption Point. When determining Psychic Strength (see p. 206), he counts as Bound."
+        },
+        "psyker": {
+          "psyRating": 2,
+          "corruption": "1",
+          "freePowerExperience": 500,
+          "psychicStrength": "bound",
+          "disciplines": [
+            "Unaligned",
+            "Divination",
+            "Telepathy",
+            "Telekinesis"
+          ]
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "psyniscience",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "scholasticLore",
+            "name": "Occult",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Psy Rating"
+          },
+          {
+            "name": "Psy Rating"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Psyker"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Legion Bolt Pistol"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "readSkill",
+          "type": "one",
+          "label": "Deceive or Scrutiny",
+          "options": [
+            {
+              "label": "Deceive",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "deceive",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Scrutiny",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "scrutiny",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "forbiddenLore",
+          "type": "one",
+          "label": "Forbidden Lore (Daemons) or Forbidden Lore (Psykers)",
+          "options": [
+            {
+              "label": "Forbidden Lore (Daemons)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Daemons",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Forbidden Lore (Psykers)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Psykers",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mindTalent",
+          "type": "one",
+          "label": "Meditation or Mimic",
+          "options": [
+            {
+              "label": "Meditation",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Meditation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Mimic",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Mimic"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "forceWeapon",
+          "type": "one",
+          "label": "Force Weapon",
+          "options": [
+            {
+              "label": "Force Sword",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Force Sword"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Force Staff",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Force Staff"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Force Rod",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Force Rod"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Force Scythe",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Force Scythe"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Apostate",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 5,
+      "key": "apostate",
+      "cost": 0,
+      "description": "<p>An infiltrator and silver-tongued serpent, the Apostate turns crowds into congregations and congregations into unwitting servants of Chaos. Preachers, cardinals and traitorous adepts alike walk this path.</p>",
+      "source": "Black Crusade, p. 63",
+      "characteristics": {
+        "fellowship": 5
+      },
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "9+1d5"
+      },
+      "requires": {
+        "originKey": "human"
+      },
+      "rules": {
+        "race": "human",
+        "specialAbility": {
+          "name": "Serpent's Tongue",
+          "effect": "Once per game session, the Apostate may make a Challenging Charm or Deceive Test to gain the Peer Talent with one organisation of his choice for the remainder of the session. If the Apostate has a Fellowship of 55 or higher, he can gain the Peer (2) Talent instead."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "charm",
+            "advance": 0
+          },
+          {
+            "key": "command",
+            "advance": 0
+          },
+          {
+            "key": "deceive",
+            "advance": 0
+          },
+          {
+            "key": "inquiry",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Air of Authority"
+          },
+          {
+            "name": "Total Recall"
+          },
+          {
+            "name": "Unshakeable Will"
+          },
+          {
+            "name": "Weapon Training (Las)"
+          },
+          {
+            "name": "Weapon Training (Primary)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Laspistol",
+            "craftsmanship": "good"
+          },
+          {
+            "name": "Standard Laspistol Cell",
+            "quantity": 2
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "scholasticLore",
+          "type": "many",
+          "label": "Scholastic Lore (any three)",
+          "count": 3,
+          "groups": [
+            "scholasticLore"
+          ],
+          "advance": 0
+        },
+        {
+          "key": "forbiddenLore",
+          "type": "many",
+          "label": "Forbidden Lore (any three)",
+          "count": 3,
+          "groups": [
+            "forbiddenLore"
+          ],
+          "advance": 0
+        },
+        {
+          "key": "hatred",
+          "type": "target",
+          "label": "Hatred (any one)",
+          "talentTemplate": "Hatred ({v})"
+        },
+        {
+          "key": "peer",
+          "type": "target",
+          "label": "Peer (any one)",
+          "talentTemplate": "Peer ({v})"
+        },
+        {
+          "key": "defenceSkill",
+          "type": "one",
+          "label": "Dodge or Parry",
+          "options": [
+            {
+              "label": "Dodge",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "pressureSkill",
+          "type": "one",
+          "label": "Intimidate or Commerce",
+          "options": [
+            {
+              "label": "Intimidate",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Commerce",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "commerce",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "socialRank",
+          "type": "one",
+          "label": "Charm +10 or Deceive +10",
+          "options": [
+            {
+              "label": "Charm +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "charm",
+                    "advance": 10
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Deceive +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "deceive",
+                    "advance": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "leadRank",
+          "type": "one",
+          "label": "Command +10 or Inquiry +10",
+          "options": [
+            {
+              "label": "Command +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "command",
+                    "advance": 10
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Inquiry +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "inquiry",
+                    "advance": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "craftSkill",
+          "type": "one",
+          "label": "Security, Stealth or Logic",
+          "options": [
+            {
+              "label": "Security",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "security",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Stealth",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "stealth",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Logic",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "logic",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "voiceTalent",
+          "type": "one",
+          "label": "Disturbing Voice or Radiant Presence",
+          "options": [
+            {
+              "label": "Disturbing Voice",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Disturbing Voice"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Radiant Presence",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Radiant Presence"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "tongueTalent",
+          "type": "one",
+          "label": "Polyglot or Mimic",
+          "options": [
+            {
+              "label": "Polyglot",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Polyglot"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Mimic",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Mimic"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "followerTalent",
+          "type": "one",
+          "label": "Inspire Wrath, Iron Discipline or Lesser Minion of Chaos",
+          "options": [
+            {
+              "label": "Inspire Wrath",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Inspire Wrath"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Iron Discipline",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Iron Discipline"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Lesser Minion of Chaos",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Lesser Minion of Chaos"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "sidearm",
+          "type": "one",
+          "label": "Best-Craftsmanship Sword or Common Power Blade",
+          "options": [
+            {
+              "label": "Best-Craftsmanship Sword",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Sword",
+                    "craftsmanship": "best"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Power Blade",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Power Blade"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "armour",
+          "type": "one",
+          "label": "Flak Armour or Mesh Armour",
+          "options": [
+            {
+              "label": "Flak Jacket",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Flak Jacket"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Mesh Vest",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Mesh Vest"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Heretek",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 6,
+      "key": "heretek",
+      "cost": 0,
+      "description": "<p>One initiated into the mysteries of technology and turned rebel against the cult of the Adeptus Mechanicus. The Heretek fuses the power of the warp with technology forbidden to his former peers on pain of death.</p>",
+      "source": "Black Crusade, p. 66",
+      "characteristics": {
+        "intelligence": 5
+      },
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "12+1d5"
+      },
+      "requires": {
+        "originKey": "human"
+      },
+      "rules": {
+        "race": "human",
+        "specialAbility": {
+          "name": "Traitor to Mars",
+          "effect": "The Heretek gains the Mechanicus Implants Trait, as well as two Good Craftsmanship cybernetics of his choice."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "logic",
+            "advance": 0
+          },
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Adeptus Mechanicus",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Tech",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Die Hard"
+          },
+          {
+            "name": "Technical Knock"
+          },
+          {
+            "name": "Weapon Training (Las)"
+          },
+          {
+            "name": "Weapon Training (Primary)"
+          },
+          {
+            "name": "Weapon Training (Shock)"
+          },
+          {
+            "name": "Enemy (Adeptus Mechanicus)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Mechanicus Implants"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Las Carbine",
+            "craftsmanship": "best"
+          },
+          {
+            "name": "Light Carapace"
+          },
+          {
+            "name": "Combi-Tool"
+          },
+          {
+            "name": "Dataslate"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "defenceSkill",
+          "type": "one",
+          "label": "Dodge or Parry",
+          "options": [
+            {
+              "label": "Dodge",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "techRank",
+          "type": "one",
+          "label": "Security or Tech-Use +10",
+          "options": [
+            {
+              "label": "Security",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "security",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Tech-Use +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "techUse",
+                    "advance": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "forbiddenLore",
+          "type": "one",
+          "label": "Forbidden Lore (Archeotech, Xenos or Warp)",
+          "options": [
+            {
+              "label": "Forbidden Lore (Archeotech)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Archeotech",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Forbidden Lore (Xenos)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Xenos",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Forbidden Lore (Warp)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Warp",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "scholasticLore",
+          "type": "one",
+          "label": "Scholastic Lore (Astromancy or Chymistry)",
+          "options": [
+            {
+              "label": "Scholastic Lore (Astromancy)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "scholasticLore",
+                    "name": "Astromancy",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Scholastic Lore (Chymistry)",
+              "grants": {
+                "aptitudes": [],
+                "specialities": [
+                  {
+                    "key": "scholasticLore",
+                    "name": "Chymistry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "heavyTraining",
+          "type": "one",
+          "label": "Weapon Training (Bolt, Plasma or Power)",
+          "options": [
+            {
+              "label": "Weapon Training (Bolt)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Bolt)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Plasma)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Plasma)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Power)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Power)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mechadendrite",
+          "type": "one",
+          "label": "Mechadendrite Training (Weapon or Utility)",
+          "options": [
+            {
+              "label": "Mechadendrite Use (Weapon)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Mechadendrite Use (Weapon)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Mechadendrite Use (Utility)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Mechadendrite Use (Utility)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mindTalent",
+          "type": "one",
+          "label": "Meditation or Total Recall",
+          "options": [
+            {
+              "label": "Meditation",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Meditation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Total Recall",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Total Recall"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "craftTalent",
+          "type": "one",
+          "label": "Armour-Monger or Weapon-Tech",
+          "options": [
+            {
+              "label": "Armour-Monger",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Armour-Monger"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon-Tech",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon-Tech"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "servantTalent",
+          "type": "one",
+          "label": "Lesser Minion of Chaos (servitor or servo-skull) or Cold Hearted",
+          "options": [
+            {
+              "label": "Lesser Minion of Chaos",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Lesser Minion of Chaos"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Cold Hearted",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Cold Hearted"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "sidearmMelee",
+          "type": "one",
+          "label": "Common Power Axe or Good Great Weapon (Greataxe)",
+          "options": [
+            {
+              "label": "Power Axe (human)",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Power Axe (human)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Great Weapon",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Great Weapon",
+                    "craftsmanship": "good"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mechadendriteGear",
+          "type": "one",
+          "label": "Optical, Utility or Ballistic Mechadendrite",
+          "options": [
+            {
+              "label": "Optical Mechadendrite",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Optical Mechadendrite"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Utility Mechadendrite",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Utility Mechadendrite"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Ballistic Mechadendrite with Laspistol",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Ballistic Mechadendrite"
+                  },
+                  {
+                    "name": "Laspistol"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "implant",
+          "type": "one",
+          "label": "Luminen Capacitors, Maglev Coils or Ferric Lure Implants",
+          "options": [
+            {
+              "label": "Luminen Capacitors",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Luminen Capacitors"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Maglev Coils",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Maglev Coils"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Ferric Lure Implants",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Ferric Lure Implants"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Renegade",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 7,
+      "key": "renegade",
+      "cost": 0,
+      "description": "<p>A soldier of the Imperium who turned his guns around. The Renegade survives on skill at arms rather than brute force, and may still be learning what his new allies really are.</p>",
+      "source": "Black Crusade, p. 68",
+      "characteristics": {
+        "weaponSkill": 3,
+        "ballisticSkill": 3
+      },
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "10+1d5"
+      },
+      "requires": {
+        "originKey": "human"
+      },
+      "rules": {
+        "race": "human",
+        "specialAbility": {
+          "name": "Adroit",
+          "effect": "The Renegade must select one Characteristic at character creation. Throughout the game he adds one additional Degree of Success to successful Tests involving that Characteristic (this includes Skill and Characteristic Tests)."
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "athletics",
+            "advance": 0
+          },
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "dodge",
+            "advance": 0
+          },
+          {
+            "key": "parry",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "scholasticLore",
+            "name": "Tactica Imperialis",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Jaded"
+          },
+          {
+            "name": "Quick Draw"
+          },
+          {
+            "name": "Rapid Reload"
+          },
+          {
+            "name": "Weapon Training (Chain)"
+          },
+          {
+            "name": "Weapon Training (Las)"
+          },
+          {
+            "name": "Weapon Training (Primary)"
+          },
+          {
+            "name": "Weapon Training (Solid Projectile)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Heavy Carapace"
+          },
+          {
+            "name": "Medi-kit"
+          },
+          {
+            "name": "Dataslate"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "operate",
+          "type": "target",
+          "label": "Operate (any one)",
+          "talentTemplate": "Operate ({v})",
+          "specialityTemplate": {
+            "key": "operate",
+            "name": "{v}"
+          }
+        },
+        {
+          "key": "heavyTraining",
+          "type": "target",
+          "label": "Heavy Weapon Training (any one)",
+          "talentTemplate": "Weapon Training ({v})"
+        },
+        {
+          "key": "leadSkill",
+          "type": "one",
+          "label": "Command or Intimidate",
+          "options": [
+            {
+              "label": "Command",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "command",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Intimidate",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "defenceRank",
+          "type": "one",
+          "label": "Dodge +10 or Parry +10",
+          "options": [
+            {
+              "label": "Dodge +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 10
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry +10",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "fieldSkill",
+          "type": "one",
+          "label": "Survival or Stealth",
+          "options": [
+            {
+              "label": "Survival",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "survival",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Stealth",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "stealth",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "supportSkill",
+          "type": "one",
+          "label": "Tech-Use or Medicae",
+          "options": [
+            {
+              "label": "Tech-Use",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "techUse",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Medicae",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "medicae",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "extraTraining",
+          "type": "one",
+          "label": "Weapon Training (Bolt) or Weapon Training (Shock)",
+          "options": [
+            {
+              "label": "Weapon Training (Bolt)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Bolt)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Shock)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Shock)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "reflexTalent",
+          "type": "one",
+          "label": "Catfall or Combat Sense",
+          "options": [
+            {
+              "label": "Catfall",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Catfall"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Combat Sense",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Combat Sense"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "aimTalent",
+          "type": "one",
+          "label": "Sure Strike, Deadeye Shot or Marksman",
+          "options": [
+            {
+              "label": "Sure Strike",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Sure Strike"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Deadeye Shot",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Deadeye Shot"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Marksman",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Marksman"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "meleeTalent",
+          "type": "one",
+          "label": "Double Team, Disarm or Takedown",
+          "options": [
+            {
+              "label": "Double Team",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Double Team"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Disarm",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Disarm"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Takedown",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Takedown"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "handsTalent",
+          "type": "one",
+          "label": "Ambidextrous or Hip Shooting",
+          "options": [
+            {
+              "label": "Ambidextrous",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Ambidextrous"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hip Shooting",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Hip Shooting"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "primaryWeapon",
+          "type": "one",
+          "label": "Best Lasgun, Good Boltgun, Common Plasma Gun or Common Heavy Flamer",
+          "options": [
+            {
+              "label": "Best-Craftsmanship Lasgun",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Lasgun",
+                    "craftsmanship": "best"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Good-Craftsmanship Boltgun",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Bolter",
+                    "craftsmanship": "good"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Plasma Gun",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Plasma Gun"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Heavy Flamer",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Heavy Flamer"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "sidearm",
+          "type": "one",
+          "label": "Best Laspistol or Common Bolt Pistol",
+          "options": [
+            {
+              "label": "Best-Craftsmanship Laspistol",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Laspistol",
+                    "craftsmanship": "best"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Bolt Pistol",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Bolt Pistol"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "meleeWeapon",
+          "type": "one",
+          "label": "Best Chainsword or Common Power Mace",
+          "options": [
+            {
+              "label": "Best-Craftsmanship Chainsword",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Chainsword (human)",
+                    "craftsmanship": "best"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Power Mace",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Power Mace"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Psyker",
+    "type": "origin",
+    "folder": "Black Crusade/Archetypes",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "bc",
+      "stage": "archetype",
+      "order": 8,
+      "key": "psyker",
+      "cost": 0,
+      "description": "<p>An unsanctioned witch turned to Chaos, infused by the warp and answerable to no Black Ship. Such psykers rarely plan and rarely last, but while they burn they burn very brightly.</p>",
+      "source": "Black Crusade, p. 70",
+      "characteristics": {
+        "willpower": 5
+      },
+      "characteristicChoices": [],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "requires": {
+        "originKey": "human"
+      },
+      "rules": {
+        "race": "human",
+        "specialAbility": {
+          "name": "Chaos Psyker",
+          "effect": "The Heretic is an unsanctioned psyker with access to the powers of the warp. He begins play with the Psyker Trait, a Psy Rating of 3, and 1d5 Corruption Points. When determining his Psychic Strength (see p. 206), he counts as Unbound."
+        },
+        "psyker": {
+          "psyRating": 3,
+          "corruption": "1d5",
+          "freePowerExperience": 500,
+          "psychicStrength": "unbound",
+          "disciplines": [
+            "Unaligned",
+            "Divination",
+            "Telepathy",
+            "Telekinesis"
+          ]
+        }
+      },
+      "grants": {
+        "aptitudes": [],
+        "skills": [
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "psyniscience",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "forbiddenLore",
+            "name": "Psykers",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Psy Rating"
+          },
+          {
+            "name": "Psy Rating"
+          },
+          {
+            "name": "Psy Rating"
+          },
+          {
+            "name": "Jaded"
+          },
+          {
+            "name": "Weapon Training (Primary)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Psyker"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Flak Cloak"
+          },
+          {
+            "name": "Psy-Focus"
+          },
+          {
+            "name": "Dataslate"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "socialSkill",
+          "type": "one",
+          "label": "Deceive or Intimidate",
+          "options": [
+            {
+              "label": "Deceive",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "deceive",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Intimidate",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "defenceSkill",
+          "type": "one",
+          "label": "Dodge or Parry",
+          "options": [
+            {
+              "label": "Dodge",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry",
+              "grants": {
+                "aptitudes": [],
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "extraTraining",
+          "type": "one",
+          "label": "Weapon Training (Las, Solid Projectile or Shock)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Shock)",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Weapon Training (Shock)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "warpTalent",
+          "type": "one",
+          "label": "Warp Sense or Child of the Warp",
+          "options": [
+            {
+              "label": "Warp Sense",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Warp Sense"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Child of the Warp",
+              "grants": {
+                "aptitudes": [],
+                "talents": [
+                  {
+                    "name": "Child of the Warp"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "sidearm",
+          "type": "one",
+          "label": "Common Laspistol or Common Stub Revolver",
+          "options": [
+            {
+              "label": "Laspistol",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Laspistol"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Stub Revolver",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Stub Revolver"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "meleeWeapon",
+          "type": "one",
+          "label": "Good Sword or Common Neural Whip",
+          "options": [
+            {
+              "label": "Good-Craftsmanship Sword",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Sword",
+                    "craftsmanship": "good"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Neural Whip",
+              "grants": {
+                "aptitudes": [],
+                "equipment": [
+                  {
+                    "name": "Neural Whip"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
