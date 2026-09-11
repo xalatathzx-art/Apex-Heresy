@@ -13558,37 +13558,6 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 }
 
 /* Характеристики: показание — данные, модификатор книги — латунь рядом с ним. */
-.dark-heresy.character-wizard .wizard-chars {
-  width: 100%;
-  border-collapse: collapse;
-}
-.dark-heresy.character-wizard .wizard-chars th {
-  text-align: left;
-  padding: var(--dh-space-1) var(--dh-space-2);
-  color: var(--dh-ink-muted);
-  font-family: var(--dh-font-stencil);
-  font-size: var(--dh-text-xs);
-  font-weight: 600;
-  letter-spacing: var(--dh-track-caption);
-  text-transform: uppercase;
-}
-.dark-heresy.character-wizard .wizard-chars td {
-  padding: var(--dh-space-1) var(--dh-space-2);
-}
-.dark-heresy.character-wizard .wizard-chars tr + tr {
-  border-top: 1px solid var(--dh-line);
-}
-.dark-heresy.character-wizard .wizard-chars input {
-  width: 5em;
-}
-.dark-heresy.character-wizard .wizard-char-mod {
-  width: 3em;
-  text-align: center;
-  color: var(--dh-brass);
-  font-family: var(--dh-font-data);
-  font-size: var(--dh-text-sm);
-  letter-spacing: var(--dh-track-data);
-}
 .dark-heresy.character-wizard .wizard-budget {
   font-family: var(--dh-font-data);
 }
@@ -13692,4 +13661,172 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   content: "2";
   margin-left: var(--dh-space-2);
   color: var(--dh-brass);
+}
+
+/* Строка характеристики в Мастере — та же конструкция, что на анкете: имя слева
+   спускает бросок, значение крупное справа и несёт строку, формула стоит тихой
+   подписью между ними. Своих величин здесь нет, только токены. */
+.dark-heresy.character-wizard .wizard-chars {
+  display: flex;
+  flex-direction: column;
+}
+.dark-heresy.character-wizard .wizard-char {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--dh-space-3);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface);
+  border-left: 2px solid var(--dh-brass-dim);
+  border-top: 1px solid var(--dh-line);
+  border-right: 1px solid var(--dh-line);
+  box-sizing: border-box;
+  transition: border-left-color var(--dh-transition);
+}
+.dark-heresy.character-wizard .wizard-char:last-child {
+  border-bottom: 1px solid var(--dh-line);
+}
+.dark-heresy.character-wizard .wizard-char:hover {
+  border-left-color: var(--dh-accent);
+}
+
+/* Имя — спуск броска, как аббревиатура на анкете. */
+.dark-heresy.character-wizard .wizard-char .wizard-roll,
+.dark-heresy.character-wizard .wizard-char .wizard-char-name {
+  /* Фиксированная колонка имени: иначе кнопка растягивается на всю строку и
+     подпись плавает посередине пустой плашки. */
+  flex: 0 0 11.5em;
+  text-align: left;
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+.dark-heresy.character-wizard .wizard-char .wizard-roll {
+  background: transparent;
+  border: 1px solid var(--dh-brass-dim);
+  color: var(--dh-accent);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  cursor: pointer;
+}
+.dark-heresy.character-wizard .wizard-char .wizard-roll:hover {
+  background: rgba(192, 88, 31, 0.14);
+  border-color: var(--dh-accent);
+}
+.dark-heresy.character-wizard .wizard-char .wizard-char-name {
+  color: var(--dh-ink-muted);
+  padding: var(--dh-space-2) 0;
+}
+
+.dark-heresy.character-wizard .wizard-char .wizard-char-mod {
+  flex: 0 0 auto;
+  width: 2.5em;
+  text-align: right;
+  color: var(--dh-brass);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-sm);
+  letter-spacing: var(--dh-track-data);
+}
+.dark-heresy.character-wizard .wizard-char .wizard-char-formula {
+  flex: 1 1 auto;
+  text-align: right;
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-data);
+}
+/* Значение несёт строку: крупная цифра, латунная рамка. */
+.dark-heresy.character-wizard .wizard-char .wizard-char-value {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 30px;
+  padding: 0;
+  font-size: var(--dh-text-xl);
+  font-weight: 700;
+  border-color: var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .wizard-char-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.dark-heresy.character-wizard .wizard-char-actions .wizard-roll-all {
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  color: var(--dh-accent);
+  border-color: var(--dh-brass-dim);
+}
+
+/* Текст книги под выбранным происхождением: читается, не правится. Серифом —
+   это проза, а не данные; ширина строки ограничена, иначе глаз теряет строку. */
+.dark-heresy.character-wizard .wizard-book {
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-brass-dim);
+  padding: var(--dh-space-4);
+  clip-path: polygon(var(--dh-cut) 0, 100% 0, 100% calc(100% - var(--dh-cut)),
+                     calc(100% - var(--dh-cut)) 100%, 0 100%, 0 var(--dh-cut));
+}
+.dark-heresy.character-wizard .wizard-book-text {
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-md);
+  line-height: 1.55;
+}
+.dark-heresy.character-wizard .wizard-book-text p {
+  margin: 0 0 var(--dh-space-3);
+}
+.dark-heresy.character-wizard .wizard-book-text p:last-child {
+  margin-bottom: 0;
+}
+/* Вводная фраза книги — курсивом и приглушённо: это эпиграф, а не правило. */
+.dark-heresy.character-wizard .wizard-book-text .bc-lead {
+  color: var(--dh-ink-muted);
+  font-style: italic;
+}
+/* Именованная способность — единственное здесь, что игрок получит механикой. */
+.dark-heresy.character-wizard .wizard-book-bonus {
+  margin-top: var(--dh-space-3);
+  padding-top: var(--dh-space-3);
+  border-top: 1px solid var(--dh-line);
+}
+.dark-heresy.character-wizard .wizard-book-bonus h2 {
+  margin: 0 0 var(--dh-space-2);
+  border: 0;
+  padding: 0;
+  color: var(--dh-brass);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  text-align: left;
+  background: none;
+}
+.dark-heresy.character-wizard .wizard-book-bonus p {
+  margin: 0;
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.5;
+}
+/* Сводка выдач — данные, поэтому моноширинно и без прозы. */
+.dark-heresy.character-wizard .wizard-book-grants {
+  margin: var(--dh-space-3) 0 0;
+  padding-left: var(--dh-space-5);
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-data);
+  font-size: var(--dh-text-sm);
+  line-height: 1.6;
+  letter-spacing: var(--dh-track-data);
+}
+.dark-heresy.character-wizard .wizard-book-source {
+  margin: var(--dh-space-3) 0 0;
+  color: var(--dh-ink-faint);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
 }

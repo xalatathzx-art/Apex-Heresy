@@ -14,7 +14,7 @@ import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
-import {CHARACTERISTIC_KEYS, normaliseOrigin} from "./origin-data.mjs";
+import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
 import {findContent} from "./content-lookup.mjs";
 import {POINT_BUY, pointBuyProblems, rollExpression, woundsExpression, fateExpression}
     from "./creation-roll-data.mjs";
@@ -130,7 +130,15 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             originName: carrier?.name ?? "",
             choiceRows: (!carrier && source)
                 ? choiceBlocksHtml(source, {intelligenceBonus: this._intelligenceBonus})
-                : ""
+                : "",
+            // Текст книги показывается и до выбора (по наведённому в списке), и после
+            // закрепления: игрок должен читать, что берёт, а не угадывать по названию.
+            originBook: source ? {
+                description: source.description ?? "",
+                bonuses: source.bonuses ?? [],
+                summary: grantSummaryLines(source),
+                source: source.source ?? ""
+            } : null
         };
     }
 
