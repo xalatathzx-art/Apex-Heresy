@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-11. 148 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-12. 148 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -109,6 +109,16 @@ The first heading without `— DONE` is the next task.
   for the lock first and refuses cleanly while Foundry is open, which is what happened. The
   flag mapping was extracted to `tools/lib/table-effects.mjs` so it is covered by tests
   rather than waiting on Task 17.
+- Task 12: the shell offers only `auditedRulesets()`, which is `["dh2"]`, and names the
+  four books it will not run and why. Better than silently building a wrong character.
+- **Tasks 12-16 have no unit tests and no live check.** The wizard module imports
+  `foundry.applications.api` at module scope, so it cannot be imported by `node:test`, and
+  driving a running world is not available to the loop. What IS checked: `node --check` on
+  every module, and a script that confirms every `localize` key in the template and the
+  module exists in `lang/en.json`. Everything about behaviour waits for Task 17.
+- The step-commit contract the later tasks fill in: `_commitStep(step)` returns false to
+  stay on the step, `_revertStep(step)` undoes a committed one, and `_busy` blocks a second
+  click while the first is still inside its await.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -1917,7 +1927,7 @@ git commit -m "Add the Dark Heresy divination table with its mechanical effects"
 
 ---
 
-### Task 12: The wizard shell
+### Task 12: The wizard shell — DONE
 
 **Files:**
 - Create: `script/creation/wizard.mjs`
