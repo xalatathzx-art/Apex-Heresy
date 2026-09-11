@@ -1,0 +1,46 @@
+{{#if missing}}
+<div class="wizard-missing">{{localize "WIZARD.NO_ACTOR"}}</div>
+{{else}}
+<div class="character-wizard-body">
+    {{#if rulesetChosen}}
+    <nav class="wizard-steps">
+        {{#each steps as |s|}}
+        <span class="wizard-step-chip{{#if s.active}} active{{/if}}{{#if s.done}} done{{/if}}">{{s.label}}</span>
+        {{/each}}
+    </nav>
+    {{/if}}
+
+    <div class="wizard-step-body">
+        {{#unless rulesetChosen}}
+        <div class="form-group">
+            <label>{{localize "WIZARD.RULESET"}}</label>
+            <div class="form-fields">
+                <select class="wizard-ruleset">
+                    <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                    {{#each rulesets as |r|}}
+                    <option value="{{r.key}}" {{#if r.selected}}selected{{/if}}>{{r.label}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        {{!-- Книги, правила создания которых ещё не сверены с текстом: вести по ним
+              Мастер не станет, и молчать об этом нельзя. --}}
+        {{#if unaudited}}
+        <p class="wizard-note">{{localize "WIZARD.UNAUDITED"}} {{unaudited}}</p>
+        {{/if}}
+        {{else}}
+        <h2 class="wizard-step-title">{{step.label}}</h2>
+        <div class="wizard-step-content" data-step="{{step.id}}" data-kind="{{step.kind}}"></div>
+        {{/unless}}
+    </div>
+
+    <footer class="wizard-footer">
+        <button type="button" data-action="wizard-back" {{#if backDisabled}}disabled{{/if}}>
+            {{localize "WIZARD.BACK"}}
+        </button>
+        <button type="button" data-action="wizard-next" {{#if nextDisabled}}disabled{{/if}}>
+            {{#if isLastStep}}{{localize "WIZARD.FINISH"}}{{else}}{{localize "WIZARD.NEXT"}}{{/if}}
+        </button>
+    </footer>
+</div>
+{{/if}}

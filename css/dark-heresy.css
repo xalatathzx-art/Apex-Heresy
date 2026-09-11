@@ -13425,3 +13425,48 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   font-size: var(--dh-text-xs);
   color: var(--dh-ink-faint);
 }
+
+/* Мастер создания персонажа. Шаги — полоса фишек сверху, кнопки снизу, всё
+   остальное между ними прокручивается. */
+.dark-heresy.character-wizard .character-wizard-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--dh-space-2, 8px);
+}
+.dark-heresy.character-wizard .wizard-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.dark-heresy.character-wizard .wizard-step-chip {
+  padding: 2px 8px;
+  border: 1px solid var(--dh-brass-dim);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  opacity: 0.45;
+}
+.dark-heresy.character-wizard .wizard-step-chip.done { opacity: 0.75; }
+.dark-heresy.character-wizard .wizard-step-chip.active {
+  opacity: 1;
+  font-weight: 600;
+  border-color: var(--dh-brass, #b9975b);
+}
+.dark-heresy.character-wizard .wizard-step-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+.dark-heresy.character-wizard .wizard-step-title {
+  margin: 0 0 var(--dh-space-2, 8px);
+}
+.dark-heresy.character-wizard .wizard-note {
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.character-wizard .wizard-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--dh-space-2, 8px);
+}

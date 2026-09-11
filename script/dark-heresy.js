@@ -1,5 +1,6 @@
 import { createDataModels } from "./data/models.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
+import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -12845,6 +12846,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/special-ability.hbs",
         "systems/dark-heresy/template/sheet/race.hbs",
         "systems/dark-heresy/template/sheet/origin.hbs",
+        "systems/dark-heresy/template/apps/character-wizard.hbs",
         "systems/dark-heresy/template/sheet/psychic-power.hbs",
         "systems/dark-heresy/template/sheet/critical-injury.hbs",
         "systems/dark-heresy/template/sheet/weapon.hbs",
@@ -16347,6 +16349,9 @@ Hooks.once("init", async function() {
             getFacing: _getVehicleFacing,
             getZone: _getVehicleZone
         },
+        // Мастер создания — макросом, из панели «Актёры» и из шапки листа.
+        openCharacterWizard: openCharacterWizard,
+        CharacterWizard: CharacterWizard,
         // Окно окружения — макросом и из панели сцены.
         openEnvironment: openEnvironment,
         // Падение — разовое событие, а не состояние: вешать его на фишку нечем,
