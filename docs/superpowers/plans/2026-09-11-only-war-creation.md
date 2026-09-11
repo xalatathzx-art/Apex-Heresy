@@ -79,7 +79,7 @@ wounds, special abilities (book text) and kit. Table 2-6 kit items as a pure dat
 `packs-src/origins/05-ow-regiments.json`: 8 regiments with their fixed modifiers, choices, special
 rules, wounds, standard kit and favoured weapons, plus the components they were built from.
 
-### Task 4: Specialities data (pp. 77-100)
+### Task 4: Specialities data (pp. 77-100) — DONE
 `packs-src/origins/06-ow-specialities.json`: 12 specialities with bonus, aptitudes, skills, talents,
 traits, equipment, wounds, starting XP, special ability, advances, Comrade flag.
 
@@ -112,3 +112,4 @@ Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sa
 - Task 1: ruleset fields `ready`, `characteristicRerolls`, `startingExperience`, `fate`, `duplicates`, `contentPacks`, `characteristicKeys`; four-step Only War ladder in the shop and on the sheet; OW point buy; OW steps in book order. Only War stays unoffered (`ready: false`) until Task 10. The old OW step sketch (budget widget on regimentOrigin, standardKit stage) is replaced: the regiment is its own step kind and the kit is Table 2-6 data.
 - Task 2: 39 components with book text, costs and grants; `rules` free-form map added to the origin schema (the data model would otherwise move unknown keys into legacyData); kit as slots in `rules.kit` (mainWeapon, armour, items, squad, text) and Table 2-6 in `kit-data.mjs`. Only items the Only War pack really has are granted by name (lascarbine is "Las Carbine" there); uniforms, rucksacks, advanced medikit and the like stay book text. Choices a whole regiment makes (Hated Enemy, Favoured Foe) carry `regimentLevel: true`; "one of" talent choices stay per character.
 - Task 3: the eight pre-made regiments, each carrying the components it was built from and the picks that were made for it, so the tests recompose every one from Task 2 data: costs (11-12 of 12), characteristic modifiers and aptitudes all match the printed entry. Where a regiment departs from its components (Krieg replaces Untempered Zeal, Tallarn replaces Hardened) the note is kept. The printed Starting Skills are followed literally, even where the home world would have given a higher rank (Catachan: Survival Known, not Trained).
+- Task 4: the twelve specialities, each with its characteristic bonus (or pick), aptitudes, skills, talents, traits, specialist equipment, wounds formula, starting experience (600 Guardsman / 300 Support), Comrade flag and its advances. "Weapon Training (Las or Solid Projectile, Low-Tech)" splits into one choice plus fixed talents; the Weapon Specialist gets three named picks. Ecclesiarchy robes and the book of scripture stay text, everything else is a pack item.

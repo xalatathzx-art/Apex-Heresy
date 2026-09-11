@@ -1,0 +1,2154 @@
+[
+  {
+    "name": "Heavy Gunner",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 1,
+      "key": "heavyGunner",
+      "cost": 0,
+      "characteristics": {
+        "toughness": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Ballistic Skill",
+          "Defence",
+          "Fellowship",
+          "Offence",
+          "Perception",
+          "Toughness"
+        ],
+        "skills": [
+          {
+            "key": "intimidate",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Iron Jaw"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          },
+          {
+            "name": "Weapon Training (Heavy)"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Athletics or Survival",
+          "options": [
+            {
+              "label": "Athletics",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "athletics",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Survival",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "survival",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "weaponTrainingChoice",
+          "type": "target",
+          "label": "Weapon Training (choose 1 excluding Exotic)",
+          "talentTemplate": "Weapon Training ({v})"
+        },
+        {
+          "key": "specialistEquipment",
+          "type": "one",
+          "label": "Specialist Equipment",
+          "options": [
+            {
+              "label": "Common Craftsmanship missile launcher with 5 Frag Missiles",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Missile Launcher"
+                  },
+                  {
+                    "name": "Frag Missile",
+                    "quantity": 5
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Craftsmanship heavy stubber",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Heavy Stubber"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Craftsmanship Regimental Favoured Heavy Weapon",
+              "grants": {
+                "equipment": []
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "10+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": false,
+        "startingExperience": 600,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Loader",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "As long as his Comrade is in Cohesion, the Heavy Gunner may use his Comrade’s Actions to reload his currently equipped weapon. These may be used in combination with the Heavy Gunner’s Actions."
+          },
+          {
+            "name": "Stabilise",
+            "type": "Order (Full Action)",
+            "cost": 300,
+            "effect": "The Heavy Gunner’s Comrade helps brace the weapon for firing, keeping the recoil from throwing off the Heavy Gunner’s aim. Any Semi-Auto Burst or Full-Auto Burst Actions used by the Heavy Gunner this Turn are made with a +10 modifier to the Ballistic Skill Test instead of the modifier normally bestowed by the Action."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Heavy Gunners are those Guardsmen who, during their basic training, show a great amount of affinity for and competence with the various heavy support weapons fielded by the Imperial Guard. Adapted for a number of special roles such as fire support and anti-armour, heavy weapons tend to be highly advanced and require not only a strong arm and a stout heart to operate, but a cool head and a better than average amount of technical acumen to keep them running.</p></div></div>",
+      "source": "Only War, p. 76"
+    }
+  },
+  {
+    "name": "Medic",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 2,
+      "key": "medic",
+      "cost": 0,
+      "characteristics": {
+        "intelligence": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Ballistic Skill",
+          "Fieldcraft",
+          "Intelligence",
+          "Knowledge",
+          "Perception",
+          "Willpower"
+        ],
+        "skills": [
+          {
+            "key": "medicae",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "scholasticLore",
+            "name": "Chymistry",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Diagnostor"
+          },
+          {
+            "name": "Injector"
+          },
+          {
+            "name": "Medi-kit"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Scrutiny or Trade (Chymist)",
+          "options": [
+            {
+              "label": "Scrutiny",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "scrutiny",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Trade (Chymist)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "trade",
+                    "name": "Chymist",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "coldHeartedOrJaded",
+          "type": "one",
+          "label": "Cold Hearted or Jaded",
+          "options": [
+            {
+              "label": "Cold Hearted",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Cold Hearted"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Jaded",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Jaded"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": false,
+        "startingExperience": 600,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Medicae Auxilia",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "The Comrade assists the Medic in treating his patients, quickly responding to any situation that arises. For Extended Care Medicae Tests, the Medic’s Comrade counts as an assistant trained in Medicae. Additionally, the Medic’s Medicae Test suffers no penalty for additional patients."
+          },
+          {
+            "name": "Field Treatment",
+            "type": "Order (Half Action)",
+            "cost": 300,
+            "effect": "As long as his Comrade is within range of communication, the Medic may perform Medicae Tests on any character next to the Comrade at a –10 penalty."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Dodging deadly weapons-fire and explosions, these Guardsmen risk everything to keep their squad-mates alive.</p></div></div>",
+      "source": "Only War, p. 78"
+    }
+  },
+  {
+    "name": "Operator",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 3,
+      "key": "operator",
+      "cost": 0,
+      "characteristics": {
+        "agility": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Agility",
+          "Ballistic Skill",
+          "Fellowship",
+          "Fieldcraft",
+          "Intelligence",
+          "Tech"
+        ],
+        "skills": [
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "operate",
+            "name": "Surface",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Technical Knock"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Auspex/Scanner"
+          },
+          {
+            "name": "Mind Impulse Unit"
+          },
+          {
+            "name": "Combi-tool"
+          },
+          {
+            "name": "Data-slate"
+          },
+          {
+            "name": "Lascutter"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Common Lore (Tech) or Navigate (Surface)",
+          "options": [
+            {
+              "label": "Common Lore (Tech)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "commonLore",
+                    "name": "Tech",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Navigate (Surface)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "navigate",
+                    "name": "Surface",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "6+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": false,
+        "startingExperience": 600,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Gunner",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "When the Operator is driving a multi-passenger vehicle, his Comrade can jump in and man one of the guns, firing upon the Operator’s command. If the Operator spends his Turn driving a vehicle, he may also make a Ranged Attack Action using whatever gun his Comrade is manning, as if he were stationed at it himself. This uses the Comrade’s Full Action for the Turn."
+          },
+          {
+            "name": "Put That Out!",
+            "type": "Order (Full Action)",
+            "cost": 300,
+            "effect": "If the Operator’s vehicle catches fire and the Comrade is inside the affected vehicle, he spends a Full Action to end any Fire effect currently afflicting the vehicle."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>A bit less leery of the strange technology that the Imperial Guard often employs than their compatriots, these Guardsmen are often entrusted with piloting the Squad’s transport or other vehicles.</p></div></div>",
+      "source": "Only War, p. 80"
+    }
+  },
+  {
+    "name": "Sergeant",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 4,
+      "key": "sergeant",
+      "cost": 0,
+      "characteristics": {
+        "fellowship": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Defence",
+          "Fellowship",
+          "Leadership",
+          "Perception",
+          "Strength",
+          "Toughness",
+          "Weapon Skill"
+        ],
+        "skills": [
+          {
+            "key": "command",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Weapon Training (Chain)"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Laspistol"
+          },
+          {
+            "name": "Chainsword"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Navigate (Surface) or Scholastic Lore (Tactica Imperialis)",
+          "options": [
+            {
+              "label": "Navigate (Surface)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "navigate",
+                    "name": "Surface",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Scholastic Lore (Tactica Imperialis)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "scholasticLore",
+                    "name": "Tactica Imperialis",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "leadership",
+          "type": "one",
+          "label": "Air of Authority or Iron Discipline",
+          "options": [
+            {
+              "label": "Air of Authority",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Air of Authority"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Iron Discipline",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Iron Discipline"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "10+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "Sweeping Orders",
+          "description": "<p>Although he is still paired with a Comrade like the other members of his squad, the Sergeant’s time is dedicated to directing all of the men under his command. The Sergeant may purchase Sweeping Orders, which affect all Comrades in communication range of the Sergeant. However, the Sergeant can only issue a single Sweeping Order per Turn.</p>"
+        }
+      ],
+      "rules": {
+        "support": false,
+        "startingExperience": 600,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Vox-Tech",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "The Sergeant is accompanied by a Vox-Tech who can relay orders out to his men over the din of battle. As long as his Comrade is in Cohesion with him, all of the Sergeant’s orders affect all Comrades within vox range."
+          },
+          {
+            "name": "Covering Fire",
+            "type": "Sweeping Order (Free Action)",
+            "cost": 200,
+            "effect": "All Comrades in communications range fire wildly at the enemy. For the next Round, all Player Characters with their Comrade in Cohesion gain a +10 to all Dodge Tests."
+          },
+          {
+            "name": "Get Them!",
+            "type": "Sweeping Order (Free Action)",
+            "cost": 200,
+            "effect": "The Sergeant must make a Challenging (+0) Command Test. If he succeeds, for the next Round, when performing the Ranged Volley or Close Quarters Orders, the Comrades grant their controlling Player Character an additional +4 Damage to the affected Melee or Ranged Attack."
+          },
+          {
+            "name": "Snap Out of It!",
+            "type": "Sweeping Order (Free Action)",
+            "cost": 200,
+            "effect": "The Sergeant must make a Challenging (+0) Intimidate or Command Test. If he succeeds, all Comrades in communication range end any ongoing Fear or Pinning effects."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Every Squad needs a strong commander to lead the charge into combat. The Sergeant keeps his men motivated and coordinated through the toughest battles.</p></div></div>",
+      "source": "Only War, p. 82"
+    }
+  },
+  {
+    "name": "Weapon Specialist",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 5,
+      "key": "weaponSpecialist",
+      "cost": 0,
+      "characteristics": {},
+      "characteristicChoices": [
+        {
+          "label": "+5 Ballistic Skill or +5 Weapon Skill",
+          "pick": 1,
+          "value": 5,
+          "from": [
+            "ballisticSkill",
+            "weaponSkill"
+          ]
+        }
+      ],
+      "grants": {
+        "aptitudes": [
+          "Agility",
+          "Ballistic Skill",
+          "Fellowship",
+          "Fieldcraft",
+          "Finesse",
+          "Weapon Skill"
+        ],
+        "specialities": [
+          {
+            "key": "navigate",
+            "name": "Surface",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "War",
+            "advance": 0
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Athletics or Survival",
+          "options": [
+            {
+              "label": "Athletics",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "athletics",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Survival",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "survival",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "firstTalent",
+          "type": "one",
+          "label": "Lasgun Barrage or Rapid Reload",
+          "options": [
+            {
+              "label": "Lasgun Barrage",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Lasgun Barrage"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Rapid Reload",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Rapid Reload"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "weaponTraining1",
+          "type": "target",
+          "label": "Weapon Training, first of three (excluding Heavy and Exotic)",
+          "talentTemplate": "Weapon Training ({v})"
+        },
+        {
+          "key": "weaponTraining2",
+          "type": "target",
+          "label": "Weapon Training, second of three (excluding Heavy and Exotic)",
+          "talentTemplate": "Weapon Training ({v})"
+        },
+        {
+          "key": "weaponTraining3",
+          "type": "target",
+          "label": "Weapon Training, third of three (excluding Heavy and Exotic)",
+          "talentTemplate": "Weapon Training ({v})"
+        },
+        {
+          "key": "grenades",
+          "type": "one",
+          "label": "4 frag or krak grenades",
+          "options": [
+            {
+              "label": "4 frag grenades",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Frag Grenade",
+                    "quantity": 4
+                  }
+                ]
+              }
+            },
+            {
+              "label": "4 krak grenades",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Krak Grenade",
+                    "quantity": 4
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "specialistWeapon",
+          "type": "one",
+          "label": "Specialist Equipment",
+          "options": [
+            {
+              "label": "Good Craftsmanship lasgun",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "M36 Lasgun",
+                    "craftsmanship": "good"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Craftsmanship flamer",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Flamer"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Craftsmanship shotgun",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Shotgun"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Common Craftsmanship Regimental Favoured Basic Weapon",
+              "grants": {
+                "equipment": []
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": false,
+        "startingExperience": 600,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Armsman",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "As long as his Comrade is in Cohesion, the Weapon Specialist may switch to any of his weapons as a Free Action."
+          },
+          {
+            "name": "Hail of Fire",
+            "type": "Order (Half Action)",
+            "cost": 300,
+            "effect": "If the Weapon Specialist’s Comrade is in Cohesion, all of the targets of the Weapon Specialist’s attacks this Turn must take a Challenging (+0) Pinning Test or become Pinned."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>The “average” Guardsman, these men and women perfect the use of the lasgun or other weapons, bringing death to the enemies of the Imperium.</p></div></div>",
+      "source": "Only War, p. 84"
+    }
+  },
+  {
+    "name": "Commissar",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 6,
+      "key": "commissar",
+      "cost": 0,
+      "characteristics": {
+        "fellowship": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Agility",
+          "Fellowship",
+          "Finesse",
+          "Leadership",
+          "Perception",
+          "Weapon Skill",
+          "Willpower"
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Imperial Guard",
+            "advance": 0
+          },
+          {
+            "key": "scholasticLore",
+            "name": "Tactica Imperialis",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Air of Authority"
+          },
+          {
+            "name": "Weapon Training (Bolt)"
+          },
+          {
+            "name": "Weapon Training (Chain)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Chainsword",
+            "craftsmanship": "good"
+          },
+          {
+            "name": "Bolt Pistol",
+            "craftsmanship": "good"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Command or Intimidate",
+          "options": [
+            {
+              "label": "Command",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "command",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Intimidate",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "faith",
+          "type": "one",
+          "label": "Cold Hearted or Unshakeable Faith",
+          "options": [
+            {
+              "label": "Cold Hearted",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Cold Hearted"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unshakeable Faith",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Unshakeable Faith"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "10+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "No Comrade",
+          "description": "<p>The Commissar does not work alongside a Comrade like the other Player Characters in the squad. To instil the proper amount of fear and motivation into his men, he must act alone, in accordance with his Schola Progenium training.</p>"
+        }
+      ],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": false,
+        "advances": [
+          {
+            "name": "Galvanising Presence",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "When employing the Terrify special use of the Command Skill, its effects apply to all members of his Squad, including Player Characters. Additionally, the Commissar counts as having Fear (2) for the purpose of all Terrify Tests."
+          },
+          {
+            "name": "Summary Execution",
+            "type": "Half Action",
+            "cost": 300,
+            "effect": "If a Player Character within range of the Commissar falls below 0 Wounds, the Commissar may perform a Summary Execution on that character’s Comrade with a Challenging (+0) Ballistic Skill Test. If he succeeds, the Player Character ignores all Critical Effects until the end of combat, and regains 1d5 Wounds."
+          }
+        ],
+        "equipmentText": "Commissar’s uniform."
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>A combination morale officer and political operative, Commissars are tasked with making sure that every Guardsman does his sworn duty to the God-Emperor and the Imperium. Raised up in the halls of the Schola Progenium, Commissars are, by and large, the orphaned children of highly-respected Imperial Guard officers.</p></div></div>",
+      "source": "Only War, p. 86"
+    }
+  },
+  {
+    "name": "Ministorum Priest",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 7,
+      "key": "ministorumPriest",
+      "cost": 0,
+      "characteristics": {
+        "fellowship": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Fellowship",
+          "Leadership",
+          "Perception",
+          "Social",
+          "Strength",
+          "Weapon Skill",
+          "Willpower"
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Ecclesiarchy",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Heresy",
+            "advance": 0
+          },
+          {
+            "key": "scholasticLore",
+            "name": "Imperial Creed",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Unshakeable Faith"
+          },
+          {
+            "name": "Weapon Training (Chain)"
+          },
+          {
+            "name": "Weapon Training (Flame)"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Flamer"
+          },
+          {
+            "name": "Chainsword"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Charm or Inquiry",
+          "options": [
+            {
+              "label": "Charm",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "charm",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Inquiry",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "inquiry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "hatred",
+          "type": "target",
+          "label": "Hatred (Any)",
+          "talentTemplate": "Hatred ({v})"
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "9+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Curate",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "Whenever the Ministorum Priest triggers Righteous Fury on a Melee Attack, and his Comrade is in Cohesion, his Comrade may grant a temporary Fate Point to any Player Character within communications range. This temporary Fate Point may be spent as normal, but may not be burnt."
+          },
+          {
+            "name": "Righteous Oration",
+            "type": "Order (Full Action)",
+            "cost": 300,
+            "effect": "The Comrade forcefully recites litanies, inspiring all those who can hear him. All Player Characters within communications range may re-roll all Damage rolls for the next Round."
+          }
+        ],
+        "equipmentText": "Ecclesiarchy robes, book of scripture."
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Bringing the light of the God-Emperor to the battlefield, Ministorum Priests inspire the troops around them, not just with their preaching, but by fighting their foes with their massive Eviscerator chainswords.</p></div></div>",
+      "source": "Only War, p. 88"
+    }
+  },
+  {
+    "name": "Ogryn",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 8,
+      "key": "ogryn",
+      "cost": 0,
+      "characteristics": {
+        "strength": 10,
+        "toughness": 10,
+        "intelligence": -15,
+        "agility": -10
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Ballistic Skill",
+          "Defence",
+          "Offence",
+          "Strength",
+          "Toughness",
+          "Weapon Skill"
+        ],
+        "talents": [
+          {
+            "name": "Weapon Training (Heavy)"
+          },
+          {
+            "name": "Weapon Training (Solid Projectile)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Auto-Stabilised"
+          },
+          {
+            "name": "But It Dark in Dere!"
+          },
+          {
+            "name": "Clumsy"
+          },
+          {
+            "name": "Size (Hulking)"
+          },
+          {
+            "name": "Sturdy"
+          },
+          {
+            "name": "Unnatural Strength (+2)"
+          },
+          {
+            "name": "Unnatural Toughness (+2)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Ripper Gun"
+          },
+          {
+            "name": "Frag Grenade"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Intimidate or Survival",
+          "options": [
+            {
+              "label": "Intimidate",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Survival",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "survival",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "toughTalent",
+          "type": "one",
+          "label": "Die Hard or Iron Jaw",
+          "options": [
+            {
+              "label": "Die Hard",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Die Hard"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Iron Jaw",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Iron Jaw"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "25+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "But It Dark in Dere!",
+          "description": "<p>Despite their fearsome and fearless nature, Ogryns are extremely claustrophobic. They will not enter caves, basements, ruins, infantry fighting vehicles like the Chimera, or even smaller than average buildings, of their own free will. Officers and Commissars can order them into such places, but suffer a –10 penalty to any Command Skill Tests to do so, and Ogryns suffer a –10 to all Skill Tests when so confined.</p>"
+        },
+        {
+          "name": "Clumsy",
+          "description": "<p>Ogryn’s hands are not only much larger than those of a normal human, but also far stronger, and most Ogryn have a hard time using them to perform delicate, or even normal, tasks. Any weapon which doesn’t have the Ogryn-Proof Trait cannot be used by a character with the Clumsy Trait.</p>"
+        }
+      ],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Little ‘Un",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "The Ogryn’s Comrade gains an extra Wound State. He can now be either Healthy, Lightly Wounded, Heavily Wounded, or Dead."
+          },
+          {
+            "name": "Fierce Loyalty",
+            "type": "Passive",
+            "cost": 300,
+            "effect": "If the Ogryn’s Comrade is not in Cohesion with the Ogryn, or is within 10 metres of another Player Character and engaged in melee with an enemy, the Ogryn becomes Frenzied and gains an additional +10 Strength and +10 Toughness until his Comrade is either safe or dead."
+          }
+        ],
+        "equipmentText": "1d5 frag grenades."
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Ogryns are huge, powerful abhumans fielded by the Imperial Guard as shock troops. Standing heads taller than an average man, these savage, simple-minded creatures are thick with bulk and muscle, and are descended from humans who were stranded on cold, high-gravity worlds in a time long forgotten.</p></div></div>",
+      "source": "Only War, p. 90"
+    }
+  },
+  {
+    "name": "Ratling",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 9,
+      "key": "ratling",
+      "cost": 0,
+      "characteristics": {
+        "perception": 10,
+        "fellowship": 10,
+        "toughness": -10
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Agility",
+          "Ballistic Skill",
+          "Fellowship",
+          "Fieldcraft",
+          "Finesse",
+          "Perception",
+          "Social"
+        ],
+        "skills": [
+          {
+            "key": "deceive",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "trade",
+            "name": "Cook",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Deadeye Shot"
+          },
+          {
+            "name": "Weapon Training (Las)"
+          },
+          {
+            "name": "Weapon Training (Solid Projectile)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Size (Weedy)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Chameleoline Cloak"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "startingSkill",
+          "type": "one",
+          "label": "Awareness or Stealth",
+          "options": [
+            {
+              "label": "Awareness",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "awareness",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Stealth",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "stealth",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "senses",
+          "type": "one",
+          "label": "Heightened Senses (Sight, Smell, Taste) or Light Sleeper",
+          "options": [
+            {
+              "label": "Heightened Senses (Sight, Smell, Taste)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Heightened Senses (Sight)"
+                  },
+                  {
+                    "name": "Heightened Senses (Smell)"
+                  },
+                  {
+                    "name": "Heightened Senses (Taste)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Light Sleeper",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Light Sleeper"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "specialistWeapon",
+          "type": "one",
+          "label": "Specialist Equipment",
+          "options": [
+            {
+              "label": "Good Craftsmanship long-las",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Long Las",
+                    "craftsmanship": "good"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Good Craftsmanship sniper rifle with telescopic sight",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Sniper Rifle",
+                    "craftsmanship": "good"
+                  },
+                  {
+                    "name": "Telescopic Sight"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "5+1d5"
+      },
+      "bonuses": [],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Spotter",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "If the Ratling is using an Accurate weapon, and his Comrade is in Cohesion, the Ratling may use his Comrade to make an Aim Action, and gain the benefits himself."
+          },
+          {
+            "name": "Set-Up Shot",
+            "type": "Order (Half Action)",
+            "cost": 300,
+            "effect": "The Ratling’s Comrade fires off a shot that distracts the Ratling’s target from the real threat. The Ratling’s next Ranged Attack cannot be Dodged."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Short and rotund, these small abhumans are used as infiltrators and snipers. They also can cook an excellent meal!</p></div></div>",
+      "source": "Only War, p. 92"
+    }
+  },
+  {
+    "name": "Sanctioned Psyker",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 10,
+      "key": "sanctionedPsyker",
+      "cost": 0,
+      "characteristics": {
+        "willpower": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Intelligence",
+          "Knowledge",
+          "Perception",
+          "Psyker",
+          "Strength",
+          "Willpower"
+        ],
+        "skills": [
+          {
+            "key": "psyniscience",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Adeptus Astra Telepathica",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Psykers",
+            "advance": 0
+          },
+          {
+            "key": "scholasticLore",
+            "name": "Cryptology",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Heightened Senses (Hearing)"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Psyker"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Data-slate"
+          },
+          {
+            "name": "Psy Focus"
+          },
+          {
+            "name": "Staff",
+            "craftsmanship": "best"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "Special Ability: Sanctioned Psyker",
+          "description": "<p>The character has undergone the Rite of Sanctioning, and wields the powers of the Warp. He begins play with the Psy Rating Trait, a Psy Rating of 2, and 1d5 Corruption Points. He may also purchase the Psy Rating advance: each time it is taken, his Psy Rating increases by 1, to a maximum of 10, at a cost of 200 xp multiplied by the Psy Rating he is advancing to.</p>"
+        }
+      ],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": true,
+        "advances": [
+          {
+            "name": "Ultimate Sanction",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "As long as his Comrade is in Cohesion, the Sanctioned Psyker may take 1d5 Wounds, ignoring Armour and Toughness, to re-roll any result on Table 7-2: Psychic Phenomena."
+          },
+          {
+            "name": "Overseer",
+            "type": "Order (Full Action)",
+            "cost": 300,
+            "effect": "The Comrade steps forward, protecting the Sanctioned Psyker from any incoming attacks. For the next Round, as long as the Comrade is in Cohesion, he is struck with any attacks that would have normally hit the Psyker. However, if the Weapon Skill or Ballistic Skill Test on the Attack result was a double, the Attack hits the Psyker."
+          }
+        ],
+        "psyker": {
+          "psyRating": 2,
+          "corruption": "1d5",
+          "freePowerExperience": 400,
+          "ratingCostPerRating": 200
+        }
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>As feared by their allies as they are by their enemies, Psykers play a prominent role in the Imperial Guard. Snatched from their home worlds and shipped away in the mysterious Black Ships, they are taken to the Scholastica Psykana. There, they are tested and trained.</p></div></div>",
+      "source": "Only War, p. 94"
+    }
+  },
+  {
+    "name": "Storm Trooper",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 11,
+      "key": "stormTrooper",
+      "cost": 0,
+      "characteristics": {
+        "toughness": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Agility",
+          "Ballistic Skill",
+          "Fieldcraft",
+          "Finesse",
+          "Offence",
+          "Toughness"
+        ],
+        "skills": [
+          {
+            "key": "awareness",
+            "advance": 0
+          },
+          {
+            "key": "stealth",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "scholasticLore",
+            "name": "Tactica Imperialis",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Takedown"
+          },
+          {
+            "name": "Weapon Training (Low-Tech)"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Hot-shot Lasgun",
+            "craftsmanship": "good"
+          },
+          {
+            "name": "Storm Trooper Carapace"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "defensiveSkill",
+          "type": "one",
+          "label": "Dodge or Parry",
+          "options": [
+            {
+              "label": "Dodge",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "dodge",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parry",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "parry",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "thirdSkill",
+          "type": "one",
+          "label": "Intimidate or Security",
+          "options": [
+            {
+              "label": "Intimidate",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "intimidate",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Security",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "security",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "readiness",
+          "type": "one",
+          "label": "Quick Draw or Rapid Reload",
+          "options": [
+            {
+              "label": "Quick Draw",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Quick Draw"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Rapid Reload",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Rapid Reload"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "12+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "No Comrade",
+          "description": "<p>Like the Commissar, the Storm Trooper’s Schola Progenium training makes him somewhat of a loner while operating in a Squad of normal Guardsmen. Because of this, the Storm Trooper does not get a Comrade, but instead may gain these Advances to allow him to assist the rest of the Squad with his elite training.</p>"
+        }
+      ],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": false,
+        "advances": [
+          {
+            "name": "Mentor",
+            "type": "Full Action",
+            "cost": 300,
+            "effect": "Once per game session, the Storm Trooper may impart his training to his Squad. All Squad members in communications range (including Player Characters) may take all Skill Tests in a single Skill of the Storm Trooper’s choosing as if they had the Storm Trooper’s Skill Training. Once activated, this effect lasts until the end of the encounter, or ten minutes in narrative time."
+          },
+          {
+            "name": "Protector",
+            "type": "Passive",
+            "cost": 300,
+            "effect": "Whenever any Comrade within 10 metres of the Storm Trooper would take a hit that would kill him, the Storm Trooper may take the hit instead, rolling Damage as normal."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>These elite soldiers are trained alongside the Commissars in the Schola Progenium. Equipped with some of the best armour and weapons in the Imperium, they are deadly soldiers.</p></div></div>",
+      "source": "Only War, p. 96"
+    }
+  },
+  {
+    "name": "Tech-Priest Enginseer",
+    "type": "origin",
+    "folder": "Only War/Specialities",
+    "img": "systems/dark-heresy/assets/icons/misc/inquisition.webp",
+    "system": {
+      "ruleset": "ow",
+      "stage": "speciality",
+      "order": 12,
+      "key": "techPriestEnginseer",
+      "cost": 0,
+      "characteristics": {
+        "intelligence": 5
+      },
+      "characteristicChoices": [],
+      "grants": {
+        "aptitudes": [
+          "Ballistic Skill",
+          "Intelligence",
+          "Knowledge",
+          "Strength",
+          "Tech",
+          "Toughness",
+          "Weapon Skill",
+          "Willpower"
+        ],
+        "skills": [
+          {
+            "key": "techUse",
+            "advance": 0
+          }
+        ],
+        "specialities": [
+          {
+            "key": "commonLore",
+            "name": "Adeptus Mechanicus",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Tech",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Adeptus Mechanicus",
+            "advance": 0
+          }
+        ],
+        "talents": [
+          {
+            "name": "Mechadendrite Use (Weapon)"
+          },
+          {
+            "name": "Mechadendrite Use (Utility)"
+          },
+          {
+            "name": "Weapon Training (Power)"
+          }
+        ],
+        "traits": [
+          {
+            "name": "Mechanicus Implants"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Sacred Unguents"
+          },
+          {
+            "name": "Data-slate"
+          },
+          {
+            "name": "Combi-tool"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "key": "fourthSkill",
+          "type": "one",
+          "label": "Forbidden Lore (Archeotech) or Logic",
+          "options": [
+            {
+              "label": "Forbidden Lore (Archeotech)",
+              "grants": {
+                "specialities": [
+                  {
+                    "key": "forbiddenLore",
+                    "name": "Archeotech",
+                    "advance": 0
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Logic",
+              "grants": {
+                "skills": [
+                  {
+                    "key": "logic",
+                    "advance": 0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "firstTalent",
+          "type": "one",
+          "label": "Cold Hearted or Technical Knock",
+          "options": [
+            {
+              "label": "Cold Hearted",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Cold Hearted"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Technical Knock",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Technical Knock"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mainWeaponTraining",
+          "type": "one",
+          "label": "Weapon Training (Las or Solid Projectile)",
+          "options": [
+            {
+              "label": "Weapon Training (Las)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Las)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Weapon Training (Solid Projectile)",
+              "grants": {
+                "talents": [
+                  {
+                    "name": "Weapon Training (Solid Projectile)"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "key": "mechadendrite",
+          "type": "one",
+          "label": "One utility or ballistic mechadendrite of choice",
+          "options": [
+            {
+              "label": "Utility Mechadendrite",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Utility Mechadendrite"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Ballistic Mechadendrite",
+              "grants": {
+                "equipment": [
+                  {
+                    "name": "Ballistic Mechadendrite"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "wounds": {
+        "formula": "8+1d5"
+      },
+      "bonuses": [
+        {
+          "name": "Servitor",
+          "description": "<p>After years of training with the Adeptus Mechanicus, and countless bionic surgeries and replacements, the Tech-Priest Enginseer no longer fits in with the rest of humanity. Instead of being paired with a Comrade, the Enginseer is accompanied by a Servitor that works with him on the battlefield.</p>"
+        }
+      ],
+      "rules": {
+        "support": true,
+        "startingExperience": 300,
+        "comrade": "servitor",
+        "advances": [
+          {
+            "name": "Servo-Arm",
+            "type": "Passive",
+            "cost": 250,
+            "effect": "When assisted by his Servitor, the Enginseer gains a +10 bonus to all Tech-Use Tests to make repairs, and halves the time any repair takes."
+          },
+          {
+            "name": "Field Repairs",
+            "type": "Order (Full Action)",
+            "cost": 300,
+            "effect": "As long as his Servitor is within range of communication, the Enginseer may perform Tech-Use Tests on anything next to the Servitor at a –10 penalty."
+          }
+        ]
+      },
+      "description": "<div class='bc-entry'><div class='bc-rule'><p>Emissaries of the Adeptus Mechanicus, Enginseers wade into battle clad in thick armour, tending to the machine spirits of the Imperial Guard’s many war machines.</p></div></div>",
+      "source": "Only War, p. 98"
+    }
+  }
+]
