@@ -64,7 +64,7 @@ the PDF's; the printed page is one lower.
 
 ## Tasks
 
-### Task 1: Ruleset rules for Only War
+### Task 1: Ruleset rules for Only War — DONE
 Characteristic ladder per ruleset (pure tables + sheet engine reading the actor's profile),
 point buy and re-roll per ruleset, starting XP default, fate table, duplicate rules, pack lookup
 order, `characteristicModifiers: "flat"`, step list in book order. Parity tests DH2 unchanged,
@@ -109,3 +109,4 @@ Ruleset-aware labels on the sheet (Regiment, Speciality), Comrade on the sheet, 
 Foundry closed, live run of a Guardsman, a Support Specialist, an Ogryn and a Sanctioned Psyker.
 
 ## Journal
+- Task 1: ruleset fields `ready`, `characteristicRerolls`, `startingExperience`, `fate`, `duplicates`, `contentPacks`, `characteristicKeys`; four-step Only War ladder in the shop and on the sheet; OW point buy; OW steps in book order. Only War stays unoffered (`ready: false`) until Task 10. The old OW step sketch (budget widget on regimentOrigin, standardKit stage) is replaced: the regiment is its own step kind and the kit is Table 2-6 data.

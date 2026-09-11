@@ -19,6 +19,14 @@ export const CHARACTERISTIC_METHODS = ["roll", "pointBuy"];
 export const POINT_BUY = {base: 25, points: 60, cap: 40};
 
 /**
+ * Распределение очков по книгам. Only War (стр. 75): 20 в каждой, 100 очков, не больше
+ * +20 на одну характеристику — то есть потолок 40.
+ */
+export const POINT_BUY_RULES = {dh2: POINT_BUY, ow: {base: 20, points: 100, cap: 40}};
+
+export function pointBuyRules(ruleset) { return POINT_BUY_RULES[ruleset] ?? POINT_BUY; }
+
+/**
  * Формула одной характеристики.
  *
  * Чем является модификатор, решает книга, а не игрок:
@@ -43,20 +51,22 @@ export function rollExpression(modifierMode, modifier = 0) {
  * выше потолка нельзя.
  *
  * @param {Record<string, number>} values  характеристика → значение
+ * @param {{base: number, points: number, cap: number}} [rules]  правила книги
+ * @param {string[]} [keys]  характеристики книги: у Only War нет Влияния
  * @returns {string[]}
  */
-export function pointBuyProblems(values = {}) {
+export function pointBuyProblems(values = {}, rules = POINT_BUY, keys = CHARACTERISTIC_KEYS) {
     const problems = [];
     let spent = 0;
 
-    for (const key of CHARACTERISTIC_KEYS) {
+    for (const key of keys) {
         const value = values[key];
         if (typeof value !== "number") { problems.push(`${key} has no value`); continue; }
-        if (value < POINT_BUY.base) problems.push(`${key} is ${value}, below the base of ${POINT_BUY.base}`);
-        if (value > POINT_BUY.cap) problems.push(`${key} is ${value}, above the cap of ${POINT_BUY.cap}`);
-        spent += value - POINT_BUY.base;
+        if (value < rules.base) problems.push(`${key} is ${value}, below the base of ${rules.base}`);
+        if (value > rules.cap) problems.push(`${key} is ${value}, above the cap of ${rules.cap}`);
+        spent += value - rules.base;
     }
-    if (spent > POINT_BUY.points) problems.push(`spent ${spent} of a ${POINT_BUY.points} point budget`);
+    if (spent > rules.points) problems.push(`spent ${spent} of a ${rules.points} point budget`);
 
     return problems;
 }

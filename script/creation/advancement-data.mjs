@@ -32,6 +32,29 @@ export const CHARACTERISTIC_COSTS = {
     0: {simple: 500, intermediate: 750, trained: 1000, proficient: 1500, expert: 2500}
 };
 
+/**
+ * Лестница характеристик книги: ступени и цены.
+ *
+ * Only War (таблица 3-14, стр. 102) знает четыре ступени, без Proficient, и последняя
+ * при нуле совпадений стоит 2500. Навыки и таланты у обеих книг одинаковы.
+ */
+export const CHARACTERISTIC_LADDERS = {
+    dh2: {levels: CHARACTERISTIC_LEVELS, costs: CHARACTERISTIC_COSTS},
+    ow: {
+        levels: ["simple", "intermediate", "trained", "expert"],
+        costs: {
+            2: {simple: 100, intermediate: 250, trained: 500, expert: 750},
+            1: {simple: 250, intermediate: 500, trained: 750, expert: 1000},
+            0: {simple: 500, intermediate: 750, trained: 1000, expert: 2500}
+        }
+    }
+};
+
+/** Лестница для книги; несверенная идёт по Dark Heresy. */
+export function characteristicLadder(ruleset) {
+    return CHARACTERISTIC_LADDERS[ruleset] ?? CHARACTERISTIC_LADDERS.dh2;
+}
+
 /** Таблица 2-4: Skill Advances. */
 export const SKILL_COSTS = {
     2: {known: 100, trained: 200, experienced: 300, veteran: 400},
@@ -72,10 +95,11 @@ export function matchingAptitudes(owned, required = []) {
  * @param {"characteristic"|"skill"|"talent"} kind
  * @param {string|number} level  ступень характеристики/навыка либо уровень таланта
  * @param {0|1|2} matches        из matchingAptitudes
+ * @param {string} [ruleset]     книга — от неё зависит лестница характеристик
  * @returns {number|null}        null — такой ступени в таблице нет
  */
-export function advanceCost(kind, level, matches) {
-    const table = kind === "characteristic" ? CHARACTERISTIC_COSTS
+export function advanceCost(kind, level, matches, ruleset = "dh2") {
+    const table = kind === "characteristic" ? characteristicLadder(ruleset).costs
         : kind === "skill" ? SKILL_COSTS
         : kind === "talent" ? TALENT_COSTS
         : null;
@@ -94,8 +118,8 @@ export function advanceCost(kind, level, matches) {
  * @param {0|1|2} matches
  * @returns {number|null} null — ступени неизвестны или идут вспять
  */
-export function cumulativeCost(kind, from, to, matches) {
-    const levels = kind === "characteristic" ? CHARACTERISTIC_LEVELS
+export function cumulativeCost(kind, from, to, matches, ruleset = "dh2") {
+    const levels = kind === "characteristic" ? characteristicLadder(ruleset).levels
         : kind === "skill" ? SKILL_LEVELS
         : null;
     if (!levels) return null;
@@ -106,7 +130,7 @@ export function cumulativeCost(kind, from, to, matches) {
 
     let total = 0;
     for (let index = start + 1; index <= end; index++) {
-        const step = advanceCost(kind, levels[index], matches);
+        const step = advanceCost(kind, levels[index], matches, ruleset);
         if (step == null) return null;
         total += step;
     }

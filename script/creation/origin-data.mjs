@@ -17,8 +17,9 @@ export const RULESETS = ["dh2", "rt", "ow", "bc", "dw"];
 export const STAGES = {
     dh2: ["homeWorld", "background", "role", "divination"],
     rt:  ["homeWorld", "birthright", "lure", "trials", "motivation", "career"],
-    ow:  ["regimentOrigin", "regimentCommander", "regimentType", "doctrine",
-          "equipmentDoctrine", "standardKit", "speciality"],
+    // regiment — готовый или собранный полк; остальные — компоненты сборки (стр. 58-67).
+    ow:  ["regiment", "regimentOrigin", "regimentCommander", "regimentType", "doctrine",
+          "equipmentDoctrine", "speciality"],
     bc:  ["race", "archetype", "pride", "disgrace", "motivation"],
     dw:  ["chapter", "speciality"]
 };

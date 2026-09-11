@@ -1162,11 +1162,13 @@ class DarkHeresyActor extends Actor {
         // steps above it are paid for, at 200 x the new rating.
         const traits = this.items.filter(item => item.type === "trait");
         this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost(this.psy.rating, psyBase(traits));
+        // The ladder is the book's: Only War has four steps where Dark Heresy has five.
+        const characteristicCosts = Dh.rulesetFor(this).characteristicCosts ?? config.characteristicCosts;
         for (let characteristic of Object.values(this.characteristics)) {
             let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
             let cost = 0;
-            for (let i = 0; i <= characteristic.advance / 5 && i <= config.characteristicCosts.length; i++) {
-                cost += config.characteristicCosts[i][2 - matchedAptitudes];
+            for (let i = 0; i <= characteristic.advance / 5 && i < characteristicCosts.length; i++) {
+                cost += characteristicCosts[i][2 - matchedAptitudes];
             }
             characteristic.cost = cost.toString();
             this.experience.spentCharacteristics += cost;
@@ -15153,6 +15155,10 @@ Dh.rulesets = {
 for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"], ["dw", "RULESET.DW"]])
     Dh.rulesets[id] = { ...structuredClone(Dh.rulesets.dh2), id, label };
 
+// Only War counts characteristic advances on a four-step ladder, not five (Table 3-14, p. 102).
+// Row 0 is the free starting value; columns are [two, one, no matching aptitudes].
+Dh.rulesets.ow.characteristicCosts = [[0, 0, 0], [100, 250, 500], [250, 500, 750], [500, 750, 1000], [750, 1000, 2500]];
+
 /**
  * По каким правилам живёт этот актёр.
  *
@@ -15564,6 +15570,7 @@ Dh.originStages = {
     trials: "ORIGIN.STAGE.TRIALS",
     motivation: "ORIGIN.STAGE.MOTIVATION",
     career: "ORIGIN.STAGE.CAREER",
+    regiment: "ORIGIN.STAGE.REGIMENT",
     regimentOrigin: "ORIGIN.STAGE.REGIMENT_ORIGIN",
     regimentCommander: "ORIGIN.STAGE.REGIMENT_COMMANDER",
     regimentType: "ORIGIN.STAGE.REGIMENT_TYPE",

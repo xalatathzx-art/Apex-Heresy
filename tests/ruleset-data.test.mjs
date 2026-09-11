@@ -54,9 +54,10 @@ test('Black Crusade builds a heretic and asks for the race before the archetype'
     assert.ok(ids.indexOf('race') < ids.indexOf('archetype'));
 });
 
-test('only Rogue Trader uses the adjacency grid and only Only War the budget counter', () => {
+test('only Rogue Trader uses the adjacency grid and only Only War builds a regiment', () => {
     assert.deepEqual(RULESETS.filter(r => stepsFor(r).some(s => s.widget === 'grid')), ['rt']);
-    assert.deepEqual(RULESETS.filter(r => stepsFor(r).some(s => s.widget === 'budget')), ['ow']);
+    // The regiment is its own kind of step: one per squad, bought on a 12-point budget (p. 58).
+    assert.deepEqual(RULESETS.filter(r => stepsFor(r).some(s => s.kind === 'regiment')), ['ow']);
 });
 
 test('every step label and ruleset label resolves to a real translation', () => {

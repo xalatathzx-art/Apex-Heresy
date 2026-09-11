@@ -14,7 +14,7 @@
 //  Модуль чистый: на вход — снимок актора, на выход — нагрузка для update.
 // ════════════════════════════════════════════════════════════════════════
 
-import {CHARACTERISTIC_LEVELS, SKILL_LEVELS, CHARACTERISTIC_STEP, advanceCost, matchingAptitudes}
+import {characteristicLadder, SKILL_LEVELS, CHARACTERISTIC_STEP, advanceCost, matchingAptitudes}
     from "./advancement-data.mjs";
 
 /** Влияние не покупается за опыт (стр. 79). */
@@ -36,18 +36,19 @@ const signed = value => `${value > 0 ? "+" : ""}${value}`;
 
 /**
  * Характеристики, которые можно поднять, со следующей ступенью и её ценой.
- * @param {object} snapshot  {characteristics, aptitudes}
+ * @param {object} snapshot  {characteristics, aptitudes, ruleset}
  */
 export function characteristicOffers(snapshot) {
     const offers = [];
+    const ladder = characteristicLadder(snapshot.ruleset);
     for (const [key, entry] of Object.entries(snapshot.characteristics ?? {})) {
         if (UNPURCHASABLE_CHARACTERISTICS.includes(key)) continue;
         const steps = Math.floor((Number(entry.advance) || 0) / CHARACTERISTIC_STEP);
         const matched = matchingAptitudes(snapshot.aptitudes, entry.aptitudes);
-        const nextLevel = CHARACTERISTIC_LEVELS[steps] ?? null;
+        const nextLevel = ladder.levels[steps] ?? null;
         offers.push({
             key, steps, matched, nextLevel,
-            cost: nextLevel ? advanceCost("characteristic", nextLevel, matched) : null,
+            cost: nextLevel ? advanceCost("characteristic", nextLevel, matched, snapshot.ruleset) : null,
             maxed: !nextLevel
         });
     }
@@ -222,7 +223,8 @@ export function purchaseCharacteristic(snapshot, key) {
     // Поле cost — накопительная цена всех купленных ступеней: так его читает движок.
     let total = 0;
     for (let index = 0; index <= offer.steps; index++)
-        total += advanceCost("characteristic", CHARACTERISTIC_LEVELS[index], offer.matched);
+        total += advanceCost("characteristic", characteristicLadder(snapshot.ruleset).levels[index],
+                             offer.matched, snapshot.ruleset);
     return {
         update: {
             [`system.characteristics.${key}.advance`]: advance,

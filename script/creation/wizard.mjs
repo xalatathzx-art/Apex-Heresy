@@ -9,7 +9,7 @@
 //  ruleset-data.mjs, а `kind` шага решает, какая панель рисуется.
 // ════════════════════════════════════════════════════════════════════════
 
-import {RULESET_DEFS, stepsFor, auditedRulesets} from "./ruleset-data.mjs";
+import {RULESET_DEFS, stepsFor, auditedRulesets, contentPacksFor} from "./ruleset-data.mjs";
 import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
 import {planToActorUpdate, planToItemData, revertUpdate, ownedAptitudes,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
@@ -27,10 +27,6 @@ import {eliteKeysIn, eliteText, eliteTextWithout, eliteOffers, elitePlan} from "
 import {psychicOffers, psyRatingOffer, purchasePsyRating} from "./psychic-data.mjs";
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
-
-/** Паки, где ищется выданное по имени: сначала общий, потом книжные. */
-const CONTENT_PACKS = ["dark-heresy.dark-heresy", "dark-heresy.black-crusade",
-    "dark-heresy.rogue-trader", "dark-heresy.only-war", "dark-heresy.deathwatch"];
 
 /** Какие типы предметов считаются тем или иным видом выдачи. */
 const GRANT_ITEM_TYPES = {
@@ -487,7 +483,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
      * @returns {Promise<object|null>} null — такого имени нет ни в одном паке
      */
     async _lookupContent(kind, name) {
-        for (const packId of CONTENT_PACKS) {
+        // Свой пак книги первым: одно имя в разных книгах — разные правила.
+        for (const packId of contentPacksFor(this.ruleset)) {
             const pack = game.packs.get(packId);
             if (!pack) continue;
             const index = await pack.getIndex();
@@ -921,8 +918,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     // ── Шаг опыта ────────────────────────────────────────────────────────
 
-    /** Стартовый опыт по книге. Dark Heresy, стр. 78. */
-    static STARTING_EXPERIENCE = {dh2: 1000};
+    /** Стартовый опыт по книге (Dark Heresy, стр. 78; Only War, стр. 100). */
+    get _startingExperience() { return RULESET_DEFS[this.ruleset]?.startingExperience ?? 0; }
 
     /** Контекст шага опыта: пул, склонности и долг по повторным склонностям. */
     // ── Магазин опыта ────────────────────────────────────────────────────
@@ -975,7 +972,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     /** Остаток пула: книжный пул минус записанные покупки. */
     _remaining() {
-        return (CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0) - spentOn(this._purchases);
+        return (this._startingExperience) - spentOn(this._purchases);
     }
 
     /**
@@ -986,7 +983,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     async _ensureStartingExperience() {
         const actor = this.actor;
         if (actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied")) return;
-        const pool = CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0;
+        const pool = this._startingExperience;
         await actor.update({"system.experience.value": (actor.system.experience?.value ?? 0) + pool});
         await actor.setFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied", pool);
     }
@@ -1201,7 +1198,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 priceRow(SKILL_COSTS, game.i18n.localize("WIZARD.PRICE_SKILLS")),
                 priceRow(TALENT_COSTS, game.i18n.localize("WIZARD.PRICE_TALENTS"))
             ],
-            experiencePool: CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0,
+            experiencePool: this._startingExperience,
             experienceApplied: !!this.actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied"),
             aptitudeList: [...owned].sort().join(", ")
         };
