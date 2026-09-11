@@ -8,6 +8,11 @@
 //  Порядок шагов книжный. Black Crusade единственная просит характеристики
 //  посреди происхождения: архетип там выбирается уже зная их (стр. 47).
 //
+//  `bioField` у шага — куда на листе попадает НАЗВАНИЕ выбранного. Заполняется
+//  в момент выбора, а не в конце: игрок видит, как анкета собирается под его
+//  руками. Поле остаётся редактируемым — переименовать «Мир-улей» в «Десолеум»
+//  это обычная игра, а не поломка.
+//
 //  `characteristicModifiers` — чем является модификатор характеристики:
 //    "generation" — правилом генерации, а не числом. Dark Heresy при «+» кидает
 //                   3d10 и берёт две лучшие, при «–» две худшие, а при закупке
@@ -24,9 +29,9 @@ export const RULESET_DEFS = {
         characteristicModifiers: "generation",
         characteristicMethods: ["roll", "pointBuy"],
         steps: [
-            {id: "homeWorld",       label: "ORIGIN.STAGE.HOME_WORLD",  kind: "origin", stage: "homeWorld"},
-            {id: "background",      label: "ORIGIN.STAGE.BACKGROUND",  kind: "origin", stage: "background"},
-            {id: "role",            label: "ORIGIN.STAGE.ROLE",        kind: "origin", stage: "role"},
+            {id: "homeWorld",       label: "ORIGIN.STAGE.HOME_WORLD",  kind: "origin", stage: "homeWorld", bioField: "system.bio.homeWorld"},
+            {id: "background",      label: "ORIGIN.STAGE.BACKGROUND",  kind: "origin", stage: "background", bioField: "system.bio.background"},
+            {id: "role",            label: "ORIGIN.STAGE.ROLE",        kind: "origin", stage: "role", bioField: "system.bio.role"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
             {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"},
             {id: "divination",      label: "ORIGIN.STAGE.DIVINATION",  kind: "divination"}
@@ -63,9 +68,9 @@ export const RULESET_DEFS = {
         characteristicModifiers: null,
         characteristicMethods: ["roll", "pointBuy"],
         steps: [
-            {id: "race",            label: "ORIGIN.STAGE.RACE",        kind: "origin", stage: "race"},
+            {id: "race",            label: "ORIGIN.STAGE.RACE",        kind: "origin", stage: "race", bioField: "system.race"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
-            {id: "archetype",       label: "ORIGIN.STAGE.ARCHETYPE",   kind: "origin", stage: "archetype"},
+            {id: "archetype",       label: "ORIGIN.STAGE.ARCHETYPE",   kind: "origin", stage: "archetype", bioField: "system.archetype"},
             {id: "pride",           label: "ORIGIN.STAGE.PRIDE",       kind: "origin", stage: "pride"},
             {id: "disgrace",        label: "ORIGIN.STAGE.DISGRACE",    kind: "origin", stage: "disgrace"},
             {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"}

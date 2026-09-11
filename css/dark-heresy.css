@@ -13680,3 +13680,16 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   font-size: var(--dh-text-sm);
   color: var(--dh-ink-muted);
 }
+
+/* Поле анкеты, которое поставил Мастер создания. Не «только чтение» — переименовать
+   «Мир-улей» в «Десолеум» это игра, а не поломка. Латунное ребро означает ровно то же,
+   что и везде в системе: происхождение значения, структура. Правка руками снимает
+   пометку сама — она считается сравнением, а не флагом. */
+.dark-heresy .bio-field.from-origin input {
+  border-left: 2px solid var(--dh-brass-dim);
+}
+.dark-heresy .bio-field.from-origin span::after {
+  content: "2";
+  margin-left: var(--dh-space-2);
+  color: var(--dh-brass);
+}

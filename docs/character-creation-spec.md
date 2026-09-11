@@ -169,6 +169,29 @@ Applying an origin to an actor:
 Removing the carrier removes every item that points at it and reverts the recorded raises.
 This is what makes a step replayable — the player can go back and change a home world.
 
+## The sheet fills itself in
+
+A choice made in the wizard lands on the sheet **as it is made**, not when the wizard
+finishes. Choosing Feral World writes "Feral World" into `system.bio.homeWorld` at that
+moment; the same for the background and the role, and for whatever field a later book's
+stage corresponds to.
+
+The same applies to the book itself: picking Dark Heresy in the wizard sets
+`system.ruleset`, so the rulebook selector under the portrait already reads "Dark Heresy 2nd
+Edition" without anyone touching it. It is the same field, so there is nothing to
+synchronise — it just has to be written when the choice is made rather than at the end.
+
+Those fields stay **editable, but marked as filled by the wizard**. They are not read-only:
+a GM renaming a home world to something local ("Sepheris Secundus" instead of "Hive World")
+is ordinary play, and locking the field would mean deleting the origin item to type a word.
+What the sheet shows is that the value came from a chosen origin, and which one, so an
+accidental overwrite is visible rather than silent.
+
+The mechanism is the one the grants already use. The origin item on the actor is the record
+of the choice; the bio field is a convenience copy of its name. Reverting a step clears the
+copy along with the grants, and a value the player has since edited by hand is left alone —
+the same rule that stops the undo lowering a skill another source has raised.
+
 ## Wizard
 
 `CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2)`, one Handlebars

@@ -2,6 +2,7 @@ import { createDataModels } from "./data/models.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { registerCharacterStartButton, startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
+import { stepsFor } from "./creation/ruleset-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
@@ -8280,6 +8281,27 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
     }
 }
 
+/**
+ * Поля анкеты, значение которых поставил Мастер создания.
+ *
+ * Предмет Происхождения на акторе — и есть запись выбора; подпись в анкете лишь
+ * его копия. Поэтому сверяем по значению: переписанное игроком перестаёт
+ * считаться нашим само, без отдельного флага, который пришлось бы чистить.
+ *
+ * @param {Actor} actor
+ * @returns {Record<string, string>} путь поля → название происхождения
+ */
+function originFilledFields(actor) {
+    const out = {};
+    for (const step of stepsFor(actor?.system?.ruleset ?? "")) {
+        if (!step.bioField) continue;
+        const carrier = actor.items.find(item => item.type === "origin" && item.system.stage === step.stage);
+        if (!carrier) continue;
+        if (foundry.utils.getProperty(actor, step.bioField) === carrier.name) out[step.bioField] = carrier.name;
+    }
+    return out;
+}
+
 class AcolyteSheet extends DarkHeresySheet {
 
     static get defaultOptions() {
@@ -8322,6 +8344,10 @@ class AcolyteSheet extends DarkHeresySheet {
 
     getData() {
         const data = super.getData();
+        // Какие поля анкеты заполнил Мастер создания. Поля остаются обычными:
+        // пометка лишь говорит, откуда взялось значение, чтобы случайная правка
+        // была заметна, а не молчалива.
+        data.fromOrigin = originFilledFields(this.actor);
         return data;
     }
 

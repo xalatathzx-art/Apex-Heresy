@@ -104,6 +104,7 @@
   "AVAILABILITY.UNIQUE": "Unique",
   "BIO.NAME": "Name",
   "BIO.HOME_WORLD": "Home World",
+  "BIO.FROM_ORIGIN": "Filled in by the creation wizard from the origin you chose. You can still edit it.",
   "BIO.BACKGROUND": "Background",
   "BIO.ROLE": "Role",
   "BIO.ELITE": "Elite",

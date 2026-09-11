@@ -400,6 +400,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const {update, applied} = planToActorUpdate(actor, plan,
             {characteristicMode: RULESET_DEFS[this.ruleset].characteristicModifiers});
+        // Название выбранного попадает в анкету ЗДЕСЬ, а не в конце: игрок видит, как
+        // лист собирается под его руками. Поле остаётся обычным, редактируемым —
+        // переименовать «Мир-улей» в «Десолеум» это игра, а не поломка.
+        if (step.bioField) update[step.bioField] = carrier.name;
         if (Object.keys(update).length) await actor.update(update);
         await carrier.setFlag(GRANT_FLAG_SCOPE, "applied", applied);
         return true;
@@ -413,6 +417,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const update = revertUpdate(actor, carrier.getFlag(GRANT_FLAG_SCOPE, "applied") ?? {});
         if (Object.keys(update).length) await actor.update(update);
+
+        // Подпись в анкете снимается только если она всё ещё та, что мы вписали.
+        // Переписанное игроком — его текст, и откат шага его не трогает, той же
+        // логикой, по которой откат не опускает навык, поднятый другим источником.
+        if (step.bioField && foundry.utils.getProperty(actor, step.bioField) === carrier.name)
+            await actor.update({[step.bioField]: ""});
 
         const granted = actor.items
             .filter(item => item.getFlag(GRANT_FLAG_SCOPE, "grantedBy") === carrier.id)
@@ -634,16 +644,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         await actor.unsetFlag(GRANT_FLAG_SCOPE, "divination");
     }
 
-    /** Хвост: имена выбранного в анкету, окно закрыть, лист наверх. */
+    /** Хвост: анкета заполнена по шагам, остаётся закрыть окно и поднять лист. */
     async _finish() {
         const actor = this.actor;
-        const named = stage =>
-            actor.items.find(item => item.type === "origin" && item.system.stage === stage)?.name ?? "";
-        await actor.update({
-            "system.bio.homeWorld": named("homeWorld"),
-            "system.bio.background": named("background"),
-            "system.bio.role": named("role")
-        });
         await this.close();
         actor.sheet?.render(true, {focus: true});
     }

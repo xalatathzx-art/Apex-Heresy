@@ -78,6 +78,23 @@ test('only books whose characteristic rule has been checked against the book cou
     }
 });
 
+test('a step that names a sheet field names one the actor model actually has', () => {
+    const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const has = (type, path) => path.split('.').slice(1)
+        .reduce((node, key) => node?.[key], data.Actor[type]) !== undefined;
+    for (const ruleset of RULESETS)
+        for (const step of stepsFor(ruleset)) {
+            if (!step.bioField) continue;
+            assert.match(step.bioField, /^system\./, `${ruleset}/${step.id}`);
+            assert.ok(has(RULESET_DEFS[ruleset].actorType, step.bioField),
+                `${ruleset}/${step.id}: ${RULESET_DEFS[ruleset].actorType} has no ${step.bioField}`);
+        }
+});
+
+test('every Dark Heresy origin step writes its name somewhere on the sheet', () => {
+    for (const step of originStepsFor('dh2')) assert.ok(step.bioField, step.id);
+});
+
 test('an unknown ruleset has no steps rather than throwing', () => {
     assert.deepEqual(stepsFor('dh3'), []);
     assert.deepEqual(originStepsFor(''), []);
