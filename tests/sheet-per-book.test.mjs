@@ -94,3 +94,33 @@ test('the frame hands the sheet context down to every partial it calls', () => {
     assert.match(frame, /\{\{> \(lookup vital "partial"\) \.\.\/this\}\}/);
     assert.match(frame, /\{\{> \(lookup tab "partial"\) \.\.\/this\}\}/);
 });
+
+test('the book is asked for once, where the character is created', () => {
+    // The dialog folds its form fields straight into the created document, so a select
+    // named system.ruleset is all it takes — nothing is intercepted.
+    assert.match(source, /Hooks\.on\("renderDialogV2"/);
+    assert.match(source, /select\.name = "system\.ruleset"/);
+    assert.match(source, /RULESET\.CHARACTER_BOOK/);
+    // A new Chaos character is a Character with a book, not a second document type.
+    assert.match(source, /option\[value="heretic"\]'\)\?\.remove\(\)/);
+    // And the sheet is right from the first render, not after the first edit.
+    assert.match(source, /Hooks\.on\("preCreateActor"/);
+});
+
+test('the sheet no longer carries a book selector', () => {
+    const portrait = readFileSync(
+        new URL('../template/sheet/actor/partial/portrait.hbs', import.meta.url), 'utf8');
+    assert.equal(portrait.includes('system.ruleset'), false,
+        'the book is chosen when the character is created, not edited on the sheet');
+    for (const book of ['dark-heresy', 'only-war', 'black-crusade', 'rogue-trader', 'deathwatch']) {
+        const bio = readFileSync(
+            new URL(`../template/sheet/actor/partial/bio-${book}.hbs`, import.meta.url), 'utf8');
+        assert.equal(bio.includes('system.ruleset'), false, book);
+    }
+});
+
+test('choosing a sheet by hand names the book too', () => {
+    // Otherwise a character could read as Only War and be priced as Dark Heresy.
+    assert.match(source, /flags\.core\.sheetClass/);
+    assert.match(source, /Object\.entries\(Dh\.bookSheets\)\.find/);
+});

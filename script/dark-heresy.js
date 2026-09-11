@@ -16806,6 +16806,67 @@ Hooks.on("refreshToken", (token) => {
 });
 
 /**
+ * Книга спрашивается там, где заводят персонажа.
+ *
+ * Раньше её выбирали на самом листе, под портретом. Но книга — это не свойство,
+ * которое правят по ходу игры: от неё зависят и лист, и цены, и шаги Мастера.
+ * Поэтому спрашиваем один раз, при создании, а на листе строки больше нет.
+ *
+ * Диалог создания складывает поля формы прямо в данные документа, поэтому хватает
+ * добавить в форму <select name="system.ruleset"> — ничего перехватывать не нужно.
+ */
+Hooks.on("renderDialogV2", (dialog, element) => {
+    const form = element.querySelector?.("form") ?? element;
+    const typeSelect = form?.querySelector?.('select[name="type"]');
+    // Тот ли это диалог: создание Актёра узнаётся по типам, которые он предлагает.
+    if (!typeSelect || !typeSelect.querySelector('option[value="acolyte"]')) return;
+    if (form.querySelector('select[name="system.ruleset"]')) return;
+
+    // Еретик остаётся типом ради заведённых раньше персонажей, но заводить новых им
+    // незачем: Чёрный Крестовый Поход — это теперь выбор книги, а не типа документа.
+    typeSelect.querySelector('option[value="heretic"]')?.remove();
+
+    const group = document.createElement("div");
+    group.className = "form-group";
+    const label = document.createElement("label");
+    label.textContent = game.i18n.localize("RULESET.CHARACTER_BOOK");
+    const fields = document.createElement("div");
+    fields.className = "form-fields";
+    const select = document.createElement("select");
+    select.name = "system.ruleset";
+    for (const id of Object.keys(Dh.rulesets)) {
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = game.i18n.localize(Dh.rulesets[id].label);
+        select.append(option);
+    }
+    fields.append(select);
+    group.append(label, fields);
+
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = game.i18n.localize("RULESET.CHARACTER_BOOK_HINT");
+    group.append(hint);
+
+    typeSelect.closest(".form-group").after(group);
+
+    // Книга есть только у персонажа: у НИП, техники и корабля её не спрашиваем.
+    const sync = () => { group.hidden = !["acolyte", "heretic"].includes(typeSelect.value); };
+    typeSelect.addEventListener("change", sync);
+    sync();
+});
+
+/**
+ * Персонаж открывается листом своей книги сразу, а не после первой правки.
+ */
+Hooks.on("preCreateActor", (actor, data) => {
+    if (!["acolyte", "heretic"].includes(data?.type)) return;
+    const sheet = `dark-heresy.${Dh.sheetFor(data)}`;
+    if (foundry.utils.getProperty(data, "flags.core.sheetClass") === sheet) return;
+    actor.updateSource({"flags.core.sheetClass": sheet});
+});
+
+/**
  * Назвал книгу — получил её лист.
  *
  * Лист выбирается флагом core.sheetClass, который Foundry читает при открытии окна.
@@ -16813,6 +16874,14 @@ Hooks.on("refreshToken", (token) => {
  * прежним до перезахода, и игрок решил бы, что выбор книги ничего не сделал.
  */
 Hooks.on("updateActor", async (actor, changes) => {
+    // И наоборот: лист, выбранный вручную через настройку окна, называет книгу. Иначе
+    // персонаж открывался бы листом Only War, а считался бы по Dark Heresy.
+    const chosenSheet = foundry.utils.getProperty(changes, "flags.core.sheetClass");
+    if (chosenSheet && actor.isOwner) {
+        const book = Object.entries(Dh.bookSheets).find(([, sheet]) => chosenSheet.endsWith(sheet.name))?.[0];
+        if (book && actor.system.ruleset !== book) await actor.update({"system.ruleset": book});
+        return;
+    }
     if (foundry.utils.getProperty(changes, "system.ruleset") === undefined) return;
     if (!["acolyte", "heretic"].includes(actor?.type)) return;
     const wanted = `dark-heresy.${Dh.sheetFor(actor)}`;
