@@ -17434,8 +17434,23 @@ async function onExtinguishFireClick(event) {
     }
 }
 
+/**
+ * Порог смерти от кровопотери на броске 1d100.
+ *
+ * Обычно это 10 процентов (Black Crusade, стр. 247). У десантника Хаоса свёртывание
+ * крови делает орган Ларрамана, и шанс вдвое меньше (стр. 50) — карточку имплантов
+ * ему выдаёт создание персонажа, она же и считается.
+ */
+function bloodLossDeathThreshold(actor) {
+    const rules = Dh.rulesetFor(actor).bloodLoss;
+    const chance = Number(rules?.deathChance) || 10;
+    const halved = (actor?.items ?? []).some(item =>
+        item?.type === "trait" && /Chaos Space Marine Implants/i.test(item.name ?? ""));
+    return 100 - (halved ? Math.floor(chance / 2) : chance) + 1;
+}
+
 async function resolveBloodLoss(actor, rollResult) {
-    const isDead = Number(rollResult) >= 91;
+    const isDead = Number(rollResult) >= bloodLossDeathThreshold(actor);
     if (isDead) await actor.addCondition("dead", {type: "minor"});
     return {lethal: true, rollResult, isDead};
 }
@@ -18007,7 +18022,7 @@ async function _applyBleedingEffect(actor, combatant) {
             const deathRoll = new Roll("1d100");
             await deathRoll.evaluate();
             rollResult = deathRoll.total;
-            // Ровно 10% — значения 91-100.
+            // Порог зависит от персонажа: обычно 10% (91-100), у десантника Хаоса 5%.
             ({isDead} = await resolveBloodLoss(actor, rollResult));
         }
     } else {

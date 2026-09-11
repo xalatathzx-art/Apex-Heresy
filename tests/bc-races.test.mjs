@@ -2,6 +2,8 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {validateOrigin, normaliseOrigin} from '../script/creation/origin-data.mjs';
+import {planToActorUpdate, revertUpdate, unnaturalFromTrait} from '../script/creation/origin-apply.mjs';
+import {emptyPlan} from '../script/creation/grant-data.mjs';
 import {RULESET_DEFS} from '../script/creation/ruleset-data.mjs';
 import {rollExpression} from '../script/creation/creation-roll-data.mjs';
 
@@ -43,7 +45,10 @@ test('a human knows Low Gothic and picks two Common Lores and a Trade (p. 51)', 
 test('a Chaos Space Marine carries his implants as traits and talents (p. 49)', () => {
     const marine = find('chaosSpaceMarine');
     assert.deepEqual(marine.grants.traits.map(trait => trait.name),
-        ['Amphibious', 'Unnatural Characteristic (Strength +4)', 'Unnatural Characteristic (Toughness +4)']);
+        ['Amphibious', 'Chaos Space Marine Implants',
+         'Unnatural Characteristic (Strength +4)', 'Unnatural Characteristic (Toughness +4)',
+         // p. 50, under Black Carapace: a Space Marine in power armour has Size (Hulking).
+         'Size (Hulking)']);
     const talents = marine.grants.talents.map(talent => talent.name);
     for (const name of ['Ambidextrous', 'Bulging Biceps', 'Legion Weapon Training', 'Nerves of Steel',
         'Quick Draw', 'Unarmed Warrior'])
@@ -70,4 +75,40 @@ test('his armour and knife come free, and he picks bolter or bolt pistol with fo
         const magazines = option.grants.equipment.find(entry => entry.quantity);
         assert.equal(magazines.quantity, 4, option.label);
     }
+});
+
+test('the implants that are neither talent nor trait travel on a card of their own (p. 50)', () => {
+    const marine = find('chaosSpaceMarine');
+    assert.ok(marine.grants.traits.some(trait => trait.name === 'Chaos Space Marine Implants'),
+        "Larraman's organ, the Catalepsean node, the Omophagea, the Sus-an membrane, "
+        + "Betcher's gland and the Black Carapace grant no talent — without this card they are lost");
+});
+
+test('an unnatural trait raises the characteristic bonus it names', () => {
+    const actor = () => ({items: [], system: {
+        characteristics: {strength: {base: 40, unnatural: 0}, toughness: {base: 40, unnatural: 0}},
+        skills: {}, wounds: {max: 0, value: 0}, corruption: 0, insanity: 0, aptitudes: {}
+    }});
+    const plan = {...emptyPlan(), traits: [
+        {name: 'Unnatural Characteristic (Strength +4)'},
+        {name: 'Unnatural Characteristic (Toughness +4)'},
+        {name: 'Amphibious'}
+    ]};
+    const {update, applied} = planToActorUpdate(actor(), plan);
+    assert.equal(update['system.characteristics.strength.unnatural'], 4);
+    assert.equal(update['system.characteristics.toughness.unnatural'], 4);
+    assert.deepEqual(applied.unnatural, {strength: 4, toughness: 4});
+
+    // И забирается ровно столько же, когда шаг отменяют.
+    const granted = {items: [], system: {characteristics: {strength: {base: 40, unnatural: 4}}}};
+    const back = revertUpdate(granted, {unnatural: {strength: 4}});
+    assert.equal(back['system.characteristics.strength.unnatural'], 0);
+});
+
+test('only a rated unnatural trait counts, and both spellings are read', () => {
+    assert.deepEqual(unnaturalFromTrait('Unnatural Strength (+4)'), {key: 'strength', value: 4});
+    assert.deepEqual(unnaturalFromTrait('Unnatural Characteristic (Willpower +1)'), {key: 'willpower', value: 1});
+    assert.equal(unnaturalFromTrait('Unnatural Characteristic'), null, 'no number, no bonus');
+    assert.equal(unnaturalFromTrait('Size (Hulking)'), null);
+    assert.equal(unnaturalFromTrait('Amphibious'), null);
 });

@@ -16,6 +16,8 @@
 //    стартовое     — флаг starter: движок опыта не берёт за такой ранг ни очка.
 // ════════════════════════════════════════════════════════════════════════
 
+import {CHARACTERISTIC_KEYS} from "./origin-data.mjs";
+
 export const GRANT_FLAG_SCOPE = "dark-heresy";
 export const GRANT_FLAG_KEY = "originGrant";
 
@@ -92,6 +94,36 @@ export function specialityKeyFor(skill, name) {
  *   talentExperience — опыт взамен повторного таланта.
  * @returns {{update: object, applied: object}}
  */
+/**
+ * Насколько трейт поднимает бонус характеристики.
+ *
+ * «Unnatural Characteristic (Strength +4)» — это не просто карточка с текстом:
+ * четвёрка прибавляется к бонусу Силы, даёт половину себя дополнительными
+ * степенями успеха и съедается Felling при попадании. Лист читает её из поля
+ * `unnatural`, и заполнить его должен тот, кто трейт выдал.
+ *
+ * Книги пишут это имя двумя способами — «Unnatural Characteristic (Strength +4)»
+ * и «Unnatural Strength (+4)», — поэтому разбираем оба.
+ *
+ * @param {string} name  имя трейта
+ * @param {string[]} keys  ключи характеристик книги
+ * @returns {{key: string, value: number}|null}
+ */
+export function unnaturalFromTrait(name, keys = CHARACTERISTIC_KEYS) {
+    const text = String(name ?? "");
+    if (!/^unnatural/i.test(text)) return null;
+    const inside = text.match(/\(([^)]*)\)/)?.[1] ?? text.replace(/^unnatural\s*/i, "");
+    const value = Number(inside.match(/([+-]?\d+)/)?.[1]);
+    if (!Number.isFinite(value) || value === 0) return null;
+    // Имя характеристики — всё до числа: «Characteristic (Strength +4)» → strength.
+    const words = `${text.replace(/\(.*$/, "")} ${inside}`.replace(/unnatural|characteristic/gi, "");
+    const normalise = word => word.toLowerCase().replace(/[^a-z]/g, "");
+    const wanted = normalise(words.replace(/[+-]?\d+/g, ""));
+    if (!wanted) return null;
+    const key = keys.find(entry => normalise(entry) === wanted);
+    return key ? {key, value} : null;
+}
+
 export function planToActorUpdate(actor, plan, {characteristicMode = "flat", duplicates = {}} = {}) {
     const rule = {skill: "best", talentExperience: 0, ...duplicates};
     const update = {};
@@ -159,6 +191,18 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat", dup
     for (const talent of plan.talents ?? [])
         if (ownedTalents.has(String(talent.name).toLowerCase().trim())) applied.duplicateTalents.push(talent.name);
     applied.duplicateExperience = applied.duplicateTalents.length * rule.talentExperience;
+
+    // Трейт с числом поднимает бонус характеристики; без этого он остаётся текстом,
+    // а десантник Хаоса ходит с бонусом Силы 4 вместо 8.
+    for (const trait of plan.traits ?? []) {
+        const boost = unnaturalFromTrait(trait.name);
+        if (!boost) continue;
+        const current = actor.system.characteristics?.[boost.key];
+        if (!current) continue;
+        const had = Number(current.unnatural) || 0;
+        update[`system.characteristics.${boost.key}.unnatural`] = had + boost.value;
+        (applied.unnatural ??= {})[boost.key] = (applied.unnatural?.[boost.key] ?? 0) + boost.value;
+    }
 
     if (plan.wounds) {
         update["system.wounds.max"] = (actor.system.wounds?.max ?? 0) + plan.wounds;
@@ -269,6 +313,12 @@ export function revertUpdate(actor, applied = {}) {
     for (const [key, modifier] of Object.entries(applied.characteristics ?? {})) {
         const current = actor.system.characteristics?.[key];
         if (current) update[`system.characteristics.${key}.base`] = (current.base ?? 0) - modifier;
+    }
+    // Прибавку к бонусу забираем тем же порядком, что и выдали.
+    for (const [key, value] of Object.entries(applied.unnatural ?? {})) {
+        const current = actor.system.characteristics?.[key];
+        if (current) update[`system.characteristics.${key}.unnatural`] =
+            Math.max(0, (Number(current.unnatural) || 0) - value);
     }
     // Если после выдачи навык подняли ещё выше, трогать его нельзя: этот шаг его
     // больше не держит.

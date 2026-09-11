@@ -42,7 +42,9 @@
           "type": "many",
           "label": "Common Lore (any two)",
           "count": 2,
-          "groups": ["commonLore"],
+          "groups": [
+            "commonLore"
+          ],
           "advance": 0
         },
         {
@@ -50,7 +52,9 @@
           "type": "many",
           "label": "Trade (any one)",
           "count": 1,
-          "groups": ["trade"],
+          "groups": [
+            "trade"
+          ],
           "advance": 0
         }
       ]
@@ -167,10 +171,16 @@
             "name": "Amphibious"
           },
           {
+            "name": "Chaos Space Marine Implants"
+          },
+          {
             "name": "Unnatural Characteristic (Strength +4)"
           },
           {
             "name": "Unnatural Characteristic (Toughness +4)"
+          },
+          {
+            "name": "Size (Hulking)"
           }
         ],
         "equipment": [
