@@ -41,9 +41,10 @@ test('every ruleset generates characteristics exactly once', () => {
     }
 });
 
-test('Dark Heresy runs home world, background, role, characteristics, experience, divination', () => {
+test('Dark Heresy runs home world, background, role, characteristics, experience, equipment, divination', () => {
+    // Stage 4 of the book is "Spend Experience Points, Equip Acolyte" (pp. 78-82).
     assert.deepEqual(stepsFor('dh2').map(s => s.id),
-        ['homeWorld', 'background', 'role', 'characteristics', 'experience', 'divination']);
+        ['homeWorld', 'background', 'role', 'characteristics', 'experience', 'equipment', 'divination']);
     assert.equal(RULESET_DEFS.dh2.actorType, 'acolyte');
 });
 

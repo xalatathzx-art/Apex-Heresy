@@ -14245,3 +14245,103 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   gap: var(--dh-space-3);
   margin-top: var(--dh-space-3);
 }
+
+/* ── Повторные склонности, элитки, психосилы ─────────────────────────── */
+
+/* Долг по склонностям — плита тревоги над магазином: пока он есть, покупки ждут. */
+.dark-heresy.character-wizard .shop-owed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+  padding: var(--dh-space-3) var(--dh-space-4);
+  background: var(--dh-surface);
+  border: 1px solid var(--dh-line);
+  border-left: 3px solid var(--dh-alert);
+}
+.dark-heresy.character-wizard .shop-owed .wizard-warn {
+  margin: 0;
+}
+.dark-heresy.character-wizard .shop-owed-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 11em auto;
+  align-items: center;
+  gap: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .shop-replacements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-replacements .wizard-choice-label {
+  margin: 0;
+}
+.dark-heresy.character-wizard .shop-replacements .shop-prereq {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-undo {
+  margin: 0;
+  padding: 0 var(--dh-space-1);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--dh-ink-faint);
+  font-size: var(--dh-text-xs);
+  line-height: 1;
+}
+.dark-heresy.character-wizard .shop-undo:hover {
+  background: none;
+  color: var(--dh-accent-bright);
+}
+
+/* Строка правил элитки — читается сразу, без раскрытия: их всего две. */
+.dark-heresy.character-wizard .shop-rules {
+  margin: 0;
+  color: var(--dh-ink-muted);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-sm);
+  line-height: 1.45;
+}
+
+/* Дисциплина — заголовок-трафарет и свой список под ним. */
+.dark-heresy.character-wizard .shop-discipline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+}
+.dark-heresy.character-wizard .shop-discipline-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--dh-space-3);
+  margin: var(--dh-space-3) 0 0;
+  padding-bottom: var(--dh-space-2);
+  border-bottom: 1px solid var(--dh-brass-dim);
+  color: var(--dh-brass);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-sm);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+}
+
+/* Строка Арсенала: имя — тип — доступность — кнопка. Совпадения склонностей и цены у
+   неё нет, а «Plentiful» в узкую колонку цены не влезает. */
+.dark-heresy.character-wizard .shop-talent-head.shop-equipment-head {
+  grid-template-columns: minmax(0, 1fr) 9em 7em auto;
+}
+.dark-heresy.character-wizard .shop-availability {
+  text-align: right;
+  color: var(--dh-ink);
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Счёт снаряжения — два показания, не три. */
+.dark-heresy.character-wizard .shop-ledger.shop-ledger-two {
+  grid-template-columns: repeat(2, 1fr);
+}

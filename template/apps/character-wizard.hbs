@@ -145,20 +145,41 @@
                     <span class="wizard-aptitude">{{aptitude}}</span>
                     {{/each}}
                 </div>
-                {{#if owedAptitudes}}
-                {{!-- Книга, стр. 79: повторная склонность не пропадает, а меняется
-                      на другую характеристическую. Выбирает игрок. --}}
-                <p class="wizard-warn">{{localize "WIZARD.OWED_APTITUDES"}} {{owedAptitudes}}</p>
+                {{!-- Книга, стр. 79: повторная склонность не даётся второй раз, а меняется
+                      на склонность характеристики, которой ещё нет. Выбирает игрок, и пока
+                      он не выбрал, цены не окончательны — поэтому покупки ждут. --}}
+                {{#if owedSlots.length}}
+                <div class="shop-owed">
+                    <p class="wizard-warn">{{localize "WIZARD.OWED_RULE"}}</p>
+                    {{#each owedSlots as |slot|}}
+                    <div class="shop-owed-row">
+                        <span class="shop-name">{{slot.duplicate}}</span>
+                        <span class="shop-step">{{slot.label}}</span>
+                        <select data-owed-choice="{{@index}}">
+                            {{#each slot.options as |option|}}<option value="{{option}}">{{option}}</option>{{/each}}
+                        </select>
+                        <button type="button" class="shop-buy" data-replace-aptitude="{{@index}}">{{localize "WIZARD.OWED_TAKE"}}</button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+                {{#if replacementSlots.length}}
+                <div class="shop-replacements">
+                    <span class="wizard-choice-label">{{localize "WIZARD.OWED_REPLACED"}}</span>
+                    {{#each replacementSlots as |slot|}}
+                    <span class="shop-prereq met">{{slot.duplicate}} → {{slot.chosen}}
+                        <button type="button" class="shop-undo" data-undo-replacement="{{@index}}"
+                                title="{{localize "WIZARD.SHOP_REFUND"}}"><i class="fas fa-xmark"></i></button></span>
+                    {{/each}}
+                </div>
                 {{/if}}
 
-                {{!-- Три лавки на вкладках: вместе они дали бы ленту из полутора сотен строк. --}}
+                {{!-- Лавки на вкладках: вместе они дали бы ленту из полутора сотен строк.
+                      Психосилы — только у псайкера. --}}
                 <nav class="shop-tabs">
-                    <button type="button" data-shop-tab="characteristics"
-                            class="{{#if (eq shopTab "characteristics")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_CHARACTERISTICS"}}</button>
-                    <button type="button" data-shop-tab="skills"
-                            class="{{#if (eq shopTab "skills")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_SKILLS"}}</button>
-                    <button type="button" data-shop-tab="talents"
-                            class="{{#if (eq shopTab "talents")}}active{{/if}}">{{localize "WIZARD.SHOP_TAB_TALENTS"}}</button>
+                    {{#each shopTabs as |tab|}}
+                    <button type="button" data-shop-tab="{{tab.key}}" class="{{#if tab.active}}active{{/if}}">{{tab.label}}</button>
+                    {{/each}}
                 </nav>
 
                 {{#if (eq shopTab "characteristics")}}
@@ -246,6 +267,7 @@
                             <p class="shop-book-benefit"><b>{{localize "WIZARD.SHOP_BENEFIT"}}</b> {{offer.book.benefit}}</p>
                             {{/if}}
                             <div class="wizard-book-text">{{{offer.book.description}}}</div>
+                            {{#if offer.book.effect}}<div class="wizard-book-text">{{{offer.book.effect}}}</div>{{/if}}
                             <div class="shop-book-footer">
                                 <span class="wizard-book-source">{{offer.book.source}}</span>
                                 <button type="button" class="shop-buy" data-open-talent="{{offer.uuid}}">
@@ -258,6 +280,93 @@
                     <p class="wizard-note">{{localize "WIZARD.SHOP_NO_TALENTS"}}</p>
                     {{/each}}
                 </div>
+                {{/if}}
+
+                {{#if (eq shopTab "elite")}}
+                <div class="shop-list">
+                    {{#each shopElite as |offer|}}
+                    <div class="shop-row shop-talent{{#if offer.blocked}} blocked{{/if}}">
+                        <div class="shop-talent-head">
+                            <span class="shop-name">{{offer.name}}</span>
+                            <span class="shop-step">{{#if offer.owned}}{{localize "WIZARD.SHOP_OWNED"}}{{else}}{{#if offer.excluded}}{{localize "WIZARD.SHOP_EXCLUDED"}}{{else}}p. {{offer.page}}{{/if}}{{/if}}</span>
+                            <span class="shop-match"></span>
+                            <span class="shop-cost">{{offer.cost}}</span>
+                            <button type="button" class="shop-buy" data-buy-elite="{{offer.key}}"
+                                    {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                        </div>
+                        {{#if offer.prerequisites.length}}
+                        <div class="shop-prerequisites">
+                            {{#each offer.prerequisites as |check|}}
+                            <span class="shop-prereq {{check.status}}">{{check.text}}</span>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                        <p class="shop-rules">{{offer.rules}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                <p class="wizard-note">{{localize "WIZARD.ELITE_GM"}}</p>
+                {{/if}}
+
+                {{#if (eq shopTab "psychic")}}
+                {{!-- Рейтинг: 200 × новый рейтинг (стр. 90). Силы: путь по дереву дисциплины
+                      плюс предпосылки (стр. 199); цена — Value из статьи силы. --}}
+                <div class="shop-list">
+                    <div class="shop-row{{#if shopPsy.maxed}} maxed{{/if}}">
+                        <span class="shop-name">{{localize "WIZARD.SHOP_PSY_RATING"}}</span>
+                        <span class="shop-step">{{#if shopPsy.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{shopPsy.rating}} → {{shopPsy.next}}{{/if}}</span>
+                        <span class="shop-match"></span>
+                        <span class="shop-cost">{{#unless shopPsy.maxed}}{{shopPsy.cost}}{{/unless}}</span>
+                        <button type="button" class="shop-buy" data-buy-psy-rating
+                                {{#unless shopPsy.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                    </div>
+                </div>
+                {{#each shopDisciplines as |discipline|}}
+                <section class="shop-discipline">
+                    <h3 class="shop-discipline-title">{{discipline.label}} <span class="shop-step">p. {{discipline.page}}</span></h3>
+                    <div class="shop-list">
+                        {{#each discipline.powers as |offer|}}
+                        <div class="shop-row shop-talent{{#if offer.blocked}} blocked{{/if}}{{#if offer.owned}} maxed{{/if}}">
+                            <div class="shop-talent-head">
+                                {{#if offer.uuid}}
+                                <button type="button" class="shop-name shop-read" data-read-talent="{{offer.uuid}}"
+                                        aria-expanded="{{#if offer.open}}true{{else}}false{{/if}}"
+                                        title="{{localize "WIZARD.SHOP_READ"}}"><i class="fas fa-book-open"></i>{{offer.name}}</button>
+                                {{else}}
+                                <span class="shop-name">{{offer.name}}</span>
+                                {{/if}}
+                                <span class="shop-step">{{#if offer.owned}}{{localize "WIZARD.SHOP_OWNED"}}{{/if}}</span>
+                                <span class="shop-match"></span>
+                                <span class="shop-cost">{{offer.cost}}</span>
+                                <button type="button" class="shop-buy" data-buy-power="{{offer.uuid}}"
+                                        {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
+                            </div>
+                            {{#if offer.showChecks}}
+                            <div class="shop-prerequisites">
+                                {{#unless offer.accessible}}
+                                <span class="shop-prereq unmet">{{localize "WIZARD.SHOP_TREE_NEEDS"}} {{offer.parentsText}}</span>
+                                {{/unless}}
+                                {{#each offer.prerequisites as |check|}}
+                                <span class="shop-prereq {{check.status}}">{{check.text}}</span>
+                                {{/each}}
+                            </div>
+                            {{/if}}
+                            {{#if offer.book}}
+                            <section class="wizard-book shop-book">
+                                <div class="wizard-book-text">{{{offer.book.description}}}</div>
+                                {{#if offer.book.effect}}<div class="wizard-book-text">{{{offer.book.effect}}}</div>{{/if}}
+                                <div class="shop-book-footer">
+                                    <span class="wizard-book-source">{{offer.book.source}}</span>
+                                    <button type="button" class="shop-buy" data-open-talent="{{offer.uuid}}">
+                                        <i class="fas fa-up-right-from-square"></i> {{localize "WIZARD.SHOP_OPEN_SHEET"}}</button>
+                                </div>
+                            </section>
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </div>
+                </section>
+                {{/each}}
                 {{/if}}
 
                 {{!-- Журнал покупок этого прохода. Возвращается любая, но ступень лестницы —
@@ -281,10 +390,82 @@
                 </div>
                 {{/if}}
 
-                <p class="wizard-note">{{localize "WIZARD.ACQUISITIONS"}} <b>{{influenceBonus}}</b></p>
             {{/if}}
 
-{{#if (eq step.kind "divination")}}
+{{#if (eq step.kind "equipment")}}
+                {{!-- Стр. 82: сверх выданного фоном — столько предметов Арсенала, каков бонус
+                      Влияния, каждый доступности Scarce или лучше. Выбор, а не бросок. --}}
+                <div class="shop-ledger shop-ledger-two">
+                    <div class="shop-ledger-cell">
+                        <span class="shop-ledger-label">{{localize "WIZARD.EQUIPMENT_ALLOWANCE"}}</span>
+                        <span class="shop-ledger-value">{{equipmentAllowance}}</span>
+                    </div>
+                    <div class="shop-ledger-cell shop-ledger-remaining">
+                        <span class="shop-ledger-label">{{localize "WIZARD.SHOP_REMAINING"}}</span>
+                        <span class="shop-ledger-value">{{equipmentLeft}}</span>
+                    </div>
+                </div>
+                <p class="wizard-note">{{localize "WIZARD.EQUIPMENT_RULE"}}</p>
+
+                {{#if equipmentPicks.length}}
+                <div class="shop-purchases">
+                    <span class="wizard-choice-label">{{localize "WIZARD.EQUIPMENT_TAKEN"}}</span>
+                    {{#each equipmentPicks as |pick|}}
+                    <div class="shop-purchase">
+                        {{#if pick.present}}
+                        <button type="button" class="shop-name shop-read" data-open-item="{{pick.itemId}}"
+                                title="{{localize "WIZARD.SHOP_OPEN_SHEET"}}"><i class="fas fa-book-open"></i>{{pick.name}}</button>
+                        {{else}}
+                        <span class="shop-name">{{pick.name}}</span>
+                        {{/if}}
+                        <span class="shop-cost"></span>
+                        <button type="button" class="shop-refund" data-drop-equipment="{{pick.index}}"
+                                title="{{localize "WIZARD.SHOP_REFUND"}}"><i class="fas fa-rotate-left"></i></button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                <div class="shop-filters">
+                    <input type="text" class="equipment-search shop-talent-search" value="{{equipmentFilter}}"
+                           placeholder="{{localize "WIZARD.EQUIPMENT_SEARCH"}}"/>
+                    <select class="equipment-type shop-talent-tier">
+                        <option value="">{{localize "WIZARD.EQUIPMENT_ALL_TYPES"}}</option>
+                        {{#each equipmentTypes as |type|}}
+                        <option value="{{type.key}}" {{#if type.selected}}selected{{/if}}>{{type.label}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="shop-list">
+                    {{#each equipmentOffers as |offer|}}
+                    <div class="shop-row shop-talent{{#if offer.picked}} maxed{{/if}}">
+                        <div class="shop-talent-head shop-equipment-head">
+                            <button type="button" class="shop-name shop-read" data-read-talent="{{offer.uuid}}"
+                                    aria-expanded="{{#if offer.open}}true{{else}}false{{/if}}"
+                                    title="{{localize "WIZARD.SHOP_READ"}}"><i class="fas fa-book-open"></i>{{offer.name}}</button>
+                            <span class="shop-step">{{offer.typeLabel}}</span>
+                            <span class="shop-availability">{{offer.availabilityLabel}}</span>
+                            <button type="button" class="shop-buy" data-take-equipment="{{offer.uuid}}"
+                                    {{#unless offer.allowed}}disabled{{/unless}}>{{localize "WIZARD.OWED_TAKE"}}</button>
+                        </div>
+                        {{#if offer.book}}
+                        <section class="wizard-book shop-book">
+                            <div class="wizard-book-text">{{{offer.book.description}}}</div>
+                            <div class="shop-book-footer">
+                                <span class="wizard-book-source">{{offer.book.source}}</span>
+                                <button type="button" class="shop-buy" data-open-talent="{{offer.uuid}}">
+                                    <i class="fas fa-up-right-from-square"></i> {{localize "WIZARD.SHOP_OPEN_SHEET"}}</button>
+                            </div>
+                        </section>
+                        {{/if}}
+                    </div>
+                    {{else}}
+                    <p class="wizard-note">{{localize "WIZARD.SHOP_NO_TALENTS"}}</p>
+                    {{/each}}
+                </div>
+            {{/if}}
+
+            {{#if (eq step.kind "divination")}}
                 {{#if divinationDrawn}}
                 {{!-- Пророчество — цитата, эффект под ним отдельной строкой:
                       первое читают, второе применяется. --}}

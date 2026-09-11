@@ -34,6 +34,8 @@ export const RULESET_DEFS = {
             {id: "role",            label: "ORIGIN.STAGE.ROLE",        kind: "origin", stage: "role", bioField: "system.bio.role"},
             {id: "characteristics", label: "WIZARD.CHARACTERISTICS",   kind: "characteristics"},
             {id: "experience",      label: "WIZARD.EXPERIENCE",        kind: "experience"},
+            // Стадия 4 книги — «Spend Experience Points, Equip Acolyte» (стр. 78-82).
+            {id: "equipment",       label: "WIZARD.EQUIPMENT",         kind: "equipment"},
             {id: "divination",      label: "ORIGIN.STAGE.DIVINATION",  kind: "divination"}
         ]
     },
