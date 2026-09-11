@@ -11,7 +11,7 @@
 
 import {RULESET_DEFS, stepsFor, auditedRulesets} from "./ruleset-data.mjs";
 import {resolveGrantPlan, emptyPlan} from "./grant-data.mjs";
-import {planToActorUpdate, planToItemData, revertUpdate,
+import {planToActorUpdate, planToItemData, revertUpdate, ownedAptitudes,
         GRANT_FLAG_SCOPE, GRANT_FLAG_KEY} from "./origin-apply.mjs";
 import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-blocks.mjs";
 import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
@@ -413,11 +413,13 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         if (unresolved.length)
             ui.notifications?.warn(game.i18n.format("WIZARD.UNRESOLVED_GRANTS",
                                                     {names: unresolved.join(", ")}));
-        const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`));
-        if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
-
+        // Сначала поля: план решает, какие склонности у актора ещё нет. Уже имеющуюся
+        // повторно не выдаём — она записывается долгом (стр. 79).
         const {update, applied} = planToActorUpdate(actor, plan,
             {characteristicMode: RULESET_DEFS[this.ruleset].characteristicModifiers});
+        const granted = planToItemData(plan, tag, carrier.id, (kind, name) => copies.get(`${kind}:${name}`),
+                                       {aptitudes: applied.aptitudes});
+        if (granted.length) await actor.createEmbeddedDocuments("Item", granted);
         // Название выбранного попадает в анкету ЗДЕСЬ, а не в конце: игрок видит, как
         // лист собирается под его руками. Поле остаётся обычным, редактируемым —
         // переименовать «Мир-улей» в «Десолеум» это игра, а не поломка.
@@ -572,7 +574,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // Цены зависят от склонностей персонажа, а не от книги вообще: одна и та же
         // покупка стоит ему втрое дешевле соседа. Показываем ЕГО колонку, иначе
         // игроку придётся листать книгу с карандашом.
-        const owned = this.actor.system.aptitudes ?? {};
+        const owned = ownedAptitudes(this.actor);
         const priceRow = (table, label) => ({
             label,
             two: Object.values(table[2]).join(" / "),
@@ -581,7 +583,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         });
 
         return {
-            aptitudeChips: Object.keys(owned).sort(),
+            aptitudeChips: [...owned].sort(),
             priceRows: [
                 priceRow(CHARACTERISTIC_COSTS, game.i18n.localize("WIZARD.PRICE_CHARACTERISTICS")),
                 priceRow(SKILL_COSTS, game.i18n.localize("WIZARD.PRICE_SKILLS")),
@@ -589,7 +591,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ],
             experiencePool: CharacterWizard.STARTING_EXPERIENCE[this.ruleset] ?? 0,
             experienceApplied: !!this.actor.getFlag(GRANT_FLAG_SCOPE, "startingExperienceApplied"),
-            aptitudeList: Object.keys(this.actor.system.aptitudes ?? {}).sort().join(", "),
+            aptitudeList: [...owned].sort().join(", "),
             // Книга (стр. 79): повторная склонность меняется на другую характеристическую,
             // которой ещё нет. Выбирает игрок, поэтому Мастер только напоминает.
             owedAptitudes: [...new Set(owed)].join(", "),

@@ -8,17 +8,62 @@
 //  Всё выданное шагом помечается самим шагом и предметом-носителем, а поднятые
 //  значения записываются на носитель. Тогда снять носитель — значит отменить
 //  шаг ровно, без догадок, и игрок может вернуться и сменить родной мир.
+//
+//  Запись идёт в ТЕ ЖЕ поля, что читает система, по её правилам:
+//    склонности    — предметы типа aptitude (их показывает вкладка «Продвижение» и
+//                    считает движок опыта; объект system.aptitudes не читает никто);
+//    специализации — ключи с подписью (adeptusArbites: {label: "Adeptus Arbites"});
+//    стартовое     — флаг starter: движок опыта не берёт за такой ранг ни очка.
 // ════════════════════════════════════════════════════════════════════════
 
 export const GRANT_FLAG_SCOPE = "dark-heresy";
 export const GRANT_FLAG_KEY = "originGrant";
 
+/** Склонность, которая по книге есть у всех (стр. 79). */
+export const UNIVERSAL_APTITUDE = "General";
+
 /** Заглушки для имён, которых нет ни в одном компендиуме: потерять выдачу молча нельзя. */
 const STUB = {
     talent: {type: "talent", img: "icons/svg/upgrade.svg"},
     trait: {type: "trait", img: "icons/svg/aura.svg"},
-    equipment: {type: "gear", img: "icons/svg/item-bag.svg"}
+    equipment: {type: "gear", img: "icons/svg/item-bag.svg"},
+    aptitude: {type: "aptitude", img: "icons/svg/book.svg"}
 };
+
+const normalise = value => String(value ?? "").toLowerCase().replace(/\s+/g, " ").trim();
+
+/**
+ * Склонности актора — по предметам, как их читает система, плюс General.
+ * @param {{items?: Iterable<{type: string, name: string}>}} actor
+ * @returns {Set<string>}
+ */
+export function ownedAptitudes(actor) {
+    const owned = new Set([UNIVERSAL_APTITUDE]);
+    for (const item of actor?.items ?? []) if (item?.type === "aptitude" && item.name) owned.add(item.name.trim());
+    return owned;
+}
+
+/**
+ * Ключ специализации навыка под отображаемое имя.
+ *
+ * Существующая специализация находится по подписи (регистр и пробелы не важны),
+ * новой ключ строится из имени так же, как в template.json: «Tactica Imperialis»
+ * → tacticaImperialis.
+ *
+ * @param {object} skill  system.skills[key]
+ * @param {string} name
+ * @returns {{specKey: string, created: boolean}}
+ */
+export function specialityKeyFor(skill, name) {
+    const wanted = normalise(name);
+    for (const [specKey, entry] of Object.entries(skill?.specialities ?? {}))
+        if (normalise(entry?.label) === wanted || normalise(specKey) === wanted) return {specKey, created: false};
+    const words = String(name ?? "").trim().split(/[^A-Za-z0-9]+/).filter(Boolean);
+    const specKey = words.map((word, index) => index === 0
+        ? word.toLowerCase()
+        : word[0].toUpperCase() + word.slice(1).toLowerCase()).join("");
+    return {specKey, created: true};
+}
 
 /**
  * Нагрузка для actor.update() по плану — и запись того, что она реально изменила.
@@ -31,7 +76,9 @@ const STUB = {
  *                  дважды, поэтому он только записывается — шагу характеристик, чтобы
  *                  тот знал, какую формулу катать.
  *
- * @param {object} actor  объект формы актора (нужен только system)
+ * Склонности здесь только учитываются: создаются они предметами, см. planToItemData.
+ *
+ * @param {object} actor  объект формы актора (нужны system и items)
  * @param {object} plan   из grant-data.mjs
  * @param {{characteristicMode?: "flat"|"generation"}} [options]
  * @returns {{update: object, applied: object}}
@@ -52,18 +99,31 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
 
     // Навык только поднимается. Если другой источник уже дал больше, выдача ничего не
     // меняет — и в откат не попадает, иначе он опустил бы чужую обученность.
+    // Выданный ранг — стартовый: движок опыта не должен брать за него очков.
     for (const skill of plan.skills ?? []) {
         const current = actor.system.skills?.[skill.key];
         if (!current || (current.advance ?? -20) >= skill.advance) continue;
         update[`system.skills.${skill.key}.advance`] = skill.advance;
-        applied.skills[skill.key] = {from: current.advance ?? -20, to: skill.advance};
+        update[`system.skills.${skill.key}.starter`] = true;
+        applied.skills[skill.key] = {from: current.advance ?? -20, to: skill.advance, starterWas: !!current.starter};
     }
 
     for (const spec of plan.specialities ?? []) {
-        const existing = actor.system.skills?.[spec.key]?.specialities?.[spec.name];
-        if (existing && (existing.advance ?? -20) >= (spec.advance ?? 0)) continue;
-        update[`system.skills.${spec.key}.specialities.${spec.name}.advance`] = spec.advance ?? 0;
-        applied.specialities.push({key: spec.key, name: spec.name});
+        const skill = actor.system.skills?.[spec.key];
+        if (!skill) continue;
+        const {specKey, created} = specialityKeyFor(skill, spec.name);
+        const existing = skill.specialities?.[specKey];
+        const advance = spec.advance ?? 0;
+        if (existing && (existing.advance ?? -20) >= advance) continue;
+        const path = `system.skills.${spec.key}.specialities.${specKey}`;
+        if (created) {
+            update[path] = {label: String(spec.name).trim(), advance, starter: true, cost: 0};
+        } else {
+            update[`${path}.advance`] = advance;
+            update[`${path}.starter`] = true;
+        }
+        applied.specialities.push({key: spec.key, specKey, created,
+                                   from: existing?.advance ?? -20, starterWas: !!existing?.starter});
     }
 
     if (plan.wounds) {
@@ -85,18 +145,14 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
         }
     }
 
-    // Склонность, которая у актора уже есть, в откат не пишется: отменяя этот шаг,
-    // нельзя отнять то, что дал другой.
-    //
-    // Но и пропасть она не должна: по книге (стр. 79) повторная склонность меняется
-    // на другую, характеристическую, которой у персонажа ещё нет. Выбор за игроком,
-    // поэтому здесь только отмечаем долг.
-    const granted = (plan.aptitudes ?? []).filter(aptitude => !actor.system.aptitudes?.[aptitude]);
-    applied.duplicateAptitudes = (plan.aptitudes ?? []).filter(aptitude => actor.system.aptitudes?.[aptitude]);
-    if (granted.length) {
-        update["system.aptitudes"] = {...(actor.system.aptitudes ?? {}),
-                                      ...Object.fromEntries(granted.map(aptitude => [aptitude, true]))};
-        applied.aptitudes = granted;
+    // Склонность, которая у актора уже есть, повторно не выдаётся и в откат не пишется:
+    // отменяя этот шаг, нельзя отнять то, что дал другой. Но и пропасть она не должна —
+    // по книге (стр. 79) повторная меняется на другую, характеристическую. Выбор за
+    // игроком, поэтому здесь только отмечаем долг. General есть у всех, долгом не считается.
+    const owned = ownedAptitudes(actor);
+    for (const aptitude of plan.aptitudes ?? []) {
+        if (!owned.has(aptitude)) { applied.aptitudes.push(aptitude); owned.add(aptitude); }
+        else if (aptitude !== UNIVERSAL_APTITUDE) applied.duplicateAptitudes.push(aptitude);
     }
 
     return {update, applied};
@@ -109,15 +165,18 @@ export function planToActorUpdate(actor, plan, {characteristicMode = "flat"} = {
  * @param {string} tag        "<книга>:<шаг>" — им помечается выданное
  * @param {string} carrierId  идентификатор предмета-носителя
  * @param {(kind: string, name: string) => object|null} lookup  копия из компендиума по виду и имени
+ * @param {{aptitudes?: string[]}} [options]  какие склонности создать; по умолчанию все из плана
  * @returns {object[]}
  */
-export function planToItemData(plan, tag, carrierId, lookup) {
+export function planToItemData(plan, tag, carrierId, lookup, {aptitudes} = {}) {
     const flags = {[GRANT_FLAG_SCOPE]: {[GRANT_FLAG_KEY]: tag, grantedBy: carrierId}};
     const out = [];
 
     for (const talent of plan.talents ?? []) {
         const data = copy("talent", talent.name, lookup);
         if (talent.targets) data.system.targets = talent.targets;
+        // Талант от происхождения — стартовый: движок опыта за него не списывает.
+        data.system.starter = true;
         out.push({...data, flags});
     }
     for (const trait of plan.traits ?? []) {
@@ -129,6 +188,10 @@ export function planToItemData(plan, tag, carrierId, lookup) {
         const data = copy("equipment", gear.name, lookup);
         if (gear.quantity > 1) data.system.quantity = gear.quantity;
         out.push({...data, flags});
+    }
+    for (const name of aptitudes ?? plan.aptitudes ?? []) {
+        if (name === UNIVERSAL_APTITUDE) continue;
+        out.push({name, ...STUB.aptitude, system: {}, flags});
     }
 
     return out;
@@ -146,6 +209,9 @@ function copy(kind, name, lookup) {
 /**
  * Нагрузка для actor.update(), отменяющая записанное применение.
  *
+ * Предметы (таланты, черты, снаряжение, склонности) снимаются вместе с носителем —
+ * здесь только значения полей.
+ *
  * @param {object} actor
  * @param {object} applied  из planToActorUpdate
  * @returns {object}
@@ -159,11 +225,20 @@ export function revertUpdate(actor, applied = {}) {
     }
     // Если после выдачи навык подняли ещё выше, трогать его нельзя: этот шаг его
     // больше не держит.
-    for (const [key, record] of Object.entries(applied.skills ?? {}))
-        if (actor.system.skills?.[key]?.advance === record.to) update[`system.skills.${key}.advance`] = record.from;
+    for (const [key, record] of Object.entries(applied.skills ?? {})) {
+        if (actor.system.skills?.[key]?.advance !== record.to) continue;
+        update[`system.skills.${key}.advance`] = record.from;
+        update[`system.skills.${key}.starter`] = !!record.starterWas;
+    }
 
-    for (const spec of applied.specialities ?? [])
-        update[`system.skills.${spec.key}.specialities.-=${spec.name}`] = null;
+    for (const spec of applied.specialities ?? []) {
+        const path = `system.skills.${spec.key}.specialities`;
+        // Созданную выдачей специализацию убираем целиком; существовавшую — возвращаем:
+        // она часть списка навыка, а не наша.
+        if (spec.created) { update[`${path}.-=${spec.specKey}`] = null; continue; }
+        update[`${path}.${spec.specKey}.advance`] = spec.from ?? -20;
+        update[`${path}.${spec.specKey}.starter`] = !!spec.starterWas;
+    }
 
     if (applied.wounds) {
         update["system.wounds.max"] = Math.max(0, (actor.system.wounds?.max ?? 0) - applied.wounds);
@@ -175,12 +250,6 @@ export function revertUpdate(actor, applied = {}) {
     if (applied.influence) {
         const current = actor.system.characteristics?.influence;
         if (current) update["system.characteristics.influence.base"] = (current.base ?? 0) - applied.influence;
-    }
-
-    if (applied.aptitudes?.length) {
-        const kept = {...(actor.system.aptitudes ?? {})};
-        for (const aptitude of applied.aptitudes) delete kept[aptitude];
-        update["system.aptitudes"] = kept;
     }
 
     return update;
