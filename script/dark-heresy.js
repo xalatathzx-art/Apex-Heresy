@@ -7205,6 +7205,17 @@ async function restartEffect(effect) {
     return effect.update({disabled:false,"duration.expired":false,start:ActiveEffect.getEffectStart()});
 }
 
+/**
+ * `system` for a sheet template. Native data models serialise only their schema, so the
+ * document copy that getData() hands over lacks everything prepareData derived: armour
+ * per location, movement, encumbrance, insanity and corruption bonuses. The sheet gets
+ * the prepared values instead, as a copy, because some sheets rewrite fields of their
+ * context before rendering and must not write into the live document.
+ */
+function sheetSystem(document) {
+    return foundry.utils.deepClone({...document.system});
+}
+
 class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
 
     /**
@@ -7500,7 +7511,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
     /** @override */
     async getData() {
         const data = super.getData();
-        data.system = data.data.system;
+        data.system = sheetSystem(this.document);
         // The stored figures, before active effects are applied. An editable field bound
         // to a value that effects have already modified writes that modified value back
         // on the next submit, and the effect then adds its bonus on top again - so the
@@ -8342,8 +8353,9 @@ class AcolyteSheet extends DarkHeresySheet {
         return buttons;
     }
 
-    getData() {
-        const data = super.getData();
+    async getData() {
+        // Базовый getData асинхронный: без await пометка ложилась на промис и терялась.
+        const data = await super.getData();
         // Какие поля анкеты заполнил Мастер создания. Поля остаются обычными:
         // пометка лишь говорит, откуда взялось значение, чтобы случайная правка
         // была заметна, а не молчалива.
@@ -8833,7 +8845,7 @@ class VehicleSheet extends DarkHeresySheet {
 
     async getData() {
         const data = await foundry.appv1.sheets.ActorSheet.prototype.getData.call(this);
-        data.system = data.data.system;
+        data.system = sheetSystem(this.document);
         data.source = this.actor._source.system;
         data.config = {
             types: Dh.vehicleTypes,
@@ -11206,7 +11218,7 @@ class VoidshipSheet extends DarkHeresySheet {
 
     async getData() {
         const data = await foundry.appv1.sheets.ActorSheet.prototype.getData.call(this);
-        data.system = data.data.system;
+        data.system = sheetSystem(this.document);
         data.source = this.actor._source.system;
         data.config = {
             locations: Dh.shipLocations,
@@ -11680,7 +11692,7 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
     async getData() {
         const data = await super.getData();
         data.enrichment = await this._handleEnrichment();
-        data.system = data.data.system;
+        data.system = sheetSystem(this.document);
         
         // Prepare effects list for template
         // In Foundry VTT, item.effects is a Collection (read-only), convert it to array for template
