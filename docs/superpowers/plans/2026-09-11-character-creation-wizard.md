@@ -60,7 +60,7 @@ The loop's completion claim, `DH2 BUILDER CODE COMPLETE`, is true only when Task
 Tasks are worked in order. A task is DONE when its marker says so in its heading.
 The first heading without `— DONE` is the next task.
 
-**Closed:** Tasks 0-8. 128 tests pass (`node --test "tests/*.test.mjs"`),
+**Closed:** Tasks 0-9. 133 tests pass (`node --test "tests/*.test.mjs"`),
 `node --check script/dark-heresy.js` is clean, and all four item packs check clean.
 
 **Journal**
@@ -79,6 +79,17 @@ The first heading without `— DONE` is the next task.
   `utf-8-sig`. The file carries a BOM in the MIDDLE (the imports were prepended before it);
   writing with `utf-8-sig` adds a second one at the front and the test harness stops
   stripping the import lines.
+- Task 9 changed the schema twice, both forced by the book. A background aptitude is a
+  choice of two, so `grants` carries `aptitudes` and not just the origin itself; and Adeptus
+  Astra Telepathica has two named bonuses, so `bonus` became `bonuses`, a list. The six home
+  worlds were migrated to a one-entry list.
+- The schema does not model a choice inside a choice. "Awareness or Operate (Pick One)"
+  (p. 52) is therefore written out as four flat options: Awareness, and Operate at each of
+  its three specialities. Watch for the same shape in the other books.
+- Not yet verified: that every equipment and talent name in the backgrounds matches an item
+  in the `dark-heresy` pack. That pack has no `packs-src` sources and is LevelDB-locked while
+  Foundry runs, so it is a Task 17 check. A name no pack carries becomes a stub item rather
+  than vanishing, so nothing is lost silently in the meantime.
 - `tests/helpers/system.mjs` runs the system in a `node:vm` realm. `assert.deepEqual`
   against a host-realm object fails on prototypes with a misleading message; spread both
   sides before comparing.
@@ -1718,7 +1729,7 @@ git commit -m "Add the six Dark Heresy home worlds"
 
 ---
 
-### Task 9: Dark Heresy backgrounds
+### Task 9: Dark Heresy backgrounds — DONE
 
 **Files:**
 - Create: `packs-src/origins/02-dh2-backgrounds.json`
