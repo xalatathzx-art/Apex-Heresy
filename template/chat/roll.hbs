@@ -132,9 +132,12 @@
                     {{/if}}
                 {{/if}}
 
+                {{!-- Подпись берётся из списка сработавших состояний. Раньше здесь
+                      стояло жёсткое «Оглушён», и лежачая цель читалась как
+                      Stunned (−10), а схваченная — как Stunned (+20). --}}
                 {{#if targetConditionModifier}}
                     <dt>{{localize "CHAT.TARGET_CONDITION"}}</dt>
-                    <dd>{{localize "CONDITION.STUNNED"}} ({{signed targetConditionModifier}})</dd>
+                    <dd>{{#if targetConditionSources}}{{targetConditionSources}}{{else}}{{signed targetConditionModifier}}{{/if}}</dd>
                 {{/if}}
 
                 {{!-- Показываем и нулевую поправку: за нулём стоит Чёрный Панцирь, и

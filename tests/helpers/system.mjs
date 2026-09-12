@@ -11,6 +11,8 @@ import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COS
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
     from '../../script/creation/patron-data.mjs';
 
+const LANG = JSON.parse(readFileSync(new URL('../../lang/en.json', import.meta.url), 'utf8'));
+
 // Run the actual legacy entry module without booting a world or opening sheets.
 // Foundry's document persistence/UI are the external boundary, not copied rules.
 export function loadSystem(overrides = {}) {
@@ -40,7 +42,15 @@ export function loadSystem(overrides = {}) {
         // asserted on, instead of exploding with "ui is not defined".
         ui: {notifications: {warn: () => {}, info: () => {}, error: () => {}}},
         game: {settings: {get: () => false}, users: {}, actors: new Map(), scenes: new Map(),
-               i18n: {localize: key => key, format: (key, data) => `${key} ${JSON.stringify(data ?? {})}`}},
+               i18n: {
+                   // Real English, not the key: a test that asserts on what the
+                   // table reads should fail when the wording is wrong, and a
+                   // missing key should be visible rather than echoed back.
+                   localize: key => LANG[key] ?? key,
+                   format: (key, data) => Object.entries(data ?? {}).reduce(
+                       (text, [name, value]) => text.replaceAll(`{${name}}`, value),
+                       LANG[key] ?? key)
+               }},
         canvas: {ready: false},
         ...overrides
     });

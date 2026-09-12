@@ -17206,28 +17206,42 @@ function _getTargetConditionModifier(rollData) {
     const isMelee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
     let modifier = 0;
 
+    // Which condition earned the modifier, in the same shape the attacker's own
+    // conditions already use. The roll card used to label this total "Stunned"
+    // whatever caused it, so a prone target read as Stunned (-10) and a grappled
+    // one as Stunned (+20). The numbers were right; only the name was wrong.
+    const sources = [];
+    const note = (key, value) => {
+        modifier += value;
+        sources.push(`${game.i18n.localize(key)} (${value > 0 ? "+" : ""}${value})`);
+    };
+
     // Stunned gives +20 to all attacks (melee and ranged)
     if (_hasCondition(token, "stunned")) {
-        modifier += 20;
+        note("CONDITION.STUNNED", 20);
     }
 
     // Беспомощного бьют почти наверняка: без сознания или мёртв.
-    if (_hasCondition(token, "unconscious") || _hasCondition(token, "dead")) {
-        modifier += 30;
+    // "Мёртв" берёт ключ ядра: своей строки CONDITION.* у него нет.
+    if (_hasCondition(token, "unconscious")) {
+        note("CONDITION.UNCONSCIOUS", 30);
+    } else if (_hasCondition(token, "dead")) {
+        note("EFFECT.StatusDead", 30);
     }
 
     // Лежачего в ближнем бою добивать легче, а вот попасть в него издалека труднее:
     // он представляет меньшую цель.
     if (_hasCondition(token, "prone")) {
-        modifier += isMelee ? 10 : -10;
+        note("CONDITION.PRONE", isMelee ? 10 : -10);
     }
 
     // По схваченному Владением оружия бьют с +20: ему не до защиты
     // (BC, стр. 236).
     if (isMelee && _hasCondition(token, "grappled")) {
-        modifier += 20;
+        note("CONDITION.GRAPPLED", 20);
     }
 
+    rollData.targetConditionSources = sources.join(", ");
     return modifier;
 }
 
