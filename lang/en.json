@@ -1217,6 +1217,8 @@
   "AMMUNITION.FITS": "Compatibility",
   "AMMUNITION.FITS_HINT": "Nothing ticked — fits any weapon, as standard ammunition does.",
   "SETTINGS.RULESET": "Ruleset for NPCs and vehicles",
+  "SETTINGS.SHOW_WIZARD": "Show the character creation wizard",
+  "SETTINGS.SHOW_WIZARD_HINT": "Adds the Quick Build button to a character sheet. Off while the wizard is still being finished.",
   "SETTINGS.RULESET_HINT": "Heretic sheets always use Black Crusade rules and acolyte sheets always use Dark Heresy 2 rules. This setting decides which rules apply to actors that have no game of their own.",
   "RULESET.DH2": "Dark Heresy 2nd Edition",
   "RULESET.BC": "Black Crusade",

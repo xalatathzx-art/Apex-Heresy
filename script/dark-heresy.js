@@ -8985,7 +8985,11 @@ class BookSheet extends DarkHeresySheet {
         // Вход в Мастер создания прямо с листа. Второй путь, кроме кнопки в панели
         // «Актёры»: Мастера чаще открывают на уже заведённом персонаже — доделать
         // начатого или пройти шаги заново. HereticSheet наследует эту кнопку.
-        if (this.actor.isOwner) {
+        //
+        // Пока Мастер не готов, кнопка скрыта настройкой мира. Сам Мастер никуда
+        // не делся и доступен через программный интерфейс, так что доделывать и
+        // проверять его можно, не показывая столу.
+        if (this.actor.isOwner && _creationWizardVisible()) {
             buttons = [
                 {
                     label: game.i18n.localize("WIZARD.HEADER_BUTTON"),
@@ -17589,6 +17593,17 @@ Hooks.once("init", async function() {
         default: true,
         type: Boolean
     });
+    // Мастер создания ещё не готов к столу, поэтому его вход с листа по
+    // умолчанию скрыт. Настройка, а не вырезанный код: включить обратно можно
+    // не трогая систему, и доделывать его при этом никто не мешает.
+    game.settings.register("dark-heresy", "showCreationWizard", {
+        name: "SETTINGS.SHOW_WIZARD",
+        hint: "SETTINGS.SHOW_WIZARD_HINT",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
     game.settings.register("dark-heresy", "atmosphericEffects", {
         name: "Atmospheric Effects",
         hint: "Scanlines, flicker and background textures. Turn off for a calmer, faster sheet at the table.",
@@ -18297,6 +18312,19 @@ Hooks.on("preDeleteActiveEffect", (effect, options, userId) => {
  * @param {Actor} actor
  * @returns {boolean}
  */
+/**
+ * Показывать ли вход в Мастер создания.
+ *
+ * Настройка может быть ещё не зарегистрирована в момент, когда лист рисует шапку,
+ * и тогда чтение бросается. При любой неясности кнопка остаётся скрытой: скрыть
+ * недоделанное безопаснее, чем показать его по ошибке.
+ * @returns {boolean}
+ */
+function _creationWizardVisible() {
+    try { return !!game.settings.get("dark-heresy", "showCreationWizard"); }
+    catch (err) { return false; }
+}
+
 function _shouldPromptPlayerRoll(actor) {
     if (!actor?.hasPlayerOwner) return false;
     try {
