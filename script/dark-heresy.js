@@ -5012,6 +5012,11 @@ function _weaponSupportsAttackType(rollData) {
         return !(rollData.attackType?.name === "lightning"
             && (rollData.weapon?.traits?.unwieldy || rollData.weapon?.traits?.unbalanced));
     }
+    // Spray weapons skip the hit roll entirely (DH2 p. 179), so rate of fire
+    // never applies to them. prepareCombatRoll relabels them "standard", and
+    // demanding rof.single here froze the attack dialog with no message at all.
+    if (rollData.weapon?.traits?.skipAttackRoll) return true;
+
     const rof = rollData.weapon.rateOfFire || {};
     const name = rollData.attackType?.name;
     const needsBurst = name === "semi_auto"
@@ -5022,7 +5027,12 @@ function _weaponSupportsAttackType(rollData) {
         || (name === "suppression" && rollData.suppressionLength === "full");
 
     const has = value => Number(value) > 0;
-    if (["standard", "called_shot"].includes(name) && !has(rof.single)) return false;
+    // A refusal must say so. This branch returned false without a notification,
+    // so any weapon with missing rate-of-fire data failed with no explanation.
+    if (["standard", "called_shot"].includes(name) && !has(rof.single)) {
+        ui.notifications.warn(game.i18n.format("WEAPON.NO_SINGLE_SHOT", { weapon: rollData.weapon.name || rollData.name }));
+        return false;
+    }
     if (needsBurst && !has(rof.burst)) {
         ui.notifications.warn(game.i18n.format("WEAPON.NO_SEMI_AUTO", { weapon: rollData.weapon.name || rollData.name }));
         return false;

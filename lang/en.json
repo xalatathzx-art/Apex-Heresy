@@ -915,6 +915,7 @@
   "FATIGUE_MAX": "Max Fatigue",
   "INITIATIVE_CHARACTERISTIC": "Initiative Characteristic",
   "WEAPON.NO_SEMI_AUTO": "{weapon} cannot fire semi-auto bursts.",
+  "WEAPON.NO_SINGLE_SHOT": "{weapon} has no single-shot rate of fire.",
   "WEAPON.NO_FULL_AUTO": "{weapon} cannot fire full-auto bursts.",
   "TYPES.Actor.vehicle": "Vehicle",
   "TYPES.Item.vehicleWeapon": "Vehicle Weapon",

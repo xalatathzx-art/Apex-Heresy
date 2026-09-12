@@ -33,7 +33,12 @@ export function loadSystem(overrides = {}) {
             isEmpty: o => !Object.keys(o).length
         }},
         Hooks: {on: register, once: register, call: () => true, callAll: () => {}},
-        game: {settings: {get: () => false}, users: {}, actors: new Map(), scenes: new Map()},
+        // Notifications and localisation are the user-facing edge. They are stubbed
+        // rather than omitted so that a refusal which must explain itself can be
+        // asserted on, instead of exploding with "ui is not defined".
+        ui: {notifications: {warn: () => {}, info: () => {}, error: () => {}}},
+        game: {settings: {get: () => false}, users: {}, actors: new Map(), scenes: new Map(),
+               i18n: {localize: key => key, format: (key, data) => `${key} ${JSON.stringify(data ?? {})}`}},
         canvas: {ready: false},
         ...overrides
     });
