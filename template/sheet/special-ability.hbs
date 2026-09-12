@@ -30,6 +30,28 @@
                         <input name="system.benefit" type="text" value="{{system.benefit}}" />
                     </div>
                 </div>
+                {{!-- Режим Deathwatch: у одиночных способностей книга печатает ранг,
+                      у отрядных — цену Единства (стр. 216, 221). --}}
+                <div class="form-group">
+                    <label>{{localize "SPECIAL_ABILITY.MODE"}}</label>
+                    <div class="form-fields">
+                        <select name="system.mode">
+                            {{selectOptions (config "abilityModes") selected=system.mode localize=true}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "SPECIAL_ABILITY.REQUIRED_RANK"}}</label>
+                    <div class="form-fields">
+                        <input name="system.requiredRank" type="number" value="{{system.requiredRank}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "SPECIAL_ABILITY.COHESION_COST"}}</label>
+                    <div class="form-fields">
+                        <input name="system.cohesionCost" type="number" value="{{system.cohesionCost}}" data-dtype="Number" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>{{localize "TALENT.COST"}}</label>
                     <div class="form-fields">

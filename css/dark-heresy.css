@@ -7838,6 +7838,88 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
   color: var(--dh-ink);
 }
 
+/* Поля анкеты бывают и производными: ранг брата Караула Смерти считается по
+   опыту, вписывать его руками нельзя. Такое поле выглядит как остальные, но
+   вместо ввода в нём число. Широкое поле занимает всю строку сетки — под
+   историю брони двух столбцов мало. */
+.dark-heresy .header .bio-field.is-derived .bio-value,
+.dark-heresy .bio-field.is-derived .bio-value {
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-md);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  background: var(--dh-surface-sunken, var(--dh-field));
+  border: 1px dashed var(--dh-line);
+  color: var(--dh-ink);
+}
+.dark-heresy .header .bio-field.bio-field-wide {
+  grid-column: 1 / -1;
+}
+
+/* Та же сетка анкеты, но на вкладке: вкладка Караула Смерти пишет Известность и
+   Единство теми же полями, что шапка — иначе они выглядели бы чужими. */
+.dark-heresy .sheet-body .bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--dh-space-3) var(--dh-space-4);
+}
+.dark-heresy .sheet-body .bio-field {
+  display: grid;
+  gap: var(--dh-space-2);
+  min-width: 0;
+}
+.dark-heresy .sheet-body .bio-field > span {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  color: var(--dh-ink-faint);
+}
+
+/* ── Deathwatch ──────────────────────────────────────────────────────────────
+   Вторая страница книжного листа: Известность, Единство, клятва и способности
+   режимов. Ранг и цена Единства стоят в строке справа, как в книжных таблицах. */
+.dark-heresy .deathwatch-tab {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-4);
+}
+.dark-heresy .deathwatch-tab .cohesion-note {
+  margin: var(--dh-space-2) 0 0;
+  font-size: var(--dh-text-xs);
+  line-height: 1.4;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy .deathwatch-tab .oath textarea {
+  width: 100%;
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-md);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  resize: vertical;
+}
+.dark-heresy .deathwatch-tab .mode-rank,
+.dark-heresy .deathwatch-tab .mode-cost {
+  flex: 0 0 auto;
+  padding: 0 var(--dh-space-2);
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-muted);
+  white-space: nowrap;
+}
+.dark-heresy .deathwatch-tab .mode-cost {
+  color: var(--dh-accent);
+}
+/* Способность выше его ранга остаётся на виду: брат к ней дорастёт, и прятать
+   её значило бы скрывать, к чему он идёт. Но пользоваться ею пока нельзя. */
+.dark-heresy .deathwatch-tab .item.is-locked {
+  opacity: 0.55;
+}
+
 /* ── Vital strip ─────────────────────────────────────────────────────────────
    Three cells, each a labelled bar. Wounds fills as damage is taken and carries
    the hazard chevron; fate is a resource, so it takes the accent; fatigue is a

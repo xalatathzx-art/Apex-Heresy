@@ -131,3 +131,27 @@ regression pass over the three books that already work.
 - 2026-09-12: Research done from the PDF (pp. 23-30, 37-38, 58-59). Two findings shape the plan:
   Deathwatch prices every advance individually rather than by a ladder, and its Unnatural trait is
   a multiplier where the other books use an addition.
+- 2026-09-12: Tasks 1-5 and 7 done. Task 9 added and done: the book's own rules profile and the
+  book's own character sheet.
+  - `Dh.rulesets.dw` no longer clones Dark Heresy. Read against the book: Focus Power is +5 per
+    rating point with Fettered halving (pp. 185-186), 91-00 always fails, a double on a Push
+    costs a level of Fatigue, and Unnatural Willpower adds its multiplier to the Psy Rating and
+    to the degrees on an opposed psychic test (p. 186). The phenomena table is named on the chat
+    card so the Deathwatch table is rolled, not the Dark Heresy one beside it in the compendium.
+    Corruption is a Purity Threshold of 100 with nothing before it (p. 282); Insanity follows
+    Table 9-8 with the Primarch's Curse (p. 278); Fatigue is a flat -10 with no death at double
+    the threshold (p. 251); Larraman's Organ means a Battle-Brother never suffers Blood Loss
+    (p. 36). New pure module: `script/data/deathwatch-rules.mjs`.
+  - The sheet now asks what the book's sheet asks (p. 397): Chapter, Speciality, Rank (counted,
+    not typed), Past Event, Chapter Demeanour, Personal Demeanour, Power Armour History. The
+    book's second page became a tab of its own: Renown with its rank off Table 5-2, the Kill-team,
+    the Purity Threshold, Cohesion with the pool Table 7-8 would give, the Oath, and Solo and
+    Squad Mode abilities split by `system.mode` with Required Rank and Cohesion Cost.
+  - Fixed along the way: `_experienceStepContext` had an `await` in a synchronous method, which
+    made the whole system fail to load in Foundry — no sheet of any book would open. The advance
+    lists are now read in `_experienceContextLoaded` and cached. `tests/module-syntax.test.mjs`
+    parses every script so this cannot pass unseen again: the vm helper strips import lines, so
+    a broken imported module never reached the suite.
+  - Still to do: rebuild the `deathwatch` pack with Foundry closed (the mode fields are in
+    `packs-src` but not yet in the compendium), Task 6 (the wizard's life step) and Task 8
+    (the live build of a Space Wolf Assault Marine and an Ultramarine Librarian).

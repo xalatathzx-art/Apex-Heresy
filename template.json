@@ -1199,6 +1199,17 @@
         "pride": "",
         "vice": "",
         "aspiration": ""
+      },
+      "deathwatch": {
+        "deathwatch": {
+          "renown": 0,
+          "cohesion": {
+            "value": 0,
+            "max": 0
+          },
+          "oath": "",
+          "killTeam": ""
+        }
       }
     },
     "acolyte": {
@@ -1211,11 +1222,13 @@
         "fatigue",
         "fate",
         "psy",
-        "allegiance"
+        "allegiance",
+        "deathwatch"
       ],
       "bio": {
         "homeWorld": "",
         "background": "",
+        "pastEvent": "",
         "role": "",
         "elite": "",
         "divination": "",
@@ -1225,6 +1238,8 @@
         "complexion": "",
         "hair": "",
         "demeanour": "",
+        "chapterDemeanour": "",
+        "armourHistory": "",
         "comrade": "",
         "comradeDemeanour": "",
         "quirks": "",
@@ -1256,11 +1271,13 @@
         "fatigue",
         "fate",
         "psy",
-        "allegiance"
+        "allegiance",
+        "deathwatch"
       ],
       "bio": {
         "homeWorld": "",
         "background": "",
+        "pastEvent": "",
         "role": "",
         "elite": "",
         "divination": "",
@@ -1270,6 +1287,8 @@
         "complexion": "",
         "hair": "",
         "demeanour": "",
+        "chapterDemeanour": "",
+        "armourHistory": "",
         "comrade": "",
         "comradeDemeanour": "",
         "quirks": "",
@@ -1603,6 +1622,9 @@
         "itemDescription"
       ],
       "benefit": "",
+      "mode": "",
+      "requiredRank": 0,
+      "cohesionCost": 0,
       "cost": 0
     },
     "talent": {

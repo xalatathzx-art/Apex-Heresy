@@ -1,0 +1,86 @@
+{{!-- Караул Смерти: вторая страница книжного листа (стр. 399).
+
+      Известность, Единство, клятва и способности режимов стоят отдельно, потому
+      что отдельно их печатает и книга: это не снаряжение и не характеристики, а
+      то, чем брат связан со своим отрядом и с самим Караулом. --}}
+<div class="deathwatch-tab">
+    <div class="renown border">
+        <h1>{{localize "DEATHWATCH.RENOWN"}}</h1>
+        <div class="bio-grid">
+            <label class="bio-field">
+                <span>{{localize "DEATHWATCH.RENOWN_RATING"}}</span>
+                <input name="system.deathwatch.renown" type="number" value="{{system.deathwatch.renown}}" data-dtype="Number" />
+            </label>
+            <div class="bio-field is-derived" title="{{localize "DEATHWATCH.RENOWN_HINT"}}">
+                <span>{{localize "DEATHWATCH.RENOWN_RANK"}}</span>
+                <b class="bio-value">{{localize system.renownLabel}}</b>
+            </div>
+            <label class="bio-field">
+                <span>{{localize "DEATHWATCH.KILL_TEAM"}}</span>
+                <input name="system.deathwatch.killTeam" type="text" value="{{system.deathwatch.killTeam}}" />
+            </label>
+            <div class="bio-field is-derived" title="{{localize "DEATHWATCH.PURITY_HINT"}}">
+                <span>{{localize "DEATHWATCH.PURITY"}}</span>
+                <b class="bio-value">{{system.corruption}} / {{system.purityThreshold}}</b>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Единство — запас отряда, а не личный: его держит вожак, и любой брат
+          тратит из общего кошелька. Поэтому поле правится руками, а рядом стоит
+          подсказка, сколько его должно быть по таблице 7-8. --}}
+    <div class="cohesion border">
+        <h1>{{localize "DEATHWATCH.COHESION"}}</h1>
+        <div class="bio-grid">
+            <label class="bio-field">
+                <span>{{localize "DEATHWATCH.COHESION_CURRENT"}}</span>
+                <input name="system.deathwatch.cohesion.value" type="number" value="{{system.deathwatch.cohesion.value}}" data-dtype="Number" />
+            </label>
+            <label class="bio-field">
+                <span>{{localize "DEATHWATCH.COHESION_MAX"}}</span>
+                <input name="system.deathwatch.cohesion.max" type="number" value="{{system.deathwatch.cohesion.max}}" data-dtype="Number" />
+            </label>
+        </div>
+        <p class="cohesion-note">{{localize "DEATHWATCH.COHESION_NOTE"}}
+            <b>{{system.cohesionSuggested.total}}</b>
+            ({{localize "CHARACTERISTIC.FELLOWSHIP"}} {{system.cohesionSuggested.fellowshipBonus}}
+            + {{localize "DEATHWATCH.RANK"}} {{system.cohesionSuggested.rankBonus}}
+            + {{localize "SKILL.COMMAND"}} {{system.cohesionSuggested.commandBonus}})</p>
+    </div>
+
+    {{!-- Клятва: книжный лист держит для неё отдельную рамку, и это не заметка —
+          её произносят перед заданием и от неё зависят награды. --}}
+    <div class="oath border">
+        <h1>{{localize "DEATHWATCH.OATH"}}</h1>
+        <textarea name="system.deathwatch.oath" rows="3">{{system.deathwatch.oath}}</textarea>
+    </div>
+
+    {{#each deathwatchModes as |group|}}
+    <div class="mode-abilities border">
+        <div class="flex header">
+            <h1>{{localize group.label}}</h1>
+            <a class="button item-create" title="{{localize group.label}}" data-type="specialAbility"><i class="fas fa-plus"></i></a>
+        </div>
+        <div class="item-list">
+            {{#each group.items as |item|}}
+            <div class="item flex row{{#if item.lockedByRank}} is-locked{{/if}}" data-item-id="{{item.id}}"
+                 title="{{#if item.lockedByRank}}{{localize "DEATHWATCH.RANK_TOO_LOW"}}{{/if}}">
+                <div class="flex item-edit">
+                    <div class="image-container">
+                        <div class="image" style="background-image: url('{{item.img}}')"></div>
+                    </div>
+                    <span class="name">{{item.name}}</span>
+                </div>
+                {{#if item.system.requiredRank}}
+                <span class="mode-rank" title="{{localize "SPECIAL_ABILITY.REQUIRED_RANK"}}">{{localize "DEATHWATCH.RANK"}} {{item.system.requiredRank}}</span>
+                {{/if}}
+                {{#if group.isSquad}}
+                <span class="mode-cost" title="{{localize "SPECIAL_ABILITY.COHESION_COST"}}">{{item.system.cohesionCost}}</span>
+                {{/if}}
+                <a class="button item-delete"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+</div>

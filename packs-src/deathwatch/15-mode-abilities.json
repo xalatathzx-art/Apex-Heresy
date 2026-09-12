@@ -1,146 +1,506 @@
 [
-  { "name": "Burst of Speed", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
-    "system": { "benefit": "Required Rank 1. Increases Movement.",
+  {
+    "name": "Burst of Speed",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Required Rank 1. Increases Movement.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>A Battle-Brother can call on reserves of speed when needed, crossing great distances to close with the foe.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Once per game session, a Battle-Brother can perform a Burst of Speed. This ability increases the character’s Agility Bonus by 2 with all the usual associated benefits for a number of Rounds equal to his Rank.</p><p><strong>Improvement:</strong> At Rank 3 and above Burst of Speed also adds a +10 to all Agility tests based on movement. At Rank 5 the bonus to Agility Bonus increases to +4. At Rank 7 this ability allows the Battle-Brother to ignore the need to make Agility Tests when running or charging in difficult terrain (see page 206).</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Emperor’s Grace", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
-    "system": { "benefit": "Required Rank 7. Roll to recover spent Fate.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Emperor’s Grace",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Required Rank 7. Roll to recover spent Fate.",
+      "mode": "solo",
+      "requiredRank": 7,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>A Battle-Brother is touched by the divine will of the Emperor, a piece of the Master of Mankind passed down to him through his Primarch and the teachings of his Chapter.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 7</p><p>Once per game session, a Battle-Brother can call on the Emperor’s Grace to recover spent Fate Points. For a number of Rounds equal to his Rank, whenever the Battle-Brother spends a Fate Point, he should roll 1d10. If he scores equal or less than his Rank, the Fate Point is immediately recovered. This ability cannot restore Fate Points that have been burnt (see page 205).</p><p><strong>Improvement:</strong> This ability does not improve with Rank.</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Extreme Endurance", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
-    "system": { "benefit": "Required Rank 5. Re-roll Toughness Tests.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Extreme Endurance",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "benefit": "Required Rank 5. Re-roll Toughness Tests.",
+      "mode": "solo",
+      "requiredRank": 5,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Battle-Brothers are born tough. Even before being gifted with their Chapter’s gene-seed, they are selected for their endurance and physical stamina, a trait that only strengthens over time.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 5</p><p>Once per game session, a Battle-Brother may use his Extreme Endurance to fortify his constitution, granting him a re-roll on all Toughness Tests for a number of hours equal to his Rank.</p><p><strong>Improvement:</strong> At Rank 7 the Battle-Brother may add +20 to the result of the re-roll.</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Feat of Strength", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
-    "system": { "benefit": "Required Rank 1. Increase Strength Bonus.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Feat of Strength",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/strength.webp",
+    "system": {
+      "benefit": "Required Rank 1. Increase Strength Bonus.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Space Marines are genetically gifted with great strength far exceeding that or normal men. In times of need, a Battle-Brother can push this great brawn to its limits to perform truly impressive feats.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Once per day of game time, a Battle-Brother may perform a Feat of Strength. This ability effectively increases his Unnatural Strength Trait (see page 136) by one level, so for instance Unnatural Strength x2 becomes Unnatural Strength x3. This effect lasts for a number of Rounds equal to his Rank.</p><p><strong>Improvement:</strong> At Rank 3 and above Feat of Strength also adds +10 to all Strength Tests and Strength-based Skill Tests for its duration. At Rank 5 and above Feat of Strength last for a number of Rounds equal to twice the character’s Rank. At Rank 7 and above Feat of Strength increases the character’s Unnatural Strength Trait by two levels.</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Mental Fortress", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
-    "system": { "benefit": "Required Rank 5. Re-roll failed Willpower Tests.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Mental Fortress",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/willpower.webp",
+    "system": {
+      "benefit": "Required Rank 5. Re-roll failed Willpower Tests.",
+      "mode": "solo",
+      "requiredRank": 5,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>The Adeptus Astartes are as strong of mind as they are of body, their training and devotion to the Emperor hardening their wills against the perils of a deadly universe.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 5</p><p>Once per game session, a Battle-Brother may use the Mental Fortress ability to re-roll a failed Willpower Test to resist a Psychic Power or an attempt to subvert his will.</p><p><strong>Improvement:</strong> At Rank 7 the Battle-Brother may add +20 to the result of the re-roll.</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Renewed Vigour", "type": "specialAbility", "folder": "Solo Mode Abilities/Codex", "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
-    "system": { "benefit": "Required Rank 3. Ignore Critical Hit effects and restore Wounds.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Renewed Vigour",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Codex",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/toughness.webp",
+    "system": {
+      "benefit": "Required Rank 3. Ignore Critical Hit effects and restore Wounds.",
+      "mode": "solo",
+      "requiredRank": 3,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>A Space Marine’s physiology and his training give him an incredible tolerance to pain, injury, and wounds.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 3</p><p>Once per game session, a Battle-Brother may call upon his Renewed Vigour. This is a Free Action that can be done at the start of any of his Turns. For a number of Rounds equal to his Rank, he can ignore the effects of a single critical hit, such as Stunning, levels of Fatigue, or unconsciousness. Note, however, this does not allow the use of limbs that have been completely blown off or critical hits that result in death. Also, any new critical hit effects suffered during the Renewed Vigour affect the Battle-Brother as normal.</p><p><strong>Improvement:</strong> At Rank 5 the Renewed Vigour also restores a number of Wounds to the Battle-Brother equal to his Rank. At Rank 7 the Battle-Brother can ignore all of the critical hit effects he is currently suffering from for the duration of the ability.</p></div></div>",
-      "source": "Deathwatch, p. 216 (Table 7-10)" } },
-  { "name": "Righteous Zeal (Black Templars)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
-    "system": { "benefit": "Required Rank 1. Bonuses to attack Daemons.",
+      "source": "Deathwatch, p. 216 (Table 7-10)"
+    }
+  },
+  {
+    "name": "Righteous Zeal (Black Templars)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Required Rank 1. Bonuses to attack Daemons.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>The Black Templars are well known for their fanatical devotion to the Emperor and their burning hatred for psykers, witches, and warp spawn.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Once per combat, a Battle-Brother of the Black Templars Chapter may call upon Righteous Zeal as a Free Action at the start of his Turn. While under the effects of the Righteous Zeal, Damage inflicted by the Battle-Brother’s melee attacks against creatures with the Daemonic Trait is not reduced by Toughness Bonus. In addition, the Battle Brother’s own Toughness Bonus is increased by +4 when reducing Damage from attacks by creatures with the Daemonic Trait or Damage from Psychic Powers and weapons. Righteous Zeal lasts for a number of Rounds equal to the Battle-Brother’s Rank.</p><p><strong>Improvement:</strong> At Rank 3 and above the Battle-Brother gains an additional +10 to hit and +2 to Damage rolls when making melee attacks against any creature with psychic abilities. At Rank 5 and above, the increase to Toughness Bonus rises to +8. At Rank 7 and above the Warp Weapons Trait no longer has any effect on the Battle-Brother. All of these improvements only apply during Righteous Zeal.</p></div></div>",
-      "source": "Deathwatch, p. 217 (Table 7-11)" } },
-  { "name": "Blood Frenzy (Blood Angels)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
-    "system": { "benefit": "Required Rank 1. Bonuses in Melee Combat.",
+      "source": "Deathwatch, p. 217 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Blood Frenzy (Blood Angels)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
+    "system": {
+      "benefit": "Required Rank 1. Bonuses in Melee Combat.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Blood Angels possess a savagery in combat that has its roots deep in the history of their Chapter.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>It is, however, a trait that can serve them well in close quarters combat where strength and speed are vital. Once per combat, a Battle-Brother of the Blood Angels Chapter may summon up a Blood Frenzy. While under the effects of this ability, the Battle-Brother may re-roll Damage dice with melee weapons. In the case of melee weapons that inflict multiple dice of Damage, all dice or none must be re-rolled. In addition, such is the brutality of his attacks that he scores Righteous Fury (see page 245) on a dice result of 9 or 10 rather than just 10. This ability lasts a number of rounds equal to the Battle-Brother’s Rank, divided by 2 (rounding up).</p><p><strong>Improvement:</strong> At Rank 3 and above the Penetration of any melee weapon attacks by the Battle-Brother are increased by +2. At Rank 5 and above this additional melee weapon Penetration rises to +4. At Rank 7 and above the chance of scoring Righteous Fury increases to a dice result of 8, 9, or 10.</p></div></div>",
-      "source": "Deathwatch, p. 217 (Table 7-11)" } },
-  { "name": "Stoic Defence (Dark Angels)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
-    "system": { "benefit": "Required Rank 1. Bonus Wounds if you don’t move.",
+      "source": "Deathwatch, p. 217 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Stoic Defence (Dark Angels)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "benefit": "Required Rank 1. Bonus Wounds if you don’t move.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Dark Angels are stubborn in attack and intractable in defence, holding their ground against even the most furious of assaults.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Once per combat a Battle-Brother of the Dark Angels Chapter may enact a Stoic Defence. The Space Marine gains 6 Temporary Wounds and his maximum Movement Rate is reduced to 1/2 his Agility Bonus, rounding up (most Space Marines with this ability hold their chosen position and do not advance or retreat!). Unlike normal Wounds, these bonus Wounds are removed when affected by the Damage of any successful attack, and are always removed first before applying Damage to the Battle-Brother’s normal Wounds. These bonus Wounds will also be lost if the Battle-Brother leaves his chosen location either by his own choice or involuntarily.</p><p><strong>Improvement:</strong> At Rank 3 and above the temporary Wounds increase to 12. At Rank 5 and above the Battle-Brother may move a number of metres equal to his Agility Bonus each round without losing the effects of the ability. At Rank 7 and above the temporary Wounds increase to 18.</p></div></div>",
-      "source": "Deathwatch, p. 217 (Table 7-11)" } },
-  { "name": "Wolf Senses (Space Wolves)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
-    "system": { "benefit": "Required Rank 1. Re-roll failed Perception-based Tests.",
+      "source": "Deathwatch, p. 217 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Wolf Senses (Space Wolves)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/perception.webp",
+    "system": {
+      "benefit": "Required Rank 1. Re-roll failed Perception-based Tests.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>As part of the genetic gifts of their Primarch Leman Russ, the Space Wolves have almost preternatural senses that exceed even those of other Space Marines.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Whenever a Battle-Brother of the Space Wolves Chapter is in Solo Mode he may re-roll any failed Perception-based Tests and counts as possessing the Dark Sight Trait. However, it is important to note that none of these bonuses apply if the Space Wolf is wearing a helmet for a sealed set of armour (e.g., Power Armour, Artificer Armour, or Terminator Armour).</p><p><strong>Improvement:</strong> At Rank 3 and above the Battle-Brother adds +10 to all Perception-based Tests. At Rank 5 and above, he gains the Unnatural Perception (x2) Trait while using this ability. At Rank 7 and above the Battle-Brother’s senses are such that once per game session he can automatically pass any test based on Perception (for purposes of Opposed Tests the Battle-Brother is considered to have rolled a 01).</p></div></div>",
-      "source": "Deathwatch, p. 217 (Table 7-11)" } },
-  { "name": "Thunder’s Call (Storm Wardens)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
-    "system": { "benefit": "Required Rank 1. One enemy gains penalties to attack others.",
+      "source": "Deathwatch, p. 217 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Thunder’s Call (Storm Wardens)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
+    "system": {
+      "benefit": "Required Rank 1. One enemy gains penalties to attack others.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Storm Wardens often choose to prove their honour and bravery by facing foes in single combat and duelling to the death.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>Once per combat as a Free Action, a Battle-Brother of the Storm Wardens Chapter may issue a Thunder’s Call against any single enemy which can both see and hear him (though it need not be able to understand his language). As long as the Battle-Brother takes no Actions other than melee attacks against the target or moving him into melee with the target, and none of his allies attack the target, he gains +10 to Weapon Skill Tests against it. In addition, as long as the Battle-Brother is engaged in melee combat with the target, it suffers –10 to make attacks against anyone but the Storm Warden and must pass a Challenging (+0) Agility Test to move away.</p><p>This ability lasts until either the target is dead or withdraws from combat (i.e. it retreats and combat ends) or the Battle-Brother withdraws from combat.</p><p><strong>Improvement:</strong> At Rank 3 and above the Battle-Brother’s duelling skills mean that he may re-roll both Parry and Dodge Tests against attacks from the target of his Thunder’s Call. At Rank 5 and above the target’s penalties to attack anyone other than the Storm Warden increase to –20 and the Agility Test to move away becomes Hard (–20). At Rank 7 and above he may issue the Thunder’s Call to a group of foes up to his Rank in number.</p></div></div>",
-      "source": "Deathwatch, p. 218 (Table 7-11)" } },
-  { "name": "Favoured Son (Ultramarines)", "type": "specialAbility", "folder": "Solo Mode Abilities/Chapter", "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
-    "system": { "benefit": "Required Rank 1. Bonuses to Cohesion.",
+      "source": "Deathwatch, p. 218 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Favoured Son (Ultramarines)",
+    "type": "specialAbility",
+    "folder": "Solo Mode Abilities/Chapter",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "benefit": "Required Rank 1. Bonuses to Cohesion.",
+      "mode": "solo",
+      "requiredRank": 1,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>The Ultramarines consider themselves a pure expression of the Codex Astartes and among the truest of the Emperors sons.</p><div class='bc-rule'><p><strong>Required Rank:</strong> 1</p><p>This pride and unshakable personal belief often manifests itself in their leadership abilities and the example they set to other members of the Adeptus Astartes. While in Solo Mode, a Battle-Brother of the Ultramarines Chapter may re-roll any Fellowship Tests when dealing with either Space Marines or members of the Imperial armed forces (i.e. Imperial Guard, Imperial Navy, etc.).</p><p>In addition, their strength of leadership means that the Battle-Brother adds +1 to the Kill-team’s Cohesion if he is the squad leader. This bonus to Cohesion remains active even when the Battle-Brother is not in Solo Mode.</p><p><strong>Improvement:</strong> At Rank 3 and above once per combat the Battle-Brother may automatically pass one Command Skill Test. At Rank 5 and above the Dispositions (see page 276) of all Imperial forces and agents are improved favourably by one step when dealing with the Battle-Brother. At Rank 7 and above the Battle-Brother adds +2 to his Kill-team’s Cohesion rather than +1.</p></div></div>",
-      "source": "Deathwatch, p. 218 (Table 7-11)" } },
-  { "name": "Bolter Assault", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
-    "system": { "benefit": "Free Action, Cost 3, not Sustained. Charge Move and a Standard Attack with a bolt weapon.",
+      "source": "Deathwatch, p. 218 (Table 7-11)"
+    }
+  },
+  {
+    "name": "Bolter Assault",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/weapons/boltgun.webp",
+    "system": {
+      "benefit": "Free Action, Cost 3, not Sustained. Charge Move and a Standard Attack with a bolt weapon.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>Space Marines are shock troops and excel at closing rapidly with the enemy, annihilating them in a storm of bolter fire.</p><div class='bc-rule'><p><strong>Action:</strong> Free Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> No</p><p>When the Battle-Brother calls a Bolter Assault, both he and those in Support Range may make an immediate Charge Move and a Standard Attack with a bolter, bolt pistol, or storm bolter (including variants of these weapons). Alternatively, they may use their Standard Attack to throw a grenade.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, both he and the Kill-team can make Semi Auto Bursts and Full Auto Bursts instead of a Standard Attack with their bolt weapons.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Fire for Effect", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
-    "system": { "benefit": "Half Action, Cost 2, Sustained. Use Reactions to make a Standard Attack with a ranged weapon.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Fire for Effect",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "benefit": "Half Action, Cost 2, Sustained. Use Reactions to make a Standard Attack with a ranged weapon.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Working as a single well-oiled machine, the Kill-team can snap off shots at targets as they appear.</p><div class='bc-rule'><p><strong>Action:</strong> Half Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>While this power is in effect, the Kill-team may use their Reactions to make a Standard Attack with a ranged weapon.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, both he and the Kill-team can make Semi Auto Bursts and Full Auto Bursts instead of a Standard Attack with their ranged weapons.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Fire Support", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
-    "system": { "benefit": "Half Action, Cost 1, Sustained. No –20 for Suppressing Fire and Overwatch.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Fire Support",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/weapons/heavy-bolter.webp",
+    "system": {
+      "benefit": "Half Action, Cost 1, Sustained. No –20 for Suppressing Fire and Overwatch.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 1,
       "description": "<div class='bc-entry'><p class='bc-lead'>All combat squads train in concentrating their fire and working as a team to achieve fire superiority over their foes.</p><div class='bc-rule'><p><strong>Action:</strong> Half Action · <strong>Cost:</strong> 1 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Kill-team does not suffer the normal –20 to hit when using the Suppressing Fire and Overwatch actions (see page 241).</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 3 or more, calling for Fire Support becomes a Free Action.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Furious Charge", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
-    "system": { "benefit": "Free Action, Cost 3, not Sustained. Charge Move and melee Standard Attack, re-roll Damage.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Furious Charge",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/weapons/chainsword.webp",
+    "system": {
+      "benefit": "Free Action, Cost 3, not Sustained. Charge Move and melee Standard Attack, re-roll Damage.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>Often the only way to break a foe is to charge into their midst and hack them down.</p><div class='bc-rule'><p><strong>Action:</strong> Free Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> No</p><p>Using this ability, the Battle-Brother and those in Support Range of him may make an immediate Charge Move and a Standard Attack with a melee weapon. In addition, such is the fury of such an attack that all Battle-Brothers involved may re-roll Damage for their attacks.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more then both he and the Kill-team can make Multiple Attacks instead of a Standard Attack with their melee weapons.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Squad Advance", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
-    "system": { "benefit": "Half Action, Cost 1, Sustained. Use Reactions to make a Tactical Advance.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Squad Advance",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Half Action, Cost 1, Sustained. Use Reactions to make a Tactical Advance.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 1,
       "description": "<div class='bc-entry'><p class='bc-lead'>Kill-teams move with a deadly precision across the battlefield, covering each other as they advance and crossing ground swiftly from cover to cover.</p><div class='bc-rule'><p><strong>Action:</strong> Half Action · <strong>Cost:</strong> 1 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Kill-team may use their Reactions to make a Tactical Advance (see page 243).</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 3 or more, calling for a Squad Advance becomes a Free Action.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Tank Buster", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/weapons/melta-bomb.webp",
-    "system": { "benefit": "Free Action, Cost 1, not Sustained. Bonuses against armoured vehicles and fortifications.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Tank Buster",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/weapons/melta-bomb.webp",
+    "system": {
+      "benefit": "Free Action, Cost 1, not Sustained. Bonuses against armoured vehicles and fortifications.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 1,
       "description": "<div class='bc-entry'><p class='bc-lead'>As small elite infantry squads, Kill-teams are well versed in the methods of dealing with large, hardened threats like armour and bunkers.</p><div class='bc-rule'><p><strong>Action:</strong> Free Action · <strong>Cost:</strong> 1 · <strong>Sustained:</strong> No</p><p>When attacking such enemies, the squad will typically use some members to draw fire while the others dispatch it with heavy weapons or demo-packs. The Battle-Brother may nominate a member of the Kill-team armed with either a heavy weapon or an explosive (this could be himself) to initiate a Tank Buster manoeuvre as part of an Attack Action against an armoured vehicle or fortification. For every member of the Kill-team in Support Range, the nominated Battle-Brother may add either +5 to his Ballistic Skill to attack or move 2 metres closer to his target (if he is trying to plant a charge or grenade).</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the nominated Battle-Brother may add +10 to his Ballistic Skill or move 5 metres closer to his target for every member of the Kill-team in Support Range.</p></div></div>",
-      "source": "Deathwatch, p. 221 (Table 7-12)" } },
-  { "name": "Holy Vengeance (Black Templars)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
-    "system": { "benefit": "Half Action, Cost 2, not Sustained. Chain extra melee attacks on every hit.",
+      "source": "Deathwatch, p. 221 (Table 7-12)"
+    }
+  },
+  {
+    "name": "Holy Vengeance (Black Templars)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Half Action, Cost 2, not Sustained. Chain extra melee attacks on every hit.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>The holy fury of the Emperor lives in the hearts of all Black Templars, awaiting the time when it will be unleashed upon his foes.</p><div class='bc-rule'><p><strong>Chapter:</strong> Black Templars · <strong>Action:</strong> Half Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> No</p><p>Until the start of his next Turn, whenever the Battle-Brother and those in Support Range of him make a successful Standard Attack with a melee weapon (whether or not Damage is inflicted) they may immediately make an additional Standard Attack with that same weapon, against the same foe, as a Free Action. If this blow also hits, then they may make an additional Standard Attack and so on, up to a total number of extra attacks equal to their Agility Bonus.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, summoning the Holy Vengeance is a Free Action.</p></div></div>",
-      "source": "Deathwatch, p. 222 (Table 7-13)" } },
-  { "name": "Fury of Sanguinius (Blood Angels)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
-    "system": { "benefit": "Free Action, Cost 3, not Sustained. +10 Weapon Skill, Strength and Toughness.",
+      "source": "Deathwatch, p. 222 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Fury of Sanguinius (Blood Angels)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
+    "system": {
+      "benefit": "Free Action, Cost 3, not Sustained. +10 Weapon Skill, Strength and Toughness.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>The Blood Angels possess a fury on the battlefield that can turn them into wild beasts intent only on rending their foes limb from limb.</p><div class='bc-rule'><p><strong>Chapter:</strong> Blood Angels · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> No</p><p>A Battle-Brother of the Blood Angels Chapter may call out to his Primarch Sanguinius to strengthen his arm and fill him with rage against his foes. Until the start of his next Turn, the Battle-Brother and those in Support Range of him add +10 to their Weapon Skill, Strength, and Toughness, including any corresponding increases in Strength Bonus and Toughness Bonus.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more the bonuses to Weapon Skill, Strength, and Toughness are increased to +20.</p></div></div>",
-      "source": "Deathwatch, p. 222 (Table 7-13)" } },
-  { "name": "Sustained Suppression (Dark Angels)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
-    "system": { "benefit": "Free Action, Cost 2, Sustained. Act normally while maintaining Overwatch.",
+      "source": "Deathwatch, p. 222 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Sustained Suppression (Dark Angels)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/ballistic_skill.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, Sustained. Act normally while maintaining Overwatch.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Dark Angels are masters of holding their ground and have a keen understanding of the tactics of overlapping fields of fire and kill zones.</p><div class='bc-rule'><p><strong>Chapter:</strong> Dark Angels · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Battle-Brother and those in Support Range of him may take actions normally while maintaining Overwatch (see page 241), such as moving and making attacks.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the test to avoid Pinning when caught in a kill zone created by him or those supporting him increases from Hard (–20) to Very Hard (–30).</p></div></div>",
-      "source": "Deathwatch, p. 222 (Table 7-13)" } },
-  { "name": "Tooth and Nail (Space Wolves)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
-    "system": { "benefit": "Free Action, Cost 2, Sustained. Bonuses in grapples, outnumbering and melee defence.",
+      "source": "Deathwatch, p. 222 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Tooth and Nail (Space Wolves)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, Sustained. Bonuses in grapples, outnumbering and melee defence.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>The animalistic nature and fighting style of the Space Wolves often gives them an edge in close combat where they may unleash their inner beast against their enemies.</p><div class='bc-rule'><p><strong>Chapter:</strong> Space Wolves · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Battle-Brother and those in Support Range of him may re-roll all Opposed Tests in grapples, add an additional +10 to any bonuses for outnumbering foes in hand-to-hand, and add +10 to Dodge and Parry rolls against melee attacks.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the bonus to outnumbering and to Dodge rolls increases to +20.</p></div></div>",
-      "source": "Deathwatch, p. 222 (Table 7-13)" } },
-  { "name": "Lightning Strike (Storm Wardens)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
-    "system": { "benefit": "Reaction, Cost 2, not Sustained. Gain a Surprise Round at the start of combat.",
+      "source": "Deathwatch, p. 222 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Lightning Strike (Storm Wardens)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/weapons/hammer.webp",
+    "system": {
+      "benefit": "Reaction, Cost 2, not Sustained. Gain a Surprise Round at the start of combat.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>The Storm Wardens know well the doctrine of strike first, strike fast and practise this both in personal duels and their squad tactics.</p><div class='bc-rule'><p><strong>Chapter:</strong> Storm Wardens · <strong>Action:</strong> Reaction · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> No</p><p>A Battle-Brother of the Storm Wardens Chapter may order a Lightning Strike at the start of any combat where neither side is Surprised (see page 235). The Battle-Brother and those in Support Range of him immediately gain a Surprise Round just as if they had Surprised their foes.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 3 or more, in addition to gaining a Surprise Round, both he and those supporting him may roll two dice and choose the highest when determining their Initiative for the following combat.</p></div></div>",
-      "source": "Deathwatch, p. 222 (Table 7-13)" } },
-  { "name": "Lead by Example (Ultramarines)", "type": "specialAbility", "folder": "Squad Mode Abilities/Attack Patterns", "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
-    "system": { "benefit": "Free Action, Cost 2, Sustained. Bonus to all tests equal to the Battle-Brother’s Fellowship Bonus.",
+      "source": "Deathwatch, p. 222 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Lead by Example (Ultramarines)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Attack Patterns",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, Sustained. Bonus to all tests equal to the Battle-Brother’s Fellowship Bonus.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Of all the Chapters, the Ultramarines pride themselves as among the most loyal and bravest of all the Emperor’s chosen, a fact that they like to impress upon their fellow Battle-Brothers.</p><div class='bc-rule'><p><strong>Chapter:</strong> Ultramarines · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>While this power is in effect, all Battle-Brothers within Support Range of the Battle-Brother (including the Battle-Brother himself) gain a bonus on all tests equal to the Battle-Brother’s Fellowship Bonus. In addition, each Round the Battle-Brother may single out one member of his Kill-team and grant that character a re-roll on any one test (this re-roll includes the bonus provided by his Fellowship).</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the bonus to tests increases to twice his Fellowship Bonus.</p></div></div>",
-      "source": "Deathwatch, p. 222–223 (Table 7-13)" } },
-  { "name": "Dig In", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
-    "system": { "benefit": "Full Action, Cost 3, Sustained. Double the Armour Points provided by cover.",
+      "source": "Deathwatch, p. 222–223 (Table 7-13)"
+    }
+  },
+  {
+    "name": "Dig In",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "benefit": "Full Action, Cost 3, Sustained. Double the Armour Points provided by cover.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>Against fearsome weapons like plasma cannons and meltaguns, even Space Marines will use cover to their advantage.</p><div class='bc-rule'><p><strong>Action:</strong> Full Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> Yes</p><p>A Battle-Brother may order his squad to Dig In, seeking out the most defensible firing positions. While this ability is in effect, the Battle-Brother and those in Support Range of him can double the Armour Points provided by any cover (see page 246) they are currently using. This bonus to cover only applies to each individual Battle-Brother so long as they remain stationary.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more, both he and those supporting him may move freely. The benefits of doubled Armour Points applying to all cover they use for the duration of the ability.</p></div></div>",
-      "source": "Deathwatch, p. 223 (Table 7-14)" } },
-  { "name": "Go to Ground", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
-    "system": { "benefit": "Reaction, Cost 1, not Sustained. Free move to cover when hit by a ranged attack.",
+      "source": "Deathwatch, p. 223 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Go to Ground",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Reaction, Cost 1, not Sustained. Free move to cover when hit by a ranged attack.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 1,
       "description": "<div class='bc-entry'><p class='bc-lead'>When subjected to heavy, accurate, and effective fire, a well-trained squad knows to take cover.</p><div class='bc-rule'><p><strong>Action:</strong> Reaction · <strong>Cost:</strong> 1 · <strong>Sustained:</strong> No</p><p>As a Reaction, the Battle-Brother may issue a Go to Ground order when he or another member of his Kill-team within his Support Range has been hit by a ranged attack. Both the Battle-Brother and those in Support Range of him may immediately make a free move up to their Agility Bonus in metres to find cover. Note that the effects of the hit are worked out before any Battle-Brothers may move. In the case of hits from semi or full auto weapons, only the first hit is worked out before the Battle-Brothers move and the remaining hits after they have gone to ground.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the free move to cover may be up to twice the Battle-Brother’s Ability Bonus.</p></div></div>",
-      "source": "Deathwatch, p. 223 (Table 7-14)" } },
-  { "name": "Regroup", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
-    "system": { "benefit": "Full Action, Cost 2, not Sustained. Free move that does not trigger Overwatch.",
+      "source": "Deathwatch, p. 223 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Regroup",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "benefit": "Full Action, Cost 2, not Sustained. Free move that does not trigger Overwatch.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>A Kill-team stands united and is always stronger supporting each other against their foes.</p><div class='bc-rule'><p><strong>Action:</strong> Full Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> No</p><p>As a Full Action, the Battle-Brother may order a Regroup to allow himself and those in Support Range of him to move up to twice their Agility Bonus in any direction, just as if they had made a Full Move Action. In addition, Regroup move does not trigger enemy Overwatch or Suppression Fire.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, in addition to this free movement, Battle-Brothers may reload any weapons they are currently carrying, provided doing so would only be a Half Action or a Free Action.</p></div></div>",
-      "source": "Deathwatch, p. 223 (Table 7-14)" } },
-  { "name": "Soak Fire", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
-    "system": { "benefit": "Reaction, Cost 2, not Sustained. Divide automatic fire hits among the squad.",
+      "source": "Deathwatch, p. 223 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Soak Fire",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/protection/armour.webp",
+    "system": {
+      "benefit": "Reaction, Cost 2, not Sustained. Divide automatic fire hits among the squad.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>While a good formation covers all angles of attack, it also shields the squad from directed fire.</p><div class='bc-rule'><p><strong>Action:</strong> Reaction · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> No</p><p>This is especially true of Space Marines, who use their bulk and armour to shrug off hails of bullets, bolts, and beams. A Battle-Brother may use the Soak Fire ability whenever another member of his squad currently within his Support Range is hit by a Semi or Full Auto fire attack and would be eligible to make a Dodge Test to avoid the attack. These hits are then divided evenly between the original target, the Battle-Brother, and those supporting him, provided they would normally be eligible targets for the attack. Regardless of the number of Battle-Brothers soaking fire, the original target always takes at least one hit. Note that Battle-Brothers soaking fire cannot Dodge attacks allocated to them.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, both he and those supporting him may soak single-attack ranged weapons, such as a blast from a lascannon or a sniper’s bullet, dividing the Damage evenly between those involved.</p></div></div>",
-      "source": "Deathwatch, p. 223 (Table 7-14)" } },
-  { "name": "Strongpoint", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
-    "system": { "benefit": "Full Action, Cost 3, Sustained. Called Targets grant +20 to hit and re-rolled Damage.",
+      "source": "Deathwatch, p. 223 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Strongpoint",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "benefit": "Full Action, Cost 3, Sustained. Called Targets grant +20 to hit and re-rolled Damage.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>Sometimes a Space Marine squad needs to hold a position at all costs, setting up fields of overlapping fire and holding the enemy back with a hail of bolt shells.</p><div class='bc-rule'><p><strong>Action:</strong> Full Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> Yes</p><p>A Battle-Brother can establish a Strongpoint, nominating either himself or a member of his Kill-team within Support Range as the Centre of the Strongpoint. The Centre must remain stationary for the ability to remain in effect. The Centre may then Call Targets either as a Free Action in his turn or as a Reaction. Battle-Brothers in Support Range of the Centre (including the Centre himself) then gain a +20 to Ballistic Skill and Weapon Skill Tests against a Called Target, may re-roll Damage against it, and may use their Reactions to make Standard Attacks against it. A target remains marked in this way until either the Centre moves (ending the Strongpoint) or the Centre marks a new target.</p><p><strong>Improvement:</strong> This ability cannot be improved.</p></div></div>",
-      "source": "Deathwatch, p. 224 (Table 7-14)" } },
-  { "name": "Tactical Spacing", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
-    "system": { "benefit": "Full Action, Cost 1, Sustained. Share Reactions within the Kill-team.",
+      "source": "Deathwatch, p. 224 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Tactical Spacing",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/agility.webp",
+    "system": {
+      "benefit": "Full Action, Cost 1, Sustained. Share Reactions within the Kill-team.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 1,
       "description": "<div class='bc-entry'><p class='bc-lead'>Formation and spacing are an important part of a squad’s function on the battlefield and influence their ability to warn each other of danger and defend themselves against attack.</p><div class='bc-rule'><p><strong>Action:</strong> Full Action · <strong>Cost:</strong> 1 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Battle-Brother and those in Support Range of him can share their Reactions. For example, one member of the Kill-team could give his Reaction (losing it for himself for the turn) to another member of the Kill-team to use. If the Space Marine has extra reactions (such as the bonus reactions granted from the Step Aside Talent), these may also be shared.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more, in addition to being able to share Reactions within the group, all members gain an additional Reaction while this ability is in effect.</p></div></div>",
-      "source": "Deathwatch, p. 224 (Table 7-14)" } },
-  { "name": "Armour of Faith (Black Templars)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
-    "system": { "benefit": "Free Action, Cost 2, Sustained. +10 to resist Psychic Powers and +4 Toughness Bonus against daemons.",
+      "source": "Deathwatch, p. 224 (Table 7-14)"
+    }
+  },
+  {
+    "name": "Armour of Faith (Black Templars)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/misc/aquila.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, Sustained. +10 to resist Psychic Powers and +4 Toughness Bonus against daemons.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Black Templars are among the most zealous and devoted of the Emperor’s chosen, turning aside even the powers of the warp with their faith.</p><div class='bc-rule'><p><strong>Chapter:</strong> Black Templars · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>A Battle-Brother of the Black Templars Chapter may cloak himself and those around him in an Armour of Faith, usually by chanting prayers to the Emperor or singing battle hymns. While this power is in effect, the Battle-Brother and those in Support Range of him add +10 to all tests made to resist Psychic Powers and add +4 to their Toughness Bonus when reducing Damage from physical attacks from creatures with the Daemonic Trait and from Psychic Powers.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more, the bonus to resistance tests increases to +20 and the bonus to Toughness Bonus increases to +8.</p></div></div>",
-      "source": "Deathwatch, p. 224 (Table 7-15)" } },
-  { "name": "Feel No Pain (Blood Angels)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
-    "system": { "benefit": "Free Action, Cost 3, not Sustained. Halve all Damage after Armour and Toughness.",
+      "source": "Deathwatch, p. 224 (Table 7-15)"
+    }
+  },
+  {
+    "name": "Feel No Pain (Blood Angels)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/body_parts/blood.webp",
+    "system": {
+      "benefit": "Free Action, Cost 3, not Sustained. Halve all Damage after Armour and Toughness.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 3,
       "description": "<div class='bc-entry'><p class='bc-lead'>Blood Angels often fight on regardless of the damage dealt to them.</p><div class='bc-rule'><p><strong>Chapter:</strong> Blood Angels · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 3 · <strong>Sustained:</strong> No</p><p>Until the start of his next Turn, the Battle-Brother and those in Support Range of him use their training and the fiery will of the Blood Angel to ignore their wounds and focus on the attack, halving all Damage (round up) after reduction for Armour Points and Toughness Bonus. While using this ability, however, such is the Battle-Brothers’ rage that they may not use their Reactions to Parry or Dodge and must use an Action with the Attack subtype (see page 236).</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more, the restrictions on using Reactions to Parry or Dodge can be ignored.</p></div></div>",
-      "source": "Deathwatch, p. 224 (Table 7-15)" } },
-  { "name": "Immovable Defence (Dark Angels)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
-    "system": { "benefit": "Full Action, Cost 2, Sustained. +10 Ballistic Skill, +10 Dodge and +4 Armour Points while stationary.",
+      "source": "Deathwatch, p. 224 (Table 7-15)"
+    }
+  },
+  {
+    "name": "Immovable Defence (Dark Angels)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/defence.webp",
+    "system": {
+      "benefit": "Full Action, Cost 2, Sustained. +10 Ballistic Skill, +10 Dodge and +4 Armour Points while stationary.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Stubbornness is a valued trait among the Dark Angels, especially in battle where they seldom give ground to their foes even in the face of overwhelming odds.</p><div class='bc-rule'><p><strong>Chapter:</strong> Dark Angels · <strong>Action:</strong> Full Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>While this ability is in effect, the Battle-Brother and those in Support Range of him gain a +10 to all Ballistic Skill Tests, a +10 to all Dodge Tests, and an additional +4 Armour Points to all locations as long as they remain stationary.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 4 or more, the bonus to Ballistic Skill Tests and Dodge Tests is increased to +20.</p></div></div>",
-      "source": "Deathwatch, p. 225 (Table 7-15)" } },
-  { "name": "Pack Tactics (Space Wolves)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
-    "system": { "benefit": "Free Action, Cost 2, not Sustained. Give up a Reaction so an ally’s attacks cannot be parried or dodged.",
+      "source": "Deathwatch, p. 225 (Table 7-15)"
+    }
+  },
+  {
+    "name": "Pack Tactics (Space Wolves)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/mutations/jaws.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, not Sustained. Give up a Reaction so an ally’s attacks cannot be parried or dodged.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Space Wolves are skilled at baiting an opponent or distracting an enemy at a critical time so that another Space Wolf can attack unhindered.</p><div class='bc-rule'><p><strong>Chapter:</strong> Space Wolves · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> No</p><p>When a Space Marine attacks a single target, another Space Marine within support range may voluntarily give up an unused reaction to distract the target. If he does so, the first Space Marine’s melee or ranged attacks against that target may not be parried or dodged this turn.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 3 or more, Melee attack rolls against the target affected by this ability gain a +10 bonus.</p></div></div>",
-      "source": "Deathwatch, p. 225 (Table 7-15)" } },
-  { "name": "Shield and Sword (Storm Wardens)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/protection/brute-shield.webp",
-    "system": { "benefit": "Free Action, Cost 2, Sustained. Parry for allies and strike back with a Reaction.",
+      "source": "Deathwatch, p. 225 (Table 7-15)"
+    }
+  },
+  {
+    "name": "Shield and Sword (Storm Wardens)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/protection/brute-shield.webp",
+    "system": {
+      "benefit": "Free Action, Cost 2, Sustained. Parry for allies and strike back with a Reaction.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 2,
       "description": "<div class='bc-entry'><p class='bc-lead'>Many Battle-Brothers of the Storm Wardens Chapter favour storm shields and power swords and train to fight side by side with these heavy weapons.</p><div class='bc-rule'><p><strong>Chapter:</strong> Storm Wardens · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 2 · <strong>Sustained:</strong> Yes</p><p>The Storm Wardens have adapted this tactic to other forms of melee combat. While this ability is in effect, the Battle-Brother and those in Support Range of him can Parry attacks directed against those by their side (allies within 2 metres). In addition, any time a Battle-Brother benefiting from this ability is struck in melee, he may use his Reaction to make a Standard Attack with a melee weapon back at the creature that attacked him.</p><p><strong>Improvement:</strong> If the Battle-Brother is Rank 5 or more, all those affected by this ability gain a +20 bonus to Parry Tests.</p></div></div>",
-      "source": "Deathwatch, p. 225 (Table 7-15)" } },
-  { "name": "Rally Cry (Ultramarines)", "type": "specialAbility", "folder": "Squad Mode Abilities/Defensive Stances", "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
-    "system": { "benefit": "Free Action, Cost 0, not Sustained. Restore Cohesion equal to Fellowship Bonus, once per session.",
+      "source": "Deathwatch, p. 225 (Table 7-15)"
+    }
+  },
+  {
+    "name": "Rally Cry (Ultramarines)",
+    "type": "specialAbility",
+    "folder": "Squad Mode Abilities/Defensive Stances",
+    "img": "systems/dark-heresy/assets/icons/aptitudes/leadership.webp",
+    "system": {
+      "benefit": "Free Action, Cost 0, not Sustained. Restore Cohesion equal to Fellowship Bonus, once per session.",
+      "mode": "squad",
+      "requiredRank": 0,
+      "cohesionCost": 0,
       "description": "<div class='bc-entry'><p class='bc-lead'>Ultramarines are natural leaders and the embodiment of the Codex Astartes.</p><div class='bc-rule'><p><strong>Chapter:</strong> Ultramarines · <strong>Action:</strong> Free Action · <strong>Cost:</strong> 0 · <strong>Sustained:</strong> No</p><p>In battle their purity and natural authority is a power force, able to rally their fellow Battle-Brothers and reinforce their will to fight. When a Battle-Brother uses this ability, it instantly restores a number of Cohesion equal to his Fellowship Bonus. The reverence the Ultramarines hold for their Primarch and the strength of will required to make a Rally Cry is such that a Battle-Brother may only use this ability once per game session.</p><p><strong>Improvement:</strong> This ability cannot be improved.</p></div></div>",
-      "source": "Deathwatch, p. 225 (Table 7-15)" } }
+      "source": "Deathwatch, p. 225 (Table 7-15)"
+    }
+  }
 ]

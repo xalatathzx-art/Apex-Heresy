@@ -202,6 +202,15 @@ export function characteristicKeysFor(ruleset) {
     return RULESET_DEFS[ruleset]?.characteristicKeys ?? CHARACTERISTIC_KEYS;
 }
 
+/**
+ * Опыт, которым персонаж УЖЕ обладает к началу игры и который не тратится.
+ * Он есть только у Deathwatch: 12 000 — это то, кем брат стал за век службы
+ * до Караула Смерти, и ранг считается вместе с ними (стр. 28, таблица 2-2).
+ */
+export function backgroundExperienceFor(ruleset) {
+    return Number(RULESET_DEFS[ruleset]?.backgroundExperience) || 0;
+}
+
 /** Порядок паков для поиска выданного по имени. */
 export function contentPacksFor(ruleset) {
     return RULESET_DEFS[ruleset]?.contentPacks ?? CONTENT_PACKS;

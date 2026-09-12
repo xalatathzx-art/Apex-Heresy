@@ -1,5 +1,10 @@
-{{!-- Анкета Deathwatch: орден, из которого брат пришёл, и его специальность.
-      Как и Rogue Trader, ждёт сверки с книгой. --}}
+{{!-- Анкета Deathwatch — те же поля, что на книжном листе (стр. 397):
+      орден, событие прошлого, нрав ордена и свой нрав, специальность, ранг и
+      история силовой брони.
+
+      Ранг здесь не поле, а число: книга считает его по общему опыту вместе с
+      двенадцатью тысячами, которыми брат уже был (таблица 2-2), и вписывать его
+      руками значило бы держать на листе два разных ранга. --}}
                         <label class="bio-field{{#if fromOrigin.[system.bio.homeWorld]}} from-origin{{/if}}"
                                title="{{#if fromOrigin.[system.bio.homeWorld]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
                             <span>{{localize "ORIGIN.STAGE.CHAPTER"}}</span>
@@ -10,12 +15,25 @@
                             <span>{{localize "ORIGIN.STAGE.SPECIALITY"}}</span>
                             <input name="system.bio.role" type="text" value="{{system.bio.role}}" />
                         </label>
-                        <label class="bio-field{{#if fromOrigin.[system.bio.background]}} from-origin{{/if}}"
-                               title="{{#if fromOrigin.[system.bio.background]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
-                            <span>{{localize "BIO.BACKGROUND"}}</span>
-                            <input name="system.bio.background" type="text" value="{{system.bio.background}}" />
+                        <div class="bio-field is-derived" title="{{localize "DEATHWATCH.RANK_HINT"}}">
+                            <span>{{localize "DEATHWATCH.RANK"}}</span>
+                            <b class="bio-value">{{system.rank}}</b>
+                        </div>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.pastEvent]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.pastEvent]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "DEATHWATCH.PAST_EVENT"}}</span>
+                            <input name="system.bio.pastEvent" type="text" value="{{system.bio.pastEvent}}" />
+                        </label>
+                        <label class="bio-field{{#if fromOrigin.[system.bio.chapterDemeanour]}} from-origin{{/if}}"
+                               title="{{#if fromOrigin.[system.bio.chapterDemeanour]}}{{localize "BIO.FROM_ORIGIN"}}{{/if}}">
+                            <span>{{localize "DEATHWATCH.CHAPTER_DEMEANOUR"}}</span>
+                            <input name="system.bio.chapterDemeanour" type="text" value="{{system.bio.chapterDemeanour}}" />
                         </label>
                         <label class="bio-field">
-                            <span>{{localize "BIO.ELITE"}}</span>
-                            <input name="system.bio.elite" type="text" value="{{system.bio.elite}}" />
+                            <span>{{localize "DEATHWATCH.PERSONAL_DEMEANOUR"}}</span>
+                            <input name="system.bio.demeanour" type="text" value="{{system.bio.demeanour}}" />
+                        </label>
+                        <label class="bio-field bio-field-wide">
+                            <span>{{localize "DEATHWATCH.ARMOUR_HISTORY"}}</span>
+                            <input name="system.bio.armourHistory" type="text" value="{{system.bio.armourHistory}}" />
                         </label>

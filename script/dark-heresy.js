@@ -2,12 +2,14 @@ import { createDataModels } from "./data/models.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
-import { stepsFor } from "./creation/ruleset-data.mjs";
+import { stepsFor, backgroundExperienceFor } from "./creation/ruleset-data.mjs";
 import { psyRatingCost, psyBase } from "./creation/psychic-data.mjs";
 import { patronOf } from "./creation/bc-talents.mjs";
 import { PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS, BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader } from "./creation/patron-data.mjs";
 import {applyTraitOverrides, editTraitOverrides, validateTraitOverrides, WEAPON_TRAIT_TYPES, traitOverridesFromRows, traitOverridePatch} from "./data/weapon-traits.mjs";
 import {targetSizeModifier, sizeToHitModifier, armourSizeModifier, describeTargetSize} from "./data/size-rules.mjs";
+import {renownRankFor, traumaModifier as dwTraumaModifier, insanityStep as dwInsanityStep, PURITY_THRESHOLD, purityBroken, cohesionPool, FOCUS_AUTO_FAIL} from "./data/deathwatch-rules.mjs";
+import {rankForExperience} from "./creation/advance-list.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
 import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
@@ -864,13 +866,38 @@ class DarkHeresyActor extends Actor {
         // говорит, насколько тяжела следующая проверка на Рудименты. Это механика
         // Dark Heresy 2; у еретика Black Crusade ступеней нет, там Порча копится
         // до порогов Даров, поэтому подпись ему не выводится.
-        if (Dh.rulesetFor(this).corruption.track === "malignancy") {
+        const rules = Dh.rulesetFor(this);
+        if (rules.corruption.track === "malignancy") {
             const corruptionStep = Dh.getCorruptionStep(this.corruption);
             this.system.corruptionDegree = corruptionStep.degree;
             this.system.corruptionModifier = corruptionStep.malignancyModifier;
+        } else if (rules.corruption.track === "purity") {
+            // Порог Чистоты (Deathwatch, стр. 282): до сотни Порча не значит ничего,
+            // на сотне брат выбывает. Поэтому здесь не ступень, а два состояния.
+            this.system.corruptionDegree = purityBroken(this.corruption)
+                ? "CORRUPTION.DEGREE.DAMNED" : "CORRUPTION.DEGREE.PURE";
+            this.system.corruptionModifier = 0;
+            this.system.purityThreshold = rules.corruption.purityThreshold;
         } else {
             this.system.corruptionDegree = null;
             this.system.corruptionModifier = 0;
+        }
+        // Deathwatch считает брата по своим меркам: Известность решает, что ему
+        // выдадут из арсенала, Проклятие примарха растёт с безумием, а запас
+        // Единства отряда идёт от вожака (таблица 7-8). Ранг — от общего опыта,
+        // в который входят и 12 000 «кем он уже был» (таблица 2-2).
+        if (rules.id === "dw") {
+            const watch = this.system.deathwatch ?? {};
+            const rank = renownRankFor(watch.renown);
+            this.system.renownRank = rank.key;
+            this.system.renownLabel = rank.label;
+            this.system.primarchsCurse = dwInsanityStep(this.insanity).curse;
+            this.system.rank = rankForExperience(backgroundExperienceFor("dw") + (Number(this.experience?.totalSpent) || 0));
+            this.system.cohesionSuggested = cohesionPool({
+                fellowshipBonus: this.characteristics?.fellowship?.bonus,
+                rank: this.system.rank,
+                commandAdvance: this.skills?.command?.advance
+            });
         }
         // Initialize psy structure if it doesn't exist (for backward compatibility)
         // Structure is: system.psy.rating (flat, as used in createPsychicRollData)
@@ -3943,7 +3970,14 @@ async function _rollTarget(rollData) {
     // ни были модификаторы (BC, стр. 36). Решает неизменённый кубик, а не result:
     // тот мог быть подменён скрытым броском.
     const autoSuccess = unmodifiedResult === 1;
-    const autoFailure = unmodifiedResult === 100;
+    // У Deathwatch проверка Сосредоточения проваливается на 91-00 при любом
+    // рейтинге (стр. 186). Это потолок только для психики: обычные проверки
+    // по-прежнему валит лишь натуральная сотня.
+    const focusAutoFail = rollData.psy?.useModifier
+        ? Number(Dh.rulesetFor(_actorFromRollData(rollData)).psychic.focusAutoFail) || 0
+        : 0;
+    const autoFailure = unmodifiedResult === 100
+        || (focusAutoFail > 0 && unmodifiedResult >= focusAutoFail);
     rollData.autoOutcome = autoSuccess ? "success" : (autoFailure ? "failure" : null);
     rollData.flags.isSuccess = autoSuccess
         || (!autoFailure && rollData.result <= rollData.target.final);
@@ -4177,7 +4211,17 @@ function _getUnnaturalDosBonus(rollData) {
 
     if (!actorId || !characteristicKey) return 0;
     const actor = game.actors.get(actorId);
-    const unnatural = Number(actor?.system?.characteristics?.[characteristicKey]?.unnatural) || 0;
+    const characteristic = actor?.system?.characteristics?.[characteristicKey];
+    // Deathwatch записывает неестественность множителем, а не прибавкой, поэтому
+    // поле unnatural у брата пустое. Книга даёт множитель к ступеням успеха только
+    // в противоборстве психосил (стр. 186) — за пределами психики он ступеней не
+    // прибавляет, и общее правило Dark Heresy остаётся как было.
+    const psyRules = Dh.rulesetFor(actor).psychic;
+    if (psyRules.unnaturalWillpowerToRating && rollData?.psy?.useModifier) {
+        const multiplier = Number(characteristic?.unnaturalMultiplier) || 1;
+        if (multiplier > 1) return multiplier;
+    }
+    const unnatural = Number(characteristic?.unnatural) || 0;
     return Math.floor(unnatural / 2);
 }
 /**
@@ -4687,9 +4731,17 @@ async function _rollRighteousFury() {
  */
 function _computePsychicPhenomena(rollData) {
     // For Bound characters using Psy Rating divided by 2 (not pushing), no phenomena occur
-    const phenomenaRule = Dh.rulesetFor(_actorFromRollData(rollData)).psychic.phenomena;
+    const psyRules = Dh.rulesetFor(_actorFromRollData(rollData)).psychic;
+    const phenomenaRule = psyRules.phenomena;
     const isDouble = _isDouble(rollData.result);
     const isPush = rollData.psy.push && !rollData.psy.isUnbrake;
+    // Проталкивание изматывает: дубль на проверке стоит уровня усталости
+    // (Deathwatch, стр. 186). Карточка об этом говорит, уровень ставит игрок —
+    // как и с феноменом, броска здесь нет и автоматика не нужна.
+    rollData.psy.pushFatigue = !!(psyRules.pushFatigueOnDouble && isPush && isDouble);
+    // Таблица у каждой книги своя, и на карточке она названа по имени: иначе брат
+    // Караула Смерти кидал бы по таблице Dark Heresy, лежащей рядом в том же паке.
+    rollData.psy.phenomenaTable = psyRules.phenomenaTable ?? "Psychic Phenomena";
 
     if (phenomenaRule === "dh2") {
         // Dark Heresy 2 (стр. 194): обычно феномен ловится дублем — в том числе на
@@ -6741,7 +6793,15 @@ class DarkHeresyUtil {
         // (Psy Rating)» у Bolt of Change. Разбор свойств числа в скобках ждёт и
         // такую запись пропускал, поэтому Валящее у психосил не срабатывало.
         // Здесь рейтинг уже известен, так что подставляем его до разбора.
-        const psyForTraits = Number(actor.psy.currentRating || actor.psy.rating) || 0;
+        // Неестественная Сила Воли прибавляет свой множитель к Psy Rating — и к
+        // рейтингу, и к ступеням успеха в противоборстве (Deathwatch, стр. 186).
+        // Правило книги Караула Смерти: в остальных книгах неестественность
+        // рейтинга не касается вовсе.
+        const psyRules = Dh.rulesetFor(actor).psychic;
+        const willpowerMultiplier = Number(actor.characteristics?.willpower?.unnaturalMultiplier) || 1;
+        const unnaturalRating = psyRules.unnaturalWillpowerToRating && willpowerMultiplier > 1
+            ? willpowerMultiplier : 0;
+        const psyForTraits = (Number(actor.psy.currentRating || actor.psy.rating) || 0) + unnaturalRating;
         const specialWithPsy = String(power.damage.special || "")
             .replace(/\(\s*(?:Psy Rating|PR)\s*\)/gi, `(${psyForTraits})`);
 
@@ -6759,7 +6819,7 @@ class DarkHeresyUtil {
         // и автоматика психосилами пользоваться не могли.
         const psyClass = actor.psy.class || "bound";
         // Use currentRating (base rating - sustained - sustained powers count) instead of base rating
-        let baseCurrentRating = actor.psy.currentRating || actor.psy.rating || 0;
+        let baseCurrentRating = (actor.psy.currentRating || actor.psy.rating || 0) + unnaturalRating;
         let displayedRating = baseCurrentRating;
         
         // If Bound, the displayed Psy Rating is divided by 2 and rounded UP
@@ -6781,7 +6841,8 @@ class DarkHeresyUtil {
             warpConduit: false,
             display: true,
             class: psyClass, // Store the class (bound/unbound/daemonic)
-            useModifier: true
+            useModifier: true,
+            unnaturalRating // сколько дала Неестественная Сила Воли — для карточки броска
         };
         // Барраж и шторм считают число болтов по Psy Rating, а _computeRateOfFire
         // читает его из того же поля, что и у ствола.
@@ -6856,7 +6917,7 @@ class DarkHeresyUtil {
         return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, characteristic), {
             name: "TRAUMA.HEADER",
             target: {
-                modifier: this.getTraumaModifier(actor.insanity)
+                modifier: this.getTraumaModifier(actor.insanity, Dh.rulesetFor(actor).insanity.traumaTable ?? "dh2")
             }
         });
     }
@@ -7189,7 +7250,10 @@ class DarkHeresyUtil {
         return Dh.getCorruptionStep(corruption).malignancyModifier;
     }
 
-    static getTraumaModifier(insanity) {
+    static getTraumaModifier(insanity, ruleset = "dh2") {
+        // Дорожки безумия у книг разные: у брата Караула Смерти это таблица 9-8,
+        // где штраф растёт ступенями по тридцать очков, а не по десять.
+        if (ruleset === "dw") return dwTraumaModifier(insanity);
         if (insanity < 10) {
             return 0;
         } else if (insanity < 40) {
@@ -8606,13 +8670,44 @@ class RogueTraderSheet extends BookSheet {
 }
 
 /**
- * Лист Deathwatch. Как и Rogue Trader, ждёт сверки с книгой: вкладки пока общие,
- * подписи — свои, орден и специальность.
+ * Лист Deathwatch — по книжному листу (стр. 397-399).
+ *
+ * Анкета спрашивает то же, что печатает книга: орден, событие прошлого, нрав
+ * ордена и свой, специальность и историю силовой брони. А вторая страница
+ * книжного листа — Известность, Единство, клятва и способности режимов —
+ * становится своей вкладкой: у аколита такого нет ни в одной книге.
  */
 class DeathwatchSheet extends BookSheet {
 
     static ruleset = "dw";
     static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-deathwatch.hbs";
+    // Караул — своя вкладка, сразу за способностями: режимы и Единство читаются
+    // в бою, а не между делом.
+    static tabList = BookSheet.tabList.toSpliced(3, 0,
+        {id: "deathwatch", label: "TAB.DEATHWATCH", partial: "tab/deathwatch.hbs"});
+
+    async getData() {
+        const data = await super.getData();
+        // Способности режимов книга печатает двумя таблицами: одиночные с рангом,
+        // отрядные с ценой Единства. Разделение живёт в самом предмете (system.mode),
+        // а не в папке компендиума: на листе папки нет, а способность есть.
+        const rank = Number(this.actor.system.rank) || 1;
+        const abilities = this.actor.items.filter(item => item.type === "specialAbility");
+        const group = mode => abilities
+            .filter(item => (item.system?.mode ?? "") === mode)
+            .map(item => ({
+                id: item.id, img: item.img, name: item.name, system: item.system,
+                // Ранг брата ещё не дорос — способность видна, но помечена.
+                lockedByRank: (Number(item.system?.requiredRank) || 0) > rank
+            }))
+            .sort((a, b) => (Number(a.system?.requiredRank) || 0) - (Number(b.system?.requiredRank) || 0)
+                || String(a.name).localeCompare(String(b.name)));
+        data.deathwatchModes = [
+            {key: "solo", label: "MODE.SOLO_ABILITIES", isSquad: false, items: group("solo")},
+            {key: "squad", label: "MODE.SQUAD_ABILITIES", isSquad: true, items: group("squad")}
+        ];
+        return data;
+    }
 }
 
 
@@ -12997,6 +13092,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/actor/partial/vital-infamy.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/allegiance.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/squad.hbs",
+        "systems/dark-heresy/template/sheet/actor/tab/deathwatch.hbs",
         "systems/dark-heresy/template/sheet/actor/npc.hbs",
         "systems/dark-heresy/template/sheet/actor/vehicle.hbs",
         "systems/dark-heresy/template/sheet/vehicle-weapon.hbs",
@@ -15246,7 +15342,8 @@ Dh.rulesets = {
         id: "dh2",
         label: "RULESET.DH2",
         fatigue: { threshold: "tbwb", penalty: "halveCharacteristic", deathAtDoubleThreshold: true },
-        psychic: { ratingBonus: "deviation", phenomena: "dh2", fetteredHalving: false },
+        psychic: { ratingBonus: "deviation", phenomena: "dh2", fetteredHalving: false,
+                   phenomenaTable: "Psychic Phenomena", perilsTable: "Perils of the Warp" },
         corruption: { track: "malignancy", malignancyEveryCp: 10, mutationEveryCp: 30 },
         insanity: { track: "points", traumaTest: true },
         bloodLoss: { lethal: false, fatiguePerRound: 1, staunch: -10 },
@@ -15259,7 +15356,8 @@ Dh.rulesets = {
         id: "bc",
         label: "RULESET.BC",
         fatigue: { threshold: "tb", penalty: "flat10", deathAtDoubleThreshold: false },
-        psychic: { ratingBonus: "perPoint", phenomena: "bc", fetteredHalving: true },
+        psychic: { ratingBonus: "perPoint", phenomena: "bc", fetteredHalving: true,
+                   phenomenaTable: "Psychic Phenomena", perilsTable: "Perils of the Warp" },
         corruption: { track: "gifts" },
         // Еретик Black Crusade считается уже сошедшим с ума и очков безумия не
         // копит (стр. 279): вместо них он со временем набирает Расстройства.
@@ -15270,12 +15368,47 @@ Dh.rulesets = {
     }
 };
 
-// Rogue Trader, Only War and Deathwatch have not been audited rule by rule yet, so they
-// inherit the Dark Heresy mechanics and differ only in identity. They are registered all the
-// same: a character can name its book today, and the audit later changes one profile instead
+// Rogue Trader and Only War have not been audited rule by rule yet, so they inherit the
+// Dark Heresy mechanics and differ only in identity. They are registered all the same:
+// a character can name its book today, and the audit later changes one profile instead
 // of hunting down actor-type checks scattered through the system.
-for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"], ["dw", "RULESET.DW"]])
+for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"]])
     Dh.rulesets[id] = { ...structuredClone(Dh.rulesets.dh2), id, label };
+
+/**
+ * Deathwatch. Своя книга, а не копия Dark Heresy: брат Караула Смерти считается
+ * иначе почти во всём, что копится.
+ *
+ * Психика ближе к Black Crusade — рейтинг даёт +5 за очко, Fettered режет рейтинг
+ * вдвое и феноменов не знает вовсе, Unfettered ловит их дублем, Push — всегда
+ * (стр. 185-186). Своего здесь два: 91-00 на Сосредоточении проваливается при
+ * любом рейтинге, а дубль на Push стоит уровня усталости.
+ *
+ * Порча не делает с ним ничего до самой сотни: у него Порог Чистоты, а не дорожка
+ * Рудиментов (стр. 282). Безумие идёт по таблице 9-8 с Проклятием примарха, и его
+ * порог проверки другой, чем в Dark Heresy (стр. 278). Кровопотери он не знает
+ * вообще — за него это делает орган Ларрамана (стр. 36).
+ */
+Dh.rulesets.dw = {
+    id: "dw",
+    label: "RULESET.DW",
+    // Любой уровень усталости — плоские −10, порог в бонус Стойкости, а за порогом
+    // не смерть, а беспамятство на 10−TB минут (стр. 251).
+    fatigue: { threshold: "tb", penalty: "flat10", deathAtDoubleThreshold: false },
+    psychic: { ratingBonus: "perPoint", phenomena: "dw", fetteredHalving: true,
+               focusAutoFail: FOCUS_AUTO_FAIL, pushFatigueOnDouble: true,
+               unnaturalWillpowerToRating: true,
+               // У книги свои таблицы 6-1 и 6-2, и карточка должна называть именно их.
+               phenomenaTable: "Psychic Phenomena (Deathwatch)",
+               perilsTable: "Perils of the Warp (Deathwatch)" },
+    corruption: { track: "purity", purityThreshold: PURITY_THRESHOLD },
+    insanity: { track: "points", traumaTest: true, traumaTable: "dw", fearGivesInsanity: false },
+    bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30,
+                 spaceMarineImmune: true },
+    toxic: { timing: "endOfTurn" },
+    righteousFury: { label: "CHAT.RIGHTEOUS_FURY" }
+};
+
 
 // Only War fills the same three sheet fields with a regiment and a speciality.
 Dh.rulesets.ow.bioLabels = {homeWorld: "BIO.HOME_WORLD", background: "ORIGIN.STAGE.REGIMENT", role: "ORIGIN.STAGE.SPECIALITY"};
@@ -15647,6 +15780,14 @@ Dh.availability = {
     "extremely-rare": "AVAILABILITY.EXTREMELY_RARE",
     "near-unique": "AVAILABILITY.NEAR_UNIQUE",
     unique: "AVAILABILITY.UNIQUE"
+};
+
+/* Режим Deathwatch, в котором работает особая способность (стр. 213).
+   Пусто — способность не из Караула Смерти и ни к какому режиму не привязана. */
+Dh.abilityModes = {
+    "": "MODE.NONE",
+    solo: "MODE.SOLO",
+    squad: "MODE.SQUAD"
 };
 
 /* Ранг Известности Deathwatch, с которого предмет можно затребовать из арсенала.
@@ -17470,6 +17611,19 @@ async function onExtinguishFireClick(event) {
  * крови делает орган Ларрамана, и шанс вдвое меньше (стр. 50) — карточку имплантов
  * ему выдаёт создание персонажа, она же и считается.
  */
+/**
+ * Течёт ли у него кровь вообще.
+ *
+ * У десантника Караула Смерти орган Ларрамана свёртывает кровь мгновенно, и
+ * Кровопотери он не знает ни в каком виде (Deathwatch, стр. 36). Это не половина
+ * шанса, как у десантника Хаоса, а полное отсутствие правила.
+ */
+function suffersBloodLoss(actor) {
+    const rules = Dh.rulesetFor(actor).bloodLoss;
+    if (!rules?.spaceMarineImmune) return true;
+    return !actor?.getFlag?.("dark-heresy", "spaceMarine");
+}
+
 function bloodLossDeathThreshold(actor) {
     const rules = Dh.rulesetFor(actor).bloodLoss;
     const chance = Number(rules?.deathChance) || 10;
@@ -18032,6 +18186,12 @@ async function applyFallingDamage(actor, metres) {
 }
 
 async function _applyBleedingEffect(actor, combatant) {
+    // Брату Караула Смерти кровопотеря не грозит вовсе: за него это делает орган
+    // Ларрамана. Состояние с него снимается — держать его нечем.
+    if (!suffersBloodLoss(actor)) {
+        await actor.removeCondition?.("bleeding");
+        return;
+    }
     // Кровопотеря — единственное состояние, где две игры разошлись по существу.
     // Black Crusade (стр. 247) каждый раунд кидает 10% на смерть. Dark Heresy 2
     // (стр. 244) смерти не знает вовсе: там это уровень усталости в начале хода,

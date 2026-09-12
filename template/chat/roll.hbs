@@ -173,13 +173,18 @@
                         <dd class="full bad">{{localize "CHAT.PSY_UNBOUND"}}</dd>
                     {{/if}}
 
+                    {{#if psy.pushFatigue}}
+                        <dt class="empty"></dt>
+                        <dd class="full bad">{{localize "CHAT.PSY_PUSH_FATIGUE"}}</dd>
+                    {{/if}}
+
                     {{#if psy.hasPhenomena}}
                         <dt class="empty"></dt>
                         <dd class="full bad">
                             {{#if psy.warpConduit}}
-                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT"}}
+                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT" table=psy.phenomenaTable}}
                             {{else}}
-                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}
+                                {{localize "CHAT.HAS_PSYCHIC_PHENOMENA" table=psy.phenomenaTable}}
                             {{/if}}
                         </dd>
                     {{/if}}

@@ -1634,6 +1634,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     async _experienceContextLoaded() {
         await this._talentCatalogue();
         await this._powerCatalogue();
+        // Списки продвижений Deathwatch лежат в компендиуме, а сборка контекста
+        // синхронна: читаем их здесь и кладём рядом с каталогами.
+        this._advanceListCache = RULESET_DEFS[this.ruleset]?.advanceLists
+            ? await this._advanceLists() : null;
         this._catalogueReady = true;
         return this._experienceStepContext();
     }
@@ -1666,7 +1670,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const psyker = snapshot.psyRating >= 1;
         // У Deathwatch продвижения приходят списками: орден, общий и специальность.
         const listed = RULESET_DEFS[this.ruleset]?.advanceLists
-            ? advanceOffers(cheapestOfEach(gatherAdvances(await this._advanceLists(), {rank: this._rank()})),
+            ? advanceOffers(cheapestOfEach(gatherAdvances(this._advanceListCache ?? [], {rank: this._rank()})),
                             {owned: this._advanceNames(), remaining: this._remaining()})
             : null;
         const advances = listed ?? this._specialityAdvances();

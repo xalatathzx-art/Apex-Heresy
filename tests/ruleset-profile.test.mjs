@@ -37,7 +37,10 @@ test('the inherited profiles are independent copies, not shared references', () 
     // Spread both sides: the profiles live in the vm realm and the clone in the host realm,
     // so deepStrictEqual would compare prototypes rather than the rules we care about.
     assert.deepEqual({...rulesets.rt.fatigue}, {...rulesets.dh2.fatigue});
-    assert.deepEqual({...rulesets.dw.corruption}, {...rulesets.dh2.corruption});
+    assert.deepEqual({...rulesets.ow.corruption}, {...rulesets.dh2.corruption});
+    // Only Rogue Trader and Only War are still inherited. Deathwatch has been read
+    // against its book and keeps nothing of Dark Heresy's corruption track.
+    assert.notDeepEqual({...rulesets.dw.corruption}, {...rulesets.dh2.corruption});
 });
 
 test('both character types carry the ruleset field', () => {
