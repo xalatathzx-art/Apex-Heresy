@@ -7316,8 +7316,21 @@ class DarkHeresyUtil {
         const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
 
         let characteristics = this.getCharacteristicOptions(actor, defaultChar);
+        // Цель броска должна считаться той же моделью, что и число на листе.
+        // Прибавлять сырое продвижение здесь значило показывать одно, а бросать
+        // другое: у Rogue Trader необученный базовый идёт на половине
+        // характеристики, а не на минус двадцати (стр. 231).
+        const skillModel = Dh.rulesetFor(actor).skills?.model ?? "dh2";
         characteristics = characteristics.map(char => {
-            char.target += skill.advance;
+            if (skillModel === "basicAdvanced") {
+                char.target = rtSkillBase({
+                    characteristic: char.target,
+                    advance: skill.advance,
+                    type: rtSkillType(skillName)
+                }).base;
+            } else {
+                char.target += skill.advance;
+            }
             return char;
         });
         const defaultCharKey = characteristics.find(char => char.selected)?.key;
@@ -7335,8 +7348,18 @@ class DarkHeresyUtil {
         const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
 
         let characteristics = this.getCharacteristicOptions(actor, defaultChar);
+        // Специализация считается моделью своей группы, как и её число на листе.
+        const specialityModel = Dh.rulesetFor(actor).skills?.model ?? "dh2";
         characteristics = characteristics.map(char => {
-            char.target += speciality.advance;
+            if (specialityModel === "basicAdvanced") {
+                char.target = rtSkillBase({
+                    characteristic: char.target,
+                    advance: speciality.advance,
+                    type: rtSkillType(skillName)
+                }).base;
+            } else {
+                char.target += speciality.advance;
+            }
             return char;
         });
         const defaultCharKey = characteristics.find(char => char.selected)?.key;
@@ -9321,6 +9344,26 @@ class RogueTraderSheet extends BookSheet {
     static ruleset = "rt";
     static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-rogue-trader.hbs";
     static vitals = ["wounds", "fate", "profit-factor", "fatigue"];
+
+    /**
+     * Приобретение — в шапке окна, как у еретика.
+     *
+     * Вся экономика книги идёт через Profit Factor (стр. 271), а бросить его было
+     * нечем: кнопка существовала только на листе Black Crusade. Показатель, который
+     * никто не читает, — это тот же дефект, что неработающая броня.
+     */
+    _getHeaderButtons() {
+        const buttons = super._getHeaderButtons();
+        if (this.actor.isOwner) {
+            buttons.unshift({
+                class: "acquisition",
+                icon: "fa-solid fa-hand-holding",
+                label: game.i18n.localize("ACQUISITION.TITLE"),
+                onclick: () => prepareAcquisition(this.actor)
+            });
+        }
+        return buttons;
+    }
 }
 
 /**

@@ -15,20 +15,15 @@ test('an armour value of ten or more is not cut off', () => {
     assert.match(body, /min-width/, 'it has a floor instead');
 });
 
-test('every difficulty names its modifier, as the books print it', () => {
-    // "Challenging (+0)" read as "Challenging", which hides the one number the
-    // choice is actually about.
-    const expected = {
-        'DIFFICULTY.TRIVIAL': '+60', 'DIFFICULTY.ELEMENTARY': '+50',
-        'DIFFICULTY.SIMPLE': '+40', 'DIFFICULTY.EASY': '+30',
-        'DIFFICULTY.ROUTINE': '+20', 'DIFFICULTY.ORDINARY': '+10',
-        'DIFFICULTY.CHALLENGING': '+0', 'DIFFICULTY.DIFFICULT': '−10',
-        'DIFFICULTY.HARD': '−20', 'DIFFICULTY.VERY_HARD': '−30',
-        'DIFFICULTY.ARDUOUS': '−40', 'DIFFICULTY.PUNISHING': '−50',
-        'DIFFICULTY.HELLISH': '−60'
-    };
-    for (const [key, modifier] of Object.entries(expected))
-        assert.ok(lang[key]?.includes(`(${modifier})`), `${key} reads "${lang[key]}"`);
+test('the difficulty dropdown already prints its modifier, so the labels stay plain', () => {
+    // Checked in the running application: the select renders "label (signed
+    // value)" on its own — "Ordinary (+10)", "Challenging (0)". Putting the
+    // modifier into the string as well produced "Challenging (+0) (0)", so the
+    // report was answered by a change that was not needed and did harm.
+    for (const [key, label] of [['DIFFICULTY.CHALLENGING', 'Challenging'],
+                                ['DIFFICULTY.HARD', 'Hard'],
+                                ['DIFFICULTY.ORDINARY', 'Ordinary']])
+        assert.equal(lang[key], label, key);
 });
 
 test('the difficulty a test rolls at still resolves to a label', () => {

@@ -81,3 +81,29 @@ test('an explorer parries with Weapon Skill, because Parry is not a skill there'
     assert.match(source, /const parryIsSkill = !\(Dh\.rulesetFor\(actor\)\.skills\?\.absent \?\? \[\]\)\.includes\("parry"\)/);
     assert.match(source, /parry: parryIsSkill[\s\S]{0,200}createCharacteristicRollData\(actor, "weaponSkill"\)/);
 });
+
+test('an explorer can actually roll an acquisition', () => {
+    // Profit Factor is the book's whole economy, and the button that rolls it
+    // existed only on the Black Crusade sheet: the explorer had the resource and
+    // no way to spend it. A stat nothing reads is the same defect as armour that
+    // grants nothing.
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    const sheet = source.slice(source.indexOf('class RogueTraderSheet'));
+    const body = sheet.slice(0, sheet.indexOf('\n}'));
+    assert.match(body, /_getHeaderButtons\(\)/);
+    assert.match(body, /prepareAcquisition\(this\.actor\)/);
+});
+
+test('the roll target matches the number printed on the sheet', () => {
+    // Caught in the running application, not by these tests: the sheet showed an
+    // untrained Dodge at 17 while the roll dialog offered 14, because the roll
+    // added the raw -20 instead of halving. A sheet that disagrees with its own
+    // dice is worse than one that is merely wrong.
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    for (const fn of ['static createSkillRollData', 'static createSpecialtyRollData']) {
+        const body = source.slice(source.indexOf(fn));
+        const head = body.slice(0, body.indexOf('const defaultCharKey'));
+        assert.match(head, /basicAdvanced/, `${fn} ignores the book's skill model`);
+        assert.match(head, /rtSkillBase\(/, `${fn} does not use the rule`);
+    }
+});
