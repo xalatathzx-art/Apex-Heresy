@@ -58,7 +58,13 @@
                 <dt>{{localize "CHAT.CLEAR_STAT"}}</dt>
                 <dd>{{target.base}}</dd>
 
-                {{#if target.modifier}}
+                {{!-- Из чего сложилось уклонение. Одно число ничего не объясняло:
+                      игрок не видел ни состояний, ни сложности, ни штрафа за
+                      Несбалансированное, и потому не мог их оспорить. --}}
+                {{#if evasionSources}}
+                    <dt>{{localize "CHAT.EVASION_MODIFIERS"}}</dt>
+                    <dd>{{evasionSources}}</dd>
+                {{else if target.modifier}}
                     <dt>{{localize "CHAT.TEST_MODIFIER"}}</dt>
                     <dd>{{signed target.modifier}}</dd>
                 {{/if}}

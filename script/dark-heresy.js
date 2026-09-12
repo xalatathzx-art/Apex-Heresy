@@ -3957,6 +3957,22 @@ async function _computeCommonTarget(rollData) {
                 weapon: rollData.weapon?.name || game.i18n.localize("WEAPON.HEADER")
             }));
         }
+        // Из чего сложилось уклонение. Раньше карточка показывала одно голое
+        // число, и спорить с ним было нечем: ни состояния, ни сложность, ни
+        // штраф за Несбалансированное в нём не различались.
+        const evasionSources = [];
+        const noteEvasion = (key, value) => {
+            if (!value) return;
+            evasionSources.push(`${game.i18n.localize(key)} (${value > 0 ? "+" : ""}${value})`);
+        };
+        noteEvasion("CHAT.TEST_MODIFIER", Number(rollData.target.modifier) || 0);
+        noteEvasion("DIALOG.DIFFICULTY", difficultyMod);
+        if (rollData.actorConditionSources) evasionSources.push(rollData.actorConditionSources);
+        noteEvasion("WEAPON.TRAIT.UNBALANCED", parryPenalty);
+        if (rollData.parryBlocked) evasionSources.push(game.i18n.localize("WEAPON.FLEXIBLE_NO_PARRY_SHORT"));
+        if (rollData.evasionBlocked) evasionSources.push(game.i18n.localize("CONDITION.GRAPPLED"));
+        rollData.evasionSources = evasionSources.join(", ");
+
         rollData.target.final = _getRollTarget(rollData.target.modifier + difficultyMod + actorConditionMod + parryPenalty, skill.target.base);
         // Парировать гибкое оружие невозможно, а не «трудно»: цель ноль,
         // бросок гарантированно провалится и останется в чате как отметка,
