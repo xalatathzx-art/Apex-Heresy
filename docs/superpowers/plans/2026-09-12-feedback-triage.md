@@ -1662,6 +1662,94 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
+### Task 20: Suppressing Fire pins, it does not frighten
+
+Task 1 confirmed this one and narrowed it. The modifier is already right —
+`suppressionModifier` is -10 for a burst and -20 for full auto — and only the
+applied condition is wrong: `addFearCondition` toggles `fear` where the book
+calls for a Pinning test and the Pinned condition. Both already exist in the
+system, including the escape flow.
+
+**Files:**
+- Modify: `script/dark-heresy.js` (`addFearCondition` and its call site)
+- Modify: `lang/en.json` (the suppression strings that say "fear")
+- Create: `tests/suppression-pinning.test.mjs`
+
+**Interfaces:**
+- Consumes: the existing `pinned` condition and `_offerPinningEscape`.
+- Produces: `applySuppressionPinning(actor)` replaces `addFearCondition`.
+
+- [ ] **Step 1: Read the rule and write the failing test**
+
+DH2 p. 225: "All targets within the kill zone must make a Difficult (-10)
+Pinning test or become Pinned as per page 230. If the attacker fired a Full
+Auto burst, the Pinning test is Hard (-20) instead." DH2 p. 231: "Pinning ...
+this is a Challenging (+0) Willpower test. If the character succeeds, he can
+act normally. If he fails, he instead becomes Pinned."
+
+Assert that a failed suppression test applies `pinned` and never `fear`, that
+the test rolled is a Willpower test, and that the difficulty is -10 for a burst
+and -20 for full auto.
+
+- [ ] **Step 2: Run the test to verify it fails**
+
+Run: `node --test tests/suppression-pinning.test.mjs`
+Expected: FAIL — the `fear` status is applied.
+
+- [ ] **Step 3: Rename and rewire**
+
+Replace `addFearCondition` with a function that applies `pinned`, and update
+every call site and locale string that names fear in the suppression flow.
+Check whether `SUPPRESSION.FEAR_EFFECT_NOT_FOUND` and its neighbours need
+renaming; a stale key is a silent blank in the interface.
+
+- [ ] **Step 4: Run the suite and the syntax gate**
+
+Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
+Expected: 0 fail; no syntax output.
+
+- [ ] **Step 5: Commit**
+
+---
+
+### Task 21: Overheating burns the firer
+
+Task 1 confirmed this. `script/dark-heresy.js` sets `rollData.weaponOverheated`
+and blocks the hit and the damage exactly as a jam does, but nothing damages
+the wielder, so an overheat is presently a jam with a different word.
+
+**Files:**
+- Modify: `script/dark-heresy.js` (the overheat branch)
+- Create: `tests/overheat.test.mjs`
+
+**Interfaces:**
+- Consumes: the existing damage application path.
+- Produces: the overheat branch rolls the weapon's damage against its wielder.
+
+- [ ] **Step 1: Read the rule from the book**
+
+Find the Overheats quality in the Armoury chapter with `pdf_search` and record
+the page. Write down exactly what it does to the firer: how much damage, to
+which location, and whether armour and Toughness apply. Do not guess any of it.
+
+- [ ] **Step 2: Write the failing test**
+
+Assert that an overheating weapon damages its wielder by the amount the book
+names, and that the hit on the target is still cancelled.
+
+- [ ] **Step 3: Run the test to verify it fails**
+
+Expected: FAIL — the wielder takes nothing.
+
+- [ ] **Step 4: Implement, run the suite and the syntax gate**
+
+Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
+Expected: 0 fail; no syntax output.
+
+- [ ] **Step 5: Commit**
+
+---
+
 ## Self-Review
 
 **Spec coverage.** Every confirmed defect in the spec maps to a task: 1 -> Task 7, 2 -> Task 4,
