@@ -1,5 +1,6 @@
 import { createDataModels } from "./data/models.mjs";
 import { halfRoundedUp } from "./data/rounding.mjs";
+import { effectiveMaxAgility } from "./data/max-agility.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -832,12 +833,22 @@ class DarkHeresyActor extends Actor {
     _computeCharacteristics() {
         let middle = Object.values(this.characteristics).length / 2;
         let i = 0;
-        for (let characteristic of Object.values(this.characteristics)) {
+        // Тяжёлый доспех ограничивает Ловкость, которую персонаж вправе считать
+        // (DH2, стр. 168). Предел берётся до цикла, потому что зажимать надо
+        // сам total: бонус, навыки и передвижение выводятся из него ниже и
+        // дальше по prepareDerivedData, и все они должны увидеть ограничение.
+        const agilityCap = effectiveMaxAgility(this.items);
+        for (let [characteristicKey, characteristic] of Object.entries(this.characteristics)) {
             const tempModifier = Number(characteristic.tempModifier) || 0;
             // Усталость не режет характеристики: правило говорит про проверки.
             // −10 за усталость навешивается в _getActorConditionModifier, поэтому
             // стойкость, бонусы и всё производное остаются нетронутыми.
             characteristic.total = Math.max(characteristic.base + characteristic.advance, 0);
+            // «Если Ловкость персонажа выше этого числа, она считается равной ему».
+            // Из нескольких надетых предметов действует наименьший предел.
+            if (characteristicKey === "agility" && agilityCap !== null) {
+                characteristic.total = Math.min(characteristic.total, agilityCap);
+            }
             // Книги считают «неестественность» по-разному. Dark Heresy и Black Crusade
             // прибавляют число, Deathwatch УДВАИВАЕТ бонус — «Unnatural Strength (x2)»
             // (стр. 136). Множитель поэтому живёт отдельным полем: прибавку он не
