@@ -1541,7 +1541,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 18: The missing talents
+### Task 18: The missing talents — DONE
 
 Untouchable, Inquisitor and the Sisters of Battle talents are absent from the `dark-heresy`
 pack — confirmed by a query returning no match across its 774 items.
@@ -1554,40 +1554,40 @@ pack — confirmed by a query returning no match across its 774 items.
 - Consumes: nothing.
 - Produces: an exported `MISSING_TALENTS` array the patch script adds to the pack.
 
-- [ ] **Step 1: Read the talents from the books**
+- [x] **Step 1: Read the talents from the books**
 
 Use `pdf_search` to find each talent's tier, prerequisites, aptitudes and description. Record
 the page for each; the entries carry `system.source` as
 `"Dark Heresy Second Edition, p. NN"`.
 
-- [ ] **Step 2: Write the failing test**
+- [x] **Step 2: Write the failing test**
 
 Assert that `MISSING_TALENTS` contains each expected talent name, that every entry has a
 non-empty `system.source` matching `/, p\. \d+$/`, and that every entry declares a tier and
 prerequisites.
 
-- [ ] **Step 3: Run the test to verify it fails**
+- [x] **Step 3: Run the test to verify it fails**
 
 Run: `node --test tests/missing-talents.test.mjs`
 Expected: FAIL — export missing.
 
-- [ ] **Step 4: Write the minimal implementation**
+- [x] **Step 4: Write the minimal implementation**
 
 Add the talent documents and have `patch-dark-heresy.mjs` insert any that the pack lacks,
 keyed by name so a re-run does not duplicate them. Reuse the deterministic id derivation from
 `tools/build-items.mjs` so ids are stable across rebuilds.
 
-- [ ] **Step 5: Apply the patch and confirm**
+- [x] **Step 5: Apply the patch and confirm**
 
 Foundry must be closed. Run `node tools/patch-dark-heresy.mjs`, then query the pack for each
 talent by name.
 
-- [ ] **Step 6: Run the tests and the syntax gate**
+- [x] **Step 6: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 499 tests, 0 fail; no syntax output.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add tools/lib/dark-heresy-fixes.mjs tools/patch-dark-heresy.mjs tests/missing-talents.test.mjs packs/dark-heresy
@@ -1601,7 +1601,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 19: The remaining interface reports
+### Task 19: The remaining interface reports — DONE
 
 Six reports are cosmetic or could not be settled by reading code. They are grouped because
 each is small and none blocks another.
@@ -1616,19 +1616,19 @@ each is small and none blocks another.
 - Consumes: nothing.
 - Produces: no new exports.
 
-- [ ] **Step 1: Armour values of 10 or more**
+- [x] **Step 1: Armour values of 10 or more**
 
 `.total` is a fixed 52x52 box at `--dh-text-xl`. Two digits overflow it. Let the box grow with
 its content (`min-width` instead of `width`, with horizontal padding) rather than shrinking
 the font, and add a test asserting the stylesheet no longer pins a fixed `width` on `.total`.
 
-- [ ] **Step 2: The suppression difficulty dropdown**
+- [x] **Step 2: The suppression difficulty dropdown**
 
 The options read "Challenging" where the rest of the system reads "Challenging (+0)". Find
 the template building that list and reuse the same localisation keys the other difficulty
 dropdowns use.
 
-- [ ] **Step 3: Effects added on an item sheet are always passive**
+- [x] **Step 3: Effects added on an item sheet are always passive**
 
 `template/sheet/item/effects.hbs:1` passes `category="passive"` unconditionally, so an item
 sheet cannot create a temporary effect. The actor sheet passes the right category and
@@ -1636,18 +1636,18 @@ sheet cannot create a temporary effect. The actor sheet passes the right categor
 `isTemporary` is true for a finite `value`, so the handler is not at fault. Offer the three
 categories on the item sheet the way the actor sheet does.
 
-- [ ] **Step 4: Record what still needs a live reproduction**
+- [x] **Step 4: Record what still needs a live reproduction**
 
 Journal text colour and font persistence, and passive effects not reaching Perception, cannot
 be settled from source. Append a `## Needs Live Reproduction` section to the spec naming each,
 what was ruled out, and the exact steps a tester should follow.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 500 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add css/dark-heresy.css template tests/armour-display.test.mjs docs/superpowers/specs/2026-09-12-feedback-triage-design.md
@@ -1662,7 +1662,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 20: Suppressing Fire pins, it does not frighten
+### Task 20: Suppressing Fire pins, it does not frighten — DONE
 
 Task 1 confirmed this one and narrowed it. The modifier is already right —
 `suppressionModifier` is -10 for a burst and -20 for full auto — and only the
@@ -1679,7 +1679,7 @@ system, including the escape flow.
 - Consumes: the existing `pinned` condition and `_offerPinningEscape`.
 - Produces: `applySuppressionPinning(actor)` replaces `addFearCondition`.
 
-- [ ] **Step 1: Read the rule and write the failing test**
+- [x] **Step 1: Read the rule and write the failing test**
 
 DH2 p. 225: "All targets within the kill zone must make a Difficult (-10)
 Pinning test or become Pinned as per page 230. If the attacker fired a Full
@@ -1691,28 +1691,28 @@ Assert that a failed suppression test applies `pinned` and never `fear`, that
 the test rolled is a Willpower test, and that the difficulty is -10 for a burst
 and -20 for full auto.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/suppression-pinning.test.mjs`
 Expected: FAIL — the `fear` status is applied.
 
-- [ ] **Step 3: Rename and rewire**
+- [x] **Step 3: Rename and rewire**
 
 Replace `addFearCondition` with a function that applies `pinned`, and update
 every call site and locale string that names fear in the suppression flow.
 Check whether `SUPPRESSION.FEAR_EFFECT_NOT_FOUND` and its neighbours need
 renaming; a stale key is a silent blank in the interface.
 
-- [ ] **Step 4: Run the suite and the syntax gate**
+- [x] **Step 4: Run the suite and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 0 fail; no syntax output.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ---
 
-### Task 21: Overheating burns the firer
+### Task 21: Overheating burns the firer — DONE
 
 Task 1 confirmed this. `script/dark-heresy.js` sets `rollData.weaponOverheated`
 and blocks the hit and the damage exactly as a jam does, but nothing damages
@@ -1726,27 +1726,27 @@ the wielder, so an overheat is presently a jam with a different word.
 - Consumes: the existing damage application path.
 - Produces: the overheat branch rolls the weapon's damage against its wielder.
 
-- [ ] **Step 1: Read the rule from the book**
+- [x] **Step 1: Read the rule from the book**
 
 Find the Overheats quality in the Armoury chapter with `pdf_search` and record
 the page. Write down exactly what it does to the firer: how much damage, to
 which location, and whether armour and Toughness apply. Do not guess any of it.
 
-- [ ] **Step 2: Write the failing test**
+- [x] **Step 2: Write the failing test**
 
 Assert that an overheating weapon damages its wielder by the amount the book
 names, and that the hit on the target is still cancelled.
 
-- [ ] **Step 3: Run the test to verify it fails**
+- [x] **Step 3: Run the test to verify it fails**
 
 Expected: FAIL — the wielder takes nothing.
 
-- [ ] **Step 4: Implement, run the suite and the syntax gate**
+- [x] **Step 4: Implement, run the suite and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 0 fail; no syntax output.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ---
 
