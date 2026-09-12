@@ -16303,7 +16303,15 @@ Dh.rulesets.rt = {
     skills: { model: "basicAdvanced", absent: [...RT_ABSENT_SKILLS] },
     // Праведная ярость у Rogue Trader не даёт крита: она требует второго броска
     // атаки и, при попадании, добавляет кости урона (стр. 245).
-    righteousFury: { label: "CHAT.RIGHTEOUS_FURY", mode: EXTRA_DAMAGE }
+    righteousFury: { label: "CHAT.RIGHTEOUS_FURY", mode: EXTRA_DAMAGE },
+    // Психика у Rogue Trader — правила первого поколения, а не Dark Heresy 2:
+    // рейтинг даёт +5 за каждое использованное очко, Fettered режет рейтинг вдвое
+    // с округлением ВВЕРХ и феноменов не знает вовсе, Unfettered ловит их дублем
+    // (даже на проваленной проверке), Push — всегда (стр. 158). Проверка с 91 и
+    // выше проваливается при любом рейтинге — то же правило, что у Deathwatch.
+    psychic: { ratingBonus: "perPoint", phenomena: "bc", fetteredHalving: true,
+               focusAutoFail: FOCUS_AUTO_FAIL,
+               phenomenaTable: "Psychic Phenomena", perilsTable: "Perils of the Warp" }
 };
 
 /**

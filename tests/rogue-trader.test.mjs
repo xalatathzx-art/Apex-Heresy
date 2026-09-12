@@ -313,3 +313,38 @@ test('every speciality key is usable as a key', () => {
         for (const key of Object.keys(skill.specialities ?? {}))
             assert.match(key, /^[a-z][A-Za-z0-9]*$/, `${skillKey}.${key}`);
 });
+
+test('the explorer psyker is read out of his own book, not Dark Heresy 2', () => {
+    // Rogue Trader is a first-generation book: +5 per point of effective Psy
+    // Rating, Fettered at half the rating rounded up and incapable of Psychic
+    // Phenomena, Unfettered catching them on doubles, Push always (p. 158).
+    // Dark Heresy 2 does none of those, and the profile was a clone of it.
+    const rulesets = loadSystem().get('Dh.rulesets');
+    const rt = rulesets.rt.psychic;
+    assert.equal(rt.ratingBonus, 'perPoint');
+    assert.equal(rt.fetteredHalving, true);
+    assert.equal(rt.phenomena, 'bc', 'the same three-level model, not the dh2 inversion');
+    assert.equal(rt.focusAutoFail, 91, '"a result of 91 or higher always fails"');
+});
+
+test('and the other books keep the psychic rules they had', () => {
+    const rulesets = loadSystem().get('Dh.rulesets');
+    assert.equal(rulesets.dh2.psychic.ratingBonus, 'deviation');
+    assert.equal(rulesets.dh2.psychic.fetteredHalving, false);
+    assert.equal(rulesets.dh2.psychic.phenomena, 'dh2');
+    assert.equal(rulesets.dh2.psychic.focusAutoFail, undefined);
+    assert.equal(rulesets.ow.psychic.ratingBonus, 'deviation', 'Only War is still an honest clone');
+    assert.equal(rulesets.bc.psychic.phenomena, 'bc');
+    assert.equal(rulesets.dw.psychic.phenomena, 'dw');
+});
+
+test('Rogue Trader names its own tables and they exist', () => {
+    const rulesets = loadSystem().get('Dh.rulesets');
+    const rt = rulesets.rt.psychic;
+    for (const key of ['phenomenaTable', 'perilsTable']) assert.ok(rt[key], key);
+    // The table the card names has to be one the world actually holds.
+    const tables = ['psychic-phenomena', 'perils-of-the-warp'].map(name =>
+        JSON.parse(readFileSync(new URL(`../packs-src/tables/${name}.json`, import.meta.url), 'utf8')));
+    assert.equal(tables[0].name, rt.phenomenaTable);
+    assert.equal(tables[1].name, rt.perilsTable);
+});
