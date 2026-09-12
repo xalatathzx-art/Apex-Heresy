@@ -5,6 +5,7 @@ import { traitArmour } from "./data/armour-traits.mjs";
 import { resolveJamClear } from "./combat/jam.mjs";
 import { OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage } from "./combat/overheat.mjs";
 import { fieldProtects } from "./combat/force-field.mjs";
+import { corrosiveBite } from "./combat/corrosive.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -4186,6 +4187,38 @@ async function _resolveOnHitWeaponEffects(actor, damages) {
         }
     }
 
+    // Едкое: броня в задетой локации теряет 1d10 очков, а всё, что она не
+    // поглотила, достаётся носителю и не снижается Стойкостью (DH2, стр. 146).
+    // Потери накапливаются; чинится Обычной (+0) проверкой Технологий. Свойство
+    // написано у шести видов оружия в компендиуме и до сих пор не срабатывало:
+    // словарь свойств не знал этого слова.
+    if (struck && traits.corrosive) {
+        const key = DH_ARMOUR_KEYS[damages[0]?.location];
+        if (key) {
+            const acid = new Roll("1d10");
+            await acid.evaluate();
+            const worn = Number(actor.system?.armour?.[key]?.value) || 0;
+            const bite = corrosiveBite({ roll: acid.total, armourAtLocation: worn });
+            if (bite.armourLost > 0) {
+                const current = Number(actor.system?.armour?.[key]?.tempModifier) || 0;
+                await actor.update({ [`system.armour.${key}.tempModifier`]: current - bite.armourLost });
+            }
+            if (bite.toTarget > 0) {
+                await actor.applyDamage([{
+                    amount: bite.toTarget,
+                    penetration: 9999,          // излишек не снижается ни бронёй, ни стойкостью
+                    location: damages[0].location,
+                    type: damages[0].type,
+                    weaponTraits: {},
+                    source: game.i18n.localize("WEAPON.TRAIT.CORROSIVE")
+                }]);
+            }
+            announcements.push(game.i18n.format("WEAPON.TRAIT.CORROSIVE_BITE", {
+                armour: bite.armourLost, damage: bite.toTarget
+            }));
+        }
+    }
+
     // Токсичное (X): штраф −10×X к Стойкости; провал — ещё 1d10 урона того же
     // типа, и его не снижают ни броня, ни стойкость.
     //
@@ -7135,6 +7168,10 @@ class DarkHeresyUtil {
             // Последствия попадания — проверки цели после применения урона.
             toxic: this.extractNumberedTrait(/Toxic[^,;()]*?\(\d+\)|Токсичное[^,;()]*?\(\d+\)/gi, traits),
             concussive: this.extractNumberedTrait(/Concussive[^,;()]*?\(\d+\)|Оглушающее[^,;()]*?\(\d+\)/gi, traits),
+            // Шесть видов оружия в компендиуме несут «Corrosive» в тексте свойств,
+            // а словарь этого слова не знал: качество вычёркивалось при разборе и
+            // не срабатывало ни разу.
+            corrosive: this.hasNamedTrait(/Corrosive|Едкое|Разъедающее/gi, traits),
             snare: this.extractNumberedTrait(/Snare[^,;()]*?\(-?\d+\)|Опутывающее[^,;()]*?\(-?\d+\)/gi, traits),
             // Калечащее задаётся не только числом: у части психосил книга ставит
             // в скобки кость. Система это свойство только объявляет в карточке,
@@ -11781,6 +11818,7 @@ const DH_WEAPON_TRAITS = [
     { key: "concussive", name: "Concussive", value: "number", default: 1, aliases: ["concussive", "оглушающее"] },
     { key: "crippling", name: "Crippling", value: "text", default: "1", aliases: ["crippling", "калечащее"] },
     { key: "defensive", name: "Defensive", aliases: ["defensive", "защитное"] },
+    { key: "corrosive", name: "Corrosive", aliases: ["corrosive", "едкое", "разъедающее"] },
     { key: "devastating", name: "Devastating", value: "number", default: 1, aliases: ["devastating", "опустошительное"] },
     { key: "felling", name: "Felling", value: "number", default: 1, aliases: ["felling", "валящее", "разящее"] },
     { key: "flame", name: "Flame", aliases: ["flame", "пламя", "огненное", "зажигательное"] },
@@ -16181,6 +16219,16 @@ Dh.characteristicCosts = [
     [1250, 1500, 2500]];
 
 Dh.talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
+
+/** Локация попадания → ключ брони актёра. В броске локация хранится ключом подписи. */
+const DH_ARMOUR_KEYS = {
+    "ARMOUR.HEAD": "head",
+    "ARMOUR.LEFT_ARM": "leftArm",
+    "ARMOUR.RIGHT_ARM": "rightArm",
+    "ARMOUR.BODY": "body",
+    "ARMOUR.LEFT_LEG": "leftLeg",
+    "ARMOUR.RIGHT_LEG": "rightLeg"
+};
 
 Dh.hitLocations = {
     head: "ARMOUR.HEAD",

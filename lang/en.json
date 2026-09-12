@@ -1116,6 +1116,8 @@
   "WEAPON.TRAIT.SHOCKING": "Shocking",
   "WEAPON.TRAIT.CONCUSSIVE": "Concussive",
   "WEAPON.TRAIT.SNARE": "Snare",
+  "WEAPON.TRAIT.CORROSIVE": "Corrosive",
+  "WEAPON.TRAIT.CORROSIVE_BITE": "The acid eats {armour} Armour points and burns through for {damage}.",
   "WEAPON.TRAIT.TOXIC": "Toxic",
   "WEAPON.TRAIT.HALLUCINOGENIC": "Hallucinogenic",
   "WEAPON.TRAIT.STUNNED_ROUNDS": "Stunned for {rounds} Round(s).",
