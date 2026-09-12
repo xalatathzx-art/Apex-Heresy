@@ -12062,6 +12062,11 @@ class DarkHeresyItemSheet extends foundry.appv1.sheets.ItemSheet {
         } else {
             data.item.effectsList = [];
         }
+        // Лист предмета предлагал одну группу, «пассивную», и временный эффект с
+        // него было не создать ни при каком выборе. Обработчик читает категорию
+        // с кнопки и всегда читал её верно — выбора просто не предлагали.
+        data.item.effectsPassive = data.item.effectsList.filter(view => !view.temporary);
+        data.item.effectsTemporary = data.item.effectsList.filter(view => view.temporary);
         
         return data;
     }

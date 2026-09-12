@@ -211,3 +211,33 @@ the specialisation would have been a fix to something that is already correct.
 
 The folder is named `Laser`, not `Laser Weapons`. The rename to `Las` still stands, but the
 patch must match the name that is actually there.
+
+## Needs Live Reproduction
+
+Three reports cannot be settled by reading the source. Each is written down with
+what was already ruled out, so a tester is not asked to rediscover it.
+
+**Journal text is dark whatever font or colour is chosen, and the font does not
+save.** The system stylesheet themes journal sheets heavily under
+`body:not(.no-theme)` (`css/dark-heresy.css`, from roughly line 479 and again
+from 1472). A colour rule there very likely outranks the one Foundry's own font
+and colour controls write. What to try: open a journal page, set a font and a
+light colour, and report what `getComputedStyle` gives for the page body, plus
+whether the choice survives a reload. That distinguishes a specificity problem
+in our CSS from a value that is never persisted at all.
+
+**Passive effects do not reach a characteristic — adding Auto-Senses does not
+raise Perception.** Ruled out already: the effect-creation handler reads its
+category correctly, and Foundry v14's duration schema is `{value, units}` with
+`isTemporary` true for a finite value, so nothing is wrong there. What remains
+untested is whether the change key the effect is given matches a key the system
+actually derives, and whether it is applied in the right phase — the system
+distinguishes an `initial` phase from a `final` one (`shouldApplyChange`), and a
+change written against a derived key in the wrong phase is silently overwritten
+when the sheet recomputes. What to try: add an effect with
+`system.characteristics.perception.tempModifier` and report whether the sheet
+total moves, then repeat with `.total` and compare.
+
+**Special Ability text is hard to read.** This is a judgement about presentation
+rather than a defect, and it needs a look at a real sheet to decide whether the
+text should move to Notes or simply be given more room.

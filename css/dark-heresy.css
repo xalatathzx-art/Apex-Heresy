@@ -4037,7 +4037,11 @@ li.folder.collapsed > .folder-header {
   font-size: var(--dh-text-xl);
   font-weight: 700;
   height: 52px;
-  width: 52px;
+  /* Ширина была прибита к 52px, и вторая цифра обрезалась: броня 10 и выше
+     читалась как одна цифра. Теперь это нижняя граница, а не потолок. */
+  min-width: 52px;
+  padding: 0 6px;
+  box-sizing: border-box;
   margin: 0;
   border: 2px solid var(--impmal-lightblue);
   background: var(--dh-field);
