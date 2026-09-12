@@ -3,6 +3,7 @@ import { halfRoundedUp } from "./data/rounding.mjs";
 import { effectiveMaxAgility } from "./data/max-agility.mjs";
 import { traitArmour } from "./data/armour-traits.mjs";
 import { resolveJamClear } from "./combat/jam.mjs";
+import { OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage } from "./combat/overheat.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -3970,11 +3971,14 @@ async function _rollTarget(rollData) {
 
         // Overheating weapons don't jam, but can overheat on 91+
         if (traits.overheating) {
-            if (unmodifiedResult >= 91 && unmodifiedResult <= 100) {
+            if (unmodifiedResult >= OVERHEAT_THRESHOLD && unmodifiedResult <= 100) {
                 const weaponName = rollData.weapon.name || game.i18n.localize("WEAPON.HEADER");
                 ui.notifications.warn(game.i18n.format("WEAPON.OVERHEAT", { weapon: weaponName }));
                 // Store overheating flag for chat message
                 rollData.weaponOverheated = true;
+                // Перегрев не просто отменял попадание, как осечка, — он ничего
+                // больше и не делал, хотя книга жжёт им самого стрелка.
+                await _burnOverheatWielder(rollData);
             }
         } else {
             // Normal jam logic for non-overheating weapons
@@ -5065,6 +5069,54 @@ async function _checkAndMarkRecharge(rollData) {
  * @param {object} rollData
  * @returns {boolean}
  */
+/**
+ * Обжечь стрелка перегревшимся оружием (DH2, стр. 149).
+ *
+ * Урон равен урону самого оружия, тип — энергетический, пробитие нулевое, и
+ * приходится он в руку. Владелец вправе вместо этого бросить оружие Свободным
+ * действием, поэтому выбор задаётся ему, а не решается за него.
+ *
+ * @param {object} rollData
+ */
+async function _burnOverheatWielder(rollData) {
+    const actor = _actorFromRollData(rollData);
+    const formula = rollData.weapon?.damageFormula;
+    if (!actor?.applyDamage || !formula) return;
+
+    const burn = new Roll(String(formula));
+    await burn.evaluate();
+    const weaponName = rollData.weapon?.name || game.i18n.localize("WEAPON.HEADER");
+
+    const dropped = await foundry.applications.api.DialogV2.confirm({
+        window: { title: game.i18n.localize("WEAPON.OVERHEAT_TITLE") },
+        content: `<p>${game.i18n.format("WEAPON.OVERHEAT_DROP", {
+            weapon: weaponName,
+            damage: burn.total
+        })}</p>`,
+        rejectClose: false,
+        modal: true
+    });
+
+    // Пистолет держат одной рукой, основное и тяжёлое — двумя, и тогда рука
+    // случайна. Класс оружия говорит об этом прямо, в отличие от Громоздкости.
+    const twoHanded = ["basic", "heavy"].includes(rollData.weapon?.weaponClass);
+    const arm = overheatArm({ twoHanded, roll: Math.random() });
+    const hurt = overheatSelfDamage({ damage: burn.total, dropped: !!dropped, arm });
+
+    if (!hurt) {
+        const weapon = actor.items?.get?.(rollData.itemId);
+        if (weapon) await weapon.update({ "system.equipped": false });
+        ui.notifications.info(game.i18n.format("WEAPON.OVERHEAT_DROPPED", { weapon: weaponName }));
+        return;
+    }
+
+    await actor.applyDamage([{
+        ...hurt,
+        weaponTraits: {},
+        source: game.i18n.localize("WEAPON.OVERHEAT_SOURCE")
+    }]);
+}
+
 function _weaponSupportsAttackType(rollData) {
     if (!rollData?.weapon?.isRange) {
         return !(rollData.attackType?.name === "lightning"

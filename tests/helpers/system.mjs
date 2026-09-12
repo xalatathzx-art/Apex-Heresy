@@ -9,6 +9,7 @@ import {halfRoundedUp} from '../../script/data/rounding.mjs';
 import {effectiveMaxAgility} from '../../script/data/max-agility.mjs';
 import {traitArmour} from '../../script/data/armour-traits.mjs';
 import {resolveJamClear} from '../../script/combat/jam.mjs';
+import {OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage} from '../../script/combat/overheat.mjs';
 import {stepsFor, backgroundExperienceFor} from '../../script/creation/ruleset-data.mjs';
 import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
@@ -27,7 +28,7 @@ export function loadSystem(overrides = {}) {
         patronOf, targetSizeModifier, sizeToHitModifier, armourSizeModifier, describeTargetSize,
         renownRankFor, dwTraumaModifier, dwInsanityStep, PURITY_THRESHOLD, purityBroken, cohesionPool, FOCUS_AUTO_FAIL,
         rankForExperience, stepsFor, backgroundExperienceFor,
-        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear,
+        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,
         Actor: Document, Item: Document, Combat: Document, ActiveEffect: Document,
