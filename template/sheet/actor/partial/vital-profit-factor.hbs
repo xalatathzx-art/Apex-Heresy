@@ -1,0 +1,23 @@
+{{!-- Profit Factor — сила Торговой хартии династии, а не характеристика персонажа
+      (стр. 33-34, печатный лист стр. 398). Книга печатает три поля: Стартовое,
+      Текущее и Невзгоды, поэтому здесь ровно они. --}}
+                <div class="vital vital-profit-factor">
+                    <span class="vital-label">{{localize "PROFIT_FACTOR"}}</span>
+                    <div class="profit-factor-row">
+                        <label class="profit-field">
+                            <span>{{localize "PROFIT_FACTOR_STARTING"}}</span>
+                            <input name="system.profitFactor.starting" type="number"
+                                   value="{{system.profitFactor.starting}}" data-dtype="Number" />
+                        </label>
+                        <label class="profit-field">
+                            <span>{{localize "PROFIT_FACTOR_CURRENT"}}</span>
+                            <input name="system.profitFactor.value" type="number"
+                                   value="{{system.profitFactor.value}}" data-dtype="Number" />
+                        </label>
+                    </div>
+                    <label class="profit-field profit-misfortunes">
+                        <span>{{localize "PROFIT_FACTOR_MISFORTUNES"}}</span>
+                        <input name="system.profitFactor.misfortunes" type="text"
+                               value="{{system.profitFactor.misfortunes}}" />
+                    </label>
+                </div>

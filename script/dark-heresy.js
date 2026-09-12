@@ -13,6 +13,7 @@ import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "
 import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
 import { CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor } from "./combat/grapple.mjs";
 import { resolveOpposed } from "./combat/opposed.mjs";
+import { RT_ABSENT_CHARACTERISTICS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase } from "./data/rogue-trader.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -850,6 +851,8 @@ class DarkHeresyActor extends Actor {
 
     _computeCharacteristics() {
         let middle = Object.values(this.characteristics).length / 2;
+        // Какие характеристики книга вообще знает. Пустой список — знает все.
+        const absentCharacteristics = Dh.rulesetFor(this).characteristics?.absent ?? [];
         let i = 0;
         // Тяжёлый доспех ограничивает Ловкость, которую персонаж вправе считать
         // (DH2, стр. 168). Предел берётся до цикла, потому что зажимать надо
@@ -876,11 +879,23 @@ class DarkHeresyActor extends Actor {
             characteristic.bonus = Math.floor(characteristic.total / 10) * multiplier + unnatural;
             characteristic.displayTotal = characteristic.total + tempModifier;
             characteristic.displayBonus = Math.floor(characteristic.displayTotal / 10) * multiplier + unnatural;
-            characteristic.isLeft = i < middle;
-            characteristic.isRight = i >= middle;
+            // Характеристику, которой в книге нет, лист не показывает вовсе.
+            // У Rogue Trader это Влиятельность: там её место занимает Profit
+            // Factor, и он не характеристика, а ресурс династии (стр. 398).
+            characteristic.absent = absentCharacteristics.includes(characteristicKey);
+            characteristic.isLeft = false;
+            characteristic.isRight = false;
             characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance);
             i++;
         }
+        // Колонки делятся по видимым характеристикам, а не по всем: иначе у книги
+        // с девятью характеристиками одна колонка осталась бы короче на пустое место.
+        const shown = Object.values(this.characteristics).filter(c => !c.absent);
+        const half = Math.ceil(shown.length / 2);
+        shown.forEach((characteristic, index) => {
+            characteristic.isLeft = index < half;
+            characteristic.isRight = index >= half;
+        });
         // Десятая характеристика — одно поле под двумя именами: у аколита это
         // Влиятельность Империума, у еретика — Дурная слава. Переименовываем здесь,
         // а не в шаблоне, чтобы подпись совпадала везде, где читается label:
@@ -9232,13 +9247,22 @@ class OnlyWarSheet extends BookSheet {
 }
 
 /**
- * Лист Rogue Trader. Книга правило за правилом ещё не сверена, поэтому здесь пока
- * набор вкладок Dark Heresy под своими подписями: Путь Происхождения и карьера.
+ * Лист Rogue Trader — по книжному листу (стр. 398-399).
+ *
+ * Характеристик девять: Влиятельности книга не знает, её убирает профиль правил.
+ * Вместо неё у династии Profit Factor — Стартовый, Текущий и Невзгоды, — и он
+ * становится своим показателем рядом с Судьбой, потому что от него считаются
+ * приобретения.
+ *
+ * Анкета спрашивает то же, что печатает лист: карьеру и её ранг, родной мир и
+ * побуждение — последнюю ступень Пути Происхождения, которую книга выносит
+ * в шапку наравне с ними.
  */
 class RogueTraderSheet extends BookSheet {
 
     static ruleset = "rt";
     static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-rogue-trader.hbs";
+    static vitals = ["wounds", "fate", "profit-factor", "fatigue"];
 }
 
 /**
@@ -13729,6 +13753,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/actor/partial/vital-fatigue.hbs",
         "systems/dark-heresy/template/sheet/actor/partial/vital-fate.hbs",
         "systems/dark-heresy/template/sheet/actor/partial/vital-infamy.hbs",
+        "systems/dark-heresy/template/sheet/actor/partial/vital-profit-factor.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/allegiance.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/squad.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/deathwatch.hbs",
@@ -16126,12 +16151,35 @@ Dh.rulesets = {
     }
 };
 
-// Rogue Trader and Only War have not been audited rule by rule yet, so they inherit the
-// Dark Heresy mechanics and differ only in identity. They are registered all the same:
-// a character can name its book today, and the audit later changes one profile instead
-// of hunting down actor-type checks scattered through the system.
-for (const [id, label] of [["rt", "RULESET.RT"], ["ow", "RULESET.OW"]])
-    Dh.rulesets[id] = { ...structuredClone(Dh.rulesets.dh2), id, label };
+// Only War has not been audited rule by rule yet, so it inherits the Dark Heresy
+// mechanics and differs only in identity. It is registered all the same: a character
+// can name its book today, and the audit later changes one profile instead of hunting
+// down actor-type checks scattered through the system.
+Dh.rulesets.ow = { ...structuredClone(Dh.rulesets.dh2), id: "ow", label: "RULESET.OW" };
+
+/**
+ * Rogue Trader. Общая механика та же, что у Dark Heresy, но лист персонажа книги
+ * (стр. 398-399) расходится с ним в четырёх местах, и все четыре здесь.
+ *
+ * Характеристик девять: Влиятельности у Rogue Trader нет, её место занимает
+ * Profit Factor — но это ресурс династии, а не характеристика персонажа, и живёт
+ * он своим полем со Стартовым, Текущим значением и Невзгодами.
+ *
+ * Лестница продвижений короче на ступень, и цену задаёт сама характеристика, а не
+ * склонности: склонностей в книге нет.
+ *
+ * Навыки делятся на базовые и продвинутые (стр. 76), и это меняет не список, а
+ * то, что делать без обучения (стр. 231).
+ */
+Dh.rulesets.rt = {
+    ...structuredClone(Dh.rulesets.dh2),
+    id: "rt",
+    label: "RULESET.RT",
+    characteristics: { absent: [...RT_ABSENT_CHARACTERISTICS] },
+    resource: { profitFactor: true },
+    advances: { tiers: RT_ADVANCE_TIERS.length, costs: RT_CHARACTERISTIC_COSTS, aptitudes: false },
+    skills: { model: "basicAdvanced" }
+};
 
 /**
  * Deathwatch. Своя книга, а не копия Dark Heresy: брат Караула Смерти считается

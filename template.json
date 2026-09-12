@@ -1360,6 +1360,13 @@
           "oath": "",
           "killTeam": ""
         }
+      },
+      "rogueTrader": {
+        "profitFactor": {
+          "starting": 0,
+          "value": 0,
+          "misfortunes": ""
+        }
       }
     },
     "acolyte": {
@@ -1373,7 +1380,8 @@
         "fate",
         "psy",
         "allegiance",
-        "deathwatch"
+        "deathwatch",
+        "rogueTrader"
       ],
       "bio": {
         "homeWorld": "",
@@ -1395,7 +1403,8 @@
         "quirks": "",
         "superstition": "",
         "momentos": "",
-        "notes": ""
+        "notes": "",
+        "rank": ""
       },
       "experience": {
         "value": 0
@@ -1422,7 +1431,8 @@
         "fate",
         "psy",
         "allegiance",
-        "deathwatch"
+        "deathwatch",
+        "rogueTrader"
       ],
       "bio": {
         "homeWorld": "",
@@ -1444,7 +1454,8 @@
         "quirks": "",
         "superstition": "",
         "momentos": "",
-        "notes": ""
+        "notes": "",
+        "rank": ""
       },
       "experience": {
         "value": 0

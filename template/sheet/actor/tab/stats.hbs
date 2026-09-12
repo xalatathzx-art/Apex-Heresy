@@ -38,6 +38,8 @@
     </div>
     <div class="characteristics border">
         <h1>{{localize "TITLE.CHARACTERISTICS"}}</h1>
+        {{!-- Характеристику, которой в книге нет, лист не показывает: у Rogue
+              Trader их девять, и Влиятельности среди них нет (стр. 398). --}}
         <div class="left">
             {{#each system.characteristics as |characteristic key|}}
                 {{#if characteristic.isLeft}}
