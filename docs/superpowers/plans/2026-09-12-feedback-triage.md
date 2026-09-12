@@ -26,7 +26,7 @@
 
 ---
 
-### Task 1: Finish the triage
+### Task 1: Finish the triage — DONE
 
 Twelve reported items were never investigated. They are settled here, before any of them
 reaches a fix task, so that no effort is spent on behaviour that is already correct.
@@ -38,7 +38,7 @@ reaches a fix task, so that no effort is spent on behaviour that is already corr
 - Consumes: nothing.
 - Produces: a `## Remaining Triage` section whose verdicts later planning reads.
 
-- [ ] **Step 1: Investigate each item and record a verdict**
+- [x] **Step 1: Investigate each item and record a verdict**
 
 Settle each of the following with a code location, a pack query, or a book page. Use the
 five verdicts defined in the spec (`CONFIRMED`, `ALREADY-FIXED`, `WORKS-AS-WRITTEN`,
@@ -59,19 +59,19 @@ five verdicts defined in the spec (`CONFIRMED`, `ALREADY-FIXED`, `WORKS-AS-WRITT
 | Scholastic Lore needs Common Lore equivalents | book p. 114; check the skill specialisation list |
 | Special Ability text hard to read | `grep -rn "specialAbility" template/` |
 
-- [ ] **Step 2: Append the verdict table to the spec**
+- [x] **Step 2: Append the verdict table to the spec**
 
 Add a `## Remaining Triage` section to the spec containing one row per item above, each with
 its verdict and its evidence (file and line, pack query result, or book page). Items whose
 verdict is `CONFIRMED` get a one-line statement of the intended fix. Items whose verdict is
 `HOUSE-RULE` or `WORKS-AS-WRITTEN` record the book text that settles them.
 
-- [ ] **Step 3: Verify nothing else changed**
+- [x] **Step 3: Verify nothing else changed**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 450 tests, 0 fail.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add docs/superpowers/specs/2026-09-12-feedback-triage-design.md
@@ -85,7 +85,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 2: A weapon type vocabulary
+### Task 2: A weapon type vocabulary — DONE
 
 `DarkHeresyUtil.ammunitionFitsWeapon` compares `ammunition.system.weaponTypes` against
 `weapon.system.type`, but 185 of 186 weapons in the `dark-heresy` pack have an empty
@@ -102,7 +102,7 @@ This task builds the vocabulary and the classifier; Task 3 writes it into the pa
   - `WEAPON_TYPES` — a frozen array of `{key, label}` for the DH2 weapon groups.
   - `classifyWeapon(name, special) -> string|null` — the type key, or `null` when undecidable.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -140,12 +140,12 @@ test('the classifier never returns a key outside the vocabulary', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/weapon-types.test.mjs`
 Expected: FAIL — cannot find module `../script/data/weapon-types.mjs`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Create `script/data/weapon-types.mjs`. Order matters in `PATTERNS`: the first match wins, so
 more specific patterns come first (`Hot-Shot Lasgun` must reach `las`, not fall through).
@@ -209,17 +209,17 @@ export function classifyWeapon(name, special = '') {
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tests/weapon-types.test.mjs`
 Expected: PASS, 4 tests.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 454 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/data/weapon-types.mjs tests/weapon-types.test.mjs
@@ -234,7 +234,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 3: Write weapon types into the pack
+### Task 3: Write weapon types into the pack — DONE
 
 **Files:**
 - Modify: `tools/lib/dark-heresy-fixes.mjs`
@@ -244,7 +244,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 - Consumes: `classifyWeapon` from Task 2.
 - Produces: `fixDocument` now sets `system.type` on weapon documents.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -276,12 +276,12 @@ test('the patch is idempotent', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/weapon-type-coverage.test.mjs`
 Expected: FAIL — `changed` is `false` and `system.type` stays `''`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Add the import at the top of `tools/lib/dark-heresy-fixes.mjs`:
 
@@ -305,28 +305,28 @@ And inside `fixDocument`, before the `return`:
     }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tests/weapon-type-coverage.test.mjs`
 Expected: PASS, 4 tests.
 
-- [ ] **Step 5: Apply the patch to the pack**
+- [x] **Step 5: Apply the patch to the pack**
 
 Foundry must be closed. Run: `node tools/patch-dark-heresy.mjs`
 Expected: a report listing the weapons whose type changed, and a non-zero `changed:` count.
 
-- [ ] **Step 6: Confirm coverage in the built pack**
+- [x] **Step 6: Confirm coverage in the built pack**
 
 Run a pack query counting weapons with an empty `system.type`. Record the number in the
 commit message. Weapons that remain unclassified are expected; the count must be small and
 each remaining name should be genuinely ambiguous.
 
-- [ ] **Step 7: Run the whole suite and the syntax gate**
+- [x] **Step 7: Run the whole suite and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 458 tests, 0 fail; no syntax output.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add tools/lib/dark-heresy-fixes.mjs tests/weapon-type-coverage.test.mjs packs/dark-heresy
@@ -341,7 +341,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 4: Spray weapons can fire again
+### Task 4: Spray weapons can fire again — DONE
 
 A flamer skips the attack roll, so `prepareCombatRoll` forces `attackType.name = "standard"`
 at `script/dark-heresy.js:5907`. `_weaponSupportsAttackType` then demands `rof.single`, which
@@ -361,7 +361,7 @@ never fail silently.
 - Consumes: nothing.
 - Produces: no new exports; `_weaponSupportsAttackType` gains a Spray short-circuit.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -387,12 +387,12 @@ test('a non-Spray weapon with no single shot is still refused', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/spray-attack.test.mjs`
 Expected: FAIL — the first test returns `false`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Edit with Python. In `_weaponSupportsAttackType`, immediately after the melee branch, add:
 
@@ -419,17 +419,17 @@ Add to `lang/en.json`, next to the existing `WEAPON.NO_SEMI_AUTO`:
 "WEAPON.NO_SINGLE_SHOT": "{weapon} has no single-shot rate of fire.",
 ```
 
-- [ ] **Step 4: Run the test and the syntax gate**
+- [x] **Step 4: Run the test and the syntax gate**
 
 Run: `node --test tests/spray-attack.test.mjs` then `node --check script/dark-heresy.js`
 Expected: PASS, 2 tests; no syntax output.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 460 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js lang/en.json tests/spray-attack.test.mjs
@@ -445,7 +445,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 5: A short magazine caps the hits instead of forbidding the shot
+### Task 5: A short magazine caps the hits instead of forbidding the shot — DONE
 
 `_checkAmmo` returns `enough: clipValue >= required`, and the caller refuses the attack. A
 weapon with RoF 10 and 9 rounds left should fire, scoring at most 9 hits.
@@ -460,7 +460,7 @@ weapon with RoF 10 and 9 rounds left should fire, scoring at most 9 hits.
 - Produces: `_checkAmmo` returns `{enough, required, available, fired}` where `fired` is the
   number of rounds actually spent — `Math.min(required, available)`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -490,12 +490,12 @@ test('a full magazine spends exactly the rate of fire', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/short-magazine.test.mjs`
 Expected: FAIL — the first test gets `enough: false` and `fired: undefined`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Replace the return of `_checkAmmo`:
 
@@ -518,17 +518,17 @@ selected attack type must be `Math.min(maxHits, rollData.ammoFired ?? maxHits)`,
 `prepareCombatRoll` sets `rollData.ammoFired = ammoCheck.fired` right after calling
 `_checkAmmo`. Consume `fired` rounds, not `required`, in `_consumeAmmo`.
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tests/short-magazine.test.mjs` then `node --check script/dark-heresy.js`
 Expected: PASS, 3 tests; no syntax output.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 463 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js tests/short-magazine.test.mjs
@@ -542,7 +542,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 6: Round the way the book rounds
+### Task 6: Round the way the book rounds — DONE
 
 DH2 p. 23 makes rounding up the default for every division. `_getUnnaturalDosBonus` uses
 `Math.floor`, so Unnatural (3) grants one bonus degree where the book grants two.
@@ -560,7 +560,7 @@ One existing halving must **not** change: `script/dark-heresy.js:17353` writes
 - Consumes: nothing.
 - Produces: `halfRoundedUp(value) -> number`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -587,12 +587,12 @@ test('Unnatural grants half its value in degrees, rounded up (DH2 p. 140)', () =
 Adapt the second test's actor plumbing to whatever `tests/helpers/system.mjs` already offers
 for stubbing `game.actors.get`; read an existing test that stubs an actor before writing it.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/rounding.test.mjs`
 Expected: FAIL — module missing, and the Unnatural bonus returns 1.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Create `script/data/rounding.mjs`:
 
@@ -617,7 +617,7 @@ Then at `script/dark-heresy.js:4225`, replace `return Math.floor(unnatural / 2);
 to `halfRoundedUp(unnatural)`, importing it at the top of the file alongside the other
 `script/data/` imports.
 
-- [ ] **Step 4: Audit the three remaining halvings**
+- [x] **Step 4: Audit the three remaining halvings**
 
 Check each against its own rule with pdf-mcp and either route it through `halfRoundedUp` or
 leave it with a comment saying which page keeps it as it is:
@@ -628,12 +628,12 @@ leave it with a comment saying which page keeps it as it is:
 
 Do **not** touch `:17353`.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 465 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/data/rounding.mjs script/dark-heresy.js tests/rounding.test.mjs
