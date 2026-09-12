@@ -60,6 +60,22 @@ export function fixDocument(source) {
         if (Number(doc.system?.cost) !== value) { doc.system.cost = value; changed = true; }
     }
 
+    // Синскин (стр. 173): «grants 2 Armour points to all locations not already
+    // armoured». «Ещё не защищённым» — это правило максимума, а не прибавка:
+    // где доспех лучше, считается доспех. В паке стояло enabled: false с нулями
+    // и вдобавок isAdditive: true, то есть неверны были все три поля разом.
+    if (doc.type === "gear" && doc.name === "Synskin") {
+        const granted = doc.system?.grantsArmour ?? {};
+        const part = Object.fromEntries(
+            ["head", "leftArm", "rightArm", "body", "leftLeg", "rightLeg"].map(location => [location, 2]));
+        const wrong = !granted.enabled || granted.isAdditive
+            || Object.values(granted.part ?? {}).some(value => Number(value) !== 2);
+        if (wrong) {
+            doc.system = {...doc.system, grantsArmour: {...granted, enabled: true, isAdditive: false, part}};
+            changed = true;
+        }
+    }
+
     // Ammunition quantity. Shipped data put the magazine's capacity here: the
     // Lasgun's clip is 60 and its cell reads 60, the Bolt Pistol's clip is 8 and
     // its clip reads 8, and so on for every round in the pack. Encumbrance sums
