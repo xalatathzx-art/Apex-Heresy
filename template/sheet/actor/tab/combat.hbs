@@ -223,6 +223,12 @@
                                 <button class="clear-jam" type="button">{{localize "WEAPON.CLEAR_JAM"}}</button>
                             {{else}}
                                 <button class="roll-weapon" type="button">{{localize "WEAPON.ATTACK"}}</button>
+                                {{!-- Урон без атаки: ступени успеха в него не
+                                      попадают, и это ровно то, зачем его просили.
+                                      Обработчик и окно были готовы давно — не
+                                      хватало только кнопки. --}}
+                                <button class="roll-weapon-damage" type="button"
+                                        title="{{localize "WEAPON.DAMAGE_ONLY_HINT"}}">{{localize "WEAPON.DAMAGE_ONLY"}}</button>
                             {{/if}}
                         </div>
                     </div>

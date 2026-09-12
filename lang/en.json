@@ -925,6 +925,8 @@
   "TOOL.COST": "Cost",
   "TOOL.EFFECT": "Effect",
   "WEAPON.CLEAR_JAM": "Clear Jam",
+  "WEAPON.DAMAGE_ONLY": "Damage",
+  "WEAPON.DAMAGE_ONLY_HINT": "Roll this weapon’s damage on its own, with no attack and no degrees of success folded in.",
   "WEAPON.JAMMED": "Weapon Jammed",
   "WEAPON.NOT_RANGED": "Only ranged weapons can be reloaded.",
   "WEAPON.SHOCK_FATIGUE_APPLIED": "{actor} gains 1 Fatigue from a Shock weapon.",

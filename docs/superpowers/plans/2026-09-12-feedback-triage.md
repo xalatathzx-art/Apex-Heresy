@@ -1880,42 +1880,42 @@ zero, so even an equippable Synskin would grant nothing.
 
 ---
 
-### Task 25: Untrained weapons cost -20, worked out rather than declared
+### Task 25: Untrained weapons cost -20, worked out rather than declared — DONE
 
 DH2 p. 151: "Each weapon type (Las, Chain, Low-Tech, etc.) requires the
 appropriate Weapon Training talent... doing so imposes a -20 untrained penalty
 on the relevant test." The weapon type is the `system.type` the earlier tasks
 filled in, so the system can decide this instead of asking.
 
-- [ ] Pure module `script/combat/weapon-training.mjs`: `isTrainedWith(talents, weaponType)`
-- [ ] Apply -20 in the attack modifiers, named in the roll card's source list
-- [ ] A manual override on the attack dialog, for the cases the data cannot know
-- [ ] Tests, suite, syntax gate, commit
+- [x] Pure module `script/combat/weapon-training.mjs`: `isTrainedWith(talents, weaponType)`
+- [x] Apply -20 in the attack modifiers, named in the roll card's source list
+- [x] A manual override on the attack dialog, for the cases the data cannot know
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
-### Task 26: A pistol fired in melee loses its Point Blank bonus
+### Task 26: A pistol fired in melee loses its Point Blank bonus — DONE
 
 DH2 p. 231: "Ballistic Skill tests made to attack a target at [Point-Blank]
 range gain a +30 bonus. This bonus does not apply when the attacker and the
 target are engaged in melee combat with each other." Being engaged is a state
 the system does not track, so the attack dialog asks.
 
-- [ ] A toggle on the ranged attack dialog: engaged in melee
-- [ ] Suppress the Point Blank bonus when it is set, and say so on the card
-- [ ] Tests, suite, syntax gate, commit
+- [x] A toggle on the ranged attack dialog: engaged in melee
+- [x] Suppress the Point Blank bonus when it is set, and say so on the card
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
-### Task 27: Roll a weapon's damage without attacking
+### Task 27: Roll a weapon's damage without attacking — DONE
 
 Requested from the weapon row on the combat tab. Rolling damage on its own also
 avoids degrees of success being folded into it, which is the reporter's stated
 reason.
 
-- [ ] A damage button on the weapon row
-- [ ] Rolls the weapon's damage formula with no attack and no degrees of success
-- [ ] Tests, suite, syntax gate, commit
+- [x] A damage button on the weapon row
+- [x] Rolls the weapon's damage formula with no attack and no degrees of success
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
