@@ -1750,6 +1750,136 @@ Expected: 0 fail; no syntax output.
 
 ---
 
+### Task 22: What is worn can be equipped
+
+One line explains two separate reports. `Item#isEquippable` covers only armour
+and weapons, so neither a force field nor a piece of gear gets the equip button
+in the inventory — and the armour sum filters on `isEquipped`, which nothing
+else can set. That is why force fields "cannot be equipped" and why Synskin's
+"also grants armour" does nothing.
+
+**Files:**
+- Modify: `script/dark-heresy.js:2977` (`isEquippable`)
+- Create: `tests/equippable.test.mjs`
+
+**Interfaces:**
+- Consumes: nothing.
+- Produces: `isEquippable` is true for weapons, armour, force fields, and any
+  item whose `system.grantsArmour.enabled` or `system.grantsAttack.enabled` is set.
+
+- [ ] **Step 1: Write the failing test**
+
+Assert that a force field is equippable; that gear with `grantsArmour.enabled`
+is equippable; that plain gear is not; and that weapons and armour still are.
+
+- [ ] **Step 2: Run the test to verify it fails**
+
+Run: `node --test tests/equippable.test.mjs`
+Expected: FAIL — the force field and the granting gear both read as not equippable.
+
+- [ ] **Step 3: Write the minimal implementation**
+
+```javascript
+    get isEquippable() {
+        if (["armour", "weapon", "forceField"].includes(this.type)) return true;
+        // Снаряжение, которое книга описывает как «даёт N брони» или собственную
+        // атаку, надевается наравне с доспехом: иначе grantsArmour не включить,
+        // потому что расчёт брони смотрит на isEquipped.
+        return !!(this.system?.grantsArmour?.enabled || this.system?.grantsAttack?.enabled);
+    }
+```
+
+- [ ] **Step 4: Run the suite and the syntax gate**
+
+Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
+Expected: 0 fail; no syntax output.
+
+- [ ] **Step 5: Commit**
+
+---
+
+### Task 23: Force fields turn attacks aside
+
+Ten force fields ship with a Protection Rating between 25 and 80 and nothing
+reads it, so a Rosarius that should stop half of everything stops nothing.
+
+**Files:**
+- Create: `script/combat/force-field.mjs`
+- Modify: `script/dark-heresy.js` (the damage application path)
+- Modify: `lang/en.json`
+- Create: `tests/force-field.test.mjs`
+
+**Interfaces:**
+- Consumes: nothing.
+- Produces:
+  - `OVERLOAD_BY_CRAFTSMANSHIP` — the p. 170 table, keyed by craftsmanship.
+  - `overloadChanceFor(item)` — the field's own number, or the craftsmanship default.
+  - `fieldProtects({field, roll, isMelee, rangeMetres})` -> `{blocked, overloaded}`.
+
+- [ ] **Step 1: Record the rule**
+
+DH2 p. 169-170. "Fields can also overload. Compare the 1d100 roll to avoid
+damage to Table 5-13: Field Overload Chance. If the result is lower than or
+equal to the listed number, the field overloads. It ceases to function until it
+is recharged or repaired, requiring a successful Very Hard (-30) Tech-Use test."
+
+Table 5-13: Poor 01-15, Common 01-10, Good 01-05, Best 01. The pack stores a
+flat 10 on every field, which is only right for Common.
+
+Power Field: "does not defend against ranged attacks made within 1 metre, or
+attacks in melee."
+
+- [ ] **Step 2: Write the failing test**
+
+Assert that a roll at or below the Protection Rating blocks the damage and a
+roll above it does not; that the overload number follows craftsmanship; that a
+roll at or below the overload number overloads the field whether or not it
+blocked; that a Power Field blocks neither melee nor a shot from within a metre;
+and that an overloaded field protects nothing until repaired.
+
+- [ ] **Step 3: Run the test to verify it fails**
+
+Expected: FAIL — module missing.
+
+- [ ] **Step 4: Implement the pure module, then wire it**
+
+The field is consulted before armour and Toughness, since it negates the attack
+rather than reducing it. An overloaded field is marked on the item so it stays
+down until a Very Hard (-30) Tech-Use test brings it back.
+
+- [ ] **Step 5: Say so in the chat card**
+
+A field that turns an attack aside, and a field that burns out, must both appear
+in the log. A silent save is indistinguishable from a bug, which is how this one
+went unnoticed.
+
+- [ ] **Step 6: Run the suite and the syntax gate**
+
+Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
+Expected: 0 fail; no syntax output.
+
+- [ ] **Step 7: Commit**
+
+---
+
+### Task 24: Synskin grants the armour it promises
+
+**Files:**
+- Modify: `tools/lib/dark-heresy-fixes.mjs`
+- Create: `tests/synskin.test.mjs`
+
+- [ ] **Step 1: Read the entry from the book**
+
+Find Synskin with `pdf_search` and record the page, the Armour Points it grants
+and the locations it covers. Do not assume the reporter's summary.
+
+- [ ] **Step 2: Write the failing test, implement, patch the pack, commit**
+
+The pack ships Synskin with `grantsArmour.enabled: false` and every location at
+zero, so even an equippable Synskin would grant nothing.
+
+---
+
 ## Self-Review
 
 **Spec coverage.** Every confirmed defect in the spec maps to a task: 1 -> Task 7, 2 -> Task 4,
