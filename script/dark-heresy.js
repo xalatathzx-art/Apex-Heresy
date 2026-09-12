@@ -9,6 +9,7 @@ import { corrosiveBite } from "./combat/corrosive.mjs";
 import { woundsAfterDamage, woundsAfterHealing } from "./combat/vitals.mjs";
 import { UNTRAINED_PENALTY, trainingModifier } from "./combat/weapon-training.mjs";
 import { applyMeleeEngagement } from "./combat/range-rules.mjs";
+import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "./combat/fate.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -8885,6 +8886,7 @@ class BlackCrusadeSheet extends BookSheet {
         if (!this.isEditable) return;
         html.find(".infamy-refresh").click(async () => await this._onInfamyRefresh());
         html.find(".infamy-spend").click(async () => await this._onInfamySpend());
+        html.find(".fate-spend").click(async () => await this._onFateSpend());
     }
 
     /**
@@ -8901,6 +8903,46 @@ class BlackCrusadeSheet extends BookSheet {
      * Потратить очко Тёмной славы. Что именно предложено — решают накопленная
      * Порча и покровитель, поэтому список собирается каждый раз заново.
      */
+    /**
+     * Потратить очко Судьбы. Список у аколита один и тот же: в отличие от
+     * Тёмной славы, он не растёт с Порчей и не зависит от покровителя.
+     */
+    async _onFateSpend() {
+        const actor = this.actor;
+        if ((Number(actor.system.fate?.value) || 0) <= 0) {
+            ui.notifications.warn(game.i18n.localize("FATE_NO_POINTS"));
+            return;
+        }
+
+        const options = FATE_ABILITIES
+            .map(a => `<option value="${a.id}">${game.i18n.localize(a.label)}</option>`)
+            .join("");
+
+        const dialog = dhDialog({
+            title: game.i18n.localize("FATE_SPEND_TITLE"),
+            content: `<div class="form-group">
+                <label>${game.i18n.localize("FATE_SPEND_PROMPT")}</label>
+                <select name="ability">${options}</select>
+            </div>`,
+            buttons: {
+                spend: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: game.i18n.localize("FATE_SPEND"),
+                    callback: async html => {
+                        const chosen = html.find('select[name="ability"]')[0]?.value;
+                        if (chosen) await spendFatePoint(actor, chosen);
+                    }
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: game.i18n.localize("BUTTON.CANCEL"),
+                    callback: () => {}
+                }
+            }
+        });
+        dialog.render(true);
+    }
+
     async _onInfamySpend() {
         const actor = this.actor;
         if ((Number(actor.system.fate?.value) || 0) <= 0) {
@@ -9223,6 +9265,67 @@ async function spendInfamyPoint(actor, abilityId) {
                 const roll = await new Roll("1d5").evaluate();
                 detail = `${game.i18n.localize("INFAMY.DEGREES")}: ${roll.total}`;
             }
+            break;
+    }
+
+    await actor.update(update);
+    await _postInfamyCard(actor, ability, detail);
+}
+
+/**
+ * Потратить очко Судьбы (DH2, стр. 294).
+ *
+ * Ресурс тот же, что у Дурной славы, и поле то же; отличается список. У еретика
+ * он открывается по уровню Порчи и покровителю, у аколита доступен целиком.
+ * Механическое система доводит до конца сама, остальное объявляет карточкой.
+ *
+ * @param {Actor} actor
+ * @param {string} abilityId
+ */
+async function spendFatePoint(actor, abilityId) {
+    const ability = FATE_ABILITIES.find(a => a.id === abilityId);
+    if (!ability) return;
+
+    const points = Number(actor.system.fate?.value) || 0;
+    if (points <= 0) {
+        ui.notifications.warn(game.i18n.localize("FATE_NO_POINTS"));
+        return;
+    }
+
+    const update = { "system.fate.value": points - 1 };
+    let detail = "";
+
+    switch (ability.id) {
+        case "fatigue":
+            update["system.fatigue.value"] = 0;
+            break;
+
+        case "heal": {
+            // «Instantly remove 1d5 damage... This cannot be used to remove
+            // Critical damage» — поэтому критические раны не трогаются вовсе,
+            // и этим Судьба отличается от Тёмной славы, которая их обнуляет.
+            const roll = await new Roll("1d5").evaluate();
+            const healed = fateHealing({ wounds: actor.system.wounds?.value, roll: roll.total });
+            update["system.wounds.value"] = healed.wounds;
+            detail = `${game.i18n.localize("FATE_HEALED")}: ${healed.healed}`;
+            break;
+        }
+
+        case "initiative": {
+            const combatant = game.combat?.getCombatantByActor?.(actor.id);
+            if (!combatant) {
+                ui.notifications.warn(game.i18n.localize("INITIATIVE_NOT_IN_COMBAT"));
+                return;
+            }
+            // «Считается выбросившим 10» — кость заменяется, бонус остаётся.
+            const initiative = FATE_INITIATIVE_ROLL + (Number(actor.initiative?.bonus) || 0);
+            await combatant.update({ initiative });
+            detail = `${game.i18n.localize("INITIATIVE")}: ${initiative}`;
+            break;
+        }
+
+        case "stun":
+            await actor.removeCondition("stunned");
             break;
     }
 
@@ -13985,7 +14088,9 @@ const addChatMessageContextOptions = function(application, options) {
 
     let canReroll = li => {
         const message = game.messages.get(li.dataset.messageId);
-        let actor = _actorFromRollData(message.getRollData());
+        // Судьбу платит тот, кто бросал: на карточке уклонения это цель, а не
+        // владелец карточки. Раньше право на переброс проверялось у атакующего.
+        let actor = _fateActorFor(message.getRollData());
         return message.isRoll
             && !message.getRollData()?.flags.isDamageRoll
             && message.isContentVisible
@@ -14259,12 +14364,30 @@ async function applyAutoDamageFromSocket(payload) {
 }
 
 /**
+ * Чьё очко Судьбы тратится на этот бросок.
+ *
+ * Карточку уклонения создаёт атакующий, а уклоняется цель, поэтому владелец
+ * карточки и владелец очка — разные люди. Списывать Судьбу у атакующего за
+ * чужой переброс нельзя, и до сих пор списывалась именно она.
+ *
+ * @param {object} rollData
+ * @returns {Actor|null}
+ */
+function _fateActorFor(rollData) {
+    const ownerId = fateOwnerId(rollData);
+    if (!ownerId) return null;
+    if (ownerId === rollData?.ownerId) return _actorFromRollData(rollData);
+    return game.actors.get(ownerId) ?? null;
+}
+
+/**
  * Rerolls the Test using the same Data as the initial Roll while reducing an actors fate
  * @param {object} rollData
  * @returns {Promise}
  */
 function rerollTest(rollData) {
-    let actor = _actorFromRollData(rollData);
+    let actor = _fateActorFor(rollData);
+    if (!actor) return;
     actor.update({ "system.fate.value": actor.fate.value -1 });
     delete rollData.damages; // Reset so no old data is shown on failure
 

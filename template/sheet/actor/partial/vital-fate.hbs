@@ -1,6 +1,9 @@
 {{!-- Полоса показателя: сначала видно состояние, потом цифры. --}}
                 <div class="vital vital-fate">
-                    <span class="vital-label">{{localize "FATE"}}</span>
+                    {{!-- У Тёмной славы кнопка траты была с самого начала, а у
+                          Судьбы — нет, хотя ресурс один и тот же и книга даёт
+                          ей семь применений (стр. 294). --}}
+                    <span class="vital-label">{{localize "FATE"}}<a class="fate-spend" title="{{localize "FATE_SPEND_TITLE"}}"><i class="fa-solid fa-bolt"></i></a></span>
                     <div class="vital-bar" role="img"
                          aria-label="{{system.fate.value}} / {{system.fate.max}}">
                         <div class="vital-fill" style="width: {{system.fate.percent}}%"></div>
