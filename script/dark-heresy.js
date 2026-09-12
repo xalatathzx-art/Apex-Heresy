@@ -2974,7 +2974,20 @@ class DarkHeresyItem extends Item {
     }
 
     /** Weapons are held and armour is worn; the rest simply travels. @returns {boolean} */
-    get isEquippable() { return this.type === "armour" || this.type === "weapon"; }
+    /**
+     * Можно ли предмет надеть.
+     *
+     * Инвентарь рисует кнопку «надеть» только надеваемому, а расчёт брони
+     * считает только надетое. Пока сюда входили лишь доспех и оружие, силовое
+     * поле было нечем включить, и «даёт броню» у снаряжения не срабатывало
+     * никогда — две разные жалобы из одной строки.
+     */
+    get isEquippable() {
+        if (["armour", "weapon", "forceField"].includes(this.type)) return true;
+        // Снаряжение, которое книга описывает как «даёт N брони» или собственную
+        // атаку, носят наравне с доспехом. Синскин — как раз такой случай.
+        return !!(this.system?.grantsArmour?.enabled || this.system?.grantsAttack?.enabled);
+    }
 
     /**
      * How the item is being carried, as a word. Never colour alone.
