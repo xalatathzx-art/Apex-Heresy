@@ -32,6 +32,14 @@
                     {{selectOptions (config "ranges") selected=rangeMod localize=true}}
                 </select>
             </div>
+            {{!-- Сцепку в ближнем бою система не отслеживает: это состояние стола,
+                  а не расстояние. Спрашиваем, потому что от неё зависит, даётся ли
+                  бонус за упор (стр. 231). --}}
+            <div class="dh-dialog-row">
+                <label for="engagedInMelee">{{localize "DIALOG.ENGAGED_IN_MELEE"}}</label>
+                <input id="engagedInMelee" type="checkbox" {{checked engagedInMelee}} />
+            </div>
+            <p class="dh-dialog-hint">{{localize "DIALOG.ENGAGED_HINT"}}</p>
             <div class="dh-dialog-row">
                 <label for="attackType">{{localize "DIALOG.ATTACK_TYPE"}}</label>
                 <select id="attackType">

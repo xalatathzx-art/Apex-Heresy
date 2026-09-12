@@ -124,7 +124,10 @@
                     {{/if}}
 
                     <dt>{{localize "CHAT.ATTACK_RANGE"}}</dt>
-                    <dd>{{rangeModText}} ({{signed rangeMod}})</dd>
+                    {{!-- Цель по-прежнему в упор, просто в свалке это не даёт
+                          преимущества (стр. 231). Полосу оставляем, иначе
+                          карточка соврёт о том, где цель стоит. --}}
+                    <dd>{{rangeModText}} ({{signed rangeMod}}){{#if pointBlankDenied}} — {{localize "CHAT.POINT_BLANK_DENIED"}}{{/if}}</dd>
 
                     {{#if weapon.special}}
                         <dt>{{localize "WEAPON.SPECIAL"}}</dt>

@@ -8,6 +8,7 @@ import { fieldProtects } from "./combat/force-field.mjs";
 import { corrosiveBite } from "./combat/corrosive.mjs";
 import { woundsAfterDamage, woundsAfterHealing } from "./combat/vitals.mjs";
 import { UNTRAINED_PENALTY, trainingModifier } from "./combat/weapon-training.mjs";
+import { applyMeleeEngagement } from "./combat/range-rules.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -5986,9 +5987,14 @@ async function prepareCombatRoll(rollData, actorRef) {
     
     // Automatically determine range modifier for ranged weapons
     if (rollData?.weapon?.isRange && rollData?.targets?.length > 0) {
-        const autoRange = _determineRangeModifier(rollData, actorRef);
+        // Стрельба в упор не даёт +30, если стрелок и цель сцеплены в ближнем
+        // бою (DH2, стр. 231). Расстоянием это не определяется — сцепка есть
+        // состояние стола, — поэтому её объявляют тумблером в окне атаки.
+        const autoRange = applyMeleeEngagement(
+            _determineRangeModifier(rollData, actorRef), rollData.engagedInMelee === true);
         rollData.rangeMod = autoRange.rangeMod;
         rollData.rangeModText = autoRange.rangeModText;
+        rollData.pointBlankDenied = autoRange.pointBlankDenied;
     } else {
         // Default to None if not ranged or no targets
         rollData.rangeMod = rollData.rangeMod || 0;
@@ -6087,6 +6093,10 @@ async function prepareCombatRoll(rollData, actorRef) {
                                 rollData.weapon.traits.unreliable = true;
                             }
                         }
+
+                        // Сцепка в ближнем бою снимает бонус за упор (стр. 231).
+                        // Расстоянием её не вывести, поэтому читаем объявление.
+                        rollData.engagedInMelee = !!html.find("#engagedInMelee")[0]?.checked;
 
                         rollData.weapon.useMaximal = !!html.find("#maximal")[0]?.checked;
                         if (rollData.weapon.useMaximal && rollData.weapon.traits.maximal) {
