@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {loadSystem} from './helpers/system.mjs';
 import {RT_CHARACTERISTICS, RT_ABSENT_CHARACTERISTICS, RT_ADVANCE_TIERS,
-        RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase}
+        RT_CHARACTERISTIC_COSTS, RT_SKILLS, RT_ABSENT_SKILLS, rtCharacteristicCost, rtSkillType, rtSkillBase}
     from '../script/data/rogue-trader.mjs';
 
 test('Rogue Trader has nine characteristics, and Influence is not one', () => {
@@ -212,4 +212,68 @@ test("an explorer's advances are priced by the characteristic, not by aptitudes"
     const body = fn.slice(0, fn.indexOf('for (let skill of'));
     assert.match(body, /advances\?\.aptitudes === false/);
     assert.match(body, /rtCharacteristicCost\(characteristicKey/);
+});
+
+// ── The skill list ────────────────────────────────────────────────────────
+
+test('all forty-eight skills of Table 3-1 are present', () => {
+    assert.equal(RT_SKILLS.length, 48);
+    const template = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const stored = Object.keys(template.Actor.templates.skills.skills);
+    for (const key of RT_SKILLS) assert.ok(stored.includes(key), `no storage for ${key}`);
+});
+
+test('twenty are Basic and twenty-eight Advanced, as the table splits them', () => {
+    const basic = RT_SKILLS.filter(key => rtSkillType(key) === 'basic');
+    assert.equal(basic.length, 20);
+    assert.equal(RT_SKILLS.length - basic.length, 28);
+});
+
+test("the skills Rogue Trader does not have are named and hidden", () => {
+    // Athletics is its Climb and Swim, Linguistics its Literacy, Secret Tongue
+    // and Speak Language, Operate its Drive and Pilot, Stealth its Concealment
+    // and Silent Move. Parry is not a skill at all: it is a Weapon Skill test.
+    assert.deepEqual([...RT_ABSENT_SKILLS], ['athletics', 'linguistics', 'operate', 'parry', 'stealth']);
+    for (const key of RT_ABSENT_SKILLS) assert.equal(RT_SKILLS.includes(key), false, key);
+});
+
+test('what the book split, the system now stores separately', () => {
+    for (const key of ['climb', 'swim', 'literacy', 'secretTongue', 'speakLanguage',
+                       'drive', 'pilot', 'concealment', 'silentMove'])
+        assert.ok(RT_SKILLS.includes(key), key);
+});
+
+test('Lip Reading is not added, because the rules table does not have it', () => {
+    // The printed sheet on p. 398 lists it, but Table 3-1 and the rules text do
+    // not: it is a leftover from the Dark Heresy 1 sheet. The table wins.
+    assert.equal(RT_SKILLS.includes('lipReading'), false);
+    const template = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    assert.equal('lipReading' in template.Actor.templates.skills.skills, false);
+});
+
+test('every skill the sheet can show has a label', () => {
+    const template = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const lang = JSON.parse(readFileSync(new URL('../lang/en.json', import.meta.url), 'utf8'));
+    for (const [key, skill] of Object.entries(template.Actor.templates.skills.skills))
+        assert.ok(lang[skill.label], `${key} has no string for ${skill.label}`);
+});
+
+test('the Performer skill now exists, which it never did', () => {
+    // It was registered as a module attribute key while having no storage, so an
+    // effect aimed at it went nowhere. Adding the Rogue Trader list fixes that.
+    const template = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    assert.ok('performer' in template.Actor.templates.skills.skills);
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    assert.match(source, /"performer"/, 'and it is still offered to modules');
+});
+
+test('an absent skill is hidden on the sheet rather than deleted', () => {
+    // Storage is shared so a character can be re-pointed at another book; only
+    // the rendering follows the book.
+    const stats = readFileSync(new URL('../template/sheet/actor/tab/stats.hbs', import.meta.url), 'utf8');
+    const progression = readFileSync(new URL('../template/sheet/actor/tab/progression.hbs', import.meta.url), 'utf8');
+    for (const [name, file] of [['stats', stats], ['progression', progression]])
+        assert.match(file, /\{\{#unless skill\.absent\}\}/, name);
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    assert.match(source, /skill\.absent = absentSkills\.includes\(skillKey\)/);
 });

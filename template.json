@@ -1290,6 +1290,381 @@
                 "cost": 0
               }
             }
+          },
+          "barter": {
+            "label": "SKILL.BARTER",
+            "characteristics": [
+              "Fel"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Fellowship",
+              "Social"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "blather": {
+            "label": "SKILL.BLATHER",
+            "characteristics": [
+              "Fel"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Fellowship",
+              "Social"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "carouse": {
+            "label": "SKILL.CAROUSE",
+            "characteristics": [
+              "T"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Toughness",
+              "Social"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "chemUse": {
+            "label": "SKILL.CHEM_USE",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Tech"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "ciphers": {
+            "label": "SKILL.CIPHERS",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Knowledge"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "climb": {
+            "label": "SKILL.CLIMB",
+            "characteristics": [
+              "S"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Strength",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "concealment": {
+            "label": "SKILL.CONCEALMENT",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "contortionist": {
+            "label": "SKILL.CONTORTIONIST",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "demolition": {
+            "label": "SKILL.DEMOLITION",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Tech"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "disguise": {
+            "label": "SKILL.DISGUISE",
+            "characteristics": [
+              "Fel"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Fellowship",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "drive": {
+            "label": "SKILL.DRIVE",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "evaluate": {
+            "label": "SKILL.EVALUATE",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Knowledge"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "gamble": {
+            "label": "SKILL.GAMBLE",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Social"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "invocation": {
+            "label": "SKILL.INVOCATION",
+            "characteristics": [
+              "WP"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Willpower",
+              "Psyker"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "literacy": {
+            "label": "SKILL.LITERACY",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Knowledge"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "performer": {
+            "label": "SKILL.PERFORMER",
+            "characteristics": [
+              "Fel"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Fellowship",
+              "Social"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "pilot": {
+            "label": "SKILL.PILOT",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "search": {
+            "label": "SKILL.SEARCH",
+            "characteristics": [
+              "Per"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Perception",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "secretTongue": {
+            "label": "SKILL.SECRET_TONGUE",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Knowledge"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "shadowing": {
+            "label": "SKILL.SHADOWING",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "silentMove": {
+            "label": "SKILL.SILENT_MOVE",
+            "characteristics": [
+              "Ag"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Agility",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "speakLanguage": {
+            "label": "SKILL.SPEAK_LANGUAGE",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": true,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Knowledge"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "swim": {
+            "label": "SKILL.SWIM",
+            "characteristics": [
+              "S"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Strength",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "tracking": {
+            "label": "SKILL.TRACKING",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
+          },
+          "wrangling": {
+            "label": "SKILL.WRANGLING",
+            "characteristics": [
+              "Int"
+            ],
+            "advance": -20,
+            "isSpecialist": false,
+            "specialities": {},
+            "aptitudes": [
+              "Intelligence",
+              "Fieldcraft"
+            ],
+            "starter": false,
+            "cost": 0
           }
         }
       },

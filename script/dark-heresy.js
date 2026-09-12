@@ -13,7 +13,7 @@ import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "
 import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
 import { CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor } from "./combat/grapple.mjs";
 import { resolveOpposed } from "./combat/opposed.mjs";
-import { RT_ABSENT_CHARACTERISTICS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase } from "./data/rogue-trader.mjs";
+import { RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase } from "./data/rogue-trader.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -1009,6 +1009,9 @@ class DarkHeresyActor extends Actor {
         // ко всему; Rogue Trader делит характеристику пополам и продвинутые
         // навыки запирает совсем.
         const skillModel = Dh.rulesetFor(this).skills?.model ?? "dh2";
+        // Навык, которого в книге нет, лист не показывает. Хранится он всё
+        // равно: персонажа можно перевести на другую книгу, не пересоздавая.
+        const absentSkills = Dh.rulesetFor(this).skills?.absent ?? [];
         for (let [skillKey, skill] of Object.entries(this.skills)) {
             let short = skill.characteristics[0];
             let characteristic = this._findCharacteristic(short);
@@ -1016,6 +1019,7 @@ class DarkHeresyActor extends Actor {
             // Ensure advance is a number (handle undefined, null, string, etc.)
             const advanceValue = Number(skill.advance) || 0;
             skill.total = baseTotal + advanceValue;
+            skill.absent = absentSkills.includes(skillKey);
 
             // Rogue Trader считает необученность иначе (Таблица 9-1, стр. 231):
             // базовый навык идёт на половине характеристики с округлением ВНИЗ —
@@ -16202,7 +16206,7 @@ Dh.rulesets.rt = {
     characteristics: { absent: [...RT_ABSENT_CHARACTERISTICS] },
     resource: { profitFactor: true },
     advances: { tiers: RT_ADVANCE_TIERS.length, costs: RT_CHARACTERISTIC_COSTS, aptitudes: false },
-    skills: { model: "basicAdvanced" }
+    skills: { model: "basicAdvanced", absent: [...RT_ABSENT_SKILLS] }
 };
 
 /**

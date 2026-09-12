@@ -180,7 +180,10 @@
                 <a class="button skill-create" title="{{localize "SKILL.CREATE_CUSTOM"}}"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
+                {{!-- Навык, которого книга не знает, не покупается: у Rogue Trader
+                      нет Атлетики, Языков, Управления, Скрытности и Парирования. --}}
                 {{#each system.skills as |skill key|}}
+                    {{#unless skill.absent}}
                     {{#unless skill.isSpecialist}}
                         <div class="skill item flex row">
                             <div class="name">{{safeLocalize skill.label}}</div>
@@ -192,8 +195,10 @@
                             <input class="starter" name="system.skills.{{key}}.starter" type="checkbox" {{#if skill.starter}}checked{{/if}} data-dtype="Boolean" />
                         </div>
                     {{/unless}}
+                    {{/unless}}
                 {{/each}}
                 {{#each system.skills as |skill key|}}
+                    {{#unless skill.absent}}
                     {{#if skill.isSpecialist}}
                         <p class="advance-group-title">{{safeLocalize skill.label}}</p>
                         {{#each skill.specialities as |speciality keySpe|}}
@@ -214,6 +219,7 @@
                             </div>
                         {{/each}}
                     {{/if}}
+                    {{/unless}}
                 {{/each}}
             </div>
         </div>

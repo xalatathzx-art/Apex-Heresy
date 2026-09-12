@@ -69,17 +69,46 @@ export function rtCharacteristicCost(characteristic, advances) {
  * одного списка к другому решается отдельно. Здесь сказано лишь то, к какому
  * типу книга относит каждый из существующих.
  */
-export const RT_ADVANCED_SKILLS = Object.freeze([
-    "acrobatics", "commerce", "commonLore", "forbiddenLore", "interrogation",
-    "linguistics", "medicae", "navigate", "operate", "psyniscience",
-    "scholasticLore", "security", "survival", "techUse", "trade"
+/**
+ * Все сорок восемь навыков Rogue Trader (Таблица 3-1, стр. 76), ключами этой
+ * системы. Порядок книжный — по алфавиту её собственных названий.
+ *
+ * Печатный лист на стр. 398 перечисляет ещё Lip Reading, но ни в таблице, ни в
+ * тексте правил такого навыка нет: это остаток бланка Dark Heresy 1. Следуем
+ * таблице правил, а не опечатке в бланке.
+ */
+export const RT_SKILLS = Object.freeze([
+    "acrobatics", "awareness", "barter", "blather", "carouse", "charm", "chemUse",
+    "ciphers", "climb", "commerce", "command", "commonLore", "concealment",
+    "contortionist", "deceive", "demolition", "disguise", "dodge", "drive",
+    "evaluate", "forbiddenLore", "gamble", "inquiry", "interrogation", "intimidate",
+    "invocation", "literacy", "logic", "medicae", "navigate", "performer", "pilot",
+    "psyniscience", "scholasticLore", "scrutiny", "search", "secretTongue",
+    "security", "shadowing", "silentMove", "sleightOfHand", "speakLanguage",
+    "survival", "swim", "techUse", "tracking", "trade", "wrangling"
 ]);
 
 /**
- * Базовый навык или продвинутый.
- * @param {string} skillKey
- * @returns {"basic"|"advanced"}
+ * Навыки этой системы, которых у Rogue Trader нет.
+ *
+ * Четыре из них книга не объединяла: Атлетика у неё разделена на Climb и Swim,
+ * Языки — на Literacy, Secret Tongue и Speak Language, Управление — на Drive и
+ * Pilot, Скрытность — на Concealment и Silent Move. Парирование навыком не
+ * является вовсе: это проверка Владения оружием.
  */
+export const RT_ABSENT_SKILLS = Object.freeze([
+    "athletics", "linguistics", "operate", "parry", "stealth"
+]);
+
+/** Продвинутые навыки: без обучения ими пользоваться нельзя (стр. 76). */
+export const RT_ADVANCED_SKILLS = Object.freeze([
+    "acrobatics", "blather", "chemUse", "ciphers", "commerce", "commonLore",
+    "demolition", "drive", "forbiddenLore", "interrogation", "invocation",
+    "literacy", "medicae", "navigate", "performer", "pilot", "psyniscience",
+    "scholasticLore", "secretTongue", "security", "shadowing", "sleightOfHand",
+    "speakLanguage", "survival", "techUse", "tracking", "trade", "wrangling"
+]);
+
 export function rtSkillType(skillKey) {
     return RT_ADVANCED_SKILLS.includes(skillKey) ? "advanced" : "basic";
 }

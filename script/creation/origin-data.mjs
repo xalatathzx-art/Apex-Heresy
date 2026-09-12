@@ -33,11 +33,14 @@ export const CHARACTERISTIC_KEYS = ["weaponSkill", "ballisticSkill", "strength",
     "agility", "intelligence", "perception", "willpower", "fellowship", "influence"];
 
 /** Ключи навыков актора — те же и в том же порядке, что в template.json. */
-export const SKILL_KEYS = ["acrobatics", "athletics", "awareness", "charm", "command", "commerce",
-    "commonLore", "deceive", "dodge", "forbiddenLore", "inquiry", "interrogation", "intimidate",
-    "linguistics", "logic", "medicae", "navigate", "operate", "parry", "psyniscience",
-    "scholasticLore", "scrutiny", "security", "sleightOfHand", "stealth", "survival",
-    "techUse", "trade"];
+export const SKILL_KEYS = ["acrobatics", "athletics", "awareness", "charm", "command",
+    "commerce", "commonLore", "deceive", "dodge", "forbiddenLore", "inquiry", "interrogation",
+    "intimidate", "linguistics", "logic", "medicae", "navigate", "operate", "parry",
+    "psyniscience", "scholasticLore", "scrutiny", "security", "sleightOfHand", "stealth",
+    "survival", "techUse", "trade", "barter", "blather", "carouse", "chemUse", "ciphers",
+    "climb", "concealment", "contortionist", "demolition", "disguise", "drive", "evaluate",
+    "gamble", "invocation", "literacy", "performer", "pilot", "search", "secretTongue",
+    "shadowing", "silentMove", "speakLanguage", "swim", "tracking", "wrangling"];
 
 /** Склонности — те же, что раздают навыки и характеристики в template.json. */
 export const APTITUDES = ["Agility", "Ballistic Skill", "Defence", "Fellowship", "Fieldcraft",

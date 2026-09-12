@@ -135,10 +135,15 @@
         {{!-- The plain skills, on one grid. --}}
         <div class="flex row skill-grid">
             {{#each system.skills as |skill key|}}
+                {{#unless skill.absent}}
                 {{#unless skill.isSpecialist}}
                     {{!-- Name, figure, proficiency in words, and the characteristic
                           the roll is made against. The proficiency used to be a
-                          bare "U" in a disabled input. --}}
+                          bare "U" in a disabled input.
+
+                          Навык, которого книга не знает, не показывается вовсе:
+                          у Rogue Trader нет Атлетики и Языков, зато есть Climb,
+                          Swim, Literacy и Speak Language по отдельности. --}}
                     <div class="skill">
                         <div class="name">
                             <button class="roll-skill" data-skill="{{key}}" type="button">{{safeLocalize skill.label}}</button>
@@ -148,6 +153,7 @@
                         <span class="skill-characteristic">{{skill.characteristics.[0]}}</span>
                     </div>
                 {{/unless}}
+                {{/unless}}
             {{/each}}
         </div>
 
@@ -156,6 +162,7 @@
               in are left out: they used to render their heading anyway, which put
               eight empty panels in a scroll box on a fresh character. --}}
         {{#each system.skills as |skill key|}}
+            {{#unless skill.absent}}
             {{#if skill.isSpecialist}}
                 {{#if skill.hasKnownSpecialities}}
                     <div class="speciality-group">
@@ -183,6 +190,7 @@
                     </div>
                 {{/if}}
             {{/if}}
+            {{/unless}}
         {{/each}}
     </div>
 </div>

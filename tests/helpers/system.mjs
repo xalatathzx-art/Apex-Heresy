@@ -19,7 +19,7 @@ import {FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId} from '..
 import {COUNTER_ATTACK_FLAG, canCounterAttack} from '../../script/combat/counter-attack.mjs';
 import {CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor} from '../../script/combat/grapple.mjs';
 import {resolveOpposed} from '../../script/combat/opposed.mjs';
-import {RT_ABSENT_CHARACTERISTICS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase} from '../../script/data/rogue-trader.mjs';
+import {RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase} from '../../script/data/rogue-trader.mjs';
 import {stepsFor, backgroundExperienceFor} from '../../script/creation/ruleset-data.mjs';
 import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
@@ -39,7 +39,7 @@ export function loadSystem(overrides = {}) {
         renownRankFor, dwTraumaModifier, dwInsanityStep, PURITY_THRESHOLD, purityBroken, cohesionPool, FOCUS_AUTO_FAIL,
         rankForExperience, stepsFor, backgroundExperienceFor,
         halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite, woundsAfterDamage, woundsAfterHealing, UNTRAINED_PENALTY, trainingModifier, applyMeleeEngagement, FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId, COUNTER_ATTACK_FLAG, canCounterAttack, CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor, resolveOpposed,
-        RT_ABSENT_CHARACTERISTICS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase,
+        RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,
         Actor: Document, Item: Document, Combat: Document, ActiveEffect: Document,
