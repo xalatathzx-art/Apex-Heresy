@@ -147,7 +147,9 @@ test('the two columns split the visible characteristics, not the stored ones', (
 test('Profit Factor is on the sheet, with the three fields the book prints', () => {
     const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
     const sheet = source.slice(source.indexOf('class RogueTraderSheet'));
-    assert.match(sheet.slice(0, 400), /static vitals = \["wounds", "fate", "profit-factor", "fatigue"\]/);
+    // The three bars stay together and Profit Factor comes last: it is not a bar
+    // but three fields, and between the bars it broke the row in two.
+    assert.match(sheet.slice(0, 500), /static vitals = \["wounds", "fate", "fatigue", "profit-factor"\]/);
     const panel = readFileSync(new URL('../template/sheet/actor/partial/vital-profit-factor.hbs', import.meta.url), 'utf8');
     for (const field of ['profitFactor.starting', 'profitFactor.value', 'profitFactor.misfortunes'])
         assert.match(panel, new RegExp(field.replace('.', '\.')), field);
@@ -398,4 +400,30 @@ test('the three toxic rules stay apart in the code, not merged into one', () => 
     assert.match(body, /toxicRules\.timing === "endOfTurn"/, 'Dark Heresy still waits for the turn');
     assert.match(body, /-10 \* traits\.toxic/, 'Black Crusade still reads the rating');
     assert.match(body, /\* woundsDealt/, 'Rogue Trader reads the damage that got through');
+});
+
+test('the vital strip is laid out for the number of cells the book has', () => {
+    // Four vitals in a three-column grid put Profit Factor's neighbours on one
+    // row and Fatigue alone on the next, and the tall cell stretched the row so
+    // the bars sank to the bottom of it. The count comes off the strip, so a
+    // sheet that gains a vital later needs no rule of its own.
+    const header = readFileSync(
+        new URL('../template/sheet/actor/character.hbs', import.meta.url), 'utf8');
+    assert.match(header, /class="vital-strip" data-vitals="\{\{vitalPartials\.length\}\}"/);
+    const css = readFileSync(new URL('../css/dark-heresy.css', import.meta.url), 'utf8');
+    assert.match(css, /\.vital-strip\[data-vitals="4"\] \{\s*\r?\n\s*grid-template-columns:/);
+    assert.match(css, /\.vital-strip \{\s*\r?\n\s*align-items: start;/,
+        'a cell taller than a bar must not drag the row with it');
+});
+
+test('Profit Factor reads as one line of fields, and they are styled', () => {
+    const panel = readFileSync(
+        new URL('../template/sheet/actor/partial/vital-profit-factor.hbs', import.meta.url), 'utf8');
+    // All three inside the one row: Misfortunes used to hang below it.
+    const row = panel.slice(panel.indexOf('profit-factor-row'), panel.indexOf('</div>', panel.indexOf('profit-factor-row')));
+    for (const field of ['starting', 'value', 'misfortunes'])
+        assert.ok(row.includes(`profitFactor.${field}`), field);
+    const css = readFileSync(new URL('../css/dark-heresy.css', import.meta.url), 'utf8');
+    for (const rule of ['.profit-factor-row', '.profit-field', '.profit-field input'])
+        assert.ok(css.includes(`vital-profit-factor ${rule}`), rule);
 });

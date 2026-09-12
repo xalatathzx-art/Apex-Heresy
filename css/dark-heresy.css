@@ -7942,6 +7942,70 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
   gap: var(--dh-space-3);
   margin-top: var(--dh-space-4);
 }
+/* Rogue Trader carries a fourth cell: Profit Factor. The count comes off the
+   strip itself rather than off the book, so a sheet that gains or loses a vital
+   later does not need a rule of its own. Four cells in a three-column grid put
+   the last one on a row by itself and left the bars hanging at the bottom of
+   their stretched cells. */
+.dark-heresy .header .vital-strip[data-vitals="4"] {
+  grid-template-columns: 1.7fr 1fr 1fr 1.8fr;
+}
+/* The cells are as tall as their bar and no taller: a cell that grows drags the
+   whole row with it. */
+.dark-heresy .header .vital-strip {
+  align-items: start;
+}
+
+/* ── PROFIT FACTOR ───────────────────────────────────────────────────────────
+   Not a meter: three fields the book prints side by side (p. 398). Laid out as
+   caption-over-field, like every other labelled figure on the sheet, and to the
+   same 26px as a vital bar so the row reads as one line. */
+.dark-heresy .header .vital-profit-factor .profit-factor-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.6fr;
+  gap: var(--dh-space-2);
+  min-width: 0;
+}
+.dark-heresy .header .vital-profit-factor .profit-field {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.dark-heresy .header .vital-profit-factor .profit-field > span {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--dh-ink-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dark-heresy .header .vital-profit-factor .profit-field input {
+  height: 26px;
+  min-width: 0;
+  padding: 0 var(--dh-space-2);
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  font-family: var(--dh-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--dh-text-sm);
+  color: var(--dh-ink);
+}
+.dark-heresy .header .vital-profit-factor .profit-field input[type="number"] {
+  text-align: center;
+  font-weight: 700;
+}
+.dark-heresy .header .vital-profit-factor .profit-field input:focus {
+  background: var(--dh-field-focus);
+  outline: 1px solid var(--dh-accent);
+}
+/* The caption sits over the fields, so the label above them would be a second
+   caption saying the same thing twice. It names the group instead. */
+.dark-heresy .header .vital-profit-factor .profit-misfortunes input {
+  text-align: left;
+}
 .dark-heresy .header .vital {
   display: grid;
   gap: var(--dh-space-2);

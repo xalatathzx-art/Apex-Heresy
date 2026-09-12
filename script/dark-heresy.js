@@ -9364,7 +9364,9 @@ class RogueTraderSheet extends BookSheet {
 
     static ruleset = "rt";
     static bioPartial = "systems/dark-heresy/template/sheet/actor/partial/bio-rogue-trader.hbs";
-    static vitals = ["wounds", "fate", "profit-factor", "fatigue"];
+    // Три полосы держатся вместе, Profit Factor стоит последним: он не полоса, а
+    // три поля, и между полосами он рвал ряд надвое.
+    static vitals = ["wounds", "fate", "fatigue", "profit-factor"];
 
     /**
      * Приобретение — в шапке окна, как у еретика.
