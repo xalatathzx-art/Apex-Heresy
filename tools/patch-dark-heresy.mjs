@@ -9,7 +9,7 @@
 import {createHash} from "node:crypto";
 import {createRequire} from "node:module";
 import {readFileSync} from "node:fs";
-import {fixDocument} from "./lib/dark-heresy-fixes.mjs";
+import {fixDocument, FOLDER_RENAMES} from "./lib/dark-heresy-fixes.mjs";
 import {MISSING_TALENTS} from "./lib/missing-talents.mjs";
 
 const ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -44,6 +44,14 @@ for await (const [key, value] of db.iterator({gte: "!items!", lt: "!items!\uffff
     batch.put(key, doc);
     report.push(`${value.type}: ${value.name}${doc.name !== value.name ? ` -> ${doc.name}` : ""}`
         + `${doc.system?.cost !== value.system?.cost ? ` (cost ${doc.system.cost})` : ""}`);
+}
+
+// \u041f\u0430\u043f\u043a\u0438 \u043f\u0440\u0430\u0432\u044f\u0442\u0441\u044f \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043e\u0442 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u043e\u0432: \u043e\u043d\u0438 \u043b\u0435\u0436\u0430\u0442 \u043f\u043e\u0434 \u0441\u0432\u043e\u0438\u043c \u043f\u0440\u0435\u0444\u0438\u043a\u0441\u043e\u043c.
+for await (const [key, value] of db.iterator({gte: "!folders!", lt: "!folders!\uffff"})) {
+    const renamed = FOLDER_RENAMES[value.name];
+    if (!renamed || value.name === renamed) continue;
+    batch.put(key, {...value, name: renamed});
+    report.push(`folder: ${value.name} -> ${renamed}`);
 }
 
 // \u0422\u0430\u043b\u0430\u043d\u0442\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0445 \u0432 \u043f\u0430\u043a\u0435 \u043d\u0435 \u0431\u044b\u043b\u043e \u0432\u043e\u0432\u0441\u0435. \u0414\u043e\u0431\u0430\u0432\u043b\u044f\u044e\u0442\u0441\u044f \u043f\u043e \u0438\u043c\u0435\u043d\u0438: \u043f\u043e\u0432\u0442\u043e\u0440\u043d\u044b\u0439 \u0437\u0430\u043f\u0443\u0441\u043a

@@ -911,6 +911,156 @@
                 "advance": -20,
                 "starter": false,
                 "cost": 0
+              },
+              "adeptaSororitas": {
+                "label": "Adepta Sororitas",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "adeptusArbites": {
+                "label": "Adeptus Arbites",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "adeptusAstartes": {
+                "label": "Adeptus Astartes",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "adeptusAstraTelepathica": {
+                "label": "Adeptus Astra Telepathica",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "adeptusMechanicus": {
+                "label": "Adeptus Mechanicus",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "administratum": {
+                "label": "Administratum",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "askellonSector": {
+                "label": "Askellon Sector",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "chartistCaptains": {
+                "label": "Chartist Captains",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "collegiaTitanicu": {
+                "label": "Collegia Titanicu",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "ecclesiarchy": {
+                "label": "Ecclesiarchy",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "imperialCreed": {
+                "label": "Imperial Creed",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "imperialGuard": {
+                "label": "Imperial Guard",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "imperialNavy": {
+                "label": "Imperial Navy",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "imperium": {
+                "label": "Imperium",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "navigators": {
+                "label": "Navigators",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "planetaryDefenceForces": {
+                "label": "Planetary Defence Forces",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "rogueTraders": {
+                "label": "Rogue Traders",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "scholaProgenium": {
+                "label": "Schola Progenium",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "tech": {
+                "label": "Tech",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "underworld": {
+                "label": "Underworld",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "war": {
+                "label": "War",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "koronusExpanse": {
+                "label": "Koronus Expanse",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "jerichoReach": {
+                "label": "Jericho Reach",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "screamingVortex": {
+                "label": "Screaming Vortex",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "calixisSector": {
+                "label": "Calixis Sector",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
               }
             }
           },

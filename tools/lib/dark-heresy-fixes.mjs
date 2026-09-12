@@ -27,6 +27,24 @@ export const NAME_FIXES = {
     }
 };
 
+/**
+ * Переименования папок. «Laser» — калька; во вселенной оружие зовут ласом.
+ * В отчёте папка названа «Laser Weapons», но на деле она просто «Laser».
+ */
+export const FOLDER_RENAMES = {
+    "Laser": "Las"
+};
+
+/**
+ * Свойства, которых не существует ни в одной книге. «DMG-SB» у Поцелуя
+ * Арлекина выглядит как заметка вёрстки об уроне от бонуса Силы: настоящим
+ * качеством оружие его не несёт и безоружным не считается.
+ */
+const PHANTOM_QUALITIES = [
+    {name: "Harlequin’s Kiss", quality: "DMG-SB"},
+    {name: "Harlequin's Kiss", quality: "DMG-SB"}
+];
+
 /** Потерянные при вёрстке символы в тексте. Frenzy: «–20 penalty», стр. 127. */
 export const TEXT_FIXES = [
     {type: "talent", name: "Frenzy", field: "description", from: "&ndash; 0 penalty", to: "&ndash;20 penalty"}
@@ -58,6 +76,21 @@ export function fixDocument(source) {
     if (doc.type === "psychicPower" && POWER_VALUES.has(doc.name)) {
         const value = POWER_VALUES.get(doc.name);
         if (Number(doc.system?.cost) !== value) { doc.system.cost = value; changed = true; }
+    }
+
+    // Несуществующее качество вычёркивается вместе со своим разделителем, чтобы
+    // после него не осталось висящей запятой.
+    for (const phantom of PHANTOM_QUALITIES) {
+        if (doc.type !== "weapon" || doc.name !== phantom.name) continue;
+        const special = doc.system?.special;
+        if (typeof special !== "string" || !special.includes(phantom.quality)) continue;
+        const cleaned = special
+            .split(",")
+            .map(part => part.trim())
+            .filter(part => part && part !== phantom.quality)
+            .join(", ");
+        doc.system = {...doc.system, special: cleaned};
+        changed = true;
     }
 
     // Синскин (стр. 173): «grants 2 Armour points to all locations not already
