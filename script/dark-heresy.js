@@ -13833,7 +13833,8 @@ function chatListeners(html) {
         ".roll-willpower-test": onFireWillpowerTestClick,
         ".roll-blood-loss": onBloodLossRollClick,
         ".extinguish-fire": onExtinguishFireClick,
-        ".pinning-escape": onPinningEscapeClick
+        ".pinning-escape": onPinningEscapeClick,
+        ".roll-toxic-test": onToxicTestClick
     });
 
     _delegate(html, "dblclick", {
@@ -18205,6 +18206,35 @@ async function _applyToxicEffect(actor, combatant) {
         return;
     }
 
+    // Проверку за игрока система делает только если стол так настроен. Иначе
+    // кости кидает владелец: раньше бросок уходил мимо него всегда, хотя тот же
+    // выбор уже соблюдался для горения и кровопотери.
+    if (_shouldPromptPlayerRoll(actor)) {
+        const label = `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${value})`;
+        await _postConditionCard(actor, combatant, "CONDITION.POISONED", {
+            notes: [game.i18n.format("WEAPON.TRAIT.TOXIC_PROMPT", { test: label })],
+            extra: `<button type="button" class="roll-toxic-test" data-actor-id="${actor.id}"`
+                + ` data-token-id="${combatant?.tokenId ?? ""}">`
+                + game.i18n.localize("WEAPON.TRAIT.TOXIC_ROLL") + "</button>"
+        });
+        return;
+    }
+
+    await _resolveToxicTest(actor, combatant, value);
+}
+
+/**
+ * Разрешить отравление: проверка Стойкости со штрафом −10×X, при провале ещё
+ * 1d10 урона, который не снижают ни броня, ни стойкость.
+ *
+ * Вынесено отдельно, потому что вызывать это могут двое: автоматика на ходу
+ * отравленного и кнопка в карточке, когда бросок оставлен игроку.
+ *
+ * @param {Actor} actor
+ * @param {object|null} combatant
+ * @param {number} value значение свойства Токсичное
+ */
+async function _resolveToxicTest(actor, combatant, value) {
     const test = await _rollWeaponEffectTest(actor, "toughness", -10 * value,
         `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${value})`);
     let taken = 0;
@@ -18221,6 +18251,26 @@ async function _applyToxicEffect(actor, combatant) {
         figures: [{ n: taken, cap: game.i18n.localize("CHAT.DAMAGE"), lead: taken > 0 }],
         notes: [game.i18n.localize("WEAPON.TRAIT.TOXIC_RESOLVED")]
     });
+}
+
+/**
+ * Бросок против отравления руками игрока. Механика та же, что в автоматике.
+ * @param {Event} event
+ */
+async function onToxicTestClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = event.currentTarget;
+    const actor = await _getActorFromOwnerId(button.dataset.actorId, button.dataset.tokenId || null);
+    if (!actor) return;
+
+    const value = Number(actor.getFlag("dark-heresy", "toxic")?.value) || 0;
+    if (!value) return;
+
+    button.disabled = true;
+    _resolvePendingCard(button);
+    await _resolveToxicTest(actor, null, value);
 }
 
 async function _applySuffocationEffect(actor, combatant) {

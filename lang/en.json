@@ -1117,6 +1117,8 @@
   "WEAPON.TRAIT.CONCUSSIVE": "Concussive",
   "WEAPON.TRAIT.SNARE": "Snare",
   "WEAPON.TRAIT.CORROSIVE": "Corrosive",
+  "WEAPON.TRAIT.TOXIC_PROMPT": "The poison bites. Roll your {test}.",
+  "WEAPON.TRAIT.TOXIC_ROLL": "Roll Toughness",
   "WEAPON.TRAIT.CORROSIVE_BITE": "The acid eats {armour} Armour points and burns through for {damage}.",
   "WEAPON.TRAIT.TOXIC": "Toxic",
   "WEAPON.TRAIT.HALLUCINOGENIC": "Hallucinogenic",
