@@ -7955,6 +7955,14 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
 .dark-heresy .header .vital-strip {
   align-items: start;
 }
+/* Where one cell carries a group caption over its fields, the row lines up on the
+   fields rather than on the captions. A bar and a field are both 26px, so a shared
+   bottom edge is a shared top edge too; lining the captions up instead left the
+   Profit Factor boxes sitting eleven pixels below every bar beside them. The group
+   name then reads as what it is — a heading over three captions, not a fourth one. */
+.dark-heresy .header .vital-strip[data-vitals="4"] {
+  align-items: end;
+}
 
 /* ── PROFIT FACTOR ───────────────────────────────────────────────────────────
    Not a meter: three fields the book prints side by side (p. 398). Laid out as
@@ -7968,14 +7976,14 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
 }
 .dark-heresy .header .vital-profit-factor .profit-field {
   display: grid;
-  gap: 2px;
+  gap: var(--dh-space-2);
   min-width: 0;
 }
 .dark-heresy .header .vital-profit-factor .profit-field > span {
   font-family: var(--dh-font-stencil);
   text-transform: uppercase;
   letter-spacing: var(--dh-track-caption);
-  font-size: 9px;
+  font-size: var(--dh-text-xs);
   font-weight: 600;
   color: var(--dh-ink-faint);
   white-space: nowrap;

@@ -414,6 +414,11 @@ test('the vital strip is laid out for the number of cells the book has', () => {
     assert.match(css, /\.vital-strip\[data-vitals="4"\] \{\s*\r?\n\s*grid-template-columns:/);
     assert.match(css, /\.vital-strip \{\s*\r?\n\s*align-items: start;/,
         'a cell taller than a bar must not drag the row with it');
+    // And where a cell carries a group caption over its fields, the row lines up
+    // on the fields: a bar and a field are both 26px, so a shared bottom edge is
+    // a shared top edge. Lining the captions up instead left the Profit Factor
+    // boxes sitting eleven pixels below every bar beside them.
+    assert.match(css, /\.vital-strip\[data-vitals="4"\] \{\s*\r?\n\s*align-items: end;/);
 });
 
 test('Profit Factor reads as one line of fields, and they are styled', () => {
