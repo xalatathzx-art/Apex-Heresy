@@ -1880,6 +1880,101 @@ zero, so even an equippable Synskin would grant nothing.
 
 ---
 
+### Task 25: Untrained weapons cost -20, worked out rather than declared
+
+DH2 p. 151: "Each weapon type (Las, Chain, Low-Tech, etc.) requires the
+appropriate Weapon Training talent... doing so imposes a -20 untrained penalty
+on the relevant test." The weapon type is the `system.type` the earlier tasks
+filled in, so the system can decide this instead of asking.
+
+- [ ] Pure module `script/combat/weapon-training.mjs`: `isTrainedWith(talents, weaponType)`
+- [ ] Apply -20 in the attack modifiers, named in the roll card's source list
+- [ ] A manual override on the attack dialog, for the cases the data cannot know
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 26: A pistol fired in melee loses its Point Blank bonus
+
+DH2 p. 231: "Ballistic Skill tests made to attack a target at [Point-Blank]
+range gain a +30 bonus. This bonus does not apply when the attacker and the
+target are engaged in melee combat with each other." Being engaged is a state
+the system does not track, so the attack dialog asks.
+
+- [ ] A toggle on the ranged attack dialog: engaged in melee
+- [ ] Suppress the Point Blank bonus when it is set, and say so on the card
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 27: Roll a weapon's damage without attacking
+
+Requested from the weapon row on the combat tab. Rolling damage on its own also
+avoids degrees of success being folded into it, which is the reporter's stated
+reason.
+
+- [ ] A damage button on the weapon row
+- [ ] Rolls the weapon's damage formula with no attack and no degrees of success
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 28: The rest of what a Fate point buys
+
+DH2 p. 294 lists seven uses and the system implements one of them, and that one
+only on some rolls. "A Fate point can be used at any time... Spending a Fate
+point is a Free Action."
+
+- [ ] Re-roll a test — extend to Evasion, which the report names
+- [ ] +10 to a test, chosen before the dice
+- [ ] +1 degree of success, chosen after the dice
+- [ ] Count Initiative as 10
+- [ ] Remove 1d5 damage, never Critical
+- [ ] Recover from Stunned
+- [ ] Remove all Fatigue
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 29: Hide the environment panel
+
+Requested as a toggle in the left scene controls, beside the ruler.
+
+- [ ] A scene control toggle that shows and hides the panel
+- [ ] The choice persists per user
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 30: Counter Attack
+
+Not an attack type. DH2 p. 122 and 126: a Tier 2 talent, WS 40, "Once per turn,
+after successfully Parrying an opponent's attack, this character may attack."
+It belongs to the Parry flow, offered only to a character who has the talent,
+and only once per turn.
+
+- [ ] Offer the riposte after a successful Parry, to holders of the talent
+- [ ] Once per turn, tracked and reset
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
+### Task 31: Grapple
+
+DH2 p. 220-223. Controller options: Damage Opponent (Opposed Strength, 1d5-3+SB
+to the Body and one level of Fatigue), Throw Down (Opposed Strength, target
+becomes Prone, +10 to further Opposed tests in this Grapple), Push (Opposed
+Strength, one metre plus one per degree, capped at Half Move). Grappled target
+options: Break Free (Opposed Strength), Slip Free (Challenging (+0) Acrobatics),
+Take Control (Opposed Strength).
+
+- [ ] Pure module for the six outcomes
+- [ ] A grapple dialog offering the options the actor's side allows
+- [ ] Reuse the existing grappled condition and its escape flow
+- [ ] Tests, suite, syntax gate, commit
+
+---
+
 ## Self-Review
 
 **Spec coverage.** Every confirmed defect in the spec maps to a task: 1 -> Task 7, 2 -> Task 4,
