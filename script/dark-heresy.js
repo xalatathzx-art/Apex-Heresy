@@ -1,6 +1,7 @@
 import { createDataModels } from "./data/models.mjs";
 import { halfRoundedUp } from "./data/rounding.mjs";
 import { effectiveMaxAgility } from "./data/max-agility.mjs";
+import { traitArmour } from "./data/armour-traits.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -1548,6 +1549,17 @@ class DarkHeresyActor extends Actor {
                 }
                 return sources;
             });
+
+        // Броню дают и черты существа: Machine (X) и Природная броня (X) добавляют
+        // очки на все локации и складываются с надетым доспехом, но не друг с
+        // другом — берётся большая из двух (DH2, стр. 136-137). Черта не носится,
+        // поэтому в armourSources она попадает отдельно от фильтра надетого.
+        const fromTraits = traitArmour(this.items);
+        if (fromTraits.value > 0) {
+            const part = locations.reduce((acc, location) =>
+                Object.assign(acc, { [location]: fromTraits.value }), {});
+            armourSources.push({ part, isAdditive: true });
+        }
 
         // For each item, find the maximum armour val per location (only equipped items)
         armourSources
