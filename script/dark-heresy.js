@@ -10,6 +10,7 @@ import { woundsAfterDamage, woundsAfterHealing } from "./combat/vitals.mjs";
 import { UNTRAINED_PENALTY, trainingModifier } from "./combat/weapon-training.mjs";
 import { applyMeleeEngagement } from "./combat/range-rules.mjs";
 import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "./combat/fate.mjs";
+import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -238,6 +239,12 @@ class DarkHeresyCombat extends Combat {
     async _onStartTurn(combatant, context) {
         await super._onStartTurn(combatant, context);
         return this._runTurnEvent("start", combatant, context, async actor => {
+            // Ответный удар даётся раз за ход (стр. 126). Право возвращается с
+            // началом собственного хода — иначе одно парирование в первом раунде
+            // израсходовало бы талант на весь бой.
+            if (actor.getFlag?.("dark-heresy", COUNTER_ATTACK_FLAG)) {
+                await actor.unsetFlag("dark-heresy", COUNTER_ATTACK_FLAG);
+            }
             if (actor.hasCondition("dead")) return;
             for (const [condition, apply] of [["fire", _applyFireEffect], ["bleeding", _applyBleedingEffect],
                 ["vacuum", _applyVacuumEffect], ["suffocating", _applySuffocationEffect], ["pinned", _offerPinningEscape]]) {
@@ -3197,6 +3204,57 @@ async function combatRoll(rollData) {
         }));
 }
 
+/**
+ * Пометить карточку уклонения предложением ответного удара (DH2, стр. 126).
+ *
+ * Талант срабатывает после удачного Парирования и один раз за ход, поэтому
+ * решается здесь, где исход реакции уже известен, а не в списке типов атаки.
+ *
+ * @param {object} rollData
+ */
+function _offerCounterAttack(rollData) {
+    const actor = _fateActorFor(rollData);
+    if (!actor) return;
+    const talents = (actor.items ?? []).filter?.(item => item.type === "talent").map(item => item.name) ?? [];
+    rollData.counterAttackOffered = canCounterAttack({
+        selected: rollData.evasions?.selected,
+        success: !!rollData.flags?.isSuccess,
+        talents,
+        usedThisTurn: !!actor.getFlag?.("dark-heresy", COUNTER_ATTACK_FLAG)
+    });
+    if (rollData.counterAttackOffered) {
+        rollData.counterAttackActorId = actor.id;
+        rollData.counterAttackTokenId = actor.getActiveTokens?.(true)?.[0]?.id ?? "";
+    }
+}
+
+/**
+ * Нанести ответный удар. Право на него тратится сразу, до самой атаки: иначе
+ * отменённое окно атаки оставляло бы талант неизрасходованным весь ход.
+ * @param {Event} event
+ */
+async function onCounterAttackClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = event.currentTarget;
+    const actor = await _getActorFromOwnerId(button.dataset.actorId, button.dataset.tokenId || null);
+    if (!actor) return;
+    if (actor.getFlag("dark-heresy", COUNTER_ATTACK_FLAG)) return;
+
+    button.disabled = true;
+    _resolvePendingCard(button);
+    await actor.setFlag("dark-heresy", COUNTER_ATTACK_FLAG, true);
+
+    const weapon = actor.items.find(item => item.type === "weapon"
+        && item.system?.equipped === true && item.system?.class === "melee");
+    if (!weapon) {
+        ui.notifications.warn(game.i18n.localize("TALENT.COUNTER_ATTACK_NO_WEAPON"));
+        return;
+    }
+    await prepareCombatRoll(DarkHeresyUtil.createWeaponRollData(actor, weapon), actor);
+}
+
 async function _resolveCommonRoll(rollData) {
     await _computeCommonTarget(rollData);
     await _rollTarget(rollData);
@@ -3210,6 +3268,7 @@ async function _resolveCommonRoll(rollData) {
                 rollData.shotsFired,
                 rollData.weapon.traits);
         }
+        _offerCounterAttack(rollData);
     }
     await _sendRollToChat(rollData);
     await _applyRegeneration(rollData);
@@ -14032,7 +14091,8 @@ function chatListeners(html) {
         ".extinguish-fire": onExtinguishFireClick,
         ".pinning-escape": onPinningEscapeClick,
         ".roll-toxic-test": onToxicTestClick,
-        ".dh-apply-roll": onApplyRollClick
+        ".dh-apply-roll": onApplyRollClick,
+        ".counter-attack": onCounterAttackClick
     });
 
     _delegate(html, "dblclick", {

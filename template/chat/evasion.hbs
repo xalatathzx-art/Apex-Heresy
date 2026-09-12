@@ -76,6 +76,16 @@
                 </div>
             {{/if}}
 
+            {{!-- Ответный удар предлагается только тому, кто действительно
+                  отпарировал и владеет талантом, и только раз за ход. --}}
+            {{#if counterAttackOffered}}
+                <div class="effect-buttons">
+                    <button type="button" class="counter-attack"
+                            data-actor-id="{{counterAttackActorId}}"
+                            data-token-id="{{counterAttackTokenId}}">{{localize "TALENT.COUNTER_ATTACK"}}</button>
+                </div>
+            {{/if}}
+
         </div>
     </div>
 </div>

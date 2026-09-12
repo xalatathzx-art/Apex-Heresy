@@ -298,6 +298,8 @@
   "CONDITION.STUNNED_BLOCKED": "Stunned - no actions",
   "CONDITION.UNCONSCIOUS_BLOCKED": "Unconscious - no actions",
   "TALENT.LIGHTNING_REFLEXES": "Lightning Reflexes",
+  "TALENT.COUNTER_ATTACK": "Counter Attack",
+  "TALENT.COUNTER_ATTACK_NO_WEAPON": "No melee weapon is drawn to riposte with.",
   "CRIT.HEADER": "Critical Hit",
   "CRIT.ROLL_ON_TABLE": "Roll on the Critical Effects table for this location and damage type",
   "CRIT.SLAIN_SHORT": "Slain",
