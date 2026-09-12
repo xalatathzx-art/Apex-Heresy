@@ -8,6 +8,7 @@
  */
 import {DISCIPLINES} from "../../script/creation/psychic-data.mjs";
 import {classifyWeapon} from "../../script/data/weapon-types.mjs";
+import {classifyAmmunition} from "../../script/data/ammunition-fit.mjs";
 
 /** Обрезанные и двоящиеся пробелом имена → имена из таблиц 4-1..4-3 (стр. 120-122). */
 export const NAME_FIXES = {
@@ -67,6 +68,18 @@ export function fixDocument(source) {
     if (doc.type === "ammunition" && (Number(doc.system?.quantity) || 0) > 1) {
         doc.system = {...doc.system, quantity: 1};
         changed = true;
+    }
+
+    // Which weapons a round fits. All 110 rounds shipped with an empty list,
+    // which ammunitionFitsWeapon reads as "fits anything". A list a GM has
+    // already filled in is left alone; a round the classifier cannot place keeps
+    // its empty list, since a wrong group would silently refuse a real reload.
+    if (doc.type === "ammunition" && !(doc.system?.weaponTypes ?? []).length) {
+        const fits = classifyAmmunition(doc.name);
+        if (fits) {
+            doc.system = {...doc.system, weaponTypes: [fits]};
+            changed = true;
+        }
     }
 
     // Weapon group. Shipped data left this empty on 185 of 186 weapons, and the

@@ -16,9 +16,10 @@ test('a magazine is one carried item, not sixty', () => {
     assert.equal(doc.system.weight, 0.4, 'the weight of one magazine is untouched');
 });
 
-test('ammunition that already reads as one item is left alone', () => {
-    const {doc, changed} = fixDocument(ammo('Silver Stakes', 1, 0));
-    assert.equal(changed, false);
+test('ammunition that already reads as one item keeps its quantity', () => {
+    // Only the quantity is asserted here: the compatibility rule also acts on
+    // ammunition, so the document-wide changed flag no longer isolates this one.
+    const {doc} = fixDocument(ammo('Silver Stakes', 1, 0));
     assert.equal(doc.system.quantity, 1);
 });
 
