@@ -437,6 +437,7 @@
   "HEADER.DESCRIPTION": "Description",
   "INITIATIVE": "Initiative",
   "INITIATIVE_ROLL": "Roll Initiative",
+  "ENVIRONMENT_TOGGLE": "Environment panel",
   "INITIATIVE_NO_COMBAT": "No combat is running.",
   "INITIATIVE_NOT_IN_COMBAT": "{name} is not in the current combat.",
   "INITIATIVE_ALREADY_ROLLED": "{name} has already rolled: {value}.",

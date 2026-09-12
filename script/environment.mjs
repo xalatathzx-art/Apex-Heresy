@@ -227,10 +227,30 @@ function _wireEnvDrag(el) {
   });
 }
 
+// Панель окружения нужна не каждому столу и не всегда. Выбор хранится у самого
+// пользователя, рядом со свёрнутым состоянием: это его вид, а не свойство сцены.
+const ENV_HIDDEN_KEY = "wh-env-hidden";
+
+/** Спрятана ли панель у этого пользователя. */
+export function isEnvWidgetHidden() {
+  try { return localStorage.getItem(ENV_HIDDEN_KEY) === "1"; }
+  catch (e) { return false; }
+}
+
+/** Запомнить выбор и перерисовать. */
+export function setEnvWidgetHidden(hidden) {
+  try { localStorage.setItem(ENV_HIDDEN_KEY, hidden ? "1" : "0"); }
+  catch (e) {}
+  refreshEnvWidget();
+}
+
 export function refreshEnvWidget() {
   try {
     const scene = currentScene();
     let el = document.getElementById("wh-env-widget");
+    // Спрятанная панель снимается с экрана целиком, а не прячется прозрачностью:
+    // иначе она продолжала бы перехватывать клики по холсту.
+    if (isEnvWidgetHidden()) { el?.remove(); return; }
     if (!scene) { el?.remove(); return; }
     const fresh = !el;
     if (!el) {

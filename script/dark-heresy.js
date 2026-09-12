@@ -22,7 +22,7 @@ import {renownRankFor, traumaModifier as dwTraumaModifier, insanityStep as dwIns
 import {rankForExperience} from "./creation/advance-list.mjs";
 ﻿// Окружающая среда сцены: погода, температура, гравитация, радиация.
 // Перенесено из системы warhammer-dbc; хранится во флаге сцены.
-import { openEnvironment, refreshEnvironment, refreshEnvWidget } from "./environment.mjs";
+import { openEnvironment, refreshEnvironment, refreshEnvWidget, isEnvWidgetHidden, setEnvWidgetHidden } from "./environment.mjs";
 
 /**
  * Read an ActiveEffect's status ids as a plain array.
@@ -18984,6 +18984,28 @@ Hooks.once("ready", function() {
  */
 Hooks.once("ready", () => { try { refreshEnvWidget(); } catch (err) { console.warn("dark-heresy | env", err); } });
 Hooks.on("canvasReady", () => { try { refreshEnvWidget(); } catch (err) { console.warn("dark-heresy | env", err); } });
+
+/**
+ * Тумблер панели окружения — в левой панели инструментов, рядом с линейкой.
+ *
+ * Панель нужна не каждому столу и не всегда, а убрать её было нечем. Выбор
+ * пользовательский: он хранится у самого пользователя и не трогает сцену, —
+ * поэтому и тумблер виден всем, а не одному ведущему.
+ */
+Hooks.on("getSceneControlButtons", controls => {
+    const tools = controls?.tokens?.tools;
+    if (!tools) return;
+    tools.dhEnvironment = {
+        name: "dhEnvironment",
+        title: "ENVIRONMENT_TOGGLE",
+        icon: "fa-solid fa-cloud-sun",
+        order: Object.keys(tools).length,
+        toggle: true,
+        active: !isEnvWidgetHidden(),
+        visible: true,
+        onChange: (event, active) => setEnvWidgetHidden(!active)
+    };
+});
 Hooks.on("updateScene", (scene) => {
     try {
         refreshEnvWidget();
