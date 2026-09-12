@@ -648,7 +648,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 7: Fatigue threshold counts Unnatural
+### Task 7: Fatigue threshold counts Unnatural — DONE
 
 `_computeDerived` builds `tb` and `wb` from `(base + advance) / 10`, which skips the
 `unnatural` addend and the `unnaturalMultiplier` that `characteristic.bonus` already carries
@@ -662,7 +662,7 @@ at `script/dark-heresy.js:846`.
 - Consumes: nothing.
 - Produces: no new exports.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -684,12 +684,12 @@ Use whatever actor factory `tests/helpers/system.mjs` exposes; if none exists, f
 pattern in `tests/aptitude-debt.test.mjs`, which already builds an actor for derived-stat
 assertions.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/fatigue-threshold.test.mjs`
 Expected: FAIL — threshold is 7, not 9.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Replace the `tb` / `wb` computation with the already-derived bonuses, which include the
 unnatural addend and multiplier:
@@ -703,17 +703,17 @@ unnatural addend and multiplier:
         const wb = Number(this.characteristics.willpower.bonus) || 0;
 ```
 
-- [ ] **Step 4: Run the test and the syntax gate**
+- [x] **Step 4: Run the test and the syntax gate**
 
 Run: `node --test tests/fatigue-threshold.test.mjs` then `node --check script/dark-heresy.js`
 Expected: PASS; no syntax output.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 466 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js tests/fatigue-threshold.test.mjs
@@ -727,7 +727,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 8: Name the target's condition on the roll card
+### Task 8: Name the target's condition on the roll card — DONE
 
 `template/chat/roll.hbs:137` hardcodes `CONDITION.STUNNED` for the aggregate target
 modifier, so Prone reads as "Stunned (-10)" and Grappled as "Stunned (+20)". The modifiers
@@ -745,7 +745,7 @@ an `actorConditionSources` string; mirror it.
 - Produces: `rollData.targetConditionSources` — a comma-joined string of
   `"<localised condition> (<signed modifier>)"`, matching `actorConditionSources`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -780,12 +780,12 @@ Build the `makeRangedRollAgainst` / `makeMeleeRollAgainst` helpers in the test f
 `tests/helpers/system.mjs` does not already stub a targeted token; `_getTargetConditionModifier`
 needs `canvas.tokens.get` and `_hasCondition` to answer.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/target-condition-label.test.mjs`
 Expected: FAIL — `targetConditionSources` is `undefined`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Give `_getTargetConditionModifier` the same `note` helper the actor version uses, and record
 the sources on `rollData`:
@@ -815,17 +815,17 @@ Then in `template/chat/roll.hbs`:
 Confirm `CONDITION.PRONE`, `CONDITION.GRAPPLED` and `CONDITION.UNCONSCIOUS` exist in
 `lang/en.json`; add any that do not.
 
-- [ ] **Step 4: Run the test and the syntax gate**
+- [x] **Step 4: Run the test and the syntax gate**
 
 Run: `node --test tests/target-condition-label.test.mjs` then `node --check script/dark-heresy.js`
 Expected: PASS, 3 tests; no syntax output.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 469 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js template/chat/roll.hbs lang/en.json tests/target-condition-label.test.mjs
@@ -840,7 +840,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 9: Snare accepts a negative value
+### Task 9: Snare accepts a negative value — DONE
 
 `extractNumberedTrait(/Snare[^,;()]*?\(\d+\)/gi, ...)` cannot match `Snare (-1)`, so
 `traits.snare` is not an integer, `Number.isInteger(traits.snare)` at
@@ -854,7 +854,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 - Consumes: nothing.
 - Produces: no new exports.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -872,12 +872,12 @@ test('Snare still reads a positive value', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/snare-negative.test.mjs`
 Expected: FAIL — `traits.snare` is `undefined` for the negative case.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Widen the numeric group to accept a sign. Check `extractNumberedTrait` parses with something
 that keeps the sign (`Number`/`parseInt` both do); if it strips non-digits, fix that too:
@@ -886,17 +886,17 @@ that keeps the sign (`Number`/`parseInt` both do); if it strips non-digits, fix 
             snare: this.extractNumberedTrait(/Snare[^,;()]*?\(-?\d+\)|Опутывающее[^,;()]*?\(-?\d+\)/gi, traits),
 ```
 
-- [ ] **Step 4: Run the test and the syntax gate**
+- [x] **Step 4: Run the test and the syntax gate**
 
 Run: `node --test tests/snare-negative.test.mjs` then `node --check script/dark-heresy.js`
 Expected: PASS, 2 tests; no syntax output.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 471 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js tests/snare-negative.test.mjs
@@ -910,7 +910,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 10: The four Russian strings in the English locale
+### Task 10: The four Russian strings in the English locale — DONE
 
 **Files:**
 - Modify: `lang/en.json:774,775,777,778`
@@ -920,7 +920,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 - Consumes: nothing.
 - Produces: no new exports.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -934,12 +934,12 @@ test('the English locale contains no Cyrillic', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/locale-language.test.mjs`
 Expected: FAIL — four keys listed: `WEAPON.JAM`, `WEAPON.OVERHEAT`, `WEAPON.SHOCK_STUNNED`, `WEAPON.SHOCK_EFFECTS_APPLIED`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 ```json
 "WEAPON.JAM": "{weapon} - Jammed!",
@@ -948,17 +948,17 @@ Expected: FAIL — four keys listed: `WEAPON.JAM`, `WEAPON.OVERHEAT`, `WEAPON.SH
 "WEAPON.SHOCK_EFFECTS_APPLIED": "{actor} is stunned for {rounds} rounds and takes 1 level of Fatigue from the Shock weapon.",
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tests/locale-language.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 5: Run the whole suite**
+- [x] **Step 5: Run the whole suite**
 
 Run: `node --test "tests/*.test.mjs"`
 Expected: 472 tests, 0 fail.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add lang/en.json tests/locale-language.test.mjs
@@ -972,7 +972,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 11: Max Agility limits the wearer
+### Task 11: Max Agility limits the wearer — DONE
 
 `maxAgility` is stored, shown on the armour sheet and printed on the chat card, but no roll
 reads it. DH2 p. 168: a character's Agility counts as the armour's Max Ag when it is higher,
@@ -988,7 +988,7 @@ and the **lowest** Max Ag applies when several pieces are worn.
 - Produces: `effectiveMaxAgility(items) -> number|null` — the lowest `maxAgility` among
   equipped items that declare one, or `null` when none do.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -1011,12 +1011,12 @@ test('unequipped armour does not cap anything', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/max-agility.test.mjs`
 Expected: FAIL — module missing.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 ```javascript
 /**
@@ -1056,12 +1056,12 @@ computed, so that the cap reaches every roll rather than only the displayed numb
 the ordering in `_computeCharacteristics` / `_computeSkills` before placing it, and add a
 test asserting that an Agility-based skill total drops with the cap.
 
-- [ ] **Step 4: Run the test and the syntax gate**
+- [x] **Step 4: Run the test and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 475 tests, 0 fail; no syntax output.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add script/data/max-agility.mjs script/dark-heresy.js tests/max-agility.test.mjs
@@ -1076,7 +1076,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 12: Machine and Natural Armour grant Armour Points
+### Task 12: Machine and Natural Armour grant Armour Points — DONE
 
 DH2 p. 136-137: Natural Armour grants AP to all locations; Machine (X) grants AP that
 "stacks with worn armour, but not with the Natural Armour trait". Fire correctly ignores it
@@ -1093,7 +1093,7 @@ DH2 p. 136-137: Natural Armour grants AP to all locations; Machine (X) grants AP
   the AP the creature's traits grant to every location, taking the higher of Machine and
   Natural Armour rather than their sum.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -1118,12 +1118,12 @@ test('no armour trait grants nothing', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/armour-traits.test.mjs`
 Expected: FAIL — module missing.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 ```javascript
 /**
@@ -1153,17 +1153,17 @@ export function traitArmour(traits) {
 Feed the result into the armour aggregation as an **additive** source across all locations,
 alongside the existing `armourSources` list, so it stacks with worn armour as the book says.
 
-- [ ] **Step 4: Confirm fire still ignores Machine armour**
+- [x] **Step 4: Confirm fire still ignores Machine armour**
 
 Add a test asserting that fire damage does not subtract the Machine AP. This encodes p. 137
 and p. 243 and prevents a later "fix" from breaking the printed rule.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 480 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/data/armour-traits.mjs script/dark-heresy.js tests/armour-traits.test.mjs
