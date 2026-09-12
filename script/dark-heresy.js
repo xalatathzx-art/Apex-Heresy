@@ -11,6 +11,8 @@ import { UNTRAINED_PENALTY, trainingModifier } from "./combat/weapon-training.mj
 import { applyMeleeEngagement } from "./combat/range-rules.mjs";
 import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "./combat/fate.mjs";
 import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
+import { CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor } from "./combat/grapple.mjs";
+import { resolveOpposed } from "./combat/opposed.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -3253,6 +3255,119 @@ async function onCounterAttackClick(event) {
         return;
     }
     await prepareCombatRoll(DarkHeresyUtil.createWeaponRollData(actor, weapon), actor);
+}
+
+/**
+ * Одна проверка в противоборстве: бросок в чат и всё, что нужно для сравнения
+ * по правилам стр. 25 — успех, ступени, бонус характеристики и сама кость.
+ *
+ * @param {Actor} actor
+ * @param {string} characteristicKey
+ * @param {number} modifier
+ * @returns {Promise<{success: boolean, degrees: number, bonus: number, roll: number}|null>}
+ */
+async function _contestRoll(actor, characteristicKey, modifier = 0) {
+    const characteristic = actor?.characteristics?.[characteristicKey];
+    if (!characteristic) return null;
+
+    const rollData = DarkHeresyUtil.createCommonNormalRollData(actor, characteristic);
+    rollData.name = game.i18n.localize("GRAPPLE.TITLE");
+    rollData.target.modifier = modifier;
+    await _computeCommonTarget(rollData);
+    await _rollTarget(rollData);
+    await _sendRollToChat(rollData);
+
+    return {
+        success: !!rollData.flags?.isSuccess,
+        degrees: Number(rollData.dos) || 0,
+        bonus: Number(characteristic.bonus) || 0,
+        roll: Number(rollData.result) || 0
+    };
+}
+
+/**
+ * Разрешить выбранную опцию захвата и применить последствия.
+ *
+ * Выскальзывание — единственная опция, которая ни с кем не состязается: это
+ * Обычная (+0) проверка Акробатики против самой себя (стр. 223).
+ *
+ * @param {Actor} actor
+ * @param {Actor} opponent
+ * @param {string} option
+ */
+async function _resolveGrapple(actor, opponent, option) {
+    const chosen = [...CONTROLLER_OPTIONS, ...TARGET_OPTIONS].find(o => o.id === option);
+    if (!chosen) return;
+
+    let won = false;
+    let degrees = 0;
+
+    if (chosen.test === "acrobatics") {
+        const skill = actor.system?.skills?.acrobatics;
+        const base = Number(skill?.total) || 0;
+        const roll = await new Roll("1d100").evaluate();
+        won = roll.total <= base;
+        degrees = won ? 1 + Math.floor((base - roll.total) / 10) : 0;
+        await ChatMessage.create({
+            content: `<div class="dark-heresy chat roll"><div class="dh-card ${won ? "is-success" : "is-fail"}">
+                <div class="dh-card-h"><span class="who">${actor.name}</span>
+                <span class="verdict">${game.i18n.localize(chosen.label)}</span></div>
+                <div class="dh-card-b"><dl class="dh-kv">
+                    <dt>${game.i18n.localize("CHAT.ROLL")}</dt><dd>${roll.total} / ${base}</dd>
+                </dl></div></div></div>`
+        });
+    } else {
+        const mine = await _contestRoll(actor, "strength");
+        const theirs = await _contestRoll(opponent, "strength");
+        if (!mine || !theirs) return;
+        const contest = resolveOpposed(mine, theirs);
+        won = contest.winner === "a";
+        degrees = mine.degrees;
+    }
+
+    const outcome = grappleOutcome({
+        option,
+        won,
+        degrees,
+        halfMove: Number(actor.system?.movement?.half) || 0
+    });
+
+    const notes = [];
+    if (outcome.damage) {
+        const strengthBonus = Number(actor.characteristics?.strength?.displayBonus
+            ?? actor.characteristics?.strength?.bonus) || 0;
+        const damage = await new Roll(`${UNARMED_DAMAGE}+${strengthBonus}`).evaluate();
+        const dealt = Math.max(damage.total, 0);
+        await opponent.applyDamage([{
+            amount: dealt, penetration: 0, location: "ARMOUR.BODY",
+            type: "impact", weaponTraits: {}, source: game.i18n.localize("GRAPPLE.DAMAGE")
+        }]);
+        notes.push(game.i18n.format("GRAPPLE.DEALT", { damage: dealt }));
+    }
+    if (outcome.fatigue > 0) {
+        const current = Number(opponent.system?.fatigue?.value) || 0;
+        await opponent.update({ "system.fatigue.value": current + outcome.fatigue });
+    }
+    if (outcome.prone && !opponent.hasCondition("prone")) {
+        await opponent.addCondition("prone", { type: "minor" });
+    }
+    if (outcome.metres > 0) notes.push(game.i18n.format("GRAPPLE.PUSHED", { metres: outcome.metres }));
+    if (outcome.endsGrapple) {
+        await actor.removeCondition?.("grappled");
+        await opponent.removeCondition?.("grappled");
+    }
+    if (outcome.controlSwapped) notes.push(game.i18n.localize("GRAPPLE.CONTROL_TAKEN"));
+    if (outcome.proneBonus > 0) notes.push(game.i18n.format("GRAPPLE.PRONE_BONUS", { bonus: outcome.proneBonus }));
+    if (!won) notes.push(game.i18n.localize("GRAPPLE.HELD"));
+
+    if (notes.length) {
+        await ChatMessage.create({
+            content: `<div class="dark-heresy chat roll"><div class="dh-card">
+                <div class="dh-card-h"><span class="who">${actor.name}</span>
+                <span class="verdict">${game.i18n.localize(chosen.label)}</span></div>
+                <div class="dh-card-b"><p>${notes.join(" ")}</p></div></div></div>`
+        });
+    }
 }
 
 async function _resolveCommonRoll(rollData) {
@@ -7823,6 +7938,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         html.find(".weapon.item").contextmenu(async ev => await this._onWeaponContextMenu(ev));
         html.find(".toggle-equipped").click(async ev => await this._toggleEquipped(ev));
         html.find(".roll-initiative").click(async ev => await this._onRollInitiative(ev));
+        html.find(".grapple-test").click(async ev => await this._onGrappleTest(ev));
         html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
         html.find(".roll-psychic-damage").click(async ev => await this._preparePsychicDamage(ev));
         html.find("[data-actor-field]").change(async ev => await this._onActorFieldChange(ev));
@@ -8616,6 +8732,59 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         }
 
         await combat.rollInitiative([combatant.id]);
+    }
+
+    /**
+     * Действие захвата (DH2, стр. 222-223).
+     *
+     * Сторону система выводит из состояния: схваченный выбирает из своих трёх
+     * опций, держащий — из своих. Кто именно держит захват, данные не хранят,
+     * поэтому вывод можно поправить прямо в окне.
+     */
+    async _onGrappleTest(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const actor = this.actor;
+        const targets = DarkHeresyUtil.getCurrentTargets();
+        const opponentToken = targets.length ? canvas.tokens.get(targets[0].tokenId) : null;
+        const opponent = opponentToken?.actor;
+        if (!opponent) {
+            ui.notifications.warn(game.i18n.localize("GRAPPLE.NO_OPPONENT"));
+            return;
+        }
+
+        const grappled = !!actor.hasCondition?.("grappled");
+        const side = grappled ? "target" : "controller";
+        const options = optionsFor(side)
+            .map(o => `<option value="${o.id}">${game.i18n.localize(o.label)}</option>`)
+            .join("");
+
+        const dialog = dhDialog({
+            title: game.i18n.localize("GRAPPLE.TITLE"),
+            content: `<div class="form-group">
+                <label>${game.i18n.format("GRAPPLE.PROMPT", { opponent: opponent.name })}</label>
+                <select name="option">${options}</select>
+            </div>
+            <p class="dh-dialog-hint">${game.i18n.localize(side === "target"
+                ? "GRAPPLE.HINT_TARGET" : "GRAPPLE.HINT_CONTROLLER")}</p>`,
+            buttons: {
+                act: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: game.i18n.localize("GRAPPLE.ACT"),
+                    callback: async html => {
+                        const chosen = html.find('select[name="option"]')[0]?.value;
+                        if (chosen) await _resolveGrapple(actor, opponent, chosen);
+                    }
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: game.i18n.localize("BUTTON.CANCEL"),
+                    callback: () => {}
+                }
+            }
+        });
+        dialog.render(true);
     }
 
     async _toggleEquipped(event) {

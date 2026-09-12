@@ -1919,47 +1919,47 @@ reason.
 
 ---
 
-### Task 28: The rest of what a Fate point buys
+### Task 28: The rest of what a Fate point buys — DONE
 
 DH2 p. 294 lists seven uses and the system implements one of them, and that one
 only on some rolls. "A Fate point can be used at any time... Spending a Fate
 point is a Free Action."
 
-- [ ] Re-roll a test — extend to Evasion, which the report names
-- [ ] +10 to a test, chosen before the dice
-- [ ] +1 degree of success, chosen after the dice
-- [ ] Count Initiative as 10
-- [ ] Remove 1d5 damage, never Critical
-- [ ] Recover from Stunned
-- [ ] Remove all Fatigue
-- [ ] Tests, suite, syntax gate, commit
+- [x] Re-roll a test — extend to Evasion, which the report names
+- [x] +10 to a test, chosen before the dice
+- [x] +1 degree of success, chosen after the dice
+- [x] Count Initiative as 10
+- [x] Remove 1d5 damage, never Critical
+- [x] Recover from Stunned
+- [x] Remove all Fatigue
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
-### Task 29: Hide the environment panel
+### Task 29: Hide the environment panel — DONE
 
 Requested as a toggle in the left scene controls, beside the ruler.
 
-- [ ] A scene control toggle that shows and hides the panel
-- [ ] The choice persists per user
-- [ ] Tests, suite, syntax gate, commit
+- [x] A scene control toggle that shows and hides the panel
+- [x] The choice persists per user
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
-### Task 30: Counter Attack
+### Task 30: Counter Attack — DONE
 
 Not an attack type. DH2 p. 122 and 126: a Tier 2 talent, WS 40, "Once per turn,
 after successfully Parrying an opponent's attack, this character may attack."
 It belongs to the Parry flow, offered only to a character who has the talent,
 and only once per turn.
 
-- [ ] Offer the riposte after a successful Parry, to holders of the talent
-- [ ] Once per turn, tracked and reset
-- [ ] Tests, suite, syntax gate, commit
+- [x] Offer the riposte after a successful Parry, to holders of the talent
+- [x] Once per turn, tracked and reset
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
-### Task 31: Grapple
+### Task 31: Grapple — DONE
 
 DH2 p. 220-223. Controller options: Damage Opponent (Opposed Strength, 1d5-3+SB
 to the Body and one level of Fatigue), Throw Down (Opposed Strength, target
@@ -1968,10 +1968,10 @@ Strength, one metre plus one per degree, capped at Half Move). Grappled target
 options: Break Free (Opposed Strength), Slip Free (Challenging (+0) Acrobatics),
 Take Control (Opposed Strength).
 
-- [ ] Pure module for the six outcomes
-- [ ] A grapple dialog offering the options the actor's side allows
-- [ ] Reuse the existing grappled condition and its escape flow
-- [ ] Tests, suite, syntax gate, commit
+- [x] Pure module for the six outcomes
+- [x] A grapple dialog offering the options the actor's side allows
+- [x] Reuse the existing grappled condition and its escape flow
+- [x] Tests, suite, syntax gate, commit
 
 ---
 
