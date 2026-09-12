@@ -7015,7 +7015,7 @@ class DarkHeresyUtil {
             // Последствия попадания — проверки цели после применения урона.
             toxic: this.extractNumberedTrait(/Toxic[^,;()]*?\(\d+\)|Токсичное[^,;()]*?\(\d+\)/gi, traits),
             concussive: this.extractNumberedTrait(/Concussive[^,;()]*?\(\d+\)|Оглушающее[^,;()]*?\(\d+\)/gi, traits),
-            snare: this.extractNumberedTrait(/Snare[^,;()]*?\(\d+\)|Опутывающее[^,;()]*?\(\d+\)/gi, traits),
+            snare: this.extractNumberedTrait(/Snare[^,;()]*?\(-?\d+\)|Опутывающее[^,;()]*?\(-?\d+\)/gi, traits),
             // Калечащее задаётся не только числом: у части психосил книга ставит
             // в скобки кость. Система это свойство только объявляет в карточке,
             // поэтому значение хранится строкой — иначе «(1d10)» читалось как 1.
@@ -7188,7 +7188,10 @@ class DarkHeresyUtil {
         }
         let rfMatch = traits.match(regex);
         if (rfMatch) {
-            regex = /\d+/gi;
+            // Знак сохраняется: часть свойств принимает отрицательное значение —
+            // «Snare (−1)» это бонус к проверке, а не её отсутствие. Раньше минус
+            // срезался здесь, и даже совпавший внешний шаблон терял его.
+            regex = /-?\d+/gi;
             return parseInt(rfMatch[0].match(regex)[0]);
         }
         return undefined;
