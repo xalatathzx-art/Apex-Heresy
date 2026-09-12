@@ -59,6 +59,16 @@ export function fixDocument(source) {
         if (Number(doc.system?.cost) !== value) { doc.system.cost = value; changed = true; }
     }
 
+    // Ammunition quantity. Shipped data put the magazine's capacity here: the
+    // Lasgun's clip is 60 and its cell reads 60, the Bolt Pistol's clip is 8 and
+    // its clip reads 8, and so on for every round in the pack. Encumbrance sums
+    // quantity times weight, so one lasgun cell weighed 24 kg. Capacity already
+    // lives on the weapon, so nothing is lost by carrying one magazine.
+    if (doc.type === "ammunition" && (Number(doc.system?.quantity) || 0) > 1) {
+        doc.system = {...doc.system, quantity: 1};
+        changed = true;
+    }
+
     // Weapon group. Shipped data left this empty on 185 of 186 weapons, and the
     // one that was set called a Chainaxe a las weapon. That made ammunition
     // compatibility inert: ammunitionFitsWeapon matches a round's weaponTypes
