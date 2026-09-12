@@ -947,14 +947,13 @@ class DarkHeresyActor extends Actor {
         this.psy.currentRating = this.psy.rating - this.psy.sustained - sustainedPowersCount;
         // Use displayBonus from STATS (the "source of truth") which includes tempModifier
         this.initiative.bonus = this.characteristics[this.initiative.characteristic].displayBonus || this.characteristics[this.initiative.characteristic].bonus;
-        // Done as variables to make it easier to read & understand
-        let tb = Math.floor(
-            (this.characteristics.toughness.base
-        + this.characteristics.toughness.advance) / 10);
-
-        let wb = Math.floor(
-            (this.characteristics.willpower.base
-        + this.characteristics.willpower.advance) / 10);
+        // Both bonuses are read off the characteristics rather than recomputed,
+        // because characteristic.bonus already folds in the Unnatural addend and
+        // the Deathwatch multiplier (see the loop above). Deriving them again
+        // from base plus advance silently dropped both, so a creature with
+        // Unnatural Toughness tired as fast as a baseline human (DH2 p. 233).
+        let tb = Number(this.characteristics.toughness.bonus) || 0;
+        let wb = Number(this.characteristics.willpower.bonus) || 0;
 
         // Derived before the final phase; effects on the threshold are applied by Foundry.
         const fatigueBase = Dh.rulesetFor(this).fatigue.threshold === "tb" ? tb : tb + wb;
