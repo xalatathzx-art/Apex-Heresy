@@ -4453,8 +4453,12 @@ async function _resolveOnHitWeaponEffects(actor, damages) {
     // за прошедший раунд он получил урон от токсичного оружия. Поэтому у
     // аколита попадание только помечает его «отравленным», а бросок делается
     // на его ходу; состояние и есть та самая отметка.
+    const toxicRules = Dh.rulesetFor(actor).toxic;
+    // Rogue Trader считает Токсичное от прошедшего урона, и рейтинга у него нет.
+    const toxicPerDamage = toxicRules.penalty === "perDamage";
+    const toxicPresent = Number.isInteger(traits.toxic) || (toxicPerDamage && !!traits.toxicUnrated);
     if (damageDealt && Number.isInteger(traits.toxic)
-        && Dh.rulesetFor(actor).toxic.timing === "endOfTurn") {
+        && toxicRules.timing === "endOfTurn") {
         await actor.setFlag("dark-heresy", "toxic", {
             value: traits.toxic,
             type: damages[0].type,
@@ -4462,9 +4466,17 @@ async function _resolveOnHitWeaponEffects(actor, damages) {
         });
         if (!actor.hasCondition("poisond")) await actor.addCondition("poisond", { type: "minor" });
         announcements.push(game.i18n.format("WEAPON.TRAIT.TOXIC_PENDING", { value: traits.toxic }));
-    } else if (damageDealt && Number.isInteger(traits.toxic)) {
-        const test = await _rollWeaponEffectTest(actor, "toughness", -10 * traits.toxic,
-            `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${traits.toxic})`);
+    } else if (damageDealt && toxicPresent) {
+        // −5 за каждое очко прошедшего урона у Rogue Trader, −10 за очко рейтинга
+        // у Black Crusade. Названия в карточке тоже разные: рейтинг без числа не
+        // называют.
+        const penalty = toxicPerDamage
+            ? (Number(toxicRules.step) || -5) * woundsDealt
+            : -10 * traits.toxic;
+        const label = Number.isInteger(traits.toxic) && !toxicPerDamage
+            ? `${game.i18n.localize("WEAPON.TRAIT.TOXIC")} (${traits.toxic})`
+            : game.i18n.localize("WEAPON.TRAIT.TOXIC");
+        const test = await _rollWeaponEffectTest(actor, "toughness", penalty, label);
         if (test && !test.success) {
             const extra = new Roll("1d10");
             await extra.evaluate();
@@ -7474,6 +7486,10 @@ class DarkHeresyUtil {
 
             // Последствия попадания — проверки цели после применения урона.
             toxic: this.extractNumberedTrait(/Toxic[^,;()]*?\(\d+\)|Токсичное[^,;()]*?\(\d+\)/gi, traits),
+            // Rogue Trader печатает «Toxic» без числа (стр. 118): там проверка идёт
+            // от прошедшего урона, а не от рейтинга. Ключ отдельный — чтобы
+            // рейтинговое Токсичное других книг читалось ровно как читалось.
+            toxicUnrated: this.hasNamedTrait(/Toxic(?!\w)(?!\s*\()|Токсичное(?!\s*\()/gi, traits),
             concussive: this.extractNumberedTrait(/Concussive[^,;()]*?\(\d+\)|Оглушающее[^,;()]*?\(\d+\)/gi, traits),
             // Шесть видов оружия в компендиуме несут «Corrosive» в тексте свойств,
             // а словарь этого слова не знал: качество вычёркивалось при разборе и
@@ -16298,6 +16314,16 @@ Dh.rulesets.rt = {
     id: "rt",
     label: "RULESET.RT",
     characteristics: { absent: [...RT_ABSENT_CHARACTERISTICS] },
+    // Усталость считается по-первому: порог — бонус Стойкости, любой уровень даёт
+    // плоские −10 ко всем проверкам, а за порогом не смерть, а беспамятство на
+    // 10−TB минут (стр. 252). Dark Heresy 2 делает всё три раза иначе.
+    fatigue: { threshold: "tb", penalty: "flat10", deathAtDoubleThreshold: false },
+    // Кровопотеря здесь убивает: 10% за раунд, пока её не остановят Медициной
+    // на −10, а в движении — на −30 (стр. 261). У аколита она лишь утомляет.
+    bloodLoss: { lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30 },
+    // Токсичное проверяется сразу по попаданию, и штраф растёт от прошедшего
+    // урона: −5 за каждое очко, а не −10 за очко рейтинга (стр. 118).
+    toxic: { timing: "onHit", penalty: "perDamage", step: -5 },
     resource: { profitFactor: true },
     advances: { tiers: RT_ADVANCE_TIERS.length, costs: RT_CHARACTERISTIC_COSTS, aptitudes: false },
     skills: { model: "basicAdvanced", absent: [...RT_ABSENT_SKILLS] },

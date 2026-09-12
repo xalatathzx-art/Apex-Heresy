@@ -348,3 +348,54 @@ test('Rogue Trader names its own tables and they exist', () => {
     assert.equal(tables[0].name, rt.phenomenaTable);
     assert.equal(tables[1].name, rt.perilsTable);
 });
+
+test('Fatigue is read out of Rogue Trader, not Dark Heresy 2', () => {
+    // p. 252: the threshold is the Toughness Bonus, any level costs a flat -10,
+    // and passing the threshold is unconsciousness for 10-TB minutes, not death.
+    const rulesets = loadSystem().get('Dh.rulesets');
+    assert.deepEqual({...rulesets.rt.fatigue},
+        {threshold: 'tb', penalty: 'flat10', deathAtDoubleThreshold: false});
+    // Dark Heresy 2 keeps its own: threshold TB+WB, halved characteristics, death.
+    assert.deepEqual({...rulesets.dh2.fatigue},
+        {threshold: 'tbwb', penalty: 'halveCharacteristic', deathAtDoubleThreshold: true});
+});
+
+test('Blood Loss can kill an explorer, as the book says it does', () => {
+    // p. 261: 10% chance of dying each round, staunched on a Difficult (-10)
+    // Medicae Test, or a Very Hard (-30) one while doing anything strenuous.
+    const rulesets = loadSystem().get('Dh.rulesets');
+    assert.deepEqual({...rulesets.rt.bloodLoss},
+        {lethal: true, deathChance: 10, staunch: -10, staunchStrenuous: -30});
+    assert.equal(rulesets.dh2.bloodLoss.lethal, false, 'the acolyte still only tires');
+});
+
+test('Toxic is tested on the hit, against the damage that got through', () => {
+    // p. 118: "a Toughness Test with a -5 penalty for every point of Damage
+    // taken" — the penalty comes off the damage, and the quality carries no
+    // rating at all. Black Crusade's -10 a rating point is a different rule.
+    const rulesets = loadSystem().get('Dh.rulesets');
+    assert.deepEqual({...rulesets.rt.toxic}, {timing: 'onHit', penalty: 'perDamage', step: -5});
+    assert.deepEqual({...rulesets.bc.toxic}, {timing: 'onHit'});
+    assert.deepEqual({...rulesets.dh2.toxic}, {timing: 'endOfTurn'});
+});
+
+test('an unrated Toxic is read, and the rated one is read as before', () => {
+    const util = loadSystem().get('DarkHeresyUtil');
+    // Five weapons in the Rogue Trader compendium carry a bare "Toxic" —
+    // the needle pistol and rifle among them — and it was dropped on the floor.
+    assert.equal(util.extractWeaponTraits('Accurate, Toxic').toxicUnrated, true);
+    assert.equal(util.extractWeaponTraits('Accurate, Toxic').toxic, undefined);
+    // A rated one is still a rating, and is not also read as unrated.
+    const rated = util.extractWeaponTraits('Toxic (2)');
+    assert.equal(rated.toxic, 2);
+    assert.ok(!rated.toxicUnrated, 'the rated form must not fire both readings');
+});
+
+test('the three toxic rules stay apart in the code, not merged into one', () => {
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    const fn = source.slice(source.indexOf('async function _resolveOnHitWeaponEffects'));
+    const body = fn.slice(0, fn.indexOf('\n}'));
+    assert.match(body, /toxicRules\.timing === "endOfTurn"/, 'Dark Heresy still waits for the turn');
+    assert.match(body, /-10 \* traits\.toxic/, 'Black Crusade still reads the rating');
+    assert.match(body, /\* woundsDealt/, 'Rogue Trader reads the damage that got through');
+});

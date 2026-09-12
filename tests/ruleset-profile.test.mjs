@@ -32,15 +32,22 @@ test('an unknown ruleset falls back instead of returning undefined', () => {
 
 test('the inherited profiles are independent copies, not shared references', () => {
     const rulesets = loadSystem().get('Dh.rulesets');
-    // Auditing Rogue Trader later must not edit Dark Heresy through a shared sub-object.
-    assert.notEqual(rulesets.rt.fatigue, rulesets.dh2.fatigue);
+    // Auditing one book must not edit Dark Heresy through a shared sub-object.
+    for (const book of ['rt', 'ow'])
+        assert.notEqual(rulesets[book].fatigue, rulesets.dh2.fatigue, book);
     // Spread both sides: the profiles live in the vm realm and the clone in the host realm,
     // so deepStrictEqual would compare prototypes rather than the rules we care about.
-    assert.deepEqual({...rulesets.rt.fatigue}, {...rulesets.dh2.fatigue});
+    assert.deepEqual({...rulesets.ow.fatigue}, {...rulesets.dh2.fatigue});
     assert.deepEqual({...rulesets.ow.corruption}, {...rulesets.dh2.corruption});
-    // Only Rogue Trader and Only War are still inherited. Deathwatch has been read
-    // against its book and keeps nothing of Dark Heresy's corruption track.
+    // Only War is the last honest clone. Deathwatch and Rogue Trader have been read
+    // against their own books and keep only what those books actually share.
     assert.notDeepEqual({...rulesets.dw.corruption}, {...rulesets.dh2.corruption});
+    assert.notDeepEqual({...rulesets.rt.fatigue}, {...rulesets.dh2.fatigue});
+    // What Rogue Trader has not been read for still has to be a copy, not a link:
+    // the insanity track is the same in both books, and editing one must not move
+    // the other.
+    assert.notEqual(rulesets.rt.insanity, rulesets.dh2.insanity);
+    assert.deepEqual({...rulesets.rt.insanity}, {...rulesets.dh2.insanity});
 });
 
 test('both character types carry the ruleset field', () => {

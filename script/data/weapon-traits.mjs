@@ -1,6 +1,6 @@
 const numbered = new Set(['rfFace','devastating','proven','primitive','felling','toxic','concussive',
     'snare','hallucinogenic','smoke','haywire','blast']);
-const boolean = ['accurate','razorSharp','skipAttackRoll','tearing','storm','twinLinkedBonus',
+const boolean = ['accurate','razorSharp','skipAttackRoll','tearing','storm','twinLinkedBonus','toxicUnrated',
     'twinLinked','force','inaccurate','unwieldy','reliable','unreliable','unbalanced','overheating',
     'shock','warpWeapon','scatter','maximal','lasSetting','recharge','melta','gyroStabilised','flame',
     'balanced','defensive','flexible','powerField','tainted','sanctified'];
