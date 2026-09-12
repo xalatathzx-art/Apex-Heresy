@@ -4,6 +4,7 @@ import { effectiveMaxAgility } from "./data/max-agility.mjs";
 import { traitArmour } from "./data/armour-traits.mjs";
 import { resolveJamClear } from "./combat/jam.mjs";
 import { OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage } from "./combat/overheat.mjs";
+import { fieldProtects } from "./combat/force-field.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -13962,6 +13963,88 @@ function _damageEntriesFromRoll(rollData) {
     return damages;
 }
 
+/**
+ * Надетое силовое поле цели, если оно есть и ещё работает.
+ * @param {Actor} actor
+ * @returns {Item|null}
+ */
+function _wornForceField(actor) {
+    return (actor?.items ?? []).find?.(item => item.type === "forceField" && item.system?.equipped === true) ?? null;
+}
+
+/**
+ * Расстояние между стрелком и целью в единицах сцены, когда оба на холсте.
+ * Полоса дальности («в упор») тут не годится: она шире метра, а Силовое поле
+ * отказывает именно на метре.
+ * @returns {number|null} null — если измерить нечем
+ */
+function _metresBetween(rollData, targetToken) {
+    try {
+        const attacker = canvas?.tokens?.get?.(rollData?.tokenId);
+        if (!attacker || !targetToken || !canvas?.grid) return null;
+        const path = canvas.grid.measurePath([attacker.center, targetToken.center]);
+        const distance = Number(path?.distance);
+        return Number.isFinite(distance) ? distance : null;
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Поставить атаку против силового поля цели.
+ *
+ * Поле отводит атаку целиком, а не снижает её, поэтому бросок делается до брони
+ * и Стойкости (DH2, стр. 169). Тот же бросок решает, не выгорело ли поле.
+ *
+ * @returns {Promise<{blocked: boolean, overloaded: boolean, roll: number, name: string}|null>}
+ */
+async function _forceFieldIntercept(actor, rollData, targetToken) {
+    const item = _wornForceField(actor);
+    if (!item) return null;
+
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+
+    const isMelee = rollData?.weapon?.weaponClass === "melee" || rollData?.weapon?.class === "melee";
+    const outcome = fieldProtects({
+        field: {
+            name: item.name,
+            protectionRating: item.system?.protectionRating,
+            overloadChance: item.system?.overloadChance,
+            craftsmanship: item.system?.craftsmanship,
+            overloaded: !!item.getFlag?.("dark-heresy", "overloaded")
+        },
+        roll: roll.total,
+        isMelee,
+        rangeMetres: _metresBetween(rollData, targetToken)
+    });
+
+    // Выгоревшее поле молчит до починки Очень трудной (−30) проверкой Технологий.
+    if (outcome.overloaded && !item.getFlag?.("dark-heresy", "overloaded")) {
+        await item.setFlag("dark-heresy", "overloaded", true);
+    }
+    return {...outcome, roll: roll.total, name: item.name};
+}
+
+/**
+ * Сказать столу, что поле сработало. Молчаливое спасение неотличимо от бага —
+ * именно поэтому неработающие поля так долго никто и не замечал.
+ */
+async function _announceForceField(actor, intercept) {
+    const verdict = intercept.overloaded
+        ? game.i18n.localize("FORCE_FIELD.BLOCKED_AND_OVERLOADED")
+        : game.i18n.localize("FORCE_FIELD.BLOCKED");
+    await ChatMessage.create({
+        content: `<div class="dark-heresy chat roll"><div class="dh-card is-success">
+            <div class="dh-card-h"><span class="who">${actor.name}</span>
+            <span class="verdict">${verdict}</span></div>
+            <div class="dh-card-b"><dl class="dh-kv">
+                <dt>${game.i18n.localize("FORCE_FIELD.NAME")}</dt><dd>${intercept.name}</dd>
+                <dt>${game.i18n.localize("FORCE_FIELD.PROTECTION_RATING")}</dt><dd>${intercept.roll}</dd>
+            </dl></div></div></div>`
+    });
+}
+
 async function applyAutoDamageToTarget(rollData, message) {
     const target = rollData?.targets?.[0];
     if (!target || !message) return;
@@ -13986,8 +14069,20 @@ async function applyAutoDamageFromSocket(payload) {
     // A socket request names a recorded operation, never supplies its damage or destination.
     if (!rollData?.flags?.isDamageRoll || !rollData.targets?.some(target =>
         target.sceneId === payload.sceneId && target.tokenId === payload.tokenId)) return;
-    const actor = game.scenes.get(payload.sceneId)?.tokens.get(payload.tokenId)?.actor;
+    const targetToken = game.scenes.get(payload.sceneId)?.tokens.get(payload.tokenId);
+    const actor = targetToken?.actor;
     if (!actor) return;
+
+    // Силовое поле отводит атаку целиком, поэтому спрашивается раньше брони и
+    // Стойкости. Десять полей в компендиуме несли рейтинг от 25 до 80, и не
+    // читал его никто: Розарий, который должен гасить половину, гасил ноль.
+    const field = await _forceFieldIntercept(actor, rollData, targetToken?.object);
+    if (field?.blocked) {
+        await _announceForceField(actor, field);
+        await message.setFlag("dark-heresy", "appliedDamage", {forceField: field.name, blocked: true});
+        return;
+    }
+
     const damages = _damageEntriesFromRoll(rollData);
     if (!damages.length || damages.some(d => !Number.isFinite(d.amount) || d.amount < 0
         || !Number.isFinite(d.penetration) || d.penetration < 0)) return;
