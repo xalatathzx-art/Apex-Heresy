@@ -1005,6 +1005,10 @@ class DarkHeresyActor extends Actor {
     }
 
     _computeSkills() {
+        // Как книга считает необученность. Dark Heresy 2 даёт −20 и пускает
+        // ко всему; Rogue Trader делит характеристику пополам и продвинутые
+        // навыки запирает совсем.
+        const skillModel = Dh.rulesetFor(this).skills?.model ?? "dh2";
         for (let [skillKey, skill] of Object.entries(this.skills)) {
             let short = skill.characteristics[0];
             let characteristic = this._findCharacteristic(short);
@@ -1012,6 +1016,18 @@ class DarkHeresyActor extends Actor {
             // Ensure advance is a number (handle undefined, null, string, etc.)
             const advanceValue = Number(skill.advance) || 0;
             skill.total = baseTotal + advanceValue;
+
+            // Rogue Trader считает необученность иначе (Таблица 9-1, стр. 231):
+            // базовый навык идёт на половине характеристики с округлением ВНИЗ —
+            // книга оговаривает это прямо, вопреки общему правилу округления
+            // вверх, — а продвинутым без обучения пользоваться нельзя вообще.
+            if (skillModel === "basicAdvanced") {
+                const type = rtSkillType(skillKey);
+                const rt = rtSkillBase({characteristic: baseTotal, advance: advanceValue, type});
+                skill.total = rt.base;
+                skill.untrainedType = type;
+                skill.unusable = !rt.usable;
+            }
             
             // Парирование зависит от того, чем персонаж держит оборону:
             // Несбалансированное мешает (−10), Сбалансированное помогает (+10),
@@ -1246,11 +1262,19 @@ class DarkHeresyActor extends Actor {
         this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost(this.psy.rating, psyBase(traits, Dh.rulesetFor(this).id));
         // The ladder is the book's: Only War has four steps where Dark Heresy has five.
         const characteristicCosts = Dh.rulesetFor(this).characteristicCosts ?? config.characteristicCosts;
-        for (let characteristic of Object.values(this.characteristics)) {
-            let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
+        // У Rogue Trader склонностей нет вовсе, а цена ступени зависит от самой
+        // характеристики и напечатана построчно (стр. 46). Лестница там короче на
+        // ступень: четыре вместо пяти.
+        const byCharacteristic = Dh.rulesetFor(this).advances?.aptitudes === false;
+        for (let [characteristicKey, characteristic] of Object.entries(this.characteristics)) {
             let cost = 0;
-            for (let i = 0; i <= characteristic.advance / 5 && i < characteristicCosts.length; i++) {
-                cost += characteristicCosts[i][2 - matchedAptitudes];
+            if (byCharacteristic) {
+                cost = rtCharacteristicCost(characteristicKey, Math.floor(characteristic.advance / 5));
+            } else {
+                let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
+                for (let i = 0; i <= characteristic.advance / 5 && i < characteristicCosts.length; i++) {
+                    cost += characteristicCosts[i][2 - matchedAptitudes];
+                }
             }
             characteristic.cost = cost.toString();
             this.experience.spentCharacteristics += cost;

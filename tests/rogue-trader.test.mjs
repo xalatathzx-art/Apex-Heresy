@@ -158,3 +158,58 @@ test('the questionnaire asks what the printed sheet asks', () => {
     for (const key of ['BIO.CAREER_PATH', 'BIO.RANK', 'BIO.HOME_WORLD', 'BIO.MOTIVATION'])
         assert.match(bio, new RegExp(key.replace('.', '\.')), key);
 });
+
+// ── The two mechanics ─────────────────────────────────────────────────────
+
+/** Derive an actor of the given book and report one skill. */
+function skillOf(ruleset, skillKey, advance) {
+    const system = loadSystem();
+    const proto = system.get('DarkHeresyActor.prototype');
+    const characteristics = {};
+    for (const key of CHARACTERISTICS)
+        characteristics[key] = {base: 34, advance: 0, unnatural: 0, tempModifier: 0,
+                                label: key, total: 34, displayTotal: 34, aptitudes: []};
+
+    const actor = Object.create(proto);
+    actor.type = 'acolyte';
+    actor.items = [];
+    actor.system = {
+        ruleset, characteristics,
+        skills: {[skillKey]: {characteristics: ['Ag'], advance, aptitudes: []}}
+    };
+    actor._findCharacteristic = () => characteristics.agility;
+    proto._computeSkills.call(actor);
+    return actor.system.skills[skillKey];
+}
+
+test('an explorer untrained in a Basic skill tests at half, rounded down', () => {
+    const skill = skillOf('rt', 'dodge', -20);
+    assert.equal(skill.total, 17, 'Agility 34 halves to 17');
+    assert.equal(skill.unusable, false);
+});
+
+test('an explorer untrained in an Advanced skill cannot test at all', () => {
+    const skill = skillOf('rt', 'medicae', -20);
+    assert.equal(skill.unusable, true);
+    assert.equal(skill.untrainedType, 'advanced');
+});
+
+test('training and mastery give the full characteristic and its bonus', () => {
+    assert.equal(skillOf('rt', 'dodge', 0).total, 34);
+    assert.equal(skillOf('rt', 'dodge', 10).total, 44);
+    assert.equal(skillOf('rt', 'medicae', 20).total, 54);
+});
+
+test('an acolyte keeps the Dark Heresy model, untrained at -20 and never barred', () => {
+    assert.equal(skillOf('dh2', 'dodge', -20).total, 14);
+    assert.equal(skillOf('dh2', 'medicae', -20).total, 14);
+    assert.equal(skillOf('dh2', 'medicae', -20).unusable, undefined);
+});
+
+test("an explorer's advances are priced by the characteristic, not by aptitudes", () => {
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    const fn = source.slice(source.indexOf('const characteristicCosts = Dh.rulesetFor'));
+    const body = fn.slice(0, fn.indexOf('for (let skill of'));
+    assert.match(body, /advances\?\.aptitudes === false/);
+    assert.match(body, /rtCharacteristicCost\(characteristicKey/);
+});
