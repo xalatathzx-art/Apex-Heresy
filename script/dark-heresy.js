@@ -2,6 +2,7 @@ import { createDataModels } from "./data/models.mjs";
 import { halfRoundedUp } from "./data/rounding.mjs";
 import { effectiveMaxAgility } from "./data/max-agility.mjs";
 import { traitArmour } from "./data/armour-traits.mjs";
+import { resolveJamClear } from "./combat/jam.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -3952,7 +3953,13 @@ async function _rollTarget(rollData) {
     // Check for weapon jam and overheating for ranged weapons
     if (rollData.weapon?.isRange) {
         const traits = rollData.weapon.traits || {};
-        
+
+        // Каждый бросок решает заново. Переброс за Очко Судьбы повторяет тот же
+        // rollData, а флаги ставились только при осечке и никогда не снимались:
+        // заклинивание переживало удачный переброс и продолжало гасить урон.
+        rollData.weaponJammed = false;
+        rollData.weaponOverheated = false;
+
         // Overheating weapons don't jam, but can overheat on 91+
         if (traits.overheating) {
             if (unmodifiedResult >= 91 && unmodifiedResult <= 100) {
@@ -3989,6 +3996,17 @@ async function _rollTarget(rollData) {
                     : _actorFromRollData(rollData);
                 const jammedWeapon = owner?.items?.get(rollData.itemId);
                 if (jammedWeapon) await jammedWeapon.setFlag("dark-heresy", "jammed", true);
+            } else if (rollData.flags?.isReRoll) {
+                // Переброс повторяет тот же выстрел, а не делает новый. Если он
+                // осечки не дал, её не было: снимаем и отметку на оружии, иначе
+                // ствол остаётся заклиненным после успешного переброска.
+                // Только при перебросе: осечку могла поставить таблица критов,
+                // и гасить её чужим выстрелом нельзя.
+                const owner = rollData.vehicle?.actorId
+                    ? game.actors.get(rollData.vehicle.actorId)
+                    : _actorFromRollData(rollData);
+                const rolledWeapon = owner?.items?.get(rollData.itemId);
+                if (rolledWeapon) await rolledWeapon.unsetFlag("dark-heresy", "jammed");
             }
         }
     }
@@ -7475,7 +7493,29 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         event.stopPropagation();
         const itemId = event.currentTarget.closest("[data-item-id]")?.dataset.itemId;
         const weapon = this.actor.items.get(itemId);
-        if (weapon) await weapon.unsetFlag("dark-heresy", "jammed");
+        if (!weapon) return;
+
+        // Устранение осечки — Полное действие и проверка Меткости (DH2, стр. 225).
+        // Раньше осечка снималась нажатием: ни броска, ни потерянных патронов,
+        // ни перезарядки, — и потому не стоила ничего.
+        const test = await _rollWeaponEffectTest(this.actor, "ballisticSkill", 0,
+            game.i18n.localize("WEAPON.CLEAR_JAM"));
+
+        // У машины своей Меткости нет — за неё бросает наводчик, и этот путь
+        // сюда не ведёт. Оставлять орудие заклиненным навсегда нельзя, поэтому
+        // для неё осечка снимается как прежде.
+        const outcome = test === null
+            ? { cleared: true, emptyMagazine: false }
+            : resolveJamClear(test);
+        if (!outcome.cleared) return;
+
+        await weapon.unsetFlag("dark-heresy", "jammed");
+
+        // «Any ammo in it is lost»: магазин опустошается, и стрелять оружие
+        // сможет только после перезарядки.
+        if (outcome.emptyMagazine && (Number(weapon.system?.clip?.max) || 0) > 0) {
+            await weapon.update({ "system.clip.value": 0 });
+        }
     }
 
     /**
