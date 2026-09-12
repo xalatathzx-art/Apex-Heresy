@@ -14163,7 +14163,7 @@ async function onSuppressionClick(ev) {
                     await _rollTarget(rollData);
                     rollData.target.modifier = baseModifier;
                     if (!rollData.flags.isSuccess) {
-                        await addFearCondition(actor);
+                        await applySuppressionPinning(actor);
                     }
                     await _sendSuppressionToChat(rollData, actor.name);
 }
@@ -14187,34 +14187,29 @@ async function onSuppressionClick(ev) {
     dialog.render(true);
 }
 
-async function addFearCondition(actor) {
-    const tokens = actor.getActiveTokens();
-    if (tokens.length > 0) {
-        const fearEffect = CONFIG.statusEffects.find(effect => effect.id === "fear");
-        if (!fearEffect) {
-            console.error("Fear effect not found in CONFIG.statusEffects");
-            ui.notifications.error(game.i18n.localize("SUPPRESSION.FEAR_EFFECT_NOT_FOUND"));
-            return;
-        }
-        for (let token of tokens) {
-            try {
-                await token.actor.toggleStatusEffect(fearEffect.id);
-            } catch (error) {
-                console.error(`Failed to add fear effect to token ${token.name}:`, error);
-                try {
-                    const currentEffects = token.document.effects || [];
-                    await token.document.update({
-                        effects: [...currentEffects, fearEffect.img]
-                    });
-                } catch (error2) {
-                    console.error(`Alternative method also failed for token ${token.name}:`, error2);
-                }
-            }
-        }
-        ui.notifications.info(`${actor.name} ${game.i18n.localize("SUPPRESSION.FEAR_ADDED")}`);
-    } else {
+/**
+ * Придавить цель, провалившую проверку при подавляющем огне.
+ *
+ * DH2, стр. 225: «All targets within the kill zone must make a Difficult (−10)
+ * Pinning test or become Pinned as per page 230.» Стр. 231 уточняет, что
+ * Придавленность — это проверка Силы Воли, и провал даёт именно её.
+ *
+ * Раньше здесь вешался Страх. Модификаторы (−10 за очередь, −20 за полную) были
+ * верны с самого начала — неверным было само состояние, а Страх в этих правилах
+ * не участвует вовсе и тянет за собой чужие последствия.
+ *
+ * @param {Actor} actor цель в зоне обстрела
+ */
+async function applySuppressionPinning(actor) {
+    if (!actor.getActiveTokens().length) {
         ui.notifications.warn(game.i18n.localize("SUPPRESSION.NO_TOKEN_FOUND"));
-}
+        return;
+    }
+    // Ставим состояние, а не переключаем: переключатель снял бы Придавленность
+    // с того, кого прижали предыдущей очередью.
+    if (actor.hasCondition("pinned")) return;
+    await actor.addCondition("pinned", { type: "minor" });
+    ui.notifications.info(`${actor.name} ${game.i18n.localize("SUPPRESSION.PINNED_ADDED")}`);
 }
 
 async function _sendSuppressionToChat(rollData, targetName) {
