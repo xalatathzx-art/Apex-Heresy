@@ -508,11 +508,26 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             .map(item => item.system.key));
     }
 
+    /**
+     * Какие специальности закрыл уже выбранный орден.
+     *
+     * Таблица 1-1 (стр. 27): Space Wolves не берут Апотекария, Black Templars —
+     * ни Девастатора, ни Библиария. Запрет лежит на самом ордене, а не на
+     * специальности: закрывает орден, и знает об этом он.
+     */
+    _forbiddenSpecialities() {
+        const out = new Set();
+        for (const item of this.actor.items)
+            if (item.type === "origin")
+                for (const key of item.system.rules?.forbidsSpecialities ?? []) out.add(key);
+        return out;
+    }
+
     /** Происхождения пака для одной стадии текущей книги, в книжном порядке. */
     async _originsFor(stage) {
         const pack = game.packs.get("dark-heresy.origins");
         const index = pack ? await pack.getIndex({fields: ["system.ruleset", "system.stage", "system.order",
-                                                          "system.requires"]}) : {contents: []};
+                                                          "system.requires", "system.key"]}) : {contents: []};
         const fromPack = index.contents
             .filter(entry => entry.system?.ruleset === this.ruleset && entry.system?.stage === stage);
         // Полк собирается один на отряд и живёт предметом мира — его тоже предлагаем.
@@ -520,12 +535,15 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             && item.system.ruleset === this.ruleset && item.system.stage === stage)
             .map(item => ({uuid: item.uuid, name: item.name, system: item.system}));
         const taken = this._originKeys();
+        const forbidden = this._forbiddenSpecialities();
         return [...fromPack, ...fromWorld]
             // Требование к прошлому шагу: архетип десантника Хаоса человеку не предлагается.
             .filter(entry => {
                 const needs = entry.system?.requires?.originKey;
                 return !needs || taken.has(needs);
             })
+            // И запрет уже выбранного ордена: закрытую специальность не предлагают вовсе.
+            .filter(entry => !forbidden.has(entry.system?.key))
             .sort((a, b) => (a.system.order ?? 0) - (b.system.order ?? 0) || a.name.localeCompare(b.name));
     }
 
@@ -584,7 +602,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const copies = new Map();
         const unresolved = [];
-        for (const [kind, list] of [["talent", plan.talents], ["trait", plan.traits], ["equipment", plan.equipment]])
+        for (const [kind, list] of [["talent", plan.talents], ["trait", plan.traits],
+                                    ["ability", plan.abilities], ["equipment", plan.equipment]])
             for (const entry of list) {
                 const copy = await this._lookupContent(kind, entry.name);
                 copies.set(`${kind}:${entry.name}`, copy);
@@ -611,6 +630,9 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // лист собирается под его руками. Поле остаётся обычным, редактируемым —
         // переименовать «Мир-улей» в «Десолеум» это игра, а не поломка.
         if (step.bioField) update[step.bioField] = carrier.name;
+        // Нрав ордена печатается на книжном листе своей строкой (стр. 397), и приходит
+        // он вместе с орденом, а не выбирается: «Сыны Русса» — это про весь орден.
+        if (source.system.rules?.demeanour) update["system.bio.chapterDemeanour"] = source.system.rules.demeanour;
         if (Object.keys(update).length) await actor.update(update);
         // Добавки к элиткам запоминаются на носителе: элитку могут взять и позже, в
         // магазине, а санкция фона к ней всё равно относится.
@@ -966,13 +988,16 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             const source = item.system.stage === "chapter" ? "chapter" : "speciality";
             lists.push({source, rank: 1, advances, from: item.name});
         }
-        const general = (await this._originsFor("advanceList"))
-            .find(entry => entry.system?.rules?.advanceList === "general");
-        if (general) {
-            const source = (await fromUuid(general.uuid))?.toObject()?.system;
-            if (source?.rules?.advances?.length)
-                lists.push({source: "general", rank: source.rules.rank ?? 1,
-                            advances: source.rules.advances, from: general.name});
+        // Общий десантский список лежит в компендиуме отдельным предметом. Искать его
+        // по system.rules нельзя: индекс пака отдаёт только запрошенные поля, rules
+        // среди них нет, и раньше список молча терялся целиком — из четырёх колонок
+        // магазина оставались две.
+        for (const entry of await this._originsFor("advanceList")) {
+            const source = (await fromUuid(entry.uuid))?.toObject()?.system;
+            if (source?.rules?.advanceList !== "general") continue;
+            if (!source.rules.advances?.length) continue;
+            lists.push({source: "general", rank: source.rules.rank ?? 1,
+                        advances: source.rules.advances, from: entry.name});
         }
         return lists;
     }
@@ -1476,6 +1501,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return {
             ruleset: this.ruleset,
             aptitudes: ownedAptitudes(this.actor),
+            // Цены характеристик Deathwatch печатает специальность, а не таблица книги.
+            characteristicCosts: this._printedCharacteristicCosts(),
             // Покровитель решает цену КАЖДОЙ покупки Black Crusade (стр. 76).
             patron: system.patron || "undivided",
             characteristics, characteristicValues,
@@ -1488,6 +1515,18 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             psyCost: Number(system.psy?.cost) || 0,
             powers: this.actor.items.filter(item => item.type === "psychicPower").map(item => item.name)
         };
+    }
+
+    /**
+     * Напечатанные цены характеристик — из специальности, если книга их знает.
+     * У Dark Heresy, Only War и Black Crusade их нет: там цена выводится.
+     */
+    _printedCharacteristicCosts() {
+        if (!RULESET_DEFS[this.ruleset]?.advanceLists) return null;
+        for (const item of this.actor.items)
+            if (item.type === "origin" && item.system.rules?.characteristicCosts)
+                return item.system.rules.characteristicCosts;
+        return null;
     }
 
     /** Таланты книги — индекс пака с уровнем, склонностями и предпосылками. */
@@ -1675,7 +1714,12 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             : null;
         const advances = listed ?? this._specialityAdvances();
         const elite = RULESET_DEFS[this.ruleset]?.eliteAdvances ? ["elite"] : [];
-        const tabs = ["characteristics", "skills", "talents", ...elite, ...(psyker ? ["psychic"] : []),
+        // У Deathwatch навыки и таланты покупаются не лестницей, а строками списков:
+        // отдельные вкладки под них показывали бы чужие цены Dark Heresy рядом с
+        // книжными. Остаются характеристики (у них своя таблица в специальности),
+        // психика и сами списки.
+        const ladderTabs = listed ? ["characteristics"] : ["characteristics", "skills", "talents"];
+        const tabs = [...ladderTabs, ...elite, ...(psyker ? ["psychic"] : []),
                       ...(advances.length ? ["advances"] : [])];
         const tab = tabs.includes(this._shopTab) ? this._shopTab : "characteristics";
 
@@ -1733,8 +1777,15 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             shopCharacteristics: characteristicOffers(snapshot).map(offer => ({
                 ...offer,
                 label: offer.infamy ? game.i18n.localize("CHARACTERISTIC.INFAMY") : label(offer.key),
-                nextLabel: offer.infamy ? game.i18n.localize("WIZARD.LEVEL.INFAMY") : levelLabel(offer.nextLevel),
+                nextLabel: offer.infamy ? game.i18n.localize("WIZARD.LEVEL.INFAMY")
+                    : offer.printedSteps ? "" : levelLabel(offer.nextLevel),
                 relationLabel: relationLabel(offer.relation),
+                // Средний столбец объясняет цену. У Dark Heresy это совпавшие склонности,
+                // у Black Crusade — отношение к покровителю, у Deathwatch — которая это
+                // из четырёх напечатанных ступеней.
+                matchText: offer.relation ? relationLabel(offer.relation)
+                    : offer.printedSteps ? `${Math.min(offer.steps + 1, offer.printedSteps)}/${offer.printedSteps}`
+                    : `${offer.matched}/2`,
                 affordable: !locked && !offer.maxed && offer.cost <= remaining
             })),
             shopSkills: skillOffers(snapshot).map(offer => ({
@@ -1768,7 +1819,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             aptitudeChips: [...owned].sort(),
             // У Black Crusade склонностей нет вовсе, а цену объясняет покровитель.
             showAptitudes: RULESET_DEFS[this.ruleset]?.aptitudes !== false,
-            shopPatron: RULESET_DEFS[this.ruleset]?.aptitudes === false
+            shopPatron: RULESET_DEFS[this.ruleset]?.patronPricing
                 ? game.i18n.localize(`PATRON.${(this.actor.system.patron || "undivided").toUpperCase()}`)
                 : "",
             priceRows: [

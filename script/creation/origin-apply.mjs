@@ -30,6 +30,7 @@ const SKILL_MAX = 30;
 
 /** Заглушки для имён, которых нет ни в одном компендиуме: потерять выдачу молча нельзя. */
 const STUB = {
+    ability: {type: "specialAbility", img: "icons/svg/aura.svg"},
     talent: {type: "talent", img: "icons/svg/upgrade.svg"},
     trait: {type: "trait", img: "icons/svg/aura.svg"},
     equipment: {type: "gear", img: "icons/svg/item-bag.svg"},
@@ -312,6 +313,12 @@ export function planToItemData(plan, tag, carrierId, lookup, {aptitudes, skipTal
     for (const trait of plan.traits ?? []) {
         const data = copy("trait", trait.name, lookup);
         if (trait.rating != null) data.system.rating = trait.rating;
+        out.push({...data, flags});
+    }
+    // Особые способности: Solo Mode ордена, способность специальности. На листе им
+    // место рядом с талантами, но тип у них свой — по нему их и находит вкладка.
+    for (const ability of plan.abilities ?? []) {
+        const data = copy("ability", ability.name, lookup);
         out.push({...data, flags});
     }
     for (const gear of plan.equipment ?? []) {

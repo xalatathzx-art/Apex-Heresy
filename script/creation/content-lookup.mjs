@@ -70,6 +70,9 @@ export function findContent(index, types, name) {
  */
 export const GRANT_ITEM_TYPES = {
     talent: ["talent"],
+    // Особая способность: Solo Mode ордена и способность специальности Deathwatch
+    // лежат в паке предметами, а не строкой в описании.
+    ability: ["specialAbility"],
     trait: ["trait"],
     equipment: ["weapon", "armour", "gear", "tool", "ammunition", "drug", "cybernetic", "forceField",
                 "weaponModification"]

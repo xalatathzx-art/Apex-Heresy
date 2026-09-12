@@ -78,6 +78,15 @@ export function characteristicOffers(snapshot) {
                          cost, maxed: !cost, infamy: true});
             continue;
         }
+        // Deathwatch цену не выводит: она напечатана в самой специальности, четырьмя
+        // числами на характеристику (стр. 58). Склонностей и покровителя там нет.
+        const printed = snapshot.characteristicCosts?.[key];
+        if (printed) {
+            const cost = printed[steps] ?? null;
+            offers.push({key, steps, matched: 0, relation: null, nextLevel: cost ? "listed" : null,
+                         cost, maxed: !cost, printedSteps: printed.length});
+            continue;
+        }
         const relation = relationIn(snapshot, BC_CHARACTERISTIC_PATRONS[key]);
         const nextLevel = ladder.levels[steps] ?? null;
         offers.push({
@@ -260,7 +269,10 @@ export function purchaseCharacteristic(snapshot, key) {
     // Поле cost — накопительная цена всех купленных ступеней: так его читает движок.
     // У Тёмной славы лестницы нет, каждая ступень стоит одинаково (стр. 78).
     let total = 0;
+    const printed = snapshot.characteristicCosts?.[key];
     if (offer.infamy) total = (offer.steps + 1) * offer.cost;
+    // Напечатанные цены накопительны так же, как лестница: пропустить ступень нельзя.
+    else if (printed) for (let index = 0; index <= offer.steps; index++) total += printed[index] ?? 0;
     else for (let index = 0; index <= offer.steps; index++)
         total += advanceCost("characteristic", characteristicLadder(snapshot.ruleset).levels[index],
                              offer.matched, snapshot.ruleset, offer.relation);

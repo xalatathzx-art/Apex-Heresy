@@ -311,7 +311,7 @@
                     <div class="shop-row{{#if offer.maxed}} maxed{{/if}}">
                         <span class="shop-name">{{offer.label}}</span>
                         <span class="shop-step">{{#if offer.maxed}}{{localize "WIZARD.SHOP_MAXED"}}{{else}}{{offer.nextLabel}} +5{{/if}}</span>
-                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{#if offer.relationLabel}}{{offer.relationLabel}}{{else}}{{offer.matched}}/2{{/if}}</span>
+                        <span class="shop-match" title="{{localize "WIZARD.SHOP_MATCH_HINT"}}">{{offer.matchText}}</span>
                         <span class="shop-cost">{{#unless offer.maxed}}{{offer.cost}}{{/unless}}</span>
                         <button type="button" class="shop-buy" data-buy-characteristic="{{offer.key}}"
                                 {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>

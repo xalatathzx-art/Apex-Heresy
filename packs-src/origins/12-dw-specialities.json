@@ -137,7 +137,8 @@
           {
             "name": "Narthecium"
           }
-        ]
+        ],
+        "abilities": []
       },
       "choices": [
         {
@@ -147,15 +148,33 @@
           "options": [
             {
               "label": "Guardian of Purity",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Guardian of Purity (Apothecary)"
+                  }
+                ]
+              }
             },
             {
               "label": "Create Toxins",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Create Toxins (Apothecary)"
+                  }
+                ]
+              }
             },
             {
               "label": "Enhance Healing",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Enhance Healing (Apothecary)"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -290,6 +309,11 @@
           {
             "name": "Astartes Jump Pack"
           }
+        ],
+        "abilities": [
+          {
+            "name": "Angel of Death (Assault Marine)"
+          }
         ]
       },
       "choices": [
@@ -300,11 +324,23 @@
           "options": [
             {
               "label": "Wings of Angels",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Wings of Angels (Assault Marine)"
+                  }
+                ]
+              }
             },
             {
               "label": "Wrathful Descent",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Wrathful Descent (Assault Marine)"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -417,7 +453,8 @@
           {
             "name": "Astartes Heavy Bolter"
           }
-        ]
+        ],
+        "abilities": []
       },
       "choices": [
         {
@@ -427,11 +464,23 @@
           "options": [
             {
               "label": "Immovable Warrior",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Immovable Warrior (Devastator Marine)"
+                  }
+                ]
+              }
             },
             {
               "label": "Unrelenting Devastation",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Unrelenting Devastation (Devastator Marine)"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -609,6 +658,11 @@
           {
             "name": "Astartes Force Sword"
           }
+        ],
+        "abilities": [
+          {
+            "name": "Battle-Psyker (Librarian)"
+          }
         ]
       },
       "choices": []
@@ -728,7 +782,8 @@
           {
             "name": "Astartes Bolter (Godwyn)"
           }
-        ]
+        ],
+        "abilities": []
       },
       "choices": [
         {
@@ -738,11 +793,23 @@
           "options": [
             {
               "label": "Bolter Mastery",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Bolter Mastery (Tactical Marine)"
+                  }
+                ]
+              }
             },
             {
               "label": "Tactical Expertise",
-              "grants": {}
+              "grants": {
+                "abilities": [
+                  {
+                    "name": "Tactical Expertise (Tactical Marine)"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -916,6 +983,14 @@
           },
           {
             "name": "Astartes Servo-Arm"
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Blessed by the Omnissiah (Techmarine)"
+          },
+          {
+            "name": "Improve Cover (Techmarine)"
           }
         ]
       },

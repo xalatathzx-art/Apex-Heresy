@@ -19,7 +19,7 @@ import {normaliseOrigin} from "./origin-data.mjs";
  */
 export function emptyPlan() {
     return {characteristics: {}, skills: [], specialities: [], talents: [], traits: [],
-            equipment: [], aptitudes: [], duplicates: [], eliteAdvances: [], eliteRiders: [],
+            abilities: [], equipment: [], aptitudes: [], duplicates: [], eliteAdvances: [], eliteRiders: [],
             wounds: 0, corruption: 0, insanity: 0, influence: 0};
 }
 
@@ -107,6 +107,7 @@ export function mergePlans(...plans) {
         for (const spec of plan.specialities ?? []) addSpeciality(out, spec);
         for (const talent of plan.talents ?? []) addNamed(out, "talents", "talent", talent);
         for (const trait of plan.traits ?? []) addNamed(out, "traits", "trait", trait);
+        for (const ability of plan.abilities ?? []) addNamed(out, "abilities", "ability", ability);
         for (const gear of plan.equipment ?? []) out.equipment.push({...gear});
         for (const aptitude of plan.aptitudes ?? []) if (!out.aptitudes.includes(aptitude)) out.aptitudes.push(aptitude);
         for (const duplicate of plan.duplicates ?? []) out.duplicates.push({...duplicate});
@@ -126,6 +127,7 @@ function addGrants(plan, grants) {
     for (const spec of grants.specialities ?? []) addSpeciality(plan, spec);
     for (const talent of grants.talents ?? []) addNamed(plan, "talents", "talent", talent);
     for (const trait of grants.traits ?? []) addNamed(plan, "traits", "trait", trait);
+    for (const ability of grants.abilities ?? []) addNamed(plan, "abilities", "ability", ability);
     for (const gear of grants.equipment ?? []) plan.equipment.push({...gear});
     for (const aptitude of grants.aptitudes ?? [])
         if (!plan.aptitudes.includes(aptitude)) plan.aptitudes.push(aptitude);

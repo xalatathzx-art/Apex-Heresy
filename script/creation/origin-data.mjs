@@ -62,7 +62,7 @@ export const CHOICE_TYPES = ["one", "many", "target"];
 export const ELITE_ADVANCE_KEYS = ["psyker", "untouchable", "inquisitor"];
 
 const EMPTY_GRANTS = {
-    skills: [], specialities: [], talents: [], traits: [], equipment: [], aptitudes: [],
+    skills: [], specialities: [], talents: [], traits: [], abilities: [], equipment: [], aptitudes: [],
     // eliteAdvances — выданные даром (Mystic начинает псайкером, стр. 70).
     // eliteRiders — добавка к продвижению, если персонаж его возьмёт: Adeptus Astra
     // Telepathica делает псайкера санкционированным (стр. 49), но псайкером не делает.
@@ -183,6 +183,7 @@ export function grantSummaryLines(source = {}) {
     if (grants.specialities.length)
         lines.push(`Specialities: ${grants.specialities.map(s => `${s.key} (${s.name})`).join(", ")}`);
     if (grants.talents.length) lines.push(`Talents: ${grants.talents.map(t => t.name).join(", ")}`);
+    if (grants.abilities.length) lines.push(`Abilities: ${grants.abilities.map(a => a.name).join(", ")}`);
     if (grants.traits.length)
         lines.push(`Traits: ${grants.traits.map(t => t.rating != null ? `${t.name} (${t.rating})` : t.name).join(", ")}`);
     if (grants.equipment.length)
@@ -218,6 +219,7 @@ function grantProblems(grants, prefix) {
     }
     for (const talent of grants.talents ?? []) if (!talent.name) problems.push(`${prefix}a talent has no name`);
     for (const trait of grants.traits ?? []) if (!trait.name) problems.push(`${prefix}a trait has no name`);
+    for (const ability of grants.abilities ?? []) if (!ability.name) problems.push(`${prefix}an ability has no name`);
     for (const gear of grants.equipment ?? []) if (!gear.name) problems.push(`${prefix}an equipment entry has no name`);
     for (const elite of [...(grants.eliteAdvances ?? []), ...(grants.eliteRiders ?? []).map(rider => rider.elite)])
         if (!ELITE_ADVANCE_KEYS.includes(elite)) problems.push(`${prefix}unknown elite advance "${elite}"`);

@@ -130,6 +130,9 @@ export const RULESET_DEFS = {
         vitalsStage: "archetype",
         // Склонностей в книге нет: цену задаёт бог улучшения и покровитель персонажа.
         aptitudes: false,
+        // Отсюда и строка «Покровитель» в лавке: она объясняет цену. У Deathwatch
+        // склонностей тоже нет, но покровителя нет и подавно — цена там напечатана.
+        patronPricing: true,
         contentPacks: packsFirst("dark-heresy.black-crusade"),
         steps: [
             // Книжный порядок (стр. 48): раса, характеристики, архетип, страсти,

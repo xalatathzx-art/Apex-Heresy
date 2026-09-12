@@ -97,7 +97,12 @@
         ]
       },
       "grants": {
-        "aptitudes": []
+        "aptitudes": [],
+        "abilities": [
+          {
+            "name": "Righteous Zeal (Black Templars)"
+          }
+        ]
       },
       "choices": [],
       "bonuses": [
@@ -217,7 +222,12 @@
         ]
       },
       "grants": {
-        "aptitudes": []
+        "aptitudes": [],
+        "abilities": [
+          {
+            "name": "Blood Frenzy (Blood Angels)"
+          }
+        ]
       },
       "choices": [],
       "bonuses": [
@@ -354,7 +364,12 @@
         ]
       },
       "grants": {
-        "aptitudes": []
+        "aptitudes": [],
+        "abilities": [
+          {
+            "name": "Stoic Defence (Dark Angels)"
+          }
+        ]
       },
       "choices": [],
       "bonuses": [
@@ -505,6 +520,11 @@
           {
             "name": "Heightened Senses (Smell)"
           }
+        ],
+        "abilities": [
+          {
+            "name": "Wolf Senses (Space Wolves)"
+          }
         ]
       },
       "choices": [],
@@ -609,7 +629,12 @@
       },
       "grants": {
         "aptitudes": [],
-        "wounds": 2
+        "wounds": 2,
+        "abilities": [
+          {
+            "name": "Thunder’s Call (Storm Wardens)"
+          }
+        ]
       },
       "choices": [
         {
@@ -784,7 +809,12 @@
         ]
       },
       "grants": {
-        "aptitudes": []
+        "aptitudes": [],
+        "abilities": [
+          {
+            "name": "Favoured Son (Ultramarines)"
+          }
+        ]
       },
       "choices": [],
       "bonuses": [
