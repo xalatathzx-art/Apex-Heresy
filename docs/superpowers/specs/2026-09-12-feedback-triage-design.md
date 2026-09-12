@@ -163,3 +163,51 @@ be confused with an unfixed report.
 `script/dark-heresy.js` is 18,473 lines. It is the reason several of these defects were
 invisible and it is a standing risk to the new-mechanics work. No refactor is proposed here,
 because none was requested; the risk is recorded so the decision is explicit.
+
+## Remaining Triage
+
+The twelve items that were not settled when this design was first written. Each carries the
+evidence that settles it. Two of them contradict the report in a way that matters: fixing
+them as described would have damaged correct data.
+
+| Item | Verdict | Evidence |
+|---|---|---|
+| Suppressing Fire applies Fear | `CONFIRMED` | `addFearCondition` at `script/dark-heresy.js:14089` toggles the `fear` status |
+| Overheat never burns the wielder | `CONFIRMED` | `script/dark-heresy.js:3927-3932` sets the flag; `:3302` and `:3324` block hit and damage; no code damages the firer |
+| Weapon jam survives a re-roll | `CONFIRMED` | `weaponJammed` is set at `:3952` and never cleared; a Fate re-roll reuses the same `rollData` (`:3138-3139`) |
+| Forbidden Lore (Xenos) specialisation | `NEEDS-REPRO` | `xenos` is already present in `template.json` under `forbiddenLore` |
+| Synskin "also grants armour" | `CONFIRMED` | The item's type is `gear`, which is absent from the equippable list at `:124`; `grantsArmour.enabled` is `false` with all parts `0`, and the armour sum filters on `isEquipped` |
+| Forcefields inert | `CONFIRMED` | `protectionRating` and `overloadChance` have getters, a sheet field and a chat row, but no consumer anywhere in the damage path |
+| Hot-Shot needs no standard reload | `NEEDS-BOOK-CHECK` | `Hot-shot Lasgun` carries `clip {max: 30}` and `reload: "2 Full"`; settle against p. 179 before changing it |
+| Harlequin's Kiss lists `DMG-SB` | `CONFIRMED` | `system.special` is `"Felling (4), Tearing, DMG-SB"`; no such quality exists |
+| `Corrosive (*)` missing | `CONFIRMED` | Absent from the trait table at `:11617-11641` and from `lang/en.json` |
+| Laser Weapons folder | `CONFIRMED` | The folder is named `Laser`, not `Laser Weapons`; rename it to `Las` |
+| Scholastic Lore needs Common Lore entries | `CONFIRMED` | `template.json` gives Scholastic Lore 13 specialisations and Common Lore 25 |
+| Special Ability text hard to read | `NEEDS-REPRO` | A presentation judgement that cannot be settled from source |
+
+### What the book says about these
+
+**Suppressing Fire (DH2 p. 225).** "All targets within the kill zone must make a Difficult
+(-10) Pinning test or become Pinned as per page 230. If the attacker fired a Full Auto burst,
+the Pinning test is Hard (-20) instead." **Pinning (p. 231):** "this is a Challenging (+0)
+Willpower test. If the character succeeds, he can act normally. If he fails, he instead
+becomes Pinned."
+
+The system already computes the right modifier — `suppressionModifier` is -10 for a burst and
+-20 for full auto at `script/dark-heresy.js:14036-14039`. Only the applied condition is wrong:
+it must be `pinned`, not `fear`. The `pinned` condition and its escape flow
+(`_offerPinningEscape`) already exist, so the fix reuses them rather than building anything.
+
+**Scholastic Lore (DH2 p. 114).** "Scholastic Lore has several Specialisations (see page 95).
+These include all those for Common Lore, as even commonly known information can be studied to
+greater depths." The reporter's request is exactly the printed rule, and the fix is to seed
+Scholastic Lore with the Common Lore specialisations in addition to its own.
+
+### Two corrections to the report
+
+`Forbidden Lore (Xenos)` is **not** a missing specialisation: `xenos` is already seeded in
+`template.json`. Whatever the reporter hit lives in the interface, not the data, and adding
+the specialisation would have been a fix to something that is already correct.
+
+The folder is named `Laser`, not `Laser Weapons`. The rename to `Las` still stands, but the
+patch must match the name that is actually there.
