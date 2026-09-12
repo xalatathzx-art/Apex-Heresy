@@ -1178,7 +1178,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 13: Clearing a jam follows the book
+### Task 13: Clearing a jam follows the book — DONE
 
 DH2 p. 225: "Clearing a jam is a Full Action that requires a Ballistic Skill test. If the
 character attempting to clear the jam succeeds on the test, then the jam has been cleared,
@@ -1194,7 +1194,7 @@ the weapon is still jammed, though he can attempt to clear it again next round."
 - Consumes: nothing.
 - Produces: `resolveJamClear({success}) -> {cleared: boolean, emptyMagazine: boolean, needsReload: boolean}`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -1212,12 +1212,12 @@ test('a failed test leaves the weapon jammed and the magazine untouched', () => 
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/jam-clearing.test.mjs`
 Expected: FAIL — module missing.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 ```javascript
 /**
@@ -1244,18 +1244,18 @@ export function resolveJamClear(test) {
 Wire the call site so clearing a jam prompts a Ballistic Skill test rather than clearing the
 flag outright, and applies `emptyMagazine` by setting `system.clip.value` to 0.
 
-- [ ] **Step 4: Check that a jam does not survive a re-roll**
+- [x] **Step 4: Check that a jam does not survive a re-roll**
 
 The feedback also reports that a jam persists across re-rolls. Task 1 assigns this a verdict;
 if it is `CONFIRMED`, fix it here — the jam flag must be cleared when the attack roll that
 set it is re-rolled — and add a test. If Task 1 found otherwise, record that instead.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 482 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/combat/jam.mjs script/dark-heresy.js tests/jam-clearing.test.mjs
@@ -1270,7 +1270,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 14: The fatigued status reflects the fatigue counter
+### Task 14: The fatigued status reflects the fatigue counter — DONE
 
 `system.fatigue.value` drives the real penalties, but the `fatigued` status icon is set only
 by hand and means nothing. `syncFatigueState` already reacts to fatigue changes; it just
@@ -1284,19 +1284,19 @@ never touches the icon.
 - Consumes: nothing.
 - Produces: no new exports.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Assert that raising `system.fatigue.value` above zero adds the `fatigued` condition, that
 lowering it to zero removes it, and that the existing unconscious-at-threshold behaviour is
 unchanged. Follow the actor-stubbing pattern already used in `tests/blood-loss.test.mjs`,
 which exercises `syncFatigueState`'s neighbours.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/fatigued-status.test.mjs`
 Expected: FAIL — the condition is never added.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 In `syncFatigueState`, before the unconscious branch:
 
@@ -1308,12 +1308,12 @@ In `syncFatigueState`, before the unconscious branch:
     else if (value === 0 && fatigued) await actor.removeCondition("fatigued");
 ```
 
-- [ ] **Step 4: Run the tests and the syntax gate**
+- [x] **Step 4: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 485 tests, 0 fail; no syntax output.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add script/dark-heresy.js tests/fatigued-status.test.mjs
@@ -1327,7 +1327,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 15: Ammunition weight and quantity mean different things
+### Task 15: Ammunition weight and quantity mean different things — DONE
 
 Pack data stores "shots in the magazine" in `system.quantity`, and
 `script/dark-heresy.js:1096` reads it as "how many I carry", so a Standard Lasgun Cell
@@ -1341,7 +1341,7 @@ Pack data stores "shots in the magazine" in `system.quantity`, and
 - Consumes: nothing.
 - Produces: `fixDocument` normalises ammunition `quantity` and `weight`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -1373,28 +1373,28 @@ test('the patch is idempotent', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/ammunition-weight.test.mjs`
 Expected: FAIL — quantity stays 60.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Move the shot count into the magazine capacity and set the carried count to one, only when
 the document still carries the old shape (`quantity > 1` and no clip capacity). Guard on that
 condition so the patch stays idempotent.
 
-- [ ] **Step 4: Apply the patch and confirm the weights**
+- [x] **Step 4: Apply the patch and confirm the weights**
 
 Foundry must be closed. Run `node tools/patch-dark-heresy.mjs`, then query the pack for any
 ammunition whose `quantity * weight` still exceeds 5 kg and list what remains.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 488 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add tools/lib/dark-heresy-fixes.mjs tests/ammunition-weight.test.mjs packs/dark-heresy
@@ -1408,7 +1408,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 16: Ammunition declares what it fits
+### Task 16: Ammunition declares what it fits — DONE
 
 With weapon types in place (Task 3), ammunition can finally say what it fits. All 110
 ammunition items ship with empty `weaponTypes` and `weaponClasses`, which
@@ -1422,7 +1422,7 @@ ammunition items ship with empty `weaponTypes` and `weaponClasses`, which
 - Consumes: `WEAPON_TYPES`, `classifyWeapon` from Task 2.
 - Produces: `fixDocument` sets `system.weaponTypes` on ammunition documents.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```javascript
 import {test} from 'node:test';
@@ -1447,28 +1447,28 @@ test('ammunition whose weapon cannot be named stays universal', () => {
 Confirm the third case against the pack before asserting it: if "Purity Bolts" is in fact
 bolt ammunition, choose a genuinely ambiguous name for the universal case.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/ammunition-fit.test.mjs`
 Expected: FAIL — `weaponTypes` stays empty.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Classify ammunition by the weapon name embedded in its own name, reusing `classifyWeapon`.
 Leave `weaponTypes` empty when nothing matches: empty means universal, which is the safe
 default for a round the patch cannot place.
 
-- [ ] **Step 4: Apply the patch and measure coverage**
+- [x] **Step 4: Apply the patch and measure coverage**
 
 Foundry must be closed. Run `node tools/patch-dark-heresy.mjs` and record how many of the 110
 ammunition items now declare a type.
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 491 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add tools/lib/dark-heresy-fixes.mjs tests/ammunition-fit.test.mjs packs/dark-heresy
@@ -1482,7 +1482,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 17: Reloading finds a compatible round
+### Task 17: Reloading finds a compatible round — DONE
 
 `_reloadWeapon` resolves only a pre-set `weapon.system.ammunitionId` and never searches the
 inventory, which is why the reporter's lasgun would not reload and why tagging the ammunition
@@ -1497,37 +1497,37 @@ did not help. With Tasks 3 and 16 landed, a search can succeed.
 - Produces: `_reloadWeapon` falls back to the first compatible carried round when
   `ammunitionId` is unset, and reports `reason: "no_compatible_ammunition"` when none fits.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Assert that a lasgun with no `ammunitionId` and a Standard Lasgun Cell in the inventory
 reloads; that a lasgun with only bolt rounds carried fails with
 `reason: "no_compatible_ammunition"`; and that an explicit `ammunitionId` still wins over the
 search.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `node --test tests/reload-selection.test.mjs`
 Expected: FAIL — the first case returns `reason: "no_ammunition"`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 When `ammunitionRef` is empty, search `actor.items` for ammunition satisfying
 `DarkHeresyUtil.ammunitionFitsWeapon(item, weapon)` with a quantity above zero, and use the
 first match. Keep the explicit reference as the priority path.
 
-- [ ] **Step 4: Fix the empty-weapon reload prompt**
+- [x] **Step 4: Fix the empty-weapon reload prompt**
 
 The feedback reports that the reload prompt claims no ammunition is available, then reloads
 anyway, decrements the chosen round and applies none of its effects. Task 1 assigns a
 verdict; if `CONFIRMED`, fix it here so the prompt's claim and the outcome agree, and add a
 test covering "prompt says none available" implying "nothing is consumed".
 
-- [ ] **Step 5: Run the tests and the syntax gate**
+- [x] **Step 5: Run the tests and the syntax gate**
 
 Run: `node --test "tests/*.test.mjs"` then `node --check script/dark-heresy.js`
 Expected: 495 tests, 0 fail; no syntax output.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/dark-heresy.js tests/reload-selection.test.mjs
