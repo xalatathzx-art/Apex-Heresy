@@ -1118,6 +1118,17 @@ class DarkHeresyActor extends Actor {
                     // Ensure advance is a number (handle undefined, null, string, etc.)
                     const advanceValue = Number(speciality.advance) || 0;
                     speciality.total = baseTotal + advanceValue;
+                    // Специализация наследует тип своей группы: Общие знания у
+                    // Rogue Trader продвинутые, значит и «Общие знания (Империум)»
+                    // без обучения не бросаются. Считать их по чужой модели значило
+                    // бы обойти запрет через подпункт.
+                    if (skillModel === "basicAdvanced") {
+                        const type = rtSkillType(skillKey);
+                        const rt = rtSkillBase({characteristic: baseTotal, advance: advanceValue, type});
+                        speciality.total = rt.base;
+                        speciality.untrainedType = type;
+                        speciality.unusable = !rt.usable;
+                    }
                     speciality.advanceSpec = this._getAdvanceSkill(advanceValue);
                     Object.assign(speciality, this._getAdvanceDescriptor(advanceValue));
                     
@@ -8468,15 +8479,34 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
     async _prepareRollSkill(event) {
         event.preventDefault();
         const skillName = $(event.currentTarget).data("skill");
+        if (this._refuseUntrainedAdvanced(this.actor.system?.skills?.[skillName])) return;
         await prepareCommonRoll(
             DarkHeresyUtil.createSkillRollData(this.actor, skillName)
         );
+    }
+
+    /**
+     * Отказать в проверке, которой книга не допускает.
+     *
+     * «Untrained Advanced Skill: Cannot perform a test with this Skill» (стр. 231).
+     * Это именно запрет, а не трудная проверка: бросить и провалиться — значит
+     * потратить действие и оставить в чате запись о попытке, которой не было.
+     *
+     * @param {object} skill навык или специализация
+     * @returns {boolean} отказано ли
+     */
+    _refuseUntrainedAdvanced(skill) {
+        if (!skill?.unusable) return false;
+        ui.notifications.warn(game.i18n.localize("SKILL.UNTRAINED_ADVANCED"));
+        return true;
     }
 
     async _prepareRollSpeciality(event) {
         event.preventDefault();
         const skillName = $(event.currentTarget).parents(".item").data("skill");
         const specialityName = $(event.currentTarget).data("speciality");
+        const speciality = this.actor.system?.skills?.[skillName]?.specialities?.[specialityName];
+        if (this._refuseUntrainedAdvanced(speciality)) return;
         await prepareCommonRoll(
             DarkHeresyUtil.createSpecialtyRollData(this.actor, skillName, specialityName)
         );
@@ -9422,8 +9452,17 @@ async function rollAcquisition(actor, choice) {
         + (Dh.acquisitionQuantity[choice.quantity] ?? 0)
         + (Dh.acquisitionQuality[choice.quality] ?? 0);
 
+    // Против чего бросают приобретение. У аколита это Влиятельность, у еретика
+    // Дурная слава — одно поле под двумя именами. У Rogue Trader Влиятельности
+    // нет вовсе: там за это отвечает Profit Factor, сила Торговой хартии
+    // династии (стр. 271). Без этой развилки лист исследователя бросал бы против
+    // характеристики, которой на нём даже не показано.
+    const rules = Dh.rulesetFor(actor);
     const infamy = actor.characteristics.influence;
-    const target = (infamy.displayTotal ?? infamy.total) + modifier;
+    const base = rules.resource?.profitFactor
+        ? (Number(actor.system.profitFactor?.value) || 0)
+        : (infamy.displayTotal ?? infamy.total);
+    const target = base + modifier;
     const item = choice.item?.trim() || game.i18n.localize("ACQUISITION.ITEM");
 
     // Края таблицы разрешаются без броска: столь расхожие вещи не стоят проверки,
@@ -14782,9 +14821,16 @@ function onTestClick(ev) {
         rollData.flags.isCombatRoll = false;
         return prepareCommonRoll(rollData, operator);
     }
+    // Парирование у Rogue Trader — не навык, а проверка Владения оружием: в
+    // Таблице 3-1 (стр. 76) такого навыка нет вовсе. Без этой развилки лист
+    // исследователя парировал бы спрятанным навыком, необученным и оттого
+    // вполовину характеристики, — то есть заметно хуже, чем велит книга.
+    const parryIsSkill = !(Dh.rulesetFor(actor).skills?.absent ?? []).includes("parry");
     let evasions = {
         dodge: DarkHeresyUtil.createSkillRollData(actor, "dodge"),
-        parry: DarkHeresyUtil.createSkillRollData(actor, "parry"),
+        parry: parryIsSkill
+            ? DarkHeresyUtil.createSkillRollData(actor, "parry")
+            : DarkHeresyUtil.createCharacteristicRollData(actor, "weaponSkill"),
         deny: DarkHeresyUtil.createCharacteristicRollData(actor, "willpower"),
         willpower: DarkHeresyUtil.createCharacteristicRollData(actor, "willpower"),
         toughness: DarkHeresyUtil.createCharacteristicRollData(actor, "toughness"),

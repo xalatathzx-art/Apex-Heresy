@@ -555,6 +555,7 @@
   "SKILL.COMMON_LORE": "Common Lore",
   "SKILL.DECEIVE": "Deceive",
   "SKILL.DODGE": "Dodge",
+  "SKILL.UNTRAINED_ADVANCED": "An Advanced skill cannot be tested without training.",
   "SKILL.BARTER": "Barter",
   "SKILL.BLATHER": "Blather",
   "SKILL.CAROUSE": "Carouse",
