@@ -1358,7 +1358,38 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "rogueTrader": {
+                "label": "Rogue Trader",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "mercenaryCant": {
+                "label": "Mercenary Cant",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "nobiliteFamily": {
+                "label": "Nobilite Family",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "astropathSign": {
+                "label": "Astropath Sign",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "underworld": {
+                "label": "Underworld",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Intelligence",
               "Knowledge"
@@ -1448,7 +1479,26 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "groundVehicle": {
+                "label": "Ground Vehicle",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "skimmerHover": {
+                "label": "Skimmer/Hover",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "walker": {
+                "label": "Walker",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Agility",
               "Fieldcraft"
@@ -1523,7 +1573,32 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "dancer": {
+                "label": "Dancer",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "musician": {
+                "label": "Musician",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "singer": {
+                "label": "Singer",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "storyteller": {
+                "label": "Storyteller",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Fellowship",
               "Social"
@@ -1538,7 +1613,26 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "personal": {
+                "label": "Personal",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "flyers": {
+                "label": "Flyers",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "spaceCraft": {
+                "label": "Space Craft",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Agility",
               "Fieldcraft"
@@ -1568,7 +1662,50 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "administratum": {
+                "label": "Administratum",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "ecclesiarchy": {
+                "label": "Ecclesiarchy",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "military": {
+                "label": "Military",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "navigator": {
+                "label": "Navigator",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "rogueTrader": {
+                "label": "Rogue Trader",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "tech": {
+                "label": "Tech",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "underdeck": {
+                "label": "Underdeck",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Intelligence",
               "Knowledge"
@@ -1613,7 +1750,50 @@
             ],
             "advance": -20,
             "isSpecialist": true,
-            "specialities": {},
+            "specialities": {
+              "eldar": {
+                "label": "Eldar",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "exploratorBinary": {
+                "label": "Explorator Binary",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "highGothic": {
+                "label": "High Gothic",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "lowGothic": {
+                "label": "Low Gothic",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "ork": {
+                "label": "Ork",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "technaLingua": {
+                "label": "Techna-Lingua",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              },
+              "tradersCant": {
+                "label": "Trader’s Cant",
+                "advance": -20,
+                "starter": false,
+                "cost": 0
+              }
+            },
             "aptitudes": [
               "Intelligence",
               "Knowledge"

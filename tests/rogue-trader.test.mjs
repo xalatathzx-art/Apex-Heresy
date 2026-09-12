@@ -277,3 +277,39 @@ test('an absent skill is hidden on the sheet rather than deleted', () => {
     const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
     assert.match(source, /skill\.absent = absentSkills\.includes\(skillKey\)/);
 });
+
+test('no specialist skill is an empty shell', () => {
+    // A specialist group renders only when something in it is known, so a group
+    // with no entries can never appear and never be trained: stored, and
+    // unreachable. Six were created that way.
+    const template = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const empty = Object.entries(template.Actor.templates.skills.skills)
+        .filter(([, skill]) => skill.isSpecialist && !Object.keys(skill.specialities ?? {}).length)
+        .map(([key]) => key);
+    assert.deepEqual(empty, []);
+});
+
+test("the skill groups are the ones the book's own entries list", () => {
+    const skills = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'))
+        .Actor.templates.skills.skills;
+    const labels = key => Object.values(skills[key].specialities).map(s => s.label).sort();
+    // Each list comes from that skill's own "Skill Groups:" line, not the table.
+    assert.deepEqual(labels('drive'), ['Ground Vehicle', 'Skimmer/Hover', 'Walker']);                    // p. 82
+    assert.deepEqual(labels('performer'), ['Dancer', 'Musician', 'Singer', 'Storyteller']);              // p. 85
+    assert.deepEqual(labels('pilot'), ['Flyers', 'Personal', 'Space Craft']);                            // p. 85
+    assert.deepEqual(labels('ciphers'),                                                                  // p. 79
+        ['Astropath Sign', 'Mercenary Cant', 'Nobilite Family', 'Rogue Trader', 'Underworld']);
+    assert.deepEqual(labels('secretTongue'),                                                             // p. 87
+        ['Administratum', 'Ecclesiarchy', 'Military', 'Navigator', 'Rogue Trader', 'Tech', 'Underdeck']);
+    assert.deepEqual(labels('speakLanguage'),                                                            // p. 88
+        ['Eldar', 'Explorator Binary', 'High Gothic', 'Low Gothic', 'Ork', 'Techna-Lingua', '’'.length ? 'Trader’s Cant' : '']);
+});
+
+test('every speciality key is usable as a key', () => {
+    // "Trader's Cant" first became traderSCant, which is nobody's idea of a key.
+    const skills = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'))
+        .Actor.templates.skills.skills;
+    for (const [skillKey, skill] of Object.entries(skills))
+        for (const key of Object.keys(skill.specialities ?? {}))
+            assert.match(key, /^[a-z][A-Za-z0-9]*$/, `${skillKey}.${key}`);
+});
