@@ -67,9 +67,10 @@ test('Unnatural Willpower adds its multiplier to the Psy Rating (p. 186)', () =>
     assert.match(source, /const unnaturalRating = psyRules\.unnaturalWillpowerToRating && willpowerMultiplier > 1/);
     // And to the degrees of success on an opposed psychic test, but nowhere else:
     // outside psychic powers the other books' half-of-unnatural rule stands.
+    // That half rounds up, per the general division rule of DH2 p. 23.
     const dos = source.slice(source.indexOf('function _getUnnaturalDosBonus'));
     assert.match(dos, /psyRules\.unnaturalWillpowerToRating && rollData\?\.psy\?\.useModifier/);
-    assert.match(dos, /return Math\.floor\(unnatural \/ 2\);/);
+    assert.match(dos, /return halfRoundedUp\(unnatural\);/);
 });
 
 test("a Battle-Brother does not bleed at all (Larraman's Organ, p. 36)", () => {

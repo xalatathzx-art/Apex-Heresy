@@ -1,4 +1,5 @@
 import { createDataModels } from "./data/models.mjs";
+import { halfRoundedUp } from "./data/rounding.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -4229,7 +4230,9 @@ function _getUnnaturalDosBonus(rollData) {
         if (multiplier > 1) return multiplier;
     }
     const unnatural = Number(characteristic?.unnatural) || 0;
-    return Math.floor(unnatural / 2);
+    // Half the Unnatural value in bonus degrees (DH2 p. 140), and p. 23 rounds
+    // every division up, so Unnatural (3) is worth two degrees rather than one.
+    return halfRoundedUp(unnatural);
 }
 /**
  * Handle rolling and collecting parts of a combat damage roll.
