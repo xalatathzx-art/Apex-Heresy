@@ -3607,19 +3607,27 @@ async function _consumeAmmo(rollData) {
 async function _reloadWeapon(weapon, ownerId, tokenId = null, showChatMessage = true) {
     // Check if weapon has ammunition reference
     const ammunitionRef = weapon.system.ammunitionId;
-    if (!ammunitionRef || ammunitionRef.trim() === "") {
-        return { success: false, reason: "no_ammunition" };
-    }
-    
+
     // Get actor
     const actor = await _getActorFromOwnerId(ownerId, tokenId);
     if (!actor) {
         return { success: false, reason: "no_actor" };
     }
-    
+
     // Find ammunition
     let ammunition = null;
-    if (ammunitionRef.startsWith("Actor.") || ammunitionRef.startsWith("Item.")) {
+    if (!ammunitionRef || ammunitionRef.trim() === "") {
+        // Без заранее выбранного патрона перезарядка просто не шла: система знала
+        // только ammunitionId и никогда не искала в снаряжении сама. Поэтому
+        // лазган с батареями в подсумке отказывался перезаряжаться, а расстановка
+        // категорий у патронов делу не помогала — сверять было не с чем.
+        ammunition = actor.items.find(item => item.type === "ammunition"
+            && (Number(item.system?.quantity) || 0) > 0
+            && DarkHeresyUtil.ammunitionFitsWeapon(item, weapon)) ?? null;
+        if (!ammunition) {
+            return { success: false, reason: "no_compatible_ammunition" };
+        }
+    } else if (ammunitionRef.startsWith("Actor.") || ammunitionRef.startsWith("Item.")) {
         try {
             const resolved = await fromUuid(ammunitionRef);
             if (resolved && resolved.type === "ammunition") {
@@ -6070,9 +6078,14 @@ async function prepareCombatRoll(rollData, actorRef) {
                                                     }
                                                     // Don't proceed automatically - user can click Roll again
                                                 } else {
-                                                    const reason = reloadResult.reason === "out_of_ammo" 
-                                                        ? game.i18n.localize("CHAT.OUT_OF_AMMO") || "Кончились боеприпасы"
-                                                        : game.i18n.localize("CHAT.RELOAD_FAILED") || "Не удалось перезарядить";
+                                                    // Сообщение должно совпадать с тем, что произошло: попап
+                                                    // говорил «патронов нет», не различая, кончились они или
+                                                    // ни один не подходит стволу.
+                                                    const reason = reloadResult.reason === "out_of_ammo"
+                                                        ? game.i18n.localize("CHAT.OUT_OF_AMMO")
+                                                        : reloadResult.reason === "no_compatible_ammunition"
+                                                            ? game.i18n.format("CHAT.RELOAD_NO_COMPATIBLE", { weapon: weapon?.name ?? "" })
+                                                            : game.i18n.localize("CHAT.RELOAD_FAILED");
                                                     
                                                     await ChatMessage.create({
                                                         user: game.user.id,
@@ -8341,6 +8354,8 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
                 message = game.i18n.localize("CHAT.RELOAD_NO_AMMUNITION") || "Weapon has no ammunition configured";
             } else if (reloadResult.reason === "wrong_ammunition") {
                 message = game.i18n.format("CHAT.RELOAD_WRONG_AMMUNITION", { weapon: weapon.name });
+            } else if (reloadResult.reason === "no_compatible_ammunition") {
+                message = game.i18n.format("CHAT.RELOAD_NO_COMPATIBLE", { weapon: weapon.name });
             }
             ui.notifications.warn(message);
         }

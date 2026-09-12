@@ -846,6 +846,7 @@
   "BIO.NOTES": "Notes",
   "BUTTON.CREATE": "Create",
   "CHAT.RELOAD_NO_AMMUNITION": "Weapon has no ammunition configured",
+  "CHAT.RELOAD_NO_COMPATIBLE": "Nothing carried fits the {weapon}.",
   "CHAT.RELOAD_OUT_OF_AMMO": "Out of ammunition",
   "CYBERNETIC.COST": "Cost",
   "CYBERNETIC.EFFECT": "Effect",
