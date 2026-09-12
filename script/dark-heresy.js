@@ -1,5 +1,6 @@
 import { createDataModels } from "./data/models.mjs";
 import { halfRoundedUp } from "./data/rounding.mjs";
+import { carryingLimits, baseLeapAndJump } from "./data/carry.mjs";
 import { effectiveMaxAgility } from "./data/max-agility.mjs";
 import { traitArmour } from "./data/armour-traits.mjs";
 import { resolveJamClear } from "./combat/jam.mjs";
@@ -1683,11 +1684,20 @@ class DarkHeresyActor extends Actor {
         // movement is not in template.json either, and this assignment replaced the
         // whole object, so all five advertised system.movement.* keys were dead. They
         // now land, alongside the movementBonus.* route that already worked.
+        // Прыжки считаются от Силы, а не от Ловкости, и шага потому не имеют:
+        // прыжок в длину с места равен бонусу Силы в метрах, вверх — 20 см на
+        // бонус (Rogue Trader, стр. 268). Их печатает лист Rogue Trader; на эти
+        // ключи никто, кроме него, не смотрит.
+        const strengthBonus = this.characteristics.strength.displayBonus
+            || this.characteristics.strength.bonus;
+        const leaps = baseLeapAndJump(strengthBonus);
         this.system.movement = {
             half: base + halfBonus,
             full: (base * 2) + fullBonus,
             charge: (base * 3) + chargeBonus,
-            run: (base * 6) + runBonus
+            run: (base * 6) + runBonus,
+            leap: leaps.leap,
+            jump: leaps.jump
         };
     }
 
@@ -1706,81 +1716,17 @@ class DarkHeresyActor extends Actor {
         // encumbrance is absent from template.json - it is built here on every prepare -
         // so effects had nothing to attach to at base time, and replacing the whole
         // object threw away anything applyActiveEffects had written.
+        //
+        // Лестница теперь живёт таблицей в отдельном модуле: там же стоят два столбца,
+        // которых здесь не считалось вовсе — подъём и толкание (таблица 9-33). Предел
+        // переноски остался тем же числом, что и был: другие книги ничего не заметят.
+        const limits = carryingLimits(attributeBonus);
         this.system.encumbrance = {
-            max: 0,
-            value: encumbrance
+            max: limits.carry,
+            value: encumbrance,
+            lift: limits.lift,
+            push: limits.push
         };
-        switch (attributeBonus) {
-            case 0:
-                this.encumbrance.max = 0.9;
-                break;
-            case 1:
-                this.encumbrance.max = 2.25;
-                break;
-            case 2:
-                this.encumbrance.max = 4.5;
-                break;
-            case 3:
-                this.encumbrance.max = 9;
-                break;
-            case 4:
-                this.encumbrance.max = 18;
-                break;
-            case 5:
-                this.encumbrance.max = 27;
-                break;
-            case 6:
-                this.encumbrance.max = 36;
-                break;
-            case 7:
-                this.encumbrance.max = 45;
-                break;
-            case 8:
-                this.encumbrance.max = 56;
-                break;
-            case 9:
-                this.encumbrance.max = 67;
-                break;
-            case 10:
-                this.encumbrance.max = 78;
-                break;
-            case 11:
-                this.encumbrance.max = 90;
-                break;
-            case 12:
-                this.encumbrance.max = 112;
-                break;
-            case 13:
-                this.encumbrance.max = 225;
-                break;
-            case 14:
-                this.encumbrance.max = 337;
-                break;
-            case 15:
-                this.encumbrance.max = 450;
-                break;
-            case 16:
-                this.encumbrance.max = 675;
-                break;
-            case 17:
-                this.encumbrance.max = 900;
-                break;
-            case 18:
-                this.encumbrance.max = 1350;
-                break;
-            case 19:
-                this.encumbrance.max = 1800;
-                break;
-            case 20:
-                this.encumbrance.max = 2250;
-                break;
-            default:
-                this.encumbrance.max = 2250;
-                break;
-        }
-        // The table sets the carry limit from Strength and Toughness; an effect on the
-        // limit itself applies on top of it instead of being overwritten by it.
-
     }
 
 
@@ -8126,6 +8072,13 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         // и панель на вкладке продвижения ему нечем заполнять.
         data.hasAptitudes = this.actor?.type !== "heretic";
 
+        // Инициативу бросают от характеристики, и выбирать её надо из тех, что у
+        // книги есть. Список брался из всех подряд, поэтому лист Rogue Trader
+        // предлагал Влияние — показатель, который сам же и прячет. Выбрать спрятанное
+        // значит бросать по пустому месту.
+        data.presentCharacteristics = Object.fromEntries(
+            Object.entries(data.system?.characteristics ?? {}).filter(([, c]) => !c.absent));
+
         return data;
     }
 
@@ -9112,6 +9065,8 @@ class BookSheet extends DarkHeresySheet {
         const parts = this.constructor;
         data.bioPartial = parts.bioPartial;
         data.bookClass = `book-${parts.ruleset}`;
+        // Ключ книги — чтобы шаблон мог показать то, что печатает только она.
+        data.ruleset = parts.ruleset;
         data.vitalPartials = parts.vitals.map(key => ({
             partial: `systems/dark-heresy/template/sheet/actor/partial/vital-${key}.hbs`
         }));

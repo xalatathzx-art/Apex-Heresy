@@ -10,6 +10,17 @@
                 <label>{{localize "ENCUMBRANCE.MAX"}}</label>
                 <input type="number" value="{{system.encumbrance.max}}" data-dtype="Number" disabled />
             </div>
+            {{!-- Таблица переноски печатает три столбца, а лист показывал один.
+                  Поднять — вдвое от переноски, толкнуть — вчетверо; без них
+                  вопрос «сдвину ли я это» решался на глаз. --}}
+            <div class="lift">
+                <label>{{localize "ENCUMBRANCE.LIFT"}}</label>
+                <input type="number" value="{{system.encumbrance.lift}}" data-dtype="Number" disabled />
+            </div>
+            <div class="push">
+                <label>{{localize "ENCUMBRANCE.PUSH"}}</label>
+                <input type="number" value="{{system.encumbrance.push}}" data-dtype="Number" disabled />
+            </div>
             {{!-- A load gauge: two figures say how much, the bar says how full. The
                   reading sits inside the track so the figure and the fill it
                   describes are one object, not two things to line up by eye. --}}

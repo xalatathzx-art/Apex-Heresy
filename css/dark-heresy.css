@@ -7575,6 +7575,8 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
    which put two competing type sizes on one baseline and pushed the gauge out of
    alignment with both. */
 .dark-heresy .gear .encumbrance .information .current,
+.dark-heresy .gear .encumbrance .information .lift,
+.dark-heresy .gear .encumbrance .information .push,
 .dark-heresy .gear .encumbrance .information .max {
   display: grid;
   gap: var(--dh-space-2);
@@ -7582,6 +7584,8 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
   text-align: left;
 }
 .dark-heresy .gear .encumbrance .information .current label,
+.dark-heresy .gear .encumbrance .information .lift label,
+.dark-heresy .gear .encumbrance .information .push label,
 .dark-heresy .gear .encumbrance .information .max label {
   flex-basis: auto;
   font-family: var(--dh-font-stencil);
@@ -7592,13 +7596,17 @@ body.dh-no-atmosphere #sidebar-tabs button[aria-pressed="true"]::after {
   color: var(--dh-ink-faint);
 }
 .dark-heresy .gear .encumbrance .information .current input,
+.dark-heresy .gear .encumbrance .information .lift input,
+.dark-heresy .gear .encumbrance .information .push input,
 .dark-heresy .gear .encumbrance .information .max input {
   height: 40px;
   width: 76px;
   margin-left: 0;
   border: 1px solid var(--dh-brass-dim);
 }
-/* The limit is context for the current load, so it reads one step back. */
+/* The limits are context for the current load, so they read one step back. */
+.dark-heresy .gear .encumbrance .information .lift input,
+.dark-heresy .gear .encumbrance .information .push input,
 .dark-heresy .gear .encumbrance .information .max input {
   font-weight: 400;
   color: var(--dh-ink-muted);

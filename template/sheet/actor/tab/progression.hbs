@@ -107,7 +107,11 @@
                     <b class="cost">{{localize "CHARACTERISTIC.COST"}}</b>
                 </div>
                 <div class="items">
+                    {{!-- Характеристику, которой книга не знает, нельзя и купить:
+                          лист Rogue Trader прячет Влиятельность, а таблица улучшений
+                          продолжала брать за неё опыт. --}}
                     {{#each system.characteristics as |characteristic key|}}
+                        {{#unless characteristic.absent}}
                         <div class="characteristic item flex row">
                             <div class="name">{{localize characteristic.label}}</div>
                             <select class="advance" name="system.characteristics.{{key}}.advance" data-dtype="Number">
@@ -117,6 +121,7 @@
                             <input class="base" name="system.characteristics.{{key}}.base" type="number" value="{{lookup (lookup ../source.characteristics key) 'base'}}" data-dtype="Number" />
                             <input class="cost" name="system.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
                         </div>
+                        {{/unless}}
                     {{/each}}
                 </div>
             </div>

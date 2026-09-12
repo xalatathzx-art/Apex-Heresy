@@ -159,6 +159,18 @@
             <input type="number" value="{{system.movement.run}}" data-dtype="Number" disabled />
             <input class="movement-bonus-input" name="system.movementBonus.run" type="number" value="{{system.movementBonus.run}}" data-dtype="Number" placeholder="±" title="{{localize "ARMOUR.TEMP_MODIFIER"}}" />
         </div>
+        {{!-- Прыжки печатает лист Rogue Trader, и только он: остальные книги
+              считают их иначе и своих полей под них не держат. --}}
+        {{#if (eq ruleset "rt")}}
+        <div class="information">
+            <label>{{localize "MOVEMENT.LEAP"}}</label>
+            <input type="text" value="{{system.movement.leap}}" title="{{localize "MOVEMENT.LEAP_HINT"}}" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.JUMP"}}</label>
+            <input type="text" value="{{system.movement.jump}}" title="{{localize "MOVEMENT.JUMP_HINT"}}" disabled />
+        </div>
+        {{/if}}
         <h1 style="margin-top: 5px">{{localize "TITLE.OTHER"}}</h1>
         <div class="information initiative">
             <label>{{localize "INITIATIVE"}}</label>
@@ -166,7 +178,7 @@
                 <input name="system.initiative.base" type="text" value="{{system.initiative.base}}" />
                 <span class="separator">+</span>
                 <select name="system.initiative.characteristic">
-                    {{selectOptions system.characteristics selected=system.initiative.characteristic labelAttr="label" localize=true}}
+                    {{selectOptions presentCharacteristics selected=system.initiative.characteristic labelAttr="label" localize=true}}
                 </select>
                 {{!-- Свой бросок инициативы: игроку негде было его сделать, хотя
                       у машины такая кнопка есть давно. --}}

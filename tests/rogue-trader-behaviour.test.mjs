@@ -107,3 +107,37 @@ test('the roll target matches the number printed on the sheet', () => {
         assert.match(head, /rtSkillBase\(/, `${fn} does not use the rule`);
     }
 });
+
+test('a characteristic the book hides cannot be bought on the advances tab', () => {
+    // The stats tab hid Influence and the progression tab went on selling it, so
+    // the explorer could spend experience on a figure the sheet would not show.
+    // Hiding something is not finished until every door to it is shut.
+    const progression = readFileSync(
+        new URL('../template/sheet/actor/tab/progression.hbs', import.meta.url), 'utf8');
+    const at = progression.indexOf('name="system.characteristics.{{key}}.advance"');
+    assert.ok(at > -1);
+    assert.match(progression.slice(at - 400, at), /\{\{#unless characteristic\.absent\}\}/);
+});
+
+test('Initiative is rolled off a characteristic the book actually has', () => {
+    const combat = readFileSync(
+        new URL('../template/sheet/actor/tab/combat.hbs', import.meta.url), 'utf8');
+    assert.match(combat, /selectOptions presentCharacteristics selected=system\.initiative\.characteristic/);
+    assert.doesNotMatch(combat, /selectOptions system\.characteristics selected=system\.initiative/);
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    const at = source.indexOf('data.presentCharacteristics =');
+    assert.ok(at > -1, 'the filtered list is built for the template');
+    assert.match(source.slice(at, at + 240), /filter\(\(\[, c\]\) => !c\.absent\)/);
+});
+
+test('every sheet that shows the combat tab is given the filtered list', () => {
+    // The NPC sheet includes the same partial, so the key has to come from the
+    // shared getData, not from a book sheet: an undefined list would empty the
+    // dropdown instead of narrowing it.
+    const source = readFileSync(new URL('../script/dark-heresy.js', import.meta.url), 'utf8');
+    const at = source.indexOf('data.presentCharacteristics =');
+    const before = source.slice(0, at);
+    const owner = before.lastIndexOf('class ');
+    const className = before.slice(owner, before.indexOf('\n', owner));
+    assert.match(className, /class DarkHeresySheet /, `built in ${className.trim()}`);
+});
