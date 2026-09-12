@@ -168,6 +168,11 @@
                 <select name="system.initiative.characteristic">
                     {{selectOptions system.characteristics selected=system.initiative.characteristic labelAttr="label" localize=true}}
                 </select>
+                {{!-- Свой бросок инициативы: игроку негде было его сделать, хотя
+                      у машины такая кнопка есть давно. --}}
+                <button type="button" class="roll-initiative" title="{{localize "INITIATIVE_ROLL"}}">
+                    <i class="fas fa-dice-d20"></i>
+                </button>
             </div>
         </div>
         <div class="information">

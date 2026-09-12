@@ -6,6 +6,7 @@ import { resolveJamClear } from "./combat/jam.mjs";
 import { OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage } from "./combat/overheat.mjs";
 import { fieldProtects } from "./combat/force-field.mjs";
 import { corrosiveBite } from "./combat/corrosive.mjs";
+import { woundsAfterDamage, woundsAfterHealing } from "./combat/vitals.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
 import { startCharacterCreation, handleStartCharacterRequest, handleCharacterStarted } from "./creation/start.mjs";
@@ -7703,6 +7704,7 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
         html.find(".roll-weapon-damage").click(async ev => await this._prepareWeaponDamage(ev));
         html.find(".weapon.item").contextmenu(async ev => await this._onWeaponContextMenu(ev));
         html.find(".toggle-equipped").click(async ev => await this._toggleEquipped(ev));
+        html.find(".roll-initiative").click(async ev => await this._onRollInitiative(ev));
         html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
         html.find(".roll-psychic-damage").click(async ev => await this._preparePsychicDamage(ev));
         html.find("[data-actor-field]").change(async ev => await this._onActorFieldChange(ev));
@@ -8462,6 +8464,40 @@ class DarkHeresySheet extends foundry.appv1.sheets.ActorSheet {
             }
             ui.notifications.warn(message);
         }
+    }
+
+    /**
+     * Бросить инициативу за этого персонажа.
+     *
+     * Игроку негде было это сделать: на листе стояла формула, но не кнопка, а у
+     * машины такая кнопка есть давно. Бросок идёт через боевой документ, поэтому
+     * Молниеносные рефлексы и прочая обработка остаются на месте — своей второй
+     * механики здесь не заводится.
+     *
+     * @param {Event} event
+     */
+    async _onRollInitiative(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const combat = game.combat;
+        if (!combat) {
+            ui.notifications.warn(game.i18n.localize("INITIATIVE_NO_COMBAT"));
+            return;
+        }
+
+        const combatant = combat.combatants.find(entry => entry.actor?.id === this.actor.id);
+        if (!combatant) {
+            ui.notifications.warn(game.i18n.format("INITIATIVE_NOT_IN_COMBAT", { name: this.actor.name }));
+            return;
+        }
+        if (combatant.initiative !== null && combatant.initiative !== undefined) {
+            ui.notifications.info(game.i18n.format("INITIATIVE_ALREADY_ROLLED",
+                { name: this.actor.name, value: combatant.initiative }));
+            return;
+        }
+
+        await combat.rollInitiative([combatant.id]);
     }
 
     async _toggleEquipped(event) {
@@ -13834,7 +13870,8 @@ function chatListeners(html) {
         ".roll-blood-loss": onBloodLossRollClick,
         ".extinguish-fire": onExtinguishFireClick,
         ".pinning-escape": onPinningEscapeClick,
-        ".roll-toxic-test": onToxicTestClick
+        ".roll-toxic-test": onToxicTestClick,
+        ".dh-apply-roll": onApplyRollClick
     });
 
     _delegate(html, "dblclick", {
@@ -18122,20 +18159,36 @@ async function _applyDirectDamage(actor, raw, ignoreToughness = false) {
     const amount = Math.max(Number(raw) - tb, 0);
     if (amount <= 0) return 0;
 
-    const maxWounds = Number(actor.wounds.max) || 0;
-    let wounds = Number(actor.wounds.value) || 0;
-    let critical = Number(actor.wounds.critical) || 0;
-
-    if (wounds >= maxWounds) {
-        critical += amount;
-    } else if (wounds + amount > maxWounds) {
-        critical += (wounds + amount) - maxWounds;
-        wounds = maxWounds;
-    } else {
-        wounds += amount;
-    }
-    await actor.update({ "system.wounds.value": wounds, "system.wounds.critical": critical });
+    const next = woundsAfterDamage({
+        wounds: actor.wounds.value,
+        critical: actor.wounds.critical,
+        max: actor.wounds.max,
+        amount
+    });
+    await actor.update({ "system.wounds.value": next.wounds, "system.wounds.critical": next.critical });
     return amount;
+}
+
+/**
+ * Залечить раны напрямую. Критические снимаются первыми: именно они держат
+ * персонажа у порога смерти, и заживают они последними.
+ *
+ * @param {Actor} actor
+ * @param {number} raw сколько очков восстановить
+ * @returns {Promise<number>} сколько в итоге снято
+ */
+async function _applyDirectHealing(actor, raw) {
+    const amount = Math.max(Number(raw) || 0, 0);
+    if (amount <= 0) return 0;
+
+    const before = (Number(actor.wounds.value) || 0) + (Number(actor.wounds.critical) || 0);
+    const next = woundsAfterHealing({
+        wounds: actor.wounds.value,
+        critical: actor.wounds.critical,
+        amount
+    });
+    await actor.update({ "system.wounds.value": next.wounds, "system.wounds.critical": next.critical });
+    return before - (next.wounds + next.critical);
 }
 
 /**
@@ -18652,9 +18705,83 @@ async function onFireWillpowerTestClick(event) {
 }
 
 /**
+ * Применить итог любого броска к выделенным токенам — уроном или лечением.
+ *
+ * Броски случаются и мимо боевого конвейера: сила психики, ловушка, падение,
+ * медицинская помощь. Раньше такое число переносили на лист руками, и каждый
+ * такой перенос — место для ошибки.
+ *
+ * Число берётся как есть: ни броня, ни стойкость его не трогают. Это осознанно —
+ * кнопка применяет то, что показано, и не спорит со столом о том, что уже учтено
+ * в самом броске.
+ *
+ * @param {Event} event
+ */
+async function onApplyRollClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = event.currentTarget;
+    const amount = Math.max(Number(button.dataset.amount) || 0, 0);
+    const healing = button.dataset.mode === "healing";
+    if (amount <= 0) return;
+
+    const tokens = canvas?.tokens?.controlled ?? [];
+    if (!tokens.length) {
+        ui.notifications.warn(game.i18n.localize("CHAT.APPLY_NO_SELECTION"));
+        return;
+    }
+
+    const touched = [];
+    for (const token of tokens) {
+        const actor = token.actor;
+        if (!actor?.isOwner) continue;
+        const applied = healing
+            ? await _applyDirectHealing(actor, amount)
+            : await _applyDirectDamage(actor, amount, true);
+        if (applied > 0) touched.push(`${actor.name} (${applied})`);
+    }
+
+    if (!touched.length) {
+        ui.notifications.warn(game.i18n.localize("CHAT.APPLY_NOTHING_HAPPENED"));
+        return;
+    }
+    ui.notifications.info(game.i18n.format(healing ? "CHAT.APPLY_HEALED" : "CHAT.APPLY_DAMAGED",
+        { targets: touched.join(", ") }));
+}
+
+/**
+ * Дописать к обычной карточке броска кнопки «применить как урон/лечение».
+ *
+ * Только к тем, где есть итог и нет своей боевой обработки: у карточек атаки
+ * свои кнопки, и вторая пара рядом с ними только путала бы.
+ *
+ * @param {ChatMessage} message
+ * @param {HTMLElement} html
+ */
+function _addApplyRollButtons(message, html) {
+    if (!game.user?.isGM && !message.isOwner) return;
+    if (message.getFlag?.("dark-heresy", "rollData")) return;
+    if (html.querySelector(".dh-apply-roll")) return;
+
+    const total = Number(message.rolls?.[0]?.total);
+    if (!Number.isFinite(total) || total <= 0) return;
+
+    const row = document.createElement("div");
+    row.className = "dh-apply-row";
+    row.innerHTML =
+        `<button type="button" class="dh-apply-roll" data-mode="damage" data-amount="${total}">`
+        + `${game.i18n.localize("CHAT.APPLY_DAMAGE")}</button>`
+        + `<button type="button" class="dh-apply-roll" data-mode="healing" data-amount="${total}">`
+        + `${game.i18n.localize("CHAT.APPLY_HEALING")}</button>`;
+    (html.querySelector(".message-content") ?? html).append(row);
+}
+
+/**
  * Register chat message click handlers
  */
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
+    _addApplyRollButtons(message, html);
     const rollData = message.getFlag?.("dark-heresy", "rollData");
 
     // Карточка пустотного выстрела своя, к rollData отношения не имеет.

@@ -12,6 +12,7 @@ import {resolveJamClear} from '../../script/combat/jam.mjs';
 import {OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage} from '../../script/combat/overheat.mjs';
 import {fieldProtects} from '../../script/combat/force-field.mjs';
 import {corrosiveBite} from '../../script/combat/corrosive.mjs';
+import {woundsAfterDamage, woundsAfterHealing} from '../../script/combat/vitals.mjs';
 import {stepsFor, backgroundExperienceFor} from '../../script/creation/ruleset-data.mjs';
 import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader}
@@ -30,7 +31,7 @@ export function loadSystem(overrides = {}) {
         patronOf, targetSizeModifier, sizeToHitModifier, armourSizeModifier, describeTargetSize,
         renownRankFor, dwTraumaModifier, dwInsanityStep, PURITY_THRESHOLD, purityBroken, cohesionPool, FOCUS_AUTO_FAIL,
         rankForExperience, stepsFor, backgroundExperienceFor,
-        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite,
+        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite, woundsAfterDamage, woundsAfterHealing,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,
         Actor: Document, Item: Document, Combat: Document, ActiveEffect: Document,
