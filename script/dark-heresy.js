@@ -15023,6 +15023,13 @@ async function syncFatigueState(actor) {
     const over = value > max;
     const has = !!actor.hasCondition("unconscious");
 
+    // Счётчик и значок были двумя несвязанными представлениями одного и того же:
+    // штрафы всегда считались от system.fatigue.value, а состояние «Утомлён»
+    // ставилось только вручную и не значило ничего. Держим их в согласии.
+    const fatigued = !!actor.hasCondition("fatigued");
+    if (value > 0 && !fatigued) await actor.addCondition("fatigued", { type: "minor" });
+    else if (value === 0 && fatigued) await actor.removeCondition("fatigued");
+
     // Dark Heresy 2 (стр. 233): усталость свыше двойного порога — смерть. В Black
     // Crusade такого правила нет, там персонаж просто лежит.
     if (Dh.rulesetFor(actor).fatigue.deathAtDoubleThreshold && max > 0 && value > max * 2) {
