@@ -3447,11 +3447,18 @@ function _checkAmmo(rollData) {
     }
     
     const required = _calculateRequiredAmmo(rollData);
-    
+
+    // A magazine shorter than the rate of fire does not forbid the burst: the
+    // weapon fires what it has left and the hits are capped at that number.
+    // Only an empty magazine stops the attack. The cap reaches the roll through
+    // rollData.shotsFired, which _computeNumberOfHits has always honoured but
+    // which nothing ever assigned.
+    const fired = Math.min(required, clipValue);
     return {
-        enough: clipValue >= required,
+        enough: clipValue > 0,
         required: required,
-        available: clipValue
+        available: clipValue,
+        fired: fired
     };
 }
 
@@ -5955,6 +5962,7 @@ async function prepareCombatRoll(rollData, actorRef) {
 
                         // Check ammo before attack
                         const ammoCheck = _checkAmmo(rollData);
+                        rollData.shotsFired = ammoCheck.fired;
                         if (!ammoCheck.enough && rollData.weapon.isRange && rollData.weapon.clip.max > 0) {
                             // Not enough ammo - offer reload
                             const actor = await _getActorFromOwnerId(rollData.actorUuid || rollData.ownerId, rollData.tokenId);
