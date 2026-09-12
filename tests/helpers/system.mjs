@@ -20,6 +20,7 @@ import {COUNTER_ATTACK_FLAG, canCounterAttack} from '../../script/combat/counter
 import {CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor} from '../../script/combat/grapple.mjs';
 import {resolveOpposed} from '../../script/combat/opposed.mjs';
 import {carryingLimits, baseLeapAndJump} from '../../script/data/carry.mjs';
+import {EXTRA_DAMAGE, MAX_CHAIN, confirmationHits, explodes, extraDamage, righteousFuryMode} from '../../script/combat/righteous-fury.mjs';
 import {RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase} from '../../script/data/rogue-trader.mjs';
 import {stepsFor, backgroundExperienceFor} from '../../script/creation/ruleset-data.mjs';
 import {PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
@@ -40,6 +41,7 @@ export function loadSystem(overrides = {}) {
         renownRankFor, dwTraumaModifier, dwInsanityStep, PURITY_THRESHOLD, purityBroken, cohesionPool, FOCUS_AUTO_FAIL,
         rankForExperience, stepsFor, backgroundExperienceFor,
         carryingLimits, baseLeapAndJump,
+        EXTRA_DAMAGE, MAX_CHAIN, confirmationHits, explodes, extraDamage, righteousFuryMode,
         halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite, woundsAfterDamage, woundsAfterHealing, UNTRAINED_PENALTY, trainingModifier, applyMeleeEngagement, FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId, COUNTER_ATTACK_FLAG, canCounterAttack, CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor, resolveOpposed,
         RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,

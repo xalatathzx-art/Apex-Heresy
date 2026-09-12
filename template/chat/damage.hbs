@@ -24,7 +24,7 @@
                     <p class="dh-part-h" data-location="{{damage.location}}">
                         <span>{{localize damage.location}}</span>
                     </p>
-                    <div class="dh-figures{{#unless damage.righteousFury}} two{{/unless}}">
+                    <div class="dh-figures{{#unless damage.righteousFury}}{{#unless damage.righteousFuryExtra}} two{{/unless}}{{/unless}}">
                         <div class="dh-fig lead">
                             <span class="n">{{damage.total}}</span>
                             <span class="dh-cap">{{localize "CHAT.DAMAGE"}} {{damageTypeShort ../weapon.damageType}}</span>
@@ -39,7 +39,25 @@
                                 <span class="dh-cap">{{#if rfLabel}}{{localize rfLabel}}{{else}}{{localize "CHAT.RIGHTEOUS_FURY"}}{{/if}}</span>
                             </div>
                         {{/if}}
+                        {{!-- У Rogue Trader ярость не даёт крита: она прибавляет кости урона
+                              после подтверждающей атаки (стр. 245). --}}
+                        {{#if damage.righteousFuryExtra}}
+                            <div class="dh-fig">
+                                <span class="n">+{{damage.righteousFuryExtra}}</span>
+                                <span class="dh-cap">{{localize "CHAT.RIGHTEOUS_FURY_EXTRA"}}</span>
+                            </div>
+                        {{/if}}
                     </div>
+                    {{#if damage.righteousFuryConfirm}}
+                        <p class="dh-line rf-confirm">
+                            {{#if damage.righteousFuryConfirm.hit}}
+                                {{localize "CHAT.RIGHTEOUS_FURY_CONFIRMED"}}
+                            {{else}}
+                                {{localize "CHAT.RIGHTEOUS_FURY_MISSED"}}
+                            {{/if}}
+                            <span class="rf-roll">{{damage.righteousFuryConfirm.roll}} / {{damage.righteousFuryConfirm.target}}</span>
+                        </p>
+                    {{/if}}
                 </div>
             {{/each}}
 

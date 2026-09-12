@@ -14477,3 +14477,17 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 .dark-heresy.character-wizard .regiment-kit .shop-name {
   white-space: normal;
 }
+
+/* The confirming attack for Rogue Trader's Righteous Fury. A miss adds no damage,
+   so without this line the roll would leave no trace at all and the player would
+   be left wondering whether the ten had been noticed. */
+.dark-heresy.chat .dh-card .rf-confirm {
+  margin: var(--dh-space-2) 0 0;
+  font-size: var(--dh-text-xs);
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.chat .dh-card .rf-confirm .rf-roll {
+  margin-left: var(--dh-space-2);
+  font-variant-numeric: tabular-nums;
+  color: var(--dh-ink-muted);
+}

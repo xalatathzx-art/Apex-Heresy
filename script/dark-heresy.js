@@ -14,6 +14,7 @@ import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "
 import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
 import { CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor } from "./combat/grapple.mjs";
 import { resolveOpposed } from "./combat/opposed.mjs";
+import { EXTRA_DAMAGE, MAX_CHAIN, confirmationHits, explodes, extraDamage, righteousFuryMode } from "./combat/righteous-fury.mjs";
 import { RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase } from "./data/rogue-trader.mjs";
 import { grantSummaryLines, validateOrigin } from "./creation/origin-data.mjs";
 import { CharacterWizard, openCharacterWizard } from "./creation/wizard.mjs";
@@ -4620,7 +4621,8 @@ async function _rollDamage(rollData) {
         rollData.aim?.isAiming,
         rollData.weapon.traits,
         rollData.weapon.weaponClass,
-        rollData.attackType?.name
+        rollData.attackType?.name,
+        rollData
     );
     // По машине бьют не в руку и не в ногу: сторона решает броню, зона — таблицу
     // критов. Стороне всё равно, куда целились, поэтому она считается один раз
@@ -4648,7 +4650,8 @@ async function _rollDamage(rollData) {
             rollData.aim?.isAiming,
             rollData.weapon.traits,
             rollData.weapon.weaponClass,
-            rollData.attackType?.name
+            rollData.attackType?.name,
+            rollData
         );
         if (vehicleHit) {
             // Дополнительные попадания в ту же машину бросаются по таблице зон
@@ -4799,7 +4802,7 @@ function _computeNumberOfHits(attackDos, evasionDos, attackType, shotsFired, wea
  * @param {string} attackTypeName - Optional: attack type name (standard, single, burst, full, etc.)
  * @returns {object}
  */
-async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponTraits, weaponClass = null, attackTypeName = null) {
+async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponTraits, weaponClass = null, attackTypeName = null, rollData = null) {
     let r = new Roll(damageFormula);
     await r.evaluate();
     
@@ -4953,8 +4956,14 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
             if (!result.active) continue;
             const dieResult = result.count ? result.count : result.result; // Result.count = actual value if modified by term
             if (dieResult >= rfFace) {
-                damage.righteousFury = await _rollRighteousFury();
                 damage.righteousFuryDie = dieResult;
+                // Книги считают ярость по-разному: у Dark Heresy это крит, у
+                // Rogue Trader — вторая атака и лишние кости урона (стр. 245).
+                if (righteousFuryMode(Dh.rulesetFor(_actorFromRollData(rollData)).righteousFury) === EXTRA_DAMAGE) {
+                    await _resolveRighteousFuryDamage(damage, rollData);
+                } else {
+                    damage.righteousFury = await _rollRighteousFury();
+                }
             }
             if (dieResult < dos) damage.dices.push(dieResult);
             if (typeof damage.minDice === "undefined" || dieResult < damage.minDice) damage.minDice = dieResult;
@@ -5057,6 +5066,47 @@ async function _rollRighteousFury() {
     let r = new Roll("1d5");
     await r.evaluate();
     return r.total;
+}
+
+/**
+ * Праведная ярость по Rogue Trader (стр. 245).
+ *
+ * Десятка на кости урона требует второго броска атаки — того же самого, со всеми
+ * модификаторами. Попал — кость урона сверх итога, и пока выпадают десятки, кости
+ * идут дальше. Крита эта ярость не даёт вовсе, поэтому damage.righteousFury
+ * остаётся нулём: за ним стоит таблица критических эффектов Dark Heresy.
+ *
+ * @param {object} damage урон этого попадания, меняется на месте
+ * @param {object|null} rollData бросок атаки, от которого идёт подтверждение
+ */
+async function _resolveRighteousFuryDamage(damage, rollData) {
+    // Одна ярость на попадание, сколько бы десяток ни легло: книга говорит
+    // «если ЛЮБАЯ кость показала натуральную десятку» — это одно событие, а не
+    // одно на каждую кость.
+    if (damage.righteousFuryExtra !== undefined) return;
+    damage.righteousFuryExtra = 0;
+
+    // Второй бросок атаки — тот же самый, со всеми модификаторами.
+    const target = rollData?.target?.final;
+    const confirm = new Roll("1d100");
+    await confirm.evaluate();
+    const hit = confirmationHits(confirm.total, target);
+    damage.righteousFuryConfirm = {roll: confirm.total, target: Number(target), hit};
+    if (!hit) return;
+
+    // «Пока хотя бы одна кость урона показывает натуральную десятку» — цепочка
+    // идёт дальше. Предел стоит от бесконечности, а не от правила.
+    const dice = [];
+    let die = 10;
+    for (let rolled = 0; rolled < MAX_CHAIN && explodes(die); rolled++) {
+        const extra = new Roll("1d10");
+        await extra.evaluate();
+        die = extra.total;
+        dice.push(die);
+    }
+    damage.righteousFuryDice = dice;
+    damage.righteousFuryExtra = extraDamage(dice);
+    damage.total += damage.righteousFuryExtra;
 }
 
 /**
@@ -16250,7 +16300,10 @@ Dh.rulesets.rt = {
     characteristics: { absent: [...RT_ABSENT_CHARACTERISTICS] },
     resource: { profitFactor: true },
     advances: { tiers: RT_ADVANCE_TIERS.length, costs: RT_CHARACTERISTIC_COSTS, aptitudes: false },
-    skills: { model: "basicAdvanced", absent: [...RT_ABSENT_SKILLS] }
+    skills: { model: "basicAdvanced", absent: [...RT_ABSENT_SKILLS] },
+    // Праведная ярость у Rogue Trader не даёт крита: она требует второго броска
+    // атаки и, при попадании, добавляет кости урона (стр. 245).
+    righteousFury: { label: "CHAT.RIGHTEOUS_FURY", mode: EXTRA_DAMAGE }
 };
 
 /**
