@@ -702,6 +702,57 @@
                 {{/if}}
             {{/if}}
 
+            {{#if (eq step.kind "life")}}
+                {{!-- Что было до Караула (стр. 25). Механики здесь нет: это три строки
+                      анкеты, и каждую книга разрешает либо выбрать, либо бросить. --}}
+                {{#if lifeChapterDemeanour}}
+                <p class="wizard-note">{{localize "WIZARD.CHAPTER_DEMEANOUR_IS"}}
+                    <b>{{lifeChapterDemeanour}}</b></p>
+                {{/if}}
+
+                <div class="wizard-life-field">
+                    <label>{{localize "DEATHWATCH.PAST_EVENT"}}</label>
+                    {{#if lifeNoPastTable}}
+                    <p class="wizard-note">{{localize "WIZARD.NO_PAST_TABLE"}}</p>
+                    {{else}}
+                    <div class="wizard-life-row">
+                        <select data-life-field="pastEvent">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each lifePastEvents as |row|}}
+                            <option value="{{row.value}}" {{#if row.selected}}selected{{/if}}>{{row.roll}} — {{row.name}}</option>
+                            {{/each}}
+                        </select>
+                        <button type="button" class="wizard-roll-past">{{localize "WIZARD.ROLL"}}</button>
+                    </div>
+                    {{/if}}
+                    {{#if lifePastEvent}}<p class="wizard-book-text">{{lifePastEvent}}</p>{{/if}}
+                </div>
+
+                <div class="wizard-life-field">
+                    <label>{{localize "DEATHWATCH.PERSONAL_DEMEANOUR"}}</label>
+                    <div class="wizard-life-row">
+                        <select data-life-field="demeanour">
+                            <option value="">{{localize "WIZARD.CHOOSE"}}</option>
+                            {{#each lifeDemeanours as |row|}}
+                            <option value="{{row.value}}" {{#if row.selected}}selected{{/if}}>{{row.roll}} — {{row.name}}</option>
+                            {{/each}}
+                        </select>
+                        <button type="button" class="wizard-roll-demeanour-personal">{{localize "WIZARD.ROLL"}}</button>
+                    </div>
+                    {{#if lifeDemeanour}}<p class="wizard-book-text">{{lifeDemeanour}}</p>{{/if}}
+                </div>
+
+                {{!-- История брони длиннее строки списка и её правят руками: броня
+                      переходит от брата к брату, и стол дописывает к ней своё. --}}
+                <div class="wizard-life-field">
+                    <label>{{localize "DEATHWATCH.ARMOUR_HISTORY"}}</label>
+                    <div class="wizard-life-row">
+                        <button type="button" class="wizard-roll-armour">{{localize "WIZARD.ROLL"}}</button>
+                    </div>
+                    <textarea rows="4" data-life-field="armourHistory">{{lifeArmourHistory}}</textarea>
+                </div>
+            {{/if}}
+
             {{#if (eq step.kind "divination")}}
                 {{#if divinationDrawn}}
                 {{!-- Пророчество — цитата, эффект под ним отдельной строкой:

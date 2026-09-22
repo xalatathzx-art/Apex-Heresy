@@ -13925,6 +13925,51 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
   border-color: var(--dh-brass-dim);
 }
 
+/* Шаг «Жизнь» Deathwatch: три строки анкеты, у каждой список и кость рядом.
+   Кнопка держится у списка, а не у края панели: бросают именно эту строку. */
+.dark-heresy.character-wizard .wizard-life-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dh-space-2);
+  margin-bottom: var(--dh-space-4);
+}
+.dark-heresy.character-wizard .wizard-life-field > label {
+  font-family: var(--dh-font-stencil);
+  text-transform: uppercase;
+  letter-spacing: var(--dh-track-caption);
+  font-size: var(--dh-text-xs);
+  font-weight: 600;
+  color: var(--dh-ink-faint);
+}
+.dark-heresy.character-wizard .wizard-life-row {
+  display: flex;
+  align-items: center;
+  gap: var(--dh-space-3);
+}
+.dark-heresy.character-wizard .wizard-life-row select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.dark-heresy.character-wizard .wizard-life-row button {
+  flex: 0 0 auto;
+  font-family: var(--dh-font-stencil);
+  font-size: var(--dh-text-xs);
+  letter-spacing: var(--dh-track-caption);
+  text-transform: uppercase;
+  color: var(--dh-accent);
+  border-color: var(--dh-brass-dim);
+}
+.dark-heresy.character-wizard .wizard-life-field textarea {
+  width: 100%;
+  background: var(--dh-field);
+  border: 1px solid var(--dh-line);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-text);
+  font-size: var(--dh-text-md);
+  padding: var(--dh-space-2) var(--dh-space-3);
+  resize: vertical;
+}
+
 /* Текст книги под выбранным происхождением: читается, не правится. Серифом —
    это проза, а не данные; ширина строки ограничена, иначе глаз теряет строку. */
 .dark-heresy.character-wizard .wizard-book {

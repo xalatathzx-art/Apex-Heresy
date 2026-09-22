@@ -18,7 +18,8 @@ import {choiceBlocksHtml, readChoicePicks, restoreChoicePicks} from "./choice-bl
 import {CHARACTERISTIC_KEYS, normaliseOrigin, grantSummaryLines} from "./origin-data.mjs";
 import {findContent, GRANT_ITEM_TYPES} from "./content-lookup.mjs";
 import {characteristicOffers, skillOffers, talentOffers, spentOn, purchaseCharacteristic,
-        purchaseSkill, purchaseNewSpeciality, refundUpdate, CHARACTERISTIC_ABBREVIATIONS} from "./shop-data.mjs";
+        purchaseSkill, purchaseNewSpeciality, refundUpdate, CHARACTERISTIC_ABBREVIATIONS,
+        checkPrerequisites} from "./shop-data.mjs";
 import {specialityKeyFor} from "./origin-apply.mjs";
 import {CHARACTERISTIC_COSTS, SKILL_COSTS, TALENT_COSTS, matchingAptitudes}
     from "./advancement-data.mjs";
@@ -32,6 +33,7 @@ import {skillFromAdvance, isTalentAdvance, talentLookupName} from "./dw-skill-ma
 import {owedAptitudes, replacementOptions} from "./aptitude-debt.mjs";
 import {ARMOURY_TYPES, acquisitionAllowance, equipmentOffers} from "./equipment-data.mjs";
 import {demeanourFor} from "./life-data.mjs";
+import {PERSONAL_DEMEANOURS, PERSONAL_DEMEANOUR_FORMULA, PAST_EVENT_FORMULA, ARMOUR_HISTORY_TABLE, rowForRoll, lifeLine} from "./dw-life-data.mjs";
 import {REGIMENT_BUDGET, regimentCost, regimentProblems, composeRegiment} from "./regiment-data.mjs";
 import {ADDITIONAL_KIT} from "./kit-data.mjs";
 
@@ -115,6 +117,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             ...(this.step?.kind === "passions" ? await this._passionsStepContext(this.step) : {}),
             ...(this.step?.kind === "darkGods" ? this._darkGodsStepContext() : {}),
             ...(this.step?.kind === "divination" ? this._divinationStepContext() : {}),
+            ...(this.step?.kind === "life" ? this._lifeStepContext() : {}),
             isLastStep: this.stepIndex === this.steps.length - 1,
             backDisabled: this.stepIndex === 0 || this._busy,
             nextDisabled: !this.ruleset || this._busy,
@@ -195,6 +198,7 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         this._wireComrade(root);
         this._wirePassions(root);
         this._wireDarkGods(root);
+        this._wireLife(root);
         root.querySelector(".wizard-roll-divination")?.addEventListener("click", async () => {
             if (this._busy) return;
             this._busy = true;
@@ -1023,14 +1027,19 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     async _buyListedAdvance(name) {
         const lists = await this._advanceLists();
+        const snapshot = this._shopSnapshot();
         const offers = advanceOffers(cheapestOfEach(gatherAdvances(lists, {rank: this._rank()})), {
             owned: this._advanceNames(),
-            remaining: this._remaining()
+            remaining: this._remaining(),
+            check: text => checkPrerequisites(text, snapshot, CharacterWizard.CHARACTERISTIC_NAMES)
         });
         const advance = offers.find(entry => entry.name === name);
         if (!advance || advance.blocked) {
             if (advance?.lockedAtCreation)
                 ui.notifications?.warn(game.i18n.localize("WIZARD.ADVANCE_DEATHWATCH_CLOSED"));
+            else if (advance?.unmet)
+                ui.notifications?.warn(game.i18n.format("WIZARD.ADVANCE_NEEDS", {needs: advance.prerequisites
+                    .filter(entry => entry.status === "unmet").map(entry => entry.text).join(", ")}));
             return;
         }
 
@@ -1710,7 +1719,8 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         // У Deathwatch продвижения приходят списками: орден, общий и специальность.
         const listed = RULESET_DEFS[this.ruleset]?.advanceLists
             ? advanceOffers(cheapestOfEach(gatherAdvances(this._advanceListCache ?? [], {rank: this._rank()})),
-                            {owned: this._advanceNames(), remaining: this._remaining()})
+                            {owned: this._advanceNames(), remaining: this._remaining(),
+                             check: text => checkPrerequisites(text, snapshot, names)})
             : null;
         const advances = listed ?? this._specialityAdvances();
         const elite = RULESET_DEFS[this.ruleset]?.eliteAdvances ? ["elite"] : [];
@@ -1750,7 +1760,10 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
                 ? {...entry, owned: entry.maxed, affordable: !locked && entry.affordable,
                    sourceLabel: game.i18n.localize(`WIZARD.ADVANCE_FROM_${String(entry.source).toUpperCase()}`),
                    note: entry.lockedAtCreation ? game.i18n.localize("WIZARD.ADVANCE_DEATHWATCH_CLOSED")
-                       : entry.lockedByRank ? game.i18n.format("WIZARD.ADVANCE_RANK", {rank: entry.rank}) : ""}
+                       : entry.lockedByRank ? game.i18n.format("WIZARD.ADVANCE_RANK", {rank: entry.rank})
+                       : entry.unmet ? game.i18n.format("WIZARD.ADVANCE_NEEDS", {needs: entry.prerequisites
+                           .filter(check => check.status === "unmet").map(check => check.text).join(", ")})
+                       : ""}
                 : {...entry,
                    owned: this.actor.items.some(item => item.type === "specialAbility" && item.name === entry.name),
                    affordable: !locked && entry.cost <= remaining
@@ -2077,6 +2090,113 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     // ── Шаг дивинации ────────────────────────────────────────────────────
 
     /** Таблица дивинаций: из мира, иначе из пака таблиц. */
+    // ── Жизнь до Караула (Deathwatch, стр. 25) ──────────────────────────────
+    //
+    //  Три строки, которые книга просит дописать последними: что брат совершил
+    //  в своём ордене, какой нрав носит лично и что помнит его броня. Механики в
+    //  них нет — это текст на листе, — поэтому шаг ничего не откатывает: строку
+    //  просто переписывают, как и любое другое поле анкеты.
+
+    /** Таблица прошлого его ордена; орден без таблицы — не ошибка. */
+    _pastEventsForChapter() {
+        for (const item of this.actor.items)
+            if (item.type === "origin" && item.system.rules?.pastEvents?.length)
+                return item.system.rules.pastEvents;
+        return [];
+    }
+
+    _lifeStepContext() {
+        const bio = this.actor.system.bio ?? {};
+        const line = row => ({value: lifeLine(row), roll: row.roll, name: row.name, text: row.text});
+        const pastEvents = this._pastEventsForChapter().map(line);
+        const chosenPast = bio.pastEvent ?? "";
+        const chosenDemeanour = bio.demeanour ?? "";
+        return {
+            lifeStep: true,
+            // Орденский нрав пришёл с орденом и не меняется (стр. 32) — он здесь
+            // только показан, чтобы личный выбирали не вслепую.
+            lifeChapterDemeanour: bio.chapterDemeanour ?? "",
+            lifePastEvents: pastEvents.map(row => ({...row, selected: row.value === chosenPast})),
+            lifePastEvent: chosenPast,
+            lifeNoPastTable: pastEvents.length === 0,
+            lifeDemeanours: PERSONAL_DEMEANOURS.map(row => ({
+                ...line(row), selected: lifeLine(row) === chosenDemeanour
+            })),
+            lifeDemeanour: chosenDemeanour,
+            lifeArmourHistory: bio.armourHistory ?? ""
+        };
+    }
+
+    /** Строка таблицы по броску формулы; пустая таблица бросок не переживает. */
+    async _rollLifeRow(rows, formula) {
+        if (!rows?.length) return null;
+        const roll = new Roll(formula);
+        await roll.evaluate();
+        return rowForRoll(rows, roll.total);
+    }
+
+    async _rollPastEvent() {
+        const rows = this._pastEventsForChapter();
+        if (!rows.length) { ui.notifications?.warn(game.i18n.localize("WIZARD.NO_PAST_TABLE")); return; }
+        const row = await this._rollLifeRow(rows, PAST_EVENT_FORMULA);
+        if (row) await this.actor.update({"system.bio.pastEvent": lifeLine(row)});
+    }
+
+    async _rollPersonalDemeanour() {
+        const row = await this._rollLifeRow(PERSONAL_DEMEANOURS, PERSONAL_DEMEANOUR_FORMULA);
+        if (row) await this.actor.update({"system.bio.demeanour": lifeLine(row)});
+    }
+
+    /**
+     * История брони бросается по таблице компендиума, а не по списку в коде:
+     * таблица 5-12 длинная, её текст уже лежит предметом мира и его правят столы.
+     */
+    async _rollArmourHistory() {
+        const table = await this._lifeTable(ARMOUR_HISTORY_TABLE);
+        if (!table) { ui.notifications?.warn(game.i18n.localize("WIZARD.NO_ARMOUR_TABLE")); return; }
+        const draw = await table.draw({displayChat: false});
+        const result = draw.results?.[0];
+        const name = result?.name ?? "";
+        const text = result?.description ?? result?.text ?? "";
+        const line = name && text ? `${name}: ${text}` : name || text;
+        if (line) await this.actor.update({"system.bio.armourHistory": line});
+    }
+
+    /** Таблица по имени: сперва мира, потом компендиума — как у дивинации. */
+    async _lifeTable(name) {
+        const inWorld = game.tables?.find(table => table.name === name);
+        if (inWorld) return inWorld;
+        const pack = game.packs.get("dark-heresy.bc-tables");
+        if (!pack) return null;
+        const index = await pack.getIndex();
+        const hit = index.contents.find(entry => entry.name === name);
+        return hit ? pack.getDocument(hit._id) : null;
+    }
+
+    /** Списки и кнопки шага жизни. Поля обычные: выбрали — записалось. */
+    _wireLife(root) {
+        const guarded = action => async event => {
+            event.preventDefault();
+            if (this._busy) return;
+            this._busy = true;
+            this.render(false);
+            try { await action(event.currentTarget); }
+            finally { this._busy = false; if (this.rendered) this.render(false); }
+        };
+        for (const select of root.querySelectorAll("select[data-life-field]"))
+            select.addEventListener("change", guarded(async element => {
+                await this.actor.update({[`system.bio.${element.dataset.lifeField}`]: element.value});
+            }));
+        for (const input of root.querySelectorAll("textarea[data-life-field], input[data-life-field]"))
+            input.addEventListener("change", guarded(async element => {
+                await this.actor.update({[`system.bio.${element.dataset.lifeField}`]: element.value});
+            }));
+        root.querySelector(".wizard-roll-past")?.addEventListener("click", guarded(() => this._rollPastEvent()));
+        root.querySelector(".wizard-roll-demeanour-personal")
+            ?.addEventListener("click", guarded(() => this._rollPersonalDemeanour()));
+        root.querySelector(".wizard-roll-armour")?.addEventListener("click", guarded(() => this._rollArmourHistory()));
+    }
+
     async _divinationTable() {
         const inWorld = game.tables?.find(table => table.name === "Divinations");
         if (inWorld) return inWorld;

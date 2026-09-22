@@ -23,6 +23,33 @@
       "rules": {
         "soloMode": "Righteous Zeal",
         "demeanour": "Zealous",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Received a Vision",
+            "text": "On the eve of a great battle, you prayed for guidance from the Emperor and received it. This guidance took the form of a vision, the details of which are known only to you. Afterwards, you helped defeat a powerful enemy and proved the worth of your faith in the Emperor."
+          },
+          {
+            "roll": 2,
+            "name": "Established a Keep",
+            "text": "You lent your assistance to establishing a Chapter keep upon an isolated frontier world as part of the Black Templars' eternal crusade. This grim fortress stands as a monument to your deeds and those of your fighting company."
+          },
+          {
+            "roll": 3,
+            "name": "The Geonide Crusade",
+            "text": "Alongside your fellow Black Templars, you recovered invaluable artefacts from the Adeptus Mechanicus laboratories under siege by rebellious forces on the planet of Geonide. You personally slew a handful of rogue psykers and resisted their unnatural powers."
+          },
+          {
+            "roll": 4,
+            "name": "Trained a Neophyte",
+            "text": "You upheld the traditions of the Black Templars by training and mentoring a young Neophyte through dozens of battles. Some Neophytes do not survive to become full Initiates in the Chapter."
+          },
+          {
+            "roll": 5,
+            "name": "Boarding Action",
+            "text": "The Black Templars are a fleet-based Chapter, and during a tense battle in space, you and a group of your fellow Space Marines launched a boarding action against an enemy ship, destroying it from inside, turning the tide of the battle and preserving the fleet for later crusade."
+          }
+        ],
         "forbidsSpecialities": [
           "devastatorMarine",
           "librarian"
@@ -141,6 +168,33 @@
       "rules": {
         "soloMode": "Blood Frenzy",
         "demeanour": "The Red Thirst",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Scouring of Ultramar",
+            "text": "Commander Dante dispatched several squads of Blood Angels, including your own, to assist the Ultramarines in cleansing several worlds of the Tyranid presence of Hive Fleet Behemoth. After three years, you and the other survivors of this mission returned with invaluable experience in fighting this particular xenos threat."
+          },
+          {
+            "roll": 2,
+            "name": "Assault on Baal",
+            "text": "You held the line with the rest of your Battle-Brothers against an Ork invasion of your homeworld, Baal. You were among the reinforcements who successfully defended the Blood Angel fortress-monastery against the greenskin tides."
+          },
+          {
+            "roll": 3,
+            "name": "A New Beginning",
+            "text": "The Blood Angels have had rocky alliances with their successor Chapters. However, you were there to witness a historic event when the Flesh Tearers, a successor Chapter of the Blood Angels, sealed a pact of brotherhood and ended centuries of strife and discord."
+          },
+          {
+            "roll": 4,
+            "name": "Golgotha Strike Force",
+            "text": "You were part of Strike Force Bloodhawk, deployed to the insurrectionist world of Golgotha. Perhaps you were in the armoured columns or amongst the Stormraven gunships that smashed through the outer fortress walls."
+          },
+          {
+            "roll": 5,
+            "name": "Purged a Space Hulk",
+            "text": "In support of Blood Angel Terminators from the First Company, you assisted in the cleansing of a massive space hulk, infested with dangerous xenos lifeforms, Chaos renegades, or worse."
+          }
+        ],
         "forbidsSpecialities": [],
         "advances": [
           {
@@ -266,6 +320,33 @@
       "rules": {
         "soloMode": "Stoic Defence",
         "demeanour": "Sons of The Lion",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Encountered the Fallen",
+            "text": "You have come face-to-face with, or have had a rare glimpse of, the black-armoured Space Marines who were once your brothers, the Fallen Dark Angels. These renegades are relentlessly hunted by your Chapter, and you have been sworn to secrecy regarding their existence."
+          },
+          {
+            "roll": 2,
+            "name": "Served in the Ravenwing",
+            "text": "You have joined your brothers on many lightning attacks as part of the Ravenwing. Either as gunner on a Land Speeder or an attack bike, your speed and precision against countless enemies of the Imperium is rivalled by few. You may have even been privy to secrets that few even in the Chapter know."
+          },
+          {
+            "roll": 3,
+            "name": "Preserved the Secrets of the Chapter",
+            "text": "Your unquestioning loyalty has been proven in the trials of combat when you were part of a mission of utmost importance, purging heretical records forged by those who would spread vicious lies about the Dark Angels. What secrets you destroyed are a mystery even to you and will remain so for all time."
+          },
+          {
+            "roll": 4,
+            "name": "Thunderhawk Gunner",
+            "text": "You have served your Chapter as the gunner for one of the powerful Thunderhawk gunships. You have a unique perspective on the battlefield, having fought in the air, on the ground, and in space."
+          },
+          {
+            "roll": 5,
+            "name": "The Lion and the Wolf",
+            "text": "While serving alongside the Space Wolves Chapter, you were chosen to fight a ritual duel against one of their members. You claimed distinction with your victory and at least one Space Wolf curses your name under his breath."
+          }
+        ],
         "forbidsSpecialities": [],
         "advances": [
           {
@@ -408,6 +489,33 @@
       "rules": {
         "soloMode": "Wolf Senses",
         "demeanour": "The Sons of Russ",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Bitter Vengeance",
+            "text": "You have fought face-to-face with Chaos Space Marines from the Thousand Sons Legion. These renegades are considered arch-enemies of the Space Wolves, and furious, no-quarter battles erupt whenever they meet."
+          },
+          {
+            "roll": 2,
+            "name": "Fenris Hunter",
+            "text": "You have hunted and slain one of the extremely dangerous creatures native to Fenris. Among these creatures are the mighty kraken, huge ice bears, and the ferocious Fenrisian wolf."
+          },
+          {
+            "roll": 3,
+            "name": "Service in the Fleet",
+            "text": "Most Space Marine Chapters maintain a number of strike cruisers, battle-barges, and smaller craft to support their operations on a planet's surface. Having fought many battles amongst the stars, you may have commanded a rapid strike vessel, or perhaps served as an officer aboard a larger ship."
+          },
+          {
+            "roll": 4,
+            "name": "Wolf-Tamer",
+            "text": "Fenrisian Wolves have a unique bond with the Space Wolves Chapter, and often fought beside them. At one time, you had tamed such a powerful beast as a trusted battle companion. He may survive still back on Fenris, or he may have fallen to the weapons of the enemy in some previous combat."
+          },
+          {
+            "roll": 5,
+            "name": "The Great Hunt",
+            "text": "Many times, Space Wolves have left Fenris to sail upon the sea of stars, seeking out any sign of their long-vanished Primarch Leman Russ. These Great Hunts have not yet succeeded in locating the primarch, but often carve new legends of heroism from across the galaxy. You have been fortunate enough to have taken part in a Great Hunt."
+          }
+        ],
         "forbidsSpecialities": [
           "apothecary"
         ],
@@ -563,6 +671,33 @@
       "rules": {
         "soloMode": "Thunder's Call",
         "demeanour": "Aspire to Glory",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Sole Survivor",
+            "text": "The Space Marines are mighty warriors, but they are not invincible. You learned this bitter lesson first-hand, as you are the only survivor of your squad, having encountered a particularly dangerous enemy; perhaps a Tyranid Hive Tyrant or Chaos daemon prince."
+          },
+          {
+            "roll": 2,
+            "name": "Tank Gunner",
+            "text": "You have served your Chapter as the gunner in one of the Chapter's armoured vehicles, perhaps a Predator or Land Raider. You have fought in the vanguard of several armoured assaults, and the machine-spirits of such vehicles are well-known to you."
+          },
+          {
+            "roll": 3,
+            "name": "Service in the Fleet",
+            "text": "Most Space Marine Chapters maintain a number of strike cruisers, battle-barges, and smaller craft to support their operations on a planet's surface. Having fought many battles amongst the stars, you may have commanded a rapid strike vessel, or perhaps served as an officer aboard a larger ship."
+          },
+          {
+            "roll": 4,
+            "name": "The Scouring of Vigil",
+            "text": "You bear the deep scars of the campaign upon Vigil against the foul alien Slaugth. These xenos maggot-men and their slave-constructs were defeated in a long series of savage close-quarter battles in the tunnels beneath Vigil."
+          },
+          {
+            "roll": 5,
+            "name": "Honour Preserved",
+            "text": "You have aided a fellow brother of your Chapter in preserving his honour. Be it a promise he made that became complicated by fortune or simply a sequence of events that could have gone awry, you are well known within your Chapter as a brother who respects his own honour as well as that of others."
+          }
+        ],
         "forbidsSpecialities": [],
         "advances": [
           {
@@ -709,6 +844,33 @@
       "rules": {
         "soloMode": "Favoured Son",
         "demeanour": "Honour the Codex",
+        "pastEvents": [
+          {
+            "roll": 1,
+            "name": "Tyrannic War Veteran",
+            "text": "You fought in the Battle for Macragge, struggling against horrid Tyranid beasts from Hive Fleet Behemoth. Thanks in part to your efforts, the Ultramarines prevailed at great cost."
+          },
+          {
+            "roll": 2,
+            "name": "Cleansed Thrax",
+            "text": "You helped defeat countless daemons on the Chaos-corrupted Forge World of Thrax. Chapter Master Marneus Calgar issued the order for Exterminatus upon the mission's completion."
+          },
+          {
+            "roll": 3,
+            "name": "Endured the Waaagh!",
+            "text": "You stood with your fellow Ultramarines against Waaagh! Gutshredda in the Forgoil system. Dozens of greenskin invaders died at your hands."
+          },
+          {
+            "roll": 4,
+            "name": "Banner Bearer",
+            "text": "You were once chosen to carry a standard, possibly a back banner for your squad or even the prestigious company banner. This selection was a great honour, and one not easily relinquished until you joined the Deathwatch."
+          },
+          {
+            "roll": 5,
+            "name": "Scout Sergeant",
+            "text": "For a time, you led a Scout squad in the Ultramarines Tenth Company. During this time, you mentored many young Scouts on their way to becoming full Battle-Brothers."
+          }
+        ],
         "forbidsSpecialities": [],
         "advances": [
           {

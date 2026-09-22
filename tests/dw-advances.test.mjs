@@ -124,3 +124,63 @@ test('a Speciality list and a Chapter list plug into the same gathering', () => 
     // Chapter lines come first, as they do in the book.
     assert.equal(gathered[0].source, 'chapter');
 });
+
+test('a printed prerequisite is a wall, not a note (p. 58)', () => {
+    const advances = gatherAdvances([{source: 'chapter', advances: [
+        {name: 'Wrangling', cost: 100, type: 'skill'},
+        {name: 'Wrangling +10', cost: 100, type: 'skill', prerequisites: 'Wrangling'},
+        {name: 'Wisdom of the Ancients', cost: 1500, type: 'talent', prerequisites: 'Int 40'}
+    ]}]);
+    // The check is handed in: this module knows nothing of a character sheet.
+    const check = text => text === 'Wrangling' ? [{text: 'Wrangling', status: 'unmet'}]
+        : text === 'Int 40' ? [{text: 'Int 40', status: 'met'}] : [];
+
+    const offers = advanceOffers(advances, {owned: [], remaining: 5000, check});
+    const second = offers.find(entry => entry.name === 'Wrangling +10');
+    assert.equal(second.unmet, true);
+    assert.equal(second.blocked, true);
+    assert.equal(second.affordable, false, 'he has not bought the first rank yet');
+    assert.deepEqual(second.prerequisites, [{text: 'Wrangling', status: 'unmet'}]);
+
+    const wisdom = offers.find(entry => entry.name === 'Wisdom of the Ancients');
+    assert.equal(wisdom.unmet, false, 'his Intelligence is high enough');
+    assert.equal(wisdom.affordable, true);
+
+    // With the rank bought, the wall comes down.
+    const met = advanceOffers(advances, {owned: ['Wrangling'], remaining: 5000,
+        check: () => [{text: 'Wrangling', status: 'met'}]});
+    assert.equal(met.find(entry => entry.name === 'Wrangling +10').affordable, true);
+});
+
+test('a prerequisite the system cannot read does not lock the line', () => {
+    const advances = gatherAdvances([{source: 'chapter', advances: [
+        {name: 'Litany of Hate', cost: 1000, type: 'talent', prerequisites: 'Hatred (any)'}
+    ]}]);
+    // "unknown" means the system failed to parse it, not that he fails it: refusing
+    // to sell over our own ignorance would be worse than selling.
+    const offers = advanceOffers(advances, {remaining: 5000,
+        check: () => [{text: 'Hatred (any)', status: 'unknown'}]});
+    assert.equal(offers[0].unmet, false);
+    assert.equal(offers[0].affordable, true);
+});
+
+test('with no checker at all, nothing is blocked by prerequisites', () => {
+    const advances = gatherAdvances([{source: 'general', advances: [
+        {name: 'Astartes Weapon Specialisation', cost: 1500, type: 'talent',
+         prerequisites: 'Astartes Weapon Training'}
+    ]}]);
+    const offers = advanceOffers(advances, {remaining: 5000});
+    assert.deepEqual(offers[0].prerequisites, []);
+    assert.equal(offers[0].blocked, false);
+});
+
+test('the wizard hands the sheet to the checker, and checks again when buying', () => {
+    const wizard = readFileSync(new URL('../script/creation/wizard.mjs', import.meta.url), 'utf8');
+    assert.match(wizard, /check: text => checkPrerequisites\(text, snapshot, names\)/);
+    // The button can be bypassed by a macro or a stale render, so the purchase
+    // repeats the check rather than trusting what was drawn.
+    assert.match(wizard, /check: text => checkPrerequisites\(text, snapshot, CharacterWizard\.CHARACTERISTIC_NAMES\)/);
+    assert.match(wizard, /else if \(advance\?\.unmet\)/);
+    const lang = JSON.parse(readFileSync(new URL('../lang/en.json', import.meta.url), 'utf8'));
+    assert.match(lang['WIZARD.ADVANCE_NEEDS'], /\{needs\}/);
+});

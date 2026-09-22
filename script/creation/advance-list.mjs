@@ -88,11 +88,15 @@ export function advanceTimes(name) {
 /**
  * Что предложить игроку: цена, причина отказа и сколько ещё раз можно взять.
  *
+ * Предпосылку книга печатает рядом со строкой («Wrangling +10 — требует
+ * Wrangling»), и через неё не перепрыгивают. Саму проверку сюда передают
+ * готовой: этот модуль чист и о листе персонажа ничего не знает.
+ *
  * @param {object[]} advances  строки из gatherAdvances
- * @param {object} snapshot    {owned: string[], remaining: number}
+ * @param {object} snapshot    {owned: string[], remaining: number, check: (text) => object[]}
  * @returns {object[]}
  */
-export function advanceOffers(advances = [], {owned = [], remaining = Infinity} = {}) {
+export function advanceOffers(advances = [], {owned = [], remaining = Infinity, check = null} = {}) {
     const taken = new Map();
     for (const name of owned) {
         const {base} = advanceTimes(name);
@@ -102,10 +106,14 @@ export function advanceOffers(advances = [], {owned = [], remaining = Infinity} 
         const {base, times} = advanceTimes(advance.name);
         const already = taken.get(base.toLowerCase()) ?? 0;
         const maxed = already >= times;
-        const blocked = advance.lockedByRank || advance.lockedAtCreation || maxed;
+        // «unknown» не запирает: предпосылкой бывает строка, которую система не
+        // умеет прочесть, и отказывать из-за собственного незнания нельзя.
+        const prerequisites = check ? check(advance.prerequisites) : [];
+        const unmet = prerequisites.some(entry => entry.status === "unmet");
+        const blocked = advance.lockedByRank || advance.lockedAtCreation || maxed || unmet;
         return {
             ...advance,
-            base, times, already, maxed,
+            base, times, already, maxed, prerequisites, unmet,
             affordable: !blocked && advance.cost <= remaining,
             blocked
         };
