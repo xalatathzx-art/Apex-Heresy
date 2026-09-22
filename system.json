@@ -1,8 +1,8 @@
 {
   "id": "dark-heresy",
   "title": "Apex Heresy",
-  "description": "Unofficial Foundry VTT System for Dark Heresy 2nd Edition/Black Crusade/Only War",
-  "version": "1.3.4",
+  "description": "Unofficial Foundry VTT system for the Warhammer 40,000 roleplaying games: Dark Heresy 2nd Edition, Black Crusade, Only War, Rogue Trader and Deathwatch. Each book gets its own character sheet and its own rules.",
+  "version": "1.4.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14.365"
@@ -282,8 +282,11 @@
   "primaryTokenAttribute": "system.wounds",
   "secondaryTokenAttribute": "system.fate",
   "url": "https://github.com/xalatathzx-art/Apex-Heresy",
+  "readme": "https://github.com/xalatathzx-art/Apex-Heresy#readme",
+  "bugs": "https://github.com/xalatathzx-art/Apex-Heresy/issues",
+  "changelog": "https://github.com/xalatathzx-art/Apex-Heresy/releases",
   "socket": true,
   "manifest": "https://raw.githubusercontent.com/xalatathzx-art/Apex-Heresy/main/system.json",
-  "download": "https://github.com/xalatathzx-art/Apex-Heresy/releases/download/v1.3.4/dark-heresy-v1.3.4.zip",
+  "download": "https://github.com/xalatathzx-art/Apex-Heresy/releases/download/v1.4.0/dark-heresy-v1.4.0.zip",
   "license": "LICENSE"
 }
