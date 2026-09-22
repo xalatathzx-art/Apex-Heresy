@@ -71,9 +71,12 @@ test('starting skills and issue match the book (pp. 28, 69-89)', () => {
     assert.deepEqual(find('librarian').grants.skills.map(s => s.key), ['psyniscience']);
     assert.deepEqual(find('tacticalMarine').grants.skills.map(s => s.key), ['command']);
     assert.deepEqual(find('techmarine').grants.skills.map(s => s.key), ['techUse']);
-    // Pilot (Personal) is a speciality of Operate in this system.
+    // The book's own skill names, now that the system carries them: the Assault
+    // Marine gets Pilot (Personal), the Techmarine Speak Language (Techna-Lingua).
     assert.deepEqual(find('assaultMarine').grants.specialities.map(s => `${s.key}:${s.name}`),
-        ['operate:Personal']);
+        ['pilot:Personal']);
+    assert.deepEqual(find('techmarine').grants.specialities.map(s => `${s.key}:${s.name}`),
+        ['speakLanguage:Techna-Lingua']);
 
     const issue = key => find(key).grants.equipment.map(item => item.name);
     assert.deepEqual(issue('apothecary'), ['Astartes Bolter (Godwyn)', 'Reductor', 'Narthecium']);

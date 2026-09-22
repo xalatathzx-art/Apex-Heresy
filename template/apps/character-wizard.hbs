@@ -262,7 +262,10 @@
                     <span class="wizard-aptitude">{{aptitude}}</span>
                     {{/each}}
                 </div>
-                {{else}}
+                {{else if shopPatron}}
+                {{!-- Покровитель объясняет цену там, где её решает он. Книга без
+                      покровителя и без склонностей — Deathwatch — не показывает
+                      ни того, ни другого: пустая подпись хуже отсутствующей. --}}
                 <div class="wizard-aptitudes">
                     <span class="wizard-choice-label">{{localize "WIZARD.PATRON"}}</span>
                     <span class="wizard-aptitude">{{shopPatron}}</span>
@@ -449,7 +452,15 @@
                                     {{#unless offer.affordable}}disabled{{/unless}}>{{localize "WIZARD.SHOP_BUY"}}</button>
                         </div>
                         {{#if offer.effect}}<p class="shop-rules">{{offer.effect}}</p>{{/if}}
-                        {{#if offer.prerequisites}}<p class="shop-prerequisites"><span class="shop-prereq">{{offer.prerequisites}}</span></p>{{/if}}
+                        {{!-- Предпосылка разобрана на части, и каждая знает, выполнена ли
+                              она: невыполненную нужно увидеть до того, как кнопка откажет. --}}
+                        {{#if offer.prerequisites.length}}
+                        <div class="shop-prerequisites">
+                            {{#each offer.prerequisites as |check|}}
+                            <span class="shop-prereq {{check.status}}">{{check.text}}</span>
+                            {{/each}}
+                        </div>
+                        {{/if}}
                         {{#if offer.note}}<p class="wizard-warn">{{offer.note}}</p>{{/if}}
                     </div>
                     {{/each}}

@@ -17,13 +17,17 @@ test('what every Battle-Brother already is, before Chapter or Speciality (p. 36)
     assert.deepEqual(marine.characteristics, {}, 'the Chapter modifies them, not this');
 });
 
-test('his starting skills, with the first edition names mapped onto this system (p. 36)', () => {
+test('his starting skills, under the names the book prints (p. 36)', () => {
+    // The system carries the first edition skills under their own keys now, so the
+    // list is the book's own. It used to be folded into the Dark Heresy 2 set, and
+    // the fold both lost and invented: Literacy vanished, Survival appeared.
     assert.deepEqual(marine.grants.skills.map(skill => skill.key).sort(),
-        ['athletics', 'awareness', 'dodge', 'intimidate', 'stealth', 'survival']);
+        ['awareness', 'climb', 'concealment', 'dodge', 'intimidate', 'literacy',
+         'silentMove', 'tracking']);
     const specialities = marine.grants.specialities.map(entry => `${entry.key}:${entry.name}`);
-    for (const wanted of ['linguistics:Chapter Runes', 'linguistics:High Gothic', 'linguistics:Low Gothic',
+    for (const wanted of ['ciphers:Chapter Runes', 'speakLanguage:High Gothic', 'speakLanguage:Low Gothic',
         'commonLore:Adeptus Astartes', 'commonLore:Imperium', 'commonLore:War',
-        'scholasticLore:Codex Astartes', 'navigate:Surface', 'operate:Surface'])
+        'scholasticLore:Codex Astartes', 'navigate:Surface', 'drive:Ground Vehicles'])
         assert.ok(specialities.includes(wanted), wanted);
     // Hypno-conditioning: the two the Deathwatch adds on top (p. 36).
     assert.ok(specialities.includes('commonLore:Deathwatch'));

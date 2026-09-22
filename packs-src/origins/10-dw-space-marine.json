@@ -29,7 +29,11 @@
             "advance": 0
           },
           {
-            "key": "athletics",
+            "key": "climb",
+            "advance": 0
+          },
+          {
+            "key": "concealment",
             "advance": 0
           },
           {
@@ -41,28 +45,22 @@
             "advance": 0
           },
           {
-            "key": "stealth",
+            "key": "literacy",
             "advance": 0
           },
           {
-            "key": "survival",
+            "key": "silentMove",
+            "advance": 0
+          },
+          {
+            "key": "tracking",
             "advance": 0
           }
         ],
         "specialities": [
           {
-            "key": "linguistics",
+            "key": "ciphers",
             "name": "Chapter Runes",
-            "advance": 0
-          },
-          {
-            "key": "linguistics",
-            "name": "High Gothic",
-            "advance": 0
-          },
-          {
-            "key": "linguistics",
-            "name": "Low Gothic",
             "advance": 0
           },
           {
@@ -81,23 +79,8 @@
             "advance": 0
           },
           {
-            "key": "commonLore",
-            "name": "Deathwatch",
-            "advance": 0
-          },
-          {
-            "key": "forbiddenLore",
-            "name": "Xenos",
-            "advance": 0
-          },
-          {
-            "key": "scholasticLore",
-            "name": "Codex Astartes",
-            "advance": 0
-          },
-          {
-            "key": "scholasticLore",
-            "name": "Tactica Imperialis",
+            "key": "drive",
+            "name": "Ground Vehicles",
             "advance": 0
           },
           {
@@ -106,8 +89,28 @@
             "advance": 0
           },
           {
-            "key": "operate",
-            "name": "Surface",
+            "key": "scholasticLore",
+            "name": "Codex Astartes",
+            "advance": 0
+          },
+          {
+            "key": "speakLanguage",
+            "name": "High Gothic",
+            "advance": 0
+          },
+          {
+            "key": "speakLanguage",
+            "name": "Low Gothic",
+            "advance": 0
+          },
+          {
+            "key": "commonLore",
+            "name": "Deathwatch",
+            "advance": 0
+          },
+          {
+            "key": "forbiddenLore",
+            "name": "Xenos",
             "advance": 0
           }
         ],

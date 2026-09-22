@@ -122,6 +122,9 @@ test('only Black Crusade explains its prices by a patron', () => {
     assert.match(wizard, /shopPatron: RULESET_DEFS\[this\.ruleset\]\?\.patronPricing/);
     // Deathwatch buys skills and talents as printed lines, so those tabs are gone.
     assert.match(wizard, /const ladderTabs = listed \? \["characteristics"\] : \["characteristics", "skills", "talents"\]/);
+    // And the row itself is gone, not left as a caption with nothing after it.
+    const markup = readFileSync(new URL('../template/apps/character-wizard.hbs', import.meta.url), 'utf8');
+    assert.match(markup, /\{\{else if shopPatron\}\}/);
 });
 
 test('Deathwatch characteristics cost what the Speciality prints (p. 58)', () => {

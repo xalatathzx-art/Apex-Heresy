@@ -1,14 +1,17 @@
 // ════════════════════════════════════════════════════════════════════════
 //  Названия умений Deathwatch → ключи этой системы.
 //
-//  Книга написана на первой редакции: там отдельно Climb и Swim, отдельно
-//  Concealment и Silent Move, а знания зовутся «Lore: Common (Imperium)».
-//  Система живёт на наборе Dark Heresy 2, где Climb и Swim — это Athletics,
-//  Concealment и Silent Move — Stealth, а знание записывается специализацией.
+//  Книга написана на первой редакции, и система теперь знает её умения своими
+//  именами: Climb и Swim, Concealment и Silent Move, Carouse и Wrangling —
+//  каждое отдельным ключом. Поэтому карта почти тождественна: она переводит
+//  написание («Tech-Use» → techUse, «Lore: Common (Imperium)» → commonLore со
+//  специализацией), а не сводит два умения в одно.
 //
-//  Поэтому карта. Она не полна и полна быть не может: у Carouse, Gamble и
-//  Performer в Dark Heresy 2 наследника нет вовсе. Такие продвижения остаются
-//  собой — записью на листе за свою цену, — а не подгоняются к чужому ключу.
+//  Так было не всегда. Пока система жила на одном наборе Dark Heresy 2, Climb и
+//  Swim приходилось складывать в Athletics, а Carouse, Gamble, Performer и
+//  Wrangling не имели наследника вовсе и уходили особой способностью — платой
+//  без умения. Сведение потеряло бы смысл теперь, когда ключи есть: продвижение
+//  «Wrangling +10» требует «Wrangling», и оба должны лечь в одно поле листа.
 //
 //  Модуль чистый: ни одной глобали Foundry.
 // ════════════════════════════════════════════════════════════════════════
@@ -17,34 +20,40 @@
 export const SKILL_KEYS = {
     acrobatics: "acrobatics",
     awareness: "awareness",
+    barter: "barter",
+    blather: "blather",
+    carouse: "carouse",
     charm: "charm",
-    climb: "athletics",
-    swim: "athletics",
+    chemuse: "chemUse",
+    climb: "climb",
     command: "command",
-    commerce: "commerce",
-    evaluate: "commerce",
-    concealment: "stealth",
-    silentmove: "stealth",
-    shadowing: "stealth",
-    contortionist: "acrobatics",
+    concealment: "concealment",
+    contortionist: "contortionist",
     deceive: "deceive",
+    demolition: "demolition",
+    disguise: "disguise",
     dodge: "dodge",
+    evaluate: "evaluate",
+    gamble: "gamble",
     inquiry: "inquiry",
     interrogation: "interrogation",
     intimidate: "intimidate",
+    invocation: "invocation",
+    literacy: "literacy",
     logic: "logic",
     medicae: "medicae",
     psyniscience: "psyniscience",
     scrutiny: "scrutiny",
-    search: "awareness",
+    search: "search",
     security: "security",
+    shadowing: "shadowing",
+    silentmove: "silentMove",
+    sleightofhand: "sleightOfHand",
     survival: "survival",
-    tracking: "survival",
+    swim: "swim",
     techuse: "techUse",
-    demolition: "techUse",
-    chemuse: "medicae",
-    invocation: "scholasticLore",
-    sleightofhand: "sleightOfHand"
+    tracking: "tracking",
+    wrangling: "wrangling"
 };
 
 /** Умение со специализацией: «Lore: Common (Imperium)» → commonLore. */
@@ -55,12 +64,13 @@ export const SPECIALIST_KEYS = {
     "common lore": "commonLore",
     "forbidden lore": "forbiddenLore",
     "scholastic lore": "scholasticLore",
-    "speak language": "linguistics",
-    "ciphers": "linguistics",
-    "literacy": "linguistics",
+    "speak language": "speakLanguage",
+    "secret tongue": "secretTongue",
+    "ciphers": "ciphers",
     "navigation": "navigate",
-    "drive": "operate",
-    "pilot": "operate",
+    "drive": "drive",
+    "pilot": "pilot",
+    "performer": "performer",
     "trade": "trade",
     "tactics": "scholasticLore"
 };

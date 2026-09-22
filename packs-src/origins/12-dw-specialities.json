@@ -292,9 +292,9 @@
         "aptitudes": [],
         "specialities": [
           {
-            "key": "operate",
-            "advance": 0,
-            "name": "Personal"
+            "key": "pilot",
+            "name": "Personal",
+            "advance": 0
           }
         ],
         "talents": [
@@ -959,7 +959,7 @@
         ],
         "specialities": [
           {
-            "key": "linguistics",
+            "key": "speakLanguage",
             "name": "Techna-Lingua",
             "advance": 0
           }
