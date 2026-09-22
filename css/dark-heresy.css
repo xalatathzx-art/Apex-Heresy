@@ -4151,7 +4151,7 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .combat .weapons .item-list {
   --dh-weapon-cols: minmax(0, 2.4fr) minmax(0, 0.9fr) minmax(0, 0.7fr)
                     minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 0.6fr)
-                    minmax(0, 0.9fr) 84px;
+                    minmax(0, 0.9fr) 150px;
   display: grid;
   grid-template-columns: var(--dh-weapon-cols);
   column-gap: var(--dh-space-2);
@@ -8526,9 +8526,14 @@ body:not(.no-theme) .dark-heresy.app.window-app .vital-wounds .vital-read input 
 .dark-heresy .combat .weapons .item-list .items .weapon .attack {
   display: flex;
   justify-content: flex-end;
+  gap: var(--dh-space-1);
 }
+/* Кнопок в колонке две — атака и урон отдельно, — поэтому ширину они делят,
+   а не требуют каждая целиком: раньше второй не оставалось места и она
+   выдавливала первую за край. Одинокая «Clear Jam» занимает всю ширину сама. */
 .dark-heresy .combat .weapons .item-list .items .weapon .attack button {
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
   padding: var(--dh-space-2) var(--dh-space-3);
   font-family: var(--dh-font-data);
   font-size: var(--dh-text-sm);
