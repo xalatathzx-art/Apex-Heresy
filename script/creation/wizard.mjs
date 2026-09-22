@@ -1006,6 +1006,20 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return lists;
     }
 
+    /**
+     * Переписать цену покупки на напечатанную.
+     *
+     * Поле cost накопительное: в нём лежит сумма всех купленных ступеней. Своей
+     * ступени у строки списка нет, поэтому к уже оплаченному прибавляется её
+     * собственная цена — та, что стоит в книге рядом со строкой.
+     */
+    _retainListedCost(purchase, advance) {
+        const cost = Number(advance.cost) || 0;
+        const already = Number(purchase.record?.fromCost) || 0;
+        for (const key of Object.keys(purchase.update ?? {}))
+            if (key.endsWith(".cost")) purchase.update[key] = already + cost;
+    }
+
     /** Продвижения специальности: Comrade-приказы и прочее, что она даёт за опыт. */
     _specialityAdvances() {
         const out = [];
@@ -1052,6 +1066,11 @@ export class CharacterWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             if (purchase) {
                 purchase.record.cost = advance.cost;
                 purchase.record.label = advance.name;
+                // Цена в поле умения — накопительная, и собрал её покупатель Dark
+                // Heresy по лестнице склонностей. Здесь лестницы нет: книга печатает
+                // цену каждой ступени, и на лист должна лечь сумма напечатанных, иначе
+                // движок опыта листа насчитает трату, которой не было.
+                this._retainListedCost(purchase, advance);
                 await this._commitPurchase(purchase);
                 return;
             }

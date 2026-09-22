@@ -13823,8 +13823,11 @@ body:not(.no-theme) .dark-heresy.app.window-app .voidship .ship-sp input {
 .dark-heresy .bio-field.from-origin input {
   border-left: 2px solid var(--dh-brass-dim);
 }
+/* Пометка «заполнено Мастером». Здесь стоял управляющий символ, потерянный
+   при перекодировке: в стенсильном шрифте от него оставалась голая цифра,
+   и подпись читалась как «CHAPTER 2». Точка есть в любом шрифте. */
 .dark-heresy .bio-field.from-origin span::after {
-  content: "2";
+  content: "\2022";
   margin-left: var(--dh-space-2);
   color: var(--dh-brass);
 }

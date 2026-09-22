@@ -171,3 +171,15 @@ test('a granted ability keeps the origin schema valid', () => {
         assert.deepEqual(normaliseOrigin(item.system).grants.abilities,
             item.system.grants.abilities ?? [], item.name);
 });
+
+test('a listed advance costs the sheet what the book printed, not what a ladder says', () => {
+    // The skill purchase is assembled by the Dark Heresy buyer, which writes the
+    // cumulative price off the aptitude ladder - 300 for Known, 600 for Trained.
+    // Deathwatch has no ladder: the price is printed beside the line, and the sheet
+    // must carry the sum of printed prices or its experience engine reports an
+    // overspend that never happened.
+    assert.match(wizard, /_retainListedCost\(purchase, advance\);/);
+    const helper = wizard.slice(wizard.indexOf('_retainListedCost(purchase, advance) {'));
+    assert.match(helper, /const already = Number\(purchase\.record\?\.fromCost\) \|\| 0;/);
+    assert.match(helper, /if \(key\.endsWith\("\.cost"\)\) purchase\.update\[key\] = already \+ cost;/);
+});
