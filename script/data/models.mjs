@@ -53,7 +53,9 @@ export function migrateModelSource(source, defaults) {
 export function createDataModels(data, runtime) {
     const {fields} = runtime.data;
     function field(value, key) {
-        const options = {required: false, initial: structuredClone(value)};
+        // Массив или объект по умолчанию — своя копия на документ, иначе правка одного течёт во все.
+        const initial = value && typeof value === "object" ? () => structuredClone(value) : value;
+        const options = {required: false, initial};
         if (key === 'traitOverrides') return new fields.ObjectField({...options,
             validate: value => {validateTraitOverrides(value); return true;}});
         if (typeof value === "number") return new fields.NumberField({...options, nullable:false});

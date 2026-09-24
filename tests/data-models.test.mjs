@@ -58,3 +58,23 @@ test('structured traits belong to weapon and power schemas and survive model mig
         assert.equal(migrated.legacyData.traitOverrides,undefined);
     }
 });
+
+test('array and object defaults are fresh per document, never one shared instance', async () => {
+    // Found in play: one document's default array leaked into every document created after
+    // it, because every document of a type started from the same default instance.
+    const {createDataModels} = await import(path);
+    class Field { constructor(a, b) { this.options = b ?? a; } }
+    const fields = {NumberField: Field, BooleanField: Field, StringField: Field, AnyField: Field,
+        ObjectField: Field, ArrayField: Field,
+        SchemaField: class { constructor(inner) { this.fields = inner; } }};
+    class TypeDataModel { static migrateData(source) { return source; } }
+    const data = JSON.parse(readFileSync(new URL('../template.json', import.meta.url), 'utf8'));
+    const models = createDataModels(data, {data: {fields}, abstract: {TypeDataModel}});
+    const initial = options => typeof options.initial === 'function' ? options.initial() : options.initial;
+    const weaponTypes = models.Item.ammunition.defineSchema().weaponTypes.options;
+    initial(weaponTypes).push('las');
+    assert.deepEqual(initial(weaponTypes), []);
+    const overrides = models.Item.weapon.defineSchema().traitOverrides.options;
+    initial(overrides).toxic = 3;
+    assert.deepEqual(initial(overrides), {});
+});
