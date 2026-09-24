@@ -13,7 +13,6 @@ import {OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage} from '../../script/
 import {fieldProtects} from '../../script/combat/force-field.mjs';
 import {corrosiveBite} from '../../script/combat/corrosive.mjs';
 import {woundsAfterDamage, woundsAfterHealing} from '../../script/combat/vitals.mjs';
-import {UNTRAINED_PENALTY, trainingModifier} from '../../script/combat/weapon-training.mjs';
 import {applyMeleeEngagement} from '../../script/combat/range-rules.mjs';
 import {FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId} from '../../script/combat/fate.mjs';
 import {COUNTER_ATTACK_FLAG, canCounterAttack} from '../../script/combat/counter-attack.mjs';
@@ -42,7 +41,7 @@ export function loadSystem(overrides = {}) {
         rankForExperience, stepsFor, backgroundExperienceFor,
         carryingLimits, baseLeapAndJump,
         EXTRA_DAMAGE, MAX_CHAIN, confirmationHits, explodes, extraDamage, righteousFuryMode,
-        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite, woundsAfterDamage, woundsAfterHealing, UNTRAINED_PENALTY, trainingModifier, applyMeleeEngagement, FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId, COUNTER_ATTACK_FLAG, canCounterAttack, CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor, resolveOpposed,
+        halfRoundedUp, effectiveMaxAgility, traitArmour, resolveJamClear, OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage, fieldProtects, corrosiveBite, woundsAfterDamage, woundsAfterHealing, applyMeleeEngagement, FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId, COUNTER_ATTACK_FLAG, canCounterAttack, CONTROLLER_OPTIONS, TARGET_OPTIONS, UNARMED_DAMAGE, grappleOutcome, optionsFor, resolveOpposed,
         RT_ABSENT_CHARACTERISTICS, RT_ABSENT_SKILLS, RT_SKILLS, RT_ADVANCE_TIERS, RT_CHARACTERISTIC_COSTS, rtCharacteristicCost, rtSkillType, rtSkillBase,
         PATRON_RELATIONS, BC_CHARACTERISTIC_COSTS, BC_SKILL_COSTS, BC_TALENT_COSTS,
         BC_CHARACTERISTIC_PATRONS, BC_SKILL_PATRONS, BC_INFAMY_ADVANCE, alignmentLeader,

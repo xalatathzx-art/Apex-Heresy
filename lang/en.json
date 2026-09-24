@@ -179,7 +179,6 @@
   "WEAPON.FLEXIBLE_NO_PARRY_SHORT": "Flexible — cannot be parried",
   "CHAT.CLEAR_STAT": "Clear Stat",
   "CHAT.ATTACK_RANGE": "Range",
-  "CHAT.UNTRAINED": "Untrained",
   "CHAT.POINT_BLANK_DENIED": "no Point Blank bonus in melee",
   "DIALOG.ENGAGED_IN_MELEE": "Engaged in melee with the target",
   "DIALOG.ENGAGED_HINT": "A ranged attack gains no Point Blank bonus against someone you are locked in melee with (p. 231).",

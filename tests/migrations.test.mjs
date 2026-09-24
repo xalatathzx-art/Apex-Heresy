@@ -33,3 +33,9 @@ test('schema zero patch uses stored data and is free of document writes',()=>{
     assert.equal(patch['system.notes'],'keep me');
     assert.equal(patch['system.experience.value'],30);
 });
+test('a world already upgraded to schema 15 opens without being refused', async () => {
+    // Worlds that ran the short-lived weapon-training migration sit at 15.
+    const f = fixture(15);
+    await f.system.get('migrateWorld')();
+    assert.equal(f.written(), undefined);
+});

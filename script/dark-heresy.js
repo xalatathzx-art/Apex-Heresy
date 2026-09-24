@@ -8,7 +8,6 @@ import { OVERHEAT_THRESHOLD, overheatArm, overheatSelfDamage } from "./combat/ov
 import { fieldProtects } from "./combat/force-field.mjs";
 import { corrosiveBite } from "./combat/corrosive.mjs";
 import { woundsAfterDamage, woundsAfterHealing } from "./combat/vitals.mjs";
-import { UNTRAINED_PENALTY, trainingModifier } from "./combat/weapon-training.mjs";
 import { applyMeleeEngagement } from "./combat/range-rules.mjs";
 import { FATE_ABILITIES, FATE_INITIATIVE_ROLL, fateHealing, fateOwnerId } from "./combat/fate.mjs";
 import { COUNTER_ATTACK_FLAG, canCounterAttack } from "./combat/counter-attack.mjs";
@@ -4027,12 +4026,6 @@ async function _computeCombatTarget(rollData) {
     const scatter = DarkHeresyUtil.getScatterModifiers(rollData);
     rollData.scatterModifiers = scatter;
 
-    // Владение оружием (DH2, стр. 151): без подходящего таланта −20. Группу
-    // оружия система знает сама — это system.type, — поэтому спрашивать игрока
-    // незачем; тумблер в окне атаки остаётся лишь переопределением.
-    const trainingMod = _getWeaponTrainingModifier(rollData);
-    rollData.untrainedModifier = trainingMod;
-
     let targetMods = rollData.target.modifier
     + (rollData.aim?.val ? rollData.aim.val : 0)
     + (rollData.rangeMod ? rollData.rangeMod : 0)
@@ -4047,34 +4040,9 @@ async function _computeCombatTarget(rollData) {
     + hordeBonus
     + targetConditionMod
     + actorConditionMod
-    + targetSizeMod
-    + trainingMod;
+    + targetSizeMod;
 
     rollData.target.final = _getRollTarget(targetMods, rollData.target.base);
-}
-
-/**
- * Штраф за оружие, которым персонаж не обучен владеть (DH2, стр. 151).
- *
- * Решает система: группа оружия лежит в system.type, а таланты — на листе.
- * Игрок может настоять на своём через тумблер в окне атаки: данные знают не всё,
- * и спорить с столом здесь не дело системы.
- *
- * @param {object} rollData
- * @returns {number} 0 или −20
- */
-function _getWeaponTrainingModifier(rollData) {
-    if (!rollData?.flags?.isAttack) return 0;
-    // Ручное переопределение сильнее вывода в обе стороны.
-    if (rollData.untrainedOverride === true) return UNTRAINED_PENALTY;
-    if (rollData.untrainedOverride === false) return 0;
-
-    const actor = _actorFromRollData(rollData);
-    if (!actor) return 0;
-    const talents = (actor.items ?? [])
-        .filter?.(item => item.type === "talent")
-        .map(item => item.name) ?? [];
-    return trainingModifier(talents, rollData.weapon?.weaponType);
 }
 
 function _getHordeAttackBonus(rollData) {
@@ -14108,7 +14076,7 @@ function registerHandlebarsHelpers() {
 }
 
 const migrateWorld = async () => {
-    const schemaVersion = 14;
+    const schemaVersion = 15;
     if (game.user !== game.users.activeGM) return;
     const previous = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
     if (previous > schemaVersion) throw new Error("World schema is newer than this system; migration refused.");

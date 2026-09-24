@@ -150,13 +150,6 @@
                     <dd>{{targetSizeLabel}} ({{signed targetSizeModifier}})</dd>
                 {{/if}}
 
-                {{!-- Штраф за необученность виден на карточке: иначе −20 просто
-                      растворяется в итоговой цели и спорить с ним нечем. --}}
-                {{#if untrainedModifier}}
-                    <dt>{{localize "CHAT.UNTRAINED"}}</dt>
-                    <dd>{{signed untrainedModifier}}</dd>
-                {{/if}}
-
                 {{#if actorConditionModifier}}
                     <dt>{{localize "CHAT.ACTOR_CONDITION"}}</dt>
                     <dd>{{#if actorConditionSources}}{{actorConditionSources}}{{else}}{{signed actorConditionModifier}}{{/if}}</dd>
